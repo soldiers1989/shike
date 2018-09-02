@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kensure.shike.user.dao.SKUserDao"><!--dsName="" saasAspect=""-->
+	<!-- <cache readOnly="true"/> -->
+    <sql id="allFields">
+		id,
+		phone,
+		password,
+		referee_id as refereeId,
+		level,
+		level_code as levelCode,
+		status,
+		name,
+		no_alipay as noAlipay,
+		no_taobao as noTaobao,
+		no_qq as noQq,
+		no_weixin as noWeixin,
+		no_taoqufen as noTaoqufen,
+		type,
+		created_time as createdTime,
+		updated_time as updatedTime
+    </sql>
+    
+	<sql id="insertFields">
+		id,
+		phone,
+		password,
+		referee_id,
+		level,
+		level_code,
+		status,
+		name,
+		no_alipay,
+		no_taobao,
+		no_qq,
+		no_weixin,
+		no_taoqufen,
+		type,
+		created_time,
+		updated_time
+    </sql>
+	
+	<insert id="insert" parameterType="com.kensure.shike.user.model.SKUser">
+		insert into sk_user (<include refid="insertFields"/>)
+		values (
+			#{id},
+			#{phone},
+			#{password},
+			#{refereeId},
+			#{level},
+			#{levelCode},
+			#{status},
+			#{name},
+			#{noAlipay},
+			#{noTaobao},
+			#{noQq},
+			#{noWeixin},
+			#{noTaoqufen},
+			#{type},
+			#{createdTime},
+			#{updatedTime}
+		)
+	</insert>
+	
+	<insert id="insertInBatch" parameterType="com.kensure.shike.user.model.SKUser">
+		insert into sk_user (<include refid="insertFields"/>) values 
+		<foreach collection="list" item="item" index="index" separator=",">
+			(
+				#{item.id},
+				#{item.phone},
+				#{item.password},
+				#{item.refereeId},
+				#{item.level},
+				#{item.levelCode},
+				#{item.status},
+				#{item.name},
+				#{item.noAlipay},
+				#{item.noTaobao},
+				#{item.noQq},
+				#{item.noWeixin},
+				#{item.noTaoqufen},
+				#{item.type},
+				#{item.createdTime},
+				#{item.updatedTime}
+			)
+		</foreach>
+	</insert>   		
+	
+    <sql id="whereClause">
+		<if test="phone != null">			
+			phone = #{phone}			
+		</if>
+		<if test="password != null">			
+			and password = #{password}			
+		</if>
+		<if test="refereeId != null">			
+			and referee_id = #{refereeId}			
+		</if>
+		<if test="level != null">			
+			and level = #{level}			
+		</if>
+		<if test="levelCode != null">			
+			and level_code = #{levelCode}			
+		</if>
+		<if test="status != null">			
+			and status = #{status}			
+		</if>
+		<if test="name != null">			
+			and name = #{name}			
+		</if>
+		<if test="noAlipay != null">			
+			and no_alipay = #{noAlipay}			
+		</if>
+		<if test="noTaobao != null">			
+			and no_taobao = #{noTaobao}			
+		</if>
+		<if test="noQq != null">			
+			and no_qq = #{noQq}			
+		</if>
+		<if test="noWeixin != null">			
+			and no_weixin = #{noWeixin}			
+		</if>
+		<if test="noTaoqufen != null">			
+			and no_taoqufen = #{noTaoqufen}			
+		</if>
+		<if test="type != null">			
+			and type = #{type}			
+		</if>
+		<if test="createdTime != null">			
+			and created_time = #{createdTime}			
+		</if>
+		<if test="updatedTime != null">			
+			and updated_time = #{updatedTime}			
+		</if>
+	</sql>
+    
+	<select id="selectOne" resultType="com.kensure.shike.user.model.SKUser" parameterType="Long" >
+		select <include refid="allFields"/> 
+		  from sk_user 
+		 where id = #{id} 
+	</select>
+	
+	<select id="selectByIds" parameterType="List" resultType="com.kensure.shike.user.model.SKUser">
+		select <include refid="allFields"/> from sk_user 
+		where id in
+		<foreach collection="list" item="item" open="(" close=")" separator=",">
+			#{item}
+		</foreach>
+	</select>
+		
+	<select id="selectAll" resultType="com.kensure.shike.user.model.SKUser">
+		select <include refid="allFields"/> 
+		from sk_user 
+	</select>
+
+	<select id="selectCount" resultType="long">
+		select count(*) from sk_user 
+	</select>
+	
+	<select id="selectCountByWhere" parameterType="Map" resultType="Long">
+		select count(*) from sk_user 
+		<where>
+		    <include refid="whereClause"/>
+		</where>
+	</select>
+
+	<select id="selectByWhere" parameterType="Map" resultType="com.kensure.shike.user.model.SKUser">
+		select <include refid="allFields"/>
+		from sk_user 
+		<where>
+		    <include refid="whereClause"/>
+		</where>				
+		<if test="orderby != null">
+			ORDER BY ${orderby}
+		</if>
+	</select>
+	
+	<sql id="setComn">		
+		<if test="phone != null">
+			phone = #{phone},
+		</if>
+		<if test="password != null">
+			password = #{password},
+		</if>
+		<if test="refereeId != null">
+			referee_id = #{refereeId},
+		</if>
+		<if test="level != null">
+			level = #{level},
+		</if>
+		<if test="levelCode != null">
+			level_code = #{levelCode},
+		</if>
+		<if test="status != null">
+			status = #{status},
+		</if>
+		<if test="name != null">
+			name = #{name},
+		</if>
+		<if test="noAlipay != null">
+			no_alipay = #{noAlipay},
+		</if>
+		<if test="noTaobao != null">
+			no_taobao = #{noTaobao},
+		</if>
+		<if test="noQq != null">
+			no_qq = #{noQq},
+		</if>
+		<if test="noWeixin != null">
+			no_weixin = #{noWeixin},
+		</if>
+		<if test="noTaoqufen != null">
+			no_taoqufen = #{noTaoqufen},
+		</if>
+		<if test="type != null">
+			type = #{type},
+		</if>
+		<if test="createdTime != null">
+			created_time = #{createdTime},
+		</if>
+		<if test="updatedTime != null">
+			updated_time = #{updatedTime}
+		</if>
+	</sql>
+	
+	<update id="update" parameterType="com.kensure.shike.user.model.SKUser">
+		 update sk_user 
+		    <set>
+		    	<include refid="setComn"/>
+			</set>
+		  where id = #{id}
+	</update>
+	
+	<update id="updateByMap" parameterType="Map">
+		 update sk_user 
+		    <set>
+		    	<include refid="setComn"/>
+			</set>
+		  where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from sk_user where id = #{id}
+	</delete>
+	
+	<delete id="deleteMulti" parameterType="List">
+		delete from sk_user
+		where id in
+		<foreach collection="list" item="item" open="(" close=")" separator=",">
+			#{item}
+		</foreach>
+	</delete>
+	
+	<delete id="deleteByWhere" parameterType="Map">
+		delete from sk_user 
+		<where>
+		    <include refid="whereClause"/>
+		</where>
+	</delete>	
+
+</mapper>    

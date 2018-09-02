@@ -1,0 +1,37 @@
+package co.kensure.frame;
+
+import java.util.Date;
+
+
+/**
+ *
+ * 基础对象，所有的info都要继承这个对象,默认实现序列化
+ *
+ * @author fankd
+ */
+public class BaseInfo implements java.io.Serializable {
+
+	private static final long serialVersionUID = 3545276994084105527L;
+	
+	/**创建时间*/		
+	protected Date createdTime; 
+
+	/**更新时间*/		
+	protected Date updatedTime; 
+	
+	public Date getCreatedTime() {
+		return createdTime;
+	}
+
+	public void setCreatedTime(Date createdTime) {
+		this.createdTime = createdTime;
+	}
+	public Date getUpdatedTime() {
+		return updatedTime;
+	}
+
+	public void setUpdatedTime(Date updatedTime) {
+		this.updatedTime = updatedTime;
+	}
+	
+}
