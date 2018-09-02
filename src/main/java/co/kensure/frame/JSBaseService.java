@@ -21,12 +21,7 @@ public abstract class JSBaseService {
 		}
 		if(obj.getUpdatedTime() == null){
 			obj.setUpdatedTime(date);
-		}
-		if(){
-			
-		}
-		
-		
+		}		
 	}
 	
 	protected void beforeUpdate(BaseInfo obj){

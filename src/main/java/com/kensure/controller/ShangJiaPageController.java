@@ -19,7 +19,7 @@ public class ShangJiaPageController {
 
 	@RequestMapping("regist")
 	public String home(HttpServletRequest req, HttpServletResponse rep,Model model) {
-		return "page/shangjia/index.jsp";
+		return "page/shangjia/regist.jsp";
 	}
 
 	
