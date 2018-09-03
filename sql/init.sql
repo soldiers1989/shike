@@ -1,3 +1,12 @@
+-- 主键表
+CREATE TABLE `base_key` (
+  `id` varchar(32) NOT NULL,
+  `nowid` varchar(32) NOT NULL COMMENT '当前id',
+  `create_date` datetime NOT NULL COMMENT '创建时间',
+  `update_date` datetime NOT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ;
+
 -- 登录表
 CREATE TABLE `sk_login` (
   `id` bigint(20) NOT NULL COMMENT '主键',
