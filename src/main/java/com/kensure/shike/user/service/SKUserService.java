@@ -18,6 +18,8 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import co.kensure.exception.BusinessExceptionUtil;
 import co.kensure.exception.ParamUtils;
@@ -25,6 +27,7 @@ import co.kensure.frame.JSBaseService;
 import co.kensure.mem.CollectionUtils;
 import co.kensure.mem.MapUtils;
 
+import com.kensure.basekey.BaseKeyService;
 import com.kensure.shike.user.dao.SKUserDao;
 import com.kensure.shike.user.model.SKSms;
 import com.kensure.shike.user.model.SKUser;
@@ -43,6 +46,9 @@ public class SKUserService extends JSBaseService {
 
 	@Resource
 	private SKSmsService sKSmsService;
+	
+	@Resource
+	private BaseKeyService baseKeyService;
 
 	public SKUser selectOne(Long id) {
 		return dao.selectOne(id);
@@ -70,6 +76,8 @@ public class SKUserService extends JSBaseService {
 
 	public boolean insert(SKUser obj) {
 		super.beforeInsert(obj);
+		obj.setId(baseKeyService.getKey("sk_user"));
+		obj.setStatus(1);
 		return dao.insert(obj);
 	}
 
@@ -115,6 +123,24 @@ public class SKUserService extends JSBaseService {
 		}
 		return u;
 	}
+	
+	/**
+	 * 根据登录号，用户
+	 * 
+	 * @param name
+	 * @param type
+	 *            1是试客，2是商家，3是管理员
+	 * @return
+	 */
+	public SKUser selectByName(String name, int type) {
+		Map<String, Object> parameters = MapUtils.genMap("name", name, "type", type);
+		List<SKUser> userlist = selectByWhere(parameters);
+		SKUser u = null;
+		if (CollectionUtils.isNotEmpty(userlist)) {
+			u = userlist.get(0);
+		}
+		return u;
+	}
 
 	/**
 	 * 商家注册
@@ -124,9 +150,11 @@ public class SKUserService extends JSBaseService {
 	 *            1是试客，2是商家，3是管理员
 	 * @return
 	 */
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
 	public SKUser addShangJia(SKUser sKUser, String QRCode) {
+		sKUser.setType(2);
 		// 字段校验
-		ParamUtils.isBlankThrewException(QRCode, "用户名不能为空");
+		ParamUtils.isBlankThrewException(QRCode, "验证码不能为空");
 		invalidShangJia(sKUser);
 		// 逻辑校验
 		SKUser user = selectByMobile(sKUser.getPhone(), 2);

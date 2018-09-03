@@ -835,9 +835,9 @@
                     url: ajaxurl,
                     data: "param=" + encodeURIComponent(inputval) + "&name=" + encodeURIComponent($(this).attr("name")),
                     success: function (data) {
-                        if ($.trim(data.status) === "y") {
+                        if ($.trim(data.type) === "success") {
                             inputobj[0].validform_valid = "true";
-                            data.info && inputobj.attr("sucmsg", data.info);
+                            data.message && inputobj.attr("sucmsg", data.message);
                             Validform.util.showmsg.call(curform, inputobj.attr("sucmsg") || curform.data("tipmsg").r || tipmsg.r, settings.tiptype, { obj: inputobj, type: 2, sweep: settings.tipSweep }, "bycheck");
                             _this.removeClass("Validform_error");
                             errorobj = null;
@@ -845,8 +845,8 @@
                                 curform.trigger("submit");
                             }
                         } else {
-                            inputobj[0].validform_valid = data.info;
-                            Validform.util.showmsg.call(curform, data.info, settings.tiptype, { obj: inputobj, type: 3, sweep: settings.tipSweep });
+                            inputobj[0].validform_valid = data.message;
+                            Validform.util.showmsg.call(curform, data.message, settings.tiptype, { obj: inputobj, type: 3, sweep: settings.tipSweep });
                             _this.addClass("Validform_error");
                         }
                         _this[0].validform_ajax = null;
@@ -1049,11 +1049,11 @@
                             if ($.trim(data.status) === "y") {
                                 //成功提交;
                                 curform[0].validform_status = "posted";
-                                Validform.util.showmsg.call(curform, data.info, settings.tiptype, { obj: curform, type: 2, sweep: settings.tipSweep }, "byajax");
+                                Validform.util.showmsg.call(curform, data.message, settings.tiptype, { obj: curform, type: 2, sweep: settings.tipSweep }, "byajax");
                             } else {
                                 //提交出错;
                                 curform[0].validform_status = "normal";
-                                Validform.util.showmsg.call(curform, data.info, settings.tiptype, { obj: curform, type: 3, sweep: settings.tipSweep }, "byajax");
+                                Validform.util.showmsg.call(curform, data.message, settings.tiptype, { obj: curform, type: 3, sweep: settings.tipSweep }, "byajax");
                             }
 
                             settings.callback && settings.callback(data);

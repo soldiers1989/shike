@@ -18,16 +18,16 @@
                 <div class="lanrenzhijia showtrytype">
                     <div id="img">
                         <a href="http://www.meilipa.com/Regist/CreditCertification" target="_blank">
-                            <img src="<%=context%>/page/shangjia/ss/mediare.jpg" width="186" height="22" alt="" border="0" style="display: none;">
+                            <img src="<%=context%>/mediare.jpg" width="186" height="22" alt="" border="0" style="display: none;">
                         </a>
                         <a href="http://www.meilipa.com/Regist/CreditCertification" target="_blank">
-                            <img src="<%=context%>/page/shangjia/ss/mediasan.jpg" width="186" height="22" alt="" border="0" style="display: none;">
+                            <img src="<%=context%>/mediasan.jpg" width="186" height="22" alt="" border="0" style="display: none;">
                         </a>
                         <a href="http://www.meilipa.com/Regist/CreditCertification" target="_blank">
-                            <img src="<%=context%>/page/shangjia/ss/mediasi.jpg" width="186" height="22" alt="" border="0" style="display: none;">
+                            <img src="<%=context%>/mediasi.jpg" width="186" height="22" alt="" border="0" style="display: none;">
                         </a>
                         <a href="http://www.meilipa.com/Regist/CreditCertification" target="_blank">
-                            <img src="<%=context%>/page/shangjia/ss/mediayi.jpg" width="186" height="22" alt="" border="0" style="display: inline; opacity: 0.486039;">
+                            <img src="<%=context%>/mediayi.jpg" width="186" height="22" alt="" border="0" style="display: inline; opacity: 0.486039;">
                         </a>
                     </div>
                 </div>
@@ -56,7 +56,7 @@
                         <a href="http://jing.meilipa.com/" class="jpSwip " target="_blank" style="background-position: center -450px;">
                             美丽好货
                             <span class="ntp-hot">
-                                <img src="<%=context%>/page/shangjia/ss/new.gif" class="png_bg">
+                                <img src="<%=context%>/new.gif" class="png_bg">
                             </span>
                         </a>
                     </li>
@@ -69,7 +69,7 @@
                         <a href="http://jing.meilipa.com/home/SecKill" target="_blank">
                             限量秒杀
                             <span class="ntp-hot" style="top:-23px;left: 44px;">
-                                <img src="<%=context%>/page/shangjia/ss/hit.gif" class="png_bg">
+                                <img src="<%=context%>/hit.gif" class="png_bg">
                             </span>
                         </a>
                     </li>
@@ -77,7 +77,7 @@
                         <a href="http://jing.meilipa.com/home/peopleHit" target="_blank">
                             新人必中
                             <span class="ntp-hot" style="top:-23px;left: 44px;">
-                                <img src="<%=context%>/page/shangjia/ss/hit.gif" class="png_bg">
+                                <img src="<%=context%>/hit.gif" class="png_bg">
                             </span>
                         </a>
                     </li>

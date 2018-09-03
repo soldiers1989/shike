@@ -11,6 +11,7 @@
  */
 package com.kensure.shike.user.service;
 
+import com.kensure.basekey.BaseKeyService;
 import com.kensure.shike.user.dao.SKLoginDao;
 import com.kensure.shike.user.model.SKLogin;
 import com.kensure.shike.user.service.SKLoginService;
@@ -22,6 +23,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+
 import co.kensure.frame.JSBaseService;
 
 
@@ -35,6 +37,9 @@ public class SKLoginService extends JSBaseService{
 	
 	@Resource
 	private SKLoginDao dao;
+	
+	@Resource
+	private BaseKeyService baseKeyService;
     
     
     public SKLogin selectOne(Long id){
@@ -64,6 +69,7 @@ public class SKLoginService extends JSBaseService{
 	
 	
 	public boolean insert(SKLogin obj){
+		obj.setId(baseKeyService.getKey("sk_login"));
 		return dao.insert(obj);
 	}
 	

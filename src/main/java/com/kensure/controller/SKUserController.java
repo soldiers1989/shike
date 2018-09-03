@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import co.kensure.exception.BusinessExceptionUtil;
 import co.kensure.frame.ResultInfo;
 import co.kensure.frame.ResultRowInfo;
 import co.kensure.http.RequestUtils;
@@ -58,22 +59,47 @@ public class SKUserController {
 
 	/**
 	 * 商家数据保存
-	 * 
-	 * @param req
-	 * @param rep
-	 * @param model
-	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "saveshangjia.do", method = { RequestMethod.POST }, produces = "application/json;charset=UTF-8")
+	@RequestMapping(value = "saveshangjia.do", method = { RequestMethod.POST,RequestMethod.GET }, produces = "application/json;charset=UTF-8")
 	public ResultInfo adduser(HttpServletRequest req, HttpServletResponse rep) {
 		JSONObject json = RequestUtils.paramToJson(req);
-		String smscode = json.getString("smscode");
+		String qrcode = json.getString("qrcode");
 		SKUser sKUser = JSONObject.parseObject(json.toJSONString(), SKUser.class);
-		sKUserService.addShangJia(sKUser, smscode);
+		sKUserService.addShangJia(sKUser, qrcode);
+		return new ResultRowInfo();
+	}
+	
+	/**
+	 * 商家登录名称核对
+	 */
+	@ResponseBody
+	@RequestMapping(value = "checkname.do", method = { RequestMethod.POST,RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	public ResultInfo checkname(HttpServletRequest req, HttpServletResponse rep) {
+		JSONObject json = RequestUtils.paramToJson(req);
+		String param = json.getString("param");
+		SKUser u = sKUserService.selectByName(param, 2);
+		if(u != null){
+			BusinessExceptionUtil.threwException("用户已经存在");
+		}
 		return new ResultRowInfo();
 	}
 
+	
+	/**
+	 * 商家手机号核对
+	 */
+	@ResponseBody
+	@RequestMapping(value = "checkphone.do", method = { RequestMethod.POST,RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	public ResultInfo checkphone(HttpServletRequest req, HttpServletResponse rep) {
+		JSONObject json = RequestUtils.paramToJson(req);
+		String param = json.getString("param");
+		SKUser u = sKUserService.selectByMobile(param, 2);
+		if(u != null){
+			BusinessExceptionUtil.threwException("手机已绑定");
+		}
+		return new ResultRowInfo();
+	}
 
 
 	/**

@@ -18,6 +18,8 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import co.kensure.exception.BusinessExceptionUtil;
 import co.kensure.frame.JSBaseService;
@@ -26,6 +28,7 @@ import co.kensure.mem.MapUtils;
 import co.kensure.mem.Utils;
 import co.kensure.sms.SMSClient;
 
+import com.kensure.basekey.BaseKeyService;
 import com.kensure.shike.user.dao.SKSmsDao;
 import com.kensure.shike.user.model.SKSms;
 import com.kensure.shike.user.model.SKUser;
@@ -44,6 +47,9 @@ public class SKSmsService extends JSBaseService {
 
 	@Resource
 	private SKUserService sKUserService;
+	
+	@Resource
+	private BaseKeyService baseKeyService;
 
 	public SKSms selectOne(Long id) {
 		return dao.selectOne(id);
@@ -69,8 +75,12 @@ public class SKSmsService extends JSBaseService {
 		return dao.selectCountByWhere(parameters);
 	}
 
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
 	public boolean insert(SKSms obj) {
 		super.beforeInsert(obj);
+		obj.setId(baseKeyService.getKey("sk_sms"));
+		obj.setStatus(0L);
+		obj.setFscount(1L);
 		return dao.insert(obj);
 	}
 
@@ -78,8 +88,10 @@ public class SKSmsService extends JSBaseService {
 		return dao.insertInBatch(objs);
 	}
 
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
 	public boolean update(SKSms obj) {
 		super.beforeUpdate(obj);
+		obj.setFscount(obj.getFscount()+1);
 		return dao.update(obj);
 	}
 
@@ -125,8 +137,9 @@ public class SKSmsService extends JSBaseService {
 	 *            1是试客，2是商家，3是管理员
 	 * @return
 	 */
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
 	public void sendQRSms(String mobile, int type) {
-		if(type != 1 || type !=2){
+		if(type < 1 || type > 2){
 			BusinessExceptionUtil.threwException("传参错误。");
 		}	
 		SKUser user = sKUserService.selectByMobile(mobile, type);
@@ -142,6 +155,13 @@ public class SKSmsService extends JSBaseService {
 			smsinfo.setQrcode(Utils.randomSMSCode());
 			insert(smsinfo);
 		} else {
+			if(smsinfo.getFscount()>4){
+				BusinessExceptionUtil.threwException("短信已经发送次数过多1");
+			}
+			long s = System.currentTimeMillis() - smsinfo.getUpdatedTime().getTime();
+			if(s < 120*1000){
+				BusinessExceptionUtil.threwException("短信已经发送1");
+			}	
 			update(smsinfo);
 		}
 
@@ -152,8 +172,8 @@ public class SKSmsService extends JSBaseService {
 		}
 	}
 	
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
 	public void sendSucess(SKSms obj){
-		obj.setFscount(obj.getFscount()+1);
 		obj.setStatus(1L);
 		update(obj);
 	}
