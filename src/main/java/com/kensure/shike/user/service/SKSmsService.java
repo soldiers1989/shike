@@ -25,6 +25,7 @@ import co.kensure.exception.BusinessExceptionUtil;
 import co.kensure.frame.JSBaseService;
 import co.kensure.mem.CollectionUtils;
 import co.kensure.mem.MapUtils;
+import co.kensure.mem.MobileUtils;
 import co.kensure.mem.Utils;
 import co.kensure.sms.SMSClient;
 
@@ -139,9 +140,9 @@ public class SKSmsService extends JSBaseService {
 	 */
 	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
 	public void sendQRSms(String mobile, int type) {
-		if(type < 1 || type > 2){
-			BusinessExceptionUtil.threwException("传参错误。");
-		}	
+		MobileUtils.checkMobile(mobile);
+		SKUserService.rangeType(type);	
+		
 		SKUser user = sKUserService.selectByMobile(mobile, type);
 		if(user != null){
 			BusinessExceptionUtil.threwException("用户已注册。");

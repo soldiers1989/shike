@@ -14,6 +14,7 @@ package com.kensure.shike.user.service;
 import com.kensure.basekey.BaseKeyService;
 import com.kensure.shike.user.dao.SKLoginDao;
 import com.kensure.shike.user.model.SKLogin;
+import com.kensure.shike.user.model.SKUser;
 import com.kensure.shike.user.service.SKLoginService;
 
 import java.util.Collection;
@@ -21,10 +22,17 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
+import co.kensure.exception.BusinessExceptionUtil;
 import co.kensure.frame.JSBaseService;
+import co.kensure.http.RequestUtils;
+import co.kensure.mem.MobileUtils;
+import co.kensure.mem.Utils;
 
 
 /**
@@ -40,7 +48,9 @@ public class SKLoginService extends JSBaseService{
 	
 	@Resource
 	private BaseKeyService baseKeyService;
-    
+	
+	@Resource
+	private SKUserService sKUserService;
     
     public SKLogin selectOne(Long id){
     	return dao.selectOne(id);
@@ -70,6 +80,8 @@ public class SKLoginService extends JSBaseService{
 	
 	public boolean insert(SKLogin obj){
 		obj.setId(baseKeyService.getKey("sk_login"));
+		obj.setStatus(0L);
+		super.beforeInsert(obj);
 		return dao.insert(obj);
 	}
 	
@@ -79,6 +91,7 @@ public class SKLoginService extends JSBaseService{
 	
 	
 	public boolean update(SKLogin obj){
+		super.beforeUpdate(obj);
 		return dao.update(obj);
 	}
     
@@ -99,7 +112,44 @@ public class SKLoginService extends JSBaseService{
 		return dao.deleteByWhere(parameters);
 	}
     
-    
+    /**
+     * 登录逻辑
+     * @param mobile
+     * @param password
+     * @param type
+     * @return
+     */
+    @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+    public String login(String mobile,String password,int type,HttpServletRequest request){
+    	MobileUtils.checkMobile(mobile);
+    	SKUserService.rangeType(type);	
+    	
+    	SKUser u = sKUserService.selectByMobile(mobile, type);
+    	if(u == null){
+    		BusinessExceptionUtil.threwException("用户不存在");
+    	}
+    	if(!u.getPassword().equalsIgnoreCase(password)){
+    		BusinessExceptionUtil.threwException("用户或者密码无效");
+    	}
+    	//会话id
+    	String uuid = Utils.getUUID();
+    	SKLogin sklogin = new SKLogin();
+    	sklogin.setSessionid(uuid);
+    	sklogin.setUserid(u.getId());
+    	
+    	//设备信息
+    	String agentno = RequestUtils.getAgent(request);
+    	//获取客户ip
+    	String cip = RequestUtils.getClientIp(request);
+    	String dip = RequestUtils.getDip(request);
+    	sklogin.setAgentno(agentno);
+    	sklogin.setCip(cip);
+    	sklogin.setDip(dip);
+    	
+    	insert(sklogin);
+    	
+    	return uuid;
+    }
   
 
 }

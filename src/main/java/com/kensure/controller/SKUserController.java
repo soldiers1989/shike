@@ -41,14 +41,10 @@ public class SKUserController {
 
 	/**
 	 * 验证码发送，包括试客、商家
-	 * 
-	 * @param req
-	 * @param rep
-	 * @param model
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "sms.do", method = { RequestMethod.POST }, produces = "application/json;charset=UTF-8")
+	@RequestMapping(value = "sms.do", method = { RequestMethod.POST,RequestMethod.GET}, produces = "application/json;charset=UTF-8")
 	public ResultInfo smsuser(HttpServletRequest req, HttpServletResponse rep) {
 		JSONObject json = RequestUtils.paramToJson(req);		
 		String mobile = json.getString("mobile");
@@ -101,6 +97,21 @@ public class SKUserController {
 		return new ResultRowInfo();
 	}
 
+	
+	/**
+	 * 用户登录
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "login.do", method = { RequestMethod.POST,RequestMethod.GET}, produces = "application/json;charset=UTF-8")
+	public ResultInfo login(HttpServletRequest req, HttpServletResponse rep) {
+		JSONObject json = RequestUtils.paramToJson(req);		
+		String mobile = json.getString("mobile");
+		String password = json.getString("password");
+		int type = json.getInteger("type");
+		String tokenId = sKLoginService.login(mobile, password, type, req);		
+		return new ResultRowInfo(tokenId);
+	}
 
 	/**
 	 * 修改用户资料

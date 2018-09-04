@@ -11,7 +11,6 @@ import org.apache.commons.codec.digest.DigestUtils;
 
 import sun.misc.BASE64Encoder;
 
-@SuppressWarnings("restriction")
 public class Utils {
 
     /**

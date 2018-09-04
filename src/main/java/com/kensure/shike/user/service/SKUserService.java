@@ -26,6 +26,7 @@ import co.kensure.exception.ParamUtils;
 import co.kensure.frame.JSBaseService;
 import co.kensure.mem.CollectionUtils;
 import co.kensure.mem.MapUtils;
+import co.kensure.mem.MobileUtils;
 
 import com.kensure.basekey.BaseKeyService;
 import com.kensure.shike.user.dao.SKUserDao;
@@ -46,7 +47,7 @@ public class SKUserService extends JSBaseService {
 
 	@Resource
 	private SKSmsService sKSmsService;
-	
+
 	@Resource
 	private BaseKeyService baseKeyService;
 
@@ -115,7 +116,7 @@ public class SKUserService extends JSBaseService {
 	 * @return
 	 */
 	public SKUser selectByMobile(String phone, int type) {
-		Map<String, Object> parameters = MapUtils.genMap("phone", phone, "type", type);
+		Map<String, Object> parameters = MapUtils.genMap("phone", phone,"type", type);
 		List<SKUser> userlist = selectByWhere(parameters);
 		SKUser u = null;
 		if (CollectionUtils.isNotEmpty(userlist)) {
@@ -123,7 +124,7 @@ public class SKUserService extends JSBaseService {
 		}
 		return u;
 	}
-	
+
 	/**
 	 * 根据登录号，用户
 	 * 
@@ -133,7 +134,8 @@ public class SKUserService extends JSBaseService {
 	 * @return
 	 */
 	public SKUser selectByName(String name, int type) {
-		Map<String, Object> parameters = MapUtils.genMap("name", name, "type", type);
+		Map<String, Object> parameters = MapUtils.genMap("name", name, "type",
+				type);
 		List<SKUser> userlist = selectByWhere(parameters);
 		SKUser u = null;
 		if (CollectionUtils.isNotEmpty(userlist)) {
@@ -153,28 +155,38 @@ public class SKUserService extends JSBaseService {
 	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
 	public SKUser addShangJia(SKUser sKUser, String QRCode) {
 		sKUser.setType(2);
+		invalidShangJia(sKUser);
+		addUser(sKUser, QRCode);
+		return sKUser;
+	}
+
+	/**
+	 * 通过验证码，新增用户
+	 */
+	private void addUser(SKUser sKUser, String QRCode) {
+		int type = sKUser.getType();
 		// 字段校验
 		ParamUtils.isBlankThrewException(QRCode, "验证码不能为空");
-		invalidShangJia(sKUser);
 		// 逻辑校验
-		SKUser user = selectByMobile(sKUser.getPhone(), 2);
+		SKUser user = selectByMobile(sKUser.getPhone(), type);
 		if (user != null) {
-			BusinessExceptionUtil.threwException("用户已注册。");
+			BusinessExceptionUtil.threwException("手机已注册。");
 		}
-
-		//逻辑校验
-		SKSms code = sKSmsService.selectByMobile(sKUser.getPhone(), 2);
+		user = selectByName(sKUser.getName(), type);
+		if (user != null) {
+			BusinessExceptionUtil.threwException("用户名已注册。");
+		}
+		// 逻辑校验验证码
+		SKSms code = sKSmsService.selectByMobile(sKUser.getPhone(), type);
 		if (code == null || !QRCode.equalsIgnoreCase(code.getQrcode())) {
 			BusinessExceptionUtil.threwException("验证码校验错误。");
 		} else if (code.getStatus() != 0) {
 			BusinessExceptionUtil.threwException("验证码过期。");
 		}
-		//插入数据
+		// 插入数据
 		insert(sKUser);
-		//验证成功
+		// 验证成功
 		sKSmsService.sendSucess(code);
-		
-		return sKUser;
 	}
 
 	/**
@@ -187,5 +199,15 @@ public class SKUserService extends JSBaseService {
 		ParamUtils.isBlankThrewException(sKUser.getPassword(), "密码不能为空");
 		ParamUtils.isBlankThrewException(sKUser.getPhone(), "手机号不能为空");
 		ParamUtils.isBlankThrewException(sKUser.getNoQq(), "qq不能为空");
+		MobileUtils.checkMobile(sKUser.getPhone());
+	}
+	
+	/**
+	 * 校验用户的类型
+	 */
+	public static void rangeType(int type){
+		if(type < 1 || type > 2){
+			BusinessExceptionUtil.threwException("TP传参错误。");
+		}	
 	}
 }
