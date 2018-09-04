@@ -33,7 +33,7 @@ CREATE TABLE `sk_sms` (
   `qrcode` varchar(64) DEFAULT NULL COMMENT '验证码',
   `created_time` datetime NOT NULL COMMENT '创建时间',
   `updated_time` datetime NOT NULL COMMENT '更新时间',
-  `type` int(6) NOT NULL COMMENT '1是验证码',
+  `type` int(6) NOT NULL COMMENT '1是验证码，2是营销短信',
   `status` int(11) DEFAULT NULL COMMENT '状态，0是未使用，1已经使用',
   `fscount` int(11) DEFAULT NULL COMMENT '发送状态',
   PRIMARY KEY (`id`),
@@ -172,6 +172,21 @@ CREATE TABLE `sk_bbrw` (
   `sale_price` decimal(10.2) DEFAULT NULL COMMENT '宝贝单价',
   `jiangli` decimal(10.2) DEFAULT NULL COMMENT '宝贝奖励',
   `ewai` decimal(10.2) DEFAULT NULL COMMENT '额外奖励', 
+  `created_time` datetime NOT NULL COMMENT '创建时间',
+  `updated_time` datetime NOT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  KEY `idx_sk_bbrw_bbid` (`bbid`)
+);
+
+-- 宝贝试客申请中，产生的校验数据
+CREATE TABLE `sk_bbrw` (
+  `id` bigint(20) NOT NULL COMMENT '主键',
+  `bbid` bigint(20) DEFAULT NULL COMMENT '宝贝id',
+  `rwid` bigint(20) DEFAULT NULL COMMENT '任务id',
+  `status` int(11) DEFAULT NULL COMMENT '这个和sk_bbrw中对应',
+  `typeid` int(11) DEFAULT NULL COMMENT '1是淘口令，2是名字，3是图片路径',
+  `busitype` varchar(16) DEFAULT NULL COMMENT '业务类型，比如sc:是收藏图片，gz:关注图片',
+  `content` varchar(2000) DEFAULT NULL COMMENT '具体口令、名称、图片路径',
   `created_time` datetime NOT NULL COMMENT '创建时间',
   `updated_time` datetime NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`),
