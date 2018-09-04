@@ -27,6 +27,8 @@ public class KettleFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
 		HttpServletRequest req = (HttpServletRequest) servletRequest;
+		String url = req.getRequestURI();
+		
 		initSession(req);
 
 		HttpServletResponse response = (HttpServletResponse) servletResponse;

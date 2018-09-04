@@ -1,4 +1,4 @@
-function loginSubmit(type, returnurl) {
+function loginSubmit(type,returnurl) {
     var username, password, submitbtn, error;
     if ($('.tchs').length > 0 && $('.tchs').is(':visible')) {
         username = $('.tchs #username');
@@ -6,6 +6,7 @@ function loginSubmit(type, returnurl) {
         submitbtn = $('.tchs #submitbtn');
         error = $('.tchs #error');
     } else {
+    	//商家走这里
         username = $('#username');
         password = $('#password');
         submitbtn = $('#submitbtn');
@@ -23,11 +24,11 @@ function loginSubmit(type, returnurl) {
         error.hide();
         submitbtn.val('登录中...');
         submitbtn.attr("disabled", "disabled");
-        $.post('/CommonBase/LoginSubmit', { username: username.val(), password: password.val(), type: type, returnurl: returnurl }, function (d) {
-            if (d.success) {
-                location.href = d.jumpUrl;
-            } else if (d.userid != null) {
-                location.href = "//www.meilipa.com/Login/BindAccount?userId=" + d.userid;
+        $.post('/shike/user/login.do', { mobile: username.val(), password: password.val(), type: type}, function (d) {
+            if (d.type == 'success') {
+            	var tokenid = d.resultData.row;
+            	$.cookie("midaitokenid",tokenid);
+                location.href = "/shike";
             } else {
                 error.text(d.message);
                 error.show();

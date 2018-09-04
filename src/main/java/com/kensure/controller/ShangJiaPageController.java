@@ -22,5 +22,13 @@ public class ShangJiaPageController {
 		return "page/shangjia/regist.jsp";
 	}
 
+	@RequestMapping("login")
+	public String login(HttpServletRequest req, HttpServletResponse rep,Model model) {
+		return "page/shangjia/login.jsp";
+	}
 	
+	@RequestMapping("index")
+	public String index(HttpServletRequest req, HttpServletResponse rep,Model model) {
+		return "page/shangjia/index.jsp";
+	}
 }
