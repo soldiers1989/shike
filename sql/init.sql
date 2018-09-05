@@ -152,6 +152,8 @@ CREATE TABLE `sk_bbrw` (
   `status` int(11) DEFAULT NULL COMMENT '0是未开始，1是开始,-1是结束',
   `bbnum` bigint(20) DEFAULT NULL COMMENT '宝贝数量',
   `sqnum` bigint(20) DEFAULT NULL COMMENT '申请数量',
+  `zhuanhua` varchar(16) DEFAULT NULL COMMENT '转换率',
+  `daydes` varchar(16) DEFAULT NULL COMMENT '日期描述，查询用',
   `ysqnum` bigint(20) DEFAULT NULL COMMENT '已申请数量',
   `start_time` datetime NOT NULL COMMENT '活动开始时间',
   `end_time` datetime NOT NULL COMMENT '活动结束时间',
