@@ -14,7 +14,7 @@
     <div class="clearfix contant">
         <div class="main clearfix" style="width:1195px; margin-bottom:30px;overflow: hidden;">
  
- 	<jsp:include page="index_left.jsp" flush="true"/> 
+ 	<jsp:include page="../index_left.jsp" flush="true"/> 
  	<jsp:include page="index_right.jsp" flush="true"/> 
 
         </div>

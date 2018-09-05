@@ -14,6 +14,10 @@ public class BusiConstant {
 	 * 商家页面资源路径
 	 */
 	public static final String shangjiapath = context+"/page/shangjia/ss";
+	/**
+	 * 商家页面资源路径
+	 */
+	public static final String shangjiamanagerpath = context+"/page/shangjia/shangjia";
 	
 	
 	/**
@@ -28,6 +32,7 @@ public class BusiConstant {
 	public static final KVBean shangjia_login = new KVBean(context+"/shangjia/login","商家登录");
 	public static final KVBean shangjia_regist = new KVBean(context+"/shangjia/regist","商家注册");
 	public static final KVBean shangjia_index = new KVBean(context+"/shangjia/index","商家主页");
+	public static final KVBean shangjia_manageradd = new KVBean(context+"/shangjia/manageradd","商品管理页面");
 	
 	
 	public static final KVBean shangjia_regist_do = new KVBean(context+"/user/saveshangjia.do","商家注册接口");

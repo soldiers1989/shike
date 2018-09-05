@@ -31,4 +31,10 @@ public class ShangJiaPageController {
 	public String index(HttpServletRequest req, HttpServletResponse rep,Model model) {
 		return "page/shangjia/index.jsp";
 	}
+	
+	//商品管理页面
+	@RequestMapping("manageradd")
+	public String manager(HttpServletRequest req, HttpServletResponse rep,Model model) {
+		return "page/shangjia/manager/index.jsp";
+	}
 }

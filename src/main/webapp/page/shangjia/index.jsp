@@ -10,6 +10,7 @@
 <jsp:include page="top1.jsp" flush="true"/> 
 
 <jsp:include page="banner.jsp" flush="true"/> 
+<jsp:include page="banner1.jsp" flush="true"/> 
 
 <jsp:include page="index_content.jsp" flush="true"/> 
 
