@@ -1,0 +1,61 @@
+package com.kensure.controller;
+
+import java.util.List;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import co.kensure.frame.ResultInfo;
+import co.kensure.frame.ResultRowInfo;
+import co.kensure.frame.ResultRowsInfo;
+import co.kensure.http.RequestUtils;
+
+import com.alibaba.fastjson.JSONObject;
+import com.kensure.shike.dianpu.model.SKDianPu;
+import com.kensure.shike.dianpu.service.SKDianPuService;
+
+/**
+ * 活动信息
+ * 
+ * @author fankaidi
+ *
+ */
+@Controller
+@RequestMapping(value = "baobei")
+public class SKBaobeiController {
+
+	@Resource
+	private SKDianPuService sKDianPuService;
+
+	/**
+	 * 根据url获取商品的详情
+	 */
+	@ResponseBody
+	@RequestMapping(value = "getTaoBaoInfo.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	public ResultInfo getTaoBaoInfo(HttpServletRequest req, HttpServletResponse rep) {
+		/**
+		 * 需要传入的参数 name 名称， url 链接
+		 */
+		JSONObject json = RequestUtils.paramToJson(req);
+		SKDianPu obj = JSONObject.parseObject(json.toJSONString(), SKDianPu.class);
+		sKDianPuService.addDianPu(obj);
+		return new ResultRowInfo();
+	}
+
+	/**
+	 * 获取店铺列表
+	 */
+	@ResponseBody
+	@RequestMapping(value = "list.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	public ResultInfo list(HttpServletRequest req, HttpServletResponse rep) {
+		List<SKDianPu> list = sKDianPuService.getList();
+		return new ResultRowsInfo(list);
+	}
+
+}

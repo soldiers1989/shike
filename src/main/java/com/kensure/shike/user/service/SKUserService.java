@@ -191,6 +191,8 @@ public class SKUserService extends JSBaseService {
 		} else if (code.getStatus() != 0) {
 			BusinessExceptionUtil.threwException("验证码过期。");
 		}
+		sKUser.setLevel(1);
+		sKUser.setLevelCode("0001");		
 		// 插入数据
 		insert(sKUser);
 		// 验证成功

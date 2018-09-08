@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kensure.shike.baobei.dao.SKBaobeiDao"><!--dsName="" saasAspect=""-->
+	<!-- <cache readOnly="true"/> -->
+    <sql id="allFields">
+		id,
+		userid,
+		dpid,
+		title,
+		url,
+		taokl,
+		zturl,
+		sale_price as salePrice,
+		jiangli,
+		bbnum,
+		sqnum,
+		zhuanhua,
+		no_qq as noQq,
+		guige,
+		typedes,
+		typeid,
+		baoyou,
+		zengzhi,
+		yingshou,
+		status,
+		is_del as isDel,
+		hdtypeid,
+		start_time as startTime,
+		end_time as endTime,
+		disorder,
+		xinyongka,
+		huabei,
+		shaitu,
+		wangwang,
+		created_time as createdTime,
+		updated_time as updatedTime
+    </sql>
+    
+	<sql id="insertFields">
+		id,
+		userid,
+		dpid,
+		title,
+		url,
+		taokl,
+		zturl,
+		sale_price,
+		jiangli,
+		bbnum,
+		sqnum,
+		zhuanhua,
+		no_qq,
+		guige,
+		typedes,
+		typeid,
+		baoyou,
+		zengzhi,
+		yingshou,
+		status,
+		is_del,
+		hdtypeid,
+		start_time,
+		end_time,
+		disorder,
+		xinyongka,
+		huabei,
+		shaitu,
+		wangwang,
+		created_time,
+		updated_time
+    </sql>
+	
+	<insert id="insert" parameterType="com.kensure.shike.baobei.model.SKBaobei">
+		insert into sk_baobei (<include refid="insertFields"/>)
+		values (
+			#{id},
+			#{userid},
+			#{dpid},
+			#{title},
+			#{url},
+			#{taokl},
+			#{zturl},
+			#{salePrice},
+			#{jiangli},
+			#{bbnum},
+			#{sqnum},
+			#{zhuanhua},
+			#{noQq},
+			#{guige},
+			#{typedes},
+			#{typeid},
+			#{baoyou},
+			#{zengzhi},
+			#{yingshou},
+			#{status},
+			#{isDel},
+			#{hdtypeid},
+			#{startTime},
+			#{endTime},
+			#{disorder},
+			#{xinyongka},
+			#{huabei},
+			#{shaitu},
+			#{wangwang},
+			#{createdTime},
+			#{updatedTime}
+		)
+	</insert>
+	
+	<insert id="insertInBatch" parameterType="com.kensure.shike.baobei.model.SKBaobei">
+		insert into sk_baobei (<include refid="insertFields"/>) values 
+		<foreach collection="list" item="item" index="index" separator=",">
+			(
+				#{item.id},
+				#{item.userid},
+				#{item.dpid},
+				#{item.title},
+				#{item.url},
+				#{item.taokl},
+				#{item.zturl},
+				#{item.salePrice},
+				#{item.jiangli},
+				#{item.bbnum},
+				#{item.sqnum},
+				#{item.zhuanhua},
+				#{item.noQq},
+				#{item.guige},
+				#{item.typedes},
+				#{item.typeid},
+				#{item.baoyou},
+				#{item.zengzhi},
+				#{item.yingshou},
+				#{item.status},
+				#{item.isDel},
+				#{item.hdtypeid},
+				#{item.startTime},
+				#{item.endTime},
+				#{item.disorder},
+				#{item.xinyongka},
+				#{item.huabei},
+				#{item.shaitu},
+				#{item.wangwang},
+				#{item.createdTime},
+				#{item.updatedTime}
+			)
+		</foreach>
+	</insert>   		
+	
+    <sql id="whereClause">
+		<if test="userid != null">			
+			userid = #{userid}			
+		</if>
+		<if test="dpid != null">			
+			and dpid = #{dpid}			
+		</if>
+		<if test="title != null">			
+			and title = #{title}			
+		</if>
+		<if test="url != null">			
+			and url = #{url}			
+		</if>
+		<if test="taokl != null">			
+			and taokl = #{taokl}			
+		</if>
+		<if test="zturl != null">			
+			and zturl = #{zturl}			
+		</if>
+		<if test="salePrice != null">			
+			and sale_price = #{salePrice}			
+		</if>
+		<if test="jiangli != null">			
+			and jiangli = #{jiangli}			
+		</if>
+		<if test="bbnum != null">			
+			and bbnum = #{bbnum}			
+		</if>
+		<if test="sqnum != null">			
+			and sqnum = #{sqnum}			
+		</if>
+		<if test="zhuanhua != null">			
+			and zhuanhua = #{zhuanhua}			
+		</if>
+		<if test="noQq != null">			
+			and no_qq = #{noQq}			
+		</if>
+		<if test="guige != null">			
+			and guige = #{guige}			
+		</if>
+		<if test="typedes != null">			
+			and typedes = #{typedes}			
+		</if>
+		<if test="typeid != null">			
+			and typeid = #{typeid}			
+		</if>
+		<if test="baoyou != null">			
+			and baoyou = #{baoyou}			
+		</if>
+		<if test="zengzhi != null">			
+			and zengzhi = #{zengzhi}			
+		</if>
+		<if test="yingshou != null">			
+			and yingshou = #{yingshou}			
+		</if>
+		<if test="status != null">			
+			and status = #{status}			
+		</if>
+		<if test="isDel != null">			
+			and is_del = #{isDel}			
+		</if>
+		<if test="hdtypeid != null">			
+			and hdtypeid = #{hdtypeid}			
+		</if>
+		<if test="startTime != null">			
+			and start_time = #{startTime}			
+		</if>
+		<if test="endTime != null">			
+			and end_time = #{endTime}			
+		</if>
+		<if test="disorder != null">			
+			and disorder = #{disorder}			
+		</if>
+		<if test="xinyongka != null">			
+			and xinyongka = #{xinyongka}			
+		</if>
+		<if test="huabei != null">			
+			and huabei = #{huabei}			
+		</if>
+		<if test="shaitu != null">			
+			and shaitu = #{shaitu}			
+		</if>
+		<if test="wangwang != null">			
+			and wangwang = #{wangwang}			
+		</if>
+		<if test="createdTime != null">			
+			and created_time = #{createdTime}			
+		</if>
+		<if test="updatedTime != null">			
+			and updated_time = #{updatedTime}			
+		</if>
+	</sql>
+    
+	<select id="selectOne" resultType="com.kensure.shike.baobei.model.SKBaobei" parameterType="Long" >
+		select <include refid="allFields"/> 
+		  from sk_baobei 
+		 where id = #{id} 
+	</select>
+	
+	<select id="selectByIds" parameterType="List" resultType="com.kensure.shike.baobei.model.SKBaobei">
+		select <include refid="allFields"/> from sk_baobei 
+		where id in
+		<foreach collection="list" item="item" open="(" close=")" separator=",">
+			#{item}
+		</foreach>
+	</select>
+		
+	<select id="selectAll" resultType="com.kensure.shike.baobei.model.SKBaobei">
+		select <include refid="allFields"/> 
+		from sk_baobei 
+	</select>
+
+	<select id="selectCount" resultType="long">
+		select count(*) from sk_baobei 
+	</select>
+	
+	<select id="selectCountByWhere" parameterType="Map" resultType="Long">
+		select count(*) from sk_baobei 
+		<where>
+		    <include refid="whereClause"/>
+		</where>
+	</select>
+
+	<select id="selectByWhere" parameterType="Map" resultType="com.kensure.shike.baobei.model.SKBaobei">
+		select <include refid="allFields"/>
+		from sk_baobei 
+		<where>
+		    <include refid="whereClause"/>
+		</where>				
+		<if test="orderby != null">
+			ORDER BY ${orderby}
+		</if>
+	</select>
+	
+	<sql id="setComn">		
+		<if test="userid != null">
+			userid = #{userid},
+		</if>
+		<if test="dpid != null">
+			dpid = #{dpid},
+		</if>
+		<if test="title != null">
+			title = #{title},
+		</if>
+		<if test="url != null">
+			url = #{url},
+		</if>
+		<if test="taokl != null">
+			taokl = #{taokl},
+		</if>
+		<if test="zturl != null">
+			zturl = #{zturl},
+		</if>
+		<if test="salePrice != null">
+			sale_price = #{salePrice},
+		</if>
+		<if test="jiangli != null">
+			jiangli = #{jiangli},
+		</if>
+		<if test="bbnum != null">
+			bbnum = #{bbnum},
+		</if>
+		<if test="sqnum != null">
+			sqnum = #{sqnum},
+		</if>
+		<if test="zhuanhua != null">
+			zhuanhua = #{zhuanhua},
+		</if>
+		<if test="noQq != null">
+			no_qq = #{noQq},
+		</if>
+		<if test="guige != null">
+			guige = #{guige},
+		</if>
+		<if test="typedes != null">
+			typedes = #{typedes},
+		</if>
+		<if test="typeid != null">
+			typeid = #{typeid},
+		</if>
+		<if test="baoyou != null">
+			baoyou = #{baoyou},
+		</if>
+		<if test="zengzhi != null">
+			zengzhi = #{zengzhi},
+		</if>
+		<if test="yingshou != null">
+			yingshou = #{yingshou},
+		</if>
+		<if test="status != null">
+			status = #{status},
+		</if>
+		<if test="isDel != null">
+			is_del = #{isDel},
+		</if>
+		<if test="hdtypeid != null">
+			hdtypeid = #{hdtypeid},
+		</if>
+		<if test="startTime != null">
+			start_time = #{startTime},
+		</if>
+		<if test="endTime != null">
+			end_time = #{endTime},
+		</if>
+		<if test="disorder != null">
+			disorder = #{disorder},
+		</if>
+		<if test="xinyongka != null">
+			xinyongka = #{xinyongka},
+		</if>
+		<if test="huabei != null">
+			huabei = #{huabei},
+		</if>
+		<if test="shaitu != null">
+			shaitu = #{shaitu},
+		</if>
+		<if test="wangwang != null">
+			wangwang = #{wangwang},
+		</if>
+		<if test="createdTime != null">
+			created_time = #{createdTime},
+		</if>
+		<if test="updatedTime != null">
+			updated_time = #{updatedTime}
+		</if>
+	</sql>
+	
+	<update id="update" parameterType="com.kensure.shike.baobei.model.SKBaobei">
+		 update sk_baobei 
+		    <set>
+		    	<include refid="setComn"/>
+			</set>
+		  where id = #{id}
+	</update>
+	
+	<update id="updateByMap" parameterType="Map">
+		 update sk_baobei 
+		    <set>
+		    	<include refid="setComn"/>
+			</set>
+		  where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from sk_baobei where id = #{id}
+	</delete>
+	
+	<delete id="deleteMulti" parameterType="List">
+		delete from sk_baobei
+		where id in
+		<foreach collection="list" item="item" open="(" close=")" separator=",">
+			#{item}
+		</foreach>
+	</delete>
+	
+	<delete id="deleteByWhere" parameterType="Map">
+		delete from sk_baobei 
+		<where>
+		    <include refid="whereClause"/>
+		</where>
+	</delete>	
+
+</mapper>    

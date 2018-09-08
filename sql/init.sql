@@ -63,13 +63,27 @@ CREATE TABLE `sk_user` (
   KEY `idx_sk_user_referee_id` (`referee_id`)
 ) ;
 
+-- 角色表
+CREATE TABLE `sk_role` (
+  `id` BIGINT(20) NOT NULL,
+  `level` TINYINT(3) NOT NULL COMMENT '等级',
+  `level_code` VARCHAR(1024) NOT NULL COMMENT '等级编码',
+  `name` VARCHAR(12) NOT NULL COMMENT '角色名称',
+  `feilv` TINYINT(3) NOT NULL COMMENT '提现费率',
+  `dianpushu` TINYINT(3) NOT NULL COMMENT '允许店铺数',
+  `type` TINYINT(3) NOT NULL COMMENT '类型，1是试客，2是商家，3是管理员',
+  `created_time` DATETIME NOT NULL COMMENT '创建时间',
+  `updated_time` DATETIME NOT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ;
+
 
 -- 用余额和金币剩余数量
 CREATE TABLE `sk_user_yue` (
   `id` bigint(20) NOT NULL COMMENT '用户id',
-  `yue` decimal(10.2) NOT NULL COMMENT '余额',
-  `dbyue` decimal(10.2) NOT NULL COMMENT '担保余额',
-  `jinbi` decimal(10.2) NOT NULL COMMENT '金币',
+  `yue` decimal(10,2) NOT NULL COMMENT '余额',
+  `dbyue` decimal(10,2) NOT NULL COMMENT '担保余额',
+  `jinbi` decimal(10,2) NOT NULL COMMENT '金币',
   `created_time` datetime NOT NULL COMMENT '创建时间',
   `updated_time` datetime NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
@@ -82,7 +96,7 @@ CREATE TABLE `sk_user_inout` (
   `typeid` int(11) NOT NULL COMMENT '商家充值 1 用户提现 2',
   `fangshi` int(11) NOT NULL COMMENT '充值方式，1是支付宝，2是银行卡',
   `jiaoyihao` varchar(256) COMMENT '支付宝交易号或者打款方账户名',
-  `jine` decimal(10.2) NOT NULL COMMENT '金额',
+  `jine` decimal(10,2) NOT NULL COMMENT '金额',
   `status` int(11) DEFAULT NULL COMMENT '流程状态，1是已提交，-1是核对不通过，9是已确认',
   `zhanghao` varchar(1024) DEFAULT NULL COMMENT '提现或者充值账号',
   `remark` varchar(1024) DEFAULT NULL COMMENT '描述',
@@ -96,8 +110,8 @@ CREATE TABLE `sk_user_zhang` (
   `id` bigint(20) NOT NULL ,
   `userid` bigint(20) NOT NULL COMMENT '用户id',
   `busiid` bigint(20) NOT NULL COMMENT '业务id',
-  `yue`  decimal(10.2) NOT NULL COMMENT '余额',
-  `jinbi` decimal(10.2) NOT NULL COMMENT '金币',
+  `yue`  decimal(10,2) NOT NULL COMMENT '余额',
+  `jinbi` decimal(10,2) NOT NULL COMMENT '金币',
   `typeid` int(11) NOT NULL COMMENT '流水分类id',
   `inorout` int(11) NOT NULL COMMENT '对这个用户流进还是流出,1是进，-1是出',
   `status` int(11) NOT NULL COMMENT '状态，0是正常，-1是作废',
@@ -122,29 +136,59 @@ CREATE TABLE `sk_dianpu` (
 );
 
 
--- 宝贝主要信息
+-- 宝贝活动主要信息
 CREATE TABLE `sk_baobei` (
   `id` bigint(20) NOT NULL COMMENT '主键',
   `userid` bigint(20) DEFAULT NULL COMMENT '用户id',
   `dpid` bigint(20) DEFAULT NULL COMMENT '店铺id',
   `title` varchar(1024) DEFAULT NULL COMMENT '宝贝标题', 
   `url` varchar(1024) DEFAULT NULL COMMENT '宝贝链接', 
-  `sale_price` decimal(10.2) DEFAULT NULL COMMENT '宝贝单价',
-  `jiangli` decimal(10.2) DEFAULT NULL COMMENT '宝贝奖励', 
+  `taokl` varchar(124) DEFAULT NULL COMMENT '淘口令',
+  `zturl` varchar(1024) DEFAULT NULL COMMENT '宝贝主图链接', 
+  `sale_price` decimal(10,2) DEFAULT NULL COMMENT '宝贝单价',
+  `jiangli` decimal(10,2) DEFAULT NULL COMMENT '宝贝奖励', 
   `bbnum` bigint(20) DEFAULT NULL COMMENT '宝贝数量',
   `sqnum` bigint(20) DEFAULT NULL COMMENT '申请数量',
   `zhuanhua` varchar(16) DEFAULT NULL COMMENT '转换率',
+  `no_qq` varchar(32) NOT NULL COMMENT '联系qq账号',
+  `guige` varchar(1024) DEFAULT NULL COMMENT '商品规格', 
   `typedes` varchar(64) DEFAULT NULL COMMENT '宝贝分类',
   `typeid` int(11) DEFAULT NULL COMMENT '宝贝分类id',
+  `baoyou` int(11) DEFAULT NULL COMMENT '是否包邮，1是包邮，0是不包邮',
   `zengzhi` int(11) DEFAULT NULL COMMENT '是否有增值服务，0是没有，1是有',
-  `yingshou` decimal(10.2) DEFAULT NULL COMMENT '应付款项',
+  `yingshou` decimal(10,2) DEFAULT NULL COMMENT '应付款项',
   `status` int(11) DEFAULT NULL COMMENT '流程状态，0是正常，1是申请，2是拒绝通过，9是申请通过',
   `is_del` int(11) DEFAULT NULL COMMENT '状态，1是正在活动，-1是删除，2是活动结束',
-  `created_time` datetime NOT NULL COMMENT '创建时间',
-  `updated_time` datetime NOT NULL COMMENT '更新时间',
+  `hdtypeid` int(11) DEFAULT NULL COMMENT '活动类型id',
   `start_time` datetime NOT NULL COMMENT '活动开始时间',
   `end_time` datetime NOT NULL COMMENT '活动结束时间',
   `disorder` bigint(20) DEFAULT NULL COMMENT '排序',
+  `xinyongka` TINYINT(3) NOT NULL COMMENT '允许使用信用卡 1是允许，0是不允许',
+  `huabei` TINYINT(3) NOT NULL COMMENT '允许使用花呗 1是允许，0是不允许',
+  `shaitu` TINYINT(3) NOT NULL COMMENT '是否需要晒图 1是需要，0是不用',
+  `wangwang` TINYINT(3) NOT NULL COMMENT '是否需要旺旺聊天 1是需要，0是不用',
+  `created_time` datetime NOT NULL COMMENT '创建时间',
+  `updated_time` datetime NOT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+);
+
+-- 活动进店路径
+CREATE TABLE `sk_jindian` (
+  `id` bigint(20) NOT NULL COMMENT '主键',
+  `bbid` bigint(20) DEFAULT NULL COMMENT '宝贝活动id',
+  `typeid` tinyint(3) NOT NULL COMMENT '类型 1是关键词，2是淘口令，3是二维码',
+  `bili` int(11) DEFAULT NULL COMMENT '比例，3个加起来必须是100',
+  `created_time` datetime NOT NULL COMMENT '创建时间'
+  PRIMARY KEY (`id`)
+);
+
+-- 活动进店路径关键词
+CREATE TABLE `sk_jindian` (
+  `id` bigint(20) NOT NULL COMMENT '主键',
+  `bbid` bigint(20) DEFAULT NULL COMMENT '宝贝活动id',
+  `word` varchar(1024) DEFAULT NULL COMMENT '关键词',
+  `ordermethod` tinyint(3) DEFAULT NULL COMMENT '排序方式',
+  `created_time` datetime NOT NULL COMMENT '创建时间'
   PRIMARY KEY (`id`)
 );
 
@@ -175,9 +219,9 @@ CREATE TABLE `sk_bbrw` (
   `status` int(11) DEFAULT NULL COMMENT '1是开始,-1是手动取消,-2是自动取消,11是货比三家，21是收藏关注加购物车宝贝,51是中奖，61是确认宝贝、提交付款订单，71反馈好评晒图,99是完成任务',
   `last_status` int(11) DEFAULT NULL COMMENT 'status最后为正值的状态',
   `jinbi` bigint(20) DEFAULT NULL COMMENT '使用金币数量',
-  `sale_price` decimal(10.2) DEFAULT NULL COMMENT '宝贝单价',
-  `jiangli` decimal(10.2) DEFAULT NULL COMMENT '宝贝奖励',
-  `ewai` decimal(10.2) DEFAULT NULL COMMENT '额外奖励', 
+  `sale_price` decimal(10,2) DEFAULT NULL COMMENT '宝贝单价',
+  `jiangli` decimal(10,2) DEFAULT NULL COMMENT '宝贝奖励',
+  `ewai` decimal(10,2) DEFAULT NULL COMMENT '额外奖励', 
   `created_time` datetime NOT NULL COMMENT '创建时间',
   `updated_time` datetime NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`),
@@ -204,7 +248,7 @@ CREATE TABLE `sk_pricedetail` (
   `id` bigint(20) NOT NULL COMMENT '主键',
   `bbid` bigint(20) DEFAULT NULL COMMENT '宝贝id',
   `typeid` int(11) DEFAULT NULL COMMENT '价格类型，1是商品押金，2是佣金，3是商家转账手续费，4是商家保证金',
-  `jine` decimal(10.2) DEFAULT NULL COMMENT '应付款项',
+  `jine` decimal(10,2) DEFAULT NULL COMMENT '应付款项',
   `created_time` datetime NOT NULL COMMENT '创建时间',
   `updated_time` datetime NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
@@ -222,8 +266,8 @@ CREATE TABLE `sk_pricetype` (
   PRIMARY KEY (`id`)
 );
 
--- 宝贝主图
-CREATE TABLE `sk_baobeizt` (
+-- 宝贝图片
+CREATE TABLE `sk_baobeitp` (
   `id` bigint(20) NOT NULL COMMENT '主键',
   `bbid` bigint(20) DEFAULT NULL COMMENT '宝贝id',
   `url` varchar(1024) DEFAULT NULL COMMENT '图片url',
@@ -236,6 +280,7 @@ CREATE TABLE `sk_baobeizt` (
 CREATE TABLE `sk_baobeizt` (
   `id` bigint(20) NOT NULL COMMENT '主键',
   `bbid` bigint(20) DEFAULT NULL COMMENT '宝贝id',
+  `url` varchar(1024) DEFAULT NULL COMMENT '宝贝链接', 
   `content` text DEFAULT NULL COMMENT '宝贝详情',
   `disorder` int(11) DEFAULT NULL COMMENT '排序',
   `created_time` datetime NOT NULL COMMENT '创建时间'

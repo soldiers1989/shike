@@ -38,9 +38,7 @@ public class HttpUtils {
 		} catch (Exception e) {
 			BusinessExceptionUtil.threwException(e);
 		} finally {
-			if (getMethod != null) {
-				getMethod.releaseConnection();
-			}
+			
 		}
 		return response;
 	}
@@ -53,17 +51,29 @@ public class HttpUtils {
 	 * @throws IOException
 	 */
 	public static String getBody(String personalUrl) {
-		HttpResponse response = get(personalUrl);
-		// 获取响应状态码
-		int StatusCode = response.getStatusLine().getStatusCode();
+		// 获取响应文件，即html，采用get方法获取响应数据
+		HttpGet getMethod = null;
+		HttpResponse response = null;
 		String html = null;
-		if (StatusCode == 200) {
-			try {
+		try {
+			getMethod = new HttpGet(personalUrl);
+			response = new BasicHttpResponse(HttpVersion.HTTP_1_1, HttpStatus.SC_OK, "OK");
+			// 执行get方法
+			response = httpClient.execute(getMethod);
+			
+			int StatusCode = response.getStatusLine().getStatusCode();	
+			if (StatusCode == 200) {
 				html = EntityUtils.toString(response.getEntity(), "utf-8");
-			} catch (Exception e) {
-				BusinessExceptionUtil.threwException(e);
+			}else{
+				BusinessExceptionUtil.threwException("get data StatusCode");
 			}
+		} catch (Exception e) {
+			BusinessExceptionUtil.threwException(e);
+		} finally {
+			getMethod.releaseConnection();
 		}
+		// 获取响应状态码
+		
 		return html;
 	}
 

@@ -33,34 +33,16 @@
 </style>
 <div style="width: 755px;padding: 0 30px;">
     <h1 style="font-size: 16px; font-weight: normal; padding: 25px 0; border-bottom: 1px dashed #ddd;">
-        <span class="btn btn-red" onclick="adddianpu()">绑定店铺</span>
-                <span class="btn btn-red" onclick="addshop(2)">购买店铺</span> <em style="font-size: 12px;color: #ff464e;">（绑定店铺已达上限，如仍需添加店铺请点击购买店铺后，联系您的专属对接专员）</em>
+        <span class="btn btn-red" onclick="adddianpu()">绑定店铺</span><em style="font-size: 12px;color: #ff464e;">（绑定店铺已达上限，如仍需添加店铺请联系客服）</em>
     </h1>
-    <table width="100%" border="0" cellpadding="0" cellspacing="0" style="color: #666;line-height: 18px;font-size: 14px;">
+    <table width="100%" border="0" cellpadding="0" cellspacing="0" id="listtable" style="color: #666;line-height: 18px;font-size: 14px;">
         <tbody><tr style="background-color: #f9f9f9;line-height: 30px;">
             <th width="10%">店铺类型</th>
             <th width="20%">店铺信息</th>
-            <th width="20%">店铺旺旺/咚咚</th>
             <th width="30%">店铺首页网址</th>
             <th width="20%">添加时间</th>
         </tr>
-            <tr style="border-bottom: 1px solid #eff1f0">
-                <td style="text-align: center">
-                    <p style="width: 100.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; word-break: break-all">天猫/淘宝</p>
-                </td>
-                <td style="padding: 10px 0;text-align: center">
-                    <p style="width: 126.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; word-break: break-all">右手大咖</p>
-                </td>
-                <td style="text-align: center">
-                    <p style="width: 151px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; word-break: break-all">右手大咖</p>
-                </td>
-                <td style="text-align: center">
-                    <p style="width: 226.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; word-break: break-all">https://shop150398614.taobao.com</p>
-                </td>
-                <td style="text-align: center">
-                    <p style="width: 151px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; word-break: break-all">2018/8/29 11:13:56</p>
-                </td>
-            </tr>
+         
             </tbody></table>
 </div>
 
@@ -71,14 +53,13 @@
 <script>
 	function sucdo(data){
 		var rows = data.resultData.rows;
-		if(rows){
-		
+		if(rows){		
 			for(var i=0;i<rows.length;i++){
 				var row = rows[i];
-				var html = "<tr><td>"+row.createdTimeStr+"</td>";
-				html+="<td>"+row.jiaoyihao+"</td>";
-				html+="<td>"+row.jine+"</td>";
-				html+="<td>"+row.statusStr+"</td>";
+				var html = "<tr><td style='text-align: center'>"+row.typeidStr+"</td>";
+				html+="<td style='text-align: center'>"+row.name+"</td>";
+				html+="<td style='text-align: center'>"+row.url+"</td>";
+				html+="<td style='text-align: center'>"+row.createdTimeStr+"</td>";
 				html+="</tr>";
 				$("#listtable").append(html);
 			}
@@ -86,13 +67,21 @@
 		
 	}
 
-   function chongzhilist(){
+   function dianpulist(){
 	   var data = {};
-	   var url = "<%=BusiConstant.shangjia_chongzhilist_do.getKey()%>";
+	   var url = "<%=BusiConstant.shangjia_dianpualist_do.getKey()%>";
 	   postdo(url, data, sucdo,null, null);
+   }
+   dianpulist();
+   
+   function savedianpu(){
+	   var data = {name:$("#shopname").val(),url:$("#shopurl").val()};
+	   var url = "<%=BusiConstant.shangjia_dianpuadd_do.getKey()%>";
+	   postdo(url, data, null,null, null);
    }
    
    function adddianpu(message, callback) {
+	    callback = savedianpu;
 		message = "绑定店铺"
 	    $('#linglamsg').remove();
 	    var html = '<div class="tchs" id="linglamsg">' +

@@ -58,6 +58,8 @@ public class BusiConstant {
 	public static final KVBean shangjia_login_do = new KVBean(context + "/user/login.do", "商家登录接口");
 	public static final KVBean shangjia_chongzhi_do = new KVBean(context + "/inout/savein.do", "商家充值接口");
 	public static final KVBean shangjia_chongzhilist_do = new KVBean(context + "/inout/chongzhilist.do", "商家充值列表接口");
+	public static final KVBean shangjia_dianpuadd_do = new KVBean(context + "/dianpu/add.do", "商家店铺新增");
+	public static final KVBean shangjia_dianpualist_do = new KVBean(context + "/dianpu/list.do", "商家店铺列表");
 
 
 }

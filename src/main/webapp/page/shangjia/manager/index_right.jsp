@@ -260,9 +260,7 @@
                 </div>
 
 
-                <div class="slide-btn btn-red btn slide-link">
-                    点击获取宝贝信息<span class="iconfont icon-open-bottom" style="margin-left:10px;"></span>
-                </div>
+                <div class="slide-btn btn-red btn slide-link"> 点击获取宝贝信息<span class="iconfont icon-open-bottom" style="margin-left:10px;"></span> </div>
             </div>
 
             <div class="slide-item">
@@ -737,18 +735,7 @@
                         </p>
                     </div>
 
-                    <div class="fold jd-hide">
-                        <div class="f-title">
-                            <input type="checkbox" checked="checked" disabled=""> <span>查看买家记录</span>
-                            <i class="iconfont icon-Toboottom"></i>
-                            <i class="iconfont icon-Totop"></i>
-                        </div>
-                        <p class="f-warn">
-                            <span class="sj"></span>
-                            买家近期在淘宝/京东中的购买记录
-                        </p>
-                    </div>
-
+ 
                     <div class="fold  " id="jp-con">
                         <div class="f-title">
                             <input name="sk_iscontest" type="checkbox" value="False"> <span>指定竞品货比</span>
