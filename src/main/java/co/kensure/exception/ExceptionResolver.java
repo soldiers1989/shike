@@ -33,12 +33,13 @@ public class ExceptionResolver implements HandlerExceptionResolver{
             httpServletResponse.setContentType( "application/json;charset=UTF-8" );
             PrintWriter writer = httpServletResponse.getWriter();
             JSONObject map = new JSONObject();
-            if( e instanceof BusinessException ){
-                map.put( "type", ResultType.ERROR );
+            map.put( "type", ResultType.ERROR );
+            if( e instanceof BusinessException ){       
                 map.put( "message", e.getMessage() );
-                map.put( "exception_message", null );
+            }else{
+            	map.put( "message", "参数错误！！！" );
             }
-            map.put( "exception_message", e );
+          
             writer.write( map.toJSONString() );
             writer.flush();
             writer.close();

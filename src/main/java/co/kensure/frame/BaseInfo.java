@@ -2,6 +2,8 @@ package co.kensure.frame;
 
 import java.util.Date;
 
+import co.kensure.mem.DateUtils;
+
 
 /**
  *
@@ -34,4 +36,11 @@ public class BaseInfo implements java.io.Serializable {
 		this.updatedTime = updatedTime;
 	}
 	
+	public String getCreatedTimeStr() {
+		return DateUtils.format(createdTime);
+	}
+	
+	public String getUpdatedTimeStr() {
+		return DateUtils.format(updatedTime);
+	}
 }

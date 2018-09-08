@@ -26,8 +26,9 @@ function loginSubmit(type,returnurl) {
         submitbtn.attr("disabled", "disabled");
         $.post('/shike/user/login.do', { mobile: username.val(), password: password.val(), type: type}, function (d) {
             if (d.type == 'success') {
-            	var tokenid = d.resultData.row;
-            	$.cookie("midaitokenid",tokenid);
+            	var usersession = d.resultData.row;
+            	$.cookie("mdtokenid",usersession.tokenId);
+            	$.cookie("mdname",usersession.name);
                 location.href = "/shike";
             } else {
                 error.text(d.message);

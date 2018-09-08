@@ -16,10 +16,15 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import co.kensure.exception.BusinessExceptionUtil;
 import co.kensure.exception.ParamUtils;
@@ -30,6 +35,7 @@ import co.kensure.mem.MobileUtils;
 
 import com.kensure.basekey.BaseKeyService;
 import com.kensure.shike.user.dao.SKUserDao;
+import com.kensure.shike.user.model.SKLogin;
 import com.kensure.shike.user.model.SKSms;
 import com.kensure.shike.user.model.SKUser;
 
@@ -47,6 +53,9 @@ public class SKUserService extends JSBaseService {
 
 	@Resource
 	private SKSmsService sKSmsService;
+
+	@Resource
+	private SKLoginService sKLoginService;
 
 	@Resource
 	private BaseKeyService baseKeyService;
@@ -116,7 +125,7 @@ public class SKUserService extends JSBaseService {
 	 * @return
 	 */
 	public SKUser selectByMobile(String phone, int type) {
-		Map<String, Object> parameters = MapUtils.genMap("phone", phone,"type", type);
+		Map<String, Object> parameters = MapUtils.genMap("phone", phone, "type", type);
 		List<SKUser> userlist = selectByWhere(parameters);
 		SKUser u = null;
 		if (CollectionUtils.isNotEmpty(userlist)) {
@@ -134,8 +143,7 @@ public class SKUserService extends JSBaseService {
 	 * @return
 	 */
 	public SKUser selectByName(String name, int type) {
-		Map<String, Object> parameters = MapUtils.genMap("name", name, "type",
-				type);
+		Map<String, Object> parameters = MapUtils.genMap("name", name, "type", type);
 		List<SKUser> userlist = selectByWhere(parameters);
 		SKUser u = null;
 		if (CollectionUtils.isNotEmpty(userlist)) {
@@ -201,13 +209,56 @@ public class SKUserService extends JSBaseService {
 		ParamUtils.isBlankThrewException(sKUser.getNoQq(), "qq不能为空");
 		MobileUtils.checkMobile(sKUser.getPhone());
 	}
-	
+
 	/**
 	 * 校验用户的类型
 	 */
-	public static void rangeType(int type){
-		if(type < 1 || type > 2){
-			BusinessExceptionUtil.threwException("TP传参错误。");
-		}	
+	public static void rangeType(int type) {
+		if (type < 1 || type > 2) {
+			BusinessExceptionUtil.threwException("传参错误。");
+		}
+	}
+
+	/**
+	 * 通过spring的本地线程变量获取req,然后获取sessionid，获取变量,如果没有，返回null
+	 */
+	public SKUser getUser() {
+		String tokenId = getTokenId();
+		if (StringUtils.isBlank(tokenId)) {
+			return null;
+		}
+		SKLogin sKLogin = sKLoginService.selectByTokenId(tokenId);
+		if (sKLogin == null) {
+			return null;
+		}
+		SKUser user = selectOne(sKLogin.getUserid());
+		return user;
+	}
+
+	/**
+	 * add by fankd 用spring的框架在本地线程变量中获取 token,有可能获取不到
+	 * 
+	 * @return
+	 */
+	private static String getTokenId() {
+		String tokenId = null;
+		RequestAttributes ras = RequestContextHolder.getRequestAttributes();
+		if (ras != null) {
+			HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+			if (request != null) {
+				tokenId = request.getHeader("tokenid");
+			}
+		}
+		return tokenId;
+	}
+
+	/**
+	 * 校验用户会话信息
+	 * @param user
+	 */
+	public static void checkUser(SKUser user){
+		if(user == null){
+			BusinessExceptionUtil.threwException("用户为空,请重新登录");
+		}
 	}
 }

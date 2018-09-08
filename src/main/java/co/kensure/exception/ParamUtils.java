@@ -3,8 +3,6 @@ package co.kensure.exception;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.alibaba.fastjson.JSONObject;
-
 /**
  * 业务参数处理类
  *
@@ -57,23 +55,14 @@ public class ParamUtils {
 		}
 	}
 	
-	/**
-	 * 如果会话id为空,抛出异常
-	 */
-	public static void checkSessionid(JSONObject json) throws BusinessException {
-		String sessionid = getSessionid(json);
-		isBlankThrewException(sessionid,"会话不能为空");
-	}
-	
 	
 	/**
-	 * 获取会话id，统一会话id是sessionid
+	 * 根据传进来的boolean值，抛出异常
 	 */
-	public static String getSessionid(JSONObject json) throws BusinessException {
-		String sessionid = json.getString("sessionid");
-		return sessionid;
+	public static void isErrorThrewException(boolean param, String e) throws BusinessException {
+		if (!param) {
+			BusinessExceptionUtil.threwException(e);
+		}
 	}
-	
-	
 	
 }

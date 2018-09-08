@@ -9,12 +9,12 @@
     <title>商家注册 – <%=name%></title>
     <meta name="keywords" content="试客网,试客联盟,试客之家,试客联盟网,试客联盟中心,免费试用,试用网,免费试用网,免费试用平台,<%=name%>">
     <meta name="description" content="欢迎来免费试用网:<%=name%>.">
-    <link rel="stylesheet" type="text/css" href="<%=path%>/base.css">
-<link rel="stylesheet" type="text/css" href="<%=path%>/index.css">
-<link rel="stylesheet" type="text/css" href="<%=path%>/pagination.css">
-<link rel="stylesheet" type="text/css" href="<%=path%>/jquery.fancybox.css">
-<link rel="stylesheet" type="text/css" href="<%=path%>/credit.css">
-<link rel="stylesheet" type="text/css" href="<%=path%>/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="<%=path%>/base.css?ver=<%=BusiConstant.version%>">
+<link rel="stylesheet" type="text/css" href="<%=path%>/index.css?ver=<%=BusiConstant.version%>">
+<link rel="stylesheet" type="text/css" href="<%=path%>/pagination.css?ver=<%=BusiConstant.version%>">
+<link rel="stylesheet" type="text/css" href="<%=path%>/jquery.fancybox.css?ver=<%=BusiConstant.version%>">
+<link rel="stylesheet" type="text/css" href="<%=path%>/credit.css?ver=<%=BusiConstant.version%>">
+<link rel="stylesheet" type="text/css" href="<%=path%>/iconfont.css?ver=<%=BusiConstant.version%>">
 
 <script type="text/javascript" src="<%=path%>/jquery-1.8.3.js"></script>
 <script type="text/javascript" src="<%=BusiConstant.context%>/jqtable/jquery.cookie.js"></script>
@@ -27,4 +27,7 @@
 <script type="text/javascript" src="<%=path%>/Common.js"></script>
 <script type="text/javascript" src="<%=path%>/credit.js"></script>
 <script type="text/javascript" src="<%=path%>/jquery.form.js"></script>
+
+<script type="text/javascript" src="<%=BusiConstant.context%>/common/http.js?ver=<%=BusiConstant.version%>"></script>
+
 </head>

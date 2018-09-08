@@ -68,6 +68,7 @@ CREATE TABLE `sk_user` (
 CREATE TABLE `sk_user_yue` (
   `id` bigint(20) NOT NULL COMMENT '用户id',
   `yue` decimal(10.2) NOT NULL COMMENT '余额',
+  `dbyue` decimal(10.2) NOT NULL COMMENT '担保余额',
   `jinbi` decimal(10.2) NOT NULL COMMENT '金币',
   `created_time` datetime NOT NULL COMMENT '创建时间',
   `updated_time` datetime NOT NULL COMMENT '更新时间',
@@ -79,8 +80,10 @@ CREATE TABLE `sk_user_inout` (
   `id` bigint(20) NOT NULL,
   `userid` bigint(20) NOT NULL COMMENT '用户id',
   `typeid` int(11) NOT NULL COMMENT '商家充值 1 用户提现 2',
+  `fangshi` int(11) NOT NULL COMMENT '充值方式，1是支付宝，2是银行卡',
+  `jiaoyihao` varchar(256) COMMENT '支付宝交易号或者打款方账户名',
   `jine` decimal(10.2) NOT NULL COMMENT '金额',
-  `status` int(11) DEFAULT NULL COMMENT '流程状态，1是申请，-1是申请不通过，9是申请通过',
+  `status` int(11) DEFAULT NULL COMMENT '流程状态，1是已提交，-1是核对不通过，9是已确认',
   `zhanghao` varchar(1024) DEFAULT NULL COMMENT '提现或者充值账号',
   `remark` varchar(1024) DEFAULT NULL COMMENT '描述',
   `created_time` datetime NOT NULL COMMENT '创建时间',
@@ -88,7 +91,7 @@ CREATE TABLE `sk_user_inout` (
   PRIMARY KEY (`id`)
 ) ;
 
--- 用余额和金币流水帐
+-- 用用户余额和金币流水帐
 CREATE TABLE `sk_user_zhang` (
   `id` bigint(20) NOT NULL ,
   `userid` bigint(20) NOT NULL COMMENT '用户id',
@@ -105,12 +108,13 @@ CREATE TABLE `sk_user_zhang` (
 ) ;
 
 
--- 试客店铺
+-- 商家店铺
 CREATE TABLE `sk_dianpu` (
   `id` bigint(20) NOT NULL COMMENT '主键',
   `userid` bigint(20) DEFAULT NULL COMMENT '用户id',
   `name` varchar(126) DEFAULT NULL COMMENT '店铺名称',
-  `url` varchar(32) DEFAULT NULL COMMENT '店铺链接',
+  `typeid` int(11) NOT NULL COMMENT '店铺类型，1是天猫淘宝',
+  `url` varchar(256) DEFAULT NULL COMMENT '店铺链接',
   `status` int(11) DEFAULT NULL COMMENT '状态，0是正常，-1是停用',
   `created_time` datetime NOT NULL COMMENT '创建时间',
   `updated_time` datetime NOT NULL COMMENT '更新时间',

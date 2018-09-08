@@ -16,6 +16,7 @@ import co.kensure.http.RequestUtils;
 
 import com.alibaba.fastjson.JSONObject;
 import com.kensure.shike.user.model.SKUser;
+import com.kensure.shike.user.model.SKUserSession;
 import com.kensure.shike.user.service.SKLoginService;
 import com.kensure.shike.user.service.SKSmsService;
 import com.kensure.shike.user.service.SKUserService;
@@ -109,8 +110,8 @@ public class SKUserController {
 		String mobile = json.getString("mobile");
 		String password = json.getString("password");
 		int type = json.getInteger("type");
-		String tokenId = sKLoginService.login(mobile, password, type, req);		
-		return new ResultRowInfo(tokenId);
+		SKUserSession userSession = sKLoginService.login(mobile, password, type, req);		
+		return new ResultRowInfo(userSession);
 	}
 
 	/**

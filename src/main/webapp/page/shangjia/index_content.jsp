@@ -1,22 +1,22 @@
+<%@page import="java.util.List"%>
 <%@page import="com.kensure.shike.constant.BusiConstant"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <% 
-	String context = BusiConstant.shangjiapath;
+	String path = BusiConstant.shangjiapath;
 	String name = BusiConstant.name;
 %>
+<link rel="stylesheet" type="text/css" href="<%=path%>/base.css">
+<link rel="stylesheet" type="text/css" href="<%=path%>/pagination.css">
+<link rel="stylesheet" type="text/css" href="<%=path%>/shangjia_index.css">
 
-
-<link rel="stylesheet" type="text/css" href="<%=context%>/base.css">
-<link rel="stylesheet" type="text/css" href="<%=context%>/pagination.css">
-<link rel="stylesheet" type="text/css" href="<%=context%>/shangjia_index.css">
-
-    <!--shangjia_top-->
-    <div class="clearfix contant">
-        <div class="main clearfix" style="width:1195px; margin-bottom:30px;overflow: hidden;">
- 
- 	<jsp:include page="index_left.jsp" flush="true"/> 
- 	<jsp:include page="index_right.jsp" flush="true"/> 
-
-        </div>
-    </div>
+<div class="clearfix contant">
+	<div class="main clearfix" style="width:1195px; margin-bottom:30px;overflow: hidden;">
+		<%
+		List<String> list = (List<String>)request.getAttribute("bodypage");
+		for(String u:list){
+		%>
+		<jsp:include page="<%=u%>" flush="true"/> 
+		<%} %>
+	</div>
+</div>
     

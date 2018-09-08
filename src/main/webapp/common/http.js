@@ -1,21 +1,39 @@
 //封装post请求方法
-function postdo(url,data,sucessdo) {
+function postdo(url,data,sucessdo,errdo,compdo) {
+	var tokenid = $.cookie("mdtokenid");
 	$.ajax({
         type: "POST",
         dataType: "html",
         url: url,
+        beforeSend: function(request) {
+            request.setRequestHeader("tokenid", tokenid);
+        },
 		data : data,
 		success : function(data) {
 			var strresult = $.parseJSON(data);
 			if (strresult.type == 'success') {
-				sucessdo(strresult);
+				if(sucessdo){
+					sucessdo(strresult);
+				}else{
+					alert(strresult.message);
+				}		
 			}else{
 				 alert(strresult.message);
 			}
 		},
 		error : function(data) {
-			alert("error:" + data.responseText);
+			if(errdo){
+				errdo(data)
+			}else{
+				alert("error:" + data.responseText);
+			}
+		},
+		complete : function(data) {
+			if(compdo){
+				compdo(data)
+			}
 		}
 	});	
 };
+
 
