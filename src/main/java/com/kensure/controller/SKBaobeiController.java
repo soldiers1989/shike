@@ -12,13 +12,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import co.kensure.frame.ResultInfo;
-import co.kensure.frame.ResultRowInfo;
 import co.kensure.frame.ResultRowsInfo;
 import co.kensure.http.RequestUtils;
 
 import com.alibaba.fastjson.JSONObject;
-import com.kensure.shike.dianpu.model.SKDianPu;
-import com.kensure.shike.dianpu.service.SKDianPuService;
+import com.kensure.shike.baobei.service.TaoBaoService;
 
 /**
  * 活动信息
@@ -31,21 +29,21 @@ import com.kensure.shike.dianpu.service.SKDianPuService;
 public class SKBaobeiController {
 
 	@Resource
-	private SKDianPuService sKDianPuService;
+	private TaoBaoService taoBaoService;
 
 	/**
 	 * 根据url获取商品的详情
 	 */
 	@ResponseBody
-	@RequestMapping(value = "getTaoBaoInfo.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	@RequestMapping(value = "gettaobaoinfo.do", method = { RequestMethod.POST}, produces = "application/json;charset=UTF-8")
 	public ResultInfo getTaoBaoInfo(HttpServletRequest req, HttpServletResponse rep) {
 		/**
-		 * 需要传入的参数 name 名称， url 链接
+		 * 需要传入的参数， url 淘宝链接
 		 */
 		JSONObject json = RequestUtils.paramToJson(req);
-		SKDianPu obj = JSONObject.parseObject(json.toJSONString(), SKDianPu.class);
-		sKDianPuService.addDianPu(obj);
-		return new ResultRowInfo();
+		String url = json.getString("url");
+		List<String> list = taoBaoService.getPicList(url);
+		return new ResultRowsInfo(list);
 	}
 
 	/**
@@ -54,7 +52,9 @@ public class SKBaobeiController {
 	@ResponseBody
 	@RequestMapping(value = "list.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
 	public ResultInfo list(HttpServletRequest req, HttpServletResponse rep) {
-		List<SKDianPu> list = sKDianPuService.getList();
+		JSONObject json = RequestUtils.paramToJson(req);
+		String url = json.getString("url");
+		List<String> list = taoBaoService.getPicList(url);
 		return new ResultRowsInfo(list);
 	}
 
