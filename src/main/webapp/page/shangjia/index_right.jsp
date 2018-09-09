@@ -28,60 +28,7 @@
 <link href="<%=context%>/layer(1).css" rel="stylesheet">
 <script src="<%=context%>/layer.js"></script>
 <script type="text/javascript">
-    function linglake() {
-        var isinvite = 'True';
-        if (isinvite == 'True')
-            window.open('/Other/BisInvitation');
-        else {
-            alert("请先绑定店铺！");
-            window.open('/Bis/BoundShopBis');
-        }
-    }
-
-    function saveAdcertisemenSet(id, type) {
-        $.ajax({
-            type: 'post',
-            url: '/bis/ClearAdcertisement',
-            data: { id: id, type: type },
-            dataType: 'json',
-            success: function (data) {
-                $('.showDia').fadeOut(300);
-            }
-        });
-    }
-    function hideDialog(id) {
-        if (id) {
-            var Days = 1;
-            var exp = new Date();
-            exp.setTime(exp.getTime() + Days * 24 * 60 * 60 * 1000);
-            document.cookie = ("vipShowDia" + id) + "=True;expires=" + exp.toGMTString();
-            $('.showDia-driver').fadeOut(300);
-        }
-    }
-
-    function openDriverDetail() {
-        layer.open({
-            title: "已开通直通车的预约车手信息",
-            type: 1,
-            content: $('#driver-dialog').show(), //这里content是一个DOM，注意：最好该元素要存放在body最外层，否则可能被其它的相对元素所影响
-            //btn: ['关闭'],
-            //yes: function (index, layero) {
-
-            //    layer.close(index);
-            //},
-            //btn2: function (index, layero) {
-            //    //按钮【按钮二】的回调
-
-            //    //return false 开启该代码可禁止点击该按钮关闭
-
-            //},
-            //cancel: function () {
-            //    //右上角关闭回调
-
-            //    //return false 开启该代码可禁止点击该按钮关闭
-            //}
-        });
-    }
+   
 </script>
 <style>
     .shangjia_right {
@@ -124,7 +71,7 @@
                         <img id="imgPic" style="cursor: pointer;width: 86px;height: 86px;border-radius: 86px" src="<%=context%>/shopdefaultavatar.jpg">
                         <a href="javascript:" id="touming" title="上传头像" style="display: none;">上传头像</a>
                     </div>
-                    <p class="name">xiaoluo123</p>
+                    <p class="name" id="loginname"></p>
 
                 </div>
                 <div class="bis_bg_top_mid">
@@ -136,25 +83,21 @@
                             您还未成为VIP会员哦！
                     </p>
 
-                    <a href="https://www.meilipa.com/VIP/VIPDetailNew" class="bis_bg_top_btn" style="margin-top: 12px;margin-right:24px;" target="_blank">会员功能</a>
-                    <a href="https://www.meilipa.com/help/compare" class="bis_bg_top_btn" style="margin-top:12px;background:#ffe8e8;border:1px solid #ff464e;color:#ff464e;box-sizing: border-box;line-height:26px;" id="obtain_freeDraw" target="_blank">
+                    <a href="#" class="bis_bg_top_btn" style="margin-top: 12px;margin-right:24px;" target="_blank">会员功能</a>
+                    <a href="#" class="bis_bg_top_btn" style="margin-top:12px;background:#ffe8e8;border:1px solid #ff464e;color:#ff464e;box-sizing: border-box;line-height:26px;" id="obtain_freeDraw" target="_blank">
                         试用介绍
                     </a>
                     
                 </div>
                 <div class="bis_bg_top_vertical_line"></div>
                 <div class="bis_bg_top_mid">
-                    <p>账户余额：<span style="font-weight:600;font-size:18px;line-height:28px;">0.00</span> 元</p>
-                    <p>
-                        担保余额：<span style="color:#999;">0.00</span> 元
-                        <!--<img src="/Content/images/bis_bg_top_icon2.png" style="float: left;margin-right: 5px" />
-                        <span style="float: left">担保余额：<em style="color: #24aff3;">0.00 元</em></span>-->
-                    </p>
+                    <p>账户余额：<span style="font-weight:600;font-size:18px;line-height:28px;" id="zhanghuye">0.00</span> 元</p>
+                    
                     <div class="clearfix" style="margin-top:12px;">
-                        <a class="bis_bg_top_btn" href="https://www.meilipa.com/Bis/Recharge" target="_blank">充 值</a>
-                        <a class="bis_bg_top_btn2" href="https://www.meilipa.com/SellerDrawApplayHis" target="_blank">账户明细</a>
+                        <a class="bis_bg_top_btn" href="#" target="_blank">充 值</a>
+                        <a class="bis_bg_top_btn2" href="#" target="_blank">账户明细</a>
                         <i style="float: left; color: #666;line-height: 28px;">|</i>
-                        <a class="bis_bg_top_btn2" href="javascript:" onclick="HasTxianNum(&#39;/drawapply&#39;, &#39;/drawaccount&#39;)">提现</a>
+                        <a class="bis_bg_top_btn2" href="javascript:" >提现</a>
                     </div>
                 </div>
             </div>
@@ -495,48 +438,20 @@
     </div>
 </div>
 
-
-
-<style>
-    #driver-dialog {
-        display: none;
-        width: 340px;
-    }
-
-    .driever-dialog-children {
-        padding: 10px 40px;
-    }
-
-    #driver-dialog p {
-        padding: 5px 0;
-    }
-</style>
-<div id="driver-dialog">
-    <div class="driever-dialog-children">
-        <div class="label-box" id="label-box"><p>-(周undefined)</p></div>
-    </div>
-    <div class="layui-layer-btn">
-        <span style="margin-right: 50px;line-height:30px;color:#ff464e;">如需修改请联系你的直通车专员</span>
-        <a class="layui-layer-btn0">关闭</a>
-    </div>
-</div>
 <script>
-    var nameStr = "".split(",");
-    var dateStr = "".split(",");
-
-    var html = "";
-
-    if (nameStr[0] != "系统推荐车手") {
-        for (var i = 0; i < nameStr.length; i++) {
-            html += "<p>" + nameStr[i] + "-" + dateStr[i] + "(周" + ["日", "一", "二", "三", "四", "五", "六"][new Date(dateStr[i]).getDay()] + ")</p>"
-        }
-    } else {
-        html += "<p>你选择了：系统推荐车手</p>";
-        html += "<p>&nbsp;</p>";
-        html += "<p>设置的类目： " + dateStr[0] + "</p>";
-    }
-    document.getElementById("label-box").innerHTML = html;
-
+$("#loginname").html($.cookie("mdname"));
+function sucdo(data){
+	var row = data.resultData.row;
+	if(row && row.yue){
+		$("#zhanghuye").html(row.yue);
+	}	
+}
+function zhanghuye(){
+   var data = {};
+   var url = "<%=BusiConstant.userzhyue_do.getKey()%>";
+   postdo(url, data, sucdo,null, null);
+}
+zhanghuye();
 </script>
 
 

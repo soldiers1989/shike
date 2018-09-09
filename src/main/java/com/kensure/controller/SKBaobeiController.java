@@ -89,7 +89,7 @@ public class SKBaobeiController {
 		List<SKBaobei> list = sKBaobeiService.getList(status);
 		return new ResultRowsInfo(list);
 	}
-	
+
 	/**
 	 * 支付信息
 	 */
@@ -110,7 +110,7 @@ public class SKBaobeiController {
 	public ResultInfo pay(HttpServletRequest req, HttpServletResponse rep) {
 		JSONObject json = RequestUtils.paramToJson(req);
 		Long id = json.getLong("id");
-		List<SKPayInfo> list = sKBaobeiService.payinfo(id);
-		return new ResultRowsInfo(list);
+		sKBaobeiService.pay(id);
+		return new ResultRowInfo();
 	}
 }

@@ -84,7 +84,7 @@ public class SKBaobei extends BaseInfo {
 	/** 应付款项 */
 	private Double yingshou;
 
-	/** 流程状态，0是正常，1是申请，2是拒绝通过，9是申请通过 */
+	/** 流程状态，0是正常，1是申请，2是拒绝通过，9是申请通过 ,10是活动结束*/
 	private Long status;
 
 	/** 状态，1是正在活动，-1是删除，2是活动结束 */
@@ -283,6 +283,22 @@ public class SKBaobei extends BaseInfo {
 
 	public Long getStatus() {
 		return status;
+	}
+	/** 流程状态，0是正常，1是申请，2是拒绝通过，9是申请通过 ,10是活动结束*/
+	public String getStatusStr() {
+		String temp = "";
+		if(status == 0){
+			temp = "未付款";
+		}else if(status == 1){
+			temp = "已付款";
+		}else if(status == 2){
+			temp = "拒绝通过";
+		}else if(status == 9){
+			temp = "通过申请";
+		}else if(status == 10){
+			temp = "活动结束";
+		}	
+		return temp;
 	}
 
 	public void setStatus(Long status) {

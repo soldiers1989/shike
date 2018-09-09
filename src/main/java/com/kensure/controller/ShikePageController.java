@@ -11,16 +11,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * 商家业务的页面跳转
+ * 试客业务的页面跳转
  * 
  * @author fankaidi
  *
  */
 @Controller
-@RequestMapping(value = "shangjia")
-public class ShangJiaPageController {
+@RequestMapping(value = "shike")
+public class ShikePageController {
 
-	// 商家页面，一般模板
+	// 用户页面，一般模板
 	private static List<String> indexlist = new ArrayList<String>();
 	static {
 		indexlist.add("top1.jsp");
@@ -29,14 +29,13 @@ public class ShangJiaPageController {
 		indexlist.add("index_content.jsp");
 		indexlist.add("footer.jsp");
 	}
-	
+
 	// 商家用户登录模板
 	private static List<String> regist = new ArrayList<String>();
 	static {
 		regist.add("top1.jsp");
 		regist.add("banner.jsp");
-		regist.add("regist_content.jsp");
-		regist.add("bottom1.jsp");
+		regist.add("regist_skcontent.jsp");	
 		regist.add("footer.jsp");
 	}
 
@@ -47,10 +46,10 @@ public class ShangJiaPageController {
 		return "page/shangjia/regist.jsp";
 	}
 
-	// 登录
+	// 用户登录页面
 	@RequestMapping("login")
-	public String login(HttpServletRequest req, HttpServletResponse rep, Model model) {
-		return "page/shangjia/login.jsp";
+	public String loginht(HttpServletRequest req, HttpServletResponse rep, Model model) {
+		return "page/shangjia/loginht.jsp";
 	}
 
 	// 首页
@@ -59,32 +58,8 @@ public class ShangJiaPageController {
 		req.setAttribute("index", indexlist);
 
 		List<String> body = new ArrayList<String>();
-		body.add("index_left.jsp");
-		body.add("index_right.jsp");
-		req.setAttribute("bodypage", body);
-		return "page/shangjia/index.jsp";
-	}
-
-	// 商品管理页面
-	@RequestMapping("manageradd")
-	public String manager(HttpServletRequest req, HttpServletResponse rep, Model model) {
-		req.setAttribute("index", indexlist);
-
-		List<String> body = new ArrayList<String>();
-		body.add("index_left.jsp");
-		body.add("./manager/index_right.jsp");
-		req.setAttribute("bodypage", body);
-		return "page/shangjia/index.jsp";
-	}
-
-	// 充值页面
-	@RequestMapping("chongzhi")
-	public String chongzhi(HttpServletRequest req, HttpServletResponse rep, Model model) {
-		req.setAttribute("index", indexlist);
-
-		List<String> body = new ArrayList<String>();
-		body.add("index_left.jsp");
-		body.add("./manager/chongzhi_right.jsp");
+		body.add("indexht_left.jsp");
+		body.add("./manager/listchongzhi_right.jsp");
 		req.setAttribute("bodypage", body);
 		return "page/shangjia/index.jsp";
 	}
@@ -95,8 +70,8 @@ public class ShangJiaPageController {
 		req.setAttribute("index", indexlist);
 
 		List<String> body = new ArrayList<String>();
-		body.add("index_left.jsp");
-		body.add("./manager/listchongzhi_right.jsp");
+		body.add("indexht_left.jsp");
+		body.add("./gl/listchongzhi_right.jsp");
 		req.setAttribute("bodypage", body);
 		return "page/shangjia/index.jsp";
 	}

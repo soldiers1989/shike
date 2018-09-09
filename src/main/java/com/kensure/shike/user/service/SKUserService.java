@@ -162,8 +162,11 @@ public class SKUserService extends JSBaseService {
 	 */
 	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
 	public SKUser addShangJia(SKUser sKUser, String QRCode) {
-		sKUser.setType(2);
-		invalidShangJia(sKUser);
+		Integer type = sKUser.getType();
+		if (type < 1 || type > 2) {
+			BusinessExceptionUtil.threwException("传参错误。");
+		}
+		invalidUser(sKUser);
 		addUser(sKUser, QRCode);
 		return sKUser;
 	}
@@ -205,7 +208,7 @@ public class SKUserService extends JSBaseService {
 	 * 
 	 * @param sKUser
 	 */
-	private void invalidShangJia(SKUser sKUser) {
+	private void invalidUser(SKUser sKUser) {
 		ParamUtils.isBlankThrewException(sKUser.getName(), "用户名不能为空");
 		ParamUtils.isBlankThrewException(sKUser.getPassword(), "密码不能为空");
 		ParamUtils.isBlankThrewException(sKUser.getPhone(), "手机号不能为空");

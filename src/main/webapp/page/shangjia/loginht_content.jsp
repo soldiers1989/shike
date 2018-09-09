@@ -16,7 +16,7 @@
           
             <div class="clearfix sdt_right">
                 <div class="alswitch">
-                    <a  class="">&nbsp;</a>
+                    <a  class=""></a>
                     <a  class="noborito">后台登录</a>
                 </div>
                 <div class="sdt_bvx">

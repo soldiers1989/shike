@@ -40,6 +40,8 @@ import com.kensure.shike.baobei.model.SKPayInfo;
 import com.kensure.shike.baobei.model.SKWord;
 import com.kensure.shike.user.model.SKUser;
 import com.kensure.shike.user.service.SKUserService;
+import com.kensure.shike.zhang.model.SKUserZhang;
+import com.kensure.shike.zhang.service.SKUserZhangService;
 
 /**
  * 商品活动表服务实现类
@@ -70,9 +72,12 @@ public class SKBaobeiService extends JSBaseService {
 
 	@Resource
 	private SKWordService sKWordService;
-	
+
 	@Resource
 	private SKBaobeiZTService sKBaobeiZTService;
+
+	@Resource
+	private SKUserZhangService sKUserZhangService;
 
 	public SKBaobei selectOne(Long id) {
 		return dao.selectOne(id);
@@ -101,16 +106,16 @@ public class SKBaobeiService extends JSBaseService {
 	public boolean insert(SKBaobei obj) {
 		super.beforeInsert(obj);
 		obj.setId(baseKeyService.getKey("sk_baobei"));
-		if(obj.getXinyongka() == null){
+		if (obj.getXinyongka() == null) {
 			obj.setXinyongka(0);
 		}
-		if(obj.getHuabei() == null){
+		if (obj.getHuabei() == null) {
 			obj.setHuabei(0);
 		}
-		if(obj.getShaitu() == null){
+		if (obj.getShaitu() == null) {
 			obj.setShaitu(0);
 		}
-		if(obj.getWangwang() == null){
+		if (obj.getWangwang() == null) {
 			obj.setWangwang(0);
 		}
 		obj.setIsDel(0L);
@@ -168,7 +173,7 @@ public class SKBaobeiService extends JSBaseService {
 		for (SKBbrw rw : rws) {
 			bbnum += rw.getBbnum();
 			sqnum += rw.getSqnum();
-			if(starttime == null){
+			if (starttime == null) {
 				starttime = rw.getStartTime();
 			}
 			endtime = rw.getEndTime();
@@ -211,8 +216,8 @@ public class SKBaobeiService extends JSBaseService {
 		zt.setUrl(obj.getUrl());
 		String content = TaoBaoService.getContent(obj.getUrl());
 		zt.setContent(content);
-		sKBaobeiZTService.insert(zt);	
-		
+		sKBaobeiZTService.insert(zt);
+
 		return true;
 	}
 
@@ -242,8 +247,7 @@ public class SKBaobeiService extends JSBaseService {
 		List<SKBaobei> list = selectByWhere(parameters);
 		return list;
 	}
-	
-	
+
 	/**
 	 * 根据用户活动信息
 	 * 
@@ -253,29 +257,49 @@ public class SKBaobeiService extends JSBaseService {
 		SKUser skuser = sKUserService.getUser();
 		SKUserService.checkUser(skuser);
 		SKBaobei sk = selectOne(id);
-		if(sk.getUserid() != skuser.getId()){
+		if (sk.getUserid() != skuser.getId()) {
 			BusinessExceptionUtil.threwException("权限异常");
-		}	
-		List<SKPayInfo> list = new ArrayList<SKPayInfo>(); 
+		}
+		List<SKPayInfo> list = new ArrayList<SKPayInfo>();
 		Long num = sk.getBbnum();
 		Double price = sk.getSalePrice();
-		String d1 = num+"*"+price;
-		double xiaoji1 = ArithmeticUtils.mul(num, price,1);
-		SKPayInfo info1 = new SKPayInfo("本金",d1,xiaoji1);
-		
-		String d2 = d1+"*2%";
-		double xiaoji2 = ArithmeticUtils.mul(xiaoji1, 0.02,1);
-		SKPayInfo info2 = new SKPayInfo("平台服务费",d2,xiaoji2);
+		String d1 = num + "*" + price;
+		double xiaoji1 = ArithmeticUtils.mul(num, price, 1);
+		SKPayInfo info1 = new SKPayInfo("本金", d1, xiaoji1);
+
+		String d2 = d1 + "*2%";
+		double xiaoji2 = ArithmeticUtils.mul(xiaoji1, 0.02, 1);
+		SKPayInfo info2 = new SKPayInfo("平台服务费", d2, xiaoji2);
 		double leiji = ArithmeticUtils.add(xiaoji1, xiaoji2);
-		SKPayInfo info3 = new SKPayInfo("合计","",leiji);
+		SKPayInfo info3 = new SKPayInfo("合计", "", leiji);
 		list.add(info1);
 		list.add(info2);
 		list.add(info3);
 		return list;
 	}
-	
-	
-	
-	
-	
+
+	/**
+	 * 对活动进行支付
+	 * 
+	 * @return
+	 */
+	public void pay(Long id) {
+		List<SKPayInfo> list = payinfo(id);
+		SKPayInfo p = list.get(list.size() - 1);
+		SKBaobei sk = selectOne(id);
+		if(sk.getStatus() != 0){
+			BusinessExceptionUtil.threwException("已经支付");
+		}
+		sk.setStatus(1L);
+		update(sk);
+		
+		// 增加流水
+		SKUserZhang zhang = new SKUserZhang();
+		zhang.setUserid(sk.getUserid());
+		zhang.setBusiid(id);
+		zhang.setBusitypeid(3L);
+		zhang.setYue(p.getXiaoji());
+		sKUserZhangService.add(zhang);
+	}
+
 }

@@ -60,7 +60,7 @@
 				html+="<td>"+row.jiaoyihao+"</td>";
 				html+="<td>"+row.jine+"</td>";
 				html+="<td>"+row.statusStr+"</td>";
-				html+="<td><input type='botton' value='通过' onclick='tongguo("+row.id+")'</td>";
+				html+="<td><input type='button' value='通过' onclick='tongguo("+row.id+")'</td>";
 				html+="</tr>";
 				$("#listtable").append(html);
 			}
@@ -77,7 +77,7 @@
    function tongguo(id){
 	   var data = {id:id};
 	   var url = "<%=BusiConstant.ht_chongzhitongguo_do.getKey()%>";
-	   postdo(url, data, sucdo,null, null);
+	   postdo(url, data, null,null, null);
    }
    chongzhilist();
    

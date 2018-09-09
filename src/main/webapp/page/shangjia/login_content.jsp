@@ -16,8 +16,8 @@
           
             <div class="clearfix sdt_right">
                 <div class="alswitch">
-                    <a  class="">&nbsp;</a>
-                    <a  class="noborito">商家登录</a>
+                    <a  class="" id="loginshike1" onclick="check(1)">试客登录</a>
+                    <a  class="noborito" id="loginshike2" onclick="check(2)">商家登录</a>
                 </div>
                 <div class="sdt_bvx">
                     <strong>登录名：</strong>
@@ -38,7 +38,7 @@
                 <div id="error" class="err-tips">请输入登录名</div>
                 <!--stg_lb-->
                 <div class="stv_pxx">
-                    <input id="submitbtn" type="button" class="btn-input" onclick="loginSubmit(2,'')" value="登录">
+                    <input id="submitbtn" type="button" class="btn-input" onclick="login()" value="登录">
                 </div>
                 <!--stv_pxx-->
                 <div class="zc_pqe">
@@ -52,3 +52,18 @@
     </div>
     <!--stja_mian-->
 </div>
+
+<script>
+var lgtype=2;
+function login(){
+	loginSubmit(lgtype,'')
+}
+$("#loginname").html($.cookie("mdname"));
+function check(type){
+	lgtype = type;
+	$("#loginshike1").removeClass("noborito");
+	$("#loginshike2").removeClass("noborito");
+	$("#loginshike"+type).addClass("noborito");
+	
+}
+</script>

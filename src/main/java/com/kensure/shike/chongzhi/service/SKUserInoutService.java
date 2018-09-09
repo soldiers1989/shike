@@ -31,6 +31,8 @@ import com.kensure.shike.chongzhi.dao.SKUserInoutDao;
 import com.kensure.shike.chongzhi.model.SKUserInout;
 import com.kensure.shike.user.model.SKUser;
 import com.kensure.shike.user.service.SKUserService;
+import com.kensure.shike.zhang.model.SKUserZhang;
+import com.kensure.shike.zhang.service.SKUserZhangService;
 
 
 /**
@@ -49,6 +51,10 @@ public class SKUserInoutService extends JSBaseService{
 	
 	@Resource
 	private BaseKeyService baseKeyService;
+	
+	@Resource
+	private SKUserZhangService sKUserZhangService;
+	
     
     public SKUserInout selectOne(Long id){
     	return dao.selectOne(id);
@@ -158,11 +164,19 @@ public class SKUserInoutService extends JSBaseService{
     	SKUserService.checkUserAdmin(skuser);
     	
     	SKUserInout obj = selectOne(id);
+    	if(obj.getStatus() != 1){
+    		BusinessExceptionUtil.threwException("重复提交");
+    	}
+    	
     	obj.setStatus(9L);
     	update(obj);
     	//增加流水
-    	
-    	
+    	SKUserZhang zhang = new SKUserZhang();
+    	zhang.setUserid(obj.getUserid());
+    	zhang.setBusiid(id);
+    	zhang.setBusitypeid(1L);
+    	zhang.setYue(obj.getJine());
+    	sKUserZhangService.add(zhang);  
     	return true;
 	}
 

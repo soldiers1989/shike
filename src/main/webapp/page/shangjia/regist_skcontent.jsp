@@ -168,7 +168,7 @@
     <div class="mert_main">
         <!--mer_top-->
         <div class="mer_center" style="  top: 10px;">
-            <h1>商家注册 / <span>快速提升店铺流量 轻松超越同行</span>
+            <h1>试客注册 / <span></span>
                 <span class="toLogin">已有账号，
                 <a href="<%=BusiConstant.shangjia_login.getKey()%>">立即登录</a>
                 </span>
@@ -234,12 +234,10 @@
                     <input id="submit" type="submit" name="eReg_subimt" value="立即注册" class="qu_pxc p-red">
                 </div>
                 <!--mer_pc-->
-                <input type="hidden" name="type" id="smstype" value="2">
+                <input type="hidden" name="type" id="smstype" value="1">
             </form> 
         </div>
-        <div class="online_service">
-            <img src="<%=context%>/zhuce_zixun.jpg">
-        </div>
+       
         <!--mer_center-->
     </div>
     <!--mert_main-->

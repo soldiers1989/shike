@@ -189,7 +189,7 @@
                 +" <em style=\"color: #a9a9a9;\">"+row.startTimeStr+"</em>" 
                 +"</td>" 
                 +" <td height=\"100\" valign=\"middle\" align=\"center\" width=\"150\">" 
-                +"     <em style=\"color: #f25f55\">等待支付</em>" 
+                +"     <em style=\"color: #f25f55\">"+row.statusStr+"</em>" 
                 +"  </td>" 
                 +" <td height=\"100\" align=\"center\" width=\"200\">" 
                 +"    <div class=\"wae_cer\">" 

@@ -69,7 +69,7 @@
    function pay(){
 	   if(window.confirm('你确认要付款吗？')){
 		   var data = {id:<%=id%>};
-		   var url = "<%=BusiConstant.shangjia_payinfo_do.getKey()%>";
+		   var url = "<%=BusiConstant.shangjia_pay_do.getKey()%>";
 		   postdo(url, data, null,null, null);
         }
    }
