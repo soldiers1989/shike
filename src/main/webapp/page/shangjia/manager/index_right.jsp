@@ -12,9 +12,7 @@
 
 
 <div class="fine">
-    <form action="/JPinShopissueBis/AddOrEditSubmit" id="form" method="post">
-
-        <div class="onepage">
+       <div class="onepage">
             <h2 class="title">发布免费试用</h2>
             <div class="slide-item">
                 <div class="l-title">
@@ -239,7 +237,7 @@
                         <div class="item-con">
                             <select id="sk_shop_name" name="sk_shop_name" datatype="*" nullmsg="请选择！" class="Validform_error">
                                 <option value="">请选择</option>
-                                    <option value="右手大咖">右手大咖</option>
+                                    <option value="1">右手大咖</option>
                             </select>
 
                             <a href="<%=BusiConstant.shangjia_dianpulist.getKey()%>" target="_blank" style="color: #4e87c8; line-height: 28px; margin-left: 20px;">绑定店铺</a>
@@ -248,13 +246,13 @@
                     <div class="item">
                         <span class="label"><span>*</span>标题活动：</span>
                         <div class="item-con">
-                            <input type="text" class="w560 Validform_error" datatype="*" name="sk_activity_name" errormsg="请填写信息" maxlength="18" nullmsg="请填写信息！">
+                            <input type="text" class="w560 Validform_error" datatype="*" id="sk_activity_name" name="sk_activity_name" errormsg="请填写信息" maxlength="18" nullmsg="请填写信息！">
                         <span class="Validform_checktip Validform_wrong">请填写信息！</span></div>
                     </div>
                     <div class="item">
                         <span class="label"><span>*</span>宝贝链接：</span>
                         <div class="item-con">
-                            <input type="text" class="w560 Validform_error" datatype="url" name="sk_activity_url" value="" id="sk-link" placeholder="此链接一律不对外开放，仅美丽啪管理员可查看" nullmsg="请填写信息！">
+                            <input type="text" class="w560 Validform_error" datatype="url" name="sk_activity_url" value="" id="sk-link" placeholder="此链接一律不对外开放，仅管理员可查看" nullmsg="请填写信息！">
                         <span class="Validform_checktip Validform_wrong">请填写信息！</span></div>
                     </div>
                 </div>
@@ -265,7 +263,7 @@
 
             <div class="slide-item">
                 <div class="l-title">
-                    <span>3</span>设置美丽啪展示信息
+                    <span>3</span>设置展示信息
                     <em class="open-slide">修改</em> <i class="iconfont icon-zhengque"></i>
                 </div>
 
@@ -295,11 +293,8 @@
                         <img class="pic" src="/Content/images/supertry/no_pic.jpg">
                         <img class="pic" src="/Content/images/supertry/no_pic.jpg">
                         <img class="pic" src="/Content/images/supertry/no_pic.jpg">
-                        <p>默认第1个为主图，点击图片可切换主图</p>
+                        <p>默认第1个为主图</p>
                     </div>
-                    <input type="hidden" id="sk_logo_pic" name="sk_logo_pic" value="">
-                    <input type="hidden" id="currentImg" name="sk_img_index" value="0">
-                    <input type="hidden" id="tbshopname" name="sk_tb_shopname">
                 </div>
 
                 
@@ -312,7 +307,7 @@
                 <div class="item">
                     <span class="label vt">下单主图：</span>
                     <div class="item-con">
-                        <img style="display:inline-block;vertical-align:middle;" class="pic bbzt" src="/Content/images/JPin/up-img1.png">
+                        <img style="display:inline-block;vertical-align:middle;" id="picbbzt" class="pic bbzt" src="/Content/images/JPin/up-img1.png">
                         <span style="display:inline-block;vertical-align:middle;">该图为您的宝贝在淘宝/京东搜索页展示的下单主图</span>
                     </div>
                     <input type="hidden" id="sk_bis_upload_pic" name="sk_bis_upload_pic" value="">
@@ -322,23 +317,16 @@
                 <div class="item">
                     <span class="label vt"><span>*</span>联系QQ：</span>
                     <div class="item-con">
-                        <input type="text" class="w150" name="sk_qq" datatype="n6-16">
+                        <input type="text" class="w150" id="sk_qq" name="sk_qq" datatype="n6-16">
                         <span class="gray">用户获得资格后展示，必须设置QQ权限为允许任何人，允许临时会话</span>
                     <span class="Validform_checktip"></span></div>
                 </div>
-                <div class="item">
-                    <span class="label vt"><span>*</span>是否包邮：</span>
-                    <div class="item-con">
-                        <input type="radio" checked="checked"> 是
-                        <span class="gray">（本活动承诺宝贝全国包邮 ）</span>
-                    </div>
-                </div>
+                
                 <div class="item">
                     <span class="label vt" style="width: 100px;"><span>*</span>宝贝下单价：</span>
                     <div class="item-con">
                         <input type="text" class="w82" name="sk_clinch_price" id="sk_clinch_price" datatype="num" value="0"> 元
-                        <input type="checkbox" id="sk_isvoucher" name="sk_isvoucher" value="false" style="margin-left: 40px;"> 需用户领优惠券下单
-
+                      
                     <span class="Validform_checktip"></span></div>
                 </div>
                 <input type="hidden" name="sk_tryout_count" id="sk_tryout_count">
@@ -349,7 +337,7 @@
                 <div class="item">
                     <span class="label vt"><span></span>商品规格：</span>
                     <div class="item-con">
-                        <input type="text" style="width:786px;" class="w82" name="sk_size" placeholder="（如需用户指定规格，此项必填，如未填，默认可拍任意规格；鞋服类宝贝不可限制规格。）">                  
+                        <input type="text" style="width:786px;" class="w82" id="sk_size" name="sk_size" placeholder="（如需用户指定规格，此项必填，如未填，默认可拍任意规格；鞋服类宝贝不可限制规格。）">                  
                     </div>
                 </div>
 
@@ -399,9 +387,9 @@
                 <div class="item">
                     <span class="label vt"><span>*</span>活动时间：</span>
                     <div class="item-con">
-                        <input type="date" class="w150" datatype="*" nullmsg="请选择" placeholder="活动开始时间" id="begindate" name="sk_begindate" value="2015-09-24">
+                        <input type="date" class="w150" datatype="*" nullmsg="请选择" placeholder="活动开始时间" id="begindate" name="sk_begindate" value="2018-09-10">
                         -
-                        <input type="date" class="w150" datatype="*" nullmsg="请选择" placeholder="活动结束时间" id="enddate" name="sk_enddate"  value="2018-09-05">
+                        <input type="date" class="w150" datatype="*" nullmsg="请选择" placeholder="活动结束时间" id="enddate" name="sk_enddate"  value="2018-09-15">
 
                         <span style="margin-left: 20px">共</span><em id="Date-num">7</em><span>天</span> <span style="margin-left: 10px;">总份数： <em id="all-num" style="color: #ff464e;">0</em></span>
                         <span style="margin-left: 20px;color:#ff464e;display: none;" id="data-warn">活动天数不能大于15天</span>
@@ -425,31 +413,31 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td id="week0"></td>
+                                <td id="week1"></td>
+                                <td id="week2"></td>
+                                <td id="week3"></td>
+                                <td id="week4"></td>
+                                <td id="week5"></td>
+                                <td id="week6"></td>
                             </tr>
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td id="week7"></td>
+                                <td id="week8"></td>
+                                <td id="week9"></td>
+                                <td id="week10"></td>
+                                <td id="week11"></td>
+                                <td id="week12"></td>
+                                <td id="week13"></td>
                             </tr>
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td id="week14"></td>
+                                <td id="week15"></td>
+                                <td id="week16"></td>
+                                <td id="week17"></td>
+                                <td id="week18"></td>
+                                <td id="week19"></td>
+                                <td id="wee20"></td>
                             </tr>
                         </tbody>
                     </table>
@@ -465,9 +453,6 @@
                     <em class="open-slide">修改</em> <i class="iconfont icon-zhengque"></i>
                 </div>
 
-
-
-                <input type="hidden" id="sk_find_percent" name="sk_find_percent">
                 <div class="key-word" id="app-key">
                     <div class="title">
                             <span>移动端搜索关键词（填写宝贝标题里有的词 做为关键词 ，如未按要求填写 会导致搜索不到 活动效果变差 降低综合排名）</span>
@@ -475,52 +460,30 @@
                     <div class="item">
                         <span class="label vt"><span>*</span>分配占比：</span>
                         <div class="item-con">
-                            <input type="text" class="w180 search-rate" datatype="int" value="" placeholder="请输入1或2位整数"> %
+                            <input type="text" class="w180 search-rate" id="app_search_bili" datatype="int" value="" placeholder="请输入1或2位整数"> %
                             <span class="gray" style="margin-right:30px;">注：三个占比相加为100</span>
-                            <input type="checkbox" id="tuoguan" name="sk_is_tuoguan" title="美丽啪精准关键词托管可以让您的排名提升更显著哦" value="false">
-                            <label for="tuoguan" title="美丽啪精准关键词托管可以让您的排名提升更显著哦">精准关键词托管</label>
-
-                        <span class="Validform_checktip"></span></div>
+                         </div>
 
                     </div>
                     <div class="item list-word">
                         <div id="key-list">
                                     <div class="item-con add-key mb10">
                                         <span class="label"><span>*</span>搜索关键词：</span>
-                                        <input type="text" name="app_search_keys" maxlength="20" class="w150" datatype="*" placeholder="精确词相对权重较高" value="">
+                                        <input type="text" name="app_search_keys" id="app_search_keys" maxlength="20" class="w150" datatype="*" placeholder="精确词相对权重较高" value="">
 
                                         <span class="label ml30"><span>*</span>排序方式：</span>
-                                        <select name="app_sort_claim" datatype="*" nullmsg="请选择！">
+                                        <select name="app_sort_claim" id="app_sort_claim" datatype="*" nullmsg="请选择！">
                                             <option value="">请选择</option>
-                                                <option value="综合" selected="">综合</option>
-                                                <option value="销量">销量</option>
-                                                <option value="人气">人气</option>
-                                                <option value="信用">信用</option>
-                                                <option value="价格">价格</option>
+                                                <option value="1" selected="">综合</option>
+                                                <option value="2">销量</option>
+                                                <option value="3">人气</option>
+                                                <option value="4">信用</option>
+                                                <option value="5">价格</option>
 
                                         </select>
                                         <i class="iconfont icon-add key-word-icon"></i>
                                     <span class="Validform_checktip"></span></div>
-
-                        <div class="item-con add-key mb10">
-                                        <span class="label"><span>*</span>搜索关键词：</span>
-                                        <input type="text" name="app_search_keys" maxlength="20" class="w150" datatype="*" placeholder="精确词相对权重较高" value="">
-
-                                        <span class="label ml30"><span>*</span>排序方式：</span>
-                                        <select name="app_sort_claim" datatype="*" nullmsg="请选择！">
-                                            <option value="">请选择</option>
-                                                <option value="综合" selected="">综合</option>
-                                                <option value="销量">销量</option>
-                                                <option value="人气">人气</option>
-                                                <option value="信用">信用</option>
-                                                <option value="价格">价格</option>
-
-                                        </select>
-                                        <i class="iconfont icon-remove key-word-icon"></i>
-                                    <span class="Validform_checktip"></span></div></div>
-                        
-                        <input type="hidden" name="sk_app_search_keys" id="sk_app_search_keys" maxlength="20">
-                        <input type="hidden" name="sk_app_sort_claim" id="sk_app_sort_claim" value="综合">
+                       </div>
                         
                     </div>
 
@@ -557,7 +520,7 @@
                     <div class="item">
                         <span class="label vt"><span>*</span>分配占比：</span>
                         <div class="item-con">
-                            <input type="text" class="w180 search-rate" datatype="int" value="" placeholder="请输入1或2位整数"> %
+                            <input type="text" class="w180 search-rate" datatype="int" id="app_qr_bili" value="" placeholder="请输入1或2位整数"> %
                             <span class="gray">注：三个占比相加为100</span>
                         <span class="Validform_checktip"></span></div>
                     </div>
@@ -570,26 +533,43 @@
 
             </div>
             <div class="one-operate">
-                <span class="page-btn onepage-btn">下一页</span>
+                <span class="submit page-btn onepage-btn" onclick="savebaobei()">提交</span>
             </div>
         </div>
 
-            <div class="two-operate">
-                <span class="page-btn twopage-btn">上一页</span>
-                <span class="submit page-btn onepage-btn">提交</span>
-            </div>
+      
         </div>
-    </form>
+
 </div>
 
-            </div>
             
  <script>
+ 
+ Date.prototype.Format = function (fmt) {
+	    var o = {
+	        "M+": this.getMonth() + 1, //月份 
+	        "d+": this.getDate(), //日 
+	        "h+": this.getHours(), //小时 
+	        "m+": this.getMinutes(), //分 
+	        "s+": this.getSeconds(), //秒 
+	        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+	        "S": this.getMilliseconds() //毫秒 
+	    };
+	    if (/(y+)/.test(fmt))
+			fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+		for (var k in o){
+			if (new RegExp("(" + k + ")").test(fmt)) {
+				fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+			}
+	    }
+	    return fmt;
+	}
+ 
 	function taobaosucdo(data){
 		var rows = data.resultData.rows;
 		if(rows){	
 			var imgs = $("#img-con").children();
-			for(var i=0;i<rows.length;i++){
+			for(var i=0;i<rows.length && i < 4;i++){
 				var row = rows[i];		
 				var img = imgs[i];
 				if(img){
@@ -598,20 +578,121 @@
 			}
 		}
 	}
-
    function getTaobao(){ 
 	   var data = {url:$("#sk-link").val()};
 	   var url = "<%=BusiConstant.shangjia_taobaoinfo_do.getKey()%>";
 	   postdo(url, data, taobaosucdo,null, null);
    }
    
-   function savedianpu(){
-	   var data = {name:$("#shopname").val(),url:$("#shopurl").val()};
-	   var url = "<%=BusiConstant.shangjia_dianpuadd_do.getKey()%>";
+   function getDays(){ 
+	   var begindateStr = $("#begindate").val();
+	   var enddateStr = $("#enddate").val();
+	   var begindate = convertDateFromString(begindateStr);
+	   var enddate = convertDateFromString(enddateStr);
+	   if(begindate>enddate){
+		   alert("开始时间不能大于结束时间");
+		   return;
+	   }
+	   
+	   var days = parseInt(enddate.getTime()/ (1000 * 60 * 60 * 24)) -  parseInt(begindate.getTime()/ (1000 * 60 * 60 * 24))+1;
+	   if(days > 15){
+		   alert("活动不能查过15天");
+		   return;
+	   }
+	   $("#Date-num").html(days);
+	      
+	   for(var i=0;i<days;i++){
+		  var tempday = dayadd(begindate,i);
+		  var week = tempday.getDay();
+		  var daystr = tempday.Format("yyyy-MM-dd");
+		  var hml = "<input type='text' readonly='readonly' style='width:100px;' id='shijian"+i+"' value='"+daystr+"'/><br>投放份数:<input type='text' style='width:50px;' id='fenshu"+i+"' value=''/><br>转化率:<input type='text' style='width:50px;' id='zhuanhua"+i+"' value=''/>%";
+		  $("#week"+""+week).html(hml);
+	   }  
+   }
+   
+   getDays();
+   
+   function convertDateFromString(dateString) { 
+	   if (dateString) { 
+		   var arr1 = dateString.split(" "); 
+		   var sdate = arr1[0].split('-'); 
+		   var date = new Date(sdate[0], sdate[1]-1, sdate[2]); 
+		   return date;
+	   } 
+   }
+   
+   function dayadd(begindate,p_count) {
+       var dd = new Date();
+       dd.setDate(begindate.getDate() + p_count);//获取p_count天后的日期 
+       return dd;
+   }
+   
+   
+   function savebaobei(){
+	   var data = {dpid:$("#sk_shop_name option:selected").val(),title:$("#sk_activity_name").val()};
+	   data.url = $("#sk-link").val();
+	   data.taokl = $("#sk_taokouling").val();
+	   data.zturl = $("#picbbzt").val();
+	   data.sale_price = $("#sk_clinch_price").val();
+	   data.jiangli = 0;
+	   data.no_qq = $("#sk_qq").val();
+	   data.guige = $("#sk_size").val();
+	   data.typeid = $("#sk_commodity_type option:selected").val();
+	   data.hdtypeid = 1;
+	   data.xinyongka = $("#sk_is_useCreditCard").val();
+	   data.huabei = $("#sk_is_useTokio").val();
+	   data.shaitu = $("#sk_no_appraise_chart").val();
+	   data.wangwang = $("#sk_no_contact_chat").val();
+	   
+	   //图片
+	   var tplist = [];
+	   var imgs = $("#img-con").children();
+		for(var i=0;i<imgs.length && i < 4;i++){	
+			var img = imgs[i];
+			var tp = {url:img.src};
+			tplist.push(tp);
+		}      
+	   data.tplist = JSON.stringify(tplist);
+	   
+	   //进店路径
+	   var jdlist = [];
+	   var app_search_bili = $("#app_search_bili").val();
+	   var txt_taokoulingBz = $("#txt_taokoulingBz").val();
+	   var app_qr_bili = $("#app_qr_bili").val();
+	   var search = {typeid:1,bili:app_search_bili};
+	   var kouling = {typeid:2,bili:txt_taokoulingBz};
+	   var qr = {typeid:3,bili:kouling};
+	   jdlist.push(search);
+	   jdlist.push(kouling);
+	   jdlist.push(qr);
+	   data.jdlist = JSON.stringify(jdlist);
+	   
+	   //关键字
+	   var wordlist = [];
+	   var app_search_keys = $("#app_search_keys").val();
+	   var app_sort_claim = $("#app_sort_claim option:selected").val(); 
+	   var key1 = {word:app_search_keys,ordermethod:app_sort_claim};
+	   wordlist.push(key1);
+	   data.wordlist = JSON.stringify(wordlist);
+	   
+	   //宝贝任务
+	   var bbrwlist = [];
+	   for(var i=0;i<21;i++){
+		  var sj = $("#shijian"+i); 
+		  if(sj){
+			  var rwdata = {daydes:sj.val,bbnum:$("#fenshu"+i).val(),zhuanhua:$("#zhuanhua"+i).val()};
+			  bbrwlist.push(rwdata);
+			  
+		  }
+	   }
+	   data.bbrwlist = JSON.stringify(bbrwlist);
+	   
+	   var url = "<%=BusiConstant.shangjia_baobeiadd_do.getKey()%>";
 	   postdo(url, data, null,null, null);
    }
    
 
+   
   
    
 </script>           
