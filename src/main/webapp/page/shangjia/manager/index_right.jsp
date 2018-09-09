@@ -237,7 +237,6 @@
                         <div class="item-con">
                             <select id="sk_shop_name" name="sk_shop_name" datatype="*" nullmsg="请选择！" class="Validform_error">
                                 <option value="">请选择</option>
-                                    <option value="1">右手大咖</option>
                             </select>
 
                             <a href="<%=BusiConstant.shangjia_dianpulist.getKey()%>" target="_blank" style="color: #4e87c8; line-height: 28px; margin-left: 20px;">绑定店铺</a>
@@ -310,7 +309,6 @@
                         <img style="display:inline-block;vertical-align:middle;" id="picbbzt" class="pic bbzt" src="/Content/images/JPin/up-img1.png">
                         <span style="display:inline-block;vertical-align:middle;">该图为您的宝贝在淘宝/京东搜索页展示的下单主图</span>
                     </div>
-                    <input type="hidden" id="sk_bis_upload_pic" name="sk_bis_upload_pic" value="">
                 </div>
 
 
@@ -346,9 +344,9 @@
                         <span>付款方式 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;允许使用信用卡和<em class="ptText11">花呗</em>支付，将会使数据更加真实</span>
                     </div>
                     <div class="item">
-                        <input type="checkbox" name="sk_is_useCreditCard" id="sk_is_useCreditCard" value="false">
+                        <input type="checkbox" name="sk_is_useCreditCard" id="sk_is_useCreditCard" value="1">
                         <label for="sk_is_useCreditCard" style="margin-right: 53px;"><em>允许买家使用信用卡支付</em></label>
-                        <input type="checkbox" name="sk_is_useTokio" id="sk_is_useTokio" value="false">
+                        <input type="checkbox" name="sk_is_useTokio" id="sk_is_useTokio" value="1">
                         <label for="sk_is_useTokio" style="margin-right: 53px;"><em>允许买家使用<em class="ptText11">花呗</em>支付</em></label>
                     </div>
                 </div>
@@ -362,10 +360,10 @@
                 <div class="item">
                     <span class="label vt" style="width: 110px;">购买提醒：</span>
                     <div class="item-con">
-                        <input type="checkbox" name="sk_no_appraise_chart" id="sk_no_appraise_chart" value="false">
+                        <input type="checkbox" name="sk_no_appraise_chart" id="sk_no_appraise_chart" value="1">
                         <label for="sk_no_appraise_chart" style="margin-right: 53px;">无需晒图</label>
                         
-                        <input type="checkbox" name="sk_no_contact_chat" id="sk_no_contact_chat" value="false">
+                        <input type="checkbox" name="sk_no_contact_chat" id="sk_no_contact_chat" value="1">
                         <label for="sk_no_contact_chat" style="margin-right: 53px;">无需<em id="ptText6">旺旺聊天</em></label>
                     </div>
                 </div>
@@ -575,6 +573,9 @@
 				if(img){
 					img.src = row;
 				}
+				if(i==0){
+					$("#picbbzt").attr('src',row);
+				}
 			}
 		}
 	}
@@ -632,17 +633,17 @@
 	   var data = {dpid:$("#sk_shop_name option:selected").val(),title:$("#sk_activity_name").val()};
 	   data.url = $("#sk-link").val();
 	   data.taokl = $("#sk_taokouling").val();
-	   data.zturl = $("#picbbzt").val();
+	   data.zturl = $("#picbbzt")[0].src;
 	   data.sale_price = $("#sk_clinch_price").val();
 	   data.jiangli = 0;
 	   data.no_qq = $("#sk_qq").val();
 	   data.guige = $("#sk_size").val();
 	   data.typeid = $("#sk_commodity_type option:selected").val();
 	   data.hdtypeid = 1;
-	   data.xinyongka = $("#sk_is_useCreditCard").val();
-	   data.huabei = $("#sk_is_useTokio").val();
-	   data.shaitu = $("#sk_no_appraise_chart").val();
-	   data.wangwang = $("#sk_no_contact_chat").val();
+	   data.xinyongka = $("#sk_is_useCreditCard radio:checked").val();
+	   data.huabei = $("#sk_is_useTokio radio:checked").val();
+	   data.shaitu = $("#sk_no_appraise_chart radio:checked").val();
+	   data.wangwang = $("#sk_no_contact_chat radio:checked").val();
 	   
 	   //图片
 	   var tplist = [];
@@ -659,9 +660,9 @@
 	   var app_search_bili = $("#app_search_bili").val();
 	   var txt_taokoulingBz = $("#txt_taokoulingBz").val();
 	   var app_qr_bili = $("#app_qr_bili").val();
-	   var search = {typeid:1,bili:app_search_bili};
-	   var kouling = {typeid:2,bili:txt_taokoulingBz};
-	   var qr = {typeid:3,bili:kouling};
+	   var search = {typeid:"1",bili:app_search_bili};
+	   var kouling = {typeid:"2",bili:txt_taokoulingBz};
+	   var qr = {typeid:"3",app_qr_bili};
 	   jdlist.push(search);
 	   jdlist.push(kouling);
 	   jdlist.push(qr);
@@ -679,10 +680,9 @@
 	   var bbrwlist = [];
 	   for(var i=0;i<21;i++){
 		  var sj = $("#shijian"+i); 
-		  if(sj){
-			  var rwdata = {daydes:sj.val,bbnum:$("#fenshu"+i).val(),zhuanhua:$("#zhuanhua"+i).val()};
+		  if(sj && sj.val()){
+			  var rwdata = {daydes:sj.val(),bbnum:$("#fenshu"+i).val(),zhuanhua:$("#zhuanhua"+i).val()};
 			  bbrwlist.push(rwdata);
-			  
 		  }
 	   }
 	   data.bbrwlist = JSON.stringify(bbrwlist);
@@ -691,10 +691,25 @@
 	   postdo(url, data, null,null, null);
    }
    
+   
+   function sucdo(data){
+		var rows = data.resultData.rows;
+		if(rows){		
+			for(var i=0;i<rows.length;i++){
+				var row = rows[i];
+				var html = "<option value='"+row.id+"'>";
+				html += row.name+"</option>";
+				$("#sk_shop_name").append(html);
+			}
+		}
+	}
 
-   
-  
-   
+  function dianpulist(){
+	   var data = {};
+	   var url = "<%=BusiConstant.shangjia_dianpualist_do.getKey()%>";
+	   postdo(url, data, sucdo,null, null);
+  }
+  dianpulist();
 </script>           
             
             

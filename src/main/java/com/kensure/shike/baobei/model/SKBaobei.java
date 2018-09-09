@@ -15,6 +15,7 @@ import java.util.Date;
 import java.util.List;
 
 import co.kensure.frame.BaseInfo;
+import co.kensure.mem.DateUtils;
 
 /**
  * 商品活动表对象类
@@ -306,6 +307,10 @@ public class SKBaobei extends BaseInfo {
 
 	public Date getStartTime() {
 		return startTime;
+	}
+	
+	public String getStartTimeStr() {
+		return DateUtils.format(startTime);
 	}
 
 	public void setStartTime(Date startTime) {

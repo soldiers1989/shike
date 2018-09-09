@@ -3,6 +3,7 @@ package com.kensure.shike.baobei.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -30,13 +31,41 @@ public class TaoBaoService extends JSBaseService {
 		Elements elements = doc.select("ul#J_UlThumb").select("li");
 		for (Element ele : elements) {
 			String picurl = ele.select("img").attr("src");
-			picList.add(picurl);
+			String a = picurl.substring(0, picurl.lastIndexOf("."));
+			String c = a.substring(0, a.lastIndexOf("."));
+			String b = picurl.substring(picurl.lastIndexOf("."));
+			String bigurl = c+b;
+			picList.add(bigurl);
 		}
 //		String con = doc.select("div#description").text();
 
 		return picList;
 	}
 
+	/**
+	 * 获取宝贝详情
+	 * @param url
+	 * @return
+	 */
+	public static String getContent(String url) {
+		//通过url截取淘宝id
+		String[] canshu = url.split("&");
+		String id = null;
+		for(String zhi:canshu){
+			if(zhi.startsWith("id=")){
+				id = zhi.substring(3);
+				break;
+			}
+		}
+		String html = "";
+		if(StringUtils.isNotBlank(id)){
+			String m = "http://hws.m.taobao.com/cache/wdesc/5.0/?id="+id;
+			html = HttpUtils.getBody(m);
+		}
+		return html;
+	}
+	
+	
 	/**
 	 * 抓取淘宝图片和详情链接
 	 * 

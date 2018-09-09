@@ -12,19 +12,13 @@
 	<div style="width: 100%; display: block; margin: 0 auto;">
 		<div class="left_bott">
 			<ul>
-				<li style="cursor: pointer; margin: 22px 0 10px 0; height: 42px;"
-					class="left_titi"><a href="<%=BusiConstant.shangjia_manageradd.getKey() %>" target="_blank" class="invite-btn">发布活动</a></li>
-
-				<li id="4" class="left_titi"><strong><i
-						class="iconfont icon-liwuhuodong"></i>活动管理<i
-						class="iconfont icon-Toboottom il5 ft_up_down"></i></strong></li>
-				<li parentid="4"><a
-					href="<%=BusiConstant.shangjia_huodonglist.getKey() %>"
-					id="openWindows31" target="_self">淘宝活动</a></li>
+				
+				<li id="4" class="left_titi"><strong><i class="iconfont icon-liwuhuodong"></i>商家管理<i class="iconfont icon-Toboottom il5 ft_up_down"></i></strong></li>
+				<li parentid="4"><a href="<%=BusiConstant.ht_chongzhilist.getKey() %>" id="openWindows31" target="_self">充值管理</a></li>
+				<li parentid="4"><a href="<%=BusiConstant.shangjia_huodonglist.getKey() %>" id="openWindows31" target="_self">活动管理</a></li>
 				<li class="line"></li>
 
-				<li class="left_titi "><strong><i
-						class="iconfont icon-zhanghuxinxi"></i>账户信息</strong> <i
+				<li class="left_titi "><strong><i class="iconfont icon-zhanghuxinxi"></i>账户信息</strong> <i
 					class="iconfont icon-Toleft il5 ft_up_down"
 					style="color: rgb(102, 102, 102);"></i></li>
 				<li><a href="<%=BusiConstant.shangjia_dianpulist.getKey()%>" id="openWindows18" target="_self">店铺管理</a></li>

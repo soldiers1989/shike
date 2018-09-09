@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
  *
  */
 @Controller
-@RequestMapping(value = "shangjia")
-public class ShangJiaPageController {
+@RequestMapping(value = "gl")
+public class GLPageController {
 
 	// 商家页面，一般模板
 	private static List<String> indexlist = new ArrayList<String>();
@@ -30,16 +30,11 @@ public class ShangJiaPageController {
 		indexlist.add("footer.jsp");
 	}
 
-	// 注册
-	@RequestMapping("regist")
-	public String home(HttpServletRequest req, HttpServletResponse rep, Model model) {
-		return "page/shangjia/regist.jsp";
-	}
 
-	// 登录
+	// 后台登录页面
 	@RequestMapping("login")
-	public String login(HttpServletRequest req, HttpServletResponse rep, Model model) {
-		return "page/shangjia/login.jsp";
+	public String loginht(HttpServletRequest req, HttpServletResponse rep, Model model) {
+		return "page/shangjia/loginht.jsp";
 	}
 
 	// 首页
@@ -48,32 +43,8 @@ public class ShangJiaPageController {
 		req.setAttribute("index", indexlist);
 
 		List<String> body = new ArrayList<String>();
-		body.add("index_left.jsp");
-		body.add("index_right.jsp");
-		req.setAttribute("bodypage", body);
-		return "page/shangjia/index.jsp";
-	}
-
-	// 商品管理页面
-	@RequestMapping("manageradd")
-	public String manager(HttpServletRequest req, HttpServletResponse rep, Model model) {
-		req.setAttribute("index", indexlist);
-
-		List<String> body = new ArrayList<String>();
-		body.add("index_left.jsp");
-		body.add("./manager/index_right.jsp");
-		req.setAttribute("bodypage", body);
-		return "page/shangjia/index.jsp";
-	}
-
-	// 充值页面
-	@RequestMapping("chongzhi")
-	public String chongzhi(HttpServletRequest req, HttpServletResponse rep, Model model) {
-		req.setAttribute("index", indexlist);
-
-		List<String> body = new ArrayList<String>();
-		body.add("index_left.jsp");
-		body.add("./manager/chongzhi_right.jsp");
+		body.add("indexht_left.jsp");
+		body.add("./manager/listchongzhi_right.jsp");
 		req.setAttribute("bodypage", body);
 		return "page/shangjia/index.jsp";
 	}
@@ -84,8 +55,8 @@ public class ShangJiaPageController {
 		req.setAttribute("index", indexlist);
 
 		List<String> body = new ArrayList<String>();
-		body.add("index_left.jsp");
-		body.add("./manager/listchongzhi_right.jsp");
+		body.add("indexht_left.jsp");
+		body.add("./gl/listchongzhi_right.jsp");
 		req.setAttribute("bodypage", body);
 		return "page/shangjia/index.jsp";
 	}

@@ -11,7 +11,7 @@
 
 <jsp:include page="banner.jsp" flush="true"/> 
 
-<jsp:include page="login_content.jsp" flush="true"/> 
+<jsp:include page="loginht_content.jsp" flush="true"/> 
 
 <jsp:include page="footer.jsp" flush="true"/> 
 

@@ -18,6 +18,8 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import co.kensure.exception.BusinessExceptionUtil;
 import co.kensure.exception.ParamUtils;
@@ -115,6 +117,9 @@ public class SKUserInoutService extends JSBaseService{
     	SKUser skuser = sKUserService.getUser();
     	SKUserService.checkUser(skuser);
     	Map<String, Object> parameters = MapUtils.genMap("userid",skuser.getId(),"typeid",1,"orderby","created_time desc");
+    	if(skuser.getType() == 3){
+    		parameters.remove("userid");
+    	}
     	List<SKUserInout> list = selectByWhere(parameters);
     	return list;
     }
@@ -122,6 +127,7 @@ public class SKUserInoutService extends JSBaseService{
     /**
 	 * 商家充值保存
 	 */
+    @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
     public boolean saveIn(SKUserInout obj){
     	SKUser skuser = sKUserService.getUser();
     	SKUserService.checkUser(skuser);
@@ -141,6 +147,23 @@ public class SKUserInoutService extends JSBaseService{
     	}
     	insert(obj);
 		return true;
+	}
+    
+    /**
+	 * 后台通过充值，增加余额
+	 */
+    @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+    public boolean tongguo(Long id){
+    	SKUser skuser = sKUserService.getUser();
+    	SKUserService.checkUserAdmin(skuser);
+    	
+    	SKUserInout obj = selectOne(id);
+    	obj.setStatus(9L);
+    	update(obj);
+    	//增加流水
+    	
+    	
+    	return true;
 	}
 
 }
