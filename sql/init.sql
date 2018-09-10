@@ -301,3 +301,16 @@ CREATE TABLE `sk_baobeizt` (
   PRIMARY KEY (`id`)
 );
 
+
+-- 字典用
+CREATE TABLE `sk_dict` (
+  `id` bigint(20) NOT NULL COMMENT '主键',
+  `code` varchar(64) DEFAULT NULL COMMENT '字典代码',
+  `name` varchar(64) DEFAULT NULL COMMENT '字典名称',
+  `simple_name` varchar(64) DEFAULT NULL COMMENT '字典简称',
+  `typeid` int(11) DEFAULT NULL COMMENT '类型id，1是商品分类',
+  `created_time` datetime NOT NULL COMMENT '创建时间',
+  `updated_time` datetime NOT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+);
+

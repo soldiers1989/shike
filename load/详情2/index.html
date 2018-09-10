@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>商品详情</title>
+        <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" name="viewport"/>
+        <meta content="yes" name="apple-mobile-web-app-capable"/>
+        <meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+        <meta content="telephone=no" name="format-detection"/>
+        <link href="css/style.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+
+  
+
+        <section class="aui-flexView">
+            <header class="aui-navBar aui-navBar-fixed">
+                <a href="javascript:;" class="aui-navBar-item">
+                    <i class="icon icon-return"></i>
+                </a>
+                <div class="aui-center">
+                    <span class="aui-center-title"></span>
+                </div>
+                <a href="javascript:;" class="aui-navBar-item">
+                   
+                </a>
+            </header>
+          
+            <section class="aui-scrollView">
+                <div class="img_gallery" id="commodity">
+                    <div class="main_img">
+                        <ul>
+                            <li>
+                                <img src="images/pd-001.jpg" alt="">
+                            </li>
+                            <li>
+                                <img src="images/pd-002.jpg" alt="">
+                            </li>
+                            <li>
+                                <img src="images/pd-003.jpg" alt="">
+                            </li>
+                            <li>
+                                <img src="images/pd-004.jpg" alt="">
+                            </li>
+                            <li>
+                                <img src="images/pd-005.jpg" alt="">
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="img_font">
+                        <span>1/5</span>
+                        <span>2/5</span>
+                        <span>3/5</span>
+                        <span>4/5</span>
+                        <span>5/5</span>
+                    </div>
+                </div>
+                <div class="aui-product-head aui-footer-flex">
+                    
+                    <span>￥899</span>
+                    <em>剩余 41/42份</em>
+                </div>
+                <div class="aui-product-title">
+                    <h2>男女运动休闲鞋动休闲鞋</h2>
+                </div>
+              
+                <div class="aui-tag-info clearfix">
+                    <img src="images/icon-rb.png" alt="">
+                    <span>10000人 已申请</span>
+					<img src="images/icon-rb.png" alt="">
+					<span>100人 已中奖</span>
+                </div>
+               
+                <div class="aui-introduce">
+                    <div class="aui-tab" data-ydui-tab>
+                        <ul class="tab-nav">
+                            <li class="tab-nav-item tab-active">
+                                <a href="javascript:;">图文详情</a>
+                            </li>
+                            <li class="tab-nav-item">
+                                <a href="javascript:;">问题答疑</a>
+                            </li>
+                        </ul>
+                        <div class="tab-panel">
+                            <div class="tab-panel-item tab-active">
+                                <div class="tab-item">
+                                    <div class="aui-page-img">
+                                        <div class="aui-page-pig">
+                                            <img src="images/page-001.png" alt="">
+                                        </div>
+                                        <img src="images/page-002.png" alt="">
+                                        <img src="images/page-003.png" alt="">
+                                        <img src="images/page-004.png" alt="">
+                                        <img src="images/page-005.png" alt="">
+                                        <img src="images/page-006.png" alt="">
+                                        <img src="images/page-007.png" alt="">
+                                        <img src="images/page-008.png" alt="">
+                                        <img src="images/page-009.png" alt="">
+                                    </div>                         
+                                </div>
+                            </div>                    
+                        </div>
+                    </div>
+                </div>
+                <div class="m-actionsheet" id="actionSheet">
+                    <div class="aui-show-box">
+                        
+                        <div class="aui-footer-group aui-footer-flex1">
+                            <div class="aui-footer-flex">
+                                <div class="aui-btn aui-btn-gray">
+                                    <span>加入购物车</span>
+                                </div>
+                                <div class="aui-btn aui-btn-red">
+                                    <span>立即购买</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <footer class="aui-footer-button aui-footer-flex aui-footer-fixed">
+                <div class="aui-footer-wrap">
+                    <i class="icon-shop"></i>
+                    <span>返回</span>
+                </div>
+                <div class="aui-footer-wrap">
+                    <i class="icon-car"></i>
+                    <span>流程</span>
+                </div>
+                <div class="aui-footer-group aui-footer-flex1">
+                    <div class="aui-footer-flex">
+                        <div class="aui-btn aui-btn-gray">
+                            <span>3888金币兑换</span>
+                        </div>
+                        <div class="aui-btn aui-btn-red">
+                            <span>立即申请</span>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </section>
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+        <script type="text/javascript" src="js/tab.js"></script>
+        <script type="text/javascript" src="js/layer.js"></script>
+        <script type="text/javascript" src="js/touchSlider.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+
+                $(".main_img").touchSlider({
+                    flexible: true,
+                    speed: 200,
+                    btn_prev: $("#btn_prev"),
+                    btn_next: $("#btn_next"),
+                    paging: $(".point a"),
+                    counter: function(e) {
+                        $(".point a").removeClass("on").eq(e.current - 1).addClass("on");
+                        $(".img_font span").hide().eq(e.current - 1).show();
+                    }
+                });
+
+            });
+            $(function() {
+                $(window).bind("scroll", function() {
+                    var sTop = $(window).scrollTop();
+                    var sTop = parseInt(sTop);
+                    if (sTop >= 44) {
+                        if (!$("#scrollBg").is(":visible")) {
+                            try {
+                                $("#scrollBg").slideDown();
+                            } catch (e) {
+                                $("#scrollBg").show();
+                            }
+                        }
+                    } else {
+                        if ($("#scrollBg").is(":visible")) {
+                            try {
+                                $("#scrollBg").slideUp();
+                            } catch (e) {
+                                $("#scrollBg").hide();
+                            }
+                        }
+                    }
+                });
+            });
+
+        </script>
+    </body>
+</html>
