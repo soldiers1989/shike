@@ -29,7 +29,12 @@ function loginSubmit(type,returnurl) {
             	var usersession = d.resultData.row;
             	$.cookie("mdtokenid",usersession.tokenId);
             	$.cookie("mdname",usersession.name);
-                location.href = "/shike";
+            	if(type == 3){
+            		 location.href = "/shike/gl/chongzhilist";
+            	}else if(type == 1){
+            		 location.href = "/shike";
+            	}
+               
             } else {
                 error.text(d.message);
                 error.show();

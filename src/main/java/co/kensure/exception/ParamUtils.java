@@ -65,4 +65,13 @@ public class ParamUtils {
 		}
 	}
 	
+	/**
+	 * 如果参数为空，抛出异常
+	 */
+	public static void isBlankThrewException(Double param, String e) throws BusinessException {
+		if (param == null) {
+			BusinessExceptionUtil.threwException(e);
+		}
+	}
+	
 }

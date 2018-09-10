@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kensure.shike.baobei.dao.SKJindianDao"><!--dsName="" saasAspect=""-->
+	<!-- <cache readOnly="true"/> -->
+    <sql id="allFields">
+		id,
+		bbid,
+		typeid,
+		bili,
+		created_time as createdTime
+    </sql>
+    
+	<sql id="insertFields">
+		id,
+		bbid,
+		typeid,
+		bili,
+		created_time
+    </sql>
+	
+	<insert id="insert" parameterType="com.kensure.shike.baobei.model.SKJindian">
+		insert into sk_jindian (<include refid="insertFields"/>)
+		values (
+			#{id},
+			#{bbid},
+			#{typeid},
+			#{bili},
+			#{createdTime}
+		)
+	</insert>
+	
+	<insert id="insertInBatch" parameterType="com.kensure.shike.baobei.model.SKJindian">
+		insert into sk_jindian (<include refid="insertFields"/>) values 
+		<foreach collection="list" item="item" index="index" separator=",">
+			(
+				#{item.id},
+				#{item.bbid},
+				#{item.typeid},
+				#{item.bili},
+				#{item.createdTime}
+			)
+		</foreach>
+	</insert>   		
+	
+    <sql id="whereClause">
+		<if test="bbid != null">			
+			bbid = #{bbid}			
+		</if>
+		<if test="typeid != null">			
+			and typeid = #{typeid}			
+		</if>
+		<if test="bili != null">			
+			and bili = #{bili}			
+		</if>
+		<if test="createdTime != null">			
+			and created_time = #{createdTime}			
+		</if>
+	</sql>
+    
+	<select id="selectOne" resultType="com.kensure.shike.baobei.model.SKJindian" parameterType="Long" >
+		select <include refid="allFields"/> 
+		  from sk_jindian 
+		 where id = #{id} 
+	</select>
+	
+	<select id="selectByIds" parameterType="List" resultType="com.kensure.shike.baobei.model.SKJindian">
+		select <include refid="allFields"/> from sk_jindian 
+		where id in
+		<foreach collection="list" item="item" open="(" close=")" separator=",">
+			#{item}
+		</foreach>
+	</select>
+		
+	<select id="selectAll" resultType="com.kensure.shike.baobei.model.SKJindian">
+		select <include refid="allFields"/> 
+		from sk_jindian 
+	</select>
+
+	<select id="selectCount" resultType="long">
+		select count(*) from sk_jindian 
+	</select>
+	
+	<select id="selectCountByWhere" parameterType="Map" resultType="Long">
+		select count(*) from sk_jindian 
+		<where>
+		    <include refid="whereClause"/>
+		</where>
+	</select>
+
+	<select id="selectByWhere" parameterType="Map" resultType="com.kensure.shike.baobei.model.SKJindian">
+		select <include refid="allFields"/>
+		from sk_jindian 
+		<where>
+		    <include refid="whereClause"/>
+		</where>				
+		<if test="orderby != null">
+			ORDER BY ${orderby}
+		</if>
+	</select>
+	
+	<sql id="setComn">		
+		<if test="bbid != null">
+			bbid = #{bbid},
+		</if>
+		<if test="typeid != null">
+			typeid = #{typeid},
+		</if>
+		<if test="bili != null">
+			bili = #{bili},
+		</if>
+		<if test="createdTime != null">
+			created_time = #{createdTime}
+		</if>
+	</sql>
+	
+	<update id="update" parameterType="com.kensure.shike.baobei.model.SKJindian">
+		 update sk_jindian 
+		    <set>
+		    	<include refid="setComn"/>
+			</set>
+		  where id = #{id}
+	</update>
+	
+	<update id="updateByMap" parameterType="Map">
+		 update sk_jindian 
+		    <set>
+		    	<include refid="setComn"/>
+			</set>
+		  where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from sk_jindian where id = #{id}
+	</delete>
+	
+	<delete id="deleteMulti" parameterType="List">
+		delete from sk_jindian
+		where id in
+		<foreach collection="list" item="item" open="(" close=")" separator=",">
+			#{item}
+		</foreach>
+	</delete>
+	
+	<delete id="deleteByWhere" parameterType="Map">
+		delete from sk_jindian 
+		<where>
+		    <include refid="whereClause"/>
+		</where>
+	</delete>	
+
+</mapper>    

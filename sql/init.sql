@@ -110,17 +110,31 @@ CREATE TABLE `sk_user_zhang` (
   `id` bigint(20) NOT NULL ,
   `userid` bigint(20) NOT NULL COMMENT '用户id',
   `busiid` bigint(20) NOT NULL COMMENT '业务id',
-  `yue`  decimal(10,2) NOT NULL COMMENT '余额',
+  `busitypeid` int(11) NOT NULL COMMENT '业务类型id,1是商家充值，2是试客提现，3是活动费用',
+  `yue`  decimal(10,2) NOT NULL COMMENT '金额',
   `jinbi` decimal(10,2) NOT NULL COMMENT '金币',
-  `typeid` int(11) NOT NULL COMMENT '流水分类id',
   `inorout` int(11) NOT NULL COMMENT '对这个用户流进还是流出,1是进，-1是出',
-  `status` int(11) NOT NULL COMMENT '状态，0是正常，-1是作废',
+  `status` int(11) NOT NULL COMMENT '状态，1是正常，0是未生效，-1是作废',
   `remark` varchar(1024) DEFAULT NULL COMMENT '描述',
   `created_time` datetime NOT NULL COMMENT '创建时间',
   `updated_time` datetime NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
 ) ;
 
+-- 用用户余额和金币流水帐，明细
+CREATE TABLE `sk_user_zhang_detail` (
+  `id` bigint(20) NOT NULL ,
+  `userid` bigint(20) NOT NULL COMMENT '用户id',
+  `busiid` bigint(20) NOT NULL COMMENT '业务id',
+  `typeid` int(11) NOT NULL COMMENT '流水分类id,商品押金,2是佣金，3是商家转账手续费，4是保证金',
+  `yue`  decimal(10,2) NOT NULL COMMENT '余额',
+  `jinbi` decimal(10,2) NOT NULL COMMENT '金币',
+  `remark` varchar(1024) DEFAULT NULL COMMENT '描述',
+  `created_time` datetime NOT NULL COMMENT '创建时间',
+  `updated_time` datetime NOT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ;
+  
 
 -- 商家店铺
 CREATE TABLE `sk_dianpu` (
@@ -157,8 +171,8 @@ CREATE TABLE `sk_baobei` (
   `baoyou` int(11) DEFAULT NULL COMMENT '是否包邮，1是包邮，0是不包邮',
   `zengzhi` int(11) DEFAULT NULL COMMENT '是否有增值服务，0是没有，1是有',
   `yingshou` decimal(10,2) DEFAULT NULL COMMENT '应付款项',
-  `status` int(11) DEFAULT NULL COMMENT '流程状态，0是正常，1是申请，2是拒绝通过，9是申请通过',
-  `is_del` int(11) DEFAULT NULL COMMENT '状态，1是正在活动，-1是删除，2是活动结束',
+  `status` int(11) DEFAULT NULL COMMENT '流程状态，0是正常，1是已经付款，2是拒绝通过，9是申请通过,10是活动结束',
+  `is_del` int(11) DEFAULT NULL COMMENT '状态，1是正在活动，-1是删除',
   `hdtypeid` int(11) DEFAULT NULL COMMENT '活动类型id',
   `start_time` datetime NOT NULL COMMENT '活动开始时间',
   `end_time` datetime NOT NULL COMMENT '活动结束时间',
@@ -178,17 +192,17 @@ CREATE TABLE `sk_jindian` (
   `bbid` bigint(20) DEFAULT NULL COMMENT '宝贝活动id',
   `typeid` tinyint(3) NOT NULL COMMENT '类型 1是关键词，2是淘口令，3是二维码',
   `bili` int(11) DEFAULT NULL COMMENT '比例，3个加起来必须是100',
-  `created_time` datetime NOT NULL COMMENT '创建时间'
+  `created_time` datetime NOT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`)
 );
 
 -- 活动进店路径关键词
-CREATE TABLE `sk_jindian` (
+CREATE TABLE `sk_word` (
   `id` bigint(20) NOT NULL COMMENT '主键',
   `bbid` bigint(20) DEFAULT NULL COMMENT '宝贝活动id',
   `word` varchar(1024) DEFAULT NULL COMMENT '关键词',
   `ordermethod` tinyint(3) DEFAULT NULL COMMENT '排序方式',
-  `created_time` datetime NOT NULL COMMENT '创建时间'
+  `created_time` datetime NOT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`)
 );
 
@@ -272,7 +286,7 @@ CREATE TABLE `sk_baobeitp` (
   `bbid` bigint(20) DEFAULT NULL COMMENT '宝贝id',
   `url` varchar(1024) DEFAULT NULL COMMENT '图片url',
   `disorder` int(11) DEFAULT NULL COMMENT '排序',
-  `created_time` datetime NOT NULL COMMENT '创建时间'
+  `created_time` datetime NOT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`)
 );
 
@@ -283,7 +297,7 @@ CREATE TABLE `sk_baobeizt` (
   `url` varchar(1024) DEFAULT NULL COMMENT '宝贝链接', 
   `content` text DEFAULT NULL COMMENT '宝贝详情',
   `disorder` int(11) DEFAULT NULL COMMENT '排序',
-  `created_time` datetime NOT NULL COMMENT '创建时间'
+  `created_time` datetime NOT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`)
 );
 

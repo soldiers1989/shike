@@ -1,17 +1,9 @@
 package com.kensure.shike.baobei.service;
 
-import com.kensure.shike.baobei.dao.SKBaobeiDao;
-import com.kensure.shike.baobei.model.SKBaobei;
-import com.kensure.shike.baobei.service.TaoBaoService;
-
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import javax.annotation.Resource;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.util.EntityUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -31,38 +23,66 @@ import co.kensure.http.HttpUtils;
 @Service
 public class TaoBaoService extends JSBaseService {
 
-	public static void fenxi() {
-		try {
-			String url = "https://detail.tmall.com/item.htm?id=551968898854&spm=a230r.7195193.1997079397.20.XRP1bz&abbucket=12";
-			HttpResponse response = HttpUtils.get(url);
-			// 获取响应状态码
-			int StatusCode = response.getStatusLine().getStatusCode();
-			// 如果状态响应码为200，则获取html实体内容或者json文件
-			if (StatusCode == 200) {
-				String html = EntityUtils.toString(response.getEntity(), "utf-8");
-				Document doc = Jsoup.parse(html);
+	public List<String> getPicList(String url) {
+		List<String> picList = new ArrayList<>();
+		Document doc = fenxi(url);
+		// 图片的J_UlThumb
+		// 获取html标签中的内容
+		Elements elements = doc.select("ul#J_UlThumb").select("li");
+		for (Element ele : elements) {
+			String picurl = ele.select("img").attr("src");
+			String a = picurl.substring(0, picurl.lastIndexOf("."));
+			String c = a.substring(0, a.lastIndexOf("."));
+			String b = picurl.substring(picurl.lastIndexOf("."));
+			String bigurl = c+b;
+			picList.add(bigurl);
+		}
+//		String con = doc.select("div#description").text();
 
-				// 图片的J_UlThumb
-				// 获取html标签中的内容
-				Elements elements = doc.select("ul#J_UlThumb").select("li");
-				for (Element ele : elements) {
-					// String bookID = ele.attr("data-sku");
-					String bookPrice = ele.select("img").attr("src");
-					System.out.println(bookPrice);
-					// String bookName =
-					// ele.select("div[class=p-name]").select("em").text();
-					// 创建一个对象，这里可以看出，使用Model的优势，直接进行封装
-				}
-				String con = doc.select("div#description").text();
-				
-			} else {
-				BusinessExceptionUtil.threwException("获取信息错误");
+		return picList;
+	}
+
+	/**
+	 * 获取宝贝详情
+	 * @param url
+	 * @return
+	 */
+	public static String getContent(String url) {
+		//通过url截取淘宝id
+		String[] canshu = url.split("&");
+		String id = null;
+		for(String zhi:canshu){
+			if(zhi.startsWith("id=")){
+				id = zhi.substring(3);
+				break;
 			}
-			EntityUtils.consume(response.getEntity());
+		}
+		String html = "";
+		if(StringUtils.isNotBlank(id)){
+			String m = "http://hws.m.taobao.com/cache/wdesc/5.0/?id="+id;
+			html = HttpUtils.getBody(m);
+		}
+		return html;
+	}
+	
+	
+	/**
+	 * 抓取淘宝图片和详情链接
+	 * 
+	 * @param url
+	 */
+	public static Document fenxi(String url) {
+		Document doc = null;
+		try {
+			// String url =
+			// "https://detail.tmall.com/item.htm?id=551968898854&spm=a230r.7195193.1997079397.20.XRP1bz&abbucket=12";
+			String html = HttpUtils.getBody(url);
+			doc = Jsoup.parse(html);
 		} catch (Exception e) {
 			e.printStackTrace();
 			BusinessExceptionUtil.threwException("获取信息错误");
 		}
+		return doc;
 	}
 
 	public static void main(String[] args) {

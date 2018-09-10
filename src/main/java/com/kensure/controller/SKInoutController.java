@@ -58,4 +58,15 @@ public class SKInoutController {
 		return new ResultRowsInfo(list);
 	}
 
+	/**
+	 * 通过
+	 */
+	@ResponseBody
+	@RequestMapping(value = "tongguo.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	public ResultInfo tongguo(HttpServletRequest req, HttpServletResponse rep) {
+		JSONObject json = RequestUtils.paramToJson(req);
+		Long id = json.getLong("id");
+		sKUserInoutService.tongguo(id);
+		return new ResultRowInfo();
+	}
 }

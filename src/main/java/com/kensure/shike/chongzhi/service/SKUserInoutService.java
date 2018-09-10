@@ -18,6 +18,8 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import co.kensure.exception.BusinessExceptionUtil;
 import co.kensure.exception.ParamUtils;
@@ -29,6 +31,8 @@ import com.kensure.shike.chongzhi.dao.SKUserInoutDao;
 import com.kensure.shike.chongzhi.model.SKUserInout;
 import com.kensure.shike.user.model.SKUser;
 import com.kensure.shike.user.service.SKUserService;
+import com.kensure.shike.zhang.model.SKUserZhang;
+import com.kensure.shike.zhang.service.SKUserZhangService;
 
 
 /**
@@ -47,6 +51,10 @@ public class SKUserInoutService extends JSBaseService{
 	
 	@Resource
 	private BaseKeyService baseKeyService;
+	
+	@Resource
+	private SKUserZhangService sKUserZhangService;
+	
     
     public SKUserInout selectOne(Long id){
     	return dao.selectOne(id);
@@ -115,6 +123,9 @@ public class SKUserInoutService extends JSBaseService{
     	SKUser skuser = sKUserService.getUser();
     	SKUserService.checkUser(skuser);
     	Map<String, Object> parameters = MapUtils.genMap("userid",skuser.getId(),"typeid",1,"orderby","created_time desc");
+    	if(skuser.getType() == 3){
+    		parameters.remove("userid");
+    	}
     	List<SKUserInout> list = selectByWhere(parameters);
     	return list;
     }
@@ -122,6 +133,7 @@ public class SKUserInoutService extends JSBaseService{
     /**
 	 * 商家充值保存
 	 */
+    @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
     public boolean saveIn(SKUserInout obj){
     	SKUser skuser = sKUserService.getUser();
     	SKUserService.checkUser(skuser);
@@ -141,6 +153,31 @@ public class SKUserInoutService extends JSBaseService{
     	}
     	insert(obj);
 		return true;
+	}
+    
+    /**
+	 * 后台通过充值，增加余额
+	 */
+    @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+    public boolean tongguo(Long id){
+    	SKUser skuser = sKUserService.getUser();
+    	SKUserService.checkUserAdmin(skuser);
+    	
+    	SKUserInout obj = selectOne(id);
+    	if(obj.getStatus() != 1){
+    		BusinessExceptionUtil.threwException("重复提交");
+    	}
+    	
+    	obj.setStatus(9L);
+    	update(obj);
+    	//增加流水
+    	SKUserZhang zhang = new SKUserZhang();
+    	zhang.setUserid(obj.getUserid());
+    	zhang.setBusiid(id);
+    	zhang.setBusitypeid(1L);
+    	zhang.setYue(obj.getJine());
+    	sKUserZhangService.add(zhang);  
+    	return true;
 	}
 
 }

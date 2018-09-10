@@ -20,10 +20,11 @@ function checkMobile(mobile) {
 
 
 function afterVerification(_ctr,mobile) {
+	var type = $("#smstype").val();
 	if($(_ctr).text().indexOf("发送")!=-1){
-	    $.post("/shike/user/sms.do", { mobile: mobile, type: 2 }, function (data) {
+	    $.post("/shike/user/sms.do", { mobile: mobile, type: type }, function (data) {
 	        if (data.type != "success") {
-	            alert(data.Message);
+	            alert(data.message);
 	        } else {
 	            var i = 120;
 	            var timer = setInterval(function () {

@@ -1,3 +1,4 @@
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 	String context = request.getContextPath();
@@ -10,15 +11,12 @@
     .header_top{width: 1075px;}
 </style>
 
-<jsp:include page="top1.jsp" flush="true"/> 
-
-<jsp:include page="banner.jsp" flush="true"/> 
-
-<jsp:include page="regist_content.jsp" flush="true"/> 
-
-<jsp:include page="bottom1.jsp" flush="true"/> 
-
-<jsp:include page="footer.jsp" flush="true"/> 
+<%
+List<String> list = (List<String>)request.getAttribute("index");
+for(String u:list){
+%>
+<jsp:include page="<%=u%>" flush="true"/> 
+<%} %>
 
 </body>
 </html>

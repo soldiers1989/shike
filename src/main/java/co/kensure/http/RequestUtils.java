@@ -37,7 +37,12 @@ public class RequestUtils {
 		Enumeration<String> enu = request.getParameterNames();
 		while (enu.hasMoreElements()) {
 			String paraName = (String) enu.nextElement();
-			json.put(paraName, request.getParameter(paraName));
+			String value = request.getParameter(paraName);
+			if(StringUtils.isNotBlank(value) && value.startsWith("[")){
+				json.put(paraName, JSONObject.parseArray(value));
+			}else{
+				json.put(paraName, value);
+			}			
 		}
 		return json;
 	}

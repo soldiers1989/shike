@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kensure.shike.zhang.dao.SKUserZhangDetDao"><!--dsName="" saasAspect=""-->
+	<!-- <cache readOnly="true"/> -->
+    <sql id="allFields">
+		id,
+		userid,
+		busiid,
+		typeid,
+		yue,
+		jinbi,
+		remark,
+		created_time as createdTime,
+		updated_time as updatedTime
+    </sql>
+    
+	<sql id="insertFields">
+		id,
+		userid,
+		busiid,
+		typeid,
+		yue,
+		jinbi,
+		remark,
+		created_time,
+		updated_time
+    </sql>
+	
+	<insert id="insert" parameterType="com.kensure.shike.zhang.model.SKUserZhangDet">
+		insert into sk_user_zhang_detail (<include refid="insertFields"/>)
+		values (
+			#{id},
+			#{userid},
+			#{busiid},
+			#{typeid},
+			#{yue},
+			#{jinbi},
+			#{remark},
+			#{createdTime},
+			#{updatedTime}
+		)
+	</insert>
+	
+	<insert id="insertInBatch" parameterType="com.kensure.shike.zhang.model.SKUserZhangDet">
+		insert into sk_user_zhang_detail (<include refid="insertFields"/>) values 
+		<foreach collection="list" item="item" index="index" separator=",">
+			(
+				#{item.id},
+				#{item.userid},
+				#{item.busiid},
+				#{item.typeid},
+				#{item.yue},
+				#{item.jinbi},
+				#{item.remark},
+				#{item.createdTime},
+				#{item.updatedTime}
+			)
+		</foreach>
+	</insert>   		
+	
+    <sql id="whereClause">
+		<if test="userid != null">			
+			userid = #{userid}			
+		</if>
+		<if test="busiid != null">			
+			and busiid = #{busiid}			
+		</if>
+		<if test="typeid != null">			
+			and typeid = #{typeid}			
+		</if>
+		<if test="yue != null">			
+			and yue = #{yue}			
+		</if>
+		<if test="jinbi != null">			
+			and jinbi = #{jinbi}			
+		</if>
+		<if test="remark != null">			
+			and remark = #{remark}			
+		</if>
+		<if test="createdTime != null">			
+			and created_time = #{createdTime}			
+		</if>
+		<if test="updatedTime != null">			
+			and updated_time = #{updatedTime}			
+		</if>
+	</sql>
+    
+	<select id="selectOne" resultType="com.kensure.shike.zhang.model.SKUserZhangDet" parameterType="Long" >
+		select <include refid="allFields"/> 
+		  from sk_user_zhang_detail 
+		 where id = #{id} 
+	</select>
+	
+	<select id="selectByIds" parameterType="List" resultType="com.kensure.shike.zhang.model.SKUserZhangDet">
+		select <include refid="allFields"/> from sk_user_zhang_detail 
+		where id in
+		<foreach collection="list" item="item" open="(" close=")" separator=",">
+			#{item}
+		</foreach>
+	</select>
+		
+	<select id="selectAll" resultType="com.kensure.shike.zhang.model.SKUserZhangDet">
+		select <include refid="allFields"/> 
+		from sk_user_zhang_detail 
+	</select>
+
+	<select id="selectCount" resultType="long">
+		select count(*) from sk_user_zhang_detail 
+	</select>
+	
+	<select id="selectCountByWhere" parameterType="Map" resultType="Long">
+		select count(*) from sk_user_zhang_detail 
+		<where>
+		    <include refid="whereClause"/>
+		</where>
+	</select>
+
+	<select id="selectByWhere" parameterType="Map" resultType="com.kensure.shike.zhang.model.SKUserZhangDet">
+		select <include refid="allFields"/>
+		from sk_user_zhang_detail 
+		<where>
+		    <include refid="whereClause"/>
+		</where>				
+		<if test="orderby != null">
+			ORDER BY ${orderby}
+		</if>
+	</select>
+	
+	<sql id="setComn">		
+		<if test="userid != null">
+			userid = #{userid},
+		</if>
+		<if test="busiid != null">
+			busiid = #{busiid},
+		</if>
+		<if test="typeid != null">
+			typeid = #{typeid},
+		</if>
+		<if test="yue != null">
+			yue = #{yue},
+		</if>
+		<if test="jinbi != null">
+			jinbi = #{jinbi},
+		</if>
+		<if test="remark != null">
+			remark = #{remark},
+		</if>
+		<if test="createdTime != null">
+			created_time = #{createdTime},
+		</if>
+		<if test="updatedTime != null">
+			updated_time = #{updatedTime}
+		</if>
+	</sql>
+	
+	<update id="update" parameterType="com.kensure.shike.zhang.model.SKUserZhangDet">
+		 update sk_user_zhang_detail 
+		    <set>
+		    	<include refid="setComn"/>
+			</set>
+		  where id = #{id}
+	</update>
+	
+	<update id="updateByMap" parameterType="Map">
+		 update sk_user_zhang_detail 
+		    <set>
+		    	<include refid="setComn"/>
+			</set>
+		  where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from sk_user_zhang_detail where id = #{id}
+	</delete>
+	
+	<delete id="deleteMulti" parameterType="List">
+		delete from sk_user_zhang_detail
+		where id in
+		<foreach collection="list" item="item" open="(" close=")" separator=",">
+			#{item}
+		</foreach>
+	</delete>
+	
+	<delete id="deleteByWhere" parameterType="Map">
+		delete from sk_user_zhang_detail 
+		<where>
+		    <include refid="whereClause"/>
+		</where>
+	</delete>	
+
+</mapper>    

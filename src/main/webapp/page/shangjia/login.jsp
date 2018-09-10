@@ -6,9 +6,6 @@
 <html>
 <jsp:include page="header.jsp" flush="true"/> 
 <body>
-<style>
-    .header_top{width: 1075px;}
-</style>
 
 <jsp:include page="top1.jsp" flush="true"/> 
 

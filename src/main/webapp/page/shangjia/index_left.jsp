@@ -19,11 +19,8 @@
 						class="iconfont icon-liwuhuodong"></i>活动管理<i
 						class="iconfont icon-Toboottom il5 ft_up_down"></i></strong></li>
 				<li parentid="4"><a
-					href="https://www.meilipa.com/JPinShopissueBis?orderType=0"
+					href="<%=BusiConstant.shangjia_huodonglist.getKey() %>"
 					id="openWindows31" target="_self">淘宝活动</a></li>
-				<li parentid="4"><a
-					href="https://www.meilipa.com/JPinShopissueBis?orderType=1"
-					id="openWindows32" target="_self">天猫活动</a></li>
 				<li class="line"></li>
 
 				<li class="left_titi "><strong><i

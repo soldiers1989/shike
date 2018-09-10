@@ -162,8 +162,11 @@ public class SKUserService extends JSBaseService {
 	 */
 	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
 	public SKUser addShangJia(SKUser sKUser, String QRCode) {
-		sKUser.setType(2);
-		invalidShangJia(sKUser);
+		Integer type = sKUser.getType();
+		if (type < 1 || type > 2) {
+			BusinessExceptionUtil.threwException("传参错误。");
+		}
+		invalidUser(sKUser);
 		addUser(sKUser, QRCode);
 		return sKUser;
 	}
@@ -171,6 +174,7 @@ public class SKUserService extends JSBaseService {
 	/**
 	 * 通过验证码，新增用户
 	 */
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
 	private void addUser(SKUser sKUser, String QRCode) {
 		int type = sKUser.getType();
 		// 字段校验
@@ -204,7 +208,7 @@ public class SKUserService extends JSBaseService {
 	 * 
 	 * @param sKUser
 	 */
-	private void invalidShangJia(SKUser sKUser) {
+	private void invalidUser(SKUser sKUser) {
 		ParamUtils.isBlankThrewException(sKUser.getName(), "用户名不能为空");
 		ParamUtils.isBlankThrewException(sKUser.getPassword(), "密码不能为空");
 		ParamUtils.isBlankThrewException(sKUser.getPhone(), "手机号不能为空");
@@ -216,7 +220,7 @@ public class SKUserService extends JSBaseService {
 	 * 校验用户的类型
 	 */
 	public static void rangeType(int type) {
-		if (type < 1 || type > 2) {
+		if (type < 1 || type > 3) {
 			BusinessExceptionUtil.threwException("传参错误。");
 		}
 	}
@@ -261,6 +265,19 @@ public class SKUserService extends JSBaseService {
 	public static void checkUser(SKUser user){
 		if(user == null){
 			BusinessExceptionUtil.threwException("用户为空,请重新登录");
+		}
+	}
+	
+	/**
+	 * 校验用户会话信息
+	 * @param user
+	 */
+	public static void checkUserAdmin(SKUser user){
+		if(user == null){
+			BusinessExceptionUtil.threwException("用户为空,请重新登录");
+		}
+		if(user.getType() != 3){
+			BusinessExceptionUtil.threwException("用户权限错误");
 		}
 	}
 }

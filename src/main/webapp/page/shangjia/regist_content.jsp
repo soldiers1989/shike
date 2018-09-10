@@ -227,13 +227,14 @@
               
                 <div class="mer_psc">
                     <input id="protocol" type="checkbox" checked="checked" disabled="disabled" class="merchant-protocol">我已仔细阅读并同意接受
-                    <a href="http://www.meib2c.com/Regist/UserAgreement" target="_blank">《用户使用协议》</a>
+                    <a href="#" target="_blank">《用户使用协议》</a>
                 </div>
                 <!--mer_psc-->
                 <div class="mer_pct" style="margin-top: 0;">
                     <input id="submit" type="submit" name="eReg_subimt" value="立即注册" class="qu_pxc p-red">
                 </div>
                 <!--mer_pc-->
+                <input type="hidden" name="type" id="smstype" value="2">
             </form> 
         </div>
         <div class="online_service">

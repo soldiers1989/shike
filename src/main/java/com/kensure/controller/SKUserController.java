@@ -20,6 +20,8 @@ import com.kensure.shike.user.model.SKUserSession;
 import com.kensure.shike.user.service.SKLoginService;
 import com.kensure.shike.user.service.SKSmsService;
 import com.kensure.shike.user.service.SKUserService;
+import com.kensure.shike.zhang.model.SKUserYue;
+import com.kensure.shike.zhang.service.SKUserYueService;
 
 /**
  * 用户的逻辑处理
@@ -39,6 +41,10 @@ public class SKUserController {
 
 	@Resource
 	private SKLoginService sKLoginService;
+	
+	@Resource
+	private SKUserYueService sKUserYueService;
+	
 
 	/**
 	 * 验证码发送，包括试客、商家
@@ -112,6 +118,17 @@ public class SKUserController {
 		int type = json.getInteger("type");
 		SKUserSession userSession = sKLoginService.login(mobile, password, type, req);		
 		return new ResultRowInfo(userSession);
+	}
+	
+	
+	/**
+	 * 账户余额
+	 */
+	@ResponseBody
+	@RequestMapping(value = "getzhyue.do", method = { RequestMethod.POST,RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	public ResultInfo getzhyue(HttpServletRequest req, HttpServletResponse rep) {
+		SKUserYue u = sKUserYueService.selectByUser();
+		return new ResultRowInfo(u);
 	}
 
 	/**
