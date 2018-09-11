@@ -113,4 +113,30 @@ public class SKBaobeiController {
 		sKBaobeiService.pay(id);
 		return new ResultRowInfo();
 	}
+	
+	/**
+	 * 通过
+	 */
+	@ResponseBody
+	@RequestMapping(value = "tongguo.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	public ResultInfo tongguo(HttpServletRequest req, HttpServletResponse rep) {
+		JSONObject json = RequestUtils.paramToJson(req);
+		Long id = json.getLong("id");
+		sKBaobeiService.tongguo(id);
+		return new ResultRowInfo();
+	}
+	
+	
+	/**
+	 * 试客查看的活动列表
+	 */
+	@ResponseBody
+	@RequestMapping(value = "sklist.do", method = { RequestMethod.POST }, produces = "application/json;charset=UTF-8")
+	public ResultInfo sklist(HttpServletRequest req, HttpServletResponse rep) {
+		JSONObject json = RequestUtils.paramToJson(req);
+		Integer typeid = json.getInteger("typeid");
+		String title = json.getString("title");
+		List<SKBaobei> list = sKBaobeiService.getSKList(typeid,title);
+		return new ResultRowsInfo(list);
+	}
 }

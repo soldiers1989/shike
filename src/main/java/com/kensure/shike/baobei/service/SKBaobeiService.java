@@ -19,6 +19,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -65,6 +66,9 @@ public class SKBaobeiService extends JSBaseService {
 	private SKBaobeiTPService sKBaobeiTPService;
 
 	@Resource
+	private SKBaobeiZTService sKBaobeiZTService;
+
+	@Resource
 	private SKBbrwService sKBbrwService;
 
 	@Resource
@@ -73,12 +77,11 @@ public class SKBaobeiService extends JSBaseService {
 	@Resource
 	private SKWordService sKWordService;
 
-	@Resource
-	private SKBaobeiZTService sKBaobeiZTService;
 
 	@Resource
 	private SKUserZhangService sKUserZhangService;
-
+	
+	
 	public SKBaobei selectOne(Long id) {
 		return dao.selectOne(id);
 	}
@@ -118,6 +121,7 @@ public class SKBaobeiService extends JSBaseService {
 		if (obj.getWangwang() == null) {
 			obj.setWangwang(0);
 		}
+		obj.setYsqnum(0L);
 		obj.setIsDel(0L);
 		obj.setStatus(0L);
 		return dao.insert(obj);
@@ -243,7 +247,13 @@ public class SKBaobeiService extends JSBaseService {
 	public List<SKBaobei> getList(Integer status) {
 		SKUser skuser = sKUserService.getUser();
 		SKUserService.checkUser(skuser);
-		Map<String, Object> parameters = MapUtils.genMap("userid", skuser.getId(), "status", status, "orderby", "created_time desc");
+		Map<String, Object> parameters = MapUtils.genMap("userid", skuser.getId(), "orderby", "created_time desc");
+		if(status != null){
+			parameters.put("status", status);
+		}
+		if(skuser.getType() == 3){
+    		parameters.remove("userid");
+    	}
 		List<SKBaobei> list = selectByWhere(parameters);
 		return list;
 	}
@@ -301,5 +311,54 @@ public class SKBaobeiService extends JSBaseService {
 		zhang.setYue(p.getXiaoji());
 		sKUserZhangService.add(zhang);
 	}
+	
+	
+	/**
+	 * 审核通过
+	 * 
+	 * @return
+	 */
+	public void tongguo(Long id) {
+		SKUser skuser = sKUserService.getUser();
+    	SKUserService.checkUserAdmin(skuser);
+		SKBaobei sk = selectOne(id);
+		if(sk.getStatus() >= 9){
+			BusinessExceptionUtil.threwException("已经通过审核");
+		}
+		sk.setStatus(9L);
+		update(sk);
+	}
 
+	
+	/**
+	 * 试客查看的活动列表,根据关键字和活动类型查询
+	 * 
+	 * @return
+	 */
+	public List<SKBaobei> getSKList(Integer typeid,String title) {
+		Map<String, Object> parameters = MapUtils.genMap("is_del", 0, "status", 9, "orderby", "disorder desc");
+		if(typeid != null){
+			parameters.put("typeid", typeid);
+		}
+		if(StringUtils.isNotBlank(title)){
+			parameters.put("title", title);
+		}
+		List<SKBaobei> list = selectByWhere(parameters);
+		return list;
+	}
+	
+	
+	/**
+	 * 试客查看一个活动的详情
+	 * 包括两张从表
+	 * @return
+	 */
+	public SKBaobei getSKBaobei(Long id) {
+		SKBaobei skbaobei = selectOne(id);
+		List<SKBaobeiTP> tplist = sKBaobeiTPService.getList(id);
+		SKBaobeiZT detail = sKBaobeiZTService.getDetail(id);
+		skbaobei.setTplist(tplist);
+		skbaobei.setXiangqing(detail);
+		return skbaobei;
+	}
 }

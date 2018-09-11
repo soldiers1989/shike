@@ -163,6 +163,7 @@ CREATE TABLE `sk_baobei` (
   `jiangli` decimal(10,2) DEFAULT NULL COMMENT '宝贝奖励', 
   `bbnum` bigint(20) DEFAULT NULL COMMENT '宝贝数量',
   `sqnum` bigint(20) DEFAULT NULL COMMENT '申请数量',
+  `ysqnum` bigint(20) DEFAULT NULL COMMENT '已申请数量',
   `zhuanhua` varchar(16) DEFAULT NULL COMMENT '转换率',
   `no_qq` varchar(32) NOT NULL COMMENT '联系qq账号',
   `guige` varchar(1024) DEFAULT NULL COMMENT '商品规格', 
@@ -172,7 +173,7 @@ CREATE TABLE `sk_baobei` (
   `zengzhi` int(11) DEFAULT NULL COMMENT '是否有增值服务，0是没有，1是有',
   `yingshou` decimal(10,2) DEFAULT NULL COMMENT '应付款项',
   `status` int(11) DEFAULT NULL COMMENT '流程状态，0是正常，1是已经付款，2是拒绝通过，9是申请通过,10是活动结束',
-  `is_del` int(11) DEFAULT NULL COMMENT '状态，1是正在活动，-1是删除',
+  `is_del` int(11) DEFAULT NULL COMMENT '状态，0是正在活动，1是删除',
   `hdtypeid` int(11) DEFAULT NULL COMMENT '活动类型id',
   `start_time` datetime NOT NULL COMMENT '活动开始时间',
   `end_time` datetime NOT NULL COMMENT '活动结束时间',
@@ -226,7 +227,7 @@ CREATE TABLE `sk_bbrw` (
 );
 
 -- 宝贝试客申请数据
-CREATE TABLE `sk_bbrw` (
+CREATE TABLE `sk_sqqk` (
   `id` bigint(20) NOT NULL COMMENT '主键',
   `bbid` bigint(20) DEFAULT NULL COMMENT '宝贝id',
   `rwid` bigint(20) DEFAULT NULL COMMENT '任务id',
@@ -239,11 +240,11 @@ CREATE TABLE `sk_bbrw` (
   `created_time` datetime NOT NULL COMMENT '创建时间',
   `updated_time` datetime NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`),
-  KEY `idx_sk_bbrw_bbid` (`bbid`)
+  KEY `idx_sk_sqqk_bbid` (`bbid`)
 );
 
 -- 宝贝试客申请中，产生的校验数据
-CREATE TABLE `sk_bbrw` (
+CREATE TABLE `sk_jysj` (
   `id` bigint(20) NOT NULL COMMENT '主键',
   `bbid` bigint(20) DEFAULT NULL COMMENT '宝贝id',
   `rwid` bigint(20) DEFAULT NULL COMMENT '任务id',
@@ -254,7 +255,7 @@ CREATE TABLE `sk_bbrw` (
   `created_time` datetime NOT NULL COMMENT '创建时间',
   `updated_time` datetime NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`),
-  KEY `idx_sk_bbrw_bbid` (`bbid`)
+  KEY `idx_sk_jysj_bbid` (`bbid`)
 );
 
 -- 宝贝价格明细

@@ -15,7 +15,7 @@
 				
 				<li id="4" class="left_titi"><strong><i class="iconfont icon-liwuhuodong"></i>商家管理<i class="iconfont icon-Toboottom il5 ft_up_down"></i></strong></li>
 				<li parentid="4"><a href="<%=BusiConstant.ht_chongzhilist.getKey() %>" id="openWindows31" target="_self">充值管理</a></li>
-				<li parentid="4"><a href="<%=BusiConstant.shangjia_huodonglist.getKey() %>" id="openWindows31" target="_self">活动管理</a></li>
+				<li parentid="4"><a href="<%=BusiConstant.ht_huodonglist.getKey() %>" id="openWindows31" target="_self">活动管理</a></li>
 				<li class="line"></li>
 
 				<li class="left_titi "><strong><i class="iconfont icon-zhanghuxinxi"></i>账户信息</strong> <i

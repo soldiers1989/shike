@@ -61,17 +61,6 @@ public class GLPageController {
 		return "page/shangjia/index.jsp";
 	}
 
-	// 店铺管理
-	@RequestMapping("dianpulist")
-	public String dianpulist(HttpServletRequest req, HttpServletResponse rep, Model model) {
-		req.setAttribute("index", indexlist);
-
-		List<String> body = new ArrayList<String>();
-		body.add("index_left.jsp");
-		body.add("./manager/dianpu_right.jsp");
-		req.setAttribute("bodypage", body);
-		return "page/shangjia/index.jsp";
-	}
 
 	// 活动列表
 	@RequestMapping("huodonglist")
@@ -79,21 +68,10 @@ public class GLPageController {
 		req.setAttribute("index", indexlist);
 
 		List<String> body = new ArrayList<String>();
-		body.add("index_left.jsp");
-		body.add("./manager/huodong_right.jsp");
+		body.add("indexht_left.jsp");
+		body.add("./gl/huodong_right.jsp");
 		req.setAttribute("bodypage", body);
 		return "page/shangjia/index.jsp";
 	}
 
-	// 支付页面
-	@RequestMapping("payinfo")
-	public String payinfo(HttpServletRequest req, HttpServletResponse rep, Model model) {
-		req.setAttribute("index", indexlist);
-		List<String> body = new ArrayList<String>();
-		body.add("index_left.jsp");
-		body.add("./manager/payinfo_right.jsp");
-		req.setAttribute("bodypage", body);
-		req.setAttribute("id", req.getParameter("id"));
-		return "page/shangjia/index.jsp";
-	}
 }

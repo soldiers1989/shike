@@ -14,6 +14,7 @@
 		jiangli,
 		bbnum,
 		sqnum,
+		ysqnum,
 		zhuanhua,
 		no_qq as noQq,
 		guige,
@@ -48,6 +49,7 @@
 		jiangli,
 		bbnum,
 		sqnum,
+		ysqnum,
 		zhuanhua,
 		no_qq,
 		guige,
@@ -84,6 +86,7 @@
 			#{jiangli},
 			#{bbnum},
 			#{sqnum},
+			#{ysqnum},		
 			#{zhuanhua},
 			#{noQq},
 			#{guige},
@@ -122,6 +125,7 @@
 				#{item.jiangli},
 				#{item.bbnum},
 				#{item.sqnum},
+				#{item.ysqnum},		
 				#{item.zhuanhua},
 				#{item.noQq},
 				#{item.guige},
@@ -311,6 +315,9 @@
 		<if test="sqnum != null">
 			sqnum = #{sqnum},
 		</if>
+		<if test="ysqnum != null">
+			sqnum = #{ysqnum},
+		</if>	
 		<if test="zhuanhua != null">
 			zhuanhua = #{zhuanhua},
 		</if>

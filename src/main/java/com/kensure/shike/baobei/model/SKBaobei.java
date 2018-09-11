@@ -60,6 +60,12 @@ public class SKBaobei extends BaseInfo {
 	/** 申请数量 */
 	private Long sqnum;
 
+	/** 已经申请数量 */
+	private Long ysqnum;
+	
+	/** 已经中奖人数 */
+	private Long yzj;
+	
 	/** 转换率 */
 	private String zhuanhua;
 
@@ -87,7 +93,7 @@ public class SKBaobei extends BaseInfo {
 	/** 流程状态，0是正常，1是申请，2是拒绝通过，9是申请通过 ,10是活动结束*/
 	private Long status;
 
-	/** 状态，1是正在活动，-1是删除，2是活动结束 */
+	/** 状态，0是正在活动，1是删除 */
 	private Long isDel;
 
 	/** 活动类型id */
@@ -419,6 +425,22 @@ public class SKBaobei extends BaseInfo {
 
 	public void setBbrwlist(List<SKBbrw> bbrwlist) {
 		this.bbrwlist = bbrwlist;
+	}
+
+	public Long getYsqnum() {
+		return ysqnum;
+	}
+
+	public void setYsqnum(Long ysqnum) {
+		this.ysqnum = ysqnum;
+	}
+
+	public Long getYzj() {
+		return yzj;
+	}
+
+	public void setYzj(Long yzj) {
+		this.yzj = yzj;
 	}
 
 }

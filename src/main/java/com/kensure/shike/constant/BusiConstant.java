@@ -69,14 +69,21 @@ public class BusiConstant {
 	public static final KVBean shangjia_baobeilist_do = new KVBean(context + "/baobei/list.do", "活动信息查询");
 	public static final KVBean shangjia_payinfo_do = new KVBean(context + "/baobei/payinfo.do", "支付计算");
 	public static final KVBean shangjia_pay_do = new KVBean(context + "/baobei/pay.do", "支付运作");
+	public static final KVBean shike_baobeilist_do = new KVBean(context + "/baobei/sklist.do", "试客查看宝贝列表");
 	
 	
 	
 	
 	//后台服务
-	public static final KVBean ht_chongzhilist = new KVBean(context + "/gl/chongzhilist", "后台充值列表");
-	
+	public static final KVBean ht_chongzhilist = new KVBean(context + "/gl/chongzhilist", "后台充值列表");	
+	public static final KVBean ht_huodonglist = new KVBean(context + "/gl/huodonglist", "后台活动列表");	
 	public static final KVBean ht_chongzhitongguo_do = new KVBean(context + "/inout/tongguo.do", "通过充值");
+	public static final KVBean ht_baobeitongguo_do = new KVBean(context + "/baobei/tongguo.do", "宝贝通过审核");
 	
+	//系统级别,获取字典
+	public static final KVBean sys_dictlist_do = new KVBean(context + "/sys/dictlist.do", "获取字典");
+	
+	//试客路径
+	public static final String shikemobilepath = context + "/page/mobile";
 
 }
