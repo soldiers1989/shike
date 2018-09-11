@@ -34,38 +34,53 @@ public class TaoBaoService extends JSBaseService {
 			String a = picurl.substring(0, picurl.lastIndexOf("."));
 			String c = a.substring(0, a.lastIndexOf("."));
 			String b = picurl.substring(picurl.lastIndexOf("."));
-			String bigurl = c+b;
+			String bigurl = c + b;
 			picList.add(bigurl);
 		}
-//		String con = doc.select("div#description").text();
+		// String con = doc.select("div#description").text();
 
 		return picList;
 	}
 
 	/**
 	 * 获取宝贝详情
+	 * 
 	 * @param url
 	 * @return
 	 */
 	public static String getContent(String url) {
-		//通过url截取淘宝id
+		// 通过url截取淘宝id
 		String[] canshu = url.split("&");
 		String id = null;
-		for(String zhi:canshu){
-			if(zhi.startsWith("id=")){
+		for (String zhi : canshu) {
+			if (zhi.startsWith("id=")) {
 				id = zhi.substring(3);
 				break;
 			}
 		}
 		String html = "";
-		if(StringUtils.isNotBlank(id)){
-			String m = "http://hws.m.taobao.com/cache/wdesc/5.0/?id="+id;
+		StringBuffer sb = new StringBuffer();
+		if (StringUtils.isNotBlank(id)) {
+			String m = "http://hws.m.taobao.com/cache/wdesc/5.0/?id=" + id;
 			html = HttpUtils.getBody(m);
+
+			String tag = "tfsContent : '";
+
+			String c1 = html.substring(html.indexOf(tag) + tag.length());
+			c1 = c1.substring(0, c1.indexOf("',"));
+			String[] c2 = c1.split("src=\"");
+			for (String c3 : c2) {
+				if (c3.contains("\"")) {
+					String c4 = c3.substring(0, c3.indexOf("\""));
+					if (c4.indexOf("_!!") != -1) {
+						sb.append(c4).append("sktag");
+					}
+				}
+			}
 		}
-		return html;
+		return sb.toString();
 	}
-	
-	
+
 	/**
 	 * 抓取淘宝图片和详情链接
 	 * 
@@ -88,12 +103,9 @@ public class TaoBaoService extends JSBaseService {
 	public static void main(String[] args) {
 		// fenxi();
 
-		String ds = "//img.alicdn.com/imgextra/i4/2189242944/TB2l4_3uEhnpuFjSZFEXXX0PFXa_!!2189242944.jpg_60x60q90.jpg";
-		String a = ds.substring(0, ds.lastIndexOf("."));
-		String c = a.substring(0, a.lastIndexOf("."));
-		String b = ds.substring(ds.lastIndexOf("."));
-		System.out.println(c);
-		System.out.println(b);
+		String url = "https://detail.tmall.com/item.htm?id=551968898854&spm=a230r.7195193.1997079397.20.XRP1bz&abbucket=12";
+		String html = HttpUtils.getBody(url);
+		System.out.println(html);
 	}
 
 }

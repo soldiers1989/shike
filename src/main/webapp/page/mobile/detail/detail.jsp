@@ -6,6 +6,7 @@
 <%
 	String context = BusiConstant.shikemobilepath;
 	SKBaobei baobei = (SKBaobei)request.getAttribute("baobei");
+	String[] details = baobei.getXiangqing().getContent().split("sktag");
 %>
 <!DOCTYPE html>
 <html>
@@ -31,7 +32,7 @@
 
         <section class="aui-flexView">
             <header class="aui-navBar aui-navBar-fixed">
-                <a href="javascript:;" class="aui-navBar-item">
+                <a href="javascript:history.go(-1);" class="aui-navBar-item">
                     <i class="icon icon-return"></i>
                 </a>
                 <div class="aui-center">
@@ -66,7 +67,7 @@
                 <div class="aui-product-head aui-footer-flex">
                     
                     <span>￥<%=baobei.getSalePrice() %></span>
-                    <em>剩余 41/<%=baobei.getBbnum() %>份</em>
+                    <em>剩余 <%= baobei.getBbnum()-baobei.getYzj()%>/<%=baobei.getBbnum() %>份</em>
                 </div>
                 <div class="aui-product-title">
                     <h2><%=baobei.getTitle() %></h2>
@@ -76,7 +77,7 @@
                     <img src="images/icon-rb.png" alt="">
                     <span><%=baobei.getSqnum() %>人 已申请</span>
 					<img src="images/icon-rb.png" alt="">
-					<span>100人 已中奖</span>
+					<span><%=baobei.getYzj() %>人 已中奖</span>
                 </div>
                
                 <div class="aui-introduce">
@@ -93,41 +94,18 @@
                             <div class="tab-panel-item tab-active">
                                 <div class="tab-item">
                                     <div class="aui-page-img">
-                                        <div class="aui-page-pig">
-                                            <img src="images/page-001.png" alt="">
-                                        </div>
-                                        <img src="images/page-002.png" alt="">
-                                        <img src="images/page-003.png" alt="">
-                                        <img src="images/page-004.png" alt="">
-                                        <img src="images/page-005.png" alt="">
-                                        <img src="images/page-006.png" alt="">
-                                        <img src="images/page-007.png" alt="">
-                                        <img src="images/page-008.png" alt="">
-                                        <img src="images/page-009.png" alt="">
+                                    <%for(String img:details){ %>
+                                        <img src="<%=img %>" alt="">          
+                                     <%} %>
                                     </div>                         
                                 </div>
                             </div>                    
                         </div>
                     </div>
                 </div>
-                <div class="m-actionsheet" id="actionSheet">
-                    <div class="aui-show-box">
-                        
-                        <div class="aui-footer-group aui-footer-flex1">
-                            <div class="aui-footer-flex">
-                                <div class="aui-btn aui-btn-gray">
-                                    <span>加入购物车</span>
-                                </div>
-                                <div class="aui-btn aui-btn-red">
-                                    <span>立即购买</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </section>
             <footer class="aui-footer-button aui-footer-flex aui-footer-fixed">
-                <div class="aui-footer-wrap">
+                <div class="aui-footer-wrap" onclick="history.go(-1);">
                     <i class="icon-shop"></i>
                     <span>返回</span>
                 </div>

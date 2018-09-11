@@ -76,6 +76,11 @@
 		<if test="status != null">			
 			and status = #{status}			
 		</if>
+		<if test="bigthanstatus != null">	
+		<![CDATA[		
+			and status >= #{bigthanstatus}		
+		]]>	
+		</if>
 		<if test="lastStatus != null">			
 			and last_status = #{lastStatus}			
 		</if>

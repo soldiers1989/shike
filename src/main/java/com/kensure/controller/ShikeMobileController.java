@@ -40,6 +40,6 @@ public class ShikeMobileController {
 		Long id = json.getLong("id");
 		SKBaobei baobei = sKBaobeiService.getSKBaobei(id);
 		req.setAttribute("baobei", baobei);
-		return "page/mobile/mobile/detail.jsp";
+		return "page/mobile/detail/detail.jsp";
 	}
 }

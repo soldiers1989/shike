@@ -112,7 +112,7 @@ function huodongsucdo(data){
 	var rows = data.resultData.rows;
 	for(var i=0;i<rows.length;i++){
 		var row = rows[i];
-		var html = "<a href=\"javascript:;\" class=\"aui-list-product-item\">"
+		var html = "<a href=\"<%=BusiConstant.shike_detail.getKey()%>?id="+row.id+"\" class=\"aui-list-product-item\">"
         +"<div class=\"aui-list-product-item-img\">"
         +"    <img src=\""+row.zturl+"\" >"
         +"</div>"

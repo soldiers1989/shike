@@ -85,5 +85,7 @@ public class BusiConstant {
 	
 	//试客路径
 	public static final String shikemobilepath = context + "/page/mobile";
+	
+	public static final KVBean shike_detail = new KVBean(context + "/skm/detail", "宝贝详情");
 
 }

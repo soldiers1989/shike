@@ -77,7 +77,9 @@ public class SKBaobeiService extends JSBaseService {
 	@Resource
 	private SKWordService sKWordService;
 
-
+	@Resource
+	private SKSkqkService sKSkqkService;
+	
 	@Resource
 	private SKUserZhangService sKUserZhangService;
 	
@@ -219,6 +221,7 @@ public class SKBaobeiService extends JSBaseService {
 		SKBaobeiZT zt = new SKBaobeiZT();
 		zt.setUrl(obj.getUrl());
 		String content = TaoBaoService.getContent(obj.getUrl());
+		zt.setBbid(obj.getId());
 		zt.setContent(content);
 		sKBaobeiZTService.insert(zt);
 
@@ -350,15 +353,18 @@ public class SKBaobeiService extends JSBaseService {
 	
 	/**
 	 * 试客查看一个活动的详情
-	 * 包括两张从表
+	 * 包括三张从表
 	 * @return
 	 */
 	public SKBaobei getSKBaobei(Long id) {
 		SKBaobei skbaobei = selectOne(id);
 		List<SKBaobeiTP> tplist = sKBaobeiTPService.getList(id);
 		SKBaobeiZT detail = sKBaobeiZTService.getDetail(id);
+		//中奖数量
+		long zjnum = sKSkqkService.getZJNum(id);
 		skbaobei.setTplist(tplist);
 		skbaobei.setXiangqing(detail);
+		skbaobei.setYzj(zjnum);
 		return skbaobei;
 	}
 }

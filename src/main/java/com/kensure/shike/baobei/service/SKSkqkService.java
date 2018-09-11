@@ -114,6 +114,12 @@ public class SKSkqkService extends JSBaseService {
 		return sk;
 	}
 
+	//获取宝贝中奖情况
+	public long getZJNum(long bbid){
+		Map<String, Object> parameters = MapUtils.genMap("bbid", bbid,"bigthanstatus",51);
+		return selectCountByWhere(parameters);
+	}
+
 	/**
 	 * 申请
 	 * @param bbrw
