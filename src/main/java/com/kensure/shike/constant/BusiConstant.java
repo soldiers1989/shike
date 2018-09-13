@@ -70,6 +70,7 @@ public class BusiConstant {
 	public static final KVBean shangjia_payinfo_do = new KVBean(context + "/baobei/payinfo.do", "支付计算");
 	public static final KVBean shangjia_pay_do = new KVBean(context + "/baobei/pay.do", "支付运作");
 	public static final KVBean shike_baobeilist_do = new KVBean(context + "/baobei/sklist.do", "试客查看宝贝列表");
+	public static final KVBean shike_wdhd_do = new KVBean(context + "/baobei/skwdhd.do", "试客查看我的活动列表");
 	
 	
 	
@@ -82,10 +83,24 @@ public class BusiConstant {
 	
 	//系统级别,获取字典
 	public static final KVBean sys_dictlist_do = new KVBean(context + "/sys/dictlist.do", "获取字典");
+	public static final KVBean user_sms_do = new KVBean(context + "/user/sms.do", "发送验证码");
 	
 	//试客路径
 	public static final String shikemobilepath = context + "/page/mobile";
 	
 	public static final KVBean shike_detail = new KVBean(context + "/skm/detail", "宝贝详情");
+	public static final KVBean shike_haohuo = new KVBean(context + "/skm/haohuo", "好货页面");
+	public static final KVBean shike_wdhd = new KVBean(context + "/skm/wdhd", "收藏关注页面");
+	public static final KVBean shike_login = new KVBean(context + "/skm/login", "登陆页面");
+	public static final KVBean shike_regist = new KVBean(context + "/skm/regist", "注册页面");
+	public static final KVBean shike_gouwuche = new KVBean(context + "/skm/gouwuche", "购物车页面");
+	public static final KVBean shike_scgz = new KVBean(context + "/skm/scgz", "收藏关注页面");
+	
+	public static final KVBean shike_addsk_do = new KVBean(context + "/user/addsk.do", "试客注册并登陆");
+	public static final KVBean shike_shenqing_do = new KVBean(context + "/baobei/shenqing.do", "立即申请操作");
+	public static final KVBean shike_liucheng_do = new KVBean(context + "/baobei/liucheng.do", "后续流程性操作");
+	public static final KVBean shike_addfile_do = new KVBean(context + "/baobei/addfile.do", "图片上传操作");
+	
+	
 
 }

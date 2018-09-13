@@ -29,6 +29,7 @@ public class DateUtils {
 
 	public static String DATE_FORMAT_PATTERN = "yyyy-MM-dd HH:mm:ss";
 	public static String DATE_FORMAT1 = "yyyyMMddHHmmss";
+	public static String DAY_FORMAT1 = "yyyyMMdd";
 
 	public static String DAY_FORMAT = "yyyy-MM-dd";
 

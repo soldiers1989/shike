@@ -40,6 +40,5 @@ function afterVerification(_ctr,mobile) {
 	        }
 	    });
 	}
-
 }
 

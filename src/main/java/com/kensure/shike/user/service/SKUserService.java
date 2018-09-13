@@ -38,6 +38,7 @@ import com.kensure.shike.user.dao.SKUserDao;
 import com.kensure.shike.user.model.SKLogin;
 import com.kensure.shike.user.model.SKSms;
 import com.kensure.shike.user.model.SKUser;
+import com.kensure.shike.user.model.SKUserSession;
 
 /**
  * 用户表服务实现类
@@ -153,15 +154,14 @@ public class SKUserService extends JSBaseService {
 	}
 
 	/**
-	 * 商家注册
+	 * 商家和试客注册
 	 * 
-	 * @param phone
-	 * @param type
-	 *            1是试客，2是商家，3是管理员
+	 * @param SKUser
+	 * @param QRCode
 	 * @return
 	 */
 	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
-	public SKUser addShangJia(SKUser sKUser, String QRCode) {
+	public SKUser addSJOrSk(SKUser sKUser, String QRCode) {
 		Integer type = sKUser.getType();
 		if (type < 1 || type > 2) {
 			BusinessExceptionUtil.threwException("传参错误。");
@@ -169,6 +169,21 @@ public class SKUserService extends JSBaseService {
 		invalidUser(sKUser);
 		addUser(sKUser, QRCode);
 		return sKUser;
+	}
+	
+	/**
+	 * 试客注册同时登陆
+	 * 
+	 * @param SKUser
+	 * @param QRCode
+	 * @return
+	 */
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+	public SKUserSession addSkAndLogin(SKUser sKUser, String QRCode, HttpServletRequest request) {
+		invalidSKUser(sKUser);
+		addSJOrSk(sKUser, QRCode);
+		SKUserSession session = sKLoginService.login(sKUser.getPhone(), sKUser.getPassword(), sKUser.getType(), request);
+		return session;
 	}
 
 	/**
@@ -214,6 +229,16 @@ public class SKUserService extends JSBaseService {
 		ParamUtils.isBlankThrewException(sKUser.getPhone(), "手机号不能为空");
 		ParamUtils.isBlankThrewException(sKUser.getNoQq(), "qq不能为空");
 		MobileUtils.checkMobile(sKUser.getPhone());
+	}
+	
+	/**
+	 * 校验试客的数据
+	 * 
+	 * @param sKUser
+	 */
+	private void invalidSKUser(SKUser sKUser) {
+		ParamUtils.isBlankThrewException(sKUser.getNoAlipay(), "支付宝账户不能为空");
+		ParamUtils.isBlankThrewException(sKUser.getNoTaobao(), "淘宝账户不能为空");
 	}
 
 	/**
@@ -277,6 +302,19 @@ public class SKUserService extends JSBaseService {
 			BusinessExceptionUtil.threwException("用户为空,请重新登录");
 		}
 		if(user.getType() != 3){
+			BusinessExceptionUtil.threwException("用户权限错误");
+		}
+	}
+	
+	/**
+	 * 校验用户会话信息
+	 * @param user
+	 */
+	public static void checkUserSK(SKUser user){
+		if(user == null){
+			BusinessExceptionUtil.threwException("用户为空,请重新登录");
+		}
+		if(user.getType() != 1){
 			BusinessExceptionUtil.threwException("用户权限错误");
 		}
 	}

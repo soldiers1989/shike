@@ -30,6 +30,9 @@ public class SKJysj extends BaseInfo{
 
 	/**任务id*/		
 	private Long rwid; 
+	
+	/**用户id*/	
+	private Long userid; 
 
 	/**这个和sk_bbrw中对应*/		
 	private Long status; 
@@ -91,6 +94,14 @@ public class SKJysj extends BaseInfo{
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public Long getUserid() {
+		return userid;
+	}
+
+	public void setUserid(Long userid) {
+		this.userid = userid;
 	}
 
 }

@@ -16,6 +16,7 @@ import java.util.List;
 
 import co.kensure.frame.BaseInfo;
 import co.kensure.mem.DateUtils;
+import co.kensure.mem.StringKSUtils;
 
 /**
  * 商品活动表对象类
@@ -35,7 +36,10 @@ public class SKBaobei extends BaseInfo {
 
 	/** 店铺id */
 	private Long dpid;
-
+	
+	/** 店铺名称 */
+	private String dpname;
+	
 	/** 宝贝标题 */
 	private String title;
 
@@ -443,4 +447,17 @@ public class SKBaobei extends BaseInfo {
 		this.yzj = yzj;
 	}
 
+	public String getDpname() {
+		return dpname;
+	}
+
+	public void setDpname(String dpname) {
+		this.dpname = dpname;
+	}
+
+	public String getDpnameS() {
+		return StringKSUtils.doMedDouble(dpname);
+	}
+
+	
 }

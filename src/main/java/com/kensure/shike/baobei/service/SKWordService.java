@@ -20,85 +20,90 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import co.kensure.frame.JSBaseService;
+import co.kensure.mem.MapUtils;
 
 import com.kensure.basekey.BaseKeyService;
 import com.kensure.shike.baobei.dao.SKWordDao;
 import com.kensure.shike.baobei.model.SKWord;
 
-
 /**
  * 关键词服务实现类
+ * 
  * @author fankd created on 2018-9-9
- * @since 
+ * @since
  */
 @Service
-public class SKWordService extends JSBaseService{
-	
+public class SKWordService extends JSBaseService {
+
 	@Resource
 	private SKWordDao dao;
-    
+
 	@Resource
 	private BaseKeyService baseKeyService;
-    
-    public SKWord selectOne(Long id){
-    	return dao.selectOne(id);
-    }
-	
-	public List<SKWord> selectByIds(Collection<Long> ids){
+
+	public SKWord selectOne(Long id) {
+		return dao.selectOne(id);
+	}
+
+	public List<SKWord> selectByIds(Collection<Long> ids) {
 		return dao.selectByIds(ids);
 	}
-	
-	public List<SKWord> selectAll(){
+
+	public List<SKWord> selectAll() {
 		return dao.selectAll();
 	}
-	
-	public List<SKWord> selectByWhere(Map<String, Object> parameters){
+
+	public List<SKWord> selectByWhere(Map<String, Object> parameters) {
 		return dao.selectByWhere(parameters);
 	}
-	
-	
-	public long selectCount(){
+
+	public long selectCount() {
 		return dao.selectCount();
 	}
-	
-	public long selectCountByWhere(Map<String, Object> parameters){
+
+	public long selectCountByWhere(Map<String, Object> parameters) {
 		return dao.selectCountByWhere(parameters);
 	}
-	
-	
-	public boolean insert(SKWord obj){
+
+	public boolean insert(SKWord obj) {
 		super.beforeInsert(obj);
 		obj.setId(baseKeyService.getKey("sk_word"));
 		return dao.insert(obj);
 	}
-	
-	public boolean insertInBatch(List<SKWord> objs){
+
+	public boolean insertInBatch(List<SKWord> objs) {
 		return dao.insertInBatch(objs);
 	}
-	
-	
-	public boolean update(SKWord obj){
+
+	public boolean update(SKWord obj) {
 		return dao.update(obj);
 	}
-    
-    public boolean updateByMap(Map<String, Object> params){
+
+	public boolean updateByMap(Map<String, Object> params) {
 		return dao.updateByMap(params);
 	}
-    
-    
-	public boolean delete(Long id){
+
+	public boolean delete(Long id) {
 		return dao.delete(id);
-	}	
-	
-    public boolean deleteMulti(Collection<Long> ids){
+	}
+
+	public boolean deleteMulti(Collection<Long> ids) {
 		return dao.deleteMulti(ids);
 	}
-    
-    public boolean deleteByWhere(Map<String, Object> parameters){
+
+	public boolean deleteByWhere(Map<String, Object> parameters) {
 		return dao.deleteByWhere(parameters);
 	}
-    
-    
-  
+
+	/**
+	 * 找到关键字
+	 * 
+	 * @return
+	 */
+	public List<SKWord> getList(Long bbid) {
+		Map<String, Object> parameters = MapUtils.genMap("bbid", bbid);
+		List<SKWord> list = selectByWhere(parameters);
+		return list;
+	}
 
 }

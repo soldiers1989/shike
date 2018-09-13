@@ -1,5 +1,6 @@
 package com.kensure.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -10,16 +11,24 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import co.kensure.frame.Const;
 import co.kensure.frame.ResultInfo;
 import co.kensure.frame.ResultRowInfo;
 import co.kensure.frame.ResultRowsInfo;
 import co.kensure.http.RequestUtils;
+import co.kensure.io.FileUtils;
+import co.kensure.mem.DateUtils;
+import co.kensure.mem.Utils;
 
 import com.alibaba.fastjson.JSONObject;
 import com.kensure.shike.baobei.model.SKBaobei;
+import com.kensure.shike.baobei.model.SKJysj;
 import com.kensure.shike.baobei.model.SKPayInfo;
+import com.kensure.shike.baobei.model.SKSkqk;
 import com.kensure.shike.baobei.service.SKBaobeiService;
+import com.kensure.shike.baobei.service.SKSkqkService;
 import com.kensure.shike.baobei.service.TaoBaoService;
 
 /**
@@ -37,6 +46,10 @@ public class SKBaobeiController {
 
 	@Resource
 	private SKBaobeiService sKBaobeiService;
+	
+	@Resource
+	private SKSkqkService sKSkqkService;
+	
 
 	/**
 	 * 根据url获取商品的详情
@@ -113,7 +126,7 @@ public class SKBaobeiController {
 		sKBaobeiService.pay(id);
 		return new ResultRowInfo();
 	}
-	
+
 	/**
 	 * 通过
 	 */
@@ -125,8 +138,7 @@ public class SKBaobeiController {
 		sKBaobeiService.tongguo(id);
 		return new ResultRowInfo();
 	}
-	
-	
+
 	/**
 	 * 试客查看的活动列表
 	 */
@@ -136,7 +148,60 @@ public class SKBaobeiController {
 		JSONObject json = RequestUtils.paramToJson(req);
 		Integer typeid = json.getInteger("typeid");
 		String title = json.getString("title");
-		List<SKBaobei> list = sKBaobeiService.getSKList(typeid,title);
+		List<SKBaobei> list = sKBaobeiService.getSKList(typeid, title);
 		return new ResultRowsInfo(list);
 	}
+
+	/**
+	 * 立即申请
+	 */
+	@ResponseBody
+	@RequestMapping(value = "shenqing.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	public ResultInfo shenqing(HttpServletRequest req, HttpServletResponse rep) {
+		JSONObject json = RequestUtils.paramToJson(req);
+		Long id = json.getLong("id");
+		sKBaobeiService.shenqing(id);
+		return new ResultRowInfo();
+	}
+
+	/**
+	 * 流程
+	 */
+	@ResponseBody
+	@RequestMapping(value = "liucheng.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	public ResultInfo liucheng(HttpServletRequest req, HttpServletResponse rep) {
+		JSONObject json = RequestUtils.paramToJson(req);
+		Long id = json.getLong("id");
+		Long status = json.getLong("status");
+		String datas = json.getString("datas");
+		List<SKJysj> jysjList = JSONObject.parseArray(datas, SKJysj.class);
+		sKBaobeiService.liucheng(id, status, jysjList);
+		return new ResultRowInfo();
+	}
+	
+	/**
+	 * 上传图片
+	 */
+	@ResponseBody
+	@RequestMapping(value = "addfile.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	public ResultInfo addfile(MultipartFile file) {
+		String path ="/filetemp/"+DateUtils.format(new Date(),DateUtils.DAY_FORMAT1);
+		String name = Utils.getUUID()+".jpg";
+		FileUtils.fileToIo(file, Const.ROOT_PATH+path,name);
+		String url = path+"/"+name;
+		return new ResultRowInfo(url);
+	}
+	
+	/**
+	 * 我的活动列表
+	 */
+	@ResponseBody
+	@RequestMapping(value = "skwdhd.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	public ResultInfo skwdhd(HttpServletRequest req, HttpServletResponse rep) {
+		JSONObject json = RequestUtils.paramToJson(req);
+		Long status = json.getLong("status");
+		List<SKSkqk> list = sKSkqkService.getSkQKList(status);
+		return new ResultRowsInfo(list);
+	}
+	
 }

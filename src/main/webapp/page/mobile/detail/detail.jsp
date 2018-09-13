@@ -119,7 +119,7 @@
                             <span>3888金币兑换</span>
                         </div>
                         <div class="aui-btn aui-btn-red">
-                            <span>立即申请</span>
+                            <span onclick="shenqin();">立即申请</span>
                         </div>
                     </div>
                 </div>
@@ -170,57 +170,23 @@
     </body>
 </html>
  
-
 <script>
+
 function dictsucdo(data){
-	var rows = data.resultData.rows;
-	for(var i=0;i<rows.length;i++){
-		var row = rows[i];
-		var html = " <li class=\"n-tabItem\" data-id=\"type"+row.code+"\">"
-        +"<a href=\"#\" id=\"type"+row.code+"\" >"+row.simpleName+"</a>"
-        +"</li>";
-		$("#auto-id-1509603311057").append(html);
-	}	
+	window.location.href="<%=BusiConstant.shike_gouwuche.getKey()%>?id=<%=baobei.getId()%>";
 }
-function dictlist(){
-   var data = {typeid:1};
-   var url = "<%=BusiConstant.sys_dictlist_do.getKey()%>";
+function shenqin(){
+   var data = {id:<%=baobei.getId()%>};
+   checkuser(); 
+   var url = "<%=BusiConstant.shike_shenqing_do.getKey()%>";
    postdo(url, data, dictsucdo,null, null);
 }
-dictlist();
 
-
-function huodongsucdo(data){
-	var rows = data.resultData.rows;
-	for(var i=0;i<rows.length;i++){
-		var row = rows[i];
-		var html = "<a href=\"javascript:;\" class=\"aui-list-product-item\">"
-        +"<div class=\"aui-list-product-item-img\">"
-        +"    <img src=\""+row.zturl+"\" >"
-        +"</div>"
-        +"<div class=\"aui-list-product-item-text\">"
-        +"  <h3>"+row.title+"</h3>"
-        +"   <div class=\"aui-list-product-mes-box\">"
-        +"        <div>"
-        +"           <span class=\"aui-list-product-item-price\">"
-        +"                <em>¥</em>"
-        +row.salePrice
-        +"           </span>"
-        +"           <span class=\"aui-list-product-item-del-price\">"+row.ysqnum+"人申请</span>"
-        +"        </div>"
-        +"    </div>"
-        +" </div>"
-        +" </a>"     
-		$("#huoping").append(html);
-	}	
-}
-function huodonglist(){
-   var data = {};
-   var url = "<%=BusiConstant.shike_baobeilist_do.getKey()%>";
-   postdo(url, data, huodongsucdo,null, null);
-}
-huodonglist();
-
-
+function checkuser(){
+	   var mdtype = $.cookie("mdtype");
+	   if(!mdtype || mdtype != 1){
+		   window.location.href="<%=BusiConstant.shike_login.getKey()%>";
+	   }
+	}
 
 </script>

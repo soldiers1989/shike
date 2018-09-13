@@ -36,4 +36,9 @@ function postdo(url,data,sucessdo,errdo,compdo) {
 	});	
 };
 
-
+function addcookie(usersession){
+	$.cookie("mdtokenid",usersession.tokenId);
+	$.cookie("mdname",usersession.name);
+	$.cookie("mdphone",usersession.phone);
+	$.cookie("mdtype",usersession.type);
+};

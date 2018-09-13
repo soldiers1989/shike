@@ -6,6 +6,7 @@
 		id,
 		bbid,
 		rwid,
+		userid,
 		status,
 		last_status as lastStatus,
 		jinbi,
@@ -20,6 +21,7 @@
 		id,
 		bbid,
 		rwid,
+		userid,
 		status,
 		last_status,
 		jinbi,
@@ -36,6 +38,7 @@
 			#{id},
 			#{bbid},
 			#{rwid},
+			#{userid},		
 			#{status},
 			#{lastStatus},
 			#{jinbi},
@@ -54,6 +57,7 @@
 				#{item.id},
 				#{item.bbid},
 				#{item.rwid},
+				#{item.userid},		
 				#{item.status},
 				#{item.lastStatus},
 				#{item.jinbi},
@@ -84,6 +88,9 @@
 		<if test="lastStatus != null">			
 			and last_status = #{lastStatus}			
 		</if>
+		<if test="userid != null">			
+			and userid = #{userid}			
+		</if>		
 		<if test="jinbi != null">			
 			and jinbi = #{jinbi}			
 		</if>

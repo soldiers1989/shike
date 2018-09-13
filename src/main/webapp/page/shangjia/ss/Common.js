@@ -32,7 +32,7 @@ function loginSubmit(type,returnurl) {
             	if(type == 3){
             		 location.href = "/shike/gl/chongzhilist";
             	}else if(type == 1){
-            		 location.href = "/shike";
+            		 location.href = "/shike/shangjia/index";
             	}
                
             } else {

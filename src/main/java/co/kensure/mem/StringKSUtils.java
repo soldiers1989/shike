@@ -61,4 +61,27 @@ public class StringKSUtils {
 		}
 	}
 
+	/**
+	 * 信息脱敏，偶数位转为*
+	 * 
+	 * @param s
+	 * @return
+	 */
+	public static String doMedDouble(String s) {
+		if (StringUtils.isBlank(s)) {
+			return null;
+		}
+		char[] ss = s.toCharArray();
+		String str = "";
+		for (int i = 0; ss.length > i; i++) {
+			char v = ss[0];
+			if (i % 2 == 0) {
+				str += v;
+			} else {
+				str += "*";
+			}
+		}
+		return str;
+	}
+
 }

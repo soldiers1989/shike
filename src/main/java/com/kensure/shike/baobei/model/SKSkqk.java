@@ -30,6 +30,9 @@ public class SKSkqk extends BaseInfo{
 
 	/**任务id*/		
 	private Long rwid; 
+	
+	/**用户id*/	
+	private Long userid; 
 
 	/**1是开始,-1是手动取消,-2是自动取消,11是货比三家，21是收藏关注加购物车宝贝,51是中奖，61是确认宝贝、提交付款订单，71反馈好评晒图,99是完成任务*/		
 	private Long status; 
@@ -45,6 +48,9 @@ public class SKSkqk extends BaseInfo{
 
 	/**宝贝奖励*/		
 	private Double jiangli; 
+	
+	/**宝贝*/		
+	private SKBaobei baobei; 
 
 	/**额外奖励*/		
 	private Double ewai; 
@@ -113,4 +119,19 @@ public class SKSkqk extends BaseInfo{
 		this.ewai = ewai;
 	}
 
+	public Long getUserid() {
+		return userid;
+	}
+
+	public void setUserid(Long userid) {
+		this.userid = userid;
+	}
+
+	public SKBaobei getBaobei() {
+		return baobei;
+	}
+
+	public void setBaobei(SKBaobei baobei) {
+		this.baobei = baobei;
+	}
 }

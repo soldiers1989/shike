@@ -11,21 +11,27 @@
  */
 package com.kensure.shike.baobei.service;
 
-import com.kensure.basekey.BaseKeyService;
-import com.kensure.shike.baobei.dao.SKJysjDao;
-import com.kensure.shike.baobei.model.SKBbrw;
-import com.kensure.shike.baobei.model.SKJysj;
-import com.kensure.shike.baobei.service.SKJysjService;
-
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
+import co.kensure.exception.BusinessExceptionUtil;
 import co.kensure.frame.JSBaseService;
+import co.kensure.mem.CollectionUtils;
+
+import com.kensure.basekey.BaseKeyService;
+import com.kensure.shike.baobei.dao.SKJysjDao;
+import com.kensure.shike.baobei.model.SKBaobei;
+import com.kensure.shike.baobei.model.SKJysj;
+import com.kensure.shike.user.model.SKUser;
+import com.kensure.shike.user.service.SKUserService;
 
 
 /**
@@ -41,7 +47,10 @@ public class SKJysjService extends JSBaseService{
 	
 	@Resource
 	private BaseKeyService baseKeyService;
-    
+	
+	@Resource
+	private SKUserService sKUserService;	
+	
     public SKJysj selectOne(Long id){
     	return dao.selectOne(id);
     }
@@ -100,12 +109,58 @@ public class SKJysjService extends JSBaseService{
 		return dao.deleteByWhere(parameters);
 	}
     
-    
-    public boolean save(SKBbrw bbrw,long status,List<SKJysj> jysjList){
-    	
-		return false;
+    @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+    public boolean save(SKBaobei baobei,long status,List<SKJysj> jysjList){
+    	//加购物车
+    	SKUser user = sKUserService.getUser();
+    	SKUserService.checkUser(user);
+    	checkJysj(jysjList, status, baobei, user);
+    	for (SKJysj jysj:jysjList) {
+    		insert(jysj);
+		}
+		return true;
 	}
     
+    /**
+     * 组装和校验数据
+     * @param jysjList
+     * @param status
+     * @param user
+     */
+    private void checkJysj(List<SKJysj> jysjList,Long status,SKBaobei baobei,SKUser user){
+    	int size = CollectionUtils.getSize(jysjList);
+    	if(status == 18){
+    		//加购物车
+    		SKJysj jysj = jysjList.get(0);
+    		jysj.setStatus(status);
+    		jysj.setBbid(baobei.getId());
+    		jysj.setUserid(user.getId());
+    		jysj.setTypeid(2L);
+    		jysj.setBusitype("dpm");
+    		if(size != 1){
+    			BusinessExceptionUtil.threwException("数据不正确");
+    		}
+    		if(!jysj.getContent().equals(baobei.getDpname())){
+    			BusinessExceptionUtil.threwException("请输入正确的店铺名");
+    		}	
+    	}if(status == 21){
+    		//收藏关注图
+    		if(size != 2){
+    			BusinessExceptionUtil.threwException("数据不正确2");
+    		}
+    		for(SKJysj jysj:jysjList){
+    			jysj.setStatus(status);
+        		jysj.setBbid(baobei.getId());
+        		jysj.setUserid(user.getId());
+        		jysj.setTypeid(3L);
+        		if(StringUtils.isBlank(jysj.getContent())){
+        			BusinessExceptionUtil.threwException("请上传图片");
+        		}	
+    		}    	
+    	}else{
+    		BusinessExceptionUtil.threwException("数据不正确1");
+    	}
+    }
   
 
 }

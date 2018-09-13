@@ -37,8 +37,11 @@ import com.kensure.shike.baobei.model.SKBaobeiTP;
 import com.kensure.shike.baobei.model.SKBaobeiZT;
 import com.kensure.shike.baobei.model.SKBbrw;
 import com.kensure.shike.baobei.model.SKJindian;
+import com.kensure.shike.baobei.model.SKJysj;
 import com.kensure.shike.baobei.model.SKPayInfo;
 import com.kensure.shike.baobei.model.SKWord;
+import com.kensure.shike.dianpu.model.SKDianPu;
+import com.kensure.shike.dianpu.service.SKDianPuService;
 import com.kensure.shike.user.model.SKUser;
 import com.kensure.shike.user.service.SKUserService;
 import com.kensure.shike.zhang.model.SKUserZhang;
@@ -83,7 +86,13 @@ public class SKBaobeiService extends JSBaseService {
 	@Resource
 	private SKUserZhangService sKUserZhangService;
 	
+	@Resource
+	private SKDianPuService sKDianPuService;
 	
+	@Resource
+	private SKJysjService sKJysjService;
+	
+
 	public SKBaobei selectOne(Long id) {
 		return dao.selectOne(id);
 	}
@@ -296,6 +305,7 @@ public class SKBaobeiService extends JSBaseService {
 	 * 
 	 * @return
 	 */
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
 	public void pay(Long id) {
 		List<SKPayInfo> list = payinfo(id);
 		SKPayInfo p = list.get(list.size() - 1);
@@ -321,6 +331,7 @@ public class SKBaobeiService extends JSBaseService {
 	 * 
 	 * @return
 	 */
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
 	public void tongguo(Long id) {
 		SKUser skuser = sKUserService.getUser();
     	SKUserService.checkUserAdmin(skuser);
@@ -360,11 +371,48 @@ public class SKBaobeiService extends JSBaseService {
 		SKBaobei skbaobei = selectOne(id);
 		List<SKBaobeiTP> tplist = sKBaobeiTPService.getList(id);
 		SKBaobeiZT detail = sKBaobeiZTService.getDetail(id);
+		SKDianPu dianp = sKDianPuService.selectOne(skbaobei.getDpid());
 		//中奖数量
 		long zjnum = sKSkqkService.getZJNum(id);
 		skbaobei.setTplist(tplist);
 		skbaobei.setXiangqing(detail);
 		skbaobei.setYzj(zjnum);
+		skbaobei.setDpname(dianp.getName());
 		return skbaobei;
+	}
+	
+	
+	/**
+	 * 申请
+	 * 
+	 * @return
+	 */
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+	public void shenqing(Long id) {
+		SKUser skuser = sKUserService.getUser();
+    	SKUserService.checkUserSK(skuser);
+		SKBaobei baobei = selectOne(id);
+		if(baobei.getStatus() != 9){
+			BusinessExceptionUtil.threwException("宝贝未通过审核");
+		}
+		sKSkqkService.saveSQ(baobei,skuser);
+	}
+	
+	/**
+	 * 申请后的加购物车
+	 * 
+	 * @return
+	 */
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+	public void liucheng(Long id,long status,List<SKJysj> jysjList) {
+		SKUser skuser = sKUserService.getUser();
+    	SKUserService.checkUserSK(skuser);
+		SKBaobei baobei = getSKBaobei(id);
+		if(baobei.getStatus() != 9){
+			BusinessExceptionUtil.threwException("宝贝未通过审核");
+		}	
+		sKSkqkService.save(baobei,status,skuser);
+		
+		sKJysjService.save(baobei, status, jysjList);
 	}
 }

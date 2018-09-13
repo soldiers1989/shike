@@ -169,6 +169,9 @@
 		<if test="ysqnum != null">
 			ysqnum = #{ysqnum},
 		</if>
+		<if test="ysqnumAdd != null">
+			ysqnum = ysqnum+#{ysqnumAdd},
+		</if>
 		<if test="startTime != null">
 			start_time = #{startTime},
 		</if>

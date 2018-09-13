@@ -51,6 +51,14 @@ public class SKWord extends BaseInfo{
 	public String getWord() {
 		return word;
 	}
+	
+	public String getOrdermethodStr() {
+		String ordermethodStr = "";
+		if(ordermethod == 1){
+			ordermethodStr = "综合排序";
+		}
+		return ordermethodStr;
+	}
 
 	public void setWord(String word) {
 		this.word = word;

@@ -6,6 +6,7 @@
 		id,
 		bbid,
 		rwid,
+		userid,
 		status,
 		typeid,
 		busitype,
@@ -18,6 +19,7 @@
 		id,
 		bbid,
 		rwid,
+		userid,
 		status,
 		typeid,
 		busitype,
@@ -32,6 +34,7 @@
 			#{id},
 			#{bbid},
 			#{rwid},
+			#{userid},	
 			#{status},
 			#{typeid},
 			#{busitype},
@@ -48,6 +51,7 @@
 				#{item.id},
 				#{item.bbid},
 				#{item.rwid},
+				#{item.userid},	
 				#{item.status},
 				#{item.typeid},
 				#{item.busitype},
@@ -64,6 +68,9 @@
 		</if>
 		<if test="rwid != null">			
 			and rwid = #{rwid}			
+		</if>
+		<if test="userid != null">			
+			and userid = #{userid}			
 		</if>
 		<if test="status != null">			
 			and status = #{status}			

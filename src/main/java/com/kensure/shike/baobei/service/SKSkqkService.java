@@ -11,13 +11,6 @@
  */
 package com.kensure.shike.baobei.service;
 
-import com.kensure.basekey.BaseKeyService;
-import com.kensure.shike.baobei.dao.SKSkqkDao;
-import com.kensure.shike.baobei.model.SKBbrw;
-import com.kensure.shike.baobei.model.SKJysj;
-import com.kensure.shike.baobei.model.SKSkqk;
-import com.kensure.shike.baobei.service.SKSkqkService;
-
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -25,11 +18,20 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import co.kensure.exception.BusinessExceptionUtil;
 import co.kensure.frame.JSBaseService;
 import co.kensure.mem.CollectionUtils;
 import co.kensure.mem.MapUtils;
+
+import com.kensure.basekey.BaseKeyService;
+import com.kensure.shike.baobei.dao.SKSkqkDao;
+import com.kensure.shike.baobei.model.SKBaobei;
+import com.kensure.shike.baobei.model.SKSkqk;
+import com.kensure.shike.user.model.SKUser;
+import com.kensure.shike.user.service.SKUserService;
 
 /**
  * 试客情况表服务实现类
@@ -45,7 +47,16 @@ public class SKSkqkService extends JSBaseService {
 
 	@Resource
 	private BaseKeyService baseKeyService;
-
+	
+	@Resource
+	private SKBbrwService sKBbrwService;
+	
+	@Resource
+	private SKBaobeiService sKBaobeiService;
+	
+	@Resource
+	private SKUserService sKUserService;
+	
 	public SKSkqk selectOne(Long id) {
 		return dao.selectOne(id);
 	}
@@ -74,6 +85,7 @@ public class SKSkqkService extends JSBaseService {
 		super.beforeInsert(obj);
 		obj.setId(baseKeyService.getKey("sk_sqqk"));
 		obj.setLastStatus(0L);
+		obj.setStatus(1L);
 		return dao.insert(obj);
 	}
 
@@ -82,6 +94,10 @@ public class SKSkqkService extends JSBaseService {
 	}
 
 	public boolean update(SKSkqk obj) {
+		super.beforeUpdate(obj);
+		if(obj.getStatus() >= 0){
+			obj.setLastStatus(obj.getStatus());
+		}		
 		return dao.update(obj);
 	}
 
@@ -101,11 +117,11 @@ public class SKSkqkService extends JSBaseService {
 		return dao.deleteByWhere(parameters);
 	}
 
-	public SKSkqk getQkByBBId(long bbid) {
-		Map<String, Object> parameters = MapUtils.genMap("bbid", bbid);
+	public SKSkqk getQkByBBId(long bbid,long userid) {
+		Map<String, Object> parameters = MapUtils.genMap("bbid", bbid,"userid",userid);
 		List<SKSkqk> list = selectByWhere(parameters);
 		if (CollectionUtils.getSize(list) > 1) {
-			BusinessExceptionUtil.threwException("你已经申请过该宝贝！");
+			BusinessExceptionUtil.threwException("你已经申请过该宝贝！");	
 		}
 		SKSkqk sk = null;
 		if (CollectionUtils.getSize(list) > 0) {
@@ -122,48 +138,74 @@ public class SKSkqkService extends JSBaseService {
 
 	/**
 	 * 申请
-	 * @param bbrw
+	 * @param baobei
 	 * @param salePrice
 	 * @param jiangli
 	 * @return
 	 */
-	public boolean saveSQ(SKBbrw bbrw,double salePrice,double jiangli){
-		SKSkqk qk = getQkByBBId(bbrw.getBbid());
-		if(qk != null){
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+	public boolean saveSQ(SKBaobei baobei,SKUser skuser){
+		if(baobei.getStatus() != 9 || baobei.getIsDel() == 1){
+			BusinessExceptionUtil.threwException("该宝贝失效！");
+		}
+		SKSkqk qk = getQkByBBId(baobei.getId(),skuser.getId());
+		if(qk != null && qk.getStatus() > 1){
 			BusinessExceptionUtil.threwException("你已经申请过该宝贝！");
 		}
-		qk = new SKSkqk();
-		qk.setBbid(bbrw.getBbid());
-		qk.setRwid(bbrw.getId());
-		qk.setSalePrice(salePrice);
-		qk.setJiangli(jiangli);	
-		return insert(qk);
+		//任务计数
+		if(qk ==  null || qk.getStatus() < 1){
+			sKBbrwService.shenqing(baobei.getId());
+		}
+		if(qk == null){
+			qk = new SKSkqk();
+			qk.setBbid(baobei.getId());
+			qk.setUserid(skuser.getId());
+			qk.setSalePrice(baobei.getSalePrice());
+			qk.setJiangli(baobei.getJiangli());	
+			insert(qk);
+		}else{
+			qk.setStatus(1L);
+			update(qk);
+		}
+		return true;
 	}
 
 	/**
-	 * 
-	 * @param bbrw
-	 * @param status
-	 * @param jysjList
+	 * 申请后的流程状态保持
+	 * @param baobei
+	 * @param skuser
 	 * @return
 	 */
-	public boolean save(SKBbrw bbrw,long status,List<SKJysj> jysjList){
-		SKSkqk qk = getQkByBBId(bbrw.getBbid());
-		//1是开始,-1是手动取消,-2是自动取消,11是货比三家，21是收藏关注加购物车宝贝,51是中奖，61是确认宝贝、提交付款订单，71反馈好评晒图,99是完成任务
-		if(qk.getStatus() > status){
-			
+	public boolean save(SKBaobei baobei,long status,SKUser skuser){
+		if(baobei.getStatus() != 9 || baobei.getIsDel() == 1){
+			BusinessExceptionUtil.threwException("该宝贝失效！");
 		}
-    	if(status == 21){
-    		if(qk != null){
-    			BusinessExceptionUtil.threwException("你已经申请过该宝贝！");
-    		}
-    		qk = new SKSkqk();
-    		qk.setBbid(bbrw.getBbid());
-    		qk.setRwid(bbrw.getId());
-    	
-    	}
-    	
-		return insert(qk);
+		SKSkqk qk = getQkByBBId(baobei.getId(),skuser.getId());
+		if(qk.getStatus()>= status){
+			BusinessExceptionUtil.threwException("数据有误！");
+		}
+		qk.setStatus(status);
+		update(qk);
+		return true;
 	}
 
+	/**
+	 * 获取试客情况列表
+	 * @param bbid
+	 * @param userid
+	 * @return
+	 */
+	public List<SKSkqk> getSkQKList(long status) {
+		SKUser user = sKUserService.getUser();
+		SKUserService.checkUserSK(user);
+		Map<String, Object> parameters = MapUtils.genMap("userid", user.getId(),"status",status);
+		List<SKSkqk> list = selectByWhere(parameters);
+		if(CollectionUtils.isNotEmpty(list)){
+			for(SKSkqk skqk:list){
+				SKBaobei baobei = sKBaobeiService.selectOne(skqk.getBbid());
+				skqk.setBaobei(baobei);
+			}		
+		}
+		return list;
+	}
 }

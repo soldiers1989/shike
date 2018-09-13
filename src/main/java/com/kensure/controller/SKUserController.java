@@ -41,22 +41,22 @@ public class SKUserController {
 
 	@Resource
 	private SKLoginService sKLoginService;
-	
+
 	@Resource
 	private SKUserYueService sKUserYueService;
-	
 
 	/**
 	 * 验证码发送，包括试客、商家
+	 * 
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "sms.do", method = { RequestMethod.POST,RequestMethod.GET}, produces = "application/json;charset=UTF-8")
+	@RequestMapping(value = "sms.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
 	public ResultInfo smsuser(HttpServletRequest req, HttpServletResponse rep) {
-		JSONObject json = RequestUtils.paramToJson(req);		
+		JSONObject json = RequestUtils.paramToJson(req);
 		String mobile = json.getString("mobile");
 		int type = json.getInteger("type");
-		sKSmsService.sendQRSms(mobile, type);		
+		sKSmsService.sendQRSms(mobile, type);
 		return new ResultRowInfo();
 	}
 
@@ -64,68 +64,80 @@ public class SKUserController {
 	 * 商家数据保存
 	 */
 	@ResponseBody
-	@RequestMapping(value = "saveshangjia.do", method = { RequestMethod.POST,RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	@RequestMapping(value = "saveshangjia.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
 	public ResultInfo adduser(HttpServletRequest req, HttpServletResponse rep) {
 		JSONObject json = RequestUtils.paramToJson(req);
 		String qrcode = json.getString("qrcode");
 		SKUser sKUser = JSONObject.parseObject(json.toJSONString(), SKUser.class);
-		sKUserService.addShangJia(sKUser, qrcode);
+		sKUserService.addSJOrSk(sKUser, qrcode);
 		return new ResultRowInfo();
 	}
-	
+
+	/**
+	 * 试客注册并且登陆
+	 */
+	@ResponseBody
+	@RequestMapping(value = "addsk.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	public ResultInfo addsk(HttpServletRequest req, HttpServletResponse rep) {
+		JSONObject json = RequestUtils.paramToJson(req);
+		String qrcode = json.getString("qrcode");
+		SKUser sKUser = JSONObject.parseObject(json.toJSONString(), SKUser.class);
+		sKUser.setName(sKUser.getPhone());
+		SKUserSession session = sKUserService.addSkAndLogin(sKUser, qrcode, req);
+		return new ResultRowInfo(session);
+	}
+
 	/**
 	 * 商家登录名称核对
 	 */
 	@ResponseBody
-	@RequestMapping(value = "checkname.do", method = { RequestMethod.POST,RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	@RequestMapping(value = "checkname.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
 	public ResultInfo checkname(HttpServletRequest req, HttpServletResponse rep) {
 		JSONObject json = RequestUtils.paramToJson(req);
 		String param = json.getString("param");
 		SKUser u = sKUserService.selectByName(param, 2);
-		if(u != null){
+		if (u != null) {
 			BusinessExceptionUtil.threwException("用户已经存在");
 		}
 		return new ResultRowInfo();
 	}
 
-	
 	/**
 	 * 商家手机号核对
 	 */
 	@ResponseBody
-	@RequestMapping(value = "checkphone.do", method = { RequestMethod.POST,RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	@RequestMapping(value = "checkphone.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
 	public ResultInfo checkphone(HttpServletRequest req, HttpServletResponse rep) {
 		JSONObject json = RequestUtils.paramToJson(req);
 		String param = json.getString("param");
 		SKUser u = sKUserService.selectByMobile(param, 2);
-		if(u != null){
+		if (u != null) {
 			BusinessExceptionUtil.threwException("手机已绑定");
 		}
 		return new ResultRowInfo();
 	}
 
-	
 	/**
 	 * 用户登录
+	 * 
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "login.do", method = { RequestMethod.POST,RequestMethod.GET}, produces = "application/json;charset=UTF-8")
+	@RequestMapping(value = "login.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
 	public ResultInfo login(HttpServletRequest req, HttpServletResponse rep) {
-		JSONObject json = RequestUtils.paramToJson(req);		
+		JSONObject json = RequestUtils.paramToJson(req);
 		String mobile = json.getString("mobile");
 		String password = json.getString("password");
 		int type = json.getInteger("type");
-		SKUserSession userSession = sKLoginService.login(mobile, password, type, req);		
+		SKUserSession userSession = sKLoginService.login(mobile, password, type, req);
 		return new ResultRowInfo(userSession);
 	}
-	
-	
+
 	/**
 	 * 账户余额
 	 */
 	@ResponseBody
-	@RequestMapping(value = "getzhyue.do", method = { RequestMethod.POST,RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	@RequestMapping(value = "getzhyue.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
 	public ResultInfo getzhyue(HttpServletRequest req, HttpServletResponse rep) {
 		SKUserYue u = sKUserYueService.selectByUser();
 		return new ResultRowInfo(u);
@@ -142,32 +154,29 @@ public class SKUserController {
 	@ResponseBody
 	@RequestMapping(value = "updateuser.do", method = { RequestMethod.POST }, produces = "application/json;charset=UTF-8")
 	public ResultInfo updateuser(HttpServletRequest req, HttpServletResponse rep) {
-//		JSONObject json = RequestUtils.paramToJson(req);
-//		String sessionid = json.getString("sessionid");
-//		UserLogin userse = userLoginService.selectBySessionId(sessionid);
-//
-//		UserInfo user = userInfoService.selectOne(userse.getUserid());
-//
-//		UserInfo usertemp = JSONObject.parseObject(json.toJSONString(), UserInfo.class);
-//
-//		Date date = new Date();
-//		usertemp.setUpdateDate(date);
-//		user.setName(usertemp.getName());
-//		user.setCard(usertemp.getCard());
-//		user.setQq(usertemp.getQq());
-//		user.setZhimafen(usertemp.getZhimafen());
-//		user.setHuabeiedu(usertemp.getHuabeiedu());
-//		user.setJiebeiedu(usertemp.getJiebeiedu());
-//		user.setJiedaibao(usertemp.getJiedaibao());
-//		user.setYear(usertemp.getYear());
-//		user.setXb(usertemp.getXb());
-//		userInfoService.update(user);
+		// JSONObject json = RequestUtils.paramToJson(req);
+		// String sessionid = json.getString("sessionid");
+		// UserLogin userse = userLoginService.selectBySessionId(sessionid);
+		//
+		// UserInfo user = userInfoService.selectOne(userse.getUserid());
+		//
+		// UserInfo usertemp = JSONObject.parseObject(json.toJSONString(),
+		// UserInfo.class);
+		//
+		// Date date = new Date();
+		// usertemp.setUpdateDate(date);
+		// user.setName(usertemp.getName());
+		// user.setCard(usertemp.getCard());
+		// user.setQq(usertemp.getQq());
+		// user.setZhimafen(usertemp.getZhimafen());
+		// user.setHuabeiedu(usertemp.getHuabeiedu());
+		// user.setJiebeiedu(usertemp.getJiebeiedu());
+		// user.setJiedaibao(usertemp.getJiedaibao());
+		// user.setYear(usertemp.getYear());
+		// user.setXb(usertemp.getXb());
+		// userInfoService.update(user);
 
 		return new ResultRowInfo();
 	}
-
-
-
-
 
 }

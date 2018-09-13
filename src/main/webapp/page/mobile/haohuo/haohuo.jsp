@@ -72,7 +72,7 @@
                     </span>
                     <span class="aui-tabBar-item-text">分享赚钱</span>
                 </a>
-                <a href="javascript:;" class="aui-tabBar-item ">
+                <a href="<%=BusiConstant.shike_wdhd.getKey() %>" class="aui-tabBar-item ">
                     <span class="aui-tabBar-item-icon">
                         <i class="icon icon-credit"></i>
                     </span>

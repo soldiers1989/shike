@@ -20,8 +20,11 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import co.kensure.exception.BusinessExceptionUtil;
 import co.kensure.frame.JSBaseService;
+import co.kensure.mem.CollectionUtils;
 import co.kensure.mem.DateUtils;
+import co.kensure.mem.MapUtils;
 import co.kensure.mem.NumberUtils;
 
 import com.kensure.basekey.BaseKeyService;
@@ -112,6 +115,36 @@ public class SKBbrwService extends JSBaseService{
 		obj.setEndTime(DateUtils.parse(DateUtils.formatDateEnd(day), DateUtils.DATE_FORMAT_PATTERN)) ;	
 		long sqnum = obj.getBbnum()*100/NumberUtils.parseInteger(obj.getZhuanhua(), 0);
 		obj.setSqnum(sqnum);
+	}
+	
+	/**
+	 * 任务申请
+	 * @param bbid
+	 */
+	public void shenqing(Long bbid){
+		List<SKBbrw> list = getList(bbid);
+		if(CollectionUtils.isEmpty(list)){
+			BusinessExceptionUtil.threwException("宝贝今天没有任务");
+		}
+		
+		SKBbrw rw = list.get(0);
+		if(rw.getSqnum()<=rw.getYsqnum()){
+			BusinessExceptionUtil.threwException("宝贝今天已经申请完了");
+		}
+		Map<String, Object> params = MapUtils.genMap("id",rw.getId(),"ysqnumAdd",1);
+		updateByMap(params);
+	}
+	
+	/**
+	 * 获取宝贝今天的任务
+	 * @param bbid
+	 * @return
+	 */
+	public List<SKBbrw> getList(Long bbid){
+		String todayStr = DateUtils.format(new Date(),DateUtils.DAY_FORMAT);
+		Map<String, Object> parameters = MapUtils.genMap("daydes", todayStr, "bbid", bbid);
+		List<SKBbrw> list = selectByWhere(parameters);
+		return list;
 	}
 	
 	public boolean insertInBatch(List<SKBbrw> objs){

@@ -166,7 +166,8 @@ public class SKLoginService extends JSBaseService {
 		SKUserSession sKUserSession = new SKUserSession();
 		sKUserSession.setTokenId(uuid);
 		sKUserSession.setName(u.getName());
-
+		sKUserSession.setPhone(u.getPhone());
+		sKUserSession.setType(u.getType());
 		return sKUserSession;
 	}
 
