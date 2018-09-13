@@ -143,7 +143,7 @@ public class SKJysjService extends JSBaseService{
     		if(!jysj.getContent().equals(baobei.getDpname())){
     			BusinessExceptionUtil.threwException("请输入正确的店铺名");
     		}	
-    	}if(status == 21){
+    	}else if(status == 21){
     		//收藏关注图
     		if(size != 2){
     			BusinessExceptionUtil.threwException("数据不正确2");
@@ -155,6 +155,32 @@ public class SKJysjService extends JSBaseService{
         		jysj.setTypeid(3L);
         		if(StringUtils.isBlank(jysj.getContent())){
         			BusinessExceptionUtil.threwException("请上传图片");
+        		}	
+    		}    	
+    	}else if(status == 61){
+    		//订单
+    		if(size != 2){
+    			BusinessExceptionUtil.threwException("数据不正确2");
+    		}
+    		for(SKJysj jysj:jysjList){
+    			jysj.setStatus(status);
+        		jysj.setBbid(baobei.getId());
+        		jysj.setUserid(user.getId());
+        		if(StringUtils.isBlank(jysj.getContent())){
+        			BusinessExceptionUtil.threwException("请填写数据");
+        		}	
+    		}    	
+    	}else if(status == 81){
+    		//订单
+    		if(size != 2){
+    			BusinessExceptionUtil.threwException("数据不正确2");
+    		}
+    		for(SKJysj jysj:jysjList){
+    			jysj.setStatus(status);
+        		jysj.setBbid(baobei.getId());
+        		jysj.setUserid(user.getId());
+        		if(StringUtils.isBlank(jysj.getContent())){
+        			BusinessExceptionUtil.threwException("请填写数据");
         		}	
     		}    	
     	}else{

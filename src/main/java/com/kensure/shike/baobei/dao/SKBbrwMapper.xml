@@ -10,6 +10,7 @@
 		sqnum,
 		zhuanhua,
 		daydes,
+		yzj,
 		ysqnum,
 		start_time as startTime,
 		end_time as endTime,
@@ -25,6 +26,7 @@
 		sqnum,
 		zhuanhua,
 		daydes,
+		yzj,
 		ysqnum,
 		start_time,
 		end_time,
@@ -42,6 +44,7 @@
 			#{sqnum},
 			#{zhuanhua},
 			#{daydes},
+			#{yzj},
 			#{ysqnum},
 			#{startTime},
 			#{endTime},
@@ -61,6 +64,7 @@
 				#{item.sqnum},
 				#{item.zhuanhua},
 				#{item.daydes},
+				#{item.yzj},		
 				#{item.ysqnum},
 				#{item.startTime},
 				#{item.endTime},
@@ -89,9 +93,12 @@
 		<if test="daydes != null">			
 			and daydes = #{daydes}			
 		</if>
+		<if test="yzj != null">			
+			and yzj = #{yzj}			
+		</if>
 		<if test="ysqnum != null">			
 			and ysqnum = #{ysqnum}			
-		</if>
+		</if>	
 		<if test="startTime != null">			
 			and start_time = #{startTime}			
 		</if>
@@ -165,12 +172,12 @@
 		</if>
 		<if test="daydes != null">
 			daydes = #{daydes},
+		</if>		
+		<if test="yzj != null">
+			yzj = #{yzj},
 		</if>
 		<if test="ysqnum != null">
 			ysqnum = #{ysqnum},
-		</if>
-		<if test="ysqnumAdd != null">
-			ysqnum = ysqnum+#{ysqnumAdd},
 		</if>
 		<if test="startTime != null">
 			start_time = #{startTime},
@@ -191,6 +198,7 @@
 		    <set>
 		    	<include refid="setComn"/>
 			</set>
+			
 		  where id = #{id}
 	</update>
 	
@@ -199,6 +207,12 @@
 		    <set>
 		    	<include refid="setComn"/>
 			</set>
+			<if test="ysqnumAdd != null">
+				ysqnum = ysqnum+#{ysqnumAdd},
+			</if>
+			<if test="yzjAdd != null">
+				yzj = yzj+#{yzjAdd},
+			</if>
 		  where id = #{id}
 	</update>
 	

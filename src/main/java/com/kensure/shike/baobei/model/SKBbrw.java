@@ -44,7 +44,10 @@ public class SKBbrw extends BaseInfo{
 
 	/**日期描述，查询用*/		
 	private String daydes; 
-
+	
+	/**已中奖人数*/		
+	private Long yzj; 
+	
 	/**已申请数量*/		
 	private Long ysqnum; 
 
@@ -123,6 +126,14 @@ public class SKBbrw extends BaseInfo{
 
 	public void setEndTime(Date endTime) {
 		this.endTime = endTime;
+	}
+
+	public Long getYzj() {
+		return yzj;
+	}
+
+	public void setYzj(Long yzj) {
+		this.yzj = yzj;
 	}
 	
 }

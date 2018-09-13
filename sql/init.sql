@@ -78,7 +78,7 @@ CREATE TABLE `sk_role` (
 ) ;
 
 
--- 用余额和金币剩余数量
+-- 用户余额和金币剩余数量
 CREATE TABLE `sk_user_yue` (
   `id` bigint(20) NOT NULL COMMENT '用户id',
   `yue` decimal(10,2) NOT NULL COMMENT '余额',
@@ -110,7 +110,7 @@ CREATE TABLE `sk_user_zhang` (
   `id` bigint(20) NOT NULL ,
   `userid` bigint(20) NOT NULL COMMENT '用户id',
   `busiid` bigint(20) NOT NULL COMMENT '业务id',
-  `busitypeid` int(11) NOT NULL COMMENT '业务类型id,1是商家充值，2是试客提现，3是活动费用',
+  `busitypeid` int(11) NOT NULL COMMENT '业务类型id,1是商家充值，2是试客提现，3是活动费用, 4是试客返款',
   `yue`  decimal(10,2) NOT NULL COMMENT '金额',
   `jinbi` decimal(10,2) NOT NULL COMMENT '金币',
   `inorout` int(11) NOT NULL COMMENT '对这个用户流进还是流出,1是进，-1是出',
@@ -217,6 +217,7 @@ CREATE TABLE `sk_bbrw` (
   `sqnum` bigint(20) DEFAULT NULL COMMENT '申请数量',
   `zhuanhua` varchar(16) DEFAULT NULL COMMENT '转换率',
   `daydes` varchar(16) DEFAULT NULL COMMENT '日期描述，查询用',
+  `yzj` bigint(20) DEFAULT NULL COMMENT '已中奖数量',
   `ysqnum` bigint(20) DEFAULT NULL COMMENT '已申请数量',
   `start_time` datetime NOT NULL COMMENT '活动开始时间',
   `end_time` datetime NOT NULL COMMENT '活动结束时间',
@@ -232,7 +233,7 @@ CREATE TABLE `sk_sqqk` (
   `bbid` bigint(20) DEFAULT NULL COMMENT '宝贝id',
   `rwid` bigint(20) DEFAULT NULL COMMENT '任务id',
   `userid` bigint(20) NOT NULL COMMENT '用户id',
-  `status` int(11) DEFAULT NULL COMMENT '0是未中奖,1是开始,-1是手动取消,-2是自动取消,11是货比三家，18是加购物车宝贝  21是收藏关注,51是中奖，61是确认宝贝、提交付款订单，71反馈好评晒图,99是完成任务',
+  `status` int(11) DEFAULT NULL COMMENT '0是未中奖,1是开始,-1是手动取消,-2是自动取消,11是货比三家，18是加购物车宝贝  21是收藏关注,51是中奖，61是确认宝贝、提交付款订单，71收到货了， 81反馈好评晒图,99是完成任务',
   `last_status` int(11) DEFAULT NULL COMMENT 'status最后为正值的状态',
   `jinbi` bigint(20) DEFAULT NULL COMMENT '使用金币数量',
   `sale_price` decimal(10,2) DEFAULT NULL COMMENT '宝贝单价',
@@ -252,7 +253,7 @@ CREATE TABLE `sk_jysj` (
   `userid` bigint(20) NOT NULL COMMENT '用户id',
   `status` int(11) DEFAULT NULL COMMENT '这个和sk_sqqk中对应',
   `typeid` int(11) DEFAULT NULL COMMENT '1是淘口令，2是名字，3是图片路径',
-  `busitype` varchar(16) DEFAULT NULL COMMENT '业务类型，比如dpm 店铺名称,sc:是收藏图片，gz:关注图片',
+  `busitype` varchar(16) DEFAULT NULL COMMENT '业务类型，比如dpm 店铺名称,sc:是收藏图片，gz:关注图片,dd：订单，ddh：订单号，hpy：好评，hp：好评图片',
   `content` varchar(2000) DEFAULT NULL COMMENT '具体口令、名称、图片路径',
   `created_time` datetime NOT NULL COMMENT '创建时间',
   `updated_time` datetime NOT NULL COMMENT '更新时间',

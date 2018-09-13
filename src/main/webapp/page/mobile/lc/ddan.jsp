@@ -27,7 +27,7 @@
 
         <section class="aui-flexView">
             <header class="aui-navBar aui-navBar-fixed b-line">
-                <a href="javascript:;" class="aui-navBar-item">
+                <a href="javascript:history.go(-1);" class="aui-navBar-item">
                     <i class="icon icon-return"></i>
                 </a>
                 <div class="aui-center">
@@ -62,7 +62,7 @@
                 <div class="divHeight"></div>
                 <div class="aui-flex aui-flex-lag">
                     <div class="aui-flex-box">
-                        <h2 style="color:#333">收藏关注流程</h2>
+                        <h2 style="color:#333">订单流程</h2>
                     </div>
                 </div>
                 <div class="aui-timeLine b-line">
@@ -72,21 +72,16 @@
                             <p>找到宝贝</p>
     					    <p style="margin-top: 10px;">打开手机淘宝APP</p>
                             <p style="margin-top: 10px;">购物车中，找到宝贝</p>
-                          
+                            <p style="margin-top: 10px;">购买并且付款</p>
                         </li>
                         <li class="aui-timeLine-content-item">
                             <em class="aui-timeLine-content-icon"></em>
-                            <p>收藏宝贝</p>
-                            <p style="margin-top: 10px;">示例：<img src="<%=BusiConstant.shikemobilepath %>/lc/images/sc1.png" alt="" style="width:220px;"></p>
-                            <form id="infoLogoForm1" enctype='multipart/form-data'>
-                            <p style="margin-top: 10px;"><input accept="image/*" name="file" id="scbaobei" type="file"/></p>
-                            <p style="margin-top: 10px;">收藏：<img src="" id="logo1" alt="" style="width:220px;"></p>
-                            </form>
+                            <p>订单号<input type="text" value="" id="ddanhao" placeholder="请输入订单号"></p>   
                         </li>
                          <li class="aui-timeLine-content-item">
                             <em class="aui-timeLine-content-icon"></em>
-                            <p>关注宝贝</p>
-                            <p style="margin-top: 10px;">示例：<img src="<%=BusiConstant.shikemobilepath %>/lc/images/gz1.png" alt="" style="width:220px;"></p>
+                            <p>订单图片</p>
+                            <p style="margin-top: 10px;">示例：<img src="<%=BusiConstant.shikemobilepath %>/lc/images/dingdan1.png" alt="" style="width:220px;"></p>
                             <form id="infoLogoForm2" enctype='multipart/form-data'>
                             <p style="margin-top: 10px;"><input accept="image/*" name="file" id="gzbaobei" type="file"/></p>
                             <p style="margin-top: 10px;">提交：<img src="" id="logo2" alt="" style="width:220px;"></p>
@@ -110,41 +105,11 @@
 </html>
  
 <script>
-var logo1 = "";
-var logo2 = "";
-var uploading = false;
-$("#scbaobei").on("change", function(){
-    if(uploading){
-        alert("文件正在上传中，请稍候");
-        return false;
-    }
-    $.ajax({
-        url: "<%=BusiConstant.shike_addfile_do.getKey()%>",
-        type: 'POST',
-        cache: false,
-        data: new FormData($('#infoLogoForm1')[0]),
-        processData: false,
-        contentType: false,
-        dataType:"json",
-        beforeSend: function(){
-            uploading = true;
-        },
-        success : function(data) {
-            if (data.type == 'success') {
-            	var d = "<%=BusiConstant.context%>"+data.resultData.row;
-            	logo1 = d;
-                $("#logo1").attr("src", d );
-            } else {
-                showError(data.msg);
-            }
-            uploading = false;
-        }
-    });
-});
 
+var logo2 = "";
 var uploading1 = false;
 $("#gzbaobei").on("change", function(){
-    if(uploading){
+    if(uploading1){
         alert("文件正在上传中，请稍候");
         return false;
     }
@@ -173,12 +138,12 @@ $("#gzbaobei").on("change", function(){
 });
 
 function dictsucdo(data){
-	alert("提交成功，等待抽奖");
-	window.location.href="<%=BusiConstant.shike_haohuo.getKey()%>?id=<%=baobei.getId()%>";
+	alert("提交成功，等待收货");
 }
 function add(){
-   var ds = [{content:logo1,busitype:"sc"},{content:logo2,busitype:"gz"}];
-   var data = {id:<%=baobei.getId()%>,status:21,datas:JSON.stringify(ds)};
+	
+   var ds = [{content:$("#ddanhao").val(),busitype:"ddh",typeid:2},{content:logo2,busitype:"dd",typeid:3}];
+   var data = {id:<%=baobei.getId()%>,status:61,datas:JSON.stringify(ds)};
    var url = "<%=BusiConstant.shike_liucheng_do.getKey()%>";
    postdo(url, data, dictsucdo,null, null);
 }

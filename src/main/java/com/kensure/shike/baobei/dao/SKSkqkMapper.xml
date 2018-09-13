@@ -85,6 +85,11 @@
 			and status >= #{bigthanstatus}		
 		]]>	
 		</if>
+		<if test="lessthanstatus != null">	
+		<![CDATA[		
+			and status <= #{lessthanstatus}		
+		]]>	
+		</if>
 		<if test="lastStatus != null">			
 			and last_status = #{lastStatus}			
 		</if>
@@ -109,6 +114,12 @@
 		<if test="updatedTime != null">			
 			and updated_time = #{updatedTime}			
 		</if>
+		<if test="lessupdatedTime != null">			
+			<![CDATA[		
+			and updated_time <= #{lessupdatedTime}		
+			]]>		
+		</if>
+		
 	</sql>
     
 	<select id="selectOne" resultType="com.kensure.shike.baobei.model.SKSkqk" parameterType="Long" >

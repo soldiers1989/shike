@@ -28,6 +28,7 @@ import com.kensure.shike.baobei.model.SKJysj;
 import com.kensure.shike.baobei.model.SKPayInfo;
 import com.kensure.shike.baobei.model.SKSkqk;
 import com.kensure.shike.baobei.service.SKBaobeiService;
+import com.kensure.shike.baobei.service.SKBbrwService;
 import com.kensure.shike.baobei.service.SKSkqkService;
 import com.kensure.shike.baobei.service.TaoBaoService;
 
@@ -46,10 +47,12 @@ public class SKBaobeiController {
 
 	@Resource
 	private SKBaobeiService sKBaobeiService;
-	
+
 	@Resource
 	private SKSkqkService sKSkqkService;
-	
+
+	@Resource
+	private SKBbrwService sKBbrwService;
 
 	/**
 	 * 根据url获取商品的详情
@@ -178,20 +181,20 @@ public class SKBaobeiController {
 		sKBaobeiService.liucheng(id, status, jysjList);
 		return new ResultRowInfo();
 	}
-	
+
 	/**
 	 * 上传图片
 	 */
 	@ResponseBody
 	@RequestMapping(value = "addfile.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
 	public ResultInfo addfile(MultipartFile file) {
-		String path ="/filetemp/"+DateUtils.format(new Date(),DateUtils.DAY_FORMAT1);
-		String name = Utils.getUUID()+".jpg";
-		FileUtils.fileToIo(file, Const.ROOT_PATH+path,name);
-		String url = path+"/"+name;
+		String path = "/filetemp/" + DateUtils.format(new Date(), DateUtils.DAY_FORMAT1);
+		String name = Utils.getUUID() + ".jpg";
+		FileUtils.fileToIo(file, Const.ROOT_PATH + path, name);
+		String url = path + "/" + name;
 		return new ResultRowInfo(url);
 	}
-	
+
 	/**
 	 * 我的活动列表
 	 */
@@ -203,5 +206,26 @@ public class SKBaobeiController {
 		List<SKSkqk> list = sKSkqkService.getSkQKList(status);
 		return new ResultRowsInfo(list);
 	}
+
+	/**
+	 * 抽奖ces
+	 */
+	@ResponseBody
+	@RequestMapping(value = "cjtest.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	public ResultInfo cjtest(HttpServletRequest req, HttpServletResponse rep) {
+		sKBbrwService.doChouJiang(false);
+		return new ResultRowInfo();
+	}
 	
+	/**
+	 * 好评测试
+	 */
+	@ResponseBody
+	@RequestMapping(value = "hptest.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	public ResultInfo hptest(HttpServletRequest req, HttpServletResponse rep) {
+		sKSkqkService.toHaoPin();
+		return new ResultRowInfo();
+	}
+	
+
 }

@@ -326,6 +326,7 @@ public class SKBaobeiService extends JSBaseService {
 	}
 	
 	
+	
 	/**
 	 * 审核通过
 	 * 
@@ -399,7 +400,7 @@ public class SKBaobeiService extends JSBaseService {
 	}
 	
 	/**
-	 * 申请后的加购物车
+	 * 申请后的加购物车等流程数据
 	 * 
 	 * @return
 	 */

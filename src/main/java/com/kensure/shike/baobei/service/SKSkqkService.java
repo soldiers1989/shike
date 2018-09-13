@@ -12,6 +12,7 @@
 package com.kensure.shike.baobei.service;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -24,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 import co.kensure.exception.BusinessExceptionUtil;
 import co.kensure.frame.JSBaseService;
 import co.kensure.mem.CollectionUtils;
+import co.kensure.mem.DateUtils;
 import co.kensure.mem.MapUtils;
 
 import com.kensure.basekey.BaseKeyService;
@@ -32,6 +34,8 @@ import com.kensure.shike.baobei.model.SKBaobei;
 import com.kensure.shike.baobei.model.SKSkqk;
 import com.kensure.shike.user.model.SKUser;
 import com.kensure.shike.user.service.SKUserService;
+import com.kensure.shike.zhang.model.SKUserZhang;
+import com.kensure.shike.zhang.service.SKUserZhangService;
 
 /**
  * 试客情况表服务实现类
@@ -56,6 +60,10 @@ public class SKSkqkService extends JSBaseService {
 	
 	@Resource
 	private SKUserService sKUserService;
+	
+	@Resource
+	private SKUserZhangService sKUserZhangService;
+	
 	
 	public SKSkqk selectOne(Long id) {
 		return dao.selectOne(id);
@@ -190,7 +198,7 @@ public class SKSkqkService extends JSBaseService {
 	}
 
 	/**
-	 * 获取试客情况列表
+	 * 获取试客情况列表，只在试客端使用
 	 * @param bbid
 	 * @param userid
 	 * @return
@@ -198,7 +206,16 @@ public class SKSkqkService extends JSBaseService {
 	public List<SKSkqk> getSkQKList(long status) {
 		SKUser user = sKUserService.getUser();
 		SKUserService.checkUserSK(user);
-		Map<String, Object> parameters = MapUtils.genMap("userid", user.getId(),"status",status);
+		Map<String, Object> parameters = MapUtils.genMap("userid", user.getId());
+		if(status == 51){	
+			parameters.put("bigthanstatus",51);
+			parameters.put("lessthanstatus",81);
+		}else if(status == 18){	
+			parameters.put("bigthanstatus",0);
+			parameters.put("lessthanstatus",18);
+		}else{
+			parameters.put("status",status);
+		}
 		List<SKSkqk> list = selectByWhere(parameters);
 		if(CollectionUtils.isNotEmpty(list)){
 			for(SKSkqk skqk:list){
@@ -206,6 +223,82 @@ public class SKSkqkService extends JSBaseService {
 				skqk.setBaobei(baobei);
 			}		
 		}
+		return list;
+	}
+	
+	
+	/**
+	 * 对提交的订单进行轮询，超过3天就是进行好评业务
+	 * 
+	 * @return
+	 */
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+	public void toHaoPin() {
+		try {
+			Date day = DateUtils.getPastDay(new Date(),-3);
+			Map<String, Object> parameters = MapUtils.genMap("status",61,"lessupdatedTime",day);
+			List<SKSkqk> list = selectByWhere(parameters);
+			if (CollectionUtils.isEmpty(list)) {
+				return;
+			}
+			for (SKSkqk obj : list) {
+				obj.setStatus(71L);
+				update(obj);
+			}
+		} catch (Exception e) {
+			BusinessExceptionUtil.threwException(e);;
+		}
+	}
+
+	/**
+	 * 好评完成之后的数据，两天后自动返款
+	 * 
+	 * @return
+	 */
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+	public void toReturnMoney() {
+		try {
+			Date day = DateUtils.getPastDay(new Date(),-2);
+			Map<String, Object> parameters = MapUtils.genMap("status",81,"lessupdatedTime",day);
+			List<SKSkqk> list = selectByWhere(parameters);
+			if (CollectionUtils.isEmpty(list)) {
+				return;
+			}
+			for (SKSkqk obj : list) {
+				userMoney(obj.getId());
+			}
+		} catch (Exception e) {
+			BusinessExceptionUtil.threwException(e);;
+		}
+	}
+	
+	/**
+	 * 确认返款，进行余额流水增加
+	 * @param id
+	 */
+	public void userMoney(long id){
+		SKSkqk obj = selectOne(id);
+		
+		SKUserZhang zhang = new SKUserZhang();
+		zhang.setUserid(obj.getUserid());
+    	zhang.setBusiid(id);
+    	zhang.setBusitypeid(4L);
+    	zhang.setYue(obj.getSalePrice());
+    	sKUserZhangService.add(zhang); 
+    	
+		obj.setStatus(99L);
+		update(obj);
+	}
+	
+	/**
+	 * 获取待抽奖用户
+	 * @param bbid
+	 * @param userid
+	 * @return
+	 */
+	public List<SKSkqk> getDengChouJiang(long bbid) {	
+		Map<String, Object> parameters = MapUtils.genMap("bbid", bbid,"status",21);
+		List<SKSkqk> list = selectByWhere(parameters);
 		return list;
 	}
 }

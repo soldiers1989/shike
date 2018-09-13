@@ -11,14 +11,18 @@
  */
 package com.kensure.shike.baobei.service;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import co.kensure.exception.BusinessExceptionUtil;
 import co.kensure.frame.JSBaseService;
@@ -30,150 +34,243 @@ import co.kensure.mem.NumberUtils;
 import com.kensure.basekey.BaseKeyService;
 import com.kensure.shike.baobei.dao.SKBbrwDao;
 import com.kensure.shike.baobei.model.SKBbrw;
-
+import com.kensure.shike.baobei.model.SKSkqk;
 
 /**
  * 宝贝试客任务服务实现类
+ * 
  * @author fankd created on 2018-9-9
- * @since 
+ * @since
  */
 @Service
-public class SKBbrwService extends JSBaseService{
-	
+public class SKBbrwService extends JSBaseService {
+
 	@Resource
 	private SKBbrwDao dao;
-    
+
 	@Resource
 	private BaseKeyService baseKeyService;
-	
-    public SKBbrw selectOne(Long id){
-    	return dao.selectOne(id);
-    }
-	
-	public List<SKBbrw> selectByIds(Collection<Long> ids){
+
+	@Resource
+	private SKSkqkService sKSkqkService;
+
+	public SKBbrw selectOne(Long id) {
+		return dao.selectOne(id);
+	}
+
+	public List<SKBbrw> selectByIds(Collection<Long> ids) {
 		return dao.selectByIds(ids);
 	}
-	
-	public List<SKBbrw> selectAll(){
+
+	public List<SKBbrw> selectAll() {
 		return dao.selectAll();
 	}
-	
-	public List<SKBbrw> selectByWhere(Map<String, Object> parameters){
+
+	public List<SKBbrw> selectByWhere(Map<String, Object> parameters) {
 		return dao.selectByWhere(parameters);
 	}
-	
-	
-	public long selectCount(){
+
+	public long selectCount() {
 		return dao.selectCount();
 	}
-	
-	public long selectCountByWhere(Map<String, Object> parameters){
+
+	public long selectCountByWhere(Map<String, Object> parameters) {
 		return dao.selectCountByWhere(parameters);
 	}
-	
-	
-	public boolean insert(SKBbrw obj){
+
+	public boolean insert(SKBbrw obj) {
 		super.beforeInsert(obj);
 		obj.setId(baseKeyService.getKey("sk_bbrw"));
 		obj.setStatus(1L);
 		obj.setYsqnum(0L);
+		obj.setYzj(0L);
 		return dao.insert(obj);
 	}
-	
+
 	/**
 	 * 初始化rw相关属性
+	 * 
 	 * @param obj
 	 */
-	public void initData(List<SKBbrw> rws){
-		for(SKBbrw obj:rws){
+	public void initData(List<SKBbrw> rws) {
+		for (SKBbrw obj : rws) {
 			Date day = DateUtils.parse(obj.getDaydes(), DateUtils.DAY_FORMAT);
-			obj.setStartTime(DateUtils.parse(DateUtils.formatDateStart(day), DateUtils.DATE_FORMAT_PATTERN)) ;
-			obj.setEndTime(DateUtils.parse(DateUtils.formatDateEnd(day), DateUtils.DATE_FORMAT_PATTERN)) ;	
-			long sqnum = obj.getBbnum()*100/NumberUtils.parseInteger(obj.getZhuanhua(), 0);
+			obj.setStartTime(DateUtils.parse(DateUtils.formatDateStart(day), DateUtils.DATE_FORMAT_PATTERN));
+			obj.setEndTime(DateUtils.parse(DateUtils.formatDateEnd(day), DateUtils.DATE_FORMAT_PATTERN));
+			long sqnum = obj.getBbnum() * 100 / NumberUtils.parseInteger(obj.getZhuanhua(), 0);
 			obj.setSqnum(sqnum);
-		}	
+		}
 	}
-	
+
 	/**
 	 * 初始化rw相关属性
+	 * 
 	 * @param obj
 	 */
-	public void add(List<SKBbrw> rws,Long bbid){
-		for(SKBbrw obj:rws){
+	public void add(List<SKBbrw> rws, Long bbid) {
+		for (SKBbrw obj : rws) {
 			obj.setBbid(bbid);
 			insert(obj);
-		}	
+		}
 	}
-	
+
 	/**
 	 * 初始化rw相关属性
+	 * 
 	 * @param obj
 	 */
-	public void add(SKBbrw obj){
+	public void add(SKBbrw obj) {
 		Date day = DateUtils.parse(obj.getDaydes(), DateUtils.DAY_FORMAT);
-		obj.setStartTime(DateUtils.parse(DateUtils.formatDateStart(day), DateUtils.DATE_FORMAT_PATTERN)) ;
-		obj.setEndTime(DateUtils.parse(DateUtils.formatDateEnd(day), DateUtils.DATE_FORMAT_PATTERN)) ;	
-		long sqnum = obj.getBbnum()*100/NumberUtils.parseInteger(obj.getZhuanhua(), 0);
+		obj.setStartTime(DateUtils.parse(DateUtils.formatDateStart(day), DateUtils.DATE_FORMAT_PATTERN));
+		obj.setEndTime(DateUtils.parse(DateUtils.formatDateEnd(day), DateUtils.DATE_FORMAT_PATTERN));
+		long sqnum = obj.getBbnum() * 100 / NumberUtils.parseInteger(obj.getZhuanhua(), 0);
 		obj.setSqnum(sqnum);
 	}
-	
+
 	/**
 	 * 任务申请
+	 * 
 	 * @param bbid
 	 */
-	public void shenqing(Long bbid){
+	public void shenqing(Long bbid) {
 		List<SKBbrw> list = getList(bbid);
-		if(CollectionUtils.isEmpty(list)){
+		if (CollectionUtils.isEmpty(list)) {
 			BusinessExceptionUtil.threwException("宝贝今天没有任务");
 		}
-		
+
 		SKBbrw rw = list.get(0);
-		if(rw.getSqnum()<=rw.getYsqnum()){
+		if (rw.getSqnum() <= rw.getYsqnum()) {
 			BusinessExceptionUtil.threwException("宝贝今天已经申请完了");
 		}
-		Map<String, Object> params = MapUtils.genMap("id",rw.getId(),"ysqnumAdd",1);
+		Map<String, Object> params = MapUtils.genMap("id", rw.getId(), "ysqnumAdd", 1);
 		updateByMap(params);
 	}
-	
+
 	/**
 	 * 获取宝贝今天的任务
+	 * 
 	 * @param bbid
 	 * @return
 	 */
-	public List<SKBbrw> getList(Long bbid){
-		String todayStr = DateUtils.format(new Date(),DateUtils.DAY_FORMAT);
+	public List<SKBbrw> getList(Long bbid) {
+		String todayStr = DateUtils.format(new Date(), DateUtils.DAY_FORMAT);
 		Map<String, Object> parameters = MapUtils.genMap("daydes", todayStr, "bbid", bbid);
 		List<SKBbrw> list = selectByWhere(parameters);
 		return list;
 	}
-	
-	public boolean insertInBatch(List<SKBbrw> objs){
+
+	public boolean insertInBatch(List<SKBbrw> objs) {
 		return dao.insertInBatch(objs);
 	}
-	
-	
-	public boolean update(SKBbrw obj){
+
+	public boolean update(SKBbrw obj) {
 		return dao.update(obj);
 	}
-    
-    public boolean updateByMap(Map<String, Object> params){
+
+	public boolean updateByMap(Map<String, Object> params) {
 		return dao.updateByMap(params);
 	}
-    
-    
-	public boolean delete(Long id){
+
+	public boolean delete(Long id) {
 		return dao.delete(id);
-	}	
-	
-    public boolean deleteMulti(Collection<Long> ids){
+	}
+
+	public boolean deleteMulti(Collection<Long> ids) {
 		return dao.deleteMulti(ids);
 	}
-    
-    public boolean deleteByWhere(Map<String, Object> parameters){
+
+	public boolean deleteByWhere(Map<String, Object> parameters) {
 		return dao.deleteByWhere(parameters);
 	}
-    
-    
-  
+
+	/**
+	 * 抽奖逻辑 是否要结束
+	 * 
+	 * @return
+	 */
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+	public void doChouJiang(boolean isEnd) {
+		try {
+			String todayStr = DateUtils.format(new Date(), DateUtils.DAY_FORMAT);
+			Map<String, Object> parameters = MapUtils.genMap("daydes", todayStr, "status", 1);
+			List<SKBbrw> list = selectByWhere(parameters);
+			if (CollectionUtils.isEmpty(list)) {
+				return;
+			}
+			for (SKBbrw bbrw : list) {
+				doOneRwCJ(bbrw, isEnd);
+			}
+
+		} catch (Exception e) {
+			BusinessExceptionUtil.threwException(e);;
+		}
+
+	}
+
+	/**
+	 * 对每个宝贝的待抽奖人选进行抽奖
+	 * 
+	 * @param bbrw
+	 */
+	private void doOneRwCJ(SKBbrw bbrw, boolean isEnd) {
+		Long bbid = bbrw.getBbid();
+		Long bbnum = bbrw.getBbnum();
+		Long yzj = bbrw.getYzj();
+		// 抽奖数量
+		long cjsl = 0L;
+		if (isEnd) {
+			// 全部抽完
+			cjsl = bbnum - yzj;
+		} else {
+			cjsl = bbnum / 3;
+		}
+
+		List<SKSkqk> list = sKSkqkService.getDengChouJiang(bbid);
+		if (CollectionUtils.isEmpty(list)) {
+			return;
+		}
+		if (list.size() <= cjsl) {
+			// 奖比人多，全部中奖
+			for (SKSkqk skqk : list) {
+				skqk.setStatus(51L);
+				sKSkqkService.update(skqk);
+			}
+			bbrw.setYzj(list.size()+bbrw.getYzj());
+		} else {
+			// 人多，需要进行抽
+			List<SKSkqk> zjrlist = poolBean((int)cjsl, list);
+			for (SKSkqk skqk : zjrlist) {
+				skqk.setStatus(51L);
+				sKSkqkService.update(skqk);
+			}
+			bbrw.setYzj(zjrlist.size()+bbrw.getYzj());
+			
+		}
+		update(bbrw);
+	}
+
+	/**
+	 * 抽奖算法
+	 * 
+	 * @param jps
+	 *            奖品数
+	 * @param cjlist
+	 *            抽奖人列表
+	 * @return
+	 */
+	private List<SKSkqk> poolBean(int jps, List<SKSkqk> cjlist) {
+		Random rand = new Random();
+		// 中奖人列表
+		List<SKSkqk> zjrlist = new ArrayList<SKSkqk>();
+		for (int i = 0; i < jps; i++) {
+			// 获取随机数
+			int total = cjlist.size();
+			int random = rand.nextInt(total);
+			zjrlist.add(cjlist.get(random));
+			cjlist.remove(random);
+		}
+		return zjrlist;
+
+	}
 
 }
