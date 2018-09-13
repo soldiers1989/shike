@@ -109,22 +109,6 @@ public class SKBaobeiZTService extends JSBaseService {
 		if (CollectionUtils.isNotEmpty(list)) {
 			detail = list.get(0);
 		}
-		String tag = "tfsContent : '";
-		StringBuffer sb = new StringBuffer();
-		if(detail.getContent().contains(tag)){
-			String c1 = detail.getContent().substring(detail.getContent().indexOf(tag)+tag.length());
-			c1 = c1.substring(0,c1.indexOf("',"));
-			String[] c2 = c1.split("src=\"");
-			for(String c3:c2){
-				if(c3.contains("\"")){
-					String c4 = c3.substring(0, c3.indexOf("\""));
-					if(c4.indexOf("_!!") != -1){
-						sb.append(c4).append("sktag");
-					}
-				}		
-			}
-		}
-		detail.setContent(sb.toString());
 		return detail;
 	}
 

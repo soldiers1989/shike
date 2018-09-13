@@ -227,5 +227,16 @@ public class SKBaobeiController {
 		return new ResultRowInfo();
 	}
 	
+	/**
+	 * 返款测试
+	 */
+	@ResponseBody
+	@RequestMapping(value = "fktest.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	public ResultInfo fktest(HttpServletRequest req, HttpServletResponse rep) {
+		sKSkqkService.toReturnMoney();
+		return new ResultRowInfo();
+	}
+	
+	
 
 }

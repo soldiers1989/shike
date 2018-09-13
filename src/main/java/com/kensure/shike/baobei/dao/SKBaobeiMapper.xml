@@ -393,6 +393,11 @@
 		    <set>
 		    	<include refid="setComn"/>
 			</set>
+			<set>
+			<if test="ysqnumAdd != null">
+				ysqnum = ysqnum+#{ysqnumAdd},
+			</if>
+			</set>
 		  where id = #{id}
 	</update>
 	

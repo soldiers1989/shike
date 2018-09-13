@@ -406,6 +406,8 @@ public class SKBaobeiService extends JSBaseService {
 			BusinessExceptionUtil.threwException("宝贝未通过审核");
 		}
 		sKSkqkService.saveSQ(baobei,skuser);
+		Map<String, Object> params = MapUtils.genMap("id", id, "ysqnumAdd", 1);
+		updateByMap(params);
 	}
 	
 	/**

@@ -207,12 +207,14 @@
 		    <set>
 		    	<include refid="setComn"/>
 			</set>
+			<set>
 			<if test="ysqnumAdd != null">
 				ysqnum = ysqnum+#{ysqnumAdd},
 			</if>
 			<if test="yzjAdd != null">
 				yzj = yzj+#{yzjAdd},
 			</if>
+			</set>
 		  where id = #{id}
 	</update>
 	

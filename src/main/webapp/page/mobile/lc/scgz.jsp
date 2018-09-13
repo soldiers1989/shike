@@ -27,7 +27,7 @@
 
         <section class="aui-flexView">
             <header class="aui-navBar aui-navBar-fixed b-line">
-                <a href="javascript:;" class="aui-navBar-item">
+                <a href="javascript:history.go(-1);" class="aui-navBar-item">
                     <i class="icon icon-return"></i>
                 </a>
                 <div class="aui-center">
