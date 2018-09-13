@@ -93,8 +93,13 @@ public class SKBbrwService extends JSBaseService {
 	 * @param obj
 	 */
 	public void initData(List<SKBbrw> rws) {
+		Date date = new Date();
+		Date now = DateUtils.parse(DateUtils.format(date,DateUtils.DAY_FORMAT), DateUtils.DAY_FORMAT);
 		for (SKBbrw obj : rws) {
 			Date day = DateUtils.parse(obj.getDaydes(), DateUtils.DAY_FORMAT);
+			if(day.getTime() < now.getTime()){
+				BusinessExceptionUtil.threwException("时间不能早于今天");
+			}
 			obj.setStartTime(DateUtils.parse(DateUtils.formatDateStart(day), DateUtils.DATE_FORMAT_PATTERN));
 			obj.setEndTime(DateUtils.parse(DateUtils.formatDateEnd(day), DateUtils.DATE_FORMAT_PATTERN));
 			long sqnum = obj.getBbnum() * 100 / NumberUtils.parseInteger(obj.getZhuanhua(), 0);

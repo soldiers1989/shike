@@ -29,7 +29,7 @@ public class ShangJiaPageController {
 		indexlist.add("index_content.jsp");
 		indexlist.add("footer.jsp");
 	}
-	
+
 	// 商家用户登录模板
 	private static List<String> regist = new ArrayList<String>();
 	static {
@@ -135,5 +135,17 @@ public class ShangJiaPageController {
 		req.setAttribute("bodypage", body);
 		req.setAttribute("id", req.getParameter("id"));
 		return "page/shangjia/index.jsp";
+	}
+
+	// 关于我们
+	@RequestMapping("about")
+	public String about(HttpServletRequest req, HttpServletResponse rep, Model model) {
+		return "page/shangjia/about.jsp";
+	}
+
+	// 用户协议
+	@RequestMapping("userdefine")
+	public String userdefine(HttpServletRequest req, HttpServletResponse rep, Model model) {
+		return "page/shangjia/userdefine.jsp";
 	}
 }

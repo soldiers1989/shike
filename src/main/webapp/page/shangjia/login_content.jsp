@@ -56,9 +56,33 @@
 <script>
 var lgtype=2;
 function login(){
-	loginSubmit(lgtype,'')
+	dologin()
 }
-$("#loginname").html($.cookie("mdname"));
+
+function dologin() {
+    var submitbtn = $("#submitbtn");
+    var username = $("#username");
+    var password = $("#password");   
+    submitbtn.val('登录中...');
+    submitbtn.attr("disabled", "disabled");
+    var data = { mobile: username.val(), password: password.val(), type: lgtype};
+    var url = "<%=BusiConstant.shangjia_login_do.getKey()%>";
+    postdo(url, data, loginsucdo,null, logincompdo);
+}
+
+
+function loginsucdo(data){
+	var usersession = data.resultData.row;
+	addcookie(usersession);
+	window.location.href="<%=BusiConstant.shangjia_index.getKey()%>";
+}
+
+function logincompdo(data){
+	var submitbtn = $("#submitbtn");
+	submitbtn.removeAttr('disabled');
+    submitbtn.val('登录');
+}
+
 function check(type){
 	lgtype = type;
 	$("#loginshike1").removeClass("noborito");

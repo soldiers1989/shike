@@ -105,33 +105,18 @@
 </script>
 <div class="clearfix fabushiyong" style="padding-bottom: 0;">
     <div class="shiy_ti">
-        <span style="float:none;">平台类型</span>
-        <select id="ordertype" onchange="searchCat();">
-            <option value="-1">全部</option>
-            <option value="0" selected="selected">淘宝</option>
-            <option value="1">天猫</option>
-            <option value="2">京东</option>
-        </select>
+        
         <span style="float:none;margin-right:5px;">活动管理</span>
         <input id="key" type="text" placeholder="请输入活动名称" style="width: 200px" class="shou">
-        <span style="float:none;">活动类型</span>
-        <select id="sktype" onchange="searchCat();" style="width:auto;">
-            <option value="-1" selected="selected">全部</option>
-                <option value="0">爆款打造/维护</option>
-                <option value="1"> 新品提升综合权重</option>
-                <option value="2">高客单精准打造爆款</option>
-                <option value="3">新人必中</option>
-                <option value="4">组团开奖 实时转化</option>
-        </select>
-        <input onclick="search()" type="button" style="background: url('/Content/images/se.gif') no-repeat scroll -1px center transparent; border: 0px none; cursor: pointer; height: 28px; width: 101px; outline: none; position: relative; margin-left: 0px;">
+        <input onclick="search()" type="button" style="background: url('<%=context%>/se.gif') no-repeat scroll -1px center transparent; border: 0px none; cursor: pointer; height: 28px; width: 101px; outline: none; position: relative; margin-left: 0px;">
     </div>
-    <div class="shiy_tl">
-        <a class="shiy" href="/JPinShopissueBis?status=-1&amp;orderType=0&amp;sk_type=-1">全部<i>|</i></a>
-        <a class="" href="/JPinShopissueBis?status=5&amp;orderType=0&amp;sk_type=-1">待支付</a>
-        <a class="" href="/JPinShopissueBis?status=0&amp;orderType=0&amp;sk_type=-1">待审核</a>
-        <a class="" href="/JPinShopissueBis?status=1&amp;orderType=0&amp;sk_type=-1">进行中</a>
-        <a class="" href="/JPinShopissueBis?status=3&amp;orderType=0&amp;sk_type=-1">已结束</a>
-        <a class="" href="/JPinShopissueBis?status=2&amp;orderType=0&amp;sk_type=-1">已驳回</a>
+    <div class="shiy_tl" id="shiyall">
+        <a class="shiy" id="shiy" href="javascript:dianpulist(-10)">全部<i>|</i></a>
+        <a class="" id="shiy0" href="javascript:dianpulist(0)">待支付</a>
+        <a class="" id="shiy1" href="javascript:dianpulist(1)">待审核</a>
+        <a class="" id="shiy9" href="javascript:dianpulist(9)">进行中</a>
+        <a class="" id="shiy10" href="javascript:dianpulist(10)">已结束</a>
+        <a class="" id="shiy2" href="javascript:dianpulist(2)">已驳回</a>
     </div>
     <div class="clearfix right_g">
         <div class="right_contant table-style">
@@ -168,6 +153,7 @@
 <script>
 	function sucdo(data){
 		var rows = data.resultData.rows;
+		$("#listtable").html("");
 		if(rows){		
 			for(var i=0;i<rows.length;i++){
 				var row = rows[i];
@@ -181,7 +167,6 @@
                 +"                </em>"+row.title 
                 +"            </span>" 
                 +"        </a>" 
-                +"        <input style=\"height: 15px; background: transparent; margin: 10px 0;\" type=\"text\" placeholder=\"备注\" class=\"beizhu\" id=\"sk_note_83882\" onblur=\"SetNoet(83882, 7, '') \">" 
                 +"    </div>" 
                 +" </div>" 
                 +"</td>" 
@@ -192,22 +177,36 @@
                 +"     <em style=\"color: #f25f55\">"+row.statusStr+"</em>" 
                 +"  </td>" 
                 +" <td height=\"100\" align=\"center\" width=\"200\">" 
-                +"    <div class=\"wae_cer\">" 
-                +"        <a href=\"<%=BusiConstant.shangjia_payinfo.getKey()%>?id="+row.id+"\" href=\"_blank\" class=\"dv_psdb\">" 
-                +"                 	支付" 
-                +"            </a>" 
-                +"   </div>" 
+                +"    <div class=\"wae_cer\">";
+                if(row.status == 0){
+                	html+="        <a href=\"<%=BusiConstant.shangjia_payinfo.getKey()%>?id="+row.id+"\" href=\"_blank\" class=\"dv_psdb\">" 
+                    +"                 	支付" 
+                    +"            </a>";
+                }
+                
+                html+="   </div>"
                 +"</td>" 
                 +"<td height=\"100\" align=\"center\" width=\"200\">--</td>" 
                 +" </tr>" 
 				$("#listtable").append(html);
 			}
-		}
-		
+		}	
 	}
 
-   function dianpulist(){
+   function dianpulist(status){
 	   var data = {};
+	   var bt = "shiy";
+	   if(status >= 0){
+		   bt=bt+status;
+		   data.status = status;
+	   }
+	   var clist = $("#shiyall").children();
+		for(var i=0;clist.length>i;i++){
+			var ad = clist[i];
+			$("#"+ad.id).removeClass("shiy");
+		}
+		$("#"+bt).addClass("shiy");
+	   
 	   var url = "<%=BusiConstant.shangjia_baobeilist_do.getKey()%>";
 	   postdo(url, data, sucdo,null, null);
    }

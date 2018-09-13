@@ -1,8 +1,13 @@
+<%@page import="java.util.Date"%>
+<%@page import="co.kensure.mem.DateUtils"%>
 <%@page import="com.kensure.shike.constant.BusiConstant"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <% 
 	String context = BusiConstant.shangjiapath;
 	String name = BusiConstant.name;
+	Date now = new Date();
+	String day1 = DateUtils.format(now,DateUtils.DAY_FORMAT);
+	String day2 = DateUtils.format(DateUtils.getPastDay(now, 6),DateUtils.DAY_FORMAT);
 %>
                 
 <link rel="stylesheet" type="text/css" href="<%=context%>/addJPinShop.css">
@@ -220,9 +225,7 @@
                     </dd>
                 </dl>
 
-                <div class="slide-btn btn-red btn">
-                    确定
-                </div>
+              
             </div>
 
 
@@ -271,42 +274,25 @@
                     <div class="item-con">
                         <select name="sk_commodity_type" id="sk_commodity_type" datatype="*">
                             <option value="" selected="selected">请选择产品类型</option>
-                                <option value="10">家居建材</option>
-                                <option value="1">潮流女装</option>
-                                <option value="2">时尚男装</option>
-                                <option value="4">鞋子箱包</option>
-                                <option value="7">数码家电</option>
-                                <option value="5">日用百货</option>
-                                <option value="6">母婴用品</option>
-                                <option value="8">护肤美妆</option>
-                                <option value="9">珠宝配饰</option>
-                                <option value="3">食品保健</option>
-                                <option value="11">车品车饰</option>
+                                
                         </select>
                     <span class="Validform_checktip"></span></div>
                 </div>
                 <div class="item">
                     <span class="label vt"><span>*</span>宝贝图片：</span>
                     <div class="item-con" id="img-con">
-                        <img class="pic act" src="/Content/images/supertry/no_pic.jpg">
-                        <img class="pic" src="/Content/images/supertry/no_pic.jpg">
-                        <img class="pic" src="/Content/images/supertry/no_pic.jpg">
-                        <img class="pic" src="/Content/images/supertry/no_pic.jpg">
+                        <img class="pic act" src="<%=context%>/no_pic.jpg">
+                        <img class="pic" src="<%=context%>/no_pic.jpg">
+                        <img class="pic" src="<%=context%>/no_pic.jpg">
+                        <img class="pic" src="<%=context%>/no_pic.jpg">
                         <p>默认第1个为主图</p>
                     </div>
-                </div>
-
-                
-                <div class="item">
-                    <span class="label vt">上传图片：</span>
-                    <div class="item-con" style="line-height:30px;color:#ff464e;">
-                        推荐上传400 * 400的高清图片，如果因为图片太小造成模糊，平台概不负责！
-                    </div>
-                </div>
+                </div>      
+           
                 <div class="item">
                     <span class="label vt">下单主图：</span>
                     <div class="item-con">
-                        <img style="display:inline-block;vertical-align:middle;" id="picbbzt" class="pic bbzt" src="/Content/images/JPin/up-img1.png">
+                        <img style="display:inline-block;vertical-align:middle;" id="picbbzt" class="pic bbzt" src="<%=context%>/no_pic.jpg">
                         <span style="display:inline-block;vertical-align:middle;">该图为您的宝贝在淘宝/京东搜索页展示的下单主图</span>
                     </div>
                 </div>
@@ -366,28 +352,21 @@
                         <input type="checkbox" name="sk_no_contact_chat" id="sk_no_contact_chat" value="1">
                         <label for="sk_no_contact_chat" style="margin-right: 53px;">无需<em id="ptText6">旺旺聊天</em></label>
                     </div>
-                </div>
-                <div class="slide-btn btn-red btn">
-                    确定
-                </div>
+                </div> 
             </div>
 
             <div class="slide-item">
                 <div class="l-title">
                     <span>4</span>活动周期设置
-                    <label id="showtime" style="margin-left:100px;display:none;font-size:15px;">
-                        <u style="color:#ff464e;display:inline;text-decoration:none;vertical-align:middle;">开奖时间：</u>
-                        <label style="color:#ff464e;display:inline !important; font-size:15px;vertical-align:middle;"></label>
-                    </label>
-                    <em class="open-slide">修改</em> <i class="iconfont icon-zhengque"></i>
+             
                 </div>
 
                 <div class="item">
                     <span class="label vt"><span>*</span>活动时间：</span>
                     <div class="item-con">
-                        <input type="date" class="w150" datatype="*" nullmsg="请选择" placeholder="活动开始时间" id="begindate" name="sk_begindate" value="2018-09-10">
+                        <input type="date" class="w150" datatype="*" onchange="getDays()" placeholder="活动开始时间" id="begindate" name="sk_begindate" value="<%=day1%>">
                         -
-                        <input type="date" class="w150" datatype="*" nullmsg="请选择" placeholder="活动结束时间" id="enddate" name="sk_enddate"  value="2018-09-15">
+                        <input type="date" class="w150" datatype="*" onchange="getDays()" placeholder="活动结束时间" id="enddate" name="sk_enddate"  value="<%=day2%>">
 
                         <span style="margin-left: 20px">共</span><em id="Date-num">7</em><span>天</span> <span style="margin-left: 10px;">总份数： <em id="all-num" style="color: #ff464e;">0</em></span>
                         <span style="margin-left: 20px;color:#ff464e;display: none;" id="data-warn">活动天数不能大于15天</span>
@@ -440,15 +419,12 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="slide-btn btn-red btn">
-                    确定
-                </div>
+               
             </div>
 
             <div class="slide-item slide5">
                 <div class="l-title">
-                    <span>5</span>进店路径设置
-                    <em class="open-slide">修改</em> <i class="iconfont icon-zhengque"></i>
+                    <span>5</span>进店路径设置              
                 </div>
 
                 <div class="key-word" id="app-key">
@@ -601,13 +577,17 @@
 		   return;
 	   }
 	   $("#Date-num").html(days);
-	      
+	   for(var i=0;i<21;i++){
+		   $("#week"+""+i).html("");
+	   }
+	   
+	   var bday = begindate.getDay();
 	   for(var i=0;i<days;i++){
 		  var tempday = dayadd(begindate,i);
-		  var week = tempday.getDay();
 		  var daystr = tempday.Format("yyyy-MM-dd");
 		  var hml = "<input type='text' readonly='readonly' style='width:100px;' id='shijian"+i+"' value='"+daystr+"'/><br>投放份数:<input type='text' style='width:50px;' id='fenshu"+i+"' value=''/><br>转化率:<input type='text' style='width:50px;' id='zhuanhua"+i+"' value=''/>%";
-		  $("#week"+""+week).html(hml);
+		  $("#week"+""+bday).html(hml);
+		  bday++;
 	   }  
    }
    
@@ -710,6 +690,22 @@
 	   postdo(url, data, sucdo,null, null);
   }
   dianpulist();
+  
+  function dictsucdo(data){
+		var rows = data.resultData.rows;
+		for(var i=0;i<rows.length;i++){
+			var row = rows[i];
+			var html = "<option value='"+row.code+"'>";
+			html += row.name+"</option>";
+			$("#sk_commodity_type").append(html);
+		}	
+	}
+	function dictlist(){
+	   var data = {typeid:1};
+	   var url = "<%=BusiConstant.sys_dictlist_do.getKey()%>";
+	   postdo(url, data, dictsucdo,null, null);
+	}
+	dictlist();
 </script>           
             
             

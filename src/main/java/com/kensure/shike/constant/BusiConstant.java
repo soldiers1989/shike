@@ -25,9 +25,9 @@ public class BusiConstant {
 	public static final String shangjiamanagerpath = context + "/page/shangjia/shangjia";
 
 	// 应用名称
-	public static final String name = "米袋网";
+	public static final String name = "试呗网";
 	// 公司名称
-	public static final String gsname = "米袋网";
+	public static final String gsname = "广西南宁试呗网络科技有限公司";
 	// 公司邮箱
 	public static final String gsmail = "fankaidid@163.com";
 	// 公司qq
@@ -39,9 +39,11 @@ public class BusiConstant {
 	// 公司银行账户
 	public static final String gsyhzh = "13606816944";
 	// 公司银行账户名
-	public static final String gsyhzhm = "杭州米袋科技有限公司";
+	public static final String gsyhzhm = "广西南宁试呗网络科技有限公司";
 	// 公司银行开户行
 	public static final String gsyhkhh = "中国建设银行股份有限公司杭州秋涛支行营业部";
+	public static final KVBean shangjia_about = new KVBean(context + "/shangjia/about", "关于我们");
+	public static final KVBean shangjia_userdefine = new KVBean(context + "/shangjia/userdefine", "用户协议");
 
 	public static final KVBean shangjia_login = new KVBean(context + "/shangjia/login", "商家登录");
 	public static final KVBean shangjia_regist = new KVBean(context + "/shangjia/regist", "商家注册");

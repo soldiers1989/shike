@@ -42,3 +42,10 @@ function addcookie(usersession){
 	$.cookie("mdphone",usersession.phone);
 	$.cookie("mdtype",usersession.type);
 };
+
+function removecookie(){
+	$.cookie("mdtokenid",null);
+	$.cookie("mdname",null);
+	$.cookie("mdphone",null);
+	$.cookie("mdtype",null);
+};

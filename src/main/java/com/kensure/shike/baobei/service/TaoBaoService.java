@@ -31,6 +31,9 @@ public class TaoBaoService extends JSBaseService {
 		Elements elements = doc.select("ul#J_UlThumb").select("li");
 		for (Element ele : elements) {
 			String picurl = ele.select("img").attr("src");
+			if(StringUtils.isBlank(picurl)){
+				picurl = ele.select("img").attr("data-src");
+			}	
 			String a = picurl.substring(0, picurl.lastIndexOf("."));
 			String c = a.substring(0, a.lastIndexOf("."));
 			String b = picurl.substring(picurl.lastIndexOf("."));

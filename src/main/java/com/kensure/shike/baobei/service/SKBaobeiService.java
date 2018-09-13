@@ -29,6 +29,7 @@ import co.kensure.exception.ParamUtils;
 import co.kensure.frame.JSBaseService;
 import co.kensure.mem.ArithmeticUtils;
 import co.kensure.mem.MapUtils;
+import co.kensure.mem.NumberUtils;
 
 import com.kensure.basekey.BaseKeyService;
 import com.kensure.shike.baobei.dao.SKBaobeiDao;
@@ -214,9 +215,17 @@ public class SKBaobeiService extends JSBaseService {
 
 		// 进店路径
 		List<SKJindian> jds = obj.getJdlist();
+		int n = 0;
 		for (SKJindian jd : jds) {
+			if(NumberUtils.isZero(jd.getBili())){
+				continue;
+			}
 			jd.setBbid(obj.getId());
 			sKJindianService.insert(jd);
+			n +=jd.getBili();
+		}
+		if(n !=100){
+			BusinessExceptionUtil.threwException("比例之和必须为100");
 		}
 
 		// 关键字
