@@ -30,7 +30,6 @@ public class GLPageController {
 		indexlist.add("footer.jsp");
 	}
 
-
 	// 后台登录页面
 	@RequestMapping("login")
 	public String loginht(HttpServletRequest req, HttpServletResponse rep, Model model) {
@@ -61,6 +60,17 @@ public class GLPageController {
 		return "page/shangjia/index.jsp";
 	}
 
+	// 提现列表
+	@RequestMapping("tixianlist")
+	public String tixianlist(HttpServletRequest req, HttpServletResponse rep, Model model) {
+		req.setAttribute("index", indexlist);
+
+		List<String> body = new ArrayList<String>();
+		body.add("indexht_left.jsp");
+		body.add("./gl/tixian_right.jsp");
+		req.setAttribute("bodypage", body);
+		return "page/shangjia/index.jsp";
+	}
 
 	// 活动列表
 	@RequestMapping("huodonglist")

@@ -54,6 +54,7 @@ public class BusiConstant {
 	public static final KVBean shangjia_dianpulist = new KVBean(context + "/shangjia/dianpulist", "商家店铺管理");
 	public static final KVBean shangjia_huodonglist = new KVBean(context + "/shangjia/huodonglist", "商家活动信息查询");
 	public static final KVBean shangjia_payinfo = new KVBean(context + "/shangjia/payinfo", "商家支付信息");
+
 	
 	
 
@@ -62,8 +63,17 @@ public class BusiConstant {
 	public static final KVBean userzhyue_do = new KVBean(context + "/user/getzhyue.do", "用户余额接口");
 	public static final KVBean shangjia_checkphone_do = new KVBean(context + "/user/checkphone.do", "商家手机验证接口");
 	public static final KVBean shangjia_login_do = new KVBean(context + "/user/login.do", "商家登录接口");
-	public static final KVBean shangjia_chongzhi_do = new KVBean(context + "/inout/savein.do", "商家充值接口");
+	public static final KVBean shangjia_chongzhi_do = new KVBean(context + "/inout/savein.do", "充值接口");
+	public static final KVBean ht_chongzhitongguo_do = new KVBean(context + "/inout/tongguo.do", "通过充值");
+	
+	public static final KVBean sk_saveout_do = new KVBean(context + "/inout/saveout.do", "提现接口");
+	public static final KVBean ht_tongguoout_do = new KVBean(context + "/inout/tongguoout.do", "通过充值");
+	
+	
+	public static final KVBean shangjia_zhanglist_do = new KVBean(context + "/inout/zhanglist.do", "账号明细列表接口");
 	public static final KVBean shangjia_chongzhilist_do = new KVBean(context + "/inout/chongzhilist.do", "商家充值列表接口");
+	public static final KVBean shangjia_tixianlist_do = new KVBean(context + "/inout/tixianlist.do", "商家提现列表接口");
+	
 	public static final KVBean shangjia_dianpuadd_do = new KVBean(context + "/dianpu/add.do", "商家店铺新增");
 	public static final KVBean shangjia_dianpualist_do = new KVBean(context + "/dianpu/list.do", "商家店铺列表");
 	public static final KVBean shangjia_taobaoinfo_do = new KVBean(context + "/baobei/gettaobaoinfo.do", "淘宝图片");
@@ -80,8 +90,12 @@ public class BusiConstant {
 	//后台服务
 	public static final KVBean ht_chongzhilist = new KVBean(context + "/gl/chongzhilist", "后台充值列表");	
 	public static final KVBean ht_huodonglist = new KVBean(context + "/gl/huodonglist", "后台活动列表");	
-	public static final KVBean ht_chongzhitongguo_do = new KVBean(context + "/inout/tongguo.do", "通过充值");
+	public static final KVBean ht_tixianlist = new KVBean(context + "/gl/tixianlist", "后台活动列表");	
+	
+
 	public static final KVBean ht_baobeitongguo_do = new KVBean(context + "/baobei/tongguo.do", "宝贝通过审核");
+	public static final KVBean user_getuser_do = new KVBean(context + "/user/getuser.do", "用户会话信息");
+	
 	
 	//系统级别,获取字典
 	public static final KVBean sys_dictlist_do = new KVBean(context + "/sys/dictlist.do", "获取字典");
@@ -91,8 +105,14 @@ public class BusiConstant {
 	public static final String shikemobilepath = context + "/page/mobile";
 	
 	public static final KVBean shike_detail = new KVBean(context + "/skm/detail", "宝贝详情");
+	public static final KVBean shike_index = new KVBean(context + "/skm/index", "首页");
 	public static final KVBean shike_haohuo = new KVBean(context + "/skm/haohuo", "好货页面");
-	public static final KVBean shike_wdhd = new KVBean(context + "/skm/wdhd", "收藏关注页面");
+	public static final KVBean shike_wdhd = new KVBean(context + "/skm/wdhd", "我的活动页面");
+	public static final KVBean shike_mine = new KVBean(context + "/skm/mine", "我的");
+	public static final KVBean shike_tixian = new KVBean(context + "/skm/tixian", "提现页面");
+	public static final KVBean shike_mingxi = new KVBean(context + "/skm/mingxi", "明细页面");
+	public static final KVBean shike_jjdz = new KVBean(context + "/skm/jjdz", "即将到账页面");
+	
 	public static final KVBean shike_login = new KVBean(context + "/skm/login", "登陆页面");
 	public static final KVBean shike_regist = new KVBean(context + "/skm/regist", "注册页面");
 	public static final KVBean shike_gouwuche = new KVBean(context + "/skm/gouwuche", "购物车页面");

@@ -21,7 +21,7 @@
 				<li class="left_titi "><strong><i class="iconfont icon-zhanghuxinxi"></i>试客管理</strong> <i
 					class="iconfont icon-Toleft il5 ft_up_down"
 					style="color: rgb(102, 102, 102);"></i></li>
-				<li><a href="<%=BusiConstant.shangjia_dianpulist.getKey()%>" id="openWindows18" target="_self">提现管理</a></li>
+				<li><a href="<%=BusiConstant.ht_tixianlist.getKey()%>" id="openWindows18" target="_self">提现管理</a></li>
 			
 			</ul>
 		</div>

@@ -31,7 +31,7 @@ public class SKUserZhang extends BaseInfo{
 	/**业务id*/		
 	private Long busiid; 
 
-	/**业务类型id,1是商家充值，2是试客体现，3是活动费用*/		
+	/**业务类型id,1是商家充值，2是试客提现，3是活动费用*/		
 	private Long busitypeid; 
 
 	/**余额*/		
@@ -74,7 +74,20 @@ public class SKUserZhang extends BaseInfo{
 	public Long getBusitypeid() {
 		return busitypeid;
 	}
-
+	public String getBusitypeidStr() {
+		String temp = "";
+		if(busitypeid == 1){
+			temp = "充值";
+		}else if(busitypeid == 2){
+			temp = "提现";
+		}else if(busitypeid == 3){
+			temp = "活动";
+		}else if(busitypeid == 4){
+			temp = "返款";
+		}
+		return temp;
+	}
+	
 	public void setBusitypeid(Long busitypeid) {
 		this.busitypeid = busitypeid;
 	}
@@ -103,6 +116,17 @@ public class SKUserZhang extends BaseInfo{
 		return status;
 	}
 
+	public String getStatusStr() {
+		String temp = "";
+		if(status == 0){
+			temp = "等待审核";
+		}else if(status == 1){
+			temp = "审核通过";
+		}else if(status == -1){
+			temp = "拒绝通过";
+		}
+		return temp;
+	}
 	public void setStatus(Long status) {
 		this.status = status;
 	}

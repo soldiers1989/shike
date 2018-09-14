@@ -34,6 +34,12 @@ public class ShikeMobileController {
 	@Resource
 	private SKWordService sKWordService;
 
+	// 首页
+	@RequestMapping("index")
+	public String index(HttpServletRequest req, HttpServletResponse rep, Model model) {
+		return "page/mobile/haohuo/haohuo.jsp";
+	}
+
 	// 好货页面
 	@RequestMapping("haohuo")
 	public String home(HttpServletRequest req, HttpServletResponse rep, Model model) {
@@ -109,5 +115,29 @@ public class ShikeMobileController {
 		req.setAttribute("baobei", baobei);
 		return "page/mobile/lc/haop.jsp";
 	}
-
+	
+	// 提现页面
+	@RequestMapping("tixian")
+	public String tixian(HttpServletRequest req, HttpServletResponse rep, Model model) {
+		return "page/mobile/lc/tixian.jsp";
+	}
+	
+	// 明细页面
+	@RequestMapping("mingxi")
+	public String mingxi(HttpServletRequest req, HttpServletResponse rep, Model model) {
+		return "page/mobile/lc/mingxi.jsp";
+	}	
+	
+	// 即将到账页面
+	@RequestMapping("jjdz")
+	public String jjdz(HttpServletRequest req, HttpServletResponse rep, Model model) {
+		return "page/mobile/lc/jjdz.jsp";
+	}	
+		
+	
+	// 首页
+	@RequestMapping("mine")
+	public String mine(HttpServletRequest req, HttpServletResponse rep, Model model) {
+		return "page/mobile/haohuo/mine.jsp";
+	}
 }

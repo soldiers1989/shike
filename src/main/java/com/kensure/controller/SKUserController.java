@@ -101,6 +101,16 @@ public class SKUserController {
 		}
 		return new ResultRowInfo();
 	}
+	
+	/**
+	 * 根据会话获取用户信息
+	 */
+	@ResponseBody
+	@RequestMapping(value = "getuser.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	public ResultInfo getuser(HttpServletRequest req, HttpServletResponse rep) {
+		SKUser u = sKUserService.getUser();	
+		return new ResultRowInfo(u);
+	}
 
 	/**
 	 * 商家手机号核对

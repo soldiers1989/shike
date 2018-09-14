@@ -53,38 +53,7 @@
                     
                 </div>
             </section>
-            <footer class="aui-footer aui-footer-fixed">
-                <a href="javascript:;" class="aui-tabBar-item aui-tabBar-item-active">
-                    <span class="aui-tabBar-item-icon">
-                        <i class="icon icon-home"></i>
-                    </span>
-                    <span class="aui-tabBar-item-text">首页</span>
-                </a>
-                <a href="javascript:;" class="aui-tabBar-item">
-                    <span class="aui-tabBar-item-icon">
-                        <i class="icon icon-loan"></i>
-                    </span>
-                    <span class="aui-tabBar-item-text">试呗好货</span>
-                </a>
-                <a href="javascript:;" class="aui-tabBar-item">
-                    <span class="aui-tabBar-item-icon">
-                        <i class="icon icon-time"></i>
-                    </span>
-                    <span class="aui-tabBar-item-text">分享赚钱</span>
-                </a>
-                <a href="<%=BusiConstant.shike_wdhd.getKey() %>" class="aui-tabBar-item ">
-                    <span class="aui-tabBar-item-icon">
-                        <i class="icon icon-credit"></i>
-                    </span>
-                    <span class="aui-tabBar-item-text">我的活动</span>
-                </a>
-                <a href="javascript:;" class="aui-tabBar-item ">
-                    <span class="aui-tabBar-item-icon">
-                        <i class="icon icon-me"></i>
-                    </span>
-                    <span class="aui-tabBar-item-text">我的</span>
-                </a>
-            </footer>
+            <jsp:include page="./footer.jsp" flush="true"/> 
         </section>
     </body>
 </html>

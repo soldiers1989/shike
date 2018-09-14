@@ -93,7 +93,7 @@ CREATE TABLE `sk_user_yue` (
 CREATE TABLE `sk_user_inout` (
   `id` bigint(20) NOT NULL,
   `userid` bigint(20) NOT NULL COMMENT '用户id',
-  `typeid` int(11) NOT NULL COMMENT '商家充值 1 用户提现 2',
+  `typeid` int(11) NOT NULL COMMENT '充值 1 提现 2',
   `fangshi` int(11) NOT NULL COMMENT '充值方式，1是支付宝，2是银行卡',
   `jiaoyihao` varchar(256) COMMENT '支付宝交易号或者打款方账户名',
   `jine` decimal(10,2) NOT NULL COMMENT '金额',
@@ -110,7 +110,7 @@ CREATE TABLE `sk_user_zhang` (
   `id` bigint(20) NOT NULL ,
   `userid` bigint(20) NOT NULL COMMENT '用户id',
   `busiid` bigint(20) NOT NULL COMMENT '业务id',
-  `busitypeid` int(11) NOT NULL COMMENT '业务类型id,1是商家充值，2是试客提现，3是活动费用, 4是试客返款',
+  `busitypeid` int(11) NOT NULL COMMENT '业务类型id,1是充值，2是提现，3是活动费用, 4是试客返款',
   `yue`  decimal(10,2) NOT NULL COMMENT '金额',
   `jinbi` decimal(10,2) NOT NULL COMMENT '金币',
   `inorout` int(11) NOT NULL COMMENT '对这个用户流进还是流出,1是进，-1是出',

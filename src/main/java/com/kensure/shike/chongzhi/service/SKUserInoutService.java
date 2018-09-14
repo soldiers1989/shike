@@ -119,10 +119,10 @@ public class SKUserInoutService extends JSBaseService{
      * 根据用户获取充值记录
      * @return
      */
-    public List<SKUserInout> getChongZhiList(){
+    public List<SKUserInout> getInoutList(int typeid){
     	SKUser skuser = sKUserService.getUser();
     	SKUserService.checkUser(skuser);
-    	Map<String, Object> parameters = MapUtils.genMap("userid",skuser.getId(),"typeid",1,"orderby","created_time desc");
+    	Map<String, Object> parameters = MapUtils.genMap("userid",skuser.getId(),"typeid",typeid,"orderby","created_time desc");
     	if(skuser.getType() == 3){
     		parameters.remove("userid");
     	}
@@ -154,6 +154,52 @@ public class SKUserInoutService extends JSBaseService{
     	insert(obj);
 		return true;
 	}
+    
+    /**
+   	 * 用户或者商家进行余额提现
+   	 */
+       @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+       public boolean saveOut(SKUserInout obj){
+       	SKUser skuser = sKUserService.getUser();
+       	SKUserService.checkUser(skuser);
+       	obj.setUserid(skuser.getId());
+       	obj.setTypeid(2L);
+       	obj.setJiaoyihao(skuser.getNoAlipay());
+       	obj.setFangshi(1L);
+       	
+       	//进行校验
+       	ParamUtils.isErrorThrewException(obj.getJine()>=10,"金额必须大于等于10");
+    	ParamUtils.isBlankThrewException(obj.getJiaoyihao(),"支付宝不能为空");
+       	insert(obj);
+      //增加流水
+    	SKUserZhang zhang = new SKUserZhang();
+    	zhang.setUserid(obj.getUserid());
+    	zhang.setBusiid(obj.getId());
+    	zhang.setBusitypeid(2L);
+    	zhang.setYue(obj.getJine());
+    	sKUserZhangService.add(zhang);  
+   		return true;
+   	}
+    
+      /**
+   	 * 后台通过提现
+   	 */
+       @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+       public boolean tongguoOut(Long id){
+       	SKUser skuser = sKUserService.getUser();
+       	SKUserService.checkUserAdmin(skuser);
+       	
+       	SKUserInout obj = selectOne(id);
+       	if(obj.getStatus() != 1){
+       		BusinessExceptionUtil.threwException("重复提交");
+       	}
+   	
+       	obj.setStatus(9L);
+       	update(obj);
+
+       	return true;
+   	}
+    
     
     /**
 	 * 后台通过充值，增加余额

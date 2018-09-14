@@ -19,6 +19,10 @@ import co.kensure.http.RequestUtils;
 import com.alibaba.fastjson.JSONObject;
 import com.kensure.shike.chongzhi.model.SKUserInout;
 import com.kensure.shike.chongzhi.service.SKUserInoutService;
+import com.kensure.shike.user.model.SKUser;
+import com.kensure.shike.user.service.SKUserService;
+import com.kensure.shike.zhang.model.SKUserZhang;
+import com.kensure.shike.zhang.service.SKUserZhangService;
 
 /**
  * 用户的充值、体现流水逻辑
@@ -33,6 +37,12 @@ public class SKInoutController {
 	@Resource
 	private SKUserInoutService sKUserInoutService;
 
+	@Resource
+	private SKUserZhangService sKUserZhangService;
+
+	@Resource
+	private SKUserService sKUserService;
+
 	/**
 	 * 商家充值保存
 	 */
@@ -40,11 +50,26 @@ public class SKInoutController {
 	@RequestMapping(value = "savein.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
 	public ResultInfo savein(HttpServletRequest req, HttpServletResponse rep) {
 		/**
-		 * 需要传入的参数 fangshi 充值方式，1是支付宝，2是银行卡 jiaoyihao 支付宝交易号 zhm 打款方账户名 jine 金额
+		 * 需要传入的参数 fangshi 充值方式，1是支付宝，2是银行卡 jiaoyihao 支付宝交易号 jine 金额
 		 */
 		JSONObject json = RequestUtils.paramToJson(req);
 		SKUserInout obj = JSONObject.parseObject(json.toJSONString(), SKUserInout.class);
 		sKUserInoutService.saveIn(obj);
+		return new ResultRowInfo();
+	}
+
+	/**
+	 * 提现保存
+	 */
+	@ResponseBody
+	@RequestMapping(value = "saveout.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	public ResultInfo saveout(HttpServletRequest req, HttpServletResponse rep) {
+		/**
+		 * 打款方账户名 jine 金额
+		 */
+		JSONObject json = RequestUtils.paramToJson(req);
+		SKUserInout obj = JSONObject.parseObject(json.toJSONString(), SKUserInout.class);
+		sKUserInoutService.saveOut(obj);
 		return new ResultRowInfo();
 	}
 
@@ -54,7 +79,17 @@ public class SKInoutController {
 	@ResponseBody
 	@RequestMapping(value = "chongzhilist.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
 	public ResultInfo chongzhilist(HttpServletRequest req, HttpServletResponse rep) {
-		List<SKUserInout> list = sKUserInoutService.getChongZhiList();
+		List<SKUserInout> list = sKUserInoutService.getInoutList(1);
+		return new ResultRowsInfo(list);
+	}
+	
+	/**
+	 * 获取提现列表
+	 */
+	@ResponseBody
+	@RequestMapping(value = "tixianlist.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	public ResultInfo tixianlist(HttpServletRequest req, HttpServletResponse rep) {
+		List<SKUserInout> list = sKUserInoutService.getInoutList(2);
 		return new ResultRowsInfo(list);
 	}
 
@@ -69,4 +104,32 @@ public class SKInoutController {
 		sKUserInoutService.tongguo(id);
 		return new ResultRowInfo();
 	}
+
+	/**
+	 * 提现通过
+	 */
+	@ResponseBody
+	@RequestMapping(value = "tongguoout.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	public ResultInfo tongguoout(HttpServletRequest req, HttpServletResponse rep) {
+		JSONObject json = RequestUtils.paramToJson(req);
+		Long id = json.getLong("id");
+		sKUserInoutService.tongguoOut(id);
+		return new ResultRowInfo();
+	}
+
+	/**
+	 * 获取帐列表
+	 */
+	@ResponseBody
+	@RequestMapping(value = "zhanglist.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	public ResultInfo zhanglist(HttpServletRequest req, HttpServletResponse rep) {
+		SKUser user = sKUserService.getUser();
+		JSONObject json = RequestUtils.paramToJson(req);
+		Integer inorout = json.getInteger("inorout");
+		Integer status = json.getInteger("status");
+		
+		List<SKUserZhang> list = sKUserZhangService.selectByUser(user, inorout,status);
+		return new ResultRowsInfo(list);
+	}
+
 }

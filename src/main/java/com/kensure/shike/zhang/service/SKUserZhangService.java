@@ -12,6 +12,7 @@
 package com.kensure.shike.zhang.service;
 
 import com.kensure.basekey.BaseKeyService;
+import com.kensure.shike.user.model.SKUser;
 import com.kensure.shike.zhang.dao.SKUserZhangDao;
 import com.kensure.shike.zhang.model.SKUserZhang;
 import com.kensure.shike.zhang.service.SKUserZhangService;
@@ -78,7 +79,6 @@ public class SKUserZhangService extends JSBaseService {
 	public boolean insert(SKUserZhang obj) {
 		super.beforeInsert(obj);
 		obj.setId(baseKeyService.getKey("sk_user_zhang"));
-		obj.setStatus(0L);
 		if (obj.getJinbi() == null) {
 			obj.setJinbi(0D);
 		}
@@ -113,6 +113,21 @@ public class SKUserZhangService extends JSBaseService {
 	}
 
 	/**
+	 * 用户帐
+	 * @return
+	 */
+	public List<SKUserZhang> selectByUser(SKUser user,Integer inorout,Integer status) {
+		Map<String, Object> parameters = MapUtils.genMap("userid",user.getId(),"orderby","created_time desc");
+		if(inorout != null){
+			parameters.put("inorout", inorout);
+		}
+		if(status != null){
+			parameters.put("status", status);
+		}
+		return dao.selectByWhere(parameters);
+	}
+	
+	/**
 	 * 新增账款
 	 * 
 	 * @param obj
@@ -124,15 +139,19 @@ public class SKUserZhangService extends JSBaseService {
 		if (obj.getYue() <= 0) {
 			BusinessExceptionUtil.threwException("金额必须大约0");
 		}
-		// 业务类型id,1是商家充值，2是试客提现，3是活动费用,4是试客返款
+		// 业务类型id,1是充值，2是提现，3是活动费用,4是试客返款
 		if (obj.getBusitypeid() == 1) {
 			obj.setInorout(1L);
+			obj.setStatus(0L);
 		} else if (obj.getBusitypeid() == 2) {
 			obj.setInorout(-1L);
+			obj.setStatus(0L);
 		} else if (obj.getBusitypeid() == 3) {
 			obj.setInorout(-1L);
+			obj.setStatus(1L);
 		} else if (obj.getBusitypeid() == 4) {
 			obj.setInorout(1L);
+			obj.setStatus(1L);
 		} else {
 			BusinessExceptionUtil.threwException("未知类型");
 		}
