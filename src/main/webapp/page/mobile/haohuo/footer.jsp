@@ -40,12 +40,14 @@ function setcheckclass(){
 	var tag = "";
 	if(pn.indexOf('wdhd') != -1){
 		tag = "wdhd";
+		checkuser();
 	}else if(pn.indexOf('index') != -1){
 		tag = "index";
 	}else if(pn.indexOf('haohuo') != -1){
-		tag = "haohuo";
+		tag = "haohuo";	
 	}else if(pn.indexOf('mine') != -1){
 		tag = "mine";
+		checkuser();
 	}
 	
 	$("#"+tag).addClass("aui-tabBar-item-active");
@@ -55,7 +57,12 @@ function setcheckclass(){
 }
 setcheckclass();
 
-
+function checkuser(){
+   var mdtype = $.cookie("mdtype");
+   if(!mdtype || mdtype != 1){
+	   window.location.href="<%=BusiConstant.shike_login.getKey()%>";
+   }
+}
 
 
 </script>
