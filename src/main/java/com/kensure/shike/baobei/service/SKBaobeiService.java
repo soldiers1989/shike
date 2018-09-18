@@ -288,7 +288,7 @@ public class SKBaobeiService extends JSBaseService {
 		SKUser skuser = sKUserService.getUser();
 		SKUserService.checkUser(skuser);
 		SKBaobei sk = selectOne(id);
-		if (sk.getUserid() != skuser.getId()) {
+		if (sk.getUserid().compareTo(skuser.getId())!=0) {
 			BusinessExceptionUtil.threwException("权限异常");
 		}
 		List<SKPayInfo> list = new ArrayList<SKPayInfo>();
@@ -300,12 +300,23 @@ public class SKBaobeiService extends JSBaseService {
 
 		String d2 = d1 + "*2%";
 		double xiaoji2 = ArithmeticUtils.mul(xiaoji1, 0.02, 1);
-		SKPayInfo info2 = new SKPayInfo("平台服务费", d2, xiaoji2);
-		double leiji = ArithmeticUtils.add(xiaoji1, xiaoji2);
-		SKPayInfo info3 = new SKPayInfo("合计", "", leiji);
+		SKPayInfo info2 = new SKPayInfo("转账手续费", d2, xiaoji2);
+		
+		String d3 = num + "*2";
+		double xiaoji3 = ArithmeticUtils.mul(num, 2, 1);
+		SKPayInfo info3 = new SKPayInfo("佣金", d3, xiaoji3);
+		
+		String d4 = "10元/次";
+		double xiaoji4 = 10.00D;
+		SKPayInfo info4 = new SKPayInfo("天秤平台", d4, xiaoji4);
+		
+		double leiji = ArithmeticUtils.add(xiaoji1, xiaoji2,xiaoji3,xiaoji4);
+		SKPayInfo info5 = new SKPayInfo("合计", "", leiji);
 		list.add(info1);
 		list.add(info2);
 		list.add(info3);
+		list.add(info4);
+		list.add(info5);
 		return list;
 	}
 
