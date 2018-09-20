@@ -100,10 +100,15 @@ public class SKBbrwService extends JSBaseService {
 			if(day.getTime() < now.getTime()){
 				BusinessExceptionUtil.threwException("时间不能早于今天");
 			}
-			obj.setStartTime(DateUtils.parse(DateUtils.formatDateStart(day), DateUtils.DATE_FORMAT_PATTERN));
-			obj.setEndTime(DateUtils.parse(DateUtils.formatDateEnd(day), DateUtils.DATE_FORMAT_PATTERN));
-			long sqnum = obj.getBbnum() * 100 / NumberUtils.parseInteger(obj.getZhuanhua(), 0);
+			int zhuanhua = NumberUtils.parseInteger(obj.getZhuanhua(), 0);
+			long sqnum = 0;
+			if(zhuanhua != 0){
+				sqnum = obj.getBbnum() * 100 / zhuanhua;
+			}
 			obj.setSqnum(sqnum);
+			
+			obj.setStartTime(DateUtils.parse(DateUtils.formatDateStart(day), DateUtils.DATE_FORMAT_PATTERN));
+			obj.setEndTime(DateUtils.parse(DateUtils.formatDateEnd(day), DateUtils.DATE_FORMAT_PATTERN));		
 		}
 	}
 
@@ -144,7 +149,7 @@ public class SKBbrwService extends JSBaseService {
 		}
 
 		SKBbrw rw = list.get(0);
-		if (rw.getSqnum() <= rw.getYsqnum()) {
+		if (rw.getSqnum() > 0 &&rw.getSqnum() <= rw.getYsqnum()) {
 			BusinessExceptionUtil.threwException("宝贝今天已经申请完了");
 		}
 		Map<String, Object> params = MapUtils.genMap("id", rw.getId(), "ysqnumAdd", 1);

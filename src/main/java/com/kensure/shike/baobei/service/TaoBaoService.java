@@ -53,7 +53,7 @@ public class TaoBaoService extends JSBaseService {
 	 */
 	public static String getContent(String url) {
 		// 通过url截取淘宝id
-		String[] canshu = url.split("&");
+		String[] canshu =  url.split("[?]")[1].split("&");
 		String id = null;
 		for (String zhi : canshu) {
 			if (zhi.startsWith("id=")) {
@@ -105,9 +105,9 @@ public class TaoBaoService extends JSBaseService {
 
 	public static void main(String[] args) {
 		// fenxi();
-
+	
 		String url = "https://detail.tmall.com/item.htm?id=551968898854&spm=a230r.7195193.1997079397.20.XRP1bz&abbucket=12";
-		String html = HttpUtils.getBody(url);
+		String html =	getContent("https://item.taobao.com/item.htm?id=573448516906&ns=1&abbucket=17#detail") ;
 		System.out.println(html);
 	}
 

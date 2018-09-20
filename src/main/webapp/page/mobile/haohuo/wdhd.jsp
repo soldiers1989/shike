@@ -117,6 +117,10 @@ function dothing(id,status){
 		  window.location.href="<%=BusiConstant.shike_ddan.getKey()%>?id="+id;
 	  }else if(status == 71){
 		  window.location.href="<%=BusiConstant.shike_haop.getKey()%>?id="+id;
+	  }else if(status == 1){
+		  window.location.href="<%=BusiConstant.shike_gouwuche.getKey()%>?id="+id;
+	  }else if(status == 18){
+		  window.location.href="<%=BusiConstant.shike_scgz.getKey()%>?id="+id;
 	  }
 }
 
@@ -125,7 +129,7 @@ function huodonglist(status){
    var url = "<%=BusiConstant.shike_wdhd_do.getKey()%>";
    postdo(url, data, huodongsucdo,null, null);
 }
-huodonglist(1);
+huodonglist(18);
 
 
 

@@ -585,7 +585,7 @@
 	   for(var i=0;i<days;i++){
 		  var tempday = dayadd(begindate,i);
 		  var daystr = tempday.Format("yyyy-MM-dd");
-		  var hml = "<input type='text' readonly='readonly' style='width:100px;' id='shijian"+i+"' value='"+daystr+"'/><br>投放份数:<input type='text' style='width:50px;' id='fenshu"+i+"' value=''/><br>转化率:<input type='text' style='width:50px;' id='zhuanhua"+i+"' value=''/>%";
+		  var hml = "<input type='text' readonly='readonly' style='width:100px;' id='shijian"+i+"' value='"+daystr+"'/><br>投放份数:<input type='text' style='width:50px;' id='fenshu"+i+"' value='1'/><br>转化率:<input type='text' style='width:50px;' id='zhuanhua"+i+"' value='0'/>%";
 		  $("#week"+""+bday).html(hml);
 		  bday++;
 	   }  
