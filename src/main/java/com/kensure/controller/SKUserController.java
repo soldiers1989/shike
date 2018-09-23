@@ -1,5 +1,7 @@
 package com.kensure.controller;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import co.kensure.exception.BusinessExceptionUtil;
 import co.kensure.frame.ResultInfo;
 import co.kensure.frame.ResultRowInfo;
+import co.kensure.frame.ResultRowsInfo;
 import co.kensure.http.RequestUtils;
 
 import com.alibaba.fastjson.JSONObject;
@@ -109,6 +112,7 @@ public class SKUserController {
 	@RequestMapping(value = "getuser.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
 	public ResultInfo getuser(HttpServletRequest req, HttpServletResponse rep) {
 		SKUser u = sKUserService.getUser();	
+		u.setPassword(null);
 		return new ResultRowInfo(u);
 	}
 
@@ -151,6 +155,18 @@ public class SKUserController {
 	public ResultInfo getzhyue(HttpServletRequest req, HttpServletResponse rep) {
 		SKUserYue u = sKUserYueService.selectByUser();
 		return new ResultRowInfo(u);
+	}
+	
+	/**
+	 * 用户列表
+	 */
+	@ResponseBody
+	@RequestMapping(value = "userlist.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	public ResultInfo userlist(HttpServletRequest req, HttpServletResponse rep) {
+		JSONObject json = RequestUtils.paramToJson(req);
+		Integer type = json.getInteger("type");
+		List<SKUser> list = sKUserService.selectList(type);
+		return new ResultRowsInfo(list);
 	}
 
 	/**

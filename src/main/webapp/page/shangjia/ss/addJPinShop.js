@@ -632,10 +632,7 @@ $(function () {
 //计算运营计划份数
 function advise(param1, param2) {
     var price = $("#sk_clinch_price").val() - 0;
-    if ($(".jp-watch dt.act").index() == "3" && price < 100) {
-        myAlert("您的活动类型是高客单，价格填写应大于100");
-        return false;
-    }
+   
     var actCat = $(".jp-watch dt.act").index();
     if (actCat < 3) {
         var numArr = $(".jp-watch dd:eq(" + actCat + ") .alt-num");
@@ -717,18 +714,7 @@ function getImg() {
             myAlert("请填写链接地址");
             return false;
         }
-        //判断连接是否匹配
-        if ($("input[name='ptlei']:checked").val() == "0") {
-            if (url.indexOf("jd.com") >= 0) {
-                myAlert("平台类型和商品链接不匹配");
-                return false;
-            }
-        } else {
-            if (url.indexOf("jd.com") < 0) {
-                myAlert("平台类型和商品链接不匹配");
-                return false;
-            }
-        }
+        
         if (url.indexOf("#detail") > 0)
             url = url.split('#d')[0];
         if (url.indexOf("item.taobao.com") < 0 && url.indexOf("detail.tmall.com") < 0 && url.indexOf("item.jd.com") < 0 && url.indexOf("detail.tmall.hk") < 0 && url.indexOf("traveldetail.fliggy.com") < 0 && url.indexOf("traveldetail.taobao.com") < 0) {
@@ -736,8 +722,8 @@ function getImg() {
             return false;
         }
         var ctype = url.indexOf("item.taobao.com") >= 0 ? 0 : url.indexOf("detail.tmall.com") >= 0 ? 1 : url.indexOf("detail.tmall.hk") >= 0 ? 1 : url.indexOf("traveldetail.fliggy.com") >= 0 ? 4 : url.indexOf("traveldetail.taobao.com") >= 0 ? 4 : 2;
-        layer.msg('正在获取商品信息，请稍等~~');
-        $.post('/JPinShopissueBis/GetZhuaQu', { url: url, ctype: ctype }, function (d) {
+
+        $.post('/shike/baobei/addfile.do', { url: url, ctype: ctype }, function (d) {
             if (d.Result) {
                 doubleImg = false;
                 var strjson = eval('(' + d.Message + ')');

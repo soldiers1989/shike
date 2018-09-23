@@ -12,10 +12,6 @@
                 
 
 <div class="clearfix right_bottom">
-    <div class="account">
-        <a href="<%=BusiConstant.shangjia_chongzhi.getKey()%>">账户充值</a>
-        <a class="seled" style="margin-left:-5px;">充值记录</a>
-    </div>
     <div class="hxt">
     </div>
     <!--zh_title-->
@@ -25,16 +21,22 @@
                 <tbody>
                 <tr>
                     <td width="200" height="30" valign="middle" bgcolor="#eaeaea">
-                        <strong>充值时间</strong>
+                        <strong>商家姓名</strong>
                     </td>
                     <td width="300" height="30" valign="middle" bgcolor="#eaeaea">
-                        <strong>交易号</strong>
+                        <strong>手机号</strong>
                     </td>
                     <td width="134" height="30" valign="middle" bgcolor="#eaeaea">
-                        <strong>充值金额</strong>
+                        <strong>qq账号</strong>
                     </td>
                     <td width="200" height="30" valign="middle" bgcolor="#eaeaea">
-                        <strong>充值状态</strong>
+                        <strong>余额</strong>
+                    </td>
+                    <td width="200" height="30" valign="middle" bgcolor="#eaeaea">
+                        <strong>注册时间</strong>
+                    </td>
+                     <td width="200" height="30" valign="middle" bgcolor="#eaeaea">
+                        <strong>操作</strong>
                     </td>
                 </tr>
             </tbody></table>
@@ -53,10 +55,13 @@
 		
 			for(var i=0;i<rows.length;i++){
 				var row = rows[i];
-				var html = "<tr><td height='30'>"+row.createdTimeStr+"</td>";
-				html+="<td>"+row.jiaoyihao+"</td>";
-				html+="<td>"+row.jine+"</td>";
-				html+="<td>"+row.statusStr+"</td>";
+				var html = "<tr><td height='30'>"+row.name+"</td>";
+				html+="<td>"+row.phone+"</td>";
+				html+="<td>"+row.noQq+"</td>";
+				html+="<td>"+row.yue+"</td>";
+				html+="<td>"+row.createdTimeStr+"</td>";
+				html+="<td>";
+				html+="</td>";		
 				html+="</tr>";
 				$("#listtable").append(html);
 			}
@@ -65,11 +70,16 @@
 	}
 
    function chongzhilist(){
-	   var data = {};
-	   var url = "<%=BusiConstant.shangjia_chongzhilist_do.getKey()%>";
+	   var data = {type:1};
+	   var url = "<%=BusiConstant.shike_userlist_do.getKey()%>";
 	   postdo(url, data, sucdo,null, null);
    }
    
+   function tongguo(id){
+	   var data = {id:id};
+	   var url = "<%=BusiConstant.ht_chongzhitongguo_do.getKey()%>";
+	   postdo(url, data, null,null, null);
+   }
    chongzhilist();
    
 </script>

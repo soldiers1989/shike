@@ -607,9 +607,7 @@
 	         spCodesTemp += (","+$(this).val());
         }
        });
-		alert(spCodesTemp);
-	   return false;
-	   var search = {typeid:"1",bili:app_search_bili,ykj:txt_taokoulingBz,zkfw:spCodesTemp};
+	   var search = {typeid:"1",bili:app_search_bili,ykj:sk_one_price,zkfw:spCodesTemp};
 	   var kouling = {typeid:"2",bili:txt_taokoulingBz};
 
 	   jdlist.push(search);

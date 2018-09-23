@@ -145,8 +145,28 @@ public class SKDianPuService extends JSBaseService {
 	public List<SKDianPu> getList() {
 		SKUser skuser = sKUserService.getUser();
 		SKUserService.checkUser(skuser);
-		Map<String, Object> parameters = MapUtils.genMap("userid", skuser.getId(), "status", 0L, "orderby", "created_time");
+		List<SKDianPu> list = null;
+		if (skuser.getType() == 3) {
+			list = getAllList();
+		} else {
+			Map<String, Object> parameters = MapUtils.genMap("userid", skuser.getId(), "status", 0L, "orderby", "created_time");
+			list = selectByWhere(parameters);
+		}
+		return list;
+	}
+
+	/**
+	 * 获取店铺记录
+	 * 
+	 * @return
+	 */
+	public List<SKDianPu> getAllList() {
+		Map<String, Object> parameters = MapUtils.genMap("orderby", "created_time desc");
 		List<SKDianPu> list = selectByWhere(parameters);
+		for(SKDianPu dp:list){
+			SKUser u = sKUserService.selectOne(dp.getUserid());
+			dp.setUserName(u.getName());
+		}
 		return list;
 	}
 

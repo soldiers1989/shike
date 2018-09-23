@@ -90,6 +90,9 @@ public class BusiConstant {
 	//后台服务
 	public static final KVBean ht_chongzhilist = new KVBean(context + "/gl/chongzhilist", "后台充值列表");	
 	public static final KVBean ht_huodonglist = new KVBean(context + "/gl/huodonglist", "后台活动列表");	
+	public static final KVBean ht_sjlist = new KVBean(context + "/gl/sjlist", "商家列表");
+	public static final KVBean ht_dplist = new KVBean(context + "/gl/dplist", "店铺列表");
+	public static final KVBean ht_sklist = new KVBean(context + "/gl/sklist", "试客列表");
 	public static final KVBean ht_tixianlist = new KVBean(context + "/gl/tixianlist", "后台活动列表");	
 	
 
@@ -121,6 +124,9 @@ public class BusiConstant {
 	public static final KVBean shike_haop = new KVBean(context + "/skm/haop", "好评页面");
 	
 	public static final KVBean shike_addsk_do = new KVBean(context + "/user/addsk.do", "试客注册并登陆");
+	public static final KVBean shike_userlist_do = new KVBean(context + "/user/userlist.do", "用户列表");
+	
+	
 	public static final KVBean shike_shenqing_do = new KVBean(context + "/baobei/shenqing.do", "立即申请操作");
 	public static final KVBean shike_liucheng_do = new KVBean(context + "/baobei/liucheng.do", "后续流程性操作");
 	public static final KVBean shike_addfile_do = new KVBean(context + "/baobei/addfile.do", "图片上传操作");

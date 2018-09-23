@@ -84,4 +84,37 @@ public class GLPageController {
 		return "page/shangjia/index.jsp";
 	}
 
+	// 商家列表
+	@RequestMapping("sjlist")
+	public String sjlist(HttpServletRequest req, HttpServletResponse rep, Model model) {
+		req.setAttribute("index", indexlist);
+		List<String> body = new ArrayList<String>();
+		body.add("indexht_left.jsp");
+		body.add("./gl/sjlist_right.jsp");
+		req.setAttribute("bodypage", body);
+		return "page/shangjia/index.jsp";
+	}
+
+	// 店铺列表
+	@RequestMapping("dplist")
+	public String dplist(HttpServletRequest req, HttpServletResponse rep, Model model) {
+		req.setAttribute("index", indexlist);
+		List<String> body = new ArrayList<String>();
+		body.add("indexht_left.jsp");
+		body.add("./gl/dplist_right.jsp");
+		req.setAttribute("bodypage", body);
+		return "page/shangjia/index.jsp";
+	}
+
+	// 用户列表
+	@RequestMapping("sklist")
+	public String sklist(HttpServletRequest req, HttpServletResponse rep, Model model) {
+		req.setAttribute("index", indexlist);
+		List<String> body = new ArrayList<String>();
+		body.add("indexht_left.jsp");
+		body.add("./gl/sklist_right.jsp");
+		req.setAttribute("bodypage", body);
+		return "page/shangjia/index.jsp";
+	}
+
 }
