@@ -33,6 +33,12 @@ public class SKJindian extends BaseInfo{
 
 	/**比例，3个加起来必须是100*/		
 	private Long bili; 
+	
+	/**一口价*/		
+	private Double ykj; 
+	
+	/**折扣服务*/		
+	private String zkfw; 
 
 	public Long getId() {
 		return id;
@@ -62,4 +68,21 @@ public class SKJindian extends BaseInfo{
 	public void setBili(Long bili) {
 		this.bili = bili;
 	}
+
+	public Double getYkj() {
+		return ykj;
+	}
+
+	public void setYkj(Double ykj) {
+		this.ykj = ykj;
+	}
+
+	public String getZkfw() {
+		return zkfw;
+	}
+
+	public void setZkfw(String zkfw) {
+		this.zkfw = zkfw;
+	}
+	
 }

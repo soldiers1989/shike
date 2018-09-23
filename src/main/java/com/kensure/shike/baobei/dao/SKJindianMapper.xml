@@ -7,6 +7,8 @@
 		bbid,
 		typeid,
 		bili,
+		ykj,
+		zkfw,
 		created_time as createdTime
     </sql>
     
@@ -15,6 +17,8 @@
 		bbid,
 		typeid,
 		bili,
+		ykj,
+		zkfw,
 		created_time
     </sql>
 	
@@ -25,6 +29,8 @@
 			#{bbid},
 			#{typeid},
 			#{bili},
+			#{ykj},
+			#{zkfw},
 			#{createdTime}
 		)
 	</insert>
@@ -37,6 +43,8 @@
 				#{item.bbid},
 				#{item.typeid},
 				#{item.bili},
+				#{item.ykj},
+				#{item.zkfw},
 				#{item.createdTime}
 			)
 		</foreach>
@@ -107,6 +115,12 @@
 		</if>
 		<if test="bili != null">
 			bili = #{bili},
+		</if>
+		<if test="ykj != null">
+			ykj = #{ykj},
+		</if>
+		<if test="zkfw != null">
+			zkfw = #{zkfw},
 		</if>
 		<if test="createdTime != null">
 			created_time = #{createdTime}
