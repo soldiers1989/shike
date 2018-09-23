@@ -46,17 +46,7 @@ $(function () {
        
     }
    
-    var numArr = [49, 42, 28, 21, 35, 28, 21, 14, 35, 28, 21, 14, 21, 14];
-    var isVip = "True"
-    //初始化Vip份数
-    if (isVip == "True") {
-        for (var i = 0; i < numArr.length; i++) {
-            $(".alt-num").eq(i).html(numArr[i]);
-        }
-    } else {
-        $("#renqunbq input").attr("disabled", "disabled");
-        $("#renqunbq input").removeAttr("datatype");
-    }
+   
     advise(true);//初始化建议份数
     var JPinNumArr = false;
     if (!JPinNumArr) {
@@ -114,30 +104,7 @@ $(function () {
         }
     });
 
-   
-    //初始化京东
-    if ($("input[name='ptlei']:checked").val() == 1) {
-        $(".jp-watch").addClass("jd").find("dt").eq(0).click();
-        $("#ptText1").html('<span>*</span>京东价：');
-        $("#ptText2").text('京东搜索展示价');
-        $("#ptText3").text('咚咚聊天：');
-        $("#ptText6").text('咚咚聊天');
-        $("#ptText5").hide();
-        $("#ptText4").fadeOut();
-        $(".ptText7").text('宝贝链接');
-        $("#ptText8").hide();
-        $(".jp-watch dt").eq(0).html('快速提升销评/排名<i class="iconfont icon-gou"></i>');
-        $(".jp-watch dt").eq(1).hide();
-        $(".jp-watch dt").eq(3).hide();
-        $(".jp-watch dt").eq(4).hide();
-        $("#ptText9").hide();
-        $(".ptText10").text("1、咚咚聊天，2、指定评价，3.、晒图评价，、4、追评评价+晒图，、5、多天追评；");
-        $(".ptText11").text("白条");
-        $("#jp-con").hide()
-        $(".jd-hide").hide()
-        $("#zhekou").hide()
-    }
-
+  
     //修改平台类型，京东淘宝，
     $("input[name='ptlei']").on("change", function () {
         if ($(this).val() == 1) {
@@ -341,9 +308,7 @@ $(function () {
 
     
 
-    $('input[type="checkbox"]').change(function () {
-        $(this).val($(this).attr("checked") ? true : false);
-    });
+    
     ////评价关键词出现
     $("#sk_is_rated").on("change", function () {
         var falg = $(this).is(':checked');
@@ -391,13 +356,7 @@ $(function () {
     });
 
    
-    if (isVip == "True") {
-        //价格焦点丢失事件
-        $("#sk_clinch_price").on("blur", function () {
-            advise();
-        });
-
-    }
+    
     $("input[name='sk_iscontest']").on("click", function (e) {
         e.stopPropagation();
         if ($(this).is(":checked")) {
@@ -447,16 +406,7 @@ $(function () {
         $(this).parents(".slide-item").removeClass("slide-hide");
     })
 
-    $(".service label").on("click", function () {
-        var inputArr = $(".service input:checked");
-        var service_num = 0;
-        for (var i = 0; i < inputArr.length; i++) {
-            console.log(inputArr.eq(i).val());
-            service_num += parseInt(inputArr.eq(i).data("value"));
-        }
-        $("#service").val(service_num);
-        
-    });
+   
 
     //价格改变
 
@@ -543,29 +493,7 @@ $(function () {
             if (flag) {
                 $(this).parents(".item-con").remove();
             } else {
-                if (vipType == '-1') {
-                    if ($(this).parents(".key-word").find(".add-key").length >= 5) {
-                        alert("关键词最多只能有5个");
-                        return false;
-                    }
-                }
-                if (vipType == '0') {
-                    if ($(this).parents(".key-word").find(".add-key").length >= 5) {
-                        alert("关键词最多只能有5个");
-                        return false;
-                    }
-                } else if (vipType == '2') {
-                    if ($(this).parents(".key-word").find(".add-key").length >= 8) {
-                        alert("关键词最多只能有8个");
-                        return false;
-                    }
-                } else {
-                    if ($(this).parents(".key-word").find(".add-key").length >= 10) {
-                        alert("关键词最多只能有10个");
-                        return false;
-                    }
-                }
-                console.log($(this).parents(".key-word").find(".add-key").length)
+                
                 var html = $(this).parents(".item-con").html();
                 html = html.replace("icon-add", "icon-remove");
                 html = '<div class="item-con add-key mb10">' + html + '</div>';
@@ -854,36 +782,6 @@ function getImg() {
 
 function checkForm(node,param2) {//第二个参数用来判断是否是第一页全局折起来
     var checkFlag = true;
-    var nodeArr1 = node.find("select[datatype]");
-    var nodeArr2 = node.find("input[datatype]");
-    for (var i = 0; i < nodeArr1.length; i++) {
-        if (!valid.check(false, nodeArr1.eq(i))) {
-            checkFlag = false;
-        }
-    }
-    for (var i = 0; i < nodeArr2.length; i++) {
-        if (!valid.check(false,nodeArr2.eq(i))) {
-            checkFlag = false;
-        }
-    }
-    if (checkFlag) {
-        if (param2) {
-            node.addClass("slide-hide");
-        } else {
-            //这里是点击下一步的操作，暂无操作
-            var allRate = ($(".search-rate").eq(0).val() - 0) + ($(".search-rate").eq(1).val() - 0) + ($(".search-rate").eq(2).val() - 0);
-            if (allRate != 100) {
-                myAlert("搜索占比相加必须等于100");
-                return false;
-            }
-            $(".slide5").addClass("slide-hide");
-            window.scrollTo(0,0);
-        }
-       
-    } else {
-        node.removeClass("slide-hide");
-        node.find(".Validform_error:first").focus();
-    }
     return checkFlag;
 }
 

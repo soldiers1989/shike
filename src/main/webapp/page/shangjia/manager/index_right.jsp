@@ -272,6 +272,46 @@
                                         <i class="iconfont icon-add key-word-icon"></i>
                                     <span class="Validform_checktip"></span></div>
                        </div>
+                       <div class="item-con price-qujian">
+                            <span class="label" id="ptText1"><span>*</span>一口价：</span>
+                            <input type="text" class="w82" name="sk_one_price" id="sk_one_price" datatype="num" value="0"> 元
+                            <span style="color:#ff464e;margin:0 15px;">搜索展示价</span>
+                            <span class="word-dia">提升宝贝人气选项</span>
+                        <span class="Validform_checktip"></span></div>
+                        
+                        <div class="item" id="zhekou">
+                            <span class="label vt" style="width:596px;">折扣和服务:（如关键词排名较低，建议设置以下项，缩小搜索范围，以便试客能找到商品）</span>
+                            <div class="item-con service">
+                                <label>
+                                    <input type="checkbox" name="name" value="包邮"> 包邮
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="name" value="天猫"> 天猫
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="name" value="消费者保障"> 消费者保障
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="name" value="全球购"> 全球购
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="name" value="公益宝贝"> 公益宝贝
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="name" value="淘金币抵钱"> 淘金币抵钱
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="name" value="7+天内退货"> 7+天内退货
+                                </label>                        
+                                <label>
+                                    <input type="checkbox" name="name" value="花呗分期"> 花呗分期
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="name" value="通用排序"> 通用排序
+                                </label>
+                            </div>
+                            <input type="hidden" name="sk_discounts_services" id="service" data-value=" " value="0">
+                        </div>
                         
                     </div>
 
@@ -288,6 +328,7 @@
                             <input type="text" id="txt_taokoulingBz" class="w180 search-rate" datatype="int" value="" placeholder="请输入1或2位整数"> %
                             <span class="gray">注：三个占比相加为100</span>
                         <span class="Validform_checktip"></span></div>
+                    
                     </div>
                     <div class="item list-word">
                         <input type="hidden" value="0" name="sk_querytype" id="queryType">
@@ -301,30 +342,132 @@
                     </div>
 
                 </div>
-                <div class="key-word">
-                    <div class="title">
-                        <span>二维码搜索</span>
-                    </div>
-                    <div class="item">
-                        <span class="label vt"><span>*</span>分配占比：</span>
-                        <div class="item-con">
-                            <input type="text" class="w180 search-rate" datatype="int" id="app_qr_bili" value="" placeholder="请输入1或2位整数"> %
-                            <span class="gray">注：三个占比相加为100</span>
-                        <span class="Validform_checktip"></span></div>
-                    </div>
-                    <div class="item list-word">
-                        <span class="label vt"><span>*</span>二维码</span>
-                        <div class="item-con" id="qrcodeTable">
-                        </div>
-                    </div>
-                </div>
-
+            
             </div>
             <div class="one-operate">
-                <span class="submit page-btn onepage-btn" onclick="savebaobei()">提交</span>
+                <span class="submit page-btn onepage-btn"  >下一页</span>
             </div>
         </div>
 
+      	<div id="slide" class="twopage">
+            <h2 class="title">选择服务内容</h2>
+            <div class="slide-item">
+                <div class="l-title">
+                    <span>1</span>免费服务
+                    <em class="open-slide">修改</em> <i class="iconfont icon-zhengque"></i>
+                </div>
+
+                <div class="key-word">
+
+                    <div class="fold jd-hide">
+                        <div class="f-title">
+                            <input type="checkbox" checked="checked" disabled=""> <span>货比多家</span>
+                            <i class="iconfont icon-Toboottom"></i>
+                            <i class="iconfont icon-Totop"></i>
+                        </div>
+                        <p class="f-warn">
+                            <span class="sj"></span>
+                            用户会浏览你的产品的同行产品，最终到你这里下单，更进一步提升你的搜索转化效果
+                        </p>
+                    </div>
+
+                    <div class="fold">
+                        <div class="f-title">
+                            <input type="checkbox" checked="checked" disabled=""> <span>无线端下单</span>
+                            <i class="iconfont icon-Toboottom"></i>
+                            <i class="iconfont icon-Totop"></i>
+                        </div>
+                        <p class="f-warn">
+                            <span class="sj"></span>
+                            用户会通过手机淘宝/手机京东的方式领取任务，完成浏览/加购/收藏/下单/评价 等方式进一步提升你的单品转化权重和店铺转化权重！
+                        </p>
+                    </div>
+
+                    <div class="fold">
+                        <div class="f-title">
+                            <input type="checkbox" checked="checked" disabled=""> <span>试用心得审核</span>
+                            <i class="iconfont icon-Toboottom"></i>
+                            <i class="iconfont icon-Totop"></i>
+                        </div>
+                        <p class="f-warn">
+                            <span class="sj"></span>
+                            用户提交试用心得—商家审核—审核通过后，用户复制到淘宝/京东；标准级、专业级、星耀级会员享有该功能。
+                                <a class="up" target="_blank" href="/VIP/ApplyVip?isadd=1">去升级</a>
+                        </p>
+                    </div>
+
+                    <div class="fold">
+                        <div class="f-title">
+                            <input type="checkbox" checked="checked" disabled=""> <span>账号安全</span>
+                            <i class="iconfont icon-Toboottom"></i>
+                            <i class="iconfont icon-Totop"></i>
+                        </div>
+                        <p class="f-warn">
+                            <span class="sj"></span>
+                            中奖用户淘宝/京东周订单量不超过5，月订单量不超过10，身份证实名验证
+                        </p>
+                    </div>
+                    <div class="fold">
+                        <div class="f-title">
+                            <input type="checkbox" checked="checked" disabled=""> <span>账号防重复</span>
+                            <i class="iconfont icon-Toboottom"></i>
+                            <i class="iconfont icon-Totop"></i>
+                        </div>
+                        <p class="f-warn">
+                            <span class="sj"></span>
+                            同个商品在规定时间内不会有人重复中奖
+                        </p>
+                    </div>
+                    <div class="fold jd-hide">
+                        <div class="f-title">
+                            <input type="checkbox" checked="checked" disabled=""> <span>猜你喜欢</span>
+                            <i class="iconfont icon-Toboottom"></i>
+                            <i class="iconfont icon-Totop"></i>
+                        </div>
+                        <p class="f-warn">
+                            <span class="sj"></span>
+                            免费提供猜你喜欢功能，用户下单后，在您的生意参谋后台会显示 购买路径为猜你喜欢
+                        </p>
+                    </div>
+
+                    <div class="fold">
+                        <div class="f-title">
+                            <input type="checkbox" checked="checked" disabled=""> <span>优先审核</span>
+                            <i class="iconfont icon-Toboottom"></i>
+                            <i class="iconfont icon-Totop"></i>
+                        </div>
+                        <p class="f-warn">
+                            <span class="sj"></span>
+                            你发布的活动系统会优先安排审核，审核通过之后获得最佳的发布曝光时间！
+                        </p>
+                    </div>
+
+                    <div class="fold jd-hide">
+                        <div class="f-title">
+                            <input type="checkbox" checked="checked" disabled=""> <span>查看买家记录</span>
+                            <i class="iconfont icon-Toboottom"></i>
+                            <i class="iconfont icon-Totop"></i>
+                        </div>
+                        <p class="f-warn">
+                            <span class="sj"></span>
+                            买家近期在淘宝/京东中的购买记录
+                        </p>
+                    </div>
+
+                  
+
+                   
+                </div>
+              
+            </div>
+
+          
+            <div class="two-operate">
+                <span class="page-btn twopage-btn">上一页</span>
+                <span class="submit page-btn onepage-btn" onclick="savebaobei()">提交</span>
+            </div>
+        </div>
+      
       
         </div>
 
@@ -433,7 +576,8 @@
 	   data.no_qq = $("#sk_qq").val();
 	   data.guige = $("#sk_size").val();
 	   data.typeid = $("#sk_commodity_type option:selected").val();
-	   data.hdtypeid = 1;
+	   data.hdtypeid = $(".jp-watch dt.act").index()+1;
+	
 	   data.xinyongka = $("#sk_is_useCreditCard radio:checked").val();
 	   data.huabei = $("#sk_is_useTokio radio:checked").val();
 	   data.shaitu = $("#sk_no_appraise_chart radio:checked").val();
@@ -452,14 +596,24 @@
 	   //进店路径
 	   var jdlist = [];
 	   var app_search_bili = $("#app_search_bili").val();
+	   //一口价
+	   var sk_one_price = $("#sk_one_price").val();
 	   var txt_taokoulingBz = $("#txt_taokoulingBz").val();
-	   var app_qr_bili = $("#app_qr_bili").val();
-	   var search = {typeid:"1",bili:app_search_bili};
+	   var spCodesTemp = "";
+       $('input:checkbox[name=name]:checked').each(function(i){
+	        if(0==i){
+	         spCodesTemp = $(this).val();
+	        }else{
+	         spCodesTemp += (","+$(this).val());
+        }
+       });
+		alert(spCodesTemp);
+	   return false;
+	   var search = {typeid:"1",bili:app_search_bili,ykj:txt_taokoulingBz,zkfw:spCodesTemp};
 	   var kouling = {typeid:"2",bili:txt_taokoulingBz};
-	   var qr = {typeid:"3",app_qr_bili};
+
 	   jdlist.push(search);
 	   jdlist.push(kouling);
-	   jdlist.push(qr);
 	   data.jdlist = JSON.stringify(jdlist);
 	   
 	   //关键字

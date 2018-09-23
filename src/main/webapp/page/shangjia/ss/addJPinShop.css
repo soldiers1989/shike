@@ -159,10 +159,10 @@ border-bottom: 1px solid #ddd;
 .twopage .fold .f-title .icon-Toboottom{display:block;}
 
  .twopage .fold .f-title .icon-Toboottom:before {
- content:"点我展开 \e804";
+ content:"鐐规垜灞曞紑";
  }
   .twopage .fold .f-title .icon-Totop:before {
- content:"点我收起 \e805";
+ content:"鐐规垜鏀惰捣";
  }
 .twopage .fold.act .icon-Toboottom{display:none;}
 .twopage .fold.act .icon-Totop{display:block;}
