@@ -10,13 +10,13 @@
 <html lang="zh" style="font-size: 22.125px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
     <title>我的活动</title>
-    <meta name="keywords" content="美丽啪网,美丽啪联盟,免费试用,试用网,免费试用网,试用中心,试客,试客网">
-    <meta name="description" content="欢迎来免费美丽啪试用网:美丽啪网—是全国领先的免费试用网和试客网,深得试客信赖的免费试用中心网站,是免费试用网和试客网站的首选,美丽啪免费试用网为试客提供最优质和实用的优秀免费试用商品.">
+    <meta name="keywords" content="试呗,免费试用,试用网,免费试用网,试用中心,试客,试客网">
+    <meta name="description" content="欢迎来免费试呗.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <meta name="format-detection" content="telephone=no">
     <meta name="format-detection" content="address=no">
     <meta name="full-screen" content="yes">
-    <link href="http://m.meilipa.com/favicon.ico" rel="shortcut icon" type="image/x-icon">
+    <link href="/shike/favicon.ico" rel="shortcut icon" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/wdhd/resource/base.css">
 <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/wdhd/resource/iconfont.css">
 
@@ -297,7 +297,7 @@
                 "        <ul class=\"item-con\">\n" +
                 "            <li><span class=\"iconfont icon-tb\" style=\"margin-right:0;\"></span> "+row.baobei.title+"</li>\n" +
                 "            <li>\n" +
-                "                价值：<span>¥5.30</span>\n" +
+                "                价值：<span>"+row.baobei.salePrice+"</span>\n" +
                 "            </li>\n" +
                 "            <li><em>下单账号：TODO</em></li>\n" +
                 "            <li><em>规格："+row.baobei.guige+"</em></li>\n" +
