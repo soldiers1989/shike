@@ -1373,7 +1373,7 @@
         <div style="margin-bottom: 2rem;">
         </div>
         <jsp:include page="../common/footer.jsp" flush="true"/>
-        <div class="toTop" onclick="$(&#39;body,html&#39;).animate({scrollTop:0},500);">
+       <%-- <div class="toTop" onclick="$(&#39;body,html&#39;).animate({scrollTop:0},500);">--%>
     </div>
 
     <div id="loading" class="loading">
