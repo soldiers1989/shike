@@ -20,8 +20,8 @@
         <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/base.css">
         <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/iconfont.css">
         <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/style.css">
-        <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/jquery-1.8.3.js.下载"></script>
-        <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/Common.js.下载"></script>
+        <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/jquery-1.8.3.js"></script>
+        <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/Common.js"></script>
         <script type="text/javascript" src="<%=BusiConstant.context%>/jqtable/jquery.cookie.js"></script>
         <script type="text/javascript" src="<%=BusiConstant.context%>/common/http.js?ver=<%=BusiConstant.version%>"></script>
         <script>
@@ -48,11 +48,11 @@
 
 <body>
     
-<link href="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/swiper.min.css" rel="stylesheet">
-<script src="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/swiper.min.js.下载"></script>
-<script src="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/jquery.infinitescroll.js.下载"></script>
-<script src="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/vue.js.下载"></script>
-<script src="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/jquery.lazyload.js.下载"></script>
+<link href="<%=BusiConstant.shikemobilepath %>/common/swiper.min.css" rel="stylesheet">
+<script src="<%=BusiConstant.shikemobilepath %>/common/swiper.min.js"></script>
+<script src="<%=BusiConstant.shikemobilepath %>/common/jquery.infinitescroll.js"></script>
+<script src="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/vue.js"></script>
+<script src="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/jquery.lazyload.js"></script>
 <script>
     var order = 0;
 </script>
@@ -343,21 +343,21 @@
         <img src="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/loading.gif">
     </div>
 </div>
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/jquery.form.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/jquery.form.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/Validform_v5.3.2.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/Validform_v5.3.2.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/post.loading.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/post.loading.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/layer.m.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/layer.m.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/layerdialog.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/layerdialog.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/jquery.cookie.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/jquery.cookie.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/browser.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/browser.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/app.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/app.js"></script>
 
     <script type="text/javascript">
         function dictsucdo(data){

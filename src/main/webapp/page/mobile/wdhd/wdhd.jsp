@@ -22,8 +22,8 @@
 
     <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/wdhd/resource/style.css">
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/wdhd/resource/jquery-1.8.3.js.下载"></script>
-<script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/wdhd/resource/Common.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/wdhd/resource/jquery-1.8.3.js"></script>
+<script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/wdhd/resource/Common.js"></script>
 
     <script type="text/javascript" src="<%=BusiConstant.context%>/jqtable/jquery.cookie.js"></script>
     <script type="text/javascript" src="<%=BusiConstant.context%>/common/http.js?ver=<%=BusiConstant.version%>"></script>
@@ -55,8 +55,8 @@
 <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/wdhd/resource/index.css">
 
 <link href="<%=BusiConstant.shikemobilepath %>/wdhd/resource/list.css" rel="stylesheet">
-<script src="<%=BusiConstant.shikemobilepath %>/wdhd/resource/jquery.infinitescroll.js.下载"></script>
-<script src="<%=BusiConstant.shikemobilepath %>/wdhd/resource/jquery.countdown.js.下载"></script>
+<script src="<%=BusiConstant.shikemobilepath %>/wdhd/resource/jquery.infinitescroll.js"></script>
+<script src="<%=BusiConstant.shikemobilepath %>/wdhd/resource/jquery.countdown.js"></script>
 <script>
     $(function () {
         $(".go-mj i").on("click", function (e) {
@@ -420,21 +420,21 @@
         <img src="<%=BusiConstant.shikemobilepath %>/wdhd/resource/loading.gif">
     </div>
 </div>
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/wdhd/resource/jquery.form.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/wdhd/resource/jquery.form.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/wdhd/resource/Validform_v5.3.2.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/wdhd/resource/Validform_v5.3.2.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/wdhd/resource/post.loading.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/wdhd/resource/post.loading.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/wdhd/resource/layer.m.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/wdhd/resource/layer.m.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/wdhd/resource/layerdialog.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/wdhd/resource/layerdialog.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/wdhd/resource/jquery.cookie.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/wdhd/resource/jquery.cookie.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/wdhd/resource/browser.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/wdhd/resource/browser.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/wdhd/resource/app.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/wdhd/resource/app.js"></script>
 
 
 </body></html>

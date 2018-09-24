@@ -36,8 +36,8 @@
 
     <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/mine/resource/style.css">
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/resource/jquery-1.8.3.js.下载"></script>
-<script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/resource/Common.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/resource/jquery-1.8.3.js"></script>
+<script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/resource/Common.js"></script>
     <script type="text/javascript" src="<%=BusiConstant.context%>/jqtable/jquery.cookie.js"></script>
     <script type="text/javascript" src="<%=BusiConstant.context%>/common/http.js?ver=<%=BusiConstant.version%>"></script>
 
@@ -66,9 +66,9 @@
     
 <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/mine/resource/account.css">
 
-<script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/resource/account.js.下载"></script>
+<script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/resource/account.js"></script>
 
-<script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/resource/uploadimage.js.下载"></script>
+<script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/resource/uploadimage.js"></script>
 
 <script>
     $(function () {
@@ -390,21 +390,21 @@
         <img src="<%=BusiConstant.shikemobilepath %>/mine/resource/loading.gif">
     </div>
 </div>
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/resource/jquery.form.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/resource/jquery.form.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/resource/Validform_v5.3.2.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/resource/Validform_v5.3.2.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/resource/post.loading.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/resource/post.loading.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/resource/layer.m.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/resource/layer.m.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/resource/layerdialog.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/resource/layerdialog.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/resource/jquery.cookie.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/resource/jquery.cookie.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/resource/browser.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/resource/browser.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/resource/app.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/resource/app.js"></script>
 
 
 </body></html>

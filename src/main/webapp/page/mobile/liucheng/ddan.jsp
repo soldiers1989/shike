@@ -24,8 +24,8 @@
 
     <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/liucheng/ddan/style.css">
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/ddan/jquery-1.8.3.js.下载"></script>
-<script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/ddan/Common.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/ddan/jquery-1.8.3.js"></script>
+<script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/ddan/Common.js"></script>
     <script type="text/javascript" src="<%=BusiConstant.context%>/jqtable/jquery.cookie.js"></script>
     <script type="text/javascript" src="<%=BusiConstant.context%>/common/http.js?ver=<%=BusiConstant.version%>"></script>
 
@@ -58,7 +58,7 @@
 <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/liucheng/ddan/JPinFlow.css">
 
 <script src="<%=BusiConstant.shikemobilepath %>/common/uploadimage.js"></script>
-<script src="<%=BusiConstant.shikemobilepath %>/liucheng/ddan/clipboard.min.js.下载"></script>
+<script src="<%=BusiConstant.shikemobilepath %>/liucheng/ddan/clipboard.min.js"></script>
 <script>
     var referrer = '';     //记录上一页地址
 </script>
@@ -377,21 +377,21 @@
         <img src="<%=BusiConstant.shikemobilepath %>/liucheng/ddan/loading.gif">
     </div>
 </div>
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/ddan/jquery.form.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/ddan/jquery.form.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/ddan/Validform_v5.3.2.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/ddan/Validform_v5.3.2.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/ddan/post.loading.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/ddan/post.loading.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/ddan/layer.m.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/ddan/layer.m.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/ddan/layerdialog.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/ddan/layerdialog.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/ddan/jquery.cookie.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/ddan/jquery.cookie.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/ddan/browser.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/ddan/browser.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/ddan/app.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/ddan/app.js"></script>
 
 
 <form action="http://m.meilipa.com/CommonBase/UploadPic?compressType=JpinOrderFlow" method="post"><input type="file" accept="image/*;" name="file" style="display:none"></form><form action="http://m.meilipa.com/CommonBase/UploadPic?compressType=JpinOrderFlow" method="post"><input type="file" accept="image/*;" name="file" style="display:none"></form></body></html>

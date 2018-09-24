@@ -41,8 +41,8 @@
 
     <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/liucheng/gouwuche/style.css">
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/gouwuche/jquery-1.8.3.js.下载"></script>
-<script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/gouwuche/Common.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/gouwuche/jquery-1.8.3.js"></script>
+<script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/gouwuche/Common.js"></script>
 
     <script>
         var userId=349975;
@@ -87,7 +87,7 @@
 </script>
 <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/liucheng/gouwuche/JPinFlow.css">
 
-<script src="<%=BusiConstant.shikemobilepath %>/liucheng/gouwuche/clipboard.min.js.下载"></script>
+<script src="<%=BusiConstant.shikemobilepath %>/liucheng/gouwuche/clipboard.min.js"></script>
 <header class="header task-top frv" style="line-height: 2rem">
     <i class="arrows" onclick="history.back(-1)"></i>
     试用流程
@@ -554,21 +554,21 @@
         <img src="<%=BusiConstant.shikemobilepath %>/liucheng/gouwuche/loading.gif">
     </div>
 </div>
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/gouwuche/jquery.form.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/gouwuche/jquery.form.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/gouwuche/Validform_v5.3.2.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/gouwuche/Validform_v5.3.2.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/gouwuche/post.loading.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/gouwuche/post.loading.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/gouwuche/layer.m.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/gouwuche/layer.m.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/gouwuche/layerdialog.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/gouwuche/layerdialog.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/gouwuche/jquery.cookie.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/gouwuche/jquery.cookie.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/gouwuche/browser.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/gouwuche/browser.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/gouwuche/app.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/gouwuche/app.js"></script>
 
 
 </body></html>
