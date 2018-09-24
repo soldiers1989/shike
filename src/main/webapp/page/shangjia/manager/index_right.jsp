@@ -123,7 +123,7 @@
                 <div class="item">
                     <span class="label vt" style="width: 100px;"><span>*</span>宝贝下单价：</span>
                     <div class="item-con">
-                        <input type="text" class="w82" name="sk_clinch_price" id="sk_clinch_price" datatype="num" value="0"> 元
+                        <input type="text" class="w82" name="sk_clinch_price11" id="sk_clinch_price" value="0"> 元
                       
                     <span class="Validform_checktip"></span></div>
                 </div>
