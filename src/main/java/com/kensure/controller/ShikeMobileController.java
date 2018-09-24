@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,13 +38,15 @@ public class ShikeMobileController {
 	// 首页
 	@RequestMapping("index")
 	public String index(HttpServletRequest req, HttpServletResponse rep, Model model) {
-		return "page/mobile/haohuo/haohuo.jsp";
+//		return "page/mobile/haohuo/haohuo.jsp";
+		return "page/mobile/haohuonew/haohuo.jsp";
 	}
 
 	// 好货页面
 	@RequestMapping("haohuo")
 	public String home(HttpServletRequest req, HttpServletResponse rep, Model model) {
-		return "page/mobile/haohuo/haohuo.jsp";
+//		return "page/mobile/haohuo/haohuo.jsp";
+		return "page/mobile/haohuonew/haohuo.jsp";
 	}
 
 	// 详情页面
@@ -77,7 +80,7 @@ public class ShikeMobileController {
 		List<SKWord> words = sKWordService.getList(id);
 		req.setAttribute("baobei", baobei);
 		req.setAttribute("words", words);
-		return "page/mobile/lc/gouwuche.jsp";
+		return "page/mobile/liucheng/gouwuche.jsp";
 	}
 
 	// 收藏关注页面
@@ -87,13 +90,19 @@ public class ShikeMobileController {
 		Long id = json.getLong("id");
 		SKBaobei baobei = sKBaobeiService.getSKBaobei(id);
 		req.setAttribute("baobei", baobei);
-		return "page/mobile/lc/scgz.jsp";
+		return "page/mobile/liucheng/scgz.jsp";
+//		return "page/mobile/lc/scgz.jsp";
 	}
 
 	// 我的活动页面
 	@RequestMapping("wdhd")
 	public String wdhd(HttpServletRequest req, HttpServletResponse rep, Model model) {
-		return "page/mobile/haohuo/wdhd.jsp";
+		String status = req.getParameter("status");
+		if (StringUtils.isEmpty(status)) {
+			status = "18"; // 默认是"继续申请"页面
+		}
+		req.setAttribute("status", status);
+		return "page/mobile/wdhd/wdhd.jsp";
 	}
 
 	// 订单页面
@@ -103,7 +112,8 @@ public class ShikeMobileController {
 		Long id = json.getLong("id");
 		SKBaobei baobei = sKBaobeiService.getSKBaobei(id);
 		req.setAttribute("baobei", baobei);
-		return "page/mobile/lc/ddan.jsp";
+//		return "page/mobile/lc/ddan.jsp";
+		return "page/mobile/liucheng/ddan.jsp";
 	}
 
 	// 订单页面
@@ -138,6 +148,6 @@ public class ShikeMobileController {
 	// 首页
 	@RequestMapping("mine")
 	public String mine(HttpServletRequest req, HttpServletResponse rep, Model model) {
-		return "page/mobile/haohuo/mine.jsp";
+		return "page/mobile/mine/mine.jsp";
 	}
 }

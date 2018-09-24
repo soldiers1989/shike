@@ -7,16 +7,14 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import co.kensure.frame.*;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import co.kensure.frame.Const;
-import co.kensure.frame.ResultInfo;
-import co.kensure.frame.ResultRowInfo;
-import co.kensure.frame.ResultRowsInfo;
 import co.kensure.http.RequestUtils;
 import co.kensure.io.FileUtils;
 import co.kensure.mem.DateUtils;
@@ -53,6 +51,18 @@ public class SKBaobeiController {
 
 	@Resource
 	private SKBbrwService sKBbrwService;
+
+
+	// 获取宝贝详情
+	@ResponseBody
+	@RequestMapping(value = "detail.do", method = { RequestMethod.POST }, produces = "application/json;charset=UTF-8")
+	public ResultInfo detail(HttpServletRequest req, HttpServletResponse rep, Model model) {
+		JSONObject json = RequestUtils.paramToJson(req);
+		Long id = json.getLong("id");
+		SKBaobei baobei = sKBaobeiService.getSKBaobei(id);
+
+        return new ResultRowInfo(baobei);
+	}
 
 	/**
 	 * 根据url获取商品的详情
