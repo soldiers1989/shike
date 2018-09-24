@@ -392,9 +392,7 @@ $(function () {
             var flag = checkForm($(this).parent(), true);
         }
 
-        if ($(this).hasClass("slide-link")) {//加载图片
-            getImg()
-        }
+        
 
         if (falgBtn && flag) {//下一步按钮并验证成功显示下一页
             $(".onepage").hide();

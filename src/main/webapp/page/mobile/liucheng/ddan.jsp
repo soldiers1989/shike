@@ -1,3 +1,4 @@
+<%@page import="com.kensure.shike.user.model.SKUser"%>
 <%@page import="java.util.List"%>
 <%@page import="com.kensure.shike.constant.BusiConstant"%>
 <%@ page import="com.kensure.shike.baobei.model.SKBaobei" %>
@@ -5,6 +6,7 @@
 <%
     String context = BusiConstant.shikemobilepath;
     SKBaobei baobei = (SKBaobei)request.getAttribute("baobei");
+    SKUser user = (SKUser)request.getAttribute("user");
 %>
 <!DOCTYPE html>
 <!-- saved from url=(0061)http://m.meilipa.com/JpinShopIssue/OrderFlow?activityId=90976 -->
@@ -82,7 +84,7 @@
             <img src="<%=BusiConstant.shikemobilepath %>/liucheng/ddan/5d90d9ee-d3d8-4771-8d40-a2675f3618ee">
             <ul>
                 <li><span class="iconfont icon-tb"></span> <span>${baobei.title}</span></li>
-                <li>店铺名称：<span>${baobei.dpname}</span></li>
+                <li>店铺名称：<span>${baobei.dpnameS}</span></li>
                 <li>价格：<span style="color: #ff464e;">${baobei.salePrice}元</span></li>
                 <li>规格：<span style="color: #ff464e;" onclick="myAlert(&#39;${baobei.guige}&#39;)">${baobei.guige}</span></li>
             </ul>
@@ -102,7 +104,7 @@
                 </li>
                 <li>
                         <span class="num">2</span> 登录淘宝账号
-                        <em class="red">a12345678 TODO</em>进入购物车,找到宝贝
+                        <em class="red"><%=user.getNoTaobao() %></em>进入购物车,找到宝贝
                 </li>
                 <li>
                     <span class="num">3</span>核对商品：<em class="red">请提交宝贝淘口令(非必填)</em>

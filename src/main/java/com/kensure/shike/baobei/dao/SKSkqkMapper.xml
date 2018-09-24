@@ -29,7 +29,7 @@
 		sale_price,
 		jiangli,
 		ewai,
-		noTaobao,
+		no_taobao,
 		created_time,
 		updated_time
     </sql>

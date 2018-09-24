@@ -48,14 +48,13 @@
 		if(rows){	
 			for(var i=0;i<rows.length;i++){
 				var row = rows[i];
-				var html = "<tr><td>"+row.name+"</td>";
+				var html = "<tr><td height='30'>"+row.name+"</td>";
 				html+="<td>"+row.detail+"</td>";
 				html+="<td>"+row.xiaoji+"</td>";
 				html+="</tr>";
 				$("#listtable").append(html);
 			}
-		}
-		
+		}	
 	}
 
    function chongzhilist(){
@@ -70,8 +69,14 @@
 	   if(window.confirm('你确认要付款吗？')){
 		   var data = {id:<%=id%>};
 		   var url = "<%=BusiConstant.shangjia_pay_do.getKey()%>";
-		   postdo(url, data, null,null, null);
+		   postdo(url, data, paysucdo,null, null);
         }
    }
+   
+	function paysucdo(data){
+		if("success" == data.type){	
+			window.location.href=<%=BusiConstant.shangjia_huodonglist.getKey()%>
+		}	
+	}
    
 </script>

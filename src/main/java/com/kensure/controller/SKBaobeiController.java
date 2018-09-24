@@ -243,7 +243,7 @@ public class SKBaobeiController {
 	@ResponseBody
 	@RequestMapping(value = "cjtest.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
 	public ResultInfo cjtest(HttpServletRequest req, HttpServletResponse rep) {
-		sKBbrwService.doChouJiang(false);
+		sKBbrwService.doChouJiang(true);
 		return new ResultRowInfo();
 	}
 	
