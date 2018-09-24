@@ -123,7 +123,8 @@ public class ShikeMobileController {
 		Long id = json.getLong("id");
 		SKBaobei baobei = sKBaobeiService.getSKBaobei(id);
 		req.setAttribute("baobei", baobei);
-		return "page/mobile/lc/haop.jsp";
+//		return "page/mobile/lc/haop.jsp";
+		return "page/mobile/liucheng/haop.jsp";
 	}
 	
 	// 提现页面
