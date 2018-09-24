@@ -6,6 +6,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kensure.shike.zhang.model.SKUserYue;
+import com.kensure.shike.zhang.service.SKUserYueService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -49,6 +51,9 @@ public class ShikeMobileController {
 	
 	@Resource
 	private SKUserService sKUserService;
+
+	@Resource
+	private SKUserYueService skUserYueService;
 	
 
 	// 首页
@@ -161,11 +166,24 @@ public class ShikeMobileController {
 	public String jjdz(HttpServletRequest req, HttpServletResponse rep, Model model) {
 		return "page/mobile/lc/jjdz.jsp";
 	}	
-		
-	
-	// 首页
+
+	// 我的
 	@RequestMapping("mine")
 	public String mine(HttpServletRequest req, HttpServletResponse rep, Model model) {
-		return "page/mobile/mine/mine.jsp";
+        SKUser user = sKUserService.getUser();
+        SKUserYue yue = skUserYueService.selectOne(user.getId());
+
+        // 已中奖
+        long yzj = sKSkqkService.getQkByByYzj(user.getId());
+
+        // 今日申请
+        long todaySq = sKSkqkService.getQkByToday(user.getId());
+
+        req.setAttribute("user", user);
+        req.setAttribute("yue", yue);
+        req.setAttribute("yzj", yzj);
+        req.setAttribute("todaySq", todaySq);
+
+        return "page/mobile/mine/mine.jsp";
 	}
 }

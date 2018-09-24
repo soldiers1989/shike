@@ -21,7 +21,7 @@
         <a id="wdhd" class=" myjp" href="<%=BusiConstant.shike_wdhd.getKey() %>">
             <i class="iconfont icon-jpIcon"></i><i class="iconfont iconS icon-jpiconS"></i>我的活动
         </a>
-        <a class=" more" href="<%=BusiConstant.shike_mine.getKey() %>">
+        <a id="mine" class=" more" href="<%=BusiConstant.shike_mine.getKey() %>">
             <i class="iconfont icon-people"></i><i class="iconfont iconS icon-peopleS"></i>我的
         </a>
     </div>

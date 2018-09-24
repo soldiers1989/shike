@@ -1,30 +1,47 @@
+<%@page import="com.kensure.shike.baobei.model.SKWord"%>
+<%@page import="com.kensure.shike.baobei.model.SKBaobeiTP"%>
+<%@page import="com.kensure.shike.baobei.model.SKBaobei"%>
 <%@page import="java.util.List"%>
 <%@page import="com.kensure.shike.constant.BusiConstant"%>
+<%@ page import="com.kensure.shike.user.model.SKUser" %>
+<%@ page import="com.kensure.shike.zhang.model.SKUserYue" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
     String context = BusiConstant.shikemobilepath;
+    SKUser user = (SKUser)request.getAttribute("user");
+    SKUserYue yue = (SKUserYue)request.getAttribute("yue");
+    Double yuee = 0.00;
+    Double jinbi = 0.00;
+    if (yue != null && yue.getYue() != null) {
+        yuee = yue.getYue();
+    }
+    if (yue != null && yue.getJinbi() != null) {
+        jinbi = yue.getJinbi();
+    }
 %>
 <!DOCTYPE html>
-<!-- saved from url=(0041)http://m.meilipa.com/UserAccount/GoldList -->
+<!-- saved from url=(0032)http://m.meilipa.com/UserAccount -->
 <html lang="zh" style="font-size: 22.125px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     
-    <title>我的金币</title>
-    <meta name="keywords" content="美丽啪网,美丽啪联盟,免费试用,试用网,免费试用网,试用中心,试客,试客网">
-    <meta name="description" content="欢迎来免费美丽啪试用网:美丽啪网—是全国领先的免费试用网和试客网,深得试客信赖的免费试用中心网站,是免费试用网和试客网站的首选,美丽啪免费试用网为试客提供最优质和实用的优秀免费试用商品.">
+    <title>我的试呗</title>
+    <meta name="keywords" content="试呗网">
+    <meta name="description" content="试呗网">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <meta name="format-detection" content="telephone=no">
     <meta name="format-detection" content="address=no">
     <meta name="full-screen" content="yes">
     <link href="http://m.meilipa.com/favicon.ico" rel="shortcut icon" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/mine/我的金币_files/base.css">
-<link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/mine/我的金币_files/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/mine/resource/base.css">
+<link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/mine/resource/iconfont.css">
 
-    <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/mine/我的金币_files/style.css">
+    <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/mine/resource/style.css">
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/我的金币_files/jquery-1.8.3.js.下载"></script>
-<script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/我的金币_files/Common.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/resource/jquery-1.8.3.js.下载"></script>
+<script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/resource/Common.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.context%>/jqtable/jquery.cookie.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.context%>/common/http.js?ver=<%=BusiConstant.version%>"></script>
 
-    <script>
+    <%--<script>
         var userId=273226;
         (function (doc, win) {
             var docEl = doc.documentElement,
@@ -42,327 +59,352 @@
             doc.addEventListener('DOMContentLoaded', recalc, false);
             recalc();
         })(document, window);
-    </script>
+    </script>--%>
     
-<link href="<%=BusiConstant.shikemobilepath %>/mine/我的金币_files/layer.css" type="text/css" rel="styleSheet" id="layermcss"></head>
+<link href="<%=BusiConstant.shikemobilepath %>/mine/resource/layer.css" type="text/css" rel="styleSheet" id="layermcss"></head>
 <body>
     
+<link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/mine/resource/account.css">
 
-<link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/mine/我的金币_files/index.css">
+<script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/resource/account.js.下载"></script>
 
-<link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/mine/我的金币_files/regist.css">
+<script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/resource/uploadimage.js.下载"></script>
 
-<script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/我的金币_files/jquery.infinitescroll.js.下载"></script>
-
-<link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/mine/我的金币_files/mytryout.css">
-
-<style>
-    .bar ul li {
-        width: 33.33%;
-    }
-
-    .bar.zt-menu ul li a {
-        height: 1.85rem;
-    }
-    .sel {
-        width: 2rem;
-        margin: 0 auto;
-        height: 0.15rem;
-        margin-top: 1px;
-    }
-
-    .billion {
-        background: #fff;
-        border-bottom: 1px solid #dedede;
-        padding: 0.1rem 0.6rem 0.5rem;
-    }
-
-        .billion .r {
-            float: right;
-        }
-
-        .billion .l {
-            float: left;
-        }
-
-        .billion .exactly {
-            padding-top: 0.4rem;
-            height: 1rem;
-            line-height: 1rem;
-            font-size: 0.6rem;
-        }
-
-        .billion .l.title {
-            width: 70%;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            overflow: hidden;
-        }
-
-    .gold-hd {
-        height: 4.7rem;
-        background: url(/content/images/user/gold1.png);
-        background-size: 100% 100%;
-    }
-    .gold-cat li{float: left;width: 33.33%;text-align: center;}
-    .gold-cat li img{height: 1.66rem;}
-    .gold-cat {background-color: #fff;height: 3.7rem;box-sizing: border-box;padding: 0.5rem 0;}
-    .gold-cat span{display: block;line-height: 0.9rem;}
-    .gold-hd{ color: #fff; font-size: 0.5rem; text-align: center;box-sizing: border-box;padding: 0.5rem 0;}
-    .gold-hd h2{font-size: 1.4rem;font-weight: 500;padding: 0.1rem 0;}
-    .gold-hd span{display: inline-block;height: 0.8rem;line-height: 0.8rem;background: #feb800; border-radius: 0.4rem; padding:0 0.4rem;}
-</style>
-<script type="text/javascript">
+<script>
     $(function () {
-        $("#Gold").infinitescroll({
-            itemSelector: ".billion"
+        $(".go-mj").on("touchmove", function (e) {
+            $(".go-mj").css({ "left": (e.originalEvent.changedTouches[0].clientX - 25 + "px"), "top": (e.originalEvent.changedTouches[0].clientY - 25 + "px") })
         });
-    });
+    })
 </script>
-<header class="header  task-top">
-    <i class="iconfont icon-Toright" style="color: #000;display: inline-block;float: left;margin-left: 0.2rem;" onclick="location.href=&#39;/UserAccount&#39;"></i>
-   我的金币
-</header>
-<div style="height: 2rem;"></div>
-
-    <div class="gold-hd">
-        金币余额
-        <h2>4150</h2>
-        <span>您已累计获得4200金币</span>
+<style>
+    body {
+        background: #eee;
+    }
+</style>
+<div class="selectImg">
+    <h3>点击选择您的头像</h3>
+    <ul><li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/1.png" alt="加载失败"></li><li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/2.png" alt="加载失败"></li><li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/3.png" alt="加载失败"></li><li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/4.png" alt="加载失败"></li><li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/5.png" alt="加载失败"></li><li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/6.png" alt="加载失败"></li><li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/7.png" alt="加载失败"></li><li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/8.png" alt="加载失败"></li><li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/9.png" alt="加载失败"></li><li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/10.png" alt="加载失败"></li><li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/11.png" alt="加载失败"></li><li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/12.png" alt="加载失败"></li><li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/13.png" alt="加载失败"></li><li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/14.png" alt="加载失败"></li><li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/15.png" alt="加载失败"></li><li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/16.png" alt="加载失败"></li></ul>
+</div>
+<div class="usera-index">
+    <div class="message">
+        <a href="#">
+            <i class="iconfont icon-xiaoxi" style="display:inline;"></i>
+        </a>
     </div>
-    <ul class="gold-cat">
-        <li onclick=" location.href = &#39;/UserAccount/mygold?type=1&#39; ">
-            <img src="<%=BusiConstant.shikemobilepath %>/mine/我的金币_files/gold2.png" alt="Alternate Text">
-            <span>赚金币</span>
-        </li>
-        <li onclick=" location.href = &#39;/UserAccount/mygold?type=2&#39; ">
-            <img src="<%=BusiConstant.shikemobilepath %>/mine/我的金币_files/gold3.png" alt="Alternate Text">
-            <span>花金币</span>
-        </li>
-        <li onclick=" location.href = &#39;/UserAccount/GoldRecharge&#39; ">
-            <img src="<%=BusiConstant.shikemobilepath %>/mine/我的金币_files/gold4.png" alt="Alternate Text">
-            <span>充金币</span>
-        </li>
-    </ul>
-    <div class="usera-kong"></div>
-    <div class="bar zt-menu" style="background: #fff; padding-top: 0rem;">
-        <ul>
-            <li>
-                <a style="color: #ff464e" href="http://m.meilipa.com/UserAccount/GoldList">全部 </a>
-                    <div class="sel">
-                    </div>
+    <div class="usera-index-top">
+        <img id="imgPic" src="<%=BusiConstant.shikemobilepath %>/mine/resource/shopdefaultavatar.jpg">
+        <p>
+            <span><%=user.getName() %></span>
+            <%--<img style="display: inline-block;vertical-align: middle;height: 0.7rem;" src="<%=BusiConstant.shikemobilepath %>/mine/resource/vip-icon-gray.png" alt="Alternate Text">--%>
+        </p>
+        <div class="status" onclick="location.href = &#39;/UserAccount/vip&#39;">
+                <%--<a href="http://m.meilipa.com/UserAccount/vip"><i class="iconfont icon-VIP"></i> 立即开通&gt;</a>--%>
+        </div>
+        <a class="sign-in" href="#">签到</a>
+    </div>
+    <div class="h23">
+        <div class="usera-index-footer" onclick="location.href = &#39;/UserAccount/MoneyBalance&#39;">
+            <p>余额</p>：<p class="maney"><%=yuee %></p>
+        </div>
+        <div class="usera-index-footer" onclick="location.href = &#39;/UserAccount/GoldList&#39;">
+            <p>金币</p>：<p class="maney"><%=jinbi %></p>
+        </div>
+    </div>
+</div><%--
+<div class="user-report" onclick="window.location.href=&#39;/help/report&#39;">
+    <i class="iconfont icon-gonggao"></i>
+    <ul style="margin-top: -25.8232px;">
             
-            </li>
-            <li>
-                <a style="color: " href="http://m.meilipa.com/UserAccount/GoldList?type=0">收入</a>
-            </li>
-            <li>
-                <a style="color: ;" href="http://m.meilipa.com/UserAccount/GoldList?type=1">支出</a>
-            </li>
-        </ul>
-    </div>
-<div id="Gold" class="con">
-     
-    <div class="billion">
-        <div class="sbj">
-            <div class="exactly aaaa">
-                <div class="z l title" onclick="myAlert(&#39;签到赚取20个金币&#39;)">签到赚取20个金币</div>
-                <div class="z r" style="color: #333333">
-                    <span style="color: #fc710b; font-weight: bold; ">+20</span>
-                </div>
+            
+            
+    <li>
+                网站升级通知            </li><li>
+                2018年中秋节假期安排通知            </li><li>
+                业务更新通知            </li></ul>
+    <i class="iconfont icon-Toleft"></i>
+</div>--%>
 
-            </div>
-            <div class="exactly aaaa ">
-                <div class="y l" style="color:#999999">2018/9/16 19:42:32</div>
-                <div class="y r">
-                    <span style="color:#ff464e"></span>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="billion">
-        <div class="sbj">
-            <div class="exactly aaaa">
-                <div class="z l title" onclick="myAlert(&#39;参与金币抽奖，扣除50金币&#39;)">参与金币抽奖，扣除50金币</div>
-                <div class="z r" style="color: #333333">
-                    <span style="color: #aaa; font-weight: bold; ">-50</span>
-                </div>
-
-            </div>
-            <div class="exactly aaaa ">
-                <div class="y l" style="color:#999999">2018/9/16 17:58:23</div>
-                <div class="y r">
-                    <span style="color:#ff464e"></span>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="billion">
-        <div class="sbj">
-            <div class="exactly aaaa">
-                <div class="z l title" onclick="myAlert(&#39;签到赚取15个金币&#39;)">签到赚取15个金币</div>
-                <div class="z r" style="color: #333333">
-                    <span style="color: #fc710b; font-weight: bold; ">+15</span>
-                </div>
-
-            </div>
-            <div class="exactly aaaa ">
-                <div class="y l" style="color:#999999">2018/9/15 7:10:53</div>
-                <div class="y r">
-                    <span style="color:#ff464e"></span>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="billion">
-        <div class="sbj">
-            <div class="exactly aaaa">
-                <div class="z l title" onclick="myAlert(&#39;签到赚取10个金币&#39;)">签到赚取10个金币</div>
-                <div class="z r" style="color: #333333">
-                    <span style="color: #fc710b; font-weight: bold; ">+10</span>
-                </div>
-
-            </div>
-            <div class="exactly aaaa ">
-                <div class="y l" style="color:#999999">2018/9/14 13:33:15</div>
-                <div class="y r">
-                    <span style="color:#ff464e"></span>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="billion">
-        <div class="sbj">
-            <div class="exactly aaaa">
-                <div class="z l title" onclick="myAlert(&#39;签到赚取5个金币&#39;)">签到赚取5个金币</div>
-                <div class="z r" style="color: #333333">
-                    <span style="color: #fc710b; font-weight: bold; ">+5</span>
-                </div>
-
-            </div>
-            <div class="exactly aaaa ">
-                <div class="y l" style="color:#999999">2018/9/13 7:14:08</div>
-                <div class="y r">
-                    <span style="color:#ff464e"></span>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="billion">
-        <div class="sbj">
-            <div class="exactly aaaa">
-                <div class="z l title" onclick="myAlert(&#39;签到赚取15个金币&#39;)">签到赚取15个金币</div>
-                <div class="z r" style="color: #333333">
-                    <span style="color: #fc710b; font-weight: bold; ">+15</span>
-                </div>
-
-            </div>
-            <div class="exactly aaaa ">
-                <div class="y l" style="color:#999999">2018/9/11 21:48:49</div>
-                <div class="y r">
-                    <span style="color:#ff464e"></span>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="billion">
-        <div class="sbj">
-            <div class="exactly aaaa">
-                <div class="z l title" onclick="myAlert(&#39;签到赚取10个金币&#39;)">签到赚取10个金币</div>
-                <div class="z r" style="color: #333333">
-                    <span style="color: #fc710b; font-weight: bold; ">+10</span>
-                </div>
-
-            </div>
-            <div class="exactly aaaa ">
-                <div class="y l" style="color:#999999">2018/9/10 19:01:28</div>
-                <div class="y r">
-                    <span style="color:#ff464e"></span>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="billion">
-        <div class="sbj">
-            <div class="exactly aaaa">
-                <div class="z l title" onclick="myAlert(&#39;签到赚取5个金币&#39;)">签到赚取5个金币</div>
-                <div class="z r" style="color: #333333">
-                    <span style="color: #fc710b; font-weight: bold; ">+5</span>
-                </div>
-
-            </div>
-            <div class="exactly aaaa ">
-                <div class="y l" style="color:#999999">2018/9/9 20:27:06</div>
-                <div class="y r">
-                    <span style="color:#ff464e"></span>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="billion">
-        <div class="sbj">
-            <div class="exactly aaaa">
-                <div class="z l title" onclick="myAlert(&#39;签到赚取5个金币&#39;)">签到赚取5个金币</div>
-                <div class="z r" style="color: #333333">
-                    <span style="color: #fc710b; font-weight: bold; ">+5</span>
-                </div>
-
-            </div>
-            <div class="exactly aaaa ">
-                <div class="y l" style="color:#999999">2018/9/7 21:01:31</div>
-                <div class="y r">
-                    <span style="color:#ff464e"></span>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="billion">
-        <div class="sbj">
-            <div class="exactly aaaa">
-                <div class="z l title" onclick="myAlert(&#39;【免费活动】完成第2次活动，送2000个金币&#39;)">【免费活动】完成第2次活动，送2000个金币</div>
-                <div class="z r" style="color: #333333">
-                    <span style="color: #fc710b; font-weight: bold; ">+2000</span>
-                </div>
-
-            </div>
-            <div class="exactly aaaa ">
-                <div class="y l" style="color:#999999">2018/9/7 20:20:26</div>
-                <div class="y r">
-                    <span style="color:#ff464e"></span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="navigation">
-        <a href="http://m.meilipa.com/UserAccount/GetNextGoldList?page=2&amp;sceen=0&amp;type=-1"></a>
+<div class="usera-center  jp" style="overflow:hidden;">
+    <h3>
+        我的活动
+        <span style="color:#999;margin-left:0.2rem;">（今日申请数：${todaySq}}）</span>
+        <a style="float: right;color: #999;font-size: 0.55rem;display: inline;position: initial; padding: 0;width: auto;" href="<%=BusiConstant.shike_wdhd.getKey() %>">查看更多状态<i class="iconfont icon-Toleft" style="font-size: 0.6rem;color: #999;vertical-align: middle;display: inline;"></i></a>
+    </h3>
+    <div style="width:100%;">
+        <a href="<%=BusiConstant.shike_wdhd.getKey() %>?status=18">
+            <i class="iconfont icon-exam"></i>
+            <span style="color:#666;">继续申请</span>
+        </a>
+        <a href="<%=BusiConstant.shike_wdhd.getKey() %>?status=21">
+            <i class="iconfont icon-xinrendalibao"></i>
+            <span style="color:#666;">待开奖</span>
+        </a>
+        <a href="<%=BusiConstant.shike_wdhd.getKey() %>?status=51">
+            <i class="iconfont icon-gift"></i>
+            <span style="color:#666;">中奖了</span>
+            <span class="num" style="left:1.7rem; right:auto;width:auto;min-width:0.7rem;padding:0 0.1rem;">${yzj}</span>
+        </a>
+        <a href="<%=BusiConstant.shike_wdhd.getKey() %>?status=99">
+            <i class="iconfont icon-wancheng"></i>
+            <span style="color:#666;">已返款</span>
+        </a>
+        
     </div>
 </div>
+<%--<div class="usera-kong"></div>
+<div class="my-invite">
+    <h3 style="border:none;" onclick="location.href = &#39;/UserAccount/UserRank&#39;">
+        我的中奖率
+        <a href="http://m.meilipa.com/UserAccount/UserRank"><i class="iconfont icon-Toleft"></i></a>
+    </h3>
+</div>--%>
+<div class="usera-kong"></div>
+<div class="my-invite">
+    <h3>
+        我是代言人
+        <span class="iconfont icon-wenhao" onclick="location.href = &#39;/Help/Question?type=1&#39;"></span>
+        
+        <a id="shareQrcode" href="#">分享赚10元<i class="iconfont icon-Toleft"></i></a>
+    </h3>
+    <ul>
+        <li onclick="location.href = #">
+            <p>
+                <i class="iconfont icon-jinbi1"></i><span>奖金</span>
+            </p>
+            <span>0</span>
+            <div></div>
+        </li>
+        <li onclick="location.href = #">
+            <p>
+                <i class="iconfont icon-money1"></i><span>即将到账</span>
+            </p>
+            <span>0.00</span>
+            <div></div>
+        </li>
+        <li onclick="location.href=#">
+            <p><i class="iconfont icon-people1"></i><span>粉丝</span></p>
+            <span>0</span>
+            <div></div>
+        </li>
+        <li onclick="location.href = #">
+            <p><i class="iconfont icon-jinbi"></i><span>金币</span></p>
+            <span>0</span>
+        </li>
+    </ul>
+</div><%--
+<div class="usera-kong"></div>
+    <div class="my-invite">
+        <h3>
+            我是微客
+            <span class="iconfont icon-wenhao" onclick="location.href = &#39;/Help/Question?type=2&#39;"></span>
+            <a id="shareQrcode" href="http://m.meilipa.com/invitation/BisInvaiteShare?invitationCode=273226">推广二维码<i class="iconfont icon-Toleft"></i></a>
+        </h3>
+        <ul>
+            <li onclick="location.href = &#39;/Invitation/BisMoneyInfo&#39;">
+                <p>
+                    <i class="iconfont icon-jinbi1"></i><span>奖金</span>
+                </p>
+                <span>0</span>
+                <div></div>
+            </li>
+            <li onclick="location.href = &#39;/Invitation/BisList?sceen=1&#39;">
+                <p>
+                    <i class="iconfont icon-money1"></i><span>即将到账</span>
+                </p>
+                <span>0</span>
+                <div></div>
+            </li>
+            <li onclick="location.href = &#39;/Invitation/BisList&#39;">
+                <p><i class="iconfont icon-shangjia"></i><span>商家</span></p>
+                <span>0</span>
+                <div></div>
+            </li>
+            <li onclick="location.href = &#39;/UserAccount/GoldList?sceen=2&#39;">
+                <p><i class="iconfont icon-jinbi"></i><span>金币</span></p>
+                <span>0</span>
+            </li>
+        </ul>
+    </div>--%>
+    <div class="usera-kong"></div>
+<ul class="help-item">
+    <%--<li onclick="location.href = &#39;/a/aaa&#39; ">--%>
+    <li onclick="location.href = #">
+        <i class="iconfont icon-zhanghuanquan"></i>
+        <p>账户安全</p>
+    </li>
+    <li onclick="location.href = #">
+        <i class="iconfont icon-lianxikefu"></i>
+        <p>联系客服</p>
+    </li>
+    <li onclick="location.href = # ">
+        <i class="iconfont icon-yijianfankui"></i>
+        <p>意见反馈</p>
+    </li>
+    <li onclick="location.href = # ">
+        <i class="iconfont icon-wenhao"></i>
+        
+        <p>帮助中心</p>
+    </li>
+</ul>
+
+<div style="height: 2rem"></div>
+<div id="authentication" class="layermbox layermbox1 layermshow" style="display: none">
+    <div class="laymshade">
+        <div class="popup_rz">
+            <div class="popup_rz_a">
+                <img src="<%=BusiConstant.shikemobilepath %>/mine/resource/thenti.jpg">
+            </div>
+            <div class="popup_rz_b">
+                <img src="<%=BusiConstant.shikemobilepath %>/mine/resource/wxshe.png">
+                <span>申请无需审核</span>
+            </div>
+            <div class="popup_rz_b">
+                <img src="<%=BusiConstant.shikemobilepath %>/mine/resource/wxshe.png">
+                <span>12小时快速返款</span>
+            </div>
+            <div class="popup_rz_b">
+                <img src="<%=BusiConstant.shikemobilepath %>/mine/resource/wxshe.png">
+                <span>提现24小时到账</span>
+            </div>
+
+            <div class="mfei_rz-a">
+                <a href="javascript:" onclick="$(&#39;#authentication&#39;).hide()">下次再说</a>
+            </div>
+            <a href="javascript:" class="gbinn" onclick="$(&#39;#authentication&#39;).hide();">
+                <img src="<%=BusiConstant.shikemobilepath %>/mine/resource/xxgban.png">
+            </a>
+        </div>
+    </div>
+</div><%--
+<a class="go-mj" href="http://m.meilipa.com/help/invitearts">
+    <img src="<%=BusiConstant.shikemobilepath %>/mine/resource/mj-icon.png">
+</a>
+--%>
+
+<style>
+    .down-app {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1000000;
+        background: rgba(0,0,0,0.7);
+    }
+
+        .down-app img {
+            position: absolute;
+            width: 14.5rem;
+            height: 15.36rem;
+            left: 0.75rem;
+            top: 50%;
+            margin-top: -8.68rem;
+        }
+
+        .down-app .iconfont {
+            display: block;
+            position: absolute;
+            top: 50%;
+            margin-top: 7.5rem;
+            color: #fff;
+            font-size: 2rem;
+            margin-left: -1rem;
+            left: 50%;
+            z-index: 10;
+        }
+</style>
+<div class="down-app">
+    <a href="http://m.meilipa.com/UserAccount" onclick="clickNumber(0)">
+        <img src="http://m.meilipa.com/UserAccount" alt="sk_gotourl">
+    </a>
+        <i class="iconfont icon-error1"></i>
+</div>
+<script>
+
+    $(function () {
 
 
-        <div style="display: none"><script src="<%=BusiConstant.shikemobilepath %>/mine/我的金币_files/z_stat.php" language="JavaScript"></script><script src="<%=BusiConstant.shikemobilepath %>/mine/我的金币_files/core.php" charset="utf-8" type="text/javascript"></script><a href="http://www.cnzz.com/stat/website.php?web_id=1264685315" target="_blank" title="站长统计">站长统计</a></div>
+    });
+</script>
+
+
+<script>
+    $(function () {
+        $("#btn-now").click(function () {
+            layer.open({
+                content: '选择支付方式',
+                btn: ['金币支付', "余额支付"],
+                skin: 'footer',
+                yes: function (index) {
+                    payCat(2);
+                },
+                no: function (index) {
+                    payCat(1);
+                }
+            });
+        });
+
+        function payCat(type) {
+            var cat = 1
+            password = "";
+            myConfirm("支付密码：<input type='password' placeholder='首次输入为登录密码' style='border:1px solid #ddd; height:1.2rem;line-height:1.2rem;width:7rem;' id='input-pwd'>", function () {
+                if (password.length < 6) {
+                    myAlert("密码必须大于6位");
+                    return false;
+                }
+                submitPost(password, type, cat);
+            });
+            $("#input-pwd").on("keyup", function () {
+                password = $("#input-pwd").val();
+            });
+        }
+
+        function submitPost(pwd, type, cat) {
+            $.post("/UserAccount/VipSubmit", { password: pwd, type: type, cat: cat }, function (data) {
+                if (data.Result) {
+                    myAlert("续费VIP成功", function () {
+                        location.replace('/UserAccount?v=' + Math.random());
+                    });
+                } else {
+                    if (data.Data) {
+                        myConfirm("支付密码不正确，是否前往修改密码", function () {
+                            location.href = "/UserAccount/FindDrawApplyPassword";
+                        });
+                    } else {
+                        myAlert(data.Message);
+                    }
+                }
+            })
+        }
+    });
+</script>
+        <div style="margin-bottom: 2rem;">
+        </div>
+        <jsp:include page="../common/footer.jsp" flush="true"/>
+        <div style="display: none"><script src="<%=BusiConstant.shikemobilepath %>/mine/resource/z_stat.php" language="JavaScript"></script><script src="<%=BusiConstant.shikemobilepath %>/mine/resource/core.php" charset="utf-8" type="text/javascript"></script><a href="http://www.cnzz.com/stat/website.php?web_id=1264685315" target="_blank" title="站长统计">站长统计</a></div>
    
     <div id="loading" class="loading">
     <div class="loadingContent">
-        <img src="<%=BusiConstant.shikemobilepath %>/mine/我的金币_files/loading.gif">
+        <img src="<%=BusiConstant.shikemobilepath %>/mine/resource/loading.gif">
     </div>
 </div>
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/我的金币_files/jquery.form.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/resource/jquery.form.js.下载"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/我的金币_files/Validform_v5.3.2.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/resource/Validform_v5.3.2.js.下载"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/我的金币_files/post.loading.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/resource/post.loading.js.下载"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/我的金币_files/layer.m.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/resource/layer.m.js.下载"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/我的金币_files/layerdialog.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/resource/layerdialog.js.下载"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/我的金币_files/jquery.cookie.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/resource/jquery.cookie.js.下载"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/我的金币_files/browser.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/resource/browser.js.下载"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/我的金币_files/app.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/resource/app.js.下载"></script>
 
 
 </body></html>

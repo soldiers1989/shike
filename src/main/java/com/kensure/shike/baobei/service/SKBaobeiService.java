@@ -376,7 +376,7 @@ public class SKBaobeiService extends JSBaseService {
 			parameters.put("typeid", typeid);
 		}
 		if(StringUtils.isNotBlank(title)){
-			parameters.put("title", title);
+			parameters.put("titleLike", title);
 		}
         if(StringUtils.isNotBlank(order)){
             parameters.put("orderby", order + " " + sort);

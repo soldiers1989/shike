@@ -1,4 +1,4 @@
-﻿var scrolH = 0;
+﻿﻿var scrolH = 0;
 var current_id = 1;
 $(function () {
     //主页swiper
