@@ -24,8 +24,8 @@
 
     <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/liucheng/haop/style.css">
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/haop/jquery-1.8.3.js.下载"></script>
-<script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/haop/Common.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/haop/jquery-1.8.3.js"></script>
+<script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/haop/Common.js"></script>
     <script type="text/javascript" src="<%=BusiConstant.context%>/jqtable/jquery.cookie.js"></script>
     <script type="text/javascript" src="<%=BusiConstant.context%>/common/http.js?ver=<%=BusiConstant.version%>"></script>
     <script src="<%=BusiConstant.shikemobilepath %>/common/uploadimage.js"></script>
@@ -59,14 +59,14 @@
 
 <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/liucheng/haop/goods.css">
 
-<script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/haop/jquery.countdown.js.下载"></script>
+<script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/haop/jquery.countdown.js"></script>
 
 <style>
     .tpsc {
         min-height: 100px;
     }
 </style>
-<script src="<%=BusiConstant.shikemobilepath %>/liucheng/haop/clipboard.min.js.下载"></script>
+<script src="<%=BusiConstant.shikemobilepath %>/liucheng/haop/clipboard.min.js"></script>
 <script type="text/javascript">
 
     var logo2 = "";
@@ -379,21 +379,21 @@
         <img src="<%=BusiConstant.shikemobilepath %>/liucheng/haop/loading.gif">
     </div>
 </div>
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/haop/jquery.form.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/haop/jquery.form.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/haop/Validform_v5.3.2.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/haop/Validform_v5.3.2.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/haop/post.loading.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/haop/post.loading.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/haop/layer.m.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/haop/layer.m.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/haop/layerdialog.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/haop/layerdialog.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/haop/jquery.cookie.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/haop/jquery.cookie.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/haop/browser.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/haop/browser.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/haop/app.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/haop/app.js"></script>
 
 
 <form action="http://m.meilipa.com/CommonBase/UploadPic?compressType=2" method="post"><input type="file" accept="image/*;" name="file" style="display:none" multiple="multiple"></form><form action="http://m.meilipa.com/CommonBase/UploadPic?compressType=2" method="post"><input type="file" accept="image/*;" name="file" style="display:none" multiple="multiple"></form><form action="http://m.meilipa.com/CommonBase/UploadPic?compressType=2" method="post"><input type="file" accept="image/*;" name="file" style="display:none" multiple="multiple"></form><form action="http://m.meilipa.com/CommonBase/UploadPic?compressType=2" method="post"><input type="file" accept="image/*;" name="file" style="display:none" multiple="multiple"></form></body></html>

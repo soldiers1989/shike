@@ -22,8 +22,8 @@
 
     <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/index/resource/style.css">
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/index/resource/jquery-1.8.3.js.下载"></script>
-<script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/index/resource/Common.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/index/resource/jquery-1.8.3.js"></script>
+<script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/index/resource/Common.js"></script>
 
     <script>
         var userId=0;
@@ -50,10 +50,10 @@
     
 
 <link href="<%=BusiConstant.shikemobilepath %>/index/resource/swiper.min.css" rel="stylesheet">
-<script src="<%=BusiConstant.shikemobilepath %>/index/resource/swiper.min.js.下载"></script>
-<script src="<%=BusiConstant.shikemobilepath %>/index/resource/jquery.lazyload.js.下载"></script>
-<script src="<%=BusiConstant.shikemobilepath %>/index/resource/vue.js.下载"></script>
-<script src="<%=BusiConstant.shikemobilepath %>/index/resource/jquery.infinitescroll.js.下载"></script>
+<script src="<%=BusiConstant.shikemobilepath %>/index/resource/swiper.min.js"></script>
+<script src="<%=BusiConstant.shikemobilepath %>/index/resource/jquery.lazyload.js"></script>
+<script src="<%=BusiConstant.shikemobilepath %>/index/resource/vue.js"></script>
+<script src="<%=BusiConstant.shikemobilepath %>/index/resource/jquery.infinitescroll.js"></script>
 <style>
     /*html .shangxin-goods-box>div li .t-btn, html .report, html .jp-con, html .jp-con .jp-list li div.jp-btn a, html .info-num, html .fix-detail .info-num li, html .info-foot div:first-child{
         border-width:2px;
@@ -156,7 +156,7 @@
 </script>
 <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/index/resource/index.css">
 
-<script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/index/resource/index.js.下载"></script>
+<script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/index/resource/index.js"></script>
 <%--
 <a class="go-mj" data-href="" style="display:block;">
     <img src="<%=BusiConstant.shikemobilepath %>/index/resource/new-people.png">
@@ -1462,21 +1462,21 @@
         <img src="<%=BusiConstant.shikemobilepath %>/index/resource/loading.gif">
     </div>
 </div>
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/index/resource/jquery.form.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/index/resource/jquery.form.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/index/resource/Validform_v5.3.2.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/index/resource/Validform_v5.3.2.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/index/resource/post.loading.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/index/resource/post.loading.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/index/resource/layer.m.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/index/resource/layer.m.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/index/resource/layerdialog.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/index/resource/layerdialog.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/index/resource/jquery.cookie.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/index/resource/jquery.cookie.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/index/resource/browser.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/index/resource/browser.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/index/resource/app.js.下载"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/index/resource/app.js"></script>
 
 
 </body></html>
