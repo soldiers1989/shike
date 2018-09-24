@@ -47,6 +47,7 @@
 <script>
 function dictsucdo(data){
 	var rows = data.resultData.rows;
+	alert(rows.length)
 	for(var i=0;i<rows.length;i++){
 		var row = rows[i];
 		var html = " <li class=\"n-tabItem\">"
@@ -109,7 +110,7 @@ function huodongsucdo(data){
      	 	 html+="<div class='aui-artificial5' >"+btname+"</div>";
      	}     
 		$("#huoping").append(html);
-	}	
+	}
 }
 
 function dothing(id,status){

@@ -99,7 +99,7 @@ function huodongsucdo(data){
         +" </div>"
         +" </a>"     
 		$("#huoping").append(html);
-	}	
+	}
 }
 function huodonglist(){
    var data = {};
