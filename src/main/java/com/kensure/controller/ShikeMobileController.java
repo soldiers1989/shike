@@ -54,13 +54,12 @@ public class ShikeMobileController {
 
 	@Resource
 	private SKUserYueService skUserYueService;
-	
 
 	// 首页
 	@RequestMapping("index")
 	public String index(HttpServletRequest req, HttpServletResponse rep, Model model) {
 //		return "page/mobile/haohuo/haohuo.jsp";
-		return "page/mobile/haohuonew/haohuo.jsp";
+		return "page/mobile/index/index.jsp";
 	}
 
 	// 好货页面
@@ -170,19 +169,24 @@ public class ShikeMobileController {
 	// 我的
 	@RequestMapping("mine")
 	public String mine(HttpServletRequest req, HttpServletResponse rep, Model model) {
+
         SKUser user = sKUserService.getUser();
-        SKUserYue yue = skUserYueService.selectOne(user.getId());
 
-        // 已中奖
-        long yzj = sKSkqkService.getQkByByYzj(user.getId());
+        if (user != null) {
+			SKUserYue yue = skUserYueService.selectOne(user.getId());
 
-        // 今日申请
-        long todaySq = sKSkqkService.getQkByToday(user.getId());
+			// 已中奖
+			long yzj = sKSkqkService.getQkByByYzj(user.getId());
 
-        req.setAttribute("user", user);
-        req.setAttribute("yue", yue);
-        req.setAttribute("yzj", yzj);
-        req.setAttribute("todaySq", todaySq);
+			// 今日申请
+			long todaySq = sKSkqkService.getQkByToday(user.getId());
+
+			req.setAttribute("yue", yue);
+			req.setAttribute("yzj", yzj);
+			req.setAttribute("todaySq", todaySq);
+		}
+
+		req.setAttribute("user", user);
 
         return "page/mobile/mine/mine.jsp";
 	}
