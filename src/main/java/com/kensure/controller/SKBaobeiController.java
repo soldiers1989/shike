@@ -161,7 +161,27 @@ public class SKBaobeiController {
 		JSONObject json = RequestUtils.paramToJson(req);
 		Integer typeid = json.getInteger("typeid");
 		String title = json.getString("title");
-		List<SKBaobei> list = sKBaobeiService.getSKList(typeid, title);
+		String order = json.getString("order");
+		String sort = json.getString("sort");
+
+		// 排序字段
+		if ("1".equals(order)) { // 最新
+			order = "created_time";
+		} else if ("2".equals(order)) { // 价值
+			order = "sale_price";
+		} else if ("3".equals(order)) { // 人气
+			order = "sqnum";
+		} else {
+			order = "disorder";
+		}
+
+		// 升序/降序
+		if ("1".equals(sort)) {
+			sort = "desc";
+		} else {
+			sort = "asc";
+		}
+		List<SKBaobei> list = sKBaobeiService.getSKList(typeid, title, order, sort);
 		return new ResultRowsInfo(list);
 	}
 

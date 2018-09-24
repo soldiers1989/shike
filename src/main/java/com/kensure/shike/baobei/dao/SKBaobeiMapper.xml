@@ -158,7 +158,7 @@
 			and dpid = #{dpid}			
 		</if>
 		<if test="title != null">			
-			and title = #{title}			
+			and title like concat('%',#{title},'%')
 		</if>
 		<if test="url != null">			
 			and url = #{url}			

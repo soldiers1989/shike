@@ -370,14 +370,17 @@ public class SKBaobeiService extends JSBaseService {
 	 * 
 	 * @return
 	 */
-	public List<SKBaobei> getSKList(Integer typeid,String title) {
-		Map<String, Object> parameters = MapUtils.genMap("is_del", 0, "status", 9, "orderby", "disorder desc");
+	public List<SKBaobei> getSKList(Integer typeid,String title, String order, String sort) {
+		Map<String, Object> parameters = MapUtils.genMap("is_del", 0, "status", 9);
 		if(typeid != null){
 			parameters.put("typeid", typeid);
 		}
 		if(StringUtils.isNotBlank(title)){
 			parameters.put("title", title);
 		}
+        if(StringUtils.isNotBlank(order)){
+            parameters.put("orderby", order + " " + sort);
+        }
 		List<SKBaobei> list = selectByWhere(parameters);
 		return list;
 	}
