@@ -18,7 +18,7 @@ public class SKTask {
 	private SKSkqkService sKSkqkService;
 
 	/**
-	 * add by fankd 每天0点，删除不需要的日志
+	 * add by fankd 每天0点，设置好评
 	 */
 	@Scheduled(cron = "0 0 0 1/1 * ?")
 	public void deleteLogData() {
@@ -35,9 +35,9 @@ public class SKTask {
 	}
 
 	/**
-	 * add by fankd 每天8点，抽奖
+	 * add by fankd 每天10点，抽奖
 	 */
-	@Scheduled(cron = "0 0 8 1/1 * ?")
+	@Scheduled(cron = "0 0 10 1/1 * ?")
 	public void choujiang1() {
 		sKBbrwService.doChouJiang(false);
 	}

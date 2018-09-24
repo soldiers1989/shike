@@ -232,7 +232,7 @@ public class SKBbrwService extends JSBaseService {
 			// 全部抽完
 			cjsl = bbnum - yzj;
 		} else {
-			cjsl = bbnum / 3;
+			cjsl = (bbnum - yzj) / 2;
 		}
 
 		List<SKSkqk> list = sKSkqkService.getDengChouJiang(bbid);
