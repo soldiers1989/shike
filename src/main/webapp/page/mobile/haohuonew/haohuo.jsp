@@ -58,11 +58,11 @@
 </script>
 <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/index.css">
 
-<script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/list.js?ver=<%=Math.random()%>"></script>
+<script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/list.js?ver=<%=BusiConstant.version%>"></script>
 
 <script>
     var isNewUser = "True";
-    var userid = 273226;
+    var userid = 0;
     var myGold = "4150";
     var sortY='0';
     var orderType='0';
@@ -105,7 +105,7 @@
 </a>--%>
 <div class="jp-fixed-top" style="border-bottom: 1px solid #ddd;height: auto;">
     <div class="jp-hd">
-        <a href="http://m.meilipa.com/UserAccount/GoldRecharge">
+        <a href="#">
             <i class="iconfont icon-xianshangchongzhi" style="font-size: 0.89rem;color: #a5a5a5;"></i>
         </a>
         <div>

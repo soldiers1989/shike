@@ -1,6 +1,38 @@
 ﻿var scrolH = 0;
 var current_id = 1;
 $(function () {
+
+    //type搜索
+    function initCatBinding() {
+        $(".jp-cat li a").on("click", function () {
+            $(".jp-cat li a").removeClass("act");
+            $(this).addClass("act");
+            lingaSort.typeid = $(this).data("href");
+            lingaSort.sort = 1;
+            getList(1);
+        });
+    }
+
+    function dictsucdo(data){
+        var rows = data.resultData.rows;
+        for(var i=0;i<rows.length;i++){
+            var row = rows[i];
+            // var html = " <li class=\"n-tabItem\" data-id=\"type"+row.code+"\">"
+            //     +"<a href=\"#\" id=\"type"+row.code+"\" >"+row.simpleName+"</a>"
+            //     +"</li>";
+            var html = "<li><a href=\"/shike/skm/haohuo?typeid="+ row.code +"\" class=\"\">"+ row.simpleName +"</a></li>";
+            $(".jp-cat ul").append(html);
+        }
+        initCatBinding();
+    }
+    function dictlist(){
+        var data = {typeid:1};
+        var url = "/shike/sys/dictlist.do";
+        postdo(url, data, dictsucdo,null, null);
+    }
+    dictlist();
+
+
     //主页swiper
     var mySwiper = new Swiper('#swiper', {
         autoplay: 5000,

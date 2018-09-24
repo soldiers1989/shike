@@ -9,15 +9,19 @@
 <%
     String context = BusiConstant.shikemobilepath;
     SKUser user = (SKUser)request.getAttribute("user");
-    SKUserYue yue = (SKUserYue)request.getAttribute("yue");
-    Double yuee = 0.00;
+
+    /*Double yuee = 0.00;
     Double jinbi = 0.00;
-    if (yue != null && yue.getYue() != null) {
-        yuee = yue.getYue();
-    }
-    if (yue != null && yue.getJinbi() != null) {
-        jinbi = yue.getJinbi();
-    }
+    if (user != null) {
+        SKUserYue yue = (SKUserYue)request.getAttribute("yue");
+
+        if (yue != null && yue.getYue() != null) {
+            yuee = yue.getYue();
+        }
+        if (yue != null && yue.getJinbi() != null) {
+            jinbi = yue.getJinbi();
+        }
+    }*/
 %>
 <!DOCTYPE html>
 <!-- saved from url=(0032)http://m.meilipa.com/UserAccount -->
@@ -41,8 +45,8 @@
     <script type="text/javascript" src="<%=BusiConstant.context%>/jqtable/jquery.cookie.js"></script>
     <script type="text/javascript" src="<%=BusiConstant.context%>/common/http.js?ver=<%=BusiConstant.version%>"></script>
 
-    <%--<script>
-        var userId=273226;
+    <script>
+        var userId=0;
         (function (doc, win) {
             var docEl = doc.documentElement,
             resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
@@ -59,7 +63,10 @@
             doc.addEventListener('DOMContentLoaded', recalc, false);
             recalc();
         })(document, window);
-    </script>--%>
+
+        checkuser();
+
+    </script>
     
 <link href="<%=BusiConstant.shikemobilepath %>/mine/resource/layer.css" type="text/css" rel="styleSheet" id="layermcss"></head>
 <body>
@@ -95,7 +102,7 @@
     <div class="usera-index-top">
         <img id="imgPic" src="<%=BusiConstant.shikemobilepath %>/mine/resource/shopdefaultavatar.jpg">
         <p>
-            <span><%=user.getName() %></span>
+            <span>${user.name }</span>
             <%--<img style="display: inline-block;vertical-align: middle;height: 0.7rem;" src="<%=BusiConstant.shikemobilepath %>/mine/resource/vip-icon-gray.png" alt="Alternate Text">--%>
         </p>
         <div class="status" onclick="location.href = &#39;/UserAccount/vip&#39;">
@@ -104,11 +111,11 @@
         <a class="sign-in" href="#">签到</a>
     </div>
     <div class="h23">
-        <div class="usera-index-footer" onclick="location.href = &#39;/UserAccount/MoneyBalance&#39;">
-            <p>余额</p>：<p class="maney"><%=yuee %></p>
+        <div class="usera-index-footer" onclick="location.href = #">
+            <p>余额</p>：<p class="maney">${yue.yue }</p>
         </div>
-        <div class="usera-index-footer" onclick="location.href = &#39;/UserAccount/GoldList&#39;">
-            <p>金币</p>：<p class="maney"><%=jinbi %></p>
+        <div class="usera-index-footer" onclick="location.href = #">
+            <p>金币</p>：<p class="maney">${yue.jinbi }</p>
         </div>
     </div>
 </div><%--

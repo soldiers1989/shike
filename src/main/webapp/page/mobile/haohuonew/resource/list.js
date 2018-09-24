@@ -11,8 +11,6 @@ $(function () {
     //全局swiper  用于判断是否进入了商品详情页
     var indexSW = 0;
 
-
-
     //金币兑换按钮
     function GoldAplly(id) {
         $.ajax({
@@ -102,10 +100,12 @@ $(function () {
             // var html = " <li class=\"n-tabItem\" data-id=\"type"+row.code+"\">"
             //     +"<a href=\"#\" id=\"type"+row.code+"\" >"+row.simpleName+"</a>"
             //     +"</li>";
-            var html = "<li><a data-href=\""+ row.code +"\" class=\"\">"+ row.simpleName +"</a></li>";
+            var html = "<li><a id='type"+ row.code +"' data-href=\""+ row.code +"\" class=\"\">"+ row.simpleName +"</a></li>";
             $(".jp-cat ul").append(html);
         }
         initCatBinding();
+
+        formIndexInit();
     }
     function dictlist(){
         var data = {typeid:1};
@@ -128,7 +128,26 @@ $(function () {
     lingaSort.paytype = "";
     lingaSort.noApply = 0;
     lingaSort.isSendGold = 0;
-    getList();
+
+    init();
+
+    function init() {
+        if(lingaSort.typeid == '') {
+            getList();
+        }
+    }
+
+    function formIndexInit() {
+        if(lingaSort.typeid != '') {
+            $(".jp-cat li a").removeClass("act");
+            // $(".jp-cat li a[data-href=4]").addClass("act");
+            console.log($("[data-href='4']").attr("data-href"))
+            $("#type" + lingaSort.typeid).addClass("act");
+            // $(this).addClass("act");
+            lingaSort.sort = 1;
+            getList(1);
+        }
+    }
 
     //搜索词搜索
     $(".jp-hd .icon-search").on("click", function () {
@@ -339,7 +358,7 @@ $(function () {
         if (clearFlag) {
             window.scrollTo(0, 0);
             lingaSort.page = 1;
-            vm.$data.list = [];
+            // vm.$data.list = [];
             pageFlag = false;
             $("#list").html("")
         }
