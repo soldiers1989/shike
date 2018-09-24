@@ -167,8 +167,10 @@
 				var html =   "<tr> "       
                 +"<td width=\"270\" height=\"100\" valign=\"middle\">"
                 +"<div class=\"xi_lt clearfix\" style=\"margin-right: 0\">"
+                +"<a style='width: 60px; height: 60px;'>"
+                +"<img src='"+row.zturl+"'  height='60' width='60'> </a>"
                 +"    <div class=\"cd_lxq cm_cd_lxq\">"
-                +"        <a href=\"//jing.meilipa.com/83882.html\" target=\"_blank\" style=\"margin-right: 0\">"
+                +"        <a  style=\"margin-right: 0\">"
                 +"            <span style=\"margin-left: 0px; width: 170px; line-height: 12px;\">" 
                 +"                <em class=\"iconfont icon-tb\" style=\"font-weight:500;font-size:15px;\">" 
                 +"                </em>"+row.title 
@@ -184,11 +186,14 @@
                 +" <td height=\"100\" valign=\"middle\" align=\"center\" width=\"150\">" 
                 +"     <em style=\"color: #f25f55\">"+row.statusStr+"</em>" 
                 +"  </td>" 
-                +" <td height=\"100\" align=\"center\" width=\"200\">" 
-                +"    <div class=\"wae_cer\">" 
-                +"        <input type='button' value='审核通过' onclick='tongguo("+row.id+")'"
-                +"   </div>" 
-                +"</td>" 
+                +" <td height=\"100\" align=\"center\" width=\"200\">";
+                if(row.status == 1){
+                	html+="    <div class=\"wae_cer\">" 
+                      +"        <input type='button' value='审核通过' onclick='tongguo("+row.id+")'/>"
+                      +"   </div>" 
+                }
+              
+                html+="</td>" 
                 +"<td height=\"100\" align=\"center\" width=\"200\">--</td>" 
                 +" </tr>" 
 				$("#listtable").append(html);

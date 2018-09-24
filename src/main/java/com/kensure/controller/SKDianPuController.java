@@ -57,5 +57,6 @@ public class SKDianPuController {
 		List<SKDianPu> list = sKDianPuService.getList();
 		return new ResultRowsInfo(list);
 	}
+	
 
 }

@@ -39,6 +39,8 @@ import com.kensure.shike.user.model.SKLogin;
 import com.kensure.shike.user.model.SKSms;
 import com.kensure.shike.user.model.SKUser;
 import com.kensure.shike.user.model.SKUserSession;
+import com.kensure.shike.zhang.model.SKUserYue;
+import com.kensure.shike.zhang.service.SKUserYueService;
 
 /**
  * 用户表服务实现类
@@ -60,6 +62,10 @@ public class SKUserService extends JSBaseService {
 
 	@Resource
 	private BaseKeyService baseKeyService;
+	
+	@Resource
+	private SKUserYueService sKUserYueService;
+	
 
 	public SKUser selectOne(Long id) {
 		return dao.selectOne(id);
@@ -118,6 +124,29 @@ public class SKUserService extends JSBaseService {
 	}
 
 	/**
+	 * 查询用户
+	 * 
+	 * @param parameters
+	 * @return
+	 */
+	public List<SKUser> selectList(Integer type) {
+		Map<String, Object> parameters = MapUtils.genMap("type", type);
+		List<SKUser> list = dao.selectByWhere(parameters);
+		if(CollectionUtils.isEmpty(list)){
+			return null;
+		}
+		for(SKUser u:list){
+			SKUserYue yue = sKUserYueService.selectOne(u.getId());
+			if(yue != null){
+				u.setYue(yue.getYue());
+			}else{
+				u.setYue(0D);
+			}		
+		}
+		return list;
+	}
+
+	/**
 	 * 根据电话号码和用户类型找用户
 	 * 
 	 * @param phone
@@ -170,7 +199,7 @@ public class SKUserService extends JSBaseService {
 		addUser(sKUser, QRCode);
 		return sKUser;
 	}
-	
+
 	/**
 	 * 试客注册同时登陆
 	 * 
@@ -211,7 +240,7 @@ public class SKUserService extends JSBaseService {
 			BusinessExceptionUtil.threwException("验证码过期。");
 		}
 		sKUser.setLevel(1);
-		sKUser.setLevelCode("0001");		
+		sKUser.setLevelCode("0001");
 		// 插入数据
 		insert(sKUser);
 		// 验证成功
@@ -230,7 +259,7 @@ public class SKUserService extends JSBaseService {
 		ParamUtils.isBlankThrewException(sKUser.getNoQq(), "qq不能为空");
 		MobileUtils.checkMobile(sKUser.getPhone());
 	}
-	
+
 	/**
 	 * 校验试客的数据
 	 * 
@@ -285,36 +314,39 @@ public class SKUserService extends JSBaseService {
 
 	/**
 	 * 校验用户会话信息
+	 * 
 	 * @param user
 	 */
-	public static void checkUser(SKUser user){
-		if(user == null){
+	public static void checkUser(SKUser user) {
+		if (user == null) {
 			BusinessExceptionUtil.threwException("用户为空,请重新登录");
 		}
 	}
-	
+
 	/**
 	 * 校验用户会话信息
+	 * 
 	 * @param user
 	 */
-	public static void checkUserAdmin(SKUser user){
-		if(user == null){
+	public static void checkUserAdmin(SKUser user) {
+		if (user == null) {
 			BusinessExceptionUtil.threwException("用户为空,请重新登录");
 		}
-		if(user.getType() != 3){
+		if (user.getType() != 3) {
 			BusinessExceptionUtil.threwException("用户权限错误");
 		}
 	}
-	
+
 	/**
 	 * 校验用户会话信息
+	 * 
 	 * @param user
 	 */
-	public static void checkUserSK(SKUser user){
-		if(user == null){
+	public static void checkUserSK(SKUser user) {
+		if (user == null) {
 			BusinessExceptionUtil.threwException("用户为空,请重新登录");
 		}
-		if(user.getType() != 1){
+		if (user.getType() != 1) {
 			BusinessExceptionUtil.threwException("用户权限错误");
 		}
 	}
