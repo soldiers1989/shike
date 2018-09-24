@@ -261,13 +261,13 @@
             var btn = "";
             if(row.status<21){
                 btn = "        <div class=\"jp-btn clearfix\">\n" +
-                    "            <a href=\"<%=BusiConstant.context %>/skm/gouwuche?id="+ row.bbid +"\" class=\"\">继续申请</a>\n" +
+                    "            <a href=\"<%=BusiConstant.shike_gouwuche.getKey() %>?id="+ row.bbid +"\" class=\"\">继续申请</a>\n" +
                     "            <a href=\"javascript:void(1);\" class=\"black\" onclick=\"Feedback("+ row.bbid +")\">反馈问题</a>\n" +
                     "            <a href=\"javascript:void(1);\" class=\"black\" onclick=\"DeletedOrder("+ row.bbid +")\">删除</a>\n" +
                     "        </div>";
             }else if(row.status == 51){
                 btn = "        <div class=\"jp-btn clearfix\">\n" +
-                    "            <a href=\"<%=BusiConstant.context %>/skm/ddan?id="+ row.bbid +"\" class=\"\">提交订单</a>\n" +
+                    "            <a href=\"<%=BusiConstant.shike_ddan.getKey() %>?id="+ row.bbid +"\" class=\"\">提交订单</a>\n" +
                     "            <a href=\"javascript:void(1);\" class=\"black\" onclick=\"Feedback("+ row.bbid +")\">反馈问题</a>\n" +
                     "        </div>";
             }else if(row.status == 61){
@@ -277,12 +277,12 @@
                     "        </div>";
             }else if(row.status == 71){
                 btn = "        <div class=\"jp-btn clearfix\">\n" +
-                    "            <a href=\"<%=BusiConstant.context %>/skm/gouwuche?id="+ row.bbid +"\" class=\"\">提交好评</a>\n" +
+                    "            <a href=\"<%=BusiConstant.shike_haop.getKey() %>?id="+ row.bbid +"\" class=\"\">提交好评</a>\n" +
                     "            <a href=\"javascript:void(1);\" class=\"black\" onclick=\"Feedback("+ row.bbid +")\">反馈问题</a>\n" +
                     "        </div>";
             } else if(row.status == 81){
                 btn = "        <div class=\"jp-btn clearfix\">\n" +
-                    "            <a href=\"<%=BusiConstant.context %>/skm/gouwuche?id="+ row.bbid +"\" class=\"\">等待返款</a>\n" +
+                    "            <a href=\"javascript:void(1);\" class=\"black\" onclick=\"Feedback()\">等待返款</a>\n" +
                     "            <a href=\"javascript:void(1);\" class=\"black\" onclick=\"Feedback("+ row.bbid +")\">反馈问题</a>\n" +
                     "        </div>";
             }

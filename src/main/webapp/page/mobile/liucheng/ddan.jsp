@@ -11,6 +11,11 @@
 <html lang="zh" style="font-size: 22.125px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     
     <title>试用流程</title>
+    <meta name="keywords" content="试呗网">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="format-detection" content="address=no">
+    <meta name="full-screen" content="yes">
     <link href="http://m.meilipa.com/favicon.ico" rel="shortcut icon" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/liucheng/ddan/base.css">
 <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/liucheng/ddan/iconfont.css">
