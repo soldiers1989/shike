@@ -15,9 +15,15 @@ import co.kensure.http.RequestUtils;
 
 import com.alibaba.fastjson.JSONObject;
 import com.kensure.shike.baobei.model.SKBaobei;
+import com.kensure.shike.baobei.model.SKJindian;
+import com.kensure.shike.baobei.model.SKSkqk;
 import com.kensure.shike.baobei.model.SKWord;
 import com.kensure.shike.baobei.service.SKBaobeiService;
+import com.kensure.shike.baobei.service.SKJindianService;
+import com.kensure.shike.baobei.service.SKSkqkService;
 import com.kensure.shike.baobei.service.SKWordService;
+import com.kensure.shike.user.model.SKUser;
+import com.kensure.shike.user.service.SKUserService;
 
 /**
  * 试客手机端页面
@@ -33,7 +39,17 @@ public class ShikeMobileController {
 	private SKBaobeiService sKBaobeiService;
 
 	@Resource
+	private SKJindianService sKJindianService;
+	
+	@Resource
 	private SKWordService sKWordService;
+	
+	@Resource
+	private SKSkqkService sKSkqkService;
+	
+	@Resource
+	private SKUserService sKUserService;
+	
 
 	// 首页
 	@RequestMapping("index")
@@ -71,28 +87,40 @@ public class ShikeMobileController {
 		return "page/mobile/login/regist.jsp";
 	}
 
-	// 申请页面
+	// 整合流程页面
 	@RequestMapping("gouwuche")
 	public String gouwuche(HttpServletRequest req, HttpServletResponse rep, Model model) {
 		JSONObject json = RequestUtils.paramToJson(req);
 		Long id = json.getLong("id");
+		SKUser user = sKUserService.getUser();
+		SKSkqk skqk = sKSkqkService.getQkByBBId(id, user.getId());
+		//试客情况
+		int status = skqk.getStatus().intValue();	
+		
 		SKBaobei baobei = sKBaobeiService.getSKBaobei(id);
-		List<SKWord> words = sKWordService.getList(id);
 		req.setAttribute("baobei", baobei);
-		req.setAttribute("words", words);
-		return "page/mobile/liucheng/gouwuche.jsp";
+		req.setAttribute("user", user);
+		
+		//加购物车
+		if(status<18){
+			List<SKWord> words = sKWordService.getList(id);
+			List<SKJindian> jindians = sKJindianService.getList(id);
+			req.setAttribute("words", words);
+			req.setAttribute("jindians", jindians);
+			return "page/mobile/liucheng/gouwuche.jsp";
+		}else if(status == 18){
+			//收藏关注
+			return "page/mobile/liucheng/scgz.jsp";
+		}else if(status == 51){
+			//确认宝贝、提交付款订单
+			return "page/mobile/liucheng/ddan.jsp";
+		}else if(status == 71){
+			//反馈好评晒图
+			return "page/mobile/liucheng/haop.jsp";
+		}
+		return null;		
 	}
 
-	// 收藏关注页面
-	@RequestMapping("scgz")
-	public String scgz(HttpServletRequest req, HttpServletResponse rep, Model model) {
-		JSONObject json = RequestUtils.paramToJson(req);
-		Long id = json.getLong("id");
-		SKBaobei baobei = sKBaobeiService.getSKBaobei(id);
-		req.setAttribute("baobei", baobei);
-		return "page/mobile/liucheng/scgz.jsp";
-//		return "page/mobile/lc/scgz.jsp";
-	}
 
 	// 我的活动页面
 	@RequestMapping("wdhd")
@@ -103,17 +131,6 @@ public class ShikeMobileController {
 		}
 		req.setAttribute("status", status);
 		return "page/mobile/wdhd/wdhd.jsp";
-	}
-
-	// 订单页面
-	@RequestMapping("ddan")
-	public String ddan(HttpServletRequest req, HttpServletResponse rep, Model model) {
-		JSONObject json = RequestUtils.paramToJson(req);
-		Long id = json.getLong("id");
-		SKBaobei baobei = sKBaobeiService.getSKBaobei(id);
-		req.setAttribute("baobei", baobei);
-//		return "page/mobile/lc/ddan.jsp";
-		return "page/mobile/liucheng/ddan.jsp";
 	}
 
 	// 订单页面

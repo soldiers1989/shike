@@ -1,3 +1,4 @@
+<%@page import="com.kensure.shike.user.model.SKUser"%>
 <%@page import="java.util.List"%>
 <%@page import="com.kensure.shike.constant.BusiConstant"%>
 <%@ page import="com.kensure.shike.baobei.model.SKBaobei" %>
@@ -6,14 +7,16 @@
 <%
     String context = BusiConstant.shikemobilepath;
     SKBaobei baobei = (SKBaobei)request.getAttribute("baobei");
+    SKUser user = (SKUser)request.getAttribute("user");
+    
 %>
 <!DOCTYPE html>
 <!-- saved from url=(0061)http://m.meilipa.com/JpinShopIssue/OrderFlow?activityId=90976 -->
 <html lang="zh" style="font-size: 22.125px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     
     <title>试用流程</title>
-    <meta name="keywords" content="美丽啪网,美丽啪联盟,免费试用,试用网,免费试用网,试用中心,试客,试客网">
-    <meta name="description" content="欢迎来免费美丽啪试用网:美丽啪网—是全国领先的免费试用网和试客网,深得试客信赖的免费试用中心网站,是免费试用网和试客网站的首选,美丽啪免费试用网为试客提供最优质和实用的优秀免费试用商品.">
+    <meta name="keywords" content="试呗,免费试用,试用网,免费试用网,试用中心,试客,试客网">
+    <meta name="description" content="欢迎来免费试呗.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <meta name="format-detection" content="telephone=no">
     <meta name="format-detection" content="address=no">
@@ -75,7 +78,7 @@
             <img src="${baobei.zturl}">
             <ul>
                 <li><span class="iconfont icon-tb"></span> <span>${baobei.title}</span></li>
-                <li>店铺名称：<span>${baobei.dpname} TODO</span></li>
+                <li>店铺名称：<span>${baobei.dpnameS}</span></li>
                 <li>价格：<span style="color: #ff464e;">${baobei.salePrice}元</span></li>
                 <li>规格：<span style="color: #ff464e;" onclick="myAlert(&#39;${baobei.zturl}&#39;)">${baobei.guige}</span></li>
             </ul>
@@ -92,7 +95,7 @@
                 </li>
                 <li>
                     <span class="num">2</span>登录淘宝账号
-                    <em class="red">a12345678 TODO</em>进入购物车，找到宝贝
+                    <em class="red"><%=user.getNoTaobao() %></em>进入购物车，找到宝贝
                 </li>
                 <li>
                     <span class="num">3</span>在宝贝详情页底部<em class="red">点击关注/收藏 </em>按钮关注/收藏宝贝，如图：

@@ -20,6 +20,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import co.kensure.frame.JSBaseService;
+import co.kensure.mem.MapUtils;
 
 import com.kensure.basekey.BaseKeyService;
 import com.kensure.shike.baobei.dao.SKJindianDao;
@@ -92,6 +93,17 @@ public class SKJindianService extends JSBaseService {
 
 	public boolean deleteByWhere(Map<String, Object> parameters) {
 		return dao.deleteByWhere(parameters);
+	}
+	
+	/**
+	 * 进店路径
+	 * 
+	 * @return
+	 */
+	public List<SKJindian> getList(Long bbid) {
+		Map<String, Object> parameters = MapUtils.genMap("bbid", bbid);
+		List<SKJindian> list = selectByWhere(parameters);
+		return list;
 	}
 
 }

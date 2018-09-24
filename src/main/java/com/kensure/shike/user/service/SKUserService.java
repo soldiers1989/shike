@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
@@ -62,10 +63,9 @@ public class SKUserService extends JSBaseService {
 
 	@Resource
 	private BaseKeyService baseKeyService;
-	
+
 	@Resource
 	private SKUserYueService sKUserYueService;
-	
 
 	public SKUser selectOne(Long id) {
 		return dao.selectOne(id);
@@ -132,16 +132,16 @@ public class SKUserService extends JSBaseService {
 	public List<SKUser> selectList(Integer type) {
 		Map<String, Object> parameters = MapUtils.genMap("type", type);
 		List<SKUser> list = dao.selectByWhere(parameters);
-		if(CollectionUtils.isEmpty(list)){
+		if (CollectionUtils.isEmpty(list)) {
 			return null;
 		}
-		for(SKUser u:list){
+		for (SKUser u : list) {
 			SKUserYue yue = sKUserYueService.selectOne(u.getId());
-			if(yue != null){
+			if (yue != null) {
 				u.setYue(yue.getYue());
-			}else{
+			} else {
 				u.setYue(0D);
-			}		
+			}
 		}
 		return list;
 	}
@@ -308,7 +308,22 @@ public class SKUserService extends JSBaseService {
 			if (request != null) {
 				tokenId = request.getHeader("tokenid");
 			}
+			if (tokenId == null) {
+				// 获取所有Cookie
+				Cookie[] cookies = request.getCookies();
+				// 如果浏览器中存在Cookie
+				if (cookies != null && cookies.length > 0) {
+					// 遍历所有Cookie
+					for (Cookie cookie : cookies) {
+						// 找到name为city的Cookie
+						if (cookie.getName().equals("mdtokenid")) {
+							tokenId = cookie.getValue();
+						}
+					}
+				}
+			}
 		}
+
 		return tokenId;
 	}
 

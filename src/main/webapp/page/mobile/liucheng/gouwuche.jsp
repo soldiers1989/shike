@@ -1,3 +1,4 @@
+<%@page import="com.kensure.shike.baobei.model.SKJindian"%>
 <%@page import="java.util.List"%>
 <%@page import="com.kensure.shike.constant.BusiConstant"%>
 <%@ page import="com.kensure.shike.baobei.model.SKBaobei" %>
@@ -11,6 +12,8 @@
     if(words != null){
         word = words.get(0);
     }
+    List<SKJindian> jindians = (List<SKJindian>)request.getAttribute("jindians");
+    SKJindian  jd = jindians.get(0);
 %>
 <!DOCTYPE html>
 <!-- saved from url=(0075)http://m.meilipa.com/JpinShopIssue/OrderFlow?activityId=96251&freeundefined -->
@@ -26,8 +29,8 @@
     <script type="text/javascript" src="<%=BusiConstant.context%>/common/http.js?ver=<%=BusiConstant.version%>"></script>
     
     <title>试用流程</title>
-    <meta name="keywords" content="美丽啪网,美丽啪联盟,免费试用,试用网,免费试用网,试用中心,试客,试客网">
-    <meta name="description" content="欢迎来免费美丽啪试用网:美丽啪网—是全国领先的免费试用网和试客网,深得试客信赖的免费试用中心网站,是免费试用网和试客网站的首选,美丽啪免费试用网为试客提供最优质和实用的优秀免费试用商品.">
+    <meta name="keywords" content="试呗,免费试用,试用网,免费试用网,试用中心,试客,试客网">
+    <meta name="description" content="欢迎来免费试呗.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <meta name="format-detection" content="telephone=no">
     <meta name="format-detection" content="address=no">
@@ -100,7 +103,7 @@
 
         <ul>
             <li><span class="iconfont icon-tb"></span> <span>${baobei.title}</span></li>
-            <li>店铺名称：<span>${baobei.dpname}</span></li>
+            <li>店铺名称：<span>${baobei.dpnameS}</span></li>
             <li>价格：<span style="color: #ff464e;">${baobei.salePrice}元</span></li>
             <li>规格：<span style="color: #ff464e;" onclick="myAlert(&#39;${baobei.guige}&#39;)">${baobei.guige}</span></li>
         </ul>
@@ -123,7 +126,8 @@
                         <div class="lh14">排序方式：<em class="red nextKey-item2">综合排序</em></div>
                         <div class="filter-img lh14">筛选方式：<img src="<%=BusiConstant.shikemobilepath %>/liucheng/gouwuche/filter.png"> </div>
                         <div style="line-height:1.5rem;">筛选条件：
-                                <em style="display: inline-block;width: 10rem;vertical-align: top;text-align: justify;letter-spacing: 0.03rem;line-height: 0.9rem;padding-top: 0.3rem;">折扣与服务（天猫，公益宝贝）</em>
+<em style="display: inline-block;width: 10rem;vertical-align: top;text-align: justify;letter-spacing: 0.03rem;line-height: 0.9rem;padding-top: 0.3rem;">
+折扣与服务（<%=jd.getZkfw()==null?"无":jd.getZkfw() %>）</em>
                             
                         </div>
                         <div class="lh14">价格区间：<em class="red nextKey-item34">-</em></div>
