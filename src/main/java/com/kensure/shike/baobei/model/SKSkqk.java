@@ -54,6 +54,9 @@ public class SKSkqk extends BaseInfo{
 
 	/**额外奖励*/		
 	private Double ewai; 
+	
+	/**淘宝账号*/		
+	private String noTaobao; 
 
 	public Long getId() {
 		return id;
@@ -134,4 +137,13 @@ public class SKSkqk extends BaseInfo{
 	public void setBaobei(SKBaobei baobei) {
 		this.baobei = baobei;
 	}
+
+	public String getNoTaobao() {
+		return noTaobao;
+	}
+
+	public void setNoTaobao(String noTaobao) {
+		this.noTaobao = noTaobao;
+	}
+	
 }

@@ -54,6 +54,8 @@ public class BusiConstant {
 	public static final KVBean shangjia_dianpulist = new KVBean(context + "/shangjia/dianpulist", "商家店铺管理");
 	public static final KVBean shangjia_huodonglist = new KVBean(context + "/shangjia/huodonglist", "商家活动信息查询");
 	public static final KVBean shangjia_payinfo = new KVBean(context + "/shangjia/payinfo", "商家支付信息");
+	
+	public static final KVBean shangjia_shikelist = new KVBean(context + "/shangjia/shikelist", "试用情况");
 
 	
 	
@@ -83,6 +85,8 @@ public class BusiConstant {
 	public static final KVBean shangjia_pay_do = new KVBean(context + "/baobei/pay.do", "支付运作");
 	public static final KVBean shike_baobeilist_do = new KVBean(context + "/baobei/sklist.do", "试客查看宝贝列表");
 	public static final KVBean shike_wdhd_do = new KVBean(context + "/baobei/skwdhd.do", "试客查看我的活动列表");
+	public static final KVBean shike_skqklist_do = new KVBean(context + "/baobei/skqklist.do", "商家查看宝贝下的活动列表");
+	
 	
 	
 	

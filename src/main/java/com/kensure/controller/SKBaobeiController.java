@@ -268,5 +268,17 @@ public class SKBaobeiController {
 	}
 	
 	
+	/**
+	 * 我的活动列表
+	 */
+	@ResponseBody
+	@RequestMapping(value = "skqklist.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	public ResultInfo skqklist(HttpServletRequest req, HttpServletResponse rep) {
+		JSONObject json = RequestUtils.paramToJson(req);
+		Long id = json.getLong("id");
+		List<SKSkqk> list = sKSkqkService.getSkqkList(id);
+		return new ResultRowsInfo(list);
+	}
+	
 
 }
