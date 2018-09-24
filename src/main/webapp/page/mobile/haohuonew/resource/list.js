@@ -95,7 +95,6 @@ $(function () {
 
     //});
 
-
     function dictsucdo(data){
         var rows = data.resultData.rows;
         for(var i=0;i<rows.length;i++){
@@ -104,7 +103,7 @@ $(function () {
             //     +"<a href=\"#\" id=\"type"+row.code+"\" >"+row.simpleName+"</a>"
             //     +"</li>";
             var html = "<li><a data-href=\""+ row.code +"\" class=\"\">"+ row.simpleName +"</a></li>";
-            $("#auto-id-1509603311057").append(html);
+            $(".jp-cat ul").append(html);
         }
     }
     function dictlist(){
@@ -118,7 +117,7 @@ $(function () {
     var lingaSort = {};
     lingaSort.page = globle.getUrlParam("page") || 1;
     lingaSort.order = globle.getUrlParam("order")|| order || 0;
-    lingaSort.key = globle.getUrlParam("key") || "";
+    lingaSort.title = globle.getUrlParam("title") || "";
     lingaSort.type = globle.getUrlParam("type") || -1;
     lingaSort.shopcat = globle.getUrlParam("shopcat") || -1;
     lingaSort.sort = globle.getUrlParam("sort") || 1;
@@ -133,7 +132,7 @@ $(function () {
     //搜索词搜索
     $(".jp-hd .icon-search").on("click", function () {
         var key = $(".jp-hd input").val();
-        lingaSort.key = key;
+        lingaSort.title = key;
         lingaSort.sort = 1;
         $(".search-input").blur();
         getList(1);
@@ -249,6 +248,7 @@ $(function () {
         e.stopPropagation();
     });
     //筛选end
+
     //order搜索
     $(".jp-con .con-cat").on("click", orderSeach);
     function orderSeach(e) {
@@ -297,6 +297,7 @@ $(function () {
     }
     //type搜索
     $(".jp-cat li a").on("click", function () {
+        alert($(this))
         $(".jp-cat li a").removeClass("act");
         $(this).addClass("act");
         lingaSort.type = $(this).data("href");
@@ -329,16 +330,16 @@ $(function () {
 
     // 好货列表
     function getList(clearFlag) {
-       
-        if (listFlag) {
-            return false;
-        }
+        // if (listFlag) {
+        //     return false;
+        // }
       
         if (clearFlag) {
             window.scrollTo(0, 0);
             lingaSort.page = 1;
             vm.$data.list = [];
             pageFlag = false;
+            $("#list").html("")
         }
         if (pageFlag) {
             layer.open({

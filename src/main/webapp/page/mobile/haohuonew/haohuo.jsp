@@ -116,9 +116,12 @@
     </div>
     <div class="jp-cat-bg">
         <div class="jp-cat">
-            <ul id="auto-id-1509603311057">
+            <ul>
                 <li>
                     <a data-href="-1" class="act">全部</a>
+                </li>
+                <li>
+                    <a data-href="2" class="act">11</a>
                 </li>
                 <%--
                 <li>
@@ -222,29 +225,8 @@
             <p>没有找到相关商品</p>
         </div>
         <ul id="list" class="jp-list">
-           <%-- <li><a data-id="93460" class="tod"><img
-                    src="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/TB2EBjCocj_B1NjSZFHXXaDWpXa_!!849364099.jpg"
-                    data-original="//gd3.alicdn.com/imgextra/i1/849364099/TB2EBjCocj_B1NjSZFHXXaDWpXa_!!849364099.jpg"
-                    class="lazy" style="display: inline;">
-            </a>
-                <p><span class="iconfont icon-tb"></span> 纯棉学生床单一条1.2x2.3米</p>
-                <div class="jp-num"><span>¥38.00</span> <span>7597人申请</span></div>
-                <div class="jp-btn"><a data-id="93460" class="btn tod">免费申请</a></div>
-            </li>--%>
-            <%--<li><a data-id="93422" class="tod"><img
-                    src="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/O1CN012LFFFAEfmag5FSf_!!2795569662.png"
-                    data-original="//gd3.alicdn.com/imgextra/i3/2795569662/O1CN012LFFFAEfmag5FSf_!!2795569662.png"
-                    class="lazy" style="display: inline;">
-                <div><span class="red">首单99%中奖</span></div>
-            </a>
-                <p><span class="iconfont icon-tb"></span> polo卫衣女学院</p>
-                <div class="jp-num"><span>¥69.00</span> <span>2765人申请</span> <!----> <!----></div>
-                <div class="jp-btn"><a data-id="93422" class="btn tod">免费申请</a> <!----> <a
-                        href="http://m.meilipa.com/jing/share?invitationCode=273226&amp;shopid=93422"
-                        class="btn share-btn">分享赚<em style="color: rgb(255, 70, 78);">10元</em></a></div>
-            </li>--%>
-        </ul>
 
+        </ul>
     </div>
 </div>
 
@@ -389,27 +371,6 @@
         <div style="margin-bottom: 2rem;">
         </div>
         <jsp:include page="../common/footer.jsp" flush="true"/>
-        <%--<footer class="footer clearfix">
-            <div style="height: 58px;">
-              <a class=" relation" href="http://m.meilipa.com/">
-                    <i class="iconfont icon-home"></i>
-                    <i class="iconfont iconS icon-homeS"></i>
-                    首页
-               </a>
-               <a class="on home" href="http://m.meilipa.com/home/list">
-                     <i class="iconfont icon-gift"></i><i class="iconfont iconS icon-giftS"></i>试呗好货
-                </a>
-                <a class=" daily_task" href="http://m.meilipa.com/Invitation">
-                    <img src="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/zuan.gif" class="zuan" alt="Alternate Text">分享赚钱
-                </a>
-                <a class=" myjp" href="http://m.meilipa.com/JpinShopIssue/List?type=1">
-                    <i class="iconfont icon-jpIcon"></i><i class="iconfont iconS icon-jpiconS"></i>我的活动
-                </a>
-                <a class=" more" href="http://m.meilipa.com/UserAccount">
-                    <i class="iconfont icon-people"></i><i class="iconfont iconS icon-peopleS"></i>我的
-                </a>
-            </div>
-        </footer>--%>
         <%--<div class="toTop" onclick="$(&#39;body,html&#39;).animate({scrollTop:0},500);">--%>
     </div>
     <div style="display: none"><script src="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/z_stat.php" language="JavaScript"></script><script src="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/core.php" charset="utf-8" type="text/javascript"></script><a href="http://www.cnzz.com/stat/website.php?web_id=1264685315" target="_blank" title="站长统计">站长统计</a></div>
