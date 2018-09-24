@@ -107,7 +107,7 @@
         $("#list").infinitescroll({
             itemSelector: ".my-list"
         }, function () {
-            $("span.read").off("click");
+    $("span.read").off("click");
             $("#shadow").off('click');
             $(".my-list .gold-info").off('click');
             $(".time").countdown({ tmpl: '%{d}天%{h}时%{m}分后' }); //倒计时
@@ -267,7 +267,7 @@
                     "        </div>";
             }else if(row.status == 51){
                 btn = "        <div class=\"jp-btn clearfix\">\n" +
-                    "            <a href=\"<%=BusiConstant.shike_ddan.getKey() %>?id="+ row.bbid +"\" class=\"\">提交订单</a>\n" +
+                    "            <a href=\"<%=BusiConstant.shike_gouwuche.getKey() %>?id="+ row.bbid +"\" class=\"\">提交订单</a>\n" +
                     "            <a href=\"javascript:void(1);\" class=\"black\" onclick=\"Feedback("+ row.bbid +")\">反馈问题</a>\n" +
                     "        </div>";
             }else if(row.status == 61){
@@ -299,7 +299,7 @@
                 "            <li>\n" +
                 "                价值：<span>"+row.baobei.salePrice+"</span>\n" +
                 "            </li>\n" +
-                "            <li><em>下单账号：TODO</em></li>\n" +
+                "            <li><em>下单账号："+row.noTaobao+"</em></li>\n" +
                 "            <li><em>规格："+row.baobei.guige+"</em></li>\n" +
                 "        </ul>\n" +
                 // "        <div class=\"jp-btn clearfix\">\n" +

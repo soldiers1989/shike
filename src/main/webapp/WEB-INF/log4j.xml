@@ -25,7 +25,7 @@
     </logger>
 
     <logger name="druid.sql" additivity="true">
-            <level value="OFF"  />
+            <level value="debug"  />
     </logger>
 
     <logger name="org.mybatis" additivity="true">

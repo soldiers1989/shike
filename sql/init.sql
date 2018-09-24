@@ -239,6 +239,7 @@ CREATE TABLE `sk_sqqk` (
   `last_status` int(11) DEFAULT NULL COMMENT 'status最后为正值的状态',
   `jinbi` bigint(20) DEFAULT NULL COMMENT '使用金币数量',
   `sale_price` decimal(10,2) DEFAULT NULL COMMENT '宝贝单价',
+  `no_taobao` varchar(32) NOT NULL COMMENT 'taobao账号',
   `jiangli` decimal(10,2) DEFAULT NULL COMMENT '宝贝奖励',
   `ewai` decimal(10,2) DEFAULT NULL COMMENT '额外奖励', 
   `created_time` datetime NOT NULL COMMENT '创建时间',

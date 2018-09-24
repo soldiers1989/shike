@@ -506,9 +506,6 @@
 				if(img){
 					img.src = row;
 				}
-				if(i==0){
-					$("#picbbzt").attr('src',row);
-				}
 			}
 		}
 	}

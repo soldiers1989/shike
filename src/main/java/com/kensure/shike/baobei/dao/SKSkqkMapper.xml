@@ -13,6 +13,7 @@
 		sale_price as salePrice,
 		jiangli,
 		ewai,
+		no_taobao as noTaobao,
 		created_time as createdTime,
 		updated_time as updatedTime
     </sql>
@@ -28,6 +29,7 @@
 		sale_price,
 		jiangli,
 		ewai,
+		no_taobao,
 		created_time,
 		updated_time
     </sql>
@@ -45,6 +47,7 @@
 			#{salePrice},
 			#{jiangli},
 			#{ewai},
+			#{noTaobao},
 			#{createdTime},
 			#{updatedTime}
 		)
@@ -64,6 +67,7 @@
 				#{item.salePrice},
 				#{item.jiangli},
 				#{item.ewai},
+				#{item.noTaobao},
 				#{item.createdTime},
 				#{item.updatedTime}
 			)
@@ -93,6 +97,9 @@
 		<if test="lastStatus != null">			
 			and last_status = #{lastStatus}			
 		</if>
+		<if test="noTaobao != null">			
+			and no_taobao = #{noTaobao}			
+		</if>		
 		<if test="userid != null">			
 			and userid = #{userid}			
 		</if>		
@@ -196,6 +203,9 @@
 		<if test="ewai != null">
 			ewai = #{ewai},
 		</if>
+		<if test="noTaobao != null">
+			no_taobao = #{noTaobao},
+		</if>	
 		<if test="createdTime != null">
 			created_time = #{createdTime},
 		</if>

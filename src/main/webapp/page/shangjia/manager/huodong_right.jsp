@@ -188,7 +188,7 @@
                 
                 html+="   </div>"
                 +"</td>" 
-                +"<td height=\"100\" align=\"center\" width=\"200\">--</td>" 
+                +"<td height=\"100\" align=\"center\" width=\"200\"><a href='<%=BusiConstant.shangjia_shikelist.getKey()%>?id="+row.id+"' target='_blank'>试用情况</a></td>" 
                 +" </tr>" 
 				$("#listtable").append(html);
 			}

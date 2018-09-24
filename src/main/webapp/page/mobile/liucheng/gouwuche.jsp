@@ -535,7 +535,7 @@
     });
 
     function dictsucdo(data){
-        window.location.href="<%=BusiConstant.shike_scgz.getKey()%>?id=<%=baobei.getId()%>";
+        window.location.href="<%=BusiConstant.shike_gouwuche.getKey()%>?id=<%=baobei.getId()%>";
     }
     function addgouwuche(){
         var dpmc = $("#dpname").val();
