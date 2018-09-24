@@ -390,7 +390,7 @@ $(function () {
                         "            </a>\n" +
                         "                <p><span class=\"iconfont icon-tb\"></span> "+ row.title +"</p>\n" +
                         "                <div class=\"jp-num\"><span>¥"+ row.salePrice +"</span> <span>"+ row.sqnum +"人申请</span></div>\n" +
-                        "                <div class=\"jp-btn\"><a data-id=\"93460\" class=\"btn tod\">免费申请</a></div>\n" +
+                        "                <div class=\"jp-btn\"><a data-id=\""+ row.id +"\" class=\"btn tod\">免费申请</a></div>\n" +
                         "            </li>";
 
                     $("#list").append(html);
