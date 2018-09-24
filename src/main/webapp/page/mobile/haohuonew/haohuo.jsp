@@ -118,45 +118,8 @@
         <div class="jp-cat">
             <ul>
                 <li>
-                    <a data-href="-1" class="act">全部</a>
+                    <a data-href="" class="act">全部</a>
                 </li>
-                <li>
-                    <a data-href="2" class="act">11</a>
-                </li>
-                <%--
-                <li>
-                    <a data-href="1" class="">女装</a>
-                </li>
-                <li>
-                    <a data-href="2" class="">男装</a>
-                </li>
-                <li>
-                    <a data-href="4" class="">鞋包</a>
-                </li>
-                <li>
-                    <a data-href="7" class="">电器</a>
-                </li>
-                <li>
-                    <a data-href="5" class="">百货</a>
-                </li>
-                <li>
-                    <a data-href="10" class="">家居</a>
-                </li>
-                <li>
-                    <a data-href="6" class="">母婴</a>
-                </li>
-                <li>
-                    <a data-href="8" class="">美妆</a>
-                </li>
-                <li>
-                    <a data-href="9" class="">配饰</a>
-                </li>
-                <li>
-                    <a data-href="3" class="">食品</a>
-                </li>
-                <li>
-                    <a data-href="11" class="">车品</a>
-                </li>--%>
             </ul>
         </div>
     </div>

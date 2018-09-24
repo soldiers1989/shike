@@ -105,6 +105,7 @@ $(function () {
             var html = "<li><a data-href=\""+ row.code +"\" class=\"\">"+ row.simpleName +"</a></li>";
             $(".jp-cat ul").append(html);
         }
+        initCatBinding();
     }
     function dictlist(){
         var data = {typeid:1};
@@ -118,7 +119,7 @@ $(function () {
     lingaSort.page = globle.getUrlParam("page") || 1;
     lingaSort.order = globle.getUrlParam("order")|| order || 0;
     lingaSort.title = globle.getUrlParam("title") || "";
-    lingaSort.type = globle.getUrlParam("type") || -1;
+    lingaSort.typeid = globle.getUrlParam("typeid") || "";
     lingaSort.shopcat = globle.getUrlParam("shopcat") || -1;
     lingaSort.sort = globle.getUrlParam("sort") || 1;
     lingaSort.orderType = globle.getUrlParam("orderType") || 0;
@@ -296,14 +297,15 @@ $(function () {
         }
     }
     //type搜索
-    $(".jp-cat li a").on("click", function () {
-        alert($(this))
-        $(".jp-cat li a").removeClass("act");
-        $(this).addClass("act");
-        lingaSort.type = $(this).data("href");
-        lingaSort.sort = 1;
-        getList(1);
-    });
+    function initCatBinding() {
+        $(".jp-cat li a").on("click", function () {
+            $(".jp-cat li a").removeClass("act");
+            $(this).addClass("act");
+            lingaSort.typeid = $(this).data("href");
+            lingaSort.sort = 1;
+            getList(1);
+        });
+    }
     var vm = new Vue({
         // 选项
         el: '#list',
@@ -324,7 +326,7 @@ $(function () {
         }
         if ($document.scrollTop() + $window.height() >= $document.height()) {
           
-            getList();
+            //getList();
         }
     });
 
