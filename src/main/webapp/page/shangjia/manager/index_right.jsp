@@ -36,194 +36,8 @@
 
                     <span class="label vt"><span>*</span>活动类型：</span>
                 </div>
-                <input type="hidden" name="sk_type" id="sk_type" value="0">
-                <dl class="jp-watch">
-                    <dt class="act" data-type="0">爆款打造/维护<i class="iconfont icon-gou"></i></dt>
-                    <dt class="lst" data-type="1">新品提升<br>综合权重<i class="iconfont icon-gou rt26"></i></dt>
-                    <dt class="lst" data-type="4">
-                        组团开奖<i class="iconfont icon-gou rt26"></i>
-                        <br>实时转化
-                    </dt>
-                    <dt class="lst" data-type="2">
-                        高客单精准打造爆款
-                        <br>（全面优化店铺权重）<i class="iconfont icon-gou rt20"></i>
-                    </dt>
-
-                    <dt data-type="3">新人必中<i class="iconfont icon-gou rt50"></i></dt>
-                    <dd class="act">
-                        <h4><i class="iconfont icon-select"></i>快速提升关键词排名/加购率/多天回访率/全维度UV价值</h4>
-                        <ul>
-                            <li class="ddfirst">
-                                <p class="gray">适合店铺类型：</p>
-                                <p>有一定销量/流量的店铺</p>
-                                <p>店铺人群标签混乱</p>
-                                <p>日常宝贝转化率低于行业均值</p>
-                                <p>排名不稳定</p>
-                                <div>适合店铺类型：<br><span style="color:#333;">任何京东店铺</span></div>
-                            </li>
-                            <li class="red">
-                                <p>效果建议投放单期总份数：</p>
-                                <p>小于50元客单（0-50元）≥<em class="alt-num">30</em>份</p>
-                                <p>50-100元客单≥<em class="alt-num">25</em>份</p>
-                                <p>100-300元客单≥<em class="alt-num">20</em>份</p>
-                                <p>高于300元客单≥<em class="alt-num">15</em>份</p>
-                                <p></p>
-                            </li>
-                            <li>
-                                <p>提升权重建议：</p>
-                                <p>建议不低于2期，每期5-10天，数据统计95%成功案例连续投放<em>4-6</em>周期完成爆款的打造和稳定</p>
-                            </li>
-                        </ul>
-                        <div>任务开奖时间：每日<em>10点，21点</em>开奖。</div>
-                        <div>
-                            买家申请流程：
-                            <span>
-                                根据商家活动类型的不同，买家分1~6天申请。完成浏览、加购、收藏/关注店铺 宝贝、深度访问、<label id="ptText8">货比多家、浏览副宝贝、手淘问大家.</label>等操作后，才可获得购买资格。
-                                <br>快速稳定优化商品权重。
-                            </span>
-                        </div>
-                    </dd>
-                    <dd>
-                        <h4><i class="iconfont icon-select"></i>快速提升关键词排名/加购率/转化率/快速聚集人气/宝贝流量</h4>
-                        <ul>
-                            <li>
-                                <p class="gray">适合店铺类型：</p>
-                                <p>销量偏低</p>
-                                <p>店铺宝贝销评破零</p>
-                                <p>综合数据低于同行</p>
-                                <p>排名增长缓慢</p>
-                            </li>
-                            <li class="red">
-                                <p>效果建议投放单期总份数：</p>
-                                <p>小于50元客单（0-50元）≥<em class="alt-num">25</em>份</p>
-                                <p>50-100元客单≥<em class="alt-num">20</em>份</p>
-                                <p>100-300元客单≥<em class="alt-num">15</em>份</p>
-                                <p>高于300元客单≥<em class="alt-num">10</em>份</p>
-                                <p></p>
-                            </li>
-                            <li>
-                                <p>提升权重建议：</p>
-                                <p>建议不低于3期，每期5-10天，数据统计95%成功案例连续投放<em>4-7</em>周期完成新品的综合数据和权重的提升</p>
-                            </li>
-                        </ul>
-                        <div>任务开奖时间：每日<em>10点，21点</em>开奖。</div>
-                        <div>
-                            买家申请流程：
-                            <span>
-                                根据商家活动类型的不同，买家分1~6天申请。完成浏览、加购、收藏店铺 宝贝、深度访问、货比多家、浏览副宝贝、手淘问大家.等操作后，才可获得购买资格。
-                                <br> 快速稳定优化商品权重。
-                            </span>
-                        </div>
-                    </dd>
-
-                    <dd>
-                        <h4><i class="iconfont icon-select"></i>快速提升关键词排名/加购率/转化率/快速聚集人气/宝贝流量</h4>
-                        <ul>
-                            <li>
-                                <p class="gray">适合店铺类型：</p>
-                                <p>无基础销量</p>
-                                <p>宝贝流量较少</p>
-                                <p>店铺宝贝评价破零</p>
-                                <p>宝贝评价优化</p>
-                            </li>
-                            <li class="red">
-                                <p>效果建议投放单期总份数：</p>
-                                <p>小于50元客单（0-50元）≥<em class="alt-num">25</em>份</p>
-                                <p>50-100元客单≥<em class="alt-num">20</em>份</p>
-                                <p>100-300元客单≥<em class="alt-num">15</em>份</p>
-                                <p>高于300元客单≥<em class="alt-num">10</em>份</p>
-                                <p></p>
-                            </li>
-                            <li>
-                                <p>提升权重建议：</p>
-                                <p>建议不低于3期，每期5-10天，数据统计95%成功案例连续投放<em>4-7</em>周期完成新品的综合数据和权重的提升</p>
-                            </li>
-                        </ul>
-                        <div>任务开奖时间：达到<em>成团人数</em>即开奖。</div>
-                        <div>
-                            买家申请流程：
-                            <span>
-                                根据商家活动类型的不同，买家分1~6天申请。完成浏览、加购、收藏店铺 宝贝、深度访问<label id="ptText9">、货比多家、浏览副宝贝、手淘问大家.</label>等操作后，才可获得购买资格。
-                                <br> 快速稳定优化商品权重。
-                            </span>
-                        </div>
-                    </dd>
-                    <dd>
-                        <h4 class="mb30">
-                            <i class="iconfont icon-select"></i>
-                            <span style="display: inline-block;width: 540px;vertical-align: top;">
-                                延长抽奖周期至3天或5天，吸引更多买家申请更有助于提升收藏、加购、重复访问等
-                                <br>店铺和商品基础权重快速提升商品排名，打开无线端展现
-                            </span>
-                        </h4>
-                        <ul>
-                            <li>
-                                <p class="gray">适合店铺类型：</p>
-                                <p>新老店均可，售价高于100元</p>
-                                <p>手淘自然排名较低</p>
-                                <p>直通车投入产出比较差</p>
-                                <p>转化率过低，影响产品利润</p>
-                            </li>
-                            <li class="red">
-                                <p>效果建议投放单期总份数：</p>
-                                <p>100-300元客单≥<em class="alt-num">8</em>份</p>
-                                <p>高于300元客单≥<em class="alt-num">5</em>份</p>
-                                <p></p>
-                            </li>
-                            <li>
-                                <p>提升权重建议：</p>
-                                <p>建议不低于2期，每期5-10天，数据统计98%成功案例连续投放<em>3-5</em>周期完成高客单宝贝爆款的打造和稳定</p>
-                            </li>
-                        </ul>
-                        <div>任务开奖时间：每日<em>10点，21点</em>开奖。</div>
-                        <div>
-                            买家申请流程：
-                            <span>
-                                买家申请活动需多天进店，完成浏览、加购、收藏店铺 宝贝、深度访问、货比多家、浏览副宝贝、手淘问大家等操作后，才可获得购买资格
-                            </span>
-                        </div>
-                    </dd>
-
-                    <dd>
-                        <h4><i class="iconfont icon-select"></i>快速提升关键词排名/加购率/多天回访率/全维度UV价值</h4>
-                        <ul>
-                            <li>
-                                <p class="gray">适合店铺类型：</p>
-                                <p>需要更多销量链接</p>
-                                <p>需要更快收货评价</p>
-                                <p>需要提高转化率</p>
-                                <p>需要增加真实买家购买信心</p>
-                            </li>
-                            <li class="red" style="width: 220px;">
-                                <p>最低份数：</p>
-                                <p>总货值不低于2000元</p>
-                                <p>（客单价*份数=总货值）</p>
-                                <p></p>
-                            </li>
-                            <li style="width:405px;">
-                                <p>活动介绍及效果：</p>
-                                <p>
-                                    1、新人专享活动，冲销量，快速提排名
-                                    <br>
-                                    2、平台筛选匹配产品的精准用户下单，帮助提升标签权重
-                                    <br>
-                                    3、平台根据天平系统帮助商家控制每日下单量，提升销量权重
-                                    <br>
-                                    4、平台帮助商家安排不同活动流程，提升UV链条权重
-                                    <br>
-                                </p>
-                            </li>
-                        </ul>
-                        <div>任务开奖时间：每日<em>10点，21点</em>开奖。</div>
-                        <div>
-                            买家申请流程：
-                            <span>
-                                根据商家活动类型的不同，买家分1~6天申请。完成浏览、加购、收藏店铺 宝贝、深度访问、货比多家、浏览副宝贝、手淘问大家.等操作后，才可获得购买资格。 用户申请必中，申请人数达总份额后会自动从平台下架
-                                <br>快速稳定优化商品权重。
-                            </span>
-                        </div>
-                    </dd>
-                </dl>
+                
+                <jsp:include page="baobeitype.jsp" flush="true"/> 
 
               
             </div>
@@ -309,7 +123,7 @@
                 <div class="item">
                     <span class="label vt" style="width: 100px;"><span>*</span>宝贝下单价：</span>
                     <div class="item-con">
-                        <input type="text" class="w82" name="sk_clinch_price" id="sk_clinch_price" datatype="num" value="0"> 元
+                        <input type="text" class="w82" name="sk_clinch_price11" id="sk_clinch_price" value="0"> 元
                       
                     <span class="Validform_checktip"></span></div>
                 </div>
@@ -458,6 +272,46 @@
                                         <i class="iconfont icon-add key-word-icon"></i>
                                     <span class="Validform_checktip"></span></div>
                        </div>
+                       <div class="item-con price-qujian">
+                            <span class="label" id="ptText1"><span>*</span>一口价：</span>
+                            <input type="text" class="w82" name="sk_one_price" id="sk_one_price" datatype="num" value="0"> 元
+                            <span style="color:#ff464e;margin:0 15px;">搜索展示价</span>
+                            <span class="word-dia">提升宝贝人气选项</span>
+                        <span class="Validform_checktip"></span></div>
+                        
+                        <div class="item" id="zhekou">
+                            <span class="label vt" style="width:596px;">折扣和服务:（如关键词排名较低，建议设置以下项，缩小搜索范围，以便试客能找到商品）</span>
+                            <div class="item-con service">
+                                <label>
+                                    <input type="checkbox" name="name" value="包邮"> 包邮
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="name" value="天猫"> 天猫
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="name" value="消费者保障"> 消费者保障
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="name" value="全球购"> 全球购
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="name" value="公益宝贝"> 公益宝贝
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="name" value="淘金币抵钱"> 淘金币抵钱
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="name" value="7+天内退货"> 7+天内退货
+                                </label>                        
+                                <label>
+                                    <input type="checkbox" name="name" value="花呗分期"> 花呗分期
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="name" value="通用排序"> 通用排序
+                                </label>
+                            </div>
+                            <input type="hidden" name="sk_discounts_services" id="service" data-value=" " value="0">
+                        </div>
                         
                     </div>
 
@@ -474,6 +328,7 @@
                             <input type="text" id="txt_taokoulingBz" class="w180 search-rate" datatype="int" value="" placeholder="请输入1或2位整数"> %
                             <span class="gray">注：三个占比相加为100</span>
                         <span class="Validform_checktip"></span></div>
+                    
                     </div>
                     <div class="item list-word">
                         <input type="hidden" value="0" name="sk_querytype" id="queryType">
@@ -487,30 +342,132 @@
                     </div>
 
                 </div>
-                <div class="key-word">
-                    <div class="title">
-                        <span>二维码搜索</span>
-                    </div>
-                    <div class="item">
-                        <span class="label vt"><span>*</span>分配占比：</span>
-                        <div class="item-con">
-                            <input type="text" class="w180 search-rate" datatype="int" id="app_qr_bili" value="" placeholder="请输入1或2位整数"> %
-                            <span class="gray">注：三个占比相加为100</span>
-                        <span class="Validform_checktip"></span></div>
-                    </div>
-                    <div class="item list-word">
-                        <span class="label vt"><span>*</span>二维码</span>
-                        <div class="item-con" id="qrcodeTable">
-                        </div>
-                    </div>
-                </div>
-
+            
             </div>
             <div class="one-operate">
-                <span class="submit page-btn onepage-btn" onclick="savebaobei()">提交</span>
+                <span class="submit page-btn onepage-btn"  >下一页</span>
             </div>
         </div>
 
+      	<div id="slide" class="twopage">
+            <h2 class="title">选择服务内容</h2>
+            <div class="slide-item">
+                <div class="l-title">
+                    <span>1</span>免费服务
+                    <em class="open-slide">修改</em> <i class="iconfont icon-zhengque"></i>
+                </div>
+
+                <div class="key-word">
+
+                    <div class="fold jd-hide">
+                        <div class="f-title">
+                            <input type="checkbox" checked="checked" disabled=""> <span>货比多家</span>
+                            <i class="iconfont icon-Toboottom"></i>
+                            <i class="iconfont icon-Totop"></i>
+                        </div>
+                        <p class="f-warn">
+                            <span class="sj"></span>
+                            用户会浏览你的产品的同行产品，最终到你这里下单，更进一步提升你的搜索转化效果
+                        </p>
+                    </div>
+
+                    <div class="fold">
+                        <div class="f-title">
+                            <input type="checkbox" checked="checked" disabled=""> <span>无线端下单</span>
+                            <i class="iconfont icon-Toboottom"></i>
+                            <i class="iconfont icon-Totop"></i>
+                        </div>
+                        <p class="f-warn">
+                            <span class="sj"></span>
+                            用户会通过手机淘宝/手机京东的方式领取任务，完成浏览/加购/收藏/下单/评价 等方式进一步提升你的单品转化权重和店铺转化权重！
+                        </p>
+                    </div>
+
+                    <div class="fold">
+                        <div class="f-title">
+                            <input type="checkbox" checked="checked" disabled=""> <span>试用心得审核</span>
+                            <i class="iconfont icon-Toboottom"></i>
+                            <i class="iconfont icon-Totop"></i>
+                        </div>
+                        <p class="f-warn">
+                            <span class="sj"></span>
+                            用户提交试用心得—商家审核—审核通过后，用户复制到淘宝/京东；标准级、专业级、星耀级会员享有该功能。
+                                <a class="up" target="_blank" href="/VIP/ApplyVip?isadd=1">去升级</a>
+                        </p>
+                    </div>
+
+                    <div class="fold">
+                        <div class="f-title">
+                            <input type="checkbox" checked="checked" disabled=""> <span>账号安全</span>
+                            <i class="iconfont icon-Toboottom"></i>
+                            <i class="iconfont icon-Totop"></i>
+                        </div>
+                        <p class="f-warn">
+                            <span class="sj"></span>
+                            中奖用户淘宝/京东周订单量不超过5，月订单量不超过10，身份证实名验证
+                        </p>
+                    </div>
+                    <div class="fold">
+                        <div class="f-title">
+                            <input type="checkbox" checked="checked" disabled=""> <span>账号防重复</span>
+                            <i class="iconfont icon-Toboottom"></i>
+                            <i class="iconfont icon-Totop"></i>
+                        </div>
+                        <p class="f-warn">
+                            <span class="sj"></span>
+                            同个商品在规定时间内不会有人重复中奖
+                        </p>
+                    </div>
+                    <div class="fold jd-hide">
+                        <div class="f-title">
+                            <input type="checkbox" checked="checked" disabled=""> <span>猜你喜欢</span>
+                            <i class="iconfont icon-Toboottom"></i>
+                            <i class="iconfont icon-Totop"></i>
+                        </div>
+                        <p class="f-warn">
+                            <span class="sj"></span>
+                            免费提供猜你喜欢功能，用户下单后，在您的生意参谋后台会显示 购买路径为猜你喜欢
+                        </p>
+                    </div>
+
+                    <div class="fold">
+                        <div class="f-title">
+                            <input type="checkbox" checked="checked" disabled=""> <span>优先审核</span>
+                            <i class="iconfont icon-Toboottom"></i>
+                            <i class="iconfont icon-Totop"></i>
+                        </div>
+                        <p class="f-warn">
+                            <span class="sj"></span>
+                            你发布的活动系统会优先安排审核，审核通过之后获得最佳的发布曝光时间！
+                        </p>
+                    </div>
+
+                    <div class="fold jd-hide">
+                        <div class="f-title">
+                            <input type="checkbox" checked="checked" disabled=""> <span>查看买家记录</span>
+                            <i class="iconfont icon-Toboottom"></i>
+                            <i class="iconfont icon-Totop"></i>
+                        </div>
+                        <p class="f-warn">
+                            <span class="sj"></span>
+                            买家近期在淘宝/京东中的购买记录
+                        </p>
+                    </div>
+
+                  
+
+                   
+                </div>
+              
+            </div>
+
+          
+            <div class="two-operate">
+                <span class="page-btn twopage-btn">上一页</span>
+                <span class="submit page-btn onepage-btn" onclick="savebaobei()">提交</span>
+            </div>
+        </div>
+      
       
         </div>
 
@@ -548,9 +505,6 @@
 				var img = imgs[i];
 				if(img){
 					img.src = row;
-				}
-				if(i==0){
-					$("#picbbzt").attr('src',row);
 				}
 			}
 		}
@@ -619,7 +573,8 @@
 	   data.no_qq = $("#sk_qq").val();
 	   data.guige = $("#sk_size").val();
 	   data.typeid = $("#sk_commodity_type option:selected").val();
-	   data.hdtypeid = 1;
+	   data.hdtypeid = $(".jp-watch dt.act").index()+1;
+	
 	   data.xinyongka = $("#sk_is_useCreditCard radio:checked").val();
 	   data.huabei = $("#sk_is_useTokio radio:checked").val();
 	   data.shaitu = $("#sk_no_appraise_chart radio:checked").val();
@@ -638,14 +593,22 @@
 	   //进店路径
 	   var jdlist = [];
 	   var app_search_bili = $("#app_search_bili").val();
+	   //一口价
+	   var sk_one_price = $("#sk_one_price").val();
 	   var txt_taokoulingBz = $("#txt_taokoulingBz").val();
-	   var app_qr_bili = $("#app_qr_bili").val();
-	   var search = {typeid:"1",bili:app_search_bili};
+	   var spCodesTemp = "";
+       $('input:checkbox[name=name]:checked').each(function(i){
+	        if(0==i){
+	         spCodesTemp = $(this).val();
+	        }else{
+	         spCodesTemp += (","+$(this).val());
+        }
+       });
+	   var search = {typeid:"1",bili:app_search_bili,ykj:sk_one_price,zkfw:spCodesTemp};
 	   var kouling = {typeid:"2",bili:txt_taokoulingBz};
-	   var qr = {typeid:"3",app_qr_bili};
+
 	   jdlist.push(search);
 	   jdlist.push(kouling);
-	   jdlist.push(qr);
 	   data.jdlist = JSON.stringify(jdlist);
 	   
 	   //关键字

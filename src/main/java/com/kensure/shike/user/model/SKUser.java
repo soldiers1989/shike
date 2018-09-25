@@ -63,6 +63,9 @@ public class SKUser extends BaseInfo{
 
 	/**类型，1是试客，2是商家，3是管理员*/		
 	private Integer type; 
+	
+	/**余额*/		
+	private Double yue; 
 
 	public Long getId() {
 		return id;
@@ -161,6 +164,14 @@ public class SKUser extends BaseInfo{
 
 	public void setType(Integer type) {
 		this.type = type;
+	}
+
+	public Double getYue() {
+		return yue;
+	}
+
+	public void setYue(Double yue) {
+		this.yue = yue;
 	}
 
 }

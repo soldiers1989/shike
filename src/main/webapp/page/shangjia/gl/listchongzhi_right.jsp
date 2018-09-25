@@ -56,11 +56,15 @@
 		
 			for(var i=0;i<rows.length;i++){
 				var row = rows[i];
-				var html = "<tr><td>"+row.createdTimeStr+"</td>";
+				var html = "<tr><td height='30'>"+row.createdTimeStr+"</td>";
 				html+="<td>"+row.jiaoyihao+"</td>";
 				html+="<td>"+row.jine+"</td>";
 				html+="<td>"+row.statusStr+"</td>";
-				html+="<td><input type='button' value='通过' onclick='tongguo("+row.id+")'</td>";
+				html+="<td>";
+				if(row.status == 1){
+					html+="<input type='button' value='通过' onclick='tongguo("+row.id+")'/>";
+				}
+				html+="</td>";
 				html+="</tr>";
 				$("#listtable").append(html);
 			}

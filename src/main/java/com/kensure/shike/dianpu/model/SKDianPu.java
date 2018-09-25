@@ -39,6 +39,8 @@ public class SKDianPu extends BaseInfo{
 
 	/**状态，0是正常，-1是停用*/		
 	private Long status; 
+	
+	private String userName;
 
 	public Long getId() {
 		return id;
@@ -89,6 +91,14 @@ public class SKDianPu extends BaseInfo{
 
 	public void setStatus(Long status) {
 		this.status = status;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 	
 }

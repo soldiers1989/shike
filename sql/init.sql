@@ -193,6 +193,8 @@ CREATE TABLE `sk_jindian` (
   `bbid` bigint(20) DEFAULT NULL COMMENT '宝贝活动id',
   `typeid` tinyint(3) NOT NULL COMMENT '类型 1是关键词，2是淘口令，3是二维码',
   `bili` int(11) DEFAULT NULL COMMENT '比例，3个加起来必须是100',
+  `ykj` decimal(10,2) DEFAULT NULL COMMENT '一口价',
+  `zkfw` varchar(1024) NOT NULL COMMENT '折扣和服务',
   `created_time` datetime NOT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`)
 );
@@ -237,6 +239,7 @@ CREATE TABLE `sk_sqqk` (
   `last_status` int(11) DEFAULT NULL COMMENT 'status最后为正值的状态',
   `jinbi` bigint(20) DEFAULT NULL COMMENT '使用金币数量',
   `sale_price` decimal(10,2) DEFAULT NULL COMMENT '宝贝单价',
+  `no_taobao` varchar(32) NOT NULL COMMENT 'taobao账号',
   `jiangli` decimal(10,2) DEFAULT NULL COMMENT '宝贝奖励',
   `ewai` decimal(10,2) DEFAULT NULL COMMENT '额外奖励', 
   `created_time` datetime NOT NULL COMMENT '创建时间',

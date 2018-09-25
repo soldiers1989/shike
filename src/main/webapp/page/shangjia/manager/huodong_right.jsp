@@ -160,8 +160,10 @@
 				var html =   "<tr> "       
                 +"<td width=\"270\" height=\"100\" valign=\"middle\">"
                 +"<div class=\"xi_lt clearfix\" style=\"margin-right: 0\">"
-                +"    <div class=\"cd_lxq cm_cd_lxq\">"
-                +"        <a href=\"//jing.meilipa.com/83882.html\" target=\"_blank\" style=\"margin-right: 0\">"
+                +"<a style='width: 60px; height: 60px;'>"
+                +"<img src='"+row.zturl+"'  height='60' width='60'> </a>"
+                +"    <div class=\"cd_lxq cm_cd_lxq\">"            
+                +"        <a style=\"margin-right: 0\">"
                 +"            <span style=\"margin-left: 0px; width: 170px; line-height: 12px;\">" 
                 +"                <em class=\"iconfont icon-tb\" style=\"font-weight:500;font-size:15px;\">" 
                 +"                </em>"+row.title 
@@ -186,7 +188,7 @@
                 
                 html+="   </div>"
                 +"</td>" 
-                +"<td height=\"100\" align=\"center\" width=\"200\">--</td>" 
+                +"<td height=\"100\" align=\"center\" width=\"200\"><a href='<%=BusiConstant.shangjia_shikelist.getKey()%>?id="+row.id+"' target='_blank'>试用情况</a></td>" 
                 +" </tr>" 
 				$("#listtable").append(html);
 			}

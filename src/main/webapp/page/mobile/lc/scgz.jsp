@@ -173,7 +173,7 @@ $("#gzbaobei").on("change", function(){
 });
 
 function dictsucdo(data){
-	alert("提交成功，等待抽奖");
+	myAlert("提交成功，等待抽奖");
 	window.location.href="<%=BusiConstant.shike_haohuo.getKey()%>?id=<%=baobei.getId()%>";
 }
 function add(){

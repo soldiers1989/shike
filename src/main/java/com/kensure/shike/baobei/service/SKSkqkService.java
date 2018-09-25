@@ -138,11 +138,41 @@ public class SKSkqkService extends JSBaseService {
 		return sk;
 	}
 
+	/**
+	 * 查询该用户所有的已中奖的申请数量
+	 * @param userid
+	 * @return
+	 */
+	public long getQkByByYzj(long userid) {
+		Map<String, Object> parameters = MapUtils.genMap("userid", userid, "bigthanstatus", 51, "lessthanstatus", "98");
+		return selectCountByWhere(parameters);
+	}
+
+	/**
+	 * 查询该用户今日的所有申请数量
+	 * @param userid
+	 * @return
+	 */
+	public long getQkByToday(long userid) {
+		Map<String, Object> parameters = MapUtils.genMap("userid", userid,
+											"bigCreatedTime", DateUtils.formatDateStart(new Date()),
+											"lessCreatedTime", DateUtils.formatDateEnd(new Date()));
+		return selectCountByWhere(parameters);
+	}
+
 	//获取宝贝中奖情况
 	public long getZJNum(long bbid){
 		Map<String, Object> parameters = MapUtils.genMap("bbid", bbid,"bigthanstatus",51);
 		return selectCountByWhere(parameters);
 	}
+	
+	
+	//获取宝贝试用情况，是给商家展现的
+	public List<SKSkqk> getSkqkList(long bbid){
+		Map<String, Object> parameters = MapUtils.genMap("bbid", bbid,"bigthanstatus",81);
+		return selectByWhere(parameters);
+	}
+	
 
 	/**
 	 * 申请
@@ -170,6 +200,7 @@ public class SKSkqkService extends JSBaseService {
 			qk.setUserid(skuser.getId());
 			qk.setSalePrice(baobei.getSalePrice());
 			qk.setJiangli(baobei.getJiangli());	
+			qk.setNoTaobao(skuser.getNoTaobao());
 			insert(qk);
 		}else{
 			qk.setStatus(1L);
