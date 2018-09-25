@@ -135,7 +135,7 @@ $(function () {
     $(".jp-hd .icon-search").on("click", function () {
         var val = $(".jp-hd input").val();
         $(".search-input").blur();
-        location.href = "/home/list?key=" + val;
+        location.href = "/shike/skm/haohuo?title=" + val;
     });
     $(".search-input").on("keyup", function (e) {
         e = e || window.event;

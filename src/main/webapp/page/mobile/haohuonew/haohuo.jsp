@@ -5,7 +5,6 @@
     String context = BusiConstant.shikemobilepath;
 %>
 <!DOCTYPE html>
-<!-- saved from url=(0030)http://m.meilipa.com/home/list -->
 <html lang="zh" style="font-size: 22.125px;">
 
     <head>
@@ -109,10 +108,10 @@
             <i class="iconfont icon-xianshangchongzhi" style="font-size: 0.89rem;color: #a5a5a5;"></i>
         </a>
         <div>
-            <input placeholder="搜索你喜欢的宝贝" type="text" class="search-input">
+            <input id="search-input" placeholder="搜索你喜欢的宝贝" type="text" class="search-input">
             <span class="iconfont icon-search"></span>
         </div>
-         <i class="iconfont icon-sign" onclick="location.href=&#39;/UserAccount/MyGold?type=1&#39;"></i>
+         <i class="iconfont icon-sign" onclick="location.href=#"></i>
     </div>
     <div class="jp-cat-bg">
         <div class="jp-cat">
@@ -277,7 +276,7 @@
         <li><span id="yzj">人 已中奖</span></li>
     </ul>
     <div class="usera-kong"></div>
-    <div class="info-cat"><span class="act">商品详情</span> <%--<span>猜你喜欢</span>--%></div>
+    <div class="info-cat"><span class="act">商品详情</span> <%--<span>问题答疑</span>--%></div>
     <div class="info-list">
         <div class="act  jp-con">
             <div class="intro"></div>
@@ -285,11 +284,11 @@
                 <div><i class="iconfont icon-xin"></i><span>猜你喜欢</span></div>
             </div>
             <ul id="list-apply1" class="jp-list"></ul>
-            <div id="get-more" class="get-more"><a href="http://m.meilipa.com/home/list?orderType=5">加载更多</a></div>
+            <div id="get-more" class="get-more"><a href="#">加载更多</a></div>
         </div>
         <div class="jp-con">
             <ul id="list-apply" class="jp-list"></ul>
-            <div class="get-more"><a href="http://m.meilipa.com/home/list?orderType=5">加载更多</a></div>
+            <div class="get-more"><a href="#">加载更多</a></div>
         </div>
     </div>
     <div id="flow2" class="flow-con">

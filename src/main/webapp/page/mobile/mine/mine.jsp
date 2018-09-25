@@ -24,7 +24,6 @@
     }*/
 %>
 <!DOCTYPE html>
-<!-- saved from url=(0032)http://m.meilipa.com/UserAccount -->
 <html lang="zh" style="font-size: 22.125px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     
     <title>我的试呗</title>
@@ -135,7 +134,7 @@
 <div class="usera-center  jp" style="overflow:hidden;">
     <h3>
         我的活动
-        <span style="color:#999;margin-left:0.2rem;">（今日申请数：${todaySq}}）</span>
+        <span style="color:#999;margin-left:0.2rem;">（今日申请数：${todaySq}）</span>
         <a style="float: right;color: #999;font-size: 0.55rem;display: inline;position: initial; padding: 0;width: auto;" href="<%=BusiConstant.shike_wdhd.getKey() %>">查看更多状态<i class="iconfont icon-Toleft" style="font-size: 0.6rem;color: #999;vertical-align: middle;display: inline;"></i></a>
     </h3>
     <div style="width:100%;">
