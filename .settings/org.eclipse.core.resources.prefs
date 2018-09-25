@@ -1,3 +1,9 @@
 eclipse.preferences.version=1
 encoding//sql/init.sql=UTF-8
+<<<<<<< HEAD
+encoding//src/main/java=UTF-8
+encoding//src/main/webapp/page/mobile/haohuo/css/style.css=UTF-8
+encoding//src/main/webapp/page/mobile/lc/css/style.css=UTF-8
+=======
+>>>>>>> bdc52d0178b8773afc9665616778a251ee6a733d
 encoding//src/test/java=UTF-8
