@@ -35,12 +35,12 @@
     <meta name="full-screen" content="yes">
     <link href="http://m.meilipa.com/favicon.ico" rel="shortcut icon" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/common/css/base.css">
-<link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/mine/resource/iconfont.css">
+<link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/common/css/iconfont.css">
 
-    <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/mine/resource/style.css">
+    <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/common/css/style.css">
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/resource/jquery-1.8.3.js"></script>
-<script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/resource/Common.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/jquery-1.8.3.js"></script>
+<script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/Common.js"></script>
     <script type="text/javascript" src="<%=BusiConstant.context%>/jqtable/jquery.cookie.js"></script>
     <script type="text/javascript" src="<%=BusiConstant.context%>/common/http.js?ver=<%=BusiConstant.version%>"></script>
 
@@ -67,14 +67,14 @@
 
     </script>
     
-<link href="<%=BusiConstant.shikemobilepath %>/mine/resource/layer.css" type="text/css" rel="styleSheet" id="layermcss"></head>
+<link href="<%=BusiConstant.shikemobilepath %>/common/css/layer.css" type="text/css" rel="styleSheet" id="layermcss"></head>
 <body>
     
 <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/mine/resource/account.css">
 
 <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/resource/account.js"></script>
 
-<script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/resource/uploadimage.js"></script>
+<script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/uploadimage.js"></script>
 
 <script>
     $(function () {
@@ -393,24 +393,24 @@
    
     <div id="loading" class="loading">
     <div class="loadingContent">
-        <img src="<%=BusiConstant.shikemobilepath %>/mine/resource/loading.gif">
+        <img src="<%=BusiConstant.shikemobilepath %>/common/image/loading.gif">
     </div>
 </div>
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/resource/jquery.form.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/resource/Validform_v5.3.2.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/jquery.form.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/resource/post.loading.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/Validform_v5.3.2.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/resource/layer.m.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/post.loading.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/resource/layerdialog.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/layer.m.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/resource/jquery.cookie.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/layerdialog.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/resource/browser.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/jquery.cookie.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/resource/app.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/browser.js"></script>
 
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/app.js"></script>
 
 </body></html>

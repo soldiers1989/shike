@@ -147,7 +147,7 @@
     <div class="jp-shaixuan">
         
         <div class="main">
-            <div class="main-kuai">
+            <%--<div class="main-kuai">
                 <p class="title">其他筛选</p>
                 <div class="main-btn">
                          <span class="noApply">我未申请的</span>
@@ -161,7 +161,7 @@
                     <span data-num="2">花呗/京东白条</span>
                     <span data-num="3">优惠券</span>
                 </div>
-            </div>
+            </div>--%>
             <div class="main-kuai">
                 <p class="title">价格区间（元）</p>
                 <div class="main-btn  main-shaixuan clearfix">
