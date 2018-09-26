@@ -82,7 +82,8 @@ public class ShikeMobileController {
 	// 登陆页面
 	@RequestMapping("login")
 	public String login(HttpServletRequest req, HttpServletResponse rep, Model model) {
-		return "page/mobile/login/login.jsp";
+//		return "page/mobile/login/login.jsp";
+		return "page/mobile/mine/login.jsp";
 	}
 
 	// 注册
