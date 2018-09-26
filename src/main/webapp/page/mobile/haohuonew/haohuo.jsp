@@ -16,11 +16,11 @@
         <meta content="black" name="apple-mobile-web-app-status-bar-style"/>
         <meta content="telephone=no" name="format-detection"/>
         <link href="http://m.meilipa.com/favicon.ico" rel="shortcut icon" type="image/x-icon">
-        <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/base.css">
-        <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/iconfont.css">
-        <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/style.css">
-        <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/jquery-1.8.3.js"></script>
-        <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/Common.js"></script>
+        <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/common/css/base.css">
+        <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/common/css/iconfont.css">
+        <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/common/css/style.css">
+        <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/jquery-1.8.3.js"></script>
+        <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/Common.js"></script>
         <script type="text/javascript" src="<%=BusiConstant.context%>/jqtable/jquery.cookie.js"></script>
         <script type="text/javascript" src="<%=BusiConstant.context%>/common/http.js?ver=<%=BusiConstant.version%>"></script>
         <script>
@@ -42,20 +42,20 @@
                 recalc();
             })(document, window);
         </script>
-        <link href="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/layer.css" type="text/css" rel="styleSheet" id="layermcss">
+        <link href="<%=BusiConstant.shikemobilepath %>/common/css/layer.css" type="text/css" rel="styleSheet" id="layermcss">
     </head>
 
 <body>
     
-<link href="<%=BusiConstant.shikemobilepath %>/common/swiper.min.css" rel="stylesheet">
-<script src="<%=BusiConstant.shikemobilepath %>/common/swiper.min.js"></script>
-<script src="<%=BusiConstant.shikemobilepath %>/common/jquery.infinitescroll.js"></script>
-<script src="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/vue.js"></script>
-<script src="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/jquery.lazyload.js"></script>
+<link href="<%=BusiConstant.shikemobilepath %>/common/js/swiper.min.css" rel="stylesheet">
+<script src="<%=BusiConstant.shikemobilepath %>/common/js/swiper.min.js"></script>
+<script src="<%=BusiConstant.shikemobilepath %>/common/js/jquery.infinitescroll.js"></script>
+<script src="<%=BusiConstant.shikemobilepath %>/common/js/vue.js"></script>
+<script src="<%=BusiConstant.shikemobilepath %>/common/js/jquery.lazyload.js"></script>
 <script>
     var order = 0;
 </script>
-<link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/index.css">
+<link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/common/css/index.css">
 
 <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/list.js?ver=<%=BusiConstant.version%>"></script>
 

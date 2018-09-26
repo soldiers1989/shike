@@ -101,7 +101,7 @@ ul,li{ margin: 0; padding: 0;}
 .graybtn { background-color: #666672;}
 
 /*******2016.5.5手机版个人中心改版start********/
-.usera-index{ height:auto; overflow: hidden; width: 100%;background: url("../image/user-bg.png") no-repeat; background-size: 100% 100%; position: relative;text-align: center;color: #fff;}
+.usera-index{ height:auto; overflow: hidden; width: 100%;background: url("/Content/images/JPin/user-bg.png") no-repeat; background-size: 100% 100%; position: relative;text-align: center;color: #fff;}
 .usera-index .usera-index-top p{ margin-left: 4rem; padding-top:0.7rem; font-size: 0.7rem; line-height: 1rem; text-align: left;}
 .usera-index .usera-index-top{ height:3.3rem; position: relative; padding:0 0 0.2rem 0;}
 .usera-index .usera-index-top>img{width:3rem;height:3rem; border: none; float: left; border-radius:1.8rem; border: 0.1rem solid #f57336; margin: 0.3rem 0.6rem 0 0.6rem;}

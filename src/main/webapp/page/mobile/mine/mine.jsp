@@ -34,7 +34,7 @@
     <meta name="format-detection" content="address=no">
     <meta name="full-screen" content="yes">
     <link href="http://m.meilipa.com/favicon.ico" rel="shortcut icon" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/mine/resource/base.css">
+    <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/common/css/base.css">
 <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/mine/resource/iconfont.css">
 
     <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/mine/resource/style.css">
