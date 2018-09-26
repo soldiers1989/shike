@@ -223,6 +223,12 @@
 		<if test="endTime != null">			
 			and end_time = #{endTime}			
 		</if>
+		<if test="bigEndTime != null">			
+			<![CDATA[		
+			and end_time >= #{bigEndTime}		
+			]]>		
+		</if>
+		
 		<if test="disorder != null">			
 			and disorder = #{disorder}			
 		</if>
