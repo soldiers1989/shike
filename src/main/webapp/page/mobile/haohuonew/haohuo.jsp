@@ -47,7 +47,7 @@
 
 <body>
     
-<link href="<%=BusiConstant.shikemobilepath %>/common/js/swiper.min.css" rel="stylesheet">
+<link href="<%=BusiConstant.shikemobilepath %>/common/css/swiper.min.css" rel="stylesheet">
 <script src="<%=BusiConstant.shikemobilepath %>/common/js/swiper.min.js"></script>
 <script src="<%=BusiConstant.shikemobilepath %>/common/js/jquery.infinitescroll.js"></script>
 <script src="<%=BusiConstant.shikemobilepath %>/common/js/vue.js"></script>
@@ -339,24 +339,24 @@
    
     <div id="loading" class="loading" style="display: none;">
     <div class="loadingContent">
-        <img src="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/loading.gif">
+        <img src="<%=BusiConstant.shikemobilepath %>/common/image/loading.gif">
     </div>
 </div>
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/jquery.form.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/jquery.form.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/Validform_v5.3.2.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/Validform_v5.3.2.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/post.loading.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/post.loading.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/layer.m.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/layer.m.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/layerdialog.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/layerdialog.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/jquery.cookie.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/jquery.cookie.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/browser.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/browser.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/app.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/app.js"></script>
 
     <script type="text/javascript">
         function dictsucdo(data){
