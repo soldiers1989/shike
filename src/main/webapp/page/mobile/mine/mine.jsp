@@ -90,7 +90,24 @@
 </style>
 <div class="selectImg">
     <h3>点击选择您的头像</h3>
-    <ul><li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/1.png" alt="加载失败"></li><li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/2.png" alt="加载失败"></li><li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/3.png" alt="加载失败"></li><li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/4.png" alt="加载失败"></li><li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/5.png" alt="加载失败"></li><li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/6.png" alt="加载失败"></li><li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/7.png" alt="加载失败"></li><li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/8.png" alt="加载失败"></li><li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/9.png" alt="加载失败"></li><li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/10.png" alt="加载失败"></li><li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/11.png" alt="加载失败"></li><li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/12.png" alt="加载失败"></li><li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/13.png" alt="加载失败"></li><li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/14.png" alt="加载失败"></li><li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/15.png" alt="加载失败"></li><li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/16.png" alt="加载失败"></li></ul>
+    <ul>
+        <li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/1.png" alt="加载失败"></li>
+        <li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/2.png" alt="加载失败"></li>
+        <li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/3.png" alt="加载失败"></li>
+        <li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/4.png" alt="加载失败"></li>
+        <li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/5.png" alt="加载失败"></li>
+        <li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/6.png" alt="加载失败"></li>
+        <li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/7.png" alt="加载失败"></li>
+        <li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/8.png" alt="加载失败"></li>
+        <li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/9.png" alt="加载失败"></li>
+        <li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/10.png" alt="加载失败"></li>
+        <li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/11.png" alt="加载失败"></li>
+        <li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/12.png" alt="加载失败"></li>
+        <li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/13.png" alt="加载失败"></li>
+        <li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/14.png" alt="加载失败"></li>
+        <li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/15.png" alt="加载失败"></li>
+        <li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/16.png" alt="加载失败"></li>
+    </ul>
 </div>
 <div class="usera-index">
     <div class="message">
@@ -113,7 +130,7 @@
         <div class="usera-index-footer" onclick="location.href = &#39;<%=BusiConstant.shike_yue.getKey() %>&#39;;">
             <p>余额</p>：<p class="maney">${yue.yue }</p>
         </div>
-        <div class="usera-index-footer" onclick="location.href = #">
+        <div class="usera-index-footer" onclick="jinbi()">
             <p>金币</p>：<p class="maney">${yue.jinbi }</p>
         </div>
     </div>

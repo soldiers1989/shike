@@ -1,8 +1,8 @@
 ﻿$(function () {
     //渲染头像
-    var selectImgHtml = "";
+    /*var selectImgHtml = "";
     for (var i = 1; i <= 16; i++) {
-        selectImgHtml += '<li><img src="/Content/images/icon/' + i + '.png" alt="加载失败" /></li>';
+        selectImgHtml += '<li><img src="/page/mobile/mine/resource/icon/' + i + '.png" alt="加载失败" /></li>';
     }
     $(".selectImg ul").html(selectImgHtml);
     //选择头像
@@ -12,6 +12,8 @@
 
     //发送请求确认头像
     $(".selectImg ul img").on("click", function (e) {
+        // myAlert("维护中...");
+        // return;
         e.stopPropagation();
         $(".selectImg").slideUp(200);
         var imgURl = $(this).attr("src");
@@ -22,13 +24,15 @@
                 myAlert("选择头像失败");
             }
         });
-       
+
     });
     $(".selectImg").on("click", function() {
+        // myAlert("维护中...");
+        // return;
         $(this).slideUp(200);
     });
 
-    setInterval('autoScroll();', 2000);
+    setInterval('autoScroll();', 2000);*/
 });
 
 function autoScroll() {
@@ -57,4 +61,8 @@ function signin() {
             }
         });
     });
+}
+function jinbi() {
+    myAlert("维护中...");
+    return;
 }
