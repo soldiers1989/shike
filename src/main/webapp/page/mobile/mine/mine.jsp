@@ -110,7 +110,7 @@
         <a class="sign-in" href="#">签到</a>
     </div>
     <div class="h23">
-        <div class="usera-index-footer" onclick="location.href = #">
+        <div class="usera-index-footer" onclick="location.href = &#39;<%=BusiConstant.shike_yue.getKey() %>&#39;;">
             <p>余额</p>：<p class="maney">${yue.yue }</p>
         </div>
         <div class="usera-index-footer" onclick="location.href = #">

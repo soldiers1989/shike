@@ -58,7 +58,7 @@ ul,li{ margin: 0; padding: 0;}
 .header{ font-size: 0.7rem;}
 .header .arrows { display: block; width:2rem; line-height: 2.1rem; font-size: 1rem;
                     left: 0; position: absolute; top: 0; height: 2rem;
-    background-image:url("../images/back.png"); background-repeat: no-repeat; background-size: 1rem 1rem; background-position: center;
+    background-image:url("../image/back.png"); background-repeat: no-repeat; background-size: 1rem 1rem; background-position: center;
     cursor: pointer;}
 .item { background: none repeat scroll 0 0 #fff; border-bottom: 1px solid #d4d4d4; border-top: 1px solid #d4d4d4; margin-bottom: 12px; }
 .item .ls { height:2rem; position:relative;cursor: pointer}
