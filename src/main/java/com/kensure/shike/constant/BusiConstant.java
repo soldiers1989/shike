@@ -116,6 +116,7 @@ public class BusiConstant {
 	public static final KVBean shike_haohuo = new KVBean(context + "/skm/haohuo", "好货页面");
 	public static final KVBean shike_wdhd = new KVBean(context + "/skm/wdhd", "我的活动页面");
 	public static final KVBean shike_mine = new KVBean(context + "/skm/mine", "我的");
+	public static final KVBean shike_yue = new KVBean(context + "/skm/yue", "余额页面");
 	public static final KVBean shike_tixian = new KVBean(context + "/skm/tixian", "提现页面");
 	public static final KVBean shike_mingxi = new KVBean(context + "/skm/mingxi", "明细页面");
 	public static final KVBean shike_jjdz = new KVBean(context + "/skm/jjdz", "即将到账页面");

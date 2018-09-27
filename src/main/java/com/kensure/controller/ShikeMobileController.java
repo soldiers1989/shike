@@ -149,17 +149,30 @@ public class ShikeMobileController {
 		return "page/mobile/liucheng/haop.jsp";
 	}
 	
+	// 余额页面
+	@RequestMapping("yue")
+	public String yue(HttpServletRequest req, HttpServletResponse rep, Model model) {
+		SKUser user = sKUserService.getUser();
+		SKUserYue yue = skUserYueService.selectOne(user.getId());
+
+		req.setAttribute("user", user);
+		req.setAttribute("yue", yue);
+		return "page/mobile/mine/yue.jsp";
+	}
+
 	// 提现页面
 	@RequestMapping("tixian")
 	public String tixian(HttpServletRequest req, HttpServletResponse rep, Model model) {
-		return "page/mobile/lc/tixian.jsp";
+//		return "page/mobile/lc/tixian.jsp";
+		return "page/mobile/mine/tixian.jsp";
 	}
 	
 	// 明细页面
 	@RequestMapping("mingxi")
 	public String mingxi(HttpServletRequest req, HttpServletResponse rep, Model model) {
-		return "page/mobile/lc/mingxi.jsp";
-	}	
+//		return "page/mobile/lc/mingxi.jsp";
+		return "page/mobile/mine/mingxi.jsp";
+	}
 	
 	// 即将到账页面
 	@RequestMapping("jjdz")
