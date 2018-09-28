@@ -45,7 +45,7 @@
 <link href="<%=BusiConstant.shikemobilepath %>/common/css/layer.css" type="text/css" rel="styleSheet" id="layermcss"></head>
 <body>
     
-<link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/common/css/index.css">
+<link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/mine/login/index.css">
 
 <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/mine/login/mytryout.css">
 
