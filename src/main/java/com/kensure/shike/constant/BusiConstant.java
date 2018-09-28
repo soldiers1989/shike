@@ -42,6 +42,12 @@ public class BusiConstant {
 	public static final String gsyhzhm = "广西南宁试呗网络科技有限公司";
 	// 公司银行开户行
 	public static final String gsyhkhh = "中国建设银行股份有限公司杭州秋涛支行营业部";
+
+	// 网页上的keywords
+	public static final String keywords = "试呗网";
+	// 网页上的description
+	public static final String description = "试呗网";
+
 	public static final KVBean shangjia_about = new KVBean(context + "/shangjia/about", "关于我们");
 	public static final KVBean shangjia_userdefine = new KVBean(context + "/shangjia/userdefine", "用户协议");
 
@@ -123,6 +129,7 @@ public class BusiConstant {
 	
 	public static final KVBean shike_login = new KVBean(context + "/skm/login", "登陆页面");
 	public static final KVBean shike_regist = new KVBean(context + "/skm/regist", "注册页面");
+	public static final KVBean shike_private = new KVBean(context + "/skm/private", "隐私页面");
 	public static final KVBean shike_gouwuche = new KVBean(context + "/skm/gouwuche", "购物车页面");
 	public static final KVBean shike_scgz = new KVBean(context + "/skm/scgz", "收藏关注页面");
 	public static final KVBean shike_ddan = new KVBean(context + "/skm/ddan", "订单页面");

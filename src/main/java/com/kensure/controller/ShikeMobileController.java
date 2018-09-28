@@ -89,7 +89,14 @@ public class ShikeMobileController {
 	// 注册
 	@RequestMapping("regist")
 	public String regist(HttpServletRequest req, HttpServletResponse rep, Model model) {
-		return "page/mobile/login/regist.jsp";
+//		return "page/mobile/login/regist.jsp";
+		return "page/mobile/mine/regist.jsp";
+	}
+
+	// 隐私页面
+	@RequestMapping("private")
+	public String privatePage(HttpServletRequest req, HttpServletResponse rep, Model model) {
+		return "page/mobile/mine/private.jsp";
 	}
 
 	// 整合流程页面
