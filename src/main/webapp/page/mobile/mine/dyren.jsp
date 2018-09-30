@@ -108,7 +108,7 @@
    
     <div id="loading" class="loading">
     <div class="loadingContent">
-        <img src="<%=BusiConstant.shikemobilepath %>/common/image/loading.gif">
+        <img src="<%=BusiConstant.shikemobilepath %>/common/images/loading.gif">
     </div>
 </div>
     <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/jquery.form.js"></script>

@@ -121,9 +121,9 @@
             <span>${user.name }</span>
             <%--<img style="display: inline-block;vertical-align: middle;height: 0.7rem;" src="<%=BusiConstant.shikemobilepath %>/mine/resource/vip-icon-gray.png" alt="Alternate Text">--%>
         </p>
-        <div class="status" onclick="location.href = &#39;/UserAccount/vip&#39;">
-                <%--<a href="http://m.meilipa.com/UserAccount/vip"><i class="iconfont icon-VIP"></i> 立即开通&gt;</a>--%>
-        </div>
+        <%--<div class="status" onclick="location.href = &#39;/UserAccount/vip&#39;">
+                &lt;%&ndash;<a href="http://.com/UserAccount/vip"><i class="iconfont icon-VIP"></i> 立即开通&gt;</a>&ndash;%&gt;
+        </div>--%>
         <a class="sign-in" href="#">签到</a>
     </div>
     <div class="h23">
@@ -179,14 +179,14 @@
 <div class="my-invite">
     <h3 style="border:none;" onclick="location.href = &#39;/UserAccount/UserRank&#39;">
         我的中奖率
-        <a href="http://m.meilipa.com/UserAccount/UserRank"><i class="iconfont icon-Toleft"></i></a>
+        <a href="http://.com/UserAccount/UserRank"><i class="iconfont icon-Toleft"></i></a>
     </h3>
 </div>--%>
 <div class="usera-kong"></div>
 <div class="my-invite">
     <h3>
         我是代言人
-        <span class="iconfont icon-wenhao" onclick="location.href = &#39;/Help/Question?type=1&#39;"></span>
+        <span class="iconfont icon-wenhao" onclick="location.href = &#39;<%=BusiConstant.shike_dyren.getKey() %>&#39;"></span>
         
         <a id="shareQrcode" href="#">分享赚10元<i class="iconfont icon-Toleft"></i></a>
     </h3>
@@ -221,7 +221,7 @@
         <h3>
             我是微客
             <span class="iconfont icon-wenhao" onclick="location.href = &#39;/Help/Question?type=2&#39;"></span>
-            <a id="shareQrcode" href="http://m.meilipa.com/invitation/BisInvaiteShare?invitationCode=273226">推广二维码<i class="iconfont icon-Toleft"></i></a>
+            <a id="shareQrcode" href="http://.com/invitation/BisInvaiteShare?invitationCode=273226">推广二维码<i class="iconfont icon-Toleft"></i></a>
         </h3>
         <ul>
             <li onclick="location.href = &#39;/Invitation/BisMoneyInfo&#39;">
@@ -252,7 +252,7 @@
     <div class="usera-kong"></div>
 <ul class="help-item">
     <%--<li onclick="location.href = &#39;/a/aaa&#39; ">--%>
-    <li onclick="location.href = #">
+    <li onclick="location.href = &#39;<%=BusiConstant.shike_zhanghu.getKey() %>&#39;">
         <i class="iconfont icon-zhanghuanquan"></i>
         <p>账户安全</p>
     </li>
@@ -300,7 +300,7 @@
         </div>
     </div>
 </div><%--
-<a class="go-mj" href="http://m.meilipa.com/help/invitearts">
+<a class="go-mj" href="http://.com/help/invitearts">
     <img src="<%=BusiConstant.shikemobilepath %>/mine/resource/mj-icon.png">
 </a>
 --%>
@@ -339,9 +339,9 @@
         }
 </style>
 <div class="down-app">
-    <a href="http://m.meilipa.com/UserAccount" onclick="clickNumber(0)">
-        <img src="http://m.meilipa.com/UserAccount" alt="sk_gotourl">
-    </a>
+    <%--<a href="http://.com/UserAccount" onclick="clickNumber(0)">
+        <img src="http://.com/UserAccount" alt="sk_gotourl">
+    </a>--%>
         <i class="iconfont icon-error1"></i>
 </div>
 <script>
@@ -410,7 +410,7 @@
    
     <div id="loading" class="loading">
     <div class="loadingContent">
-        <img src="<%=BusiConstant.shikemobilepath %>/common/image/loading.gif">
+        <img src="<%=BusiConstant.shikemobilepath %>/common/images/loading.gif">
     </div>
 </div>
 
