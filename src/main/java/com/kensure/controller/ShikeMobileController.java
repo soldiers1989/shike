@@ -99,6 +99,18 @@ public class ShikeMobileController {
 		return "page/mobile/mine/private.jsp";
 	}
 
+	// 代言人页面
+	@RequestMapping("dyren")
+	public String dyren(HttpServletRequest req, HttpServletResponse rep, Model model) {
+		return "page/mobile/mine/dyren.jsp";
+	}
+
+	// 账户安全页面
+	@RequestMapping("zhanghu")
+	public String zhanghu(HttpServletRequest req, HttpServletResponse rep, Model model) {
+		return "page/mobile/mine/zhanghu.jsp";
+	}
+
 	// 整合流程页面
 	@RequestMapping("gouwuche")
 	public String gouwuche(HttpServletRequest req, HttpServletResponse rep, Model model) {
