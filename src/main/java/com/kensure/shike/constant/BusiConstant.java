@@ -131,7 +131,9 @@ public class BusiConstant {
 	public static final KVBean shike_regist = new KVBean(context + "/skm/regist", "注册页面");
 	public static final KVBean shike_private = new KVBean(context + "/skm/private", "隐私页面");
 	public static final KVBean shike_dyren = new KVBean(context + "/skm/dyren", "代言人页面");
+
 	public static final KVBean shike_zhanghu = new KVBean(context + "/skm/zhanghu", "账户安全页面");
+	public static final KVBean shike_taobao = new KVBean(context + "/skm/taobao", "修改淘宝账号页面");
 
 	public static final KVBean shike_gouwuche = new KVBean(context + "/skm/gouwuche", "购物车页面");
 	public static final KVBean shike_scgz = new KVBean(context + "/skm/scgz", "收藏关注页面");

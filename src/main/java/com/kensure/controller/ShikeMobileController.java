@@ -111,6 +111,12 @@ public class ShikeMobileController {
 		return "page/mobile/mine/zhanghu.jsp";
 	}
 
+	// 修改淘宝账号页面
+	@RequestMapping("taobao")
+	public String modifyTaobao(HttpServletRequest req, HttpServletResponse rep, Model model) {
+		return "page/mobile/mine/taobao.jsp";
+	}
+
 	// 整合流程页面
 	@RequestMapping("gouwuche")
 	public String gouwuche(HttpServletRequest req, HttpServletResponse rep, Model model) {
