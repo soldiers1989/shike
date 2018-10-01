@@ -28,6 +28,7 @@ import co.kensure.exception.BusinessExceptionUtil;
 import co.kensure.exception.ParamUtils;
 import co.kensure.frame.JSBaseService;
 import co.kensure.mem.ArithmeticUtils;
+import co.kensure.mem.CollectionUtils;
 import co.kensure.mem.MapUtils;
 import co.kensure.mem.NumberUtils;
 
@@ -450,18 +451,17 @@ public class SKBaobeiService extends JSBaseService {
 	 * @return
 	 */
 	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
-	public void end() {
-		Map<String, Object> parameters = MapUtils.genMap("is_del", 0, "status", 9);
-		if(typeid != null){
-			parameters.put("typeid", typeid);
-		}
-		if(StringUtils.isNotBlank(title)){
-			parameters.put("titleLike", title);
-		}
-        if(StringUtils.isNotBlank(order)){
-            parameters.put("orderby", order + " " + sort);
-        }
+	public void endBaobei() {
+		Map<String, Object> parameters = MapUtils.genMap("bigEndTime", new Date(), "status", 9);
 		List<SKBaobei> list = selectByWhere(parameters);
-		updateByMap(params);
+		if(CollectionUtils.isEmpty(list)){
+			return;
+		}
+		//修改状态
+		for(SKBaobei bb:list){
+			bb.setStatus(10L);
+			Map<String, Object> params = MapUtils.genMap("id", bb.getId(), "status", 10);
+			updateByMap(params);
+		}		
 	}
 }

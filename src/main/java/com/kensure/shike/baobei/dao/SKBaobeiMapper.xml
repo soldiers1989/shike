@@ -225,7 +225,7 @@
 		</if>
 		<if test="bigEndTime != null">			
 			<![CDATA[		
-			and end_time >= #{bigEndTime}		
+			and end_time <= #{bigEndTime}		
 			]]>		
 		</if>
 		

@@ -267,6 +267,16 @@ public class SKBaobeiController {
 		return new ResultRowInfo();
 	}
 	
+	/**
+	 * 结束宝贝
+	 */
+	@ResponseBody
+	@RequestMapping(value = "endbaobei.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	public ResultInfo endbaobei(HttpServletRequest req, HttpServletResponse rep) {
+		sKBaobeiService.endBaobei();
+		return new ResultRowInfo();
+	}
+	
 	
 	/**
 	 * 我的活动列表

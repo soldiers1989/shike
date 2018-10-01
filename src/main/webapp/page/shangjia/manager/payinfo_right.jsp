@@ -75,7 +75,7 @@
    
 	function paysucdo(data){
 		if("success" == data.type){	
-			window.location.href=<%=BusiConstant.shangjia_huodonglist.getKey()%>
+			window.location.href="<%=BusiConstant.shangjia_huodonglist.getKey()%>";
 		}	
 	}
    
