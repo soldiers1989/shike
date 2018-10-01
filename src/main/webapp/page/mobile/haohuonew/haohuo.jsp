@@ -5,7 +5,6 @@
     String context = BusiConstant.shikemobilepath;
 %>
 <!DOCTYPE html>
-<!-- saved from url=(0030)http://m.meilipa.com/home/list -->
 <html lang="zh" style="font-size: 22.125px;">
 
     <head>
@@ -17,11 +16,11 @@
         <meta content="black" name="apple-mobile-web-app-status-bar-style"/>
         <meta content="telephone=no" name="format-detection"/>
         <link href="http://m.meilipa.com/favicon.ico" rel="shortcut icon" type="image/x-icon">
-        <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/base.css">
-        <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/iconfont.css">
-        <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/style.css">
-        <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/jquery-1.8.3.js"></script>
-        <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/Common.js"></script>
+        <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/common/css/base.css">
+        <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/common/css/iconfont.css">
+        <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/common/css/style.css">
+        <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/jquery-1.8.3.js"></script>
+        <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/Common.js"></script>
         <script type="text/javascript" src="<%=BusiConstant.context%>/jqtable/jquery.cookie.js"></script>
         <script type="text/javascript" src="<%=BusiConstant.context%>/common/http.js?ver=<%=BusiConstant.version%>"></script>
         <script>
@@ -43,26 +42,26 @@
                 recalc();
             })(document, window);
         </script>
-        <link href="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/layer.css" type="text/css" rel="styleSheet" id="layermcss">
+        <link href="<%=BusiConstant.shikemobilepath %>/common/css/layer.css" type="text/css" rel="styleSheet" id="layermcss">
     </head>
 
 <body>
     
-<link href="<%=BusiConstant.shikemobilepath %>/common/swiper.min.css" rel="stylesheet">
-<script src="<%=BusiConstant.shikemobilepath %>/common/swiper.min.js"></script>
-<script src="<%=BusiConstant.shikemobilepath %>/common/jquery.infinitescroll.js"></script>
-<script src="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/vue.js"></script>
-<script src="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/jquery.lazyload.js"></script>
+<link href="<%=BusiConstant.shikemobilepath %>/common/css/swiper.min.css" rel="stylesheet">
+<script src="<%=BusiConstant.shikemobilepath %>/common/js/swiper.min.js"></script>
+<script src="<%=BusiConstant.shikemobilepath %>/common/js/jquery.infinitescroll.js"></script>
+<script src="<%=BusiConstant.shikemobilepath %>/common/js/vue.js"></script>
+<script src="<%=BusiConstant.shikemobilepath %>/common/js/jquery.lazyload.js"></script>
 <script>
     var order = 0;
 </script>
-<link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/index.css">
+<link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/common/css/index.css">
 
-<script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/list.js?ver=<%=Math.random()%>"></script>
+<script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/list.js?ver=<%=BusiConstant.version%>"></script>
 
 <script>
     var isNewUser = "True";
-    var userid = 273226;
+    var userid = 0;
     var myGold = "4150";
     var sortY='0';
     var orderType='0';
@@ -105,14 +104,14 @@
 </a>--%>
 <div class="jp-fixed-top" style="border-bottom: 1px solid #ddd;height: auto;">
     <div class="jp-hd">
-        <a href="http://m.meilipa.com/UserAccount/GoldRecharge">
+        <a href="#">
             <i class="iconfont icon-xianshangchongzhi" style="font-size: 0.89rem;color: #a5a5a5;"></i>
         </a>
         <div>
-            <input placeholder="搜索你喜欢的宝贝" type="text" class="search-input">
+            <input id="search-input" placeholder="搜索你喜欢的宝贝" type="text" class="search-input">
             <span class="iconfont icon-search"></span>
         </div>
-         <i class="iconfont icon-sign" onclick="location.href=&#39;/UserAccount/MyGold?type=1&#39;"></i>
+         <i class="iconfont icon-sign" onclick="location.href=#"></i>
     </div>
     <div class="jp-cat-bg">
         <div class="jp-cat">
@@ -148,7 +147,7 @@
     <div class="jp-shaixuan">
         
         <div class="main">
-            <div class="main-kuai">
+            <%--<div class="main-kuai">
                 <p class="title">其他筛选</p>
                 <div class="main-btn">
                          <span class="noApply">我未申请的</span>
@@ -162,7 +161,7 @@
                     <span data-num="2">花呗/京东白条</span>
                     <span data-num="3">优惠券</span>
                 </div>
-            </div>
+            </div>--%>
             <div class="main-kuai">
                 <p class="title">价格区间（元）</p>
                 <div class="main-btn  main-shaixuan clearfix">
@@ -277,7 +276,7 @@
         <li><span id="yzj">人 已中奖</span></li>
     </ul>
     <div class="usera-kong"></div>
-    <div class="info-cat"><span class="act">商品详情</span> <%--<span>猜你喜欢</span>--%></div>
+    <div class="info-cat"><span class="act">商品详情</span> <%--<span>问题答疑</span>--%></div>
     <div class="info-list">
         <div class="act  jp-con">
             <div class="intro"></div>
@@ -285,11 +284,11 @@
                 <div><i class="iconfont icon-xin"></i><span>猜你喜欢</span></div>
             </div>
             <ul id="list-apply1" class="jp-list"></ul>
-            <div id="get-more" class="get-more"><a href="http://m.meilipa.com/home/list?orderType=5">加载更多</a></div>
+            <div id="get-more" class="get-more"><a href="#">加载更多</a></div>
         </div>
         <div class="jp-con">
             <ul id="list-apply" class="jp-list"></ul>
-            <div class="get-more"><a href="http://m.meilipa.com/home/list?orderType=5">加载更多</a></div>
+            <div class="get-more"><a href="#">加载更多</a></div>
         </div>
     </div>
     <div id="flow2" class="flow-con">
@@ -340,24 +339,24 @@
    
     <div id="loading" class="loading" style="display: none;">
     <div class="loadingContent">
-        <img src="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/loading.gif">
+        <img src="<%=BusiConstant.shikemobilepath %>/common/images/loading.gif">
     </div>
 </div>
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/jquery.form.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/jquery.form.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/Validform_v5.3.2.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/Validform_v5.3.2.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/post.loading.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/post.loading.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/layer.m.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/layer.m.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/layerdialog.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/layerdialog.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/jquery.cookie.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/jquery.cookie.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/browser.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/browser.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/app.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/app.js"></script>
 
     <script type="text/javascript">
         function dictsucdo(data){

@@ -54,13 +54,12 @@ public class ShikeMobileController {
 
 	@Resource
 	private SKUserYueService skUserYueService;
-	
 
 	// 首页
 	@RequestMapping("index")
 	public String index(HttpServletRequest req, HttpServletResponse rep, Model model) {
 //		return "page/mobile/haohuo/haohuo.jsp";
-		return "page/mobile/haohuonew/haohuo.jsp";
+		return "page/mobile/index/index.jsp";
 	}
 
 	// 好货页面
@@ -83,13 +82,39 @@ public class ShikeMobileController {
 	// 登陆页面
 	@RequestMapping("login")
 	public String login(HttpServletRequest req, HttpServletResponse rep, Model model) {
-		return "page/mobile/login/login.jsp";
+//		return "page/mobile/login/login.jsp";
+		return "page/mobile/mine/login.jsp";
 	}
 
 	// 注册
 	@RequestMapping("regist")
 	public String regist(HttpServletRequest req, HttpServletResponse rep, Model model) {
-		return "page/mobile/login/regist.jsp";
+//		return "page/mobile/login/regist.jsp";
+		return "page/mobile/mine/regist.jsp";
+	}
+
+	// 隐私页面
+	@RequestMapping("private")
+	public String privatePage(HttpServletRequest req, HttpServletResponse rep, Model model) {
+		return "page/mobile/mine/private.jsp";
+	}
+
+	// 代言人页面
+	@RequestMapping("dyren")
+	public String dyren(HttpServletRequest req, HttpServletResponse rep, Model model) {
+		return "page/mobile/mine/dyren.jsp";
+	}
+
+	// 账户安全页面
+	@RequestMapping("zhanghu")
+	public String zhanghu(HttpServletRequest req, HttpServletResponse rep, Model model) {
+		return "page/mobile/mine/zhanghu.jsp";
+	}
+
+	// 修改淘宝账号页面
+	@RequestMapping("taobao")
+	public String modifyTaobao(HttpServletRequest req, HttpServletResponse rep, Model model) {
+		return "page/mobile/mine/taobao.jsp";
 	}
 
 	// 整合流程页面
@@ -149,17 +174,30 @@ public class ShikeMobileController {
 		return "page/mobile/liucheng/haop.jsp";
 	}
 	
+	// 余额页面
+	@RequestMapping("yue")
+	public String yue(HttpServletRequest req, HttpServletResponse rep, Model model) {
+		SKUser user = sKUserService.getUser();
+		SKUserYue yue = skUserYueService.selectOne(user.getId());
+
+		req.setAttribute("user", user);
+		req.setAttribute("yue", yue);
+		return "page/mobile/mine/yue.jsp";
+	}
+
 	// 提现页面
 	@RequestMapping("tixian")
 	public String tixian(HttpServletRequest req, HttpServletResponse rep, Model model) {
-		return "page/mobile/lc/tixian.jsp";
+//		return "page/mobile/lc/tixian.jsp";
+		return "page/mobile/mine/tixian.jsp";
 	}
 	
 	// 明细页面
 	@RequestMapping("mingxi")
 	public String mingxi(HttpServletRequest req, HttpServletResponse rep, Model model) {
-		return "page/mobile/lc/mingxi.jsp";
-	}	
+//		return "page/mobile/lc/mingxi.jsp";
+		return "page/mobile/mine/mingxi.jsp";
+	}
 	
 	// 即将到账页面
 	@RequestMapping("jjdz")
@@ -170,19 +208,24 @@ public class ShikeMobileController {
 	// 我的
 	@RequestMapping("mine")
 	public String mine(HttpServletRequest req, HttpServletResponse rep, Model model) {
+
         SKUser user = sKUserService.getUser();
-        SKUserYue yue = skUserYueService.selectOne(user.getId());
 
-        // 已中奖
-        long yzj = sKSkqkService.getQkByByYzj(user.getId());
+        if (user != null) {
+			SKUserYue yue = skUserYueService.selectOne(user.getId());
 
-        // 今日申请
-        long todaySq = sKSkqkService.getQkByToday(user.getId());
+			// 已中奖
+			long yzj = sKSkqkService.getQkByByYzj(user.getId());
 
-        req.setAttribute("user", user);
-        req.setAttribute("yue", yue);
-        req.setAttribute("yzj", yzj);
-        req.setAttribute("todaySq", todaySq);
+			// 今日申请
+			long todaySq = sKSkqkService.getQkByToday(user.getId());
+
+			req.setAttribute("yue", yue);
+			req.setAttribute("yzj", yzj);
+			req.setAttribute("todaySq", todaySq);
+		}
+
+		req.setAttribute("user", user);
 
         return "page/mobile/mine/mine.jsp";
 	}

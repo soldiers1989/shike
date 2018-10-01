@@ -144,6 +144,7 @@ public class SKBaobeiService extends JSBaseService {
 	}
 
 	public boolean update(SKBaobei obj) {
+		super.beforeUpdate(obj);
 		return dao.update(obj);
 	}
 
@@ -440,5 +441,27 @@ public class SKBaobeiService extends JSBaseService {
 		sKSkqkService.save(baobei,status,skuser);
 		
 		sKJysjService.save(baobei, status, jysjList);
+	}
+	
+	
+	/**
+	 * 宝贝任务结束
+	 * 
+	 * @return
+	 */
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+	public void end() {
+		Map<String, Object> parameters = MapUtils.genMap("is_del", 0, "status", 9);
+		if(typeid != null){
+			parameters.put("typeid", typeid);
+		}
+		if(StringUtils.isNotBlank(title)){
+			parameters.put("titleLike", title);
+		}
+        if(StringUtils.isNotBlank(order)){
+            parameters.put("orderby", order + " " + sort);
+        }
+		List<SKBaobei> list = selectByWhere(parameters);
+		updateByMap(params);
 	}
 }

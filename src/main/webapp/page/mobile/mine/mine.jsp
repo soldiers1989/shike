@@ -9,18 +9,21 @@
 <%
     String context = BusiConstant.shikemobilepath;
     SKUser user = (SKUser)request.getAttribute("user");
-    SKUserYue yue = (SKUserYue)request.getAttribute("yue");
-    Double yuee = 0.00;
+
+    /*Double yuee = 0.00;
     Double jinbi = 0.00;
-    if (yue != null && yue.getYue() != null) {
-        yuee = yue.getYue();
-    }
-    if (yue != null && yue.getJinbi() != null) {
-        jinbi = yue.getJinbi();
-    }
+    if (user != null) {
+        SKUserYue yue = (SKUserYue)request.getAttribute("yue");
+
+        if (yue != null && yue.getYue() != null) {
+            yuee = yue.getYue();
+        }
+        if (yue != null && yue.getJinbi() != null) {
+            jinbi = yue.getJinbi();
+        }
+    }*/
 %>
 <!DOCTYPE html>
-<!-- saved from url=(0032)http://m.meilipa.com/UserAccount -->
 <html lang="zh" style="font-size: 22.125px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     
     <title>我的试呗</title>
@@ -31,18 +34,18 @@
     <meta name="format-detection" content="address=no">
     <meta name="full-screen" content="yes">
     <link href="http://m.meilipa.com/favicon.ico" rel="shortcut icon" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/mine/resource/base.css">
-<link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/mine/resource/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/common/css/base.css">
+<link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/common/css/iconfont.css">
 
-    <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/mine/resource/style.css">
+    <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/common/css/style.css">
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/resource/jquery-1.8.3.js"></script>
-<script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/resource/Common.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/jquery-1.8.3.js"></script>
+<script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/Common.js"></script>
     <script type="text/javascript" src="<%=BusiConstant.context%>/jqtable/jquery.cookie.js"></script>
     <script type="text/javascript" src="<%=BusiConstant.context%>/common/http.js?ver=<%=BusiConstant.version%>"></script>
 
-    <%--<script>
-        var userId=273226;
+    <script>
+        var userId=0;
         (function (doc, win) {
             var docEl = doc.documentElement,
             resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
@@ -59,16 +62,19 @@
             doc.addEventListener('DOMContentLoaded', recalc, false);
             recalc();
         })(document, window);
-    </script>--%>
+
+        checkuser();
+
+    </script>
     
-<link href="<%=BusiConstant.shikemobilepath %>/mine/resource/layer.css" type="text/css" rel="styleSheet" id="layermcss"></head>
+<link href="<%=BusiConstant.shikemobilepath %>/common/css/layer.css" type="text/css" rel="styleSheet" id="layermcss"></head>
 <body>
     
 <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/mine/resource/account.css">
 
 <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/resource/account.js"></script>
 
-<script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/resource/uploadimage.js"></script>
+<script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/uploadimage.js"></script>
 
 <script>
     $(function () {
@@ -84,7 +90,24 @@
 </style>
 <div class="selectImg">
     <h3>点击选择您的头像</h3>
-    <ul><li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/1.png" alt="加载失败"></li><li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/2.png" alt="加载失败"></li><li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/3.png" alt="加载失败"></li><li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/4.png" alt="加载失败"></li><li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/5.png" alt="加载失败"></li><li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/6.png" alt="加载失败"></li><li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/7.png" alt="加载失败"></li><li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/8.png" alt="加载失败"></li><li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/9.png" alt="加载失败"></li><li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/10.png" alt="加载失败"></li><li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/11.png" alt="加载失败"></li><li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/12.png" alt="加载失败"></li><li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/13.png" alt="加载失败"></li><li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/14.png" alt="加载失败"></li><li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/15.png" alt="加载失败"></li><li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/16.png" alt="加载失败"></li></ul>
+    <ul>
+        <li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/1.png" alt="加载失败"></li>
+        <li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/2.png" alt="加载失败"></li>
+        <li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/3.png" alt="加载失败"></li>
+        <li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/4.png" alt="加载失败"></li>
+        <li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/5.png" alt="加载失败"></li>
+        <li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/6.png" alt="加载失败"></li>
+        <li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/7.png" alt="加载失败"></li>
+        <li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/8.png" alt="加载失败"></li>
+        <li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/9.png" alt="加载失败"></li>
+        <li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/10.png" alt="加载失败"></li>
+        <li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/11.png" alt="加载失败"></li>
+        <li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/12.png" alt="加载失败"></li>
+        <li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/13.png" alt="加载失败"></li>
+        <li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/14.png" alt="加载失败"></li>
+        <li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/15.png" alt="加载失败"></li>
+        <li><img src="<%=BusiConstant.shikemobilepath %>/mine/resource/16.png" alt="加载失败"></li>
+    </ul>
 </div>
 <div class="usera-index">
     <div class="message">
@@ -95,20 +118,20 @@
     <div class="usera-index-top">
         <img id="imgPic" src="<%=BusiConstant.shikemobilepath %>/mine/resource/shopdefaultavatar.jpg">
         <p>
-            <span><%=user.getName() %></span>
+            <span>${user.name }</span>
             <%--<img style="display: inline-block;vertical-align: middle;height: 0.7rem;" src="<%=BusiConstant.shikemobilepath %>/mine/resource/vip-icon-gray.png" alt="Alternate Text">--%>
         </p>
-        <div class="status" onclick="location.href = &#39;/UserAccount/vip&#39;">
-                <%--<a href="http://m.meilipa.com/UserAccount/vip"><i class="iconfont icon-VIP"></i> 立即开通&gt;</a>--%>
-        </div>
+        <%--<div class="status" onclick="location.href = &#39;/UserAccount/vip&#39;">
+                &lt;%&ndash;<a href="http://.com/UserAccount/vip"><i class="iconfont icon-VIP"></i> 立即开通&gt;</a>&ndash;%&gt;
+        </div>--%>
         <a class="sign-in" href="#">签到</a>
     </div>
     <div class="h23">
-        <div class="usera-index-footer" onclick="location.href = &#39;/UserAccount/MoneyBalance&#39;">
-            <p>余额</p>：<p class="maney"><%=yuee %></p>
+        <div class="usera-index-footer" onclick="location.href = &#39;<%=BusiConstant.shike_yue.getKey() %>&#39;;">
+            <p>余额</p>：<p class="maney">${yue.yue }</p>
         </div>
-        <div class="usera-index-footer" onclick="location.href = &#39;/UserAccount/GoldList&#39;">
-            <p>金币</p>：<p class="maney"><%=jinbi %></p>
+        <div class="usera-index-footer" onclick="jinbi()">
+            <p>金币</p>：<p class="maney">${yue.jinbi }</p>
         </div>
     </div>
 </div><%--
@@ -128,7 +151,7 @@
 <div class="usera-center  jp" style="overflow:hidden;">
     <h3>
         我的活动
-        <span style="color:#999;margin-left:0.2rem;">（今日申请数：${todaySq}}）</span>
+        <span style="color:#999;margin-left:0.2rem;">（今日申请数：${todaySq}）</span>
         <a style="float: right;color: #999;font-size: 0.55rem;display: inline;position: initial; padding: 0;width: auto;" href="<%=BusiConstant.shike_wdhd.getKey() %>">查看更多状态<i class="iconfont icon-Toleft" style="font-size: 0.6rem;color: #999;vertical-align: middle;display: inline;"></i></a>
     </h3>
     <div style="width:100%;">
@@ -156,14 +179,14 @@
 <div class="my-invite">
     <h3 style="border:none;" onclick="location.href = &#39;/UserAccount/UserRank&#39;">
         我的中奖率
-        <a href="http://m.meilipa.com/UserAccount/UserRank"><i class="iconfont icon-Toleft"></i></a>
+        <a href="http://.com/UserAccount/UserRank"><i class="iconfont icon-Toleft"></i></a>
     </h3>
 </div>--%>
 <div class="usera-kong"></div>
 <div class="my-invite">
     <h3>
         我是代言人
-        <span class="iconfont icon-wenhao" onclick="location.href = &#39;/Help/Question?type=1&#39;"></span>
+        <span class="iconfont icon-wenhao" onclick="location.href = &#39;<%=BusiConstant.shike_dyren.getKey() %>&#39;"></span>
         
         <a id="shareQrcode" href="#">分享赚10元<i class="iconfont icon-Toleft"></i></a>
     </h3>
@@ -198,7 +221,7 @@
         <h3>
             我是微客
             <span class="iconfont icon-wenhao" onclick="location.href = &#39;/Help/Question?type=2&#39;"></span>
-            <a id="shareQrcode" href="http://m.meilipa.com/invitation/BisInvaiteShare?invitationCode=273226">推广二维码<i class="iconfont icon-Toleft"></i></a>
+            <a id="shareQrcode" href="http://.com/invitation/BisInvaiteShare?invitationCode=273226">推广二维码<i class="iconfont icon-Toleft"></i></a>
         </h3>
         <ul>
             <li onclick="location.href = &#39;/Invitation/BisMoneyInfo&#39;">
@@ -229,7 +252,7 @@
     <div class="usera-kong"></div>
 <ul class="help-item">
     <%--<li onclick="location.href = &#39;/a/aaa&#39; ">--%>
-    <li onclick="location.href = #">
+    <li onclick="location.href = &#39;<%=BusiConstant.shike_zhanghu.getKey() %>&#39;">
         <i class="iconfont icon-zhanghuanquan"></i>
         <p>账户安全</p>
     </li>
@@ -277,7 +300,7 @@
         </div>
     </div>
 </div><%--
-<a class="go-mj" href="http://m.meilipa.com/help/invitearts">
+<a class="go-mj" href="http://.com/help/invitearts">
     <img src="<%=BusiConstant.shikemobilepath %>/mine/resource/mj-icon.png">
 </a>
 --%>
@@ -316,9 +339,9 @@
         }
 </style>
 <div class="down-app">
-    <a href="http://m.meilipa.com/UserAccount" onclick="clickNumber(0)">
-        <img src="http://m.meilipa.com/UserAccount" alt="sk_gotourl">
-    </a>
+    <%--<a href="http://.com/UserAccount" onclick="clickNumber(0)">
+        <img src="http://.com/UserAccount" alt="sk_gotourl">
+    </a>--%>
         <i class="iconfont icon-error1"></i>
 </div>
 <script>
@@ -387,24 +410,24 @@
    
     <div id="loading" class="loading">
     <div class="loadingContent">
-        <img src="<%=BusiConstant.shikemobilepath %>/mine/resource/loading.gif">
+        <img src="<%=BusiConstant.shikemobilepath %>/common/images/loading.gif">
     </div>
 </div>
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/resource/jquery.form.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/resource/Validform_v5.3.2.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/jquery.form.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/resource/post.loading.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/Validform_v5.3.2.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/resource/layer.m.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/post.loading.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/resource/layerdialog.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/layer.m.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/resource/jquery.cookie.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/layerdialog.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/resource/browser.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/jquery.cookie.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/resource/app.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/browser.js"></script>
 
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/app.js"></script>
 
 </body></html>

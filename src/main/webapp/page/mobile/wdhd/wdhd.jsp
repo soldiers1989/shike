@@ -6,7 +6,6 @@
     String context = BusiConstant.shikemobilepath;
 %>
 <!DOCTYPE html>
-<!-- saved from url=(0046)http://m.meilipa.com/JPinShopIssue/List?type=6 -->
 <html lang="zh" style="font-size: 22.125px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
     <title>我的活动</title>

@@ -5,6 +5,10 @@
 	String context = BusiConstant.shikemobilepath;
 %>
 
+<style>
+    .footer a { width: 25%;}
+</style>
+
 <footer class="footer clearfix">
     <div style="height: 58px;">
         <a id="index1" class=" relation" href="<%=BusiConstant.shike_index.getKey() %>">
@@ -15,9 +19,9 @@
         <a id="haohuo" class=" home" href="<%=BusiConstant.shike_haohuo.getKey() %>">
             <i class="iconfont icon-gift"></i><i class="iconfont iconS icon-giftS"></i>试呗好货
         </a>
-        <a class=" daily_task" href="http://m.meilipa.com/Invitation">
+        <%--<a class=" daily_task" href="#">
             <img src="<%=BusiConstant.shikemobilepath %>/wdhd/resource/zuan.gif" class="zuan" alt="Alternate Text">分享赚钱
-        </a>
+        </a>--%>
         <a id="wdhd" class=" myjp" href="<%=BusiConstant.shike_wdhd.getKey() %>">
             <i class="iconfont icon-jpIcon"></i><i class="iconfont iconS icon-jpiconS"></i>我的活动
         </a>

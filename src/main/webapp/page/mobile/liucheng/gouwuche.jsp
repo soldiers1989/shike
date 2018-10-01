@@ -16,7 +16,6 @@
     SKJindian  jd = jindians.get(0);
 %>
 <!DOCTYPE html>
-<!-- saved from url=(0075)http://m.meilipa.com/JpinShopIssue/OrderFlow?activityId=96251&freeundefined -->
 <html lang="zh" style="font-size: 31.125px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
     <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" name="viewport"/>

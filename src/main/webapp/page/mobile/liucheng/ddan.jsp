@@ -9,7 +9,6 @@
     SKUser user = (SKUser)request.getAttribute("user");
 %>
 <!DOCTYPE html>
-<!-- saved from url=(0061)http://m.meilipa.com/JpinShopIssue/OrderFlow?activityId=90976 -->
 <html lang="zh" style="font-size: 22.125px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     
     <title>试用流程</title>

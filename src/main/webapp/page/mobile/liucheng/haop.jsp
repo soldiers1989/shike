@@ -9,7 +9,6 @@
     SKBaobei baobei = (SKBaobei)request.getAttribute("baobei");
 %>
 <!DOCTYPE html>
-<!-- saved from url=(0058)http://m.meilipa.com/JpinShopIssue/WriteReport?id=21353190 -->
 <html lang="zh" style="font-size: 22.125px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     
     <title>试呗网</title>

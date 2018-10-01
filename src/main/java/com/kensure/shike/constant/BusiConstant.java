@@ -42,6 +42,12 @@ public class BusiConstant {
 	public static final String gsyhzhm = "广西南宁试呗网络科技有限公司";
 	// 公司银行开户行
 	public static final String gsyhkhh = "中国建设银行股份有限公司杭州秋涛支行营业部";
+
+	// 网页上的keywords
+	public static final String keywords = "试呗网";
+	// 网页上的description
+	public static final String description = "试呗网";
+
 	public static final KVBean shangjia_about = new KVBean(context + "/shangjia/about", "关于我们");
 	public static final KVBean shangjia_userdefine = new KVBean(context + "/shangjia/userdefine", "用户协议");
 
@@ -116,12 +122,19 @@ public class BusiConstant {
 	public static final KVBean shike_haohuo = new KVBean(context + "/skm/haohuo", "好货页面");
 	public static final KVBean shike_wdhd = new KVBean(context + "/skm/wdhd", "我的活动页面");
 	public static final KVBean shike_mine = new KVBean(context + "/skm/mine", "我的");
+	public static final KVBean shike_yue = new KVBean(context + "/skm/yue", "余额页面");
 	public static final KVBean shike_tixian = new KVBean(context + "/skm/tixian", "提现页面");
 	public static final KVBean shike_mingxi = new KVBean(context + "/skm/mingxi", "明细页面");
 	public static final KVBean shike_jjdz = new KVBean(context + "/skm/jjdz", "即将到账页面");
-	
+
 	public static final KVBean shike_login = new KVBean(context + "/skm/login", "登陆页面");
 	public static final KVBean shike_regist = new KVBean(context + "/skm/regist", "注册页面");
+	public static final KVBean shike_private = new KVBean(context + "/skm/private", "隐私页面");
+	public static final KVBean shike_dyren = new KVBean(context + "/skm/dyren", "代言人页面");
+
+	public static final KVBean shike_zhanghu = new KVBean(context + "/skm/zhanghu", "账户安全页面");
+	public static final KVBean shike_taobao = new KVBean(context + "/skm/taobao", "修改淘宝账号页面");
+
 	public static final KVBean shike_gouwuche = new KVBean(context + "/skm/gouwuche", "购物车页面");
 	public static final KVBean shike_scgz = new KVBean(context + "/skm/scgz", "收藏关注页面");
 	public static final KVBean shike_ddan = new KVBean(context + "/skm/ddan", "订单页面");

@@ -11,8 +11,6 @@ $(function () {
     //全局swiper  用于判断是否进入了商品详情页
     var indexSW = 0;
 
-
-
     //金币兑换按钮
     function GoldAplly(id) {
         $.ajax({
@@ -102,10 +100,12 @@ $(function () {
             // var html = " <li class=\"n-tabItem\" data-id=\"type"+row.code+"\">"
             //     +"<a href=\"#\" id=\"type"+row.code+"\" >"+row.simpleName+"</a>"
             //     +"</li>";
-            var html = "<li><a data-href=\""+ row.code +"\" class=\"\">"+ row.simpleName +"</a></li>";
+            var html = "<li><a id='type"+ row.code +"' data-href=\""+ row.code +"\" class=\"\">"+ row.simpleName +"</a></li>";
             $(".jp-cat ul").append(html);
         }
         initCatBinding();
+
+        huishiType();
     }
     function dictlist(){
         var data = {typeid:1};
@@ -128,12 +128,27 @@ $(function () {
     lingaSort.paytype = "";
     lingaSort.noApply = 0;
     lingaSort.isSendGold = 0;
+
     getList();
+
+    // 搜索关键词回显
+    if (lingaSort.title) {
+        $("#search-input").val(lingaSort.title);
+    }
+
+    // 回显typeid
+    function huishiType() {
+        if(lingaSort.typeid != '') {
+            $(".jp-cat li a").removeClass("act");
+            $("#type" + lingaSort.typeid).addClass("act");
+            lingaSort.sort = 1;
+        }
+    }
 
     //搜索词搜索
     $(".jp-hd .icon-search").on("click", function () {
-        var key = $(".jp-hd input").val();
-        lingaSort.title = key;
+        var title = $(".jp-hd input").val();
+        lingaSort.title = title;
         lingaSort.sort = 1;
         $(".search-input").blur();
         getList(1);
@@ -339,7 +354,7 @@ $(function () {
         if (clearFlag) {
             window.scrollTo(0, 0);
             lingaSort.page = 1;
-            vm.$data.list = [];
+            // vm.$data.list = [];
             pageFlag = false;
             $("#list").html("")
         }
@@ -577,7 +592,7 @@ $(function () {
 
             // vmDetail.$data.activity_name = data.dpname;
             $("#activity_name").html(row.title); // 商品名称
-            $("#shengyu").html("剩余 "+row.bbnum+"/"+row.bbnum+" 份"); // 剩余
+            $("#shengyu").html("剩余 "+(row.bbnum - row.yzj)+"/"+row.bbnum+" 份"); // 剩余
             $("#ysqnum").html(row.ysqnum + "人 已申请"); // 已经申请数量
             $("#yzj").html(row.yzj + "人 已中奖"); // 已经中奖人数
             $("#salePrice").html("¥" + row.salePrice); // 宝贝单价
@@ -864,7 +879,7 @@ $(function () {
            
             $("#detail  .tod").on("click", function () {
                 getDetail($(this).data("id"));
-                $(".go-mj").attr("href", "/jing/share?invitationCode=" + userid + "&shopid=" + $(this).data("id"));
+                // $(".go-mj").attr("href", "/jing/share?invitationCode=" + userid + "&shopid=" + $(this).data("id"));
                 $(".jp-con .con-cat").off("click");
             });
         });
