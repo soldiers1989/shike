@@ -444,6 +444,27 @@ public class SKBaobeiService extends JSBaseService {
 		sKJysjService.save(baobei, status, jysjList);
 	}
 	
+	/**
+	 * 核对宝贝的淘口令
+	 * 
+	 * @return
+	 */
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+	public void checkTKL(Long id,String tkl) {
+		SKUser skuser = sKUserService.getUser();
+    	SKUserService.checkUserSK(skuser);
+		SKBaobei baobei = selectOne(id);
+		String url = baobei.getUrl();		
+		
+		String taobaoid = TaoBaoService.getContentId(url);
+		if(StringUtils.isBlank(taobaoid)){
+			BusinessExceptionUtil.threwException("口令验证错误！");
+		}
+		String tklid = TaoBaoService.parseTKL(tkl);
+		if(!taobaoid.equalsIgnoreCase(tklid)){
+			BusinessExceptionUtil.threwException("口令验证错误！！");
+		}
+	}
 	
 	/**
 	 * 宝贝任务结束

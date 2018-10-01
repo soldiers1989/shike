@@ -27,9 +27,10 @@
     <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/liucheng/scgz/style.css">
 
     <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/scgz/jquery-1.8.3.js"></script>
-<script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/scgz/Common.js"></script>
+	<script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/scgz/Common.js"></script>
     <script type="text/javascript" src="<%=BusiConstant.context%>/jqtable/jquery.cookie.js"></script>
     <script type="text/javascript" src="<%=BusiConstant.context%>/common/http.js?ver=<%=BusiConstant.version%>"></script>
+    
 
     <script>
         var userId=273226;
@@ -62,7 +63,7 @@
 
 <script src="http://m.meilipa.com/Scripts/Validform/Validform_v5.3.2.js"></script>
 <script src="http://m.meilipa.com/Scripts/jquery.form.js"></script>
-<script src="<%=BusiConstant.shikemobilepath %>/common/uploadimage.js"></script>
+<script src="<%=BusiConstant.shikemobilepath %>/common/js/uploadimage.js"></script>
 <script>
     var referrer = '';     //记录上一页地址
 </script>

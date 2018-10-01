@@ -226,6 +226,19 @@ public class SKBaobeiController {
 	}
 
 	/**
+	 * 淘口令校验宝贝id
+	 */
+	@ResponseBody
+	@RequestMapping(value = "tklcheck.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	public ResultInfo tklcheck(HttpServletRequest req, HttpServletResponse rep) {
+		JSONObject json = RequestUtils.paramToJson(req);
+		Long id = json.getLong("id");
+		String tkl = json.getString("tkl");
+		sKBaobeiService.checkTKL(id, tkl);
+		return new ResultRowInfo();
+	}
+	
+	/**
 	 * 我的活动列表
 	 */
 	@ResponseBody

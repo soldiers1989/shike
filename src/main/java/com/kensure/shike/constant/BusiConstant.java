@@ -92,9 +92,7 @@ public class BusiConstant {
 	public static final KVBean shike_baobeilist_do = new KVBean(context + "/baobei/sklist.do", "试客查看宝贝列表");
 	public static final KVBean shike_wdhd_do = new KVBean(context + "/baobei/skwdhd.do", "试客查看我的活动列表");
 	public static final KVBean shike_skqklist_do = new KVBean(context + "/baobei/skqklist.do", "商家查看宝贝下的活动列表");
-	
-	
-	
+	public static final KVBean shike_tklcheck_do = new KVBean(context + "/baobei/tklcheck.do", "淘口令校验");
 	
 	
 	//后台服务

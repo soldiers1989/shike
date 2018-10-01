@@ -56,7 +56,7 @@
 
 <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/liucheng/ddan/JPinFlow.css">
 
-<script src="<%=BusiConstant.shikemobilepath %>/common/uploadimage.js"></script>
+<script src="<%=BusiConstant.shikemobilepath %>/common/js/uploadimage.js"></script>
 <script src="<%=BusiConstant.shikemobilepath %>/liucheng/ddan/clipboard.min.js"></script>
 <script>
     var referrer = '';     //记录上一页地址
