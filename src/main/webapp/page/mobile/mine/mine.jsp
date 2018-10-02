@@ -221,7 +221,7 @@
         <h3>
             我是微客
             <span class="iconfont icon-wenhao" onclick="location.href = &#39;/Help/Question?type=2&#39;"></span>
-            <a id="shareQrcode" href="http://.com/invitation/BisInvaiteShare?invitationCode=273226">推广二维码<i class="iconfont icon-Toleft"></i></a>
+            <a id="shareQrcode" href="http://.com/invitation/BisInvaiteShare?invitationCode=0">推广二维码<i class="iconfont icon-Toleft"></i></a>
         </h3>
         <ul>
             <li onclick="location.href = &#39;/Invitation/BisMoneyInfo&#39;">

@@ -9,26 +9,27 @@
 <html lang="zh" style="font-size: 22.125px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
     <title>我的活动</title>
-    <meta name="keywords" content="试呗,免费试用,试用网,免费试用网,试用中心,试客,试客网">
-    <meta name="description" content="欢迎来免费试呗.">
+    <meta name="keywords" content="<%=BusiConstant.keywords %>">
+    <meta name="description" content="<%=BusiConstant.description %>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <meta name="format-detection" content="telephone=no">
     <meta name="format-detection" content="address=no">
     <meta name="full-screen" content="yes">
     <link href="/shike/favicon.ico" rel="shortcut icon" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/wdhd/resource/base.css">
-<link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/wdhd/resource/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/wdhd/resource/iconfont.css">
 
     <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/wdhd/resource/style.css">
 
     <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/wdhd/resource/jquery-1.8.3.js"></script>
-<script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/wdhd/resource/Common.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/wdhd/resource/Common.js"></script>
 
     <script type="text/javascript" src="<%=BusiConstant.context%>/jqtable/jquery.cookie.js"></script>
-    <script type="text/javascript" src="<%=BusiConstant.context%>/common/http.js?ver=<%=BusiConstant.version%>"></script>
+    <script type="text/javascript"
+            src="<%=BusiConstant.context%>/common/http.js?ver=<%=BusiConstant.version%>"></script>
 
     <script>
-        var userId=273226;
+        var userId=0;
         (function (doc, win) {
             var docEl = doc.documentElement,
             resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
@@ -187,29 +188,27 @@
         // window.location.href = '/JpinShopIssue/OrderFeedback?shopissueid=' + sid;
         myAlert("维护中...")
     }
+
     function DeletedOrder(id) {
-        myAlert("维护中...")
-        return;
-        layer.open({
-            content: '删除后该活动将从列表中消失',
-            btn: ['确定删除', '取消删除'],
-            shadeClose: false,
-            yes: function (index) {
-                $.post('/JpinShopIssue/DeletedOrder', { id: id }, function (re) {
-                    layer.close(index);
-                    if (re.Result) {
-                        window.location.reload();
-                    }
-                    else {
-                        myAlert(re.Message);
-                    }
-                }, 'json');
-            },
-            no: function (index) {
-                layer.close(index);
-            }
+        myConfirm("确认是否删除?", function () {
+            deleteSq(id)
         });
     }
+
+    function deleteSq(id){
+        var data = {id: id};
+        var url = "<%=BusiConstant.shike_deletesq_do.getKey()%>";
+        postdo(url, data, deleteSqCallBack,null, null);
+    }
+
+    function deleteSqCallBack(data) {
+        if (data.type == 'success') {
+            huodonglist($("#status").val() == undefined || $("#status").val() == '' ? "18" : $("#status").val());
+        } else {
+            myAlert(data.message);
+        }
+    }
+
     function GoldApplyByOrder(sid, oid, gold) {
        
             $.post('/JpinShopIssue/GoldApplyByOrder', { shopissueid: sid, orderid: oid }, function (data) {
@@ -248,8 +247,6 @@
         var rows = data.resultData.rows;
         $("#list").html("");
 
-
-
         for(var i=0;i<rows.length;i++){
             var row = rows[i];
 
@@ -258,15 +255,15 @@
             }
 
             var btn = "";
-            if(row.status<21){
+            if(row.status>0 && row.status<21){
                 btn = "        <div class=\"jp-btn clearfix\">\n" +
                     "            <a href=\"<%=BusiConstant.shike_gouwuche.getKey() %>?id="+ row.bbid +"\" class=\"\">继续申请</a>\n" +
                     "            <a href=\"javascript:void(1);\" class=\"black\" onclick=\"Feedback("+ row.bbid +")\">反馈问题</a>\n" +
-                    "            <a href=\"javascript:void(1);\" class=\"black\" onclick=\"DeletedOrder("+ row.bbid +")\">删除</a>\n" +
+                    "            <a href=\"javascript:void(1);\" class=\"black\" onclick=\"DeletedOrder("+ row.id +")\">删除</a>\n" +
                     "        </div>";
             }else if(row.status == 21){
                 btn = "        <div class=\"jp-btn clearfix\">\n" +
-                "           每日10点、15点、20点抽奖 <a href=\"javascript:void(1);\" class=\"black\" onclick=\"Feedback()\">等待抽奖</a>\n" +
+                "           每日10点、15点、20点抽奖 <a href=\"javascript:void(1);\" class=\"black\" >等待抽奖</a>\n" +
                 "            <a href=\"javascript:void(1);\" class=\"black\" onclick=\"Feedback("+ row.bbid +")\">反馈问题</a>\n" +
                 "        </div>";
         	}else if(row.status == 51){
@@ -275,8 +272,14 @@
                     "            <a href=\"javascript:void(1);\" class=\"black\" onclick=\"Feedback("+ row.bbid +")\">反馈问题</a>\n" +
                     "        </div>";
             }else if(row.status == 61){
+                //
+                // var time1 = row.updatedTime;
+                // var time2 = Date.parse(new Date())
+                // alert(parseInt(time2 - time1) / 1000 / 60 / 60);//两个时间相差的小时数
+
                 btn = "        <div class=\"jp-btn clearfix\">\n" +
-                    "            <a href=\"javascript:void(1);\" class=\"black\" onclick=\"Feedback()\">等待收货</a>\n" +
+                    "           <span class=\"time\">01天20时30分后</span>将自动返还用户担保金 " +
+                    "            <a href=\"javascript:void(1);\" class=\"black\">等待收货</a>\n" +
                     "            <a href=\"javascript:void(1);\" class=\"black\" onclick=\"Feedback("+ row.bbid +")\">反馈问题</a>\n" +
                     "        </div>";
             }else if(row.status == 71){
@@ -369,11 +372,12 @@
 
         <li class="<c:if test="${status == '18'}">act</c:if>"><a href="<%=BusiConstant.shike_wdhd.getKey() %>?status=18">继续申请</a></li>
         <li class="<c:if test="${status == '21'}">act</c:if>"><a href="<%=BusiConstant.shike_wdhd.getKey() %>?status=21">待开奖</a></li>
-        <%--<li class=""><a href="http://m.meilipa.com/JPinShopIssue/List?type=1">继续抽奖<span>0</span></a></li>--%>
+        <%--<li class=""><a href="http://aa/JPinShopIssue/List?type=1">继续抽奖<span>0</span></a></li>--%>
         <li class="<c:if test="${status == '51'}">act</c:if>"><a href="<%=BusiConstant.shike_wdhd.getKey() %>?status=51">中奖了</a></li>
-        <%--<li class=""><a href="http://m.meilipa.com/JPinShopIssue/List?type=5">可恢复<span>0</span></a></li>--%>
+        <%--<li class=""><a href="http://aa/JPinShopIssue/List?type=5">可恢复<span>0</span></a></li>--%>
         <li class="<c:if test="${status == '99'}">act</c:if>"><a href="<%=BusiConstant.shike_wdhd.getKey() %>?status=99">已返款</a></li>
-        <%--<li class=""><a href="http://m.meilipa.com/JPinShopIssue/List?type=4">已取消</a>--%>
+        <li class="<c:if test="${status == '-2'}">act</c:if>"><a href="<%=BusiConstant.shike_wdhd.getKey() %>?status=-2">已取消</a></li>
+        <%--<li class=""><a href="http://aa/JPinShopIssue/List?type=4">已取消</a>--%>
         </li>
     </ul>
 </div>
@@ -387,7 +391,7 @@
 
     <%--<dd class="my-list">
         <p class="title">2018-09-16 20:05:27</p>
-        <a href="http://m.meilipa.com/JpinShopIssue/OrderDetail?orderid=22093979">
+        <a href="http://aa/JpinShopIssue/OrderDetail?orderid=22093979">
             <img src="<%=BusiConstant.shikemobilepath %>/wdhd/resource/TB1kY32KpXXXXbsXFXXXXXXXXXX_!!0-item_pic.jpg_200x200.jpg">
             <div style="position:absolute;left:0;bottom:0;">
             </div>
@@ -401,7 +405,7 @@
             <li><em>规格：拍5.3的颜色随机</em></li>
         </ul>
         <div class="jp-btn clearfix">
-            <a href="http://m.meilipa.com/JpinShopIssue/OrderFlow?activityId=92821" class="">继续申请</a>
+            <a href="http://aa/JpinShopIssue/OrderFlow?activityId=92821" class="">继续申请</a>
             <a href="javascript:void(1);" class="black" onclick="Feedback(92821)">反馈问题</a>
             <a href="javascript:void(1);" class="black" onclick="DeletedOrder(22093979)">删除</a>
         </div>
@@ -409,7 +413,7 @@
 
 
     <div class="navigation">
-        <a href="http://m.meilipa.com/JPinShopIssue/GetNextOrders?page=2&amp;type=6"></a>
+        <a href="http://aa/JPinShopIssue/GetNextOrders?page=2&amp;type=6"></a>
     </div>
 </dl>
 

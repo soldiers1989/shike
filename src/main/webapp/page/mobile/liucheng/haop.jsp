@@ -30,7 +30,7 @@
     <script src="<%=BusiConstant.shikemobilepath %>/common/js/uploadimage.js"></script>
 
     <script>
-        /*var userId=273226;
+        /*var userId=0;
         (function (doc, win) {
             var docEl = doc.documentElement,
             resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',

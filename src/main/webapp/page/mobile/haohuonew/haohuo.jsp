@@ -24,7 +24,7 @@
         <script type="text/javascript" src="<%=BusiConstant.context%>/jqtable/jquery.cookie.js"></script>
         <script type="text/javascript" src="<%=BusiConstant.context%>/common/http.js?ver=<%=BusiConstant.version%>"></script>
         <script>
-            var userId=273226;
+            var userId=0;
             (function (doc, win) {
                 var docEl = doc.documentElement,
                     resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
@@ -238,11 +238,11 @@
     //
     //     $.post("/home/ShowAdv?url=1", function (data) {
     //         if (data.Result) {
-    //             if (localStorage.getItem("day-273226") != new Date().getUTCDate()) {
+    //             if (localStorage.getItem("day-0") != new Date().getUTCDate()) {
     //                 $(".down-app").fadeIn();
     //             }
     //             $(".down-app .icon-error1").on("click", function () {
-    //                 localStorage.setItem("day-273226", new Date().getUTCDate());//把天数赋值给本地
+    //                 localStorage.setItem("day-0", new Date().getUTCDate());//把天数赋值给本地
     //                 $(this).parent().fadeOut();
     //             });
     //         }
