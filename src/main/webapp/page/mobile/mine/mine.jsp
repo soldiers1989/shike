@@ -118,7 +118,7 @@
     <div class="usera-index-top">
         <img id="imgPic" src="<%=BusiConstant.shikemobilepath %>/mine/resource/shopdefaultavatar.jpg">
         <p>
-            <span>${user.name }</span>
+            <span>${user.phone }</span>
             <%--<img style="display: inline-block;vertical-align: middle;height: 0.7rem;" src="<%=BusiConstant.shikemobilepath %>/mine/resource/vip-icon-gray.png" alt="Alternate Text">--%>
         </p>
         <%--<div class="status" onclick="location.href = &#39;/UserAccount/vip&#39;">
