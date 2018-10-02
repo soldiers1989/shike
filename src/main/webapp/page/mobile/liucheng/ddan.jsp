@@ -62,7 +62,6 @@
     var referrer = '';     //记录上一页地址
 </script>
 <input type="hidden" id="dpname" value="${baobei.dpname}">
-<input type="hidden" id="taokl" value="${baobei.taokl}">
 <div style="position: fixed;display: none; height: 100%;width: 100%;top: 0;left: 0; vertical-align: middle;
                                       text-align: center; background: #fff;z-index: 1011;" class="imgshade" onclick="$(&#39;.imgshade&#39;).fadeOut();">
     <p style="padding: 0.5rem;padding-top: 2rem;text-align: left;color: #ff464e;">1.在购物车找到领券宝贝。</p>
@@ -246,29 +245,8 @@
         },false,"JpinOrderFlow");
 
         $(".check-url .btn").on("click", function() {
-            var $this = $(this);
-            if ($('#link').val() == $('#taokl').val()) {
-                $(".submit-btn").removeClass("gray");
-                myAlert("验证通过");
-                $this.addClass("right").find("i").removeClass("icon-error1").addClass("icon-right");
-                $this.find("em").html("验证通过");
-            } else {
-                myAlert("验证失败");
-                $this.addClass("error").find("i").addClass("icon-error1").removeClass("icon-right");
-                $this.find("em").html("验证失败");
-            }
-            // $.post('/JpinShopissue/CheckLink', { aid: 90976 , key: $('#link').val().replace(/《/g, "￥").replace(/€/g, "￥") }, function (d) {
-            //     if (d.Result) {
-            //         $(".submit-btn").removeClass("gray");
-            //         myAlert(d.Message);
-            //         $this.addClass("right").find("i").removeClass("icon-error1").addClass("icon-right");
-            //         $this.find("em").html("验证通过");
-            //     } else {
-            //         myAlert(d.Message);
-            //         $this.addClass("error").find("i").addClass("icon-error1").removeClass("icon-right");
-            //         $this.find("em").html("验证失败");
-            //     }
-            // });
+        	var tkl = $('#link').val();
+        	checkTKL(tkl);
         });
         var clipboard1 = new Clipboard('#copy-button1');
         //myAlert("复制失败，请长按文字复制");
@@ -284,6 +262,28 @@
 
         });
     });
+    
+    
+    //核对淘口令
+    function checkTKL(tkl){
+        var data = {id:<%=baobei.getId()%>,tkl:tkl};
+        var url = "<%=BusiConstant.shike_tklcheck_do.getKey()%>";
+        postdo(url, data, tklsuc,tklerr, null);
+    }
+    function tklsuc(data){
+    	 $(".submit-btn").removeClass("gray");
+         myAlert("验证通过");
+         var  $this = $(".check-url .btn")
+         $this.addClass("right").find("i").removeClass("icon-error1").addClass("icon-right");
+         $this.find("em").html("验证通过"); 	
+   }
+   function tklerr(data){
+	   myAlert("验证失败");
+	   var  $this = $(".check-url .btn")
+       $this.addClass("error").find("i").addClass("icon-error1").removeClass("icon-right");
+       $this.find("em").html("验证失败");
+   }
+    
     var flag = false;
     function postTDay() {
 
@@ -318,40 +318,6 @@
         flag = true;
 
         add();
-
-        // $.post('/JPinShopIssue/OrderFlow5Submit', {
-        //     searchagain_pic:$("img.search-again-img").data("src"),
-        //     sk_id:id,sk_tb_ordercode:$(".order-num").val(),
-        //     sk_order_pic:$("img.up-num-img").data("src"),
-        //     sk_evaluate_info:$("#sk_evaluate_info").val(),
-        //     sk_id:21353190
-        //     }, function (data) {
-        //         flag = false;
-        //         if (data.Result) {
-        //             //window.location.replace(window.location.href + "&v=" + Math.random() * 100 + "&referrer=" + document.referrer);
-        //             var activityId = globle.getUrlParam("activityId");
-        //             var applyType = globle.getUrlParam("applyType");
-        //             var limited = globle.getUrlParam("limited");
-        //             var urlParams = "?activityId=" + activityId;
-        //             if(applyType){  //金币兑换
-        //                 urlParams += "&applyType=" + applyType;
-        //             }
-        //             if(limited) {   //limited 为1 的时候   是限量秒杀
-        //                 urlParams += "&limited=" + limited;
-        //             }
-        //             urlParams += "&v=" + Math.random() * 100;
-        //             if(referrer == "") {
-        //                 urlParams += "&referrer=" + document.referrer;
-        //                 //window.location.replace(window.location.href + "&v=" + Math.random() * 100);
-        //                 window.location.replace(window.location.href.split("?")[0] + urlParams);
-        //             } else {
-        //                 urlParams += "&referrer=" + referrer;
-        //                 window.location.replace(window.location.href.split("?")[0] + urlParams);
-        //             }
-        //         } else {
-        //             myAlert(data.Message);
-        //         }
-        //     });
     }
 
 

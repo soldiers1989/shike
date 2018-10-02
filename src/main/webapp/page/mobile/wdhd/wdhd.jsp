@@ -264,7 +264,12 @@
                     "            <a href=\"javascript:void(1);\" class=\"black\" onclick=\"Feedback("+ row.bbid +")\">反馈问题</a>\n" +
                     "            <a href=\"javascript:void(1);\" class=\"black\" onclick=\"DeletedOrder("+ row.bbid +")\">删除</a>\n" +
                     "        </div>";
-            }else if(row.status == 51){
+            }else if(row.status == 21){
+                btn = "        <div class=\"jp-btn clearfix\">\n" +
+                "           每日10点、15点、20点抽奖 <a href=\"javascript:void(1);\" class=\"black\" onclick=\"Feedback()\">等待抽奖</a>\n" +
+                "            <a href=\"javascript:void(1);\" class=\"black\" onclick=\"Feedback("+ row.bbid +")\">反馈问题</a>\n" +
+                "        </div>";
+        	}else if(row.status == 51){
                 btn = "        <div class=\"jp-btn clearfix\">\n" +
                     "            <a href=\"<%=BusiConstant.shike_gouwuche.getKey() %>?id="+ row.bbid +"\" class=\"\">提交订单</a>\n" +
                     "            <a href=\"javascript:void(1);\" class=\"black\" onclick=\"Feedback("+ row.bbid +")\">反馈问题</a>\n" +
@@ -279,7 +284,7 @@
                     "            <a href=\"<%=BusiConstant.shike_haop.getKey() %>?id="+ row.bbid +"\" class=\"\">提交好评</a>\n" +
                     "            <a href=\"javascript:void(1);\" class=\"black\" onclick=\"Feedback("+ row.bbid +")\">反馈问题</a>\n" +
                     "        </div>";
-            } else if(row.status == 81){
+            }else if(row.status == 81){
                 btn = "        <div class=\"jp-btn clearfix\">\n" +
                     "            <a href=\"javascript:void(1);\" class=\"black\" onclick=\"Feedback()\">等待返款</a>\n" +
                     "            <a href=\"javascript:void(1);\" class=\"black\" onclick=\"Feedback("+ row.bbid +")\">反馈问题</a>\n" +

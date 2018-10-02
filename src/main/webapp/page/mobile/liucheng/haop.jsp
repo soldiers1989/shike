@@ -27,7 +27,7 @@
 <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/haop/Common.js"></script>
     <script type="text/javascript" src="<%=BusiConstant.context%>/jqtable/jquery.cookie.js"></script>
     <script type="text/javascript" src="<%=BusiConstant.context%>/common/http.js?ver=<%=BusiConstant.version%>"></script>
-    <script src="<%=BusiConstant.shikemobilepath %>/common/uploadimage.js"></script>
+    <script src="<%=BusiConstant.shikemobilepath %>/common/js/uploadimage.js"></script>
 
     <script>
         /*var userId=273226;
@@ -113,8 +113,6 @@
             } else {
                 logo2 = logo2 + "sktag" + path;
             }
-
-            alert(logo2)
         }, true, 2, true);
         bindUploadImage('#uploadbtn2', function (path) {
             path = "<%=BusiConstant.context %>" + path;

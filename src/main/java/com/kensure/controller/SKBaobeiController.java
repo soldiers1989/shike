@@ -52,7 +52,6 @@ public class SKBaobeiController {
 	@Resource
 	private SKBbrwService sKBbrwService;
 
-
 	// 获取宝贝详情
 	@ResponseBody
 	@RequestMapping(value = "detail.do", method = { RequestMethod.POST }, produces = "application/json;charset=UTF-8")
@@ -61,7 +60,7 @@ public class SKBaobeiController {
 		Long id = json.getLong("id");
 		SKBaobei baobei = sKBaobeiService.getSKBaobei(id);
 
-        return new ResultRowInfo(baobei);
+		return new ResultRowInfo(baobei);
 	}
 
 	/**
@@ -237,7 +236,20 @@ public class SKBaobeiController {
 		sKBaobeiService.checkTKL(id, tkl);
 		return new ResultRowInfo();
 	}
-	
+
+	/**
+	 * 宝贝店铺名称校验
+	 */
+	@ResponseBody
+	@RequestMapping(value = "dpnamecheck.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	public ResultInfo dpnamecheck(HttpServletRequest req, HttpServletResponse rep) {
+		JSONObject json = RequestUtils.paramToJson(req);
+		Long id = json.getLong("id");
+		String dpname = json.getString("dpname");
+		sKBaobeiService.checkDPName(id, dpname);
+		return new ResultRowInfo();
+	}
+
 	/**
 	 * 我的活动列表
 	 */
@@ -259,7 +271,7 @@ public class SKBaobeiController {
 		sKBbrwService.doChouJiang(true);
 		return new ResultRowInfo();
 	}
-	
+
 	/**
 	 * 好评测试
 	 */
@@ -269,7 +281,7 @@ public class SKBaobeiController {
 		sKSkqkService.toHaoPin();
 		return new ResultRowInfo();
 	}
-	
+
 	/**
 	 * 返款测试
 	 */
@@ -279,7 +291,7 @@ public class SKBaobeiController {
 		sKSkqkService.toReturnMoney();
 		return new ResultRowInfo();
 	}
-	
+
 	/**
 	 * 结束宝贝
 	 */
@@ -289,8 +301,7 @@ public class SKBaobeiController {
 		sKBaobeiService.endBaobei();
 		return new ResultRowInfo();
 	}
-	
-	
+
 	/**
 	 * 我的活动列表
 	 */
@@ -302,6 +313,5 @@ public class SKBaobeiController {
 		List<SKSkqk> list = sKSkqkService.getSkqkList(id);
 		return new ResultRowsInfo(list);
 	}
-	
 
 }

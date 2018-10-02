@@ -49,7 +49,10 @@ public class SKJysjService extends JSBaseService{
 	private BaseKeyService baseKeyService;
 	
 	@Resource
-	private SKUserService sKUserService;	
+	private SKUserService sKUserService;
+	
+	@Resource
+	private SKBaobeiService sKBaobeiService;	
 	
     public SKJysj selectOne(Long id){
     	return dao.selectOne(id);
@@ -135,14 +138,21 @@ public class SKJysjService extends JSBaseService{
     		jysj.setStatus(status);
     		jysj.setBbid(baobei.getId());
     		jysj.setUserid(user.getId());
-    		jysj.setTypeid(2L);
-    		jysj.setBusitype("dpm");
     		if(size != 1){
     			BusinessExceptionUtil.threwException("数据不正确");
     		}
-    		if(!jysj.getContent().equals(baobei.getDpname())){
-    			BusinessExceptionUtil.threwException("请输入正确的店铺名");
-    		}	
+    		if(jysj.getTypeid() == 2L){
+    			if(!jysj.getContent().equals(baobei.getDpname())){
+        			BusinessExceptionUtil.threwException("请输入正确的店铺名");
+        		}	
+    			jysj.setBusitype("dpm");
+    		}else if(jysj.getTypeid() == 1L){
+    			sKBaobeiService.checkTKL(baobei.getId(), jysj.getContent());
+    			jysj.setBusitype("tkl");
+    		}else{
+    			BusinessExceptionUtil.threwException("数据不正确1");
+    		}
+    		
     	}else if(status == 21){
     		//收藏关注图
     		if(size != 2){
