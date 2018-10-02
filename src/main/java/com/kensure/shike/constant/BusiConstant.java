@@ -131,22 +131,26 @@ public class BusiConstant {
 	public static final KVBean shike_private = new KVBean(context + "/skm/private", "隐私页面");
 	public static final KVBean shike_dyren = new KVBean(context + "/skm/dyren", "代言人页面");
 
-	public static final KVBean shike_zhanghu = new KVBean(context + "/skm/zhanghu", "账户安全页面");
-	public static final KVBean shike_taobao = new KVBean(context + "/skm/taobao", "修改淘宝账号页面");
+    public static final KVBean shike_zhanghu = new KVBean(context + "/skm/zhanghu", "账户安全页面");
+    public static final KVBean shike_modifyphone = new KVBean(context + "/skm/modifyphone", "修改手机号码页面");
+    public static final KVBean shike_modifyalipay = new KVBean(context + "/skm/modifyalipay", "修改支付宝账户页面");
+    public static final KVBean shike_modifytaobao = new KVBean(context + "/skm/modifytaobao", "修改淘宝账号页面");
+    public static final KVBean shike_modifyqq = new KVBean(context + "/skm/modifyqq", "修改qq账号页面");
+    public static final KVBean shike_modifyloginpwd = new KVBean(context + "/skm/modifyloginpwd", "修改登录密码页面");
 
-	public static final KVBean shike_gouwuche = new KVBean(context + "/skm/gouwuche", "购物车页面");
-	public static final KVBean shike_scgz = new KVBean(context + "/skm/scgz", "收藏关注页面");
-	public static final KVBean shike_ddan = new KVBean(context + "/skm/ddan", "订单页面");
-	public static final KVBean shike_haop = new KVBean(context + "/skm/haop", "好评页面");
-	
-	public static final KVBean shike_addsk_do = new KVBean(context + "/user/addsk.do", "试客注册并登陆");
-	public static final KVBean shike_userlist_do = new KVBean(context + "/user/userlist.do", "用户列表");
-	
-	
-	public static final KVBean shike_shenqing_do = new KVBean(context + "/baobei/shenqing.do", "立即申请操作");
-	public static final KVBean shike_liucheng_do = new KVBean(context + "/baobei/liucheng.do", "后续流程性操作");
-	public static final KVBean shike_addfile_do = new KVBean(context + "/baobei/addfile.do", "图片上传操作");
-	
-	
+    public static final KVBean shike_gouwuche = new KVBean(context + "/skm/gouwuche", "购物车页面");
+    public static final KVBean shike_scgz = new KVBean(context + "/skm/scgz", "收藏关注页面");
+    public static final KVBean shike_ddan = new KVBean(context + "/skm/ddan", "订单页面");
+    public static final KVBean shike_haop = new KVBean(context + "/skm/haop", "好评页面");
+
+    public static final KVBean shike_addsk_do = new KVBean(context + "/user/addsk.do", "试客注册并登陆");
+    public static final KVBean shike_userlist_do = new KVBean(context + "/user/userlist.do", "用户列表");
+
+
+    public static final KVBean shike_shenqing_do = new KVBean(context + "/baobei/shenqing.do", "立即申请操作");
+    public static final KVBean shike_liucheng_do = new KVBean(context + "/baobei/liucheng.do", "后续流程性操作");
+    public static final KVBean shike_addfile_do = new KVBean(context + "/baobei/addfile.do", "图片上传操作");
+
+    public static final KVBean shike_user_update_do = new KVBean(context + "/user/update.do", "用户安全管理更新操作");
 
 }
