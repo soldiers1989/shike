@@ -111,7 +111,7 @@
     
 </div>
 <div class="tx-list" onclick="location.href = &#39;<%=BusiConstant.shike_mingxi.getKey() %>&#39;;">
-    <a href="http://m.meilipa.com/UserAccount/MoneyRecords"> <i class="iconfont icon-mingxi"></i>明细 <i class="iconfont icon-Toleft"></i></a>
+    <a href="<%=BusiConstant.shike_mingxi.getKey() %>"> <i class="iconfont icon-mingxi"></i>明细 <i class="iconfont icon-Toleft"></i></a>
 </div>
         <div style="height:2.15rem;">
         </div>

@@ -16,13 +16,13 @@
     <meta name="format-detection" content="address=no">
     <meta name="full-screen" content="yes">
     <link href="/shike/favicon.ico" rel="shortcut icon" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/wdhd/resource/base.css">
-    <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/wdhd/resource/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/common/css/base.css">
+    <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/common/css/iconfont.css">
 
-    <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/wdhd/resource/style.css">
+    <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/common/css/style.css">
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/wdhd/resource/jquery-1.8.3.js"></script>
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/wdhd/resource/Common.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/jquery-1.8.3.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/Common.js"></script>
 
     <script type="text/javascript" src="<%=BusiConstant.context%>/jqtable/jquery.cookie.js"></script>
     <script type="text/javascript"
@@ -97,7 +97,6 @@
 
             })
         });
-
 
         $(".time").countdown({ tmpl: '%{d}天%{h}时%{m}分后' }); //倒计时
         $(".time1").countdown({ tmpl: '%{d}天%{h}时%{m}分内' }); //倒计时
@@ -242,7 +241,6 @@
        
     }
 
-
     function huodongsucdo(data){
         var rows = data.resultData.rows;
         $("#list").html("");
@@ -272,24 +270,29 @@
                     "            <a href=\"javascript:void(1);\" class=\"black\" onclick=\"Feedback("+ row.bbid +")\">反馈问题</a>\n" +
                     "        </div>";
             }else if(row.status == 61){
-                //
-                // var time1 = row.updatedTime;
-                // var time2 = Date.parse(new Date())
-                // alert(parseInt(time2 - time1) / 1000 / 60 / 60);//两个时间相差的小时数
+                // 提交订单两天后，可提交评价
+                var time = format(row.updatedTime + 1000*60*60*24*2 - new Date().getTime());
 
                 btn = "        <div class=\"jp-btn clearfix\">\n" +
-                    "           <span class=\"time\">01天20时30分后</span>将自动返还用户担保金 " +
+                    "           <span class=\"time\">"+ time +"</span>可提交评论 " +
                     "            <a href=\"javascript:void(1);\" class=\"black\">等待收货</a>\n" +
                     "            <a href=\"javascript:void(1);\" class=\"black\" onclick=\"Feedback("+ row.bbid +")\">反馈问题</a>\n" +
                     "        </div>";
             }else if(row.status == 71){
+                // 收到货过后10天内，必须评价
+                var time = format(row.updatedTime + 1000*60*60*24*10 - new Date().getTime());
                 btn = "        <div class=\"jp-btn clearfix\">\n" +
+                    "           <span class=\"time\">"+ time +"</span> 自动取消资格 " +
                     "            <a href=\"<%=BusiConstant.shike_haop.getKey() %>?id="+ row.bbid +"\" class=\"\">提交好评</a>\n" +
                     "            <a href=\"javascript:void(1);\" class=\"black\" onclick=\"Feedback("+ row.bbid +")\">反馈问题</a>\n" +
                     "        </div>";
             }else if(row.status == 81){
+                // 评价过后两天后，可返回担保金
+                var time = format(row.updatedTime + 1000*60*60*24*2 - new Date().getTime());
+
                 btn = "        <div class=\"jp-btn clearfix\">\n" +
-                    "            <a href=\"javascript:void(1);\" class=\"black\" onclick=\"Feedback()\">等待返款</a>\n" +
+                    "           <span class=\"time\">"+ time +"</span>将自动返还用户担保金 " +
+                    "            <a href=\"javascript:void(1);\" class=\"black\" >等待返款</a>\n" +
                     "            <a href=\"javascript:void(1);\" class=\"black\" onclick=\"Feedback("+ row.bbid +")\">反馈问题</a>\n" +
                     "        </div>";
             }
@@ -336,6 +339,32 @@
             // }
             $("#list").append(html);
         }
+    }
+
+    function getDate(strDate) {
+        return Date.parse(strDate.replace(/-/g, "/"));
+    }
+
+    function format(diff) {
+        var tmpl = '%{d}天%{h}时%{m}分后', day, hour, minute, second, millisecond;
+        day = Math.floor(diff / 1000 / 60 / 60 / 24);
+        hour = Math.floor(diff / 1000 / 60 / 60 % 24);
+        if (tmpl.indexOf('%{d}') < 0) {
+            hour = day * 24 + hour;
+        }
+        minute = Math.floor(diff / 1000 / 60 % 60);
+        // if (options.secondDigit) {
+        //     second = ((diff - day * 1000 * 60 * 60 * 24 - hour * 1000 * 60 * 60 - minute * 1000 * 60) / 1000).toFixed(1);//保留一位小数的秒
+        // } else {
+            second = Math.floor(diff / 1000 % 60);//整数秒
+        // }
+        millisecond = (diff - day * 1000 * 60 * 60 * 24 - hour * 1000 * 60 * 60 - minute * 1000 * 60 - second * 1000);
+        tmpl = tmpl.replace(/%\{d\}/ig, day < 10 ? "0" + day : day)
+            .replace(/%\{h\}/ig, hour < 10 ? "0" + hour : hour)
+            .replace(/%\{m\}/ig, minute < 10 ? "0" + minute : minute)
+            .replace(/%\{s\}/ig, second < 10 ? "0" + second : second)
+            .replace(/%\{s\}/ig, millisecond < 10 ? "00" + millisecond : millisecond < 100 ? "0" + second : millisecond);
+        return tmpl;
     }
 
     function dothing(id,status){
@@ -421,28 +450,32 @@
         </div>
         <jsp:include page="../common/footer.jsp" flush="true"/>
 
-        <div style="display: none"><script src="<%=BusiConstant.shikemobilepath %>/wdhd/resource/z_stat.php" language="JavaScript"></script><script src="<%=BusiConstant.shikemobilepath %>/wdhd/resource/core.php" charset="utf-8" type="text/javascript"></script><a href="http://www.cnzz.com/stat/website.php?web_id=1264685315" target="_blank" title="站长统计">站长统计</a></div>
-   
-    <div id="loading" class="loading">
+<div style="display: none">
+    <script src="<%=BusiConstant.shikemobilepath %>/common/z_stat.php" language="JavaScript"></script>
+    <script src="<%=BusiConstant.shikemobilepath %>/common/core.php" charset="utf-8"
+            type="text/javascript"></script>
+
+<div id="loading" class="loading">
     <div class="loadingContent">
-        <img src="<%=BusiConstant.shikemobilepath %>/wdhd/resource/loading.gif">
+        <img src="<%=BusiConstant.shikemobilepath %>/common/images/loading.gif">
     </div>
 </div>
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/wdhd/resource/jquery.form.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/wdhd/resource/Validform_v5.3.2.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/jquery.form.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/wdhd/resource/post.loading.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/Validform_v5.3.2.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/wdhd/resource/layer.m.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/post.loading.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/wdhd/resource/layerdialog.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/layer.m.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/wdhd/resource/jquery.cookie.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/layerdialog.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/wdhd/resource/browser.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/jquery.cookie.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/wdhd/resource/app.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/browser.js"></script>
+
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/app.js"></script>
 
 
 </body></html>

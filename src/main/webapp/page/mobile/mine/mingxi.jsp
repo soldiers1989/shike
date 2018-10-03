@@ -79,7 +79,7 @@
 <header class="header acct-top"><i class="arrows" onclick="history.back(-1)"></i>账户明细</header>
 <div class="bar zt-menu" style="background: #fff;">
     <ul>
-        <li><a style="color: #ff464e" href="http://m.meilipa.com/UserAccount/MoneyRecords">全部 </a>
+        <li><a style="color: #ff464e">全部 </a>
             <div class="sel">
             </div>
         </li>

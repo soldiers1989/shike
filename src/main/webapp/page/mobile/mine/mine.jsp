@@ -124,7 +124,8 @@
         <%--<div class="status" onclick="location.href = &#39;/UserAccount/vip&#39;">
                 &lt;%&ndash;<a href="http://.com/UserAccount/vip"><i class="iconfont icon-VIP"></i> 立即开通&gt;</a>&ndash;%&gt;
         </div>--%>
-        <a class="sign-in" href="#">签到</a>
+        <%--<a class="sign-in" href="#">签到</a>--%>
+        <a class="sign-in" onclick="qidao()">签到</a>
     </div>
     <div class="h23">
         <div class="usera-index-footer" onclick="location.href = &#39;<%=BusiConstant.shike_yue.getKey() %>&#39;;">
@@ -256,15 +257,15 @@
         <i class="iconfont icon-zhanghuanquan"></i>
         <p>账户安全</p>
     </li>
-    <li onclick="location.href = #">
+    <li onclick="lxjk()">
         <i class="iconfont icon-lianxikefu"></i>
         <p>联系客服</p>
     </li>
-    <li onclick="location.href = # ">
+    <li onclick="yjfk()">
         <i class="iconfont icon-yijianfankui"></i>
         <p>意见反馈</p>
     </li>
-    <li onclick="location.href = # ">
+    <li onclick="bzzx()">
         <i class="iconfont icon-wenhao"></i>
         
         <p>帮助中心</p>
@@ -402,6 +403,28 @@
             })
         }
     });
+    
+    function lxjk() {
+        myAlert("客户微信:000000000000000000")
+    }
+
+
+
+    function yjfk() {
+        myAlert("维护中...")
+    }
+
+
+
+    function bzzx() {
+        myAlert("维护中...")
+    }
+
+    function qidao() {
+        myAlert("维护中...")
+    }
+
+
 </script>
         <div style="margin-bottom: 2rem;">
         </div>

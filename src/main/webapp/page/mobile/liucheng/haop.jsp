@@ -18,15 +18,16 @@
     <meta name="format-detection" content="address=no">
     <meta name="full-screen" content="yes">
     <link href="http://m.meilipa.com/favicon.ico" rel="shortcut icon" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/liucheng/haop/base.css">
-<link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/liucheng/haop/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/common/css/base.css">
+    <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/common/css/iconfont.css">
 
-    <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/liucheng/haop/style.css">
+    <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/common/css/style.css">
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/haop/jquery-1.8.3.js"></script>
-<script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/haop/Common.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/jquery-1.8.3.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/Common.js"></script>
     <script type="text/javascript" src="<%=BusiConstant.context%>/jqtable/jquery.cookie.js"></script>
-    <script type="text/javascript" src="<%=BusiConstant.context%>/common/http.js?ver=<%=BusiConstant.version%>"></script>
+    <script type="text/javascript"
+            src="<%=BusiConstant.context%>/common/http.js?ver=<%=BusiConstant.version%>"></script>
     <script src="<%=BusiConstant.shikemobilepath %>/common/js/uploadimage.js"></script>
 
     <script>
@@ -232,7 +233,7 @@
         });
     }
 </script>
-<header class="header acct-top"><i class="arrows" onclick="location.href = &#39;/JpinShopissue/List&#39; "></i>我的免费试用</header>
+<header class="header acct-top"><i class="arrows" onclick="location.href = &#39;<%=BusiConstant.shike_wdhd.getKey() %>&#39; "></i>我的免费试用</header>
 <div style="height: 2rem;"></div>
 <div class="freeapp">
     <div class="printapp">
@@ -327,8 +328,8 @@
                 <div class="owndd zt-red-btn" onclick="submitForm() ">
                     提交试用报告
                 </div>
-                <br>
-                <div class="oo countdown" endtime="2018/9/29 20:39:50">08天06时49分后将自动取消资格</div>
+                <br><%--
+                <div class="oo countdown" endtime="2018/9/29 20:39:50">08天06时49分后将自动取消资格</div>--%>
         </div>
     </div>
     <input type="hidden" name="sk_id" value="0">
@@ -369,28 +370,32 @@
         确定
     </div>
 </script>--%>
-        <div style="display: none"><script src="<%=BusiConstant.shikemobilepath %>/liucheng/haop/z_stat.php" language="JavaScript"></script><script src="<%=BusiConstant.shikemobilepath %>/liucheng/haop/core.php" charset="utf-8" type="text/javascript"></script><a href="http://www.cnzz.com/stat/website.php?web_id=1264685315" target="_blank" title="站长统计">站长统计</a></div>
-   
-    <div id="loading" class="loading">
+<div style="display: none">
+    <script src="<%=BusiConstant.shikemobilepath %>/common/z_stat.php" language="JavaScript"></script>
+    <script src="<%=BusiConstant.shikemobilepath %>/common/core.php" charset="utf-8"
+            type="text/javascript"></script>
+
+<div id="loading" class="loading">
     <div class="loadingContent">
-        <img src="<%=BusiConstant.shikemobilepath %>/liucheng/haop/loading.gif">
+        <img src="<%=BusiConstant.shikemobilepath %>/common/images/loading.gif">
     </div>
 </div>
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/haop/jquery.form.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/haop/Validform_v5.3.2.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/jquery.form.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/haop/post.loading.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/Validform_v5.3.2.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/haop/layer.m.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/post.loading.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/haop/layerdialog.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/layer.m.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/haop/jquery.cookie.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/layerdialog.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/haop/browser.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/jquery.cookie.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/haop/app.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/browser.js"></script>
+
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/app.js"></script>
 
 
 <form action="http://m.meilipa.com/CommonBase/UploadPic?compressType=2" method="post"><input type="file" accept="image/*;" name="file" style="display:none" multiple="multiple"></form><form action="http://m.meilipa.com/CommonBase/UploadPic?compressType=2" method="post"><input type="file" accept="image/*;" name="file" style="display:none" multiple="multiple"></form><form action="http://m.meilipa.com/CommonBase/UploadPic?compressType=2" method="post"><input type="file" accept="image/*;" name="file" style="display:none" multiple="multiple"></form><form action="http://m.meilipa.com/CommonBase/UploadPic?compressType=2" method="post"><input type="file" accept="image/*;" name="file" style="display:none" multiple="multiple"></form></body></html>
