@@ -179,6 +179,14 @@
 		<if test="salePrice != null">			
 			and sale_price = #{salePrice}			
 		</if>
+		<if test="lessSalePrice != null">
+			<![CDATA[
+			and sale_price <= #{lessSalePrice}
+			]]>
+		</if>
+		<if test="bigSalePrice != null">
+			and sale_price >= #{bigSalePrice}
+		</if>
 		<if test="jiangli != null">			
 			and jiangli = #{jiangli}			
 		</if>
@@ -225,6 +233,9 @@
 			<![CDATA[		
 			and start_time <= #{lessStartTime}		
 			]]>		
+		</if>
+		<if test="bigStartTime != null">
+			and start_time >= #{bigStartTime}
 		</if>
 		<if test="startTime != null">			
 			and start_time = #{startTime}			

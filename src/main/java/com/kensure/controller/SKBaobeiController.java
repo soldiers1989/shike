@@ -160,6 +160,9 @@ public class SKBaobeiController {
 		JSONObject json = RequestUtils.paramToJson(req);
 		Integer typeid = json.getInteger("typeid");
 		String title = json.getString("title");
+		String minprice = json.getString("minprice");
+		String maxprice = json.getString("maxprice");
+		String bigStartTime = json.getString("bigStartTime");
 		String order = json.getString("order");
 		String sort = json.getString("sort");
 
@@ -180,7 +183,7 @@ public class SKBaobeiController {
 		} else {
 			sort = "asc";
 		}
-		List<SKBaobei> list = sKBaobeiService.getSKList(typeid, title, order, sort);
+		List<SKBaobei> list = sKBaobeiService.getSKList(typeid, title, order, sort, minprice, maxprice, bigStartTime);
 		return new ResultRowsInfo(list);
 	}
 

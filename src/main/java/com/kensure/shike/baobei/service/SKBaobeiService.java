@@ -420,14 +420,26 @@ public class SKBaobeiService extends JSBaseService {
 	 * 
 	 * @return
 	 */
-	public List<SKBaobei> getSKList(Integer typeid, String title, String order, String sort) {
+	public List<SKBaobei> getSKList(Integer typeid, String title, String order, String sort,
+									String minprice, String maxprice, String bigStartTime) {
 		Date start = new Date();
-		Map<String, Object> parameters = MapUtils.genMap("is_del", 0,"lessStartTime",start, "status", 9);
+		Map<String, Object> parameters = MapUtils.genMap("is_del",
+				0,"lessStartTime",start,
+				"status", 9);
 		if (typeid != null) {
 			parameters.put("typeid", typeid);
 		}
 		if (StringUtils.isNotBlank(title)) {
 			parameters.put("titleLike", title);
+		}
+		if (StringUtils.isNotBlank(maxprice)) {
+			parameters.put("lessSalePrice", maxprice);
+		}
+		if (StringUtils.isNotBlank(minprice)) {
+			parameters.put("bigSalePrice", minprice);
+		}
+		if (StringUtils.isNotBlank(bigStartTime)) {
+			parameters.put("bigStartTime", bigStartTime);
 		}
 		if (StringUtils.isNotBlank(order)) {
 			parameters.put("orderby", order + " " + sort);
