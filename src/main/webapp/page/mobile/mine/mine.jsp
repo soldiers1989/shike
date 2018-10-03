@@ -129,10 +129,10 @@
     </div>
     <div class="h23">
         <div class="usera-index-footer" onclick="location.href = &#39;<%=BusiConstant.shike_yue.getKey() %>&#39;;">
-            <p>余额</p>：<p class="maney">${yue.yue }</p>
+            <p>余额</p>：<p class="maney">${empty yue ? "0.00" : yue.yue }</p>
         </div>
         <div class="usera-index-footer" onclick="jinbi()">
-            <p>金币</p>：<p class="maney">${yue.jinbi }</p>
+            <p>金币</p>：<p class="maney">${empty yue  ? "0.00" : yue.jinbi }</p>
         </div>
     </div>
 </div><%--

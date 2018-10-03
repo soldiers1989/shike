@@ -209,7 +209,6 @@
     <div class="jp-hd">
         <a href="#">
             <i class="iconfont icon-xianshangchongzhi" style="font-size: 0.89rem;color: #a5a5a5;"></i>
-            
         </a>
         <div>
             <input placeholder="搜索你喜欢的宝贝" type="text" class="search-input">

@@ -261,7 +261,7 @@
                     "        </div>";
             }else if(row.status == 21){
                 btn = "        <div class=\"jp-btn clearfix\">\n" +
-                "           每日10点、15点、20点抽奖 <a href=\"javascript:void(1);\" class=\"black\" >等待抽奖</a>\n" +
+                "           每日10点、15点、20点抽奖 <a href=\"javascript:void(1);\" class=\"gray\" >等待抽奖</a>\n" +
                 "            <a href=\"javascript:void(1);\" class=\"black\" onclick=\"Feedback("+ row.bbid +")\">反馈问题</a>\n" +
                 "        </div>";
         	}else if(row.status == 51){
@@ -275,7 +275,7 @@
 
                 btn = "        <div class=\"jp-btn clearfix\">\n" +
                     "           <span class=\"time\">"+ time +"</span>可提交评论 " +
-                    "            <a href=\"javascript:void(1);\" class=\"black\">等待收货</a>\n" +
+                    "            <a href=\"javascript:void(1);\" class=\"gray\">等待收货</a>\n" +
                     "            <a href=\"javascript:void(1);\" class=\"black\" onclick=\"Feedback("+ row.bbid +")\">反馈问题</a>\n" +
                     "        </div>";
             }else if(row.status == 71){
@@ -292,7 +292,12 @@
 
                 btn = "        <div class=\"jp-btn clearfix\">\n" +
                     "           <span class=\"time\">"+ time +"</span>将自动返还用户担保金 " +
-                    "            <a href=\"javascript:void(1);\" class=\"black\" >等待返款</a>\n" +
+                    "            <a href=\"javascript:void(1);\" class=\"gray\" >等待返款</a>\n" +
+                    "            <a href=\"javascript:void(1);\" class=\"black\" onclick=\"Feedback("+ row.bbid +")\">反馈问题</a>\n" +
+                    "        </div>";
+            }else if(row.status == 99){
+                btn = "        <div class=\"jp-btn clearfix\">\n" +
+                    "            <a href=\"javascript:void(1);\" class=\"gray\" >已返款</a>\n" +
                     "            <a href=\"javascript:void(1);\" class=\"black\" onclick=\"Feedback("+ row.bbid +")\">反馈问题</a>\n" +
                     "        </div>";
             }
@@ -320,23 +325,6 @@
                 btn +
                 "    </dd>";
 
-            // var metname = "dothing("+row.baobei.id+","+row.status+")";
-            // if(row.status<21){
-            //     var btname = "继续申请";
-            //     html+="<div class='aui-artificial4' onclick='"+metname+"' >"+btname+"</div>";
-            // }else if(row.status == 51){
-            //     var btname = "提交订单";
-            //     html+="<div class='aui-artificial4' onclick='"+metname+"' >"+btname+"</div>";
-            // }else if(row.status == 61){
-            //     var btname = "等待收货";
-            //     html+="<div class='aui-artificial5' >"+btname+"</div>";
-            // }else if(row.status == 71){
-            //     var btname = "提交好评";
-            //     html+="<div class='aui-artificial4' onclick='"+metname+"' >"+btname+"</div>";
-            // } else if(row.status == 81){
-            //     var btname = "等待返款";
-            //     html+="<div class='aui-artificial5' >"+btname+"</div>";
-            // }
             $("#list").append(html);
         }
     }
@@ -405,7 +393,7 @@
         <li class="<c:if test="${status == '51'}">act</c:if>"><a href="<%=BusiConstant.shike_wdhd.getKey() %>?status=51">中奖了</a></li>
         <%--<li class=""><a href="http://aa/JPinShopIssue/List?type=5">可恢复<span>0</span></a></li>--%>
         <li class="<c:if test="${status == '99'}">act</c:if>"><a href="<%=BusiConstant.shike_wdhd.getKey() %>?status=99">已返款</a></li>
-        <li class="<c:if test="${status == '-2'}">act</c:if>"><a href="<%=BusiConstant.shike_wdhd.getKey() %>?status=-2">已取消</a></li>
+        <%--<li class="<c:if test="${status == '-2'}">act</c:if>"><a href="<%=BusiConstant.shike_wdhd.getKey() %>?status=-2">已取消</a></li>--%>
         <%--<li class=""><a href="http://aa/JPinShopIssue/List?type=4">已取消</a>--%>
         </li>
     </ul>

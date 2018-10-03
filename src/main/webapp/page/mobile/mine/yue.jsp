@@ -76,7 +76,11 @@
         // } else {
         //     location.href = '/UserAccount/MoneyDrawApply';
         // }
-        location.href = '<%=BusiConstant.shike_tixian.getKey() %>';
+        if ('${yue.yue}' == '' || parseInt(${yue.yue}) == 0) {
+            myAlert("余额为0，不可提现!");
+        } else {
+            location.href = '<%=BusiConstant.shike_tixian.getKey() %>';
+        }
     }
 </script>
 <style>
@@ -101,7 +105,7 @@
 <div class="zangh">
     可用余额
     <div>
-        <em>¥ </em>${yue.yue}
+        <em>¥ </em>${empty yue ? "0.00" : yue.yue}
     </div>
 </div>
 <div class="tx-list" onclick="drawApply()">
@@ -116,9 +120,11 @@
         <div style="height:2.15rem;">
         </div>
         <jsp:include page="../common/footer.jsp" flush="true"/>
-        <div style="display: none"><script src="<%=BusiConstant.shikemobilepath %>/common/js/z_stat.php" language="JavaScript"></script><script src="<%=BusiConstant.shikemobilepath %>/common/js/core.php" charset="utf-8" type="text/javascript"></script><a href="http://www.cnzz.com/stat/website.php?web_id=1264685315" target="_blank" title="站长统计">站长统计</a></div>
-   
-    <div id="loading" class="loading">
+<div style="display: none">
+    <script src="<%=BusiConstant.shikemobilepath %>/common/z_stat.php" language="JavaScript"></script>
+    <script src="<%=BusiConstant.shikemobilepath %>/common/core.php" charset="utf-8" type="text/javascript"></script>
+
+<div id="loading" class="loading">
     <div class="loadingContent">
         <img src="<%=BusiConstant.shikemobilepath %>/common/images/loading.gif">
     </div>
