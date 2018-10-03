@@ -32,6 +32,7 @@ import co.kensure.mem.MapUtils;
 import com.kensure.basekey.BaseKeyService;
 import com.kensure.shike.baobei.dao.SKSkqkDao;
 import com.kensure.shike.baobei.model.SKBaobei;
+import com.kensure.shike.baobei.model.SKJysj;
 import com.kensure.shike.baobei.model.SKSkqk;
 import com.kensure.shike.user.model.SKUser;
 import com.kensure.shike.user.service.SKUserService;
@@ -64,6 +65,10 @@ public class SKSkqkService extends JSBaseService {
 
 	@Resource
 	private SKUserZhangService sKUserZhangService;
+	
+	@Resource
+	private SKJysjService sKJysjService;
+
 
 	public SKSkqk selectOne(Long id) {
 		return dao.selectOne(id);
@@ -175,7 +180,12 @@ public class SKSkqkService extends JSBaseService {
 	// 获取宝贝试用情况，是给商家展现的
 	public List<SKSkqk> getSkqkList(long bbid) {
 		Map<String, Object> parameters = MapUtils.genMap("bbid", bbid, "bigthanstatus", 81);
-		return selectByWhere(parameters);
+		List<SKSkqk> list = selectByWhere(parameters);
+		for(SKSkqk skskqk:list){		
+			List<SKJysj> jylist = sKJysjService.selectByBbidAndUserid(skskqk.getBbid(), skskqk.getUserid());
+			skskqk.setJylist(jylist);
+		}		
+		return list;
 	}
 
 	
@@ -207,7 +217,7 @@ public class SKSkqkService extends JSBaseService {
 			}
 			// 任务计数
 			if (qk == null || qk.getStatus() < 1) {
-				sKBbrwService.shenqing(baobei.getId());
+				sKBbrwService.shenqing(baobei.getId(),baobei.getHdtypeid());
 			}
 			// 插入试客情况
 			if (qk == null) {
@@ -320,10 +330,14 @@ public class SKSkqkService extends JSBaseService {
 			}
 		} catch (Exception e) {
 			BusinessExceptionUtil.threwException(e);
-			;
 		}
 	}
 
+//	/**
+//	 * 试客返款的时候，增加的队列,防止重复返款
+//	 */
+//	private Map<String,String> fankuanqk = new HashMap<String, String>();
+	
 	/**
 	 * 确认返款，进行余额流水增加
 	 * 
@@ -331,14 +345,15 @@ public class SKSkqkService extends JSBaseService {
 	 */
 	public void userMoney(long id) {
 		SKSkqk obj = selectOne(id);
-
+		if(obj.getStatus() != 81){
+			BusinessExceptionUtil.threwException("无法返款");
+		}
 		SKUserZhang zhang = new SKUserZhang();
 		zhang.setUserid(obj.getUserid());
 		zhang.setBusiid(id);
 		zhang.setBusitypeid(4L);
 		zhang.setYue(obj.getSalePrice());
 		sKUserZhangService.add(zhang);
-
 		obj.setStatus(99L);
 		update(obj);
 	}

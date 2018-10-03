@@ -122,8 +122,7 @@
         <div class="right_contant table-style">
          
             <table width="996" cellspacing="0" cellpadding="0" id="listtable">
-                <tbody><tr>
-                    
+                <tbody><tr>                 
                     <td width="270" height="33" valign="middle" bgcolor="#f5f5f5" style="text-align: center;">
                         <strong>活动名称</strong>
                     </td>
@@ -153,7 +152,6 @@
 <script>
 	function sucdo(data){
 		var rows = data.resultData.rows;
-		$("#listtable").html("");
 		if(rows){		
 			for(var i=0;i<rows.length;i++){
 				var row = rows[i];
@@ -177,6 +175,8 @@
                 +"</td>" 
                 +" <td height=\"100\" valign=\"middle\" align=\"center\" width=\"150\">" 
                 +"     <em style=\"color: #f25f55\">"+row.statusStr+"</em>" 
+                +"     <em style=\"color: #f25f55\">宝贝中奖情况:"+row.zjnum+"/"+row.bbnum+",共申请"+row.ysqnum+"</em>" 
+                
                 +"  </td>" 
                 +" <td height=\"100\" align=\"center\" width=\"200\">" 
                 +"    <div class=\"wae_cer\">";

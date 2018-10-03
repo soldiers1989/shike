@@ -182,7 +182,7 @@ public class SKBaobeiService extends JSBaseService {
 
 		// 任务初始化
 		List<SKBbrw> rws = obj.getBbrwlist();
-		sKBbrwService.initData(rws);
+		sKBbrwService.initData(rws,obj.getHdtypeid());
 		Long bbnum = 0L;
 		Long sqnum = 0L;
 		Date starttime = null;
@@ -199,6 +199,8 @@ public class SKBaobeiService extends JSBaseService {
 		obj.setEndTime(endtime);
 		obj.setBbnum(bbnum);
 		obj.setSqnum(sqnum);
+		//校验金额
+		checkMoney(obj);
 		insert(obj);
 
 		// 任务保存
@@ -247,6 +249,10 @@ public class SKBaobeiService extends JSBaseService {
 		return true;
 	}
 
+	/**
+	 * 检验基本数据
+	 * @param obj
+	 */
 	private void invalid(SKBaobei obj) {
 		ParamUtils.isBlankThrewException(obj.getTitle(), "标题不能为空");
 		ParamUtils.isBlankThrewException(obj.getDpid(), "店铺不能为空");
@@ -259,6 +265,52 @@ public class SKBaobeiService extends JSBaseService {
 			BusinessExceptionUtil.threwException("价格必须大于1");
 		}
 		ParamUtils.isBlankThrewException(obj.getTitle(), "标题不能为空");
+	}
+	
+	/**
+	 * 检验金额
+	 * @param obj
+	 */
+	private void checkMoney(SKBaobei obj) {
+		Long hdtypeid = obj.getHdtypeid();
+		Double salePrice = obj.getSalePrice();
+		Long bbnum = obj.getBbnum();
+		if(hdtypeid == 1 || hdtypeid == 2){
+//			爆款打造
+//			效果建议投放单期总份数：
+//			小于50元客单（0-50元）≥20份
+//			50-100元客单≥10份
+//			100-300元客单≥5份
+//			高于300元客单≥1份
+			if(salePrice<50){
+				if(bbnum<20){
+					BusinessExceptionUtil.threwException("小于50元客单（0-50元）≥20份");
+				}
+			}else if(salePrice<100){
+				if(bbnum<10){
+					BusinessExceptionUtil.threwException("50-100元客单≥10份");
+				}
+			}else if(salePrice<300){
+				if(bbnum<5){
+					BusinessExceptionUtil.threwException("100-300元客单≥5份");
+				}
+			}else{
+				if(bbnum<1){
+					BusinessExceptionUtil.threwException("高于300元客单≥1份");
+				}
+			}
+		}else if(hdtypeid == 3){
+			if(salePrice<300){
+				BusinessExceptionUtil.threwException("高于300元客单≥1份");
+			}else if(bbnum<1){
+				BusinessExceptionUtil.threwException("高于300元客单≥1份");
+			}
+		}else if(hdtypeid == 3){
+			double jine = salePrice*bbnum;
+			if(jine<500){
+				BusinessExceptionUtil.threwException("总货值不低于500元");
+			}
+		}
 	}
 
 	/**
@@ -369,7 +421,8 @@ public class SKBaobeiService extends JSBaseService {
 	 * @return
 	 */
 	public List<SKBaobei> getSKList(Integer typeid, String title, String order, String sort) {
-		Map<String, Object> parameters = MapUtils.genMap("is_del", 0, "status", 9);
+		Date start = new Date();
+		Map<String, Object> parameters = MapUtils.genMap("is_del", 0,"lessStartTime",start, "status", 9);
 		if (typeid != null) {
 			parameters.put("typeid", typeid);
 		}

@@ -301,6 +301,18 @@ public class SKBaobeiController {
 		sKBaobeiService.endBaobei();
 		return new ResultRowInfo();
 	}
+	
+	/**
+	 * 商家确认返款
+	 */
+	@ResponseBody
+	@RequestMapping(value = "fankuan.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	public ResultInfo fankuan(HttpServletRequest req, HttpServletResponse rep) {
+		JSONObject json = RequestUtils.paramToJson(req);
+		Long id = json.getLong("id");
+		sKSkqkService.userMoney(id);
+		return new ResultRowInfo();
+	}
 
 	/**
 	 * 我的活动列表

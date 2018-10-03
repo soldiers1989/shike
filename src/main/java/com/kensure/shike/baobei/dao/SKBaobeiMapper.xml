@@ -33,6 +33,7 @@
 		huabei,
 		shaitu,
 		wangwang,
+		zjnum,
 		created_time as createdTime,
 		updated_time as updatedTime
     </sql>
@@ -68,6 +69,7 @@
 		huabei,
 		shaitu,
 		wangwang,
+		zjnum,
 		created_time,
 		updated_time
     </sql>
@@ -105,6 +107,7 @@
 			#{huabei},
 			#{shaitu},
 			#{wangwang},
+			#{zjnum},
 			#{createdTime},
 			#{updatedTime}
 		)
@@ -144,6 +147,7 @@
 				#{item.huabei},
 				#{item.shaitu},
 				#{item.wangwang},
+				#{item.zjnum},
 				#{item.createdTime},
 				#{item.updatedTime}
 			)
@@ -217,6 +221,11 @@
 		<if test="hdtypeid != null">			
 			and hdtypeid = #{hdtypeid}			
 		</if>
+		<if test="lessStartTime != null">			
+			<![CDATA[		
+			and start_time <= #{bigEndTime}		
+			]]>		
+		</if>
 		<if test="startTime != null">			
 			and start_time = #{startTime}			
 		</if>
@@ -250,6 +259,10 @@
 		<if test="updatedTime != null">			
 			and updated_time = #{updatedTime}			
 		</if>
+		<if test="zjnum != null">			
+			and zjnum = #{zjnum}			
+		</if>
+		
 	</sql>
     
 	<select id="selectOne" resultType="com.kensure.shike.baobei.model.SKBaobei" parameterType="Long" >
@@ -387,6 +400,9 @@
 		<if test="updatedTime != null">
 			updated_time = #{updatedTime}
 		</if>
+		<if test="zjnum != null">
+			zjnum = #{zjnum}
+		</if>		
 	</sql>
 	
 	<update id="update" parameterType="com.kensure.shike.baobei.model.SKBaobei">

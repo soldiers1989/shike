@@ -83,6 +83,12 @@ public class SKBbrwService extends JSBaseService {
 		obj.setId(baseKeyService.getKey("sk_bbrw"));
 		obj.setStatus(1L);
 		obj.setYsqnum(0L);
+		if(obj.getBbnum() == null){
+			obj.setBbnum(0L);
+		}
+		if(obj.getZhuanhua() == null){
+			obj.setZhuanhua("0");
+		}
 		obj.setYzj(0L);
 		return dao.insert(obj);
 	}
@@ -92,7 +98,7 @@ public class SKBbrwService extends JSBaseService {
 	 * 
 	 * @param obj
 	 */
-	public void initData(List<SKBbrw> rws) {
+	public void initData(List<SKBbrw> rws,Long hdtypeid) {
 		Date date = new Date();
 		Date now = DateUtils.parse(DateUtils.format(date,DateUtils.DAY_FORMAT), DateUtils.DAY_FORMAT);
 		for (SKBbrw obj : rws) {
@@ -101,6 +107,14 @@ public class SKBbrwService extends JSBaseService {
 				BusinessExceptionUtil.threwException("时间不能早于今天");
 			}
 			int zhuanhua = NumberUtils.parseInteger(obj.getZhuanhua(), 0);
+			//立即申请，没有预热，每天必须有数量，转化率为100
+			if(hdtypeid == 4){
+				zhuanhua = 100;
+			}
+			if(obj.getBbnum() > 0){
+				BusinessExceptionUtil.threwException("必中任务，每天必须有投放量");
+			}
+			
 			long sqnum = 0;
 			if(zhuanhua != 0){
 				sqnum = obj.getBbnum() * 100 / zhuanhua;
@@ -142,14 +156,13 @@ public class SKBbrwService extends JSBaseService {
 	 * 
 	 * @param bbid
 	 */
-	public void shenqing(Long bbid) {
+	public void shenqing(Long bbid,Long hdtypeid) {
 		List<SKBbrw> list = getList(bbid);
 		if (CollectionUtils.isEmpty(list)) {
 			BusinessExceptionUtil.threwException("宝贝今天没有任务");
 		}
-
 		SKBbrw rw = list.get(0);
-		if (rw.getSqnum() > 0 &&rw.getSqnum() <= rw.getYsqnum()) {
+		if (rw.getSqnum() > 0 && rw.getSqnum() <= rw.getYsqnum()) {
 			BusinessExceptionUtil.threwException("宝贝今天已经申请完了");
 		}
 		Map<String, Object> params = MapUtils.genMap("id", rw.getId(), "ysqnumAdd", 1);
@@ -233,6 +246,9 @@ public class SKBbrwService extends JSBaseService {
 			cjsl = bbnum - yzj;
 		} else {
 			cjsl = (bbnum - yzj) / 2;
+		}
+		if(cjsl == 0){
+			return;
 		}
 
 		List<SKSkqk> list = sKSkqkService.getDengChouJiang(bbid);

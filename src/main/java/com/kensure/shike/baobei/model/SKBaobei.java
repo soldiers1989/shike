@@ -67,6 +67,9 @@ public class SKBaobei extends BaseInfo {
 	/** 已经申请数量 */
 	private Long ysqnum;
 	
+	/** 中奖数量 */
+	private Long zjnum;
+	
 	/** 已经中奖人数 */
 	private Long yzj;
 	
@@ -459,5 +462,12 @@ public class SKBaobei extends BaseInfo {
 		return StringKSUtils.doMedDouble(dpname);
 	}
 
+	public Long getZjnum() {
+		return zjnum;
+	}
+
+	public void setZjnum(Long zjnum) {
+		this.zjnum = zjnum;
+	}
 	
 }

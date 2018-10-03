@@ -25,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 import co.kensure.exception.BusinessExceptionUtil;
 import co.kensure.frame.JSBaseService;
 import co.kensure.mem.CollectionUtils;
+import co.kensure.mem.MapUtils;
 
 import com.kensure.basekey.BaseKeyService;
 import com.kensure.shike.baobei.dao.SKJysjDao;
@@ -123,6 +124,18 @@ public class SKJysjService extends JSBaseService{
 		}
 		return true;
 	}
+    
+    /**
+     * 获取宝贝下用户的校验数据
+     * @param parameters
+     * @return
+     */
+    public List<SKJysj> selectByBbidAndUserid(Long bbid,Long userid){
+    	Map<String, Object> parameters = MapUtils.genMap("bbid",bbid,"userid",userid,"orderby","created_time desc");
+		List<SKJysj> list = selectByWhere(parameters);
+		return list;
+	}
+    
     
     /**
      * 组装和校验数据

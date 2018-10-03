@@ -11,7 +11,9 @@
  */
 package com.kensure.shike.baobei.model;
 
-import co.kensure.frame.BaseInfo;;
+import java.util.List;
+
+import co.kensure.frame.BaseInfo;
 
 /**
  * 试客情况表对象类
@@ -34,7 +36,7 @@ public class SKSkqk extends BaseInfo{
 	/**用户id*/	
 	private Long userid; 
 
-	/**1是开始,-1是手动取消,-2是自动取消,11是货比三家，21是收藏关注加购物车宝贝,51是中奖，61是确认宝贝、提交付款订单，71反馈好评晒图,99是完成任务*/		
+	/**0是未中奖,1是开始,-1是手动取消,-2是自动取消,11是货比三家，18是加购物车宝贝  21是收藏关注,51是中奖，61是确认宝贝、提交付款订单，71收到货了， 81反馈好评晒图,99是完成任务*/		
 	private Long status; 
 
 	/**status最后为正值的状态*/		
@@ -57,6 +59,9 @@ public class SKSkqk extends BaseInfo{
 	
 	/**淘宝账号*/		
 	private String noTaobao; 
+	
+	/**校验数据*/		
+	private List<SKJysj> jylist; 
 
 	public Long getId() {
 		return id;
@@ -145,5 +150,22 @@ public class SKSkqk extends BaseInfo{
 	public void setNoTaobao(String noTaobao) {
 		this.noTaobao = noTaobao;
 	}
+
+	public List<SKJysj> getJylist() {
+		return jylist;
+	}
+
+	public void setJylist(List<SKJysj> jylist) {
+		this.jylist = jylist;
+	}
 	
+	public String getStatusStr() {
+		String temp = "";
+		if(81 == this.status){
+			temp = "已经好评";
+		}else if(99 == this.status){
+			temp = "已经返款";
+		}
+		return temp;
+	}
 }

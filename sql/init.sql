@@ -61,7 +61,7 @@ CREATE TABLE `sk_user` (
   `updated_time` datetime NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`),
   KEY `idx_sk_user_referee_id` (`referee_id`)
-) ;
+);
 
 -- 角色表
 CREATE TABLE `sk_role` (
@@ -121,6 +121,8 @@ CREATE TABLE `sk_user_zhang` (
   PRIMARY KEY (`id`)
 ) ;
 
+CREATE UNIQUE INDEX sk_user_zhang_uni ON sk_user_zhang(userid,busiid,busitypeid,inorout); 
+
 -- 用用户余额和金币流水帐，明细
 CREATE TABLE `sk_user_zhang_detail` (
   `id` bigint(20) NOT NULL ,
@@ -162,6 +164,7 @@ CREATE TABLE `sk_baobei` (
   `sale_price` decimal(10,2) DEFAULT NULL COMMENT '宝贝单价',
   `jiangli` decimal(10,2) DEFAULT NULL COMMENT '宝贝奖励', 
   `bbnum` bigint(20) DEFAULT NULL COMMENT '宝贝数量',
+  `zjnum` bigint(20) DEFAULT NULL COMMENT '中奖数量',
   `sqnum` bigint(20) DEFAULT NULL COMMENT '申请数量',
   `ysqnum` bigint(20) DEFAULT NULL COMMENT '已申请数量',
   `zhuanhua` varchar(16) DEFAULT NULL COMMENT '转换率',
@@ -256,7 +259,7 @@ CREATE TABLE `sk_jysj` (
   `userid` bigint(20) NOT NULL COMMENT '用户id',
   `status` int(11) DEFAULT NULL COMMENT '这个和sk_sqqk中对应',
   `typeid` int(11) DEFAULT NULL COMMENT '1是淘口令，2是名字，3是图片路径',
-  `busitype` varchar(16) DEFAULT NULL COMMENT '业务类型，比如dpm 店铺名称,tkl 淘口令,sc:是收藏图片，gz:关注图片,dd：订单，ddh：订单号，hpy：好评，hp：好评图片',
+  `busitype` varchar(16) DEFAULT NULL COMMENT '业务类型，比如dpm 店铺名称,tkl 淘口令,sc:是收藏图片，gz:关注图片,dd：订单图片，ddh：订单号，hpy：好评，hp：好评图片',
   `content` varchar(2000) DEFAULT NULL COMMENT '具体口令、名称、图片路径',
   `created_time` datetime NOT NULL COMMENT '创建时间',
   `updated_time` datetime NOT NULL COMMENT '更新时间',

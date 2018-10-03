@@ -130,7 +130,7 @@ public class SKDianPuService extends JSBaseService {
 		SKRole role = sKRoleService.selectRoleByCode(user.getLevelCode());
 		List<SKDianPu> dianpulist = selectByUserId(user.getId());
 		if (role.getDianpushu() <= CollectionUtils.getSize(dianpulist)) {
-			BusinessExceptionUtil.threwException("店铺数超过上限，请联系客户升级会员");
+			BusinessExceptionUtil.threwException("店铺数超过上限，请联系客服升级会员");
 		}
 
 		insert(obj);

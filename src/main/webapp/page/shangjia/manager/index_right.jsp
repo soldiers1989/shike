@@ -534,18 +534,44 @@
 	   for(var i=0;i<21;i++){
 		   $("#week"+""+i).html("");
 	   }
-	   
+	   var hdtypeid = $(".jp-watch dt.act").index()+1;
 	   var bday = begindate.getDay();
 	   for(var i=0;i<days;i++){
 		  var tempday = dayadd(begindate,i);
 		  var daystr = tempday.Format("yyyy-MM-dd");
-		  var hml = "<input type='text' readonly='readonly' style='width:100px;' id='shijian"+i+"' value='"+daystr+"'/><br>投放份数:<input type='text' style='width:50px;' id='fenshu"+i+"' value='1'/><br>转化率:<input type='text' style='width:50px;' id='zhuanhua"+i+"' value='0'/>%";
-		  $("#week"+""+bday).html(hml);
+		  var dd = tempday.Format("dd");
+		  var dayhtml = "<input type='hidden' id='shijian"+i+"' value='"+daystr+"'/>";
+		  var fenshu = "<input type='text' id='fenshu"+i+"' name='name' class='day-num' onchange='countAll();' value='1'>";
+		  var zhuanhua = "<input type='text' id='zhuanhua"+i+"' name='name' class='day-num1' value='0'  maxlength='2'>";
+		  var html = "<div class='date-con'><h3>"+dd+dayhtml+"</h3><i class='iconfont icon-going'></i><h2>活动预热</h2></div>";
+		  var html1 = "<div class='date-con'><h3>"+dd+dayhtml+"</h3><p><label>发放份数：</label>"+fenshu+"</p><p><label>日转化率：</label>"+zhuanhua+"<span>%</span></p></div>";
+		  if(i == 0){
+			  if(hdtypeid == 4){
+				  $("#week"+bday).html(html1);
+			  }else{
+				  $("#week"+bday).html(html);
+			  }		  
+		  }else{
+			  $("#week"+bday).html(html1);
+		  }		  
 		  bday++;
 	   }  
+	   countAll();
    }
    
    getDays();
+   
+   
+   function countAll(){
+	   var ct = 0;
+	   for(var i=0;i<21;i++){
+		  var fenshu = $("#fenshu"+i); 
+		  if(fenshu && fenshu.val()){
+			  ct += parseInt(fenshu.val());
+		  }
+	   }
+	   $("#all-num").html(ct);
+   }
    
    function convertDateFromString(dateString) { 
 	   if (dateString) { 
