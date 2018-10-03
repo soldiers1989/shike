@@ -223,7 +223,7 @@
 		</if>
 		<if test="lessStartTime != null">			
 			<![CDATA[		
-			and start_time <= #{bigEndTime}		
+			and start_time <= #{lessStartTime}		
 			]]>		
 		</if>
 		<if test="startTime != null">			

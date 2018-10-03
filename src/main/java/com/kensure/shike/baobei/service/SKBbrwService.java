@@ -106,15 +106,18 @@ public class SKBbrwService extends JSBaseService {
 			if(day.getTime() < now.getTime()){
 				BusinessExceptionUtil.threwException("时间不能早于今天");
 			}
+			if(obj.getBbnum() == null){
+				obj.setBbnum(0L);
+			}
 			int zhuanhua = NumberUtils.parseInteger(obj.getZhuanhua(), 0);
 			//立即申请，没有预热，每天必须有数量，转化率为100
 			if(hdtypeid == 4){
 				zhuanhua = 100;
+				if(obj.getBbnum() > 0){
+					BusinessExceptionUtil.threwException("必中任务，每天必须有投放量");
+				}
 			}
-			if(obj.getBbnum() > 0){
-				BusinessExceptionUtil.threwException("必中任务，每天必须有投放量");
-			}
-			
+				
 			long sqnum = 0;
 			if(zhuanhua != 0){
 				sqnum = obj.getBbnum() * 100 / zhuanhua;
