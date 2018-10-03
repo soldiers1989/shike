@@ -263,6 +263,18 @@ public class SKBaobeiController {
 	}
 
 	/**
+	 * 删除申请
+	 */
+	@ResponseBody
+	@RequestMapping(value = "deletesq.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	public ResultInfo deleteSq(HttpServletRequest req, HttpServletResponse rep) {
+		JSONObject json = RequestUtils.paramToJson(req);
+		Long id = json.getLong("id");
+		sKSkqkService.delete(id);
+		return new ResultInfo();
+	}
+
+	/**
 	 * 抽奖ces
 	 */
 	@ResponseBody

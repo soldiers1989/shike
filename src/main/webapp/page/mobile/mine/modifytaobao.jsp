@@ -8,7 +8,7 @@
     
     <title>绑定淘宝账号</title>
     <meta name="keywords" content="<%=BusiConstant.keywords %>">
-    <meta name="description" content="<%=BusiConstant.description %>"
+    <meta name="description" content="<%=BusiConstant.description %>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <meta name="format-detection" content="telephone=no">
     <meta name="format-detection" content="address=no">
@@ -22,7 +22,11 @@
     <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/jquery-1.8.3.js"></script>
     <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/Common.js"></script>
 
+    <script type="text/javascript" src="<%=BusiConstant.context%>/jqtable/jquery.cookie.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.context%>/common/http.js?ver=<%=BusiConstant.version%>"></script>
+
     <script>
+        var userId=0;
         (function (doc, win) {
             var docEl = doc.documentElement,
             resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
@@ -41,14 +45,12 @@
         })(document, window);
     </script>
     
-<link href="<%=BusiConstant.shikemobilepath %>/mine/taobao/layer.css" type="text/css" rel="styleSheet" id="layermcss"></head>
+<link href="<%=BusiConstant.shikemobilepath %>/mine/modifytaobao/layer.css" type="text/css" rel="styleSheet" id="layermcss"></head>
 <body>
     
-<link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/mine/taobao/index.css">
+<link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/mine/modifytaobao/index.css">
 
-<link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/mine/taobao/regist.css">
-
-<script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/taobao/taobao.js"></script>
+<link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/mine/modifytaobao/regist.css">
 
 <script>
     var param = 0;
@@ -87,20 +89,20 @@
 <header class="header regist-top"><i class="arrows" onclick="history.back(-1) "></i>修改淘宝号</header>
 
 <div class="regist-content conent alipay" id="form">
-                <section class="clearfix">
-                    <input style="width: 100%" name="sk_taobao" onblur="inputBlur()" value="yi651312197" class="auto-input it lf" type="text" placeholder="请填写淘宝账号" datatype="*" maxlength="50">
-                <span class="Validform_checktip"></span></section>
-  
-    <%--<img src="<%=BusiConstant.shikemobilepath %>/mine/taobao/add.png" style=" height: 51px;width: 51px;text-align: center " id="addTB">--%>
+    <section class="clearfix">
+        <input id="noTaobao" style="width: 100%" name="sk_taobao" value="${user.noTaobao}"
+               class="auto-input it lf" type="text" placeholder="请填写淘宝账号" datatype="*" maxlength="50">
+        <span class="Validform_checktip"></span></section>
     <section class="auto-btn" id="PayBtnSubmit">提交</section>
 </div>
 
-        <div style="height:2.15rem;">
-        </div>
-        <jsp:include page="../common/footer.jsp" flush="true"/>
-        <div style="display: none"><script src="<%=BusiConstant.shikemobilepath %>/common/z_stat.php" language="JavaScript"></script><script src="<%=BusiConstant.shikemobilepath %>/common/core.php" charset="utf-8" type="text/javascript"></script><a href="http://www.cnzz.com/stat/website.php?web_id=1264685315" target="_blank" title="站长统计">站长统计</a></div>
-   
-    <div id="loading" class="loading">
+<div style="height:2.15rem;">
+</div>
+<jsp:include page="../common/footer.jsp" flush="true"/>
+<div style="display: none">
+    <script src="<%=BusiConstant.shikemobilepath %>/common/z_stat.php" language="JavaScript"></script>
+    <script src="<%=BusiConstant.shikemobilepath %>/common/core.php" charset="utf-8" type="text/javascript"></script>
+<div id="loading" class="loading">
     <div class="loadingContent">
         <img src="<%=BusiConstant.shikemobilepath %>/common/images/loading.gif">
     </div>
@@ -121,3 +123,37 @@
 
     <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/app.js"></script>
 </body></html>
+
+<script>
+    $(function () {
+        $("#PayBtnSubmit").click(function () {
+            var arrayTB = "";
+            if ($(".Validform_wrong").length < 1) {
+                $("[name='sk_taobao']").each(function () {
+                    arrayTB += "≌✿" + $(this).val();
+                });
+                // if (!inputBlur()) {
+                //     return;
+                // }
+                updateTabobao();
+            }
+        });
+    })
+
+    function updateTabobao(){
+        var data = {noTaobao: $("#noTaobao").val(), type: 3};
+        var url = "<%=BusiConstant.shike_user_update_do.getKey()%>";
+        postdo(url, data, huodongsucdo,null, null);
+    }
+
+    function huodongsucdo(data) {
+        if (data.type == 'success') {
+            myAlert("修改成功", function () {
+                //history.go(-1);
+                window.location.href="<%=BusiConstant.shike_zhanghu.getKey()%>";
+            });
+        } else {
+            myAlert(data.message);
+        }
+    }
+</script>

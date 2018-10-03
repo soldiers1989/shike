@@ -174,7 +174,6 @@ public class SKUserController {
 	 * 
 	 * @param req
 	 * @param rep
-	 * @param model
 	 * @return
 	 */
 	@ResponseBody
@@ -201,6 +200,47 @@ public class SKUserController {
 		// user.setYear(usertemp.getYear());
 		// user.setXb(usertemp.getXb());
 		// userInfoService.update(user);
+
+		return new ResultRowInfo();
+	}
+
+	/**
+	 * 修改用户资料
+	 */
+	@ResponseBody
+	@RequestMapping(value = "update.do", method = { RequestMethod.POST }, produces = "application/json;charset=UTF-8")
+	public ResultInfo update(HttpServletRequest req, HttpServletResponse rep) {
+
+		JSONObject json = RequestUtils.paramToJson(req);
+		String type = json.getString("type");
+
+		// 修改手机号码
+		if ("1".equals(type)) {
+			String newPhone = json.getString("newPhone");
+			String verifyCode = json.getString("verifyCode");
+			sKUserService.updatePhone(newPhone, verifyCode);
+		}
+		// 修改淘宝账号
+		else if ("2".equals(type)) {
+			String noAlipay = json.getString("noAlipay");
+			sKUserService.updateAlipay(noAlipay);
+		}
+		// 修改淘宝账号
+		else if ("3".equals(type)) {
+			String noTaobao = json.getString("noTaobao");
+			sKUserService.updateTabobao(noTaobao);
+		}
+		// 修改qq账号
+		else if ("4".equals(type)) {
+			String noQq = json.getString("noQq");
+			sKUserService.updateQq(noQq);
+		}
+		// 修改登录密码
+		else if ("5".equals(type)) {
+			String oldPassword = json.getString("oldPassword");
+			String newPassword = json.getString("newPassword");
+			sKUserService.updateLoginPwd(oldPassword, newPassword);
+		}
 
 		return new ResultRowInfo();
 	}

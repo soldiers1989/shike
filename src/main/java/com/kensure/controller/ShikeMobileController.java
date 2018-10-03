@@ -108,13 +108,49 @@ public class ShikeMobileController {
 	// 账户安全页面
 	@RequestMapping("zhanghu")
 	public String zhanghu(HttpServletRequest req, HttpServletResponse rep, Model model) {
+        SKUser user = sKUserService.getUser();
+        req.setAttribute("user", user);
 		return "page/mobile/mine/zhanghu.jsp";
 	}
 
+	// 修改手机号码页面
+	@RequestMapping("modifyphone")
+	public String modifPhone(HttpServletRequest req, HttpServletResponse rep, Model model) {
+		SKUser user = sKUserService.getUser();
+		req.setAttribute("user", user);
+		return "page/mobile/mine/modifyphone.jsp";
+	}
+
 	// 修改淘宝账号页面
-	@RequestMapping("taobao")
+	@RequestMapping("modifyalipay")
+	public String modifyAlipay(HttpServletRequest req, HttpServletResponse rep, Model model) {
+		SKUser user = sKUserService.getUser();
+		req.setAttribute("user", user);
+		return "page/mobile/mine/modifyalipay.jsp";
+	}
+
+	// 修改淘宝账号页面
+	@RequestMapping("modifytaobao")
 	public String modifyTaobao(HttpServletRequest req, HttpServletResponse rep, Model model) {
-		return "page/mobile/mine/taobao.jsp";
+		SKUser user = sKUserService.getUser();
+		req.setAttribute("user", user);
+		return "page/mobile/mine/modifytaobao.jsp";
+	}
+
+	// 修改qq账号页面
+	@RequestMapping("modifyqq")
+	public String modifyQq(HttpServletRequest req, HttpServletResponse rep, Model model) {
+		SKUser user = sKUserService.getUser();
+		req.setAttribute("user", user);
+		return "page/mobile/mine/modifyqq.jsp";
+	}
+
+	// 修改登录密码页面
+	@RequestMapping("modifyloginpwd")
+	public String loginPwd(HttpServletRequest req, HttpServletResponse rep, Model model) {
+//		SKUser user = sKUserService.getUser();
+//		req.setAttribute("user", user);
+		return "page/mobile/mine/modifyloginpwd.jsp";
 	}
 
 	// 整合流程页面

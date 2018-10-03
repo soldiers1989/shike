@@ -4,11 +4,13 @@
     String context = BusiConstant.shikemobilepath;
 %>
 <!DOCTYPE html>
-<html lang="zh" style="font-size: 22.125px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    
+<html lang="zh" style="font-size: 22.125px;">
+<head>
+
     <title>账户明细</title>
-    <meta name="keywords" content="试呗网">
-    <meta name="description" content="试呗网">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="keywords" content="<%=BusiConstant.keywords %>">
+    <meta name="description" content="<%=BusiConstant.description %>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <meta name="format-detection" content="telephone=no">
     <meta name="format-detection" content="address=no">
@@ -51,7 +53,7 @@
 
     <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/mine/mingxi/account.css">
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/mingxi/jquery.infinitescroll.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/jquery.infinitescroll.js"></script>
 
     <script type="text/javascript">
         $(function() {
@@ -123,25 +125,25 @@
    
     <div id="loading" class="loading">
     <div class="loadingContent">
-        <img src="./账户明细_files/loading.gif">
+        <img src="<%=BusiConstant.shikemobilepath %>/common/images/loading.gif">
     </div>
 </div>
 
-<script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/jquery.form.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/jquery.form.js"></script>
 
-<script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/Validform_v5.3.2.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/Validform_v5.3.2.js"></script>
 
-<script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/post.loading.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/post.loading.js"></script>
 
-<script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/layer.m.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/layer.m.js"></script>
 
-<script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/layerdialog.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/layerdialog.js"></script>
 
-<script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/jquery.cookie.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/jquery.cookie.js"></script>
 
-<script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/browser.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/browser.js"></script>
 
-<script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/app.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/app.js"></script>
 
 
 </body></html>
@@ -164,6 +166,14 @@
                 +"<p class='aui-order-fl aui-order-address'>"+row.statusStr+"</p>"
                 +"</div>";
 
+            var color;
+            if (row.status == 1) {
+                color = "#10b60f";
+            } else {
+                color = "#ff464e";
+            }
+            console.log(row.status)
+
             var html = "<div class=\"billion\" >" +
                 "        <div class=\"sbj\">\n" +
                 "            <div class=\"exactly aaaa\">\n" +
@@ -176,7 +186,7 @@
                 "            <div class=\"exactly aaaa \">\n" +
                 "                <div class=\"y l\" style=\"color: #999999\">"+ row.createdTimeStr +"</div>\n" +
                 "                <div class=\"y r\">\n" +
-                "                    <span style=\"color: #10b60f\">"+ row.statusStr +"</span>\n" +
+                "                    <span style=\"color: "+ color +"\">"+ row.statusStr +"</span>\n" +
                 "                </div>\n" +
                 "            </div>\n" +
                 "        </div>\n" +

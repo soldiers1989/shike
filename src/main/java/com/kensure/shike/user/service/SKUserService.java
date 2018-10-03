@@ -19,6 +19,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
+import com.kensure.shike.baobei.model.SKBaobei;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -364,5 +365,91 @@ public class SKUserService extends JSBaseService {
 		if (user.getType() != 1) {
 			BusinessExceptionUtil.threwException("用户权限错误");
 		}
+	}
+
+	/**
+	 * 更新手机号码
+	 * @param newPhone
+	 * @param verifyCode
+	 */
+	public void updatePhone(String newPhone, String verifyCode) {
+
+		SKUser skuser = getUser();
+		SKUserService.checkUserSK(skuser);
+
+		ParamUtils.isBlankThrewException(newPhone, "手机号码不能为空");
+		ParamUtils.isBlankThrewException(verifyCode, "验证码不能为空");
+
+        SKSms skSms = sKSmsService.selectByMobile(newPhone, 1);
+
+        ParamUtils.isErrorThrewException(skSms != null && verifyCode.equals(skSms.getQrcode()), "验证码不正确");
+
+        SKUser user = new SKUser();
+		user.setId(skuser.getId());
+		user.setPhone(newPhone);
+		update(user);
+	}
+
+	/**
+	 * 更新支付宝账号
+	 */
+	public void updateAlipay(String noAlipay) {
+		SKUser skuser = getUser();
+		SKUserService.checkUserSK(skuser);
+
+		ParamUtils.isBlankThrewException(noAlipay, "支付宝账户不能为空");
+
+		SKUser user = new SKUser();
+		user.setId(skuser.getId());
+		user.setNoAlipay(noAlipay);
+		update(user);
+	}
+
+	/**
+	 * 更新淘宝账号
+	 */
+	public void updateTabobao(String noTaobao) {
+		SKUser skuser = getUser();
+		SKUserService.checkUserSK(skuser);
+
+		ParamUtils.isBlankThrewException(noTaobao, "淘宝账户不能为空");
+
+		SKUser user = new SKUser();
+		user.setId(skuser.getId());
+		user.setNoTaobao(noTaobao);
+		update(user);
+	}
+
+	/**
+	 * 更新qq账号
+	 */
+	public void updateQq(String noQq) {
+		SKUser skuser = getUser();
+		SKUserService.checkUserSK(skuser);
+
+		ParamUtils.isBlankThrewException(noQq, "qq账户不能为空");
+
+		SKUser user = new SKUser();
+		user.setId(skuser.getId());
+		user.setNoQq(noQq);
+		update(user);
+	}
+
+	/**
+	 * 更新登录密码
+	 */
+	public void updateLoginPwd(String oldPassword, String newPassword) {
+		SKUser skuser = getUser();
+		SKUserService.checkUserSK(skuser);
+
+		ParamUtils.isBlankThrewException(oldPassword, "原密码不能为空");
+		ParamUtils.isBlankThrewException(newPassword, "新密码不能为空");
+
+		ParamUtils.isErrorThrewException(oldPassword.equals(skuser.getPassword()), "原密码错误");
+
+		SKUser user = new SKUser();
+		user.setId(skuser.getId());
+		user.setPassword(newPassword);
+		update(user);
 	}
 }
