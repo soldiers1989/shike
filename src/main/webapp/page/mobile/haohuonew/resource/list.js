@@ -129,6 +129,12 @@ $(function () {
     lingaSort.noApply = 0;
     lingaSort.isSendGold = 0;
 
+    if (lingaSort.order == '1') {
+        $(".jp-con .con-cat li").removeClass("act");
+        $("#order" + lingaSort.order).addClass("act");
+        // $(that).parent().addClass("act");
+    }
+
     getList();
 
     // 搜索关键词回显

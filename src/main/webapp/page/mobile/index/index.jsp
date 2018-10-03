@@ -9,23 +9,23 @@
 <html lang="zh" style="font-size: 22.125px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     
     <title>试呗网</title>
-    <meta name="keywords" content="试呗,免费试用,试用网,免费试用网,试用中心,试客,试客网">
-    <meta name="description" content="欢迎来免费试呗.">
+    <meta name="keywords" content="<%=BusiConstant.keywords %>">
+    <meta name="description" content="<%=BusiConstant.description %>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <meta name="format-detection" content="telephone=no">
     <meta name="format-detection" content="address=no">
     <meta name="full-screen" content="yes">
     <link href="http://m.meilipa.com/favicon.ico" rel="shortcut icon" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/index/resource/base.css">
-<link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/index/resource/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/index/resource/iconfont.css">
 
     <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/index/resource/style.css">
 
-    <script type="text/javascript" src="<%=BusiConstant.context%>/jqtable/jquery.cookie.js"></script>
-    <script type="text/javascript" src="<%=BusiConstant.context%>/common/http.js?ver=<%=BusiConstant.version%>"></script>
-
     <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/index/resource/jquery-1.8.3.js"></script>
-<script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/index/resource/Common.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/index/resource/Common.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.context%>/jqtable/jquery.cookie.js"></script>
+    <script type="text/javascript"
+            src="<%=BusiConstant.context%>/common/http.js?ver=<%=BusiConstant.version%>"></script>
 
     <script>
         var userId=0;
@@ -315,9 +315,10 @@
         <li><em>[迷路***] </em>获得<em> 0.35元 </em>邀请粉丝下单奖</li><li><em>[1丽宁***] </em>获得<em> 0.38元 </em>邀请粉丝下单奖</li><li><em>[_王老***] </em>获得<em> 0.13元 </em>邀请粉丝下单奖</li><li><em>[Uniq***] </em>获得<em> 0.32元 </em>邀请粉丝下单奖</li><li><em>[冰激***] </em>获得<em> 1.00元 </em>邀请粉丝下单奖</li><li><em>[wang***] </em>获得<em> 0.10元 </em>邀请粉丝下单奖</li><li><em>[bobo***] </em>获得<em> 0.10元 </em>邀请粉丝下单奖</li><li><em>[??***] </em>获得<em> 0.68元 </em>邀请粉丝下单奖</li><li><em>[dlf1***] </em>获得<em> 0.14元 </em>邀请粉丝下单奖</li><li><em>[梦里***] </em>获得<em> 0.47元 </em>邀请粉丝下单奖</li><li><em>[zzzz***] </em>获得<em> 0.27元 </em>邀请粉丝下单奖</li><li><em>[对你***] </em>获得<em> 0.10元 </em>邀请粉丝下单奖</li><li><em>[流浪***] </em>获得<em> 0.40元 </em>邀请粉丝下单奖</li><li><em>[_王老***] </em>获得<em> 0.15元 </em>邀请粉丝下单奖</li><li><em>[雨晴***] </em>获得<em> 0.43元 </em>邀请粉丝下单奖</li><li><em>[ting***] </em>获得<em> 0.09元 </em>邀请粉丝下单奖</li><li><em>[woai***] </em>中了<em>  吊篮吊椅藤椅秋千鸟巢摇椅... </em></li><li><em>[岩岩***] </em>中了<em> 时尚钢托聚拢显瘦泳衣新款 </em></li><li><em>[蓝天***] </em>中了<em> 麻花宽松网红毛衣女学生 </em></li><li><em>[Bona***] </em>中了<em> 女士朋克风灯芯绒外套 </em></li><li><em>[苏晓***] </em>中了<em> 长毛水貂绒马夹显瘦 </em></li><li><em>[cctv***] </em>中了<em> 九阳电饭煲一个+窗帘样品 </em></li><li><em>[xiao***] </em>中了<em> 宽松慵懒风V领格子毛衣女 </em></li><li><em>[阿白***] </em>中了<em>  韩版复古眼镜框圆形宽边 </em></li><li><em>[王爱***] </em>中了<em> 军绿长款水貂绒大衣 </em></li><li><em>[裸奔***] </em>中了<em> 雄狮高档香水摆座 </em></li><li><em>[高瑾***] </em>中了<em>  吊篮吊椅藤椅秋千鸟巢摇椅... </em></li><li><em>[安久***] </em>中了<em> 连帽卫衣女春秋新款韩版宽松... </em></li><li><em>[吴莉***] </em>中了<em> 套装女（裤子+衬衫） </em></li><li><em>[LOVE***] </em>中了<em> 九阳电饭煲+窗帘样品 </em></li><li><em>[钱钱***] </em>中了<em> 嘻哈红帽套头红卫衣 </em></li><li><em>[喜气***] </em>中了<em> 羊毛中山装男外套 男士商务... </em></li><li><em>[wang***] </em>中了<em> 黄色加绒卫衣女长袖 </em></li><li><em>[D云兮***] </em>中了<em> 中老年长袖加厚T恤 </em></li><li><em>[天天***] </em>中了<em> 蚕丝被 1.5m*2m 3斤 </em></li><li><em>[念之***] </em>中了<em> 长毛水貂绒毛衣双层加厚宽松... </em></li><li><em>[xueq***] </em>中了<em> 韩版羽绒棉服 </em></li><li><em>[源小***] </em>中了<em> 长毛水貂绒马夹显瘦 </em></li><li><em>[传奇***] </em>中了<em> 羊毛中山装男外套 男士商务... </em></li><li><em>[没意***] </em>中了<em> 连帽卫衣女春秋新款韩版宽松... </em></li><li><em>[无敌***] </em>中了<em> 男士皮衣 </em></li><li><em>[贠菇***] </em>获得<em> 0.45元 </em>邀请粉丝下单奖</li><li><em>[小雨***] </em>获得<em> 0.59元 </em>邀请粉丝下单奖</li><li><em>[高扬***] </em>获得<em> 0.07元 </em>邀请粉丝下单奖</li><li><em>[刘圣***] </em>获得<em> 0.18元 </em>邀请粉丝下单奖</li><li><em>[_王老***] </em>获得<em> 0.07元 </em>邀请粉丝下单奖</li><li><em>[馨懿***] </em>获得<em> 0.27元 </em>邀请粉丝下单奖</li><li><em>[MME] </em>获得<em> 0.28元 </em>邀请粉丝下单奖</li><li><em>[??***] </em>获得<em> 0.78元 </em>邀请粉丝下单奖</li><li><em>[阿菲***] </em>获得<em> 0.29元 </em>邀请粉丝下单奖</li></ul>
     </div>
     <div class="usera-kong"></div>
+
     <style>
         .jp-groom-bg-shangxin {
-            background: url("/Content/images/lijishangxin.png") left top no-repeat #fff;
+            background: url("<%=BusiConstant.shikemobilepath %>/common/images/lijishangxin.png") left top no-repeat #fff;
             background-size: 100%;
             height: 8.895rem;
             padding:0 0.68rem;
@@ -397,92 +398,21 @@
             border: 1px solid #ff464e;
          }
     </style>
-    <%--<div class="jp-groom-bg jp-groom-bg-shangxin">
+    <div class="jp-groom-bg jp-groom-bg-shangxin">
         <div class="shangxin-title-box clearfix">
             <span class="shangxin-title">今日上新</span>
 
-            <a class="right-title" href="http://m.meilipa.com/home/list?order=1">今日上新<strong style="margin: 0 0.1rem;">29205</strong>件好货 <i class="iconfont icon-gengduo1"></i></a>
+            <a class="right-title" href="<%=BusiConstant.shike_haohuo.getKey() %>?order=1">今日上新<strong id="jrsxCount" style="margin: 0 0.1rem;">29205</strong>件好货 <i class="iconfont icon-gengduo1"></i></a>
         </div>
         <div class="shangxin-goods-box">
             <div>
-                <ul style="width:32.112rem">
-                        <li>
-                            
-                            <a href="http://m.meilipa.com/home/list?order=1">
-                                <img src="<%=BusiConstant.shikemobilepath %>/index/resource/TB1KwxqwkomBKNjSZFqXXXtqVXa_!!0-item_pic.jpg">
-                                <span class="t-price">¥5.00</span>
-                                <span class="t-btn">免费申请</span>
-                            </a>
-                        </li>
-                        <li>
-                            
-                            <a href="http://m.meilipa.com/home/list?order=1">
-                                <img src="<%=BusiConstant.shikemobilepath %>/index/resource/TB1K47cawHqK1RjSZFgXXa7JXXa_!!0-item_pic.jpg">
-                                <span class="t-price">¥35.90</span>
-                                <span class="t-btn">免费申请</span>
-                            </a>
-                        </li>
-                        <li>
-                            
-                            <a href="http://m.meilipa.com/home/list?order=1">
-                                <img src="<%=BusiConstant.shikemobilepath %>/index/resource/TB1kY32KpXXXXbsXFXXXXXXXXXX_!!0-item_pic.jpg">
-                                <span class="t-price">¥5.30</span>
-                                <span class="t-btn">免费申请</span>
-                            </a>
-                        </li>
-                        <li>
-                            
-                            <a href="http://m.meilipa.com/home/list?order=1">
-                                <img src="<%=BusiConstant.shikemobilepath %>/index/resource/TB27P11qH3nBKNjSZFMXXaUSFXa_!!83067502.jpg">
-                                <span class="t-price">¥17.80</span>
-                                <span class="t-btn">免费申请</span>
-                            </a>
-                        </li>
-                        <li>
-                            
-                            <a href="http://m.meilipa.com/home/list?order=1">
-                                <img src="<%=BusiConstant.shikemobilepath %>/index/resource/TB2CVlfrkZmBKNjSZPiXXXFNVXa_!!93173187.jpg">
-                                <span class="t-price">¥29.80</span>
-                                <span class="t-btn">免费申请</span>
-                            </a>
-                        </li>
-                        <li>
-                            
-                            <a href="http://m.meilipa.com/home/list?order=1">
-                                <img src="<%=BusiConstant.shikemobilepath %>/index/resource/O1CN0128sYELFiUKcyxEw_!!3960797988.jpg">
-                                <span class="t-price">¥23.80</span>
-                                <span class="t-btn">免费申请</span>
-                            </a>
-                        </li>
-                        <li>
-                            
-                            <a href="http://m.meilipa.com/home/list?order=1">
-                                <img src="<%=BusiConstant.shikemobilepath %>/index/resource/O1CN011vjJEQ1EnfyXYxz_!!2410136208.jpg">
-                                <span class="t-price">¥1.80</span>
-                                <span class="t-btn">免费申请</span>
-                            </a>
-                        </li>
-                        <li>
-                            
-                            <a href="http://m.meilipa.com/home/list?order=1">
-                                <img src="<%=BusiConstant.shikemobilepath %>/index/resource/TB25AuIaxTpK1RjSZFMXXbG_VXa_!!2610493427.jpg">
-                                <span class="t-price">¥17.90</span>
-                                <span class="t-btn">免费申请</span>
-                            </a>
-                        </li>
-                        <li>
-                            
-                            <a href="http://m.meilipa.com/home/list?order=1">
-                                <img src="<%=BusiConstant.shikemobilepath %>/index/resource/O1CN011Ck5C1ymDdtbkxY_!!2116650118.jpg">
-                                <span class="t-price">¥17.80</span>
-                                <span class="t-btn">免费申请</span>
-                            </a>
-                        </li>
+                <ul id="jinrilist" style="width:32.112rem">
+
                 </ul>
             </div>
 
         </div>
-    </div>--%>
+    </div>
     <%--<div class="usera-kong"></div>
     <div class="indexCat">
         <a class="indexCat1" href="http://m.meilipa.com/jing/SecKill">

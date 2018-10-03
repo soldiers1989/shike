@@ -32,6 +32,37 @@ $(function () {
     }
     dictlist();
 
+    /**
+     * 今日上新列表
+     */
+    function jinrilist() {
+        var data = {order:1, bigStartTime: new Date().toLocaleDateString()};
+        // var data = {order:1, bigStartTime: "2018-10-03"};
+        var url = "/shike/baobei/sklist.do";
+        postdo(url, data, jinrilistCallback,null, null);
+    }
+
+    function jinrilistCallback(data) {
+        $("#jrsxCount").html(data.resultData.total);
+
+
+        for (var i = 0; i < data.resultData.rows.length; i++) {
+            var row = data.resultData.rows[i];
+            var html = "<li>\n" +
+                "                            \n" +
+                "                            <a href=\"/shike/skm/haohuo?order=1\">\n" +
+                "                                <img src=\""+ row.zturl +"\">\n" +
+                "                                <span class=\"t-price\">¥"+ row.salePrice +"</span>\n" +
+                "                                <span class=\"t-btn\">免费申请</span>\n" +
+                "                            </a>\n" +
+                "                        </li>";
+
+            $("#jinrilist").append(html);
+        }
+    }
+    
+    jinrilist();
+
 
     //主页swiper
     var mySwiper = new Swiper('#swiper', {

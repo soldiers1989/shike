@@ -10,7 +10,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta charset="UTF-8">
-        <title><%=BusiConstant.name %></title>
+        <meta name="keywords" content="<%=BusiConstant.keywords %>">
+        <meta name="description" content="<%=BusiConstant.description %>">
         <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" name="viewport"/>
         <meta content="yes" name="apple-mobile-web-app-capable"/>
         <meta content="black" name="apple-mobile-web-app-status-bar-style"/>
@@ -136,7 +137,7 @@
     <div class="jp-con">
         <ul class="con-cat">
             <li class="act"><a data-href="0">综合</a></li>
-            <li class=""><a data-href="1">最新<i class="iconfont icon-sortD"></i></a></li>
+            <li class=""><a id="order1" data-href="1">最新<i class="iconfont icon-sortD"></i></a></li>
             <li class=""><a data-href="2">价值<i class="iconfont icon-sortD"></i></a></li>
             <li class=""><a data-href="3">人气<i class="iconfont icon-sortD"></i></a></li>
             <li class="shaixuan-last"><a data-shaixuan="true">筛选<i class="iconfont icon-shaixuan"></i></a></li>

@@ -27,8 +27,8 @@
 <html lang="zh" style="font-size: 22.125px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     
     <title>我的试呗</title>
-    <meta name="keywords" content="试呗网">
-    <meta name="description" content="试呗网">
+    <meta name="keywords" content="<%=BusiConstant.keywords %>">
+    <meta name="description" content="<%=BusiConstant.description %>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <meta name="format-detection" content="telephone=no">
     <meta name="format-detection" content="address=no">
