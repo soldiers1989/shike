@@ -65,6 +65,73 @@ $(function () {
     jinrilist();
 
 
+
+    /**
+     * 展示列表
+     */
+    function zhanshilist() {
+        // var data = {order:1, typeid: 1};
+        var data = {order:1};
+        var url = "/shike/baobei/sklist.do";
+        postdo(url, data, zhanshilistCallback,null, null);
+    }
+
+    function zhanshilistCallback(data) {
+
+        for (var i = 0; i < data.resultData.rows.length; i++) {
+            var row = data.resultData.rows[i];
+
+            var html = "<li>\n" +
+                "                                \n" +
+                "                                <a href=\"/shike/skm/haohuo?typeid="+ row.typeid +"\" style=\"color:#333;\">\n" +
+                "                                    <img src=\""+ row.zturl +"\">\n" +
+                "                                    <p>"+ row.title +"</p>\n" +
+                "                                    <div class=\"scale\">\n" +
+                "                                        <span class=\"lf t-price\">¥"+ row.salePrice +"</span>\n" +
+                "                                        <span class=\"rt\">限"+ row.bbnum +"份</span>\n" +
+                "                                    </div>\n" +
+                "                                </a>\n" +
+                "                            </li>";
+
+            // 女装
+            if (row.typeid == '1') {
+                $("#nvzhuanglist").append(html);
+            }
+            // 男装
+            else if (row.typeid == '2') {
+                $("#nanzhuanglist").append(html);
+            }
+            // 鞋子箱包
+            else if (row.typeid == '4') {
+                $("#xiangbaolist").append(html);
+            }
+            // 日用百货
+            else if (row.typeid == '5') {
+                $("#baihuolist").append(html);
+            }
+            // 数码家电
+            else if (row.typeid == '7') {
+                $("#dianqilist").append(html);
+            }
+            // 家居建材
+            else if (row.typeid == '10') {
+                $("#jiajulist").append(html);
+            }
+            // 母婴用品
+            else if (row.typeid == '6') {
+                $("#muyinglist").append(html);
+            }
+            // 美妆用品
+            else if (row.typeid == '8') {
+                $("#meizhuanglist").append(html);
+            }
+        }
+    }
+
+    // 展示列表
+    zhanshilist();
+
+
     //主页swiper
     var mySwiper = new Swiper('#swiper', {
         autoplay: 5000,
@@ -161,7 +228,7 @@ $(function () {
     lingaSort.order = getQueryString("order") || sortY || 0;
     lingaSort.key = getQueryString("key") || "";
     lingaSort.type = getQueryString("type") || -1;
-    getList(lingaSort.page, lingaSort.order, lingaSort.key, lingaSort.type);
+    // getList(lingaSort.page, lingaSort.order, lingaSort.key, lingaSort.type);
 
     //搜索词
     $(".jp-hd .icon-search").on("click", function () {
@@ -191,12 +258,12 @@ $(function () {
     var $document = $(document);
     //下滑加载
     $window.scroll(function () {
-        if (indexSW == 1) {
-            return false;
-        }
-        if ($document.scrollTop() + $window.height() >= $document.height()) {
-            getList(lingaSort.page, lingaSort.order, lingaSort.key, lingaSort.type);
-        }
+        // if (indexSW == 1) {
+        //     return false;
+        // }
+        // if ($document.scrollTop() + $window.height() >= $document.height()) {
+        //     getList(lingaSort.page, lingaSort.order, lingaSort.key, lingaSort.type);
+        // }
     });
     function getList(page, order, key, type, sort, clearFlag) {
         if (listFlag) {
@@ -237,7 +304,7 @@ $(function () {
        
         $.ajax({
             type: 'post',
-            url: '/jing/GetShopissueList',
+            url: '/aa/aa',
             data: { page: lingaSort.page, order: lingaSort.order, key: lingaSort.key, type: lingaSort.type, sort: sort,isHomePage:1},
             dataType: 'json',
             success: function (data) {

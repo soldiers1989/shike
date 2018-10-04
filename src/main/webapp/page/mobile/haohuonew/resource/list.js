@@ -124,8 +124,8 @@ $(function () {
     lingaSort.sort = globle.getUrlParam("sort") || 1;
     lingaSort.orderType = globle.getUrlParam("orderType") || 0;
     lingaSort.bigStartTime = globle.getUrlParam("bigStartTime") || "";
-    lingaSort.minprice = "";
-    lingaSort.maxprice = "";
+    lingaSort.minprice = globle.getUrlParam("minprice") || "";
+    lingaSort.maxprice = globle.getUrlParam("maxprice") || "";
     lingaSort.paytype = "";
     lingaSort.noApply = 0;
     lingaSort.isSendGold = 0;
