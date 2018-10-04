@@ -5,6 +5,8 @@
 <%@ page import="com.kensure.shike.baobei.model.SKWord"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 	String context = BusiConstant.shikemobilepath;
     SKBaobei baobei = (SKBaobei)request.getAttribute("baobei");
@@ -13,6 +15,12 @@
     if(words != null){
         word = words.get(0);
     }
+
+    String wordStr = "";
+    for(SKWord skWord : words) {
+		wordStr += skWord.getWord() + "skword";
+	}
+
     List<SKJindian> jindians = (List<SKJindian>)request.getAttribute("jindians");
     SKJindian  jd = jindians.get(0);
 %>
@@ -140,10 +148,10 @@
 				<li><span class="num">1</span><em class="title">找到宝贝</em><br>
 					打开<em class="red">手机淘宝APP</em>
 					<div class="lh14">
-						搜索商品：<em class="red nextKey-item1">${words[0].word}</em>
-						<%--<span class="change-btn">换一换</span>--%>
+						搜索商品：<em id="skWord" class="red nextKey-item1">${words[0].word}</em>
+						<span class="change-btn <c:if test='${fn:length(words) == 1}'>gray</c:if>">换一换</span>
 					</div>
-					<div class="lh14">
+					<%--<div class="lh14">
 						排序方式：<em class="red nextKey-item2">综合排序</em>
 					</div>
 					<div class="filter-img lh14">
@@ -159,7 +167,7 @@
 					</div>
 					<div class="lh14">
 						价格区间：<em class="red nextKey-item34">-</em>
-					</div></li>
+					</div></li>--%>
 				<li><span class="num">2</span><em class="title">核对宝贝</em>
 					<div style="color: #aaa">以下两种方式二选一</div>
 					<div class="flow-cat">
@@ -459,30 +467,21 @@
                 return false;
             }
             var $this = $(this);
-            $.post("/JpinShopIssue/NextKeyword", { id: id,item:$("#item").val(),seachcount:seachcount }, function(data) {
-                if (data.Result) {
-                    clicktime = 30;
-                    $this.addClass("gray");
-                    var timmerKey=setInterval(function() {
-                        clicktime--;
-                        if (clicktime == 0) {
-                            clearInterval(timmerKey);
-                            $(".change-btn").removeClass("gray");
-                        }
-                    }, 1000);
-                    $("#item").val(data.Data.nextCount);
-                    $(".nextKey-item1").html(data.Data.data.Item1);
-                    $(".nextKey-item2").html(data.Data.data.Item2);
-                    $(".nextKey-item34").html(data.Data.data.Item3 +"-"+data.Data.data.Item4);
-                    if (data.Data.shopname!="") {
-                        $("#bbbt").remove();
-                        $(".lh14:first").before('<div id="bbbt">宝贝标题：<em class="red">'+data.Data.shopname+'</em></div>');
-                    }
-                    seachcount++;
-                } else {
-                    myAlert(data.Message);
-                }
-            });
+
+			var words = "<%=wordStr %>";
+            var currentWord = $("#skWord").html();
+
+            var wordArr = words.split("skword");
+            for(var i=0;i<wordArr.length-1;i++) {
+				if (currentWord == wordArr[i]) {
+				    if (i == wordArr.length-2) {
+                    	$("#skWord").html(wordArr[0]);
+					} else {
+                    	$("#skWord").html(wordArr[i+1]);
+					}
+				}
+            }
+
         });
     });
 
@@ -554,8 +553,6 @@
 		<script
 			src="<%=BusiConstant.shikemobilepath%>/liucheng/gouwuche/core.php"
 			charset="utf-8" type="text/javascript"></script>
-		<a href="http://www.cnzz.com/stat/website.php?web_id=1264685315"
-			target="_blank" title="站长统计">站长统计</a>
 	</div>
 
 	<div id="loading" class="loading">
