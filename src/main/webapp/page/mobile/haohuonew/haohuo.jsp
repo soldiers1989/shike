@@ -1,6 +1,7 @@
 <%@page import="java.util.List"%>
 <%@page import="com.kensure.shike.constant.BusiConstant"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
     String context = BusiConstant.shikemobilepath;
 %>
@@ -136,8 +137,8 @@
     </div>--%>
     <div class="jp-con">
         <ul class="con-cat">
-            <li class="act"><a data-href="0">综合</a></li>
-            <li id="orderid1" class=""><a id="order1" data-href="1">最新<i class="iconfont icon-sortD"></i></a></li>
+            <li class="<c:if test="${empty param.order}">act</c:if>"><a data-href="0">综合</a></li>
+            <li class="<c:if test="${param.order == '1'}">act</c:if>" ><a data-href="1">最新<i class="iconfont icon-sortD"></i></a></li>
             <li class=""><a data-href="2">价值<i class="iconfont icon-sortD"></i></a></li>
             <li class=""><a data-href="3">人气<i class="iconfont icon-sortD"></i></a></li>
             <li class="shaixuan-last"><a data-shaixuan="true">筛选<i class="iconfont icon-shaixuan"></i></a></li>
