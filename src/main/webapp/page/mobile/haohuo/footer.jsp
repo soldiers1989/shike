@@ -58,8 +58,9 @@ function setcheckclass(){
 setcheckclass();
 
 function checkuser(){
+   var mdtokenid = $.cookie("mdtokenid");
    var mdtype = $.cookie("mdtype");
-   if(!mdtype || mdtype != 1){
+   if(!mdtype || mdtype != 1 || !mdtokenid){
 	   window.location.href="<%=BusiConstant.shike_login.getKey()%>";
    }
 }

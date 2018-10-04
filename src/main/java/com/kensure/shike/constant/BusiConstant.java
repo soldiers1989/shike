@@ -143,8 +143,8 @@ public class BusiConstant {
     public static final KVBean shike_modifyloginpwd = new KVBean(context + "/skm/modifyloginpwd", "修改登录密码页面");
 
     public static final KVBean shike_gouwuche = new KVBean(context + "/skm/gouwuche", "购物车页面");
-    public static final KVBean shike_scgz = new KVBean(context + "/skm/scgz", "收藏关注页面");
-    public static final KVBean shike_ddan = new KVBean(context + "/skm/ddan", "订单页面");
+    public static final KVBean shike_scgz = new KVBean(context + "/skm/gouwuche", "收藏关注页面");
+    public static final KVBean shike_ddan = new KVBean(context + "/skm/gouwuche", "订单页面");
     public static final KVBean shike_haop = new KVBean(context + "/skm/haop", "好评页面");
 
     public static final KVBean shike_addsk_do = new KVBean(context + "/user/addsk.do", "试客注册并登陆");

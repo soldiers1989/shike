@@ -598,9 +598,9 @@ $(function () {
 
             // vmDetail.$data.activity_name = data.dpname;
             $("#activity_name").html(row.title); // 商品名称
-            $("#shengyu").html("剩余 "+(row.bbnum - row.yzj)+"/"+row.bbnum+" 份"); // 剩余
+            $("#shengyu").html("剩余 "+(row.bbnum - row.zjnum)+"/"+row.bbnum+" 份"); // 剩余
             $("#ysqnum").html(row.ysqnum + "人 已申请"); // 已经申请数量
-            $("#yzj").html(row.yzj + "人 已中奖"); // 已经中奖人数
+            $("#yzj").html(row.zjnum + "人 已中奖"); // 已经中奖人数
             $("#salePrice").html("¥" + row.salePrice); // 宝贝单价
 
             $("#logo_pic1").attr("src", row.tplist[0].url); // 图1

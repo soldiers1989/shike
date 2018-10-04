@@ -267,7 +267,7 @@ public class SKUserService extends JSBaseService {
 	 * @param sKUser
 	 */
 	private void invalidSKUser(SKUser sKUser) {
-		ParamUtils.isBlankThrewException(sKUser.getNoAlipay(), "支付宝账户不能为空");
+//		ParamUtils.isBlankThrewException(sKUser.getNoAlipay(), "支付宝账户不能为空");
 		ParamUtils.isBlankThrewException(sKUser.getNoTaobao(), "淘宝账户不能为空");
 	}
 

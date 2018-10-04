@@ -136,6 +136,7 @@ public class SKBaobeiService extends JSBaseService {
 		obj.setYsqnum(0L);
 		obj.setIsDel(0L);
 		obj.setStatus(0L);
+		obj.setZjnum(0L);
 		return dao.insert(obj);
 	}
 
@@ -420,12 +421,9 @@ public class SKBaobeiService extends JSBaseService {
 	 * 
 	 * @return
 	 */
-	public List<SKBaobei> getSKList(Integer typeid, String title, String order, String sort,
-									String minprice, String maxprice, String bigStartTime) {
+	public List<SKBaobei> getSKList(Integer typeid, String title, String order, String sort,String minprice, String maxprice, String bigStartTime) {
 		Date start = new Date();
-		Map<String, Object> parameters = MapUtils.genMap("is_del",
-				0,"lessStartTime",start,
-				"status", 9);
+		Map<String, Object> parameters = MapUtils.genMap("is_del", 0,"lessStartTime",start,"status", 9);
 		if (typeid != null) {
 			parameters.put("typeid", typeid);
 		}
@@ -458,11 +456,9 @@ public class SKBaobeiService extends JSBaseService {
 		List<SKBaobeiTP> tplist = sKBaobeiTPService.getList(id);
 		SKBaobeiZT detail = sKBaobeiZTService.getDetail(id);
 		SKDianPu dianp = sKDianPuService.selectOne(skbaobei.getDpid());
-		// 中奖数量
-		long zjnum = sKSkqkService.getZJNum(id);
+
 		skbaobei.setTplist(tplist);
 		skbaobei.setXiangqing(detail);
-		skbaobei.setYzj(zjnum);
 		skbaobei.setDpname(dianp.getName());
 		return skbaobei;
 	}

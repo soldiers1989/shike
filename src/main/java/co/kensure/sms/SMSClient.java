@@ -27,8 +27,44 @@ public class SMSClient {
 	private static final String accountSid = "bdc33045964e49a9bedfd2c7e5ca8faf";
 	private static final String baseUrl = "https://api.miaodiyun.com/20150822/industrySMS/sendSMS";
 	private static final String smsToken = "00235df98cea4872b52edbc0d2ccf48a";
-	private static final String contentTemplate = "【91米贷】您的验证码为{1}，请于{2}分钟内正确输入，如非本人操作，请忽略此短信。";
-	private static final String contentTemplate1 = "【米袋网】您的验证码为{1}，请于{2}分钟内正确输入，如非本人操作，请忽略此短信。";
+//	private static final String contentTemplate = "【91米贷】您的验证码为{1}，请于{2}分钟内正确输入，如非本人操作，请忽略此短信。";
+	private static final String contentTemplate = "【试呗网】您的验证码为{1}，请于{2}分钟内正确输入，如非本人操作，请忽略此短信。";
+	private static final String contentTemplate2 = "【试呗网】您申请的{1}已审核通过，请下{2}内下单";
+	
+	/**
+	 * 验证码发送
+	 * @param phoneNumber
+	 *            电话号码
+	 * @param code
+	 *            验证码
+	 * @param durationMinute
+	 *            时间
+	 * @throws Exception
+	 */
+	public static void sendSMSMessage(String phoneNumber, String code, int durationMinute) throws Exception {
+		String smsContent = contentTemplate;
+		smsContent = smsContent.replaceFirst("\\{1\\}", code);
+		smsContent = smsContent.replaceFirst("\\{2\\}", durationMinute + "");
+		sendSMSMessage(phoneNumber, smsContent);
+	}
+	
+	/**
+	 * 中奖短信
+	 * @param phoneNumber
+	 *            电话号码
+	 * @param code
+	 *            上传名称
+	 * @param durationMinute
+	 *            时长
+	 * @throws Exception
+	 */
+	public static void sendZhongJiang(String phoneNumber, String name, String content) throws Exception {
+		String smsContent = contentTemplate2;
+		smsContent = smsContent.replaceFirst("\\{1\\}", name);
+		smsContent = smsContent.replaceFirst("\\{2\\}", content);
+		sendSMSMessage(phoneNumber, smsContent);
+	}
+	
 	/**
 	 * 
 	 * @param phoneNumber
@@ -39,15 +75,12 @@ public class SMSClient {
 	 *            时间
 	 * @throws Exception
 	 */
-	public static void sendSMSMessage(String phoneNumber, String code, int durationMinute) throws Exception {
+	public static void sendSMSMessage(String phoneNumber, String smsContent) throws Exception {
 		String timeStamp = Utils.getCurrentTime("yyyyMMddHHmmss");
 		String sig = Utils.generateMD5(accountSid + smsToken + timeStamp);
 		// 参数
 		Map<String, String> propsMap = new HashMap<String, String>();
 		propsMap.put("accountSid", accountSid);
-		String smsContent = contentTemplate;
-		smsContent = smsContent.replaceFirst("\\{1\\}", code);
-		smsContent = smsContent.replaceFirst("\\{2\\}", durationMinute + "");
 		propsMap.put("smsContent", smsContent);
 		propsMap.put("to", phoneNumber);
 		propsMap.put("timestamp", timeStamp);
@@ -69,6 +102,8 @@ public class SMSClient {
 			}
 		}
 	}
+	
+	
 
 	/**
      * 发送HTTP请求

@@ -74,7 +74,7 @@ public class StringKSUtils {
 		char[] ss = s.toCharArray();
 		String str = "";
 		for (int i = 0; ss.length > i; i++) {
-			char v = ss[0];
+			char v = ss[i];
 			if (i % 2 == 0) {
 				str += v;
 			} else {

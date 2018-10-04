@@ -32,6 +32,7 @@ import co.kensure.mem.MapUtils;
 import com.kensure.basekey.BaseKeyService;
 import com.kensure.shike.baobei.dao.SKSkqkDao;
 import com.kensure.shike.baobei.model.SKBaobei;
+import com.kensure.shike.baobei.model.SKBbrw;
 import com.kensure.shike.baobei.model.SKJysj;
 import com.kensure.shike.baobei.model.SKSkqk;
 import com.kensure.shike.user.model.SKUser;
@@ -65,10 +66,9 @@ public class SKSkqkService extends JSBaseService {
 
 	@Resource
 	private SKUserZhangService sKUserZhangService;
-	
+
 	@Resource
 	private SKJysjService sKJysjService;
-
 
 	public SKSkqk selectOne(Long id) {
 		return dao.selectOne(id);
@@ -106,17 +106,76 @@ public class SKSkqkService extends JSBaseService {
 		return dao.insertInBatch(objs);
 	}
 
-	public boolean update(SKSkqk obj) {
-		super.beforeUpdate(obj);
-		if (obj.getStatus() >= 0) {
-			obj.setLastStatus(obj.getStatus());
-		}
-		return dao.update(obj);
-	}
-
+	/**
+	 * 修改流程状态方法方法
+	 * 
+	 * @param id
+	 * @param status
+	 * @return
+	 */
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
 	public boolean updateStatus(Long id, Long status) {
 		Map<String, Object> params = MapUtils.genMap("id", id, "status", status);
+		if (status > 0) {
+			params.put("lastStatus", status);
+		}
+		updateNextTime(id, status);
 		return updateByMap(params);
+	}
+
+	/**
+	 * 修改流程状态方法方法
+	 * 
+	 * @param id
+	 * @param status
+	 * @return
+	 */
+	public boolean updateNextTime(Long id, Long status) {
+		SKSkqk sqqk = selectOne(id);
+		Date now = new Date();
+		Date nextTime = null;
+		// 需要计算时间了,21是带开奖状态，需要计算他下一次开奖时间
+		if (status.intValue() == 21) {
+			List<SKBbrw> list = sKBbrwService.selectByBBid(sqqk.getBbid());
+			if (CollectionUtils.isEmpty(list)) {
+
+			} else {
+				// 拿第一个就行了
+				SKBbrw skbbrw = list.get(0);
+				Date start = skbbrw.getStartTime();
+				Date D10 = DateUtils.getPastHour(start, 10);
+				Date D15 = DateUtils.getPastHour(start, 15);
+				Date D20 = DateUtils.getPastHour(start, 20);
+				Date D22 = DateUtils.getPastHour(start, 22);
+
+				if (skbbrw.getBbnum().longValue() > skbbrw.getYzj().longValue() && now.getTime() < D22.getTime()) {
+					if (now.getTime() < D10.getTime()) {
+						nextTime = D10;
+					} else if (now.getTime() < D15.getTime()) {
+						nextTime = D15;
+					} else if (now.getTime() < D20.getTime()) {
+						nextTime = D20;
+					} else if (now.getTime() < D22.getTime()) {
+						nextTime = D22;
+					}
+				} else if (list.size() > 1) {
+					skbbrw = list.get(1);
+					start = skbbrw.getStartTime();
+					nextTime = DateUtils.getPastHour(start, 10);
+				}
+			}
+		} else if (status.intValue() == 51) {
+			// 中奖之后，是3天的等待时间
+			nextTime = DateUtils.getPastHour(now, 3);
+		} else if (status.intValue() == 61) {
+			// 这个是好评时间，好评时间有10天
+			nextTime = DateUtils.getPastDay(now, 10);
+		}
+		if (nextTime != null) {
+			Map<String, Object> params = MapUtils.genMap("id", id, "nextTime", nextTime);
+			updateByMap(params);
+		}
+		return true;
 	}
 
 	public boolean updateByMap(Map<String, Object> params) {
@@ -181,16 +240,15 @@ public class SKSkqkService extends JSBaseService {
 	public List<SKSkqk> getSkqkList(long bbid) {
 		Map<String, Object> parameters = MapUtils.genMap("bbid", bbid, "bigthanstatus", 81);
 		List<SKSkqk> list = selectByWhere(parameters);
-		for(SKSkqk skskqk:list){		
+		for (SKSkqk skskqk : list) {
 			List<SKJysj> jylist = sKJysjService.selectByBbidAndUserid(skskqk.getBbid(), skskqk.getUserid());
 			skskqk.setJylist(jylist);
-		}		
+		}
 		return list;
 	}
 
-	
-	private static Map<String,String> sqqkMap = new HashMap<String,String>();
-	
+	private static Map<String, String> sqqkMap = new HashMap<String, String>();
+
 	/**
 	 * 申请
 	 * 
@@ -201,13 +259,13 @@ public class SKSkqkService extends JSBaseService {
 	 */
 	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
 	public boolean saveSQ(SKBaobei baobei, SKUser skuser) {
-		String key = skuser.getId()+"";
-		try {	
-			if(sqqkMap.containsKey(key)){
+		String key = skuser.getId() + "";
+		try {
+			if (sqqkMap.containsKey(key)) {
 				BusinessExceptionUtil.threwException("服务器忙，请不要重复提交！");
 			}
 			sqqkMap.put(key, key);
-			
+
 			if (baobei.getStatus() != 9 || baobei.getIsDel() == 1) {
 				BusinessExceptionUtil.threwException("该宝贝失效！");
 			}
@@ -217,7 +275,7 @@ public class SKSkqkService extends JSBaseService {
 			}
 			// 任务计数
 			if (qk == null || qk.getStatus() < 1) {
-				sKBbrwService.shenqing(baobei.getId(),baobei.getHdtypeid());
+				sKBbrwService.shenqing(baobei.getId(), baobei.getHdtypeid());
 			}
 			// 插入试客情况
 			if (qk == null) {
@@ -252,8 +310,7 @@ public class SKSkqkService extends JSBaseService {
 		if (qk.getStatus() >= status) {
 			BusinessExceptionUtil.threwException("数据有误！");
 		}
-		qk.setStatus(status);
-		update(qk);
+		updateStatus(qk.getId(),status);
 		return true;
 	}
 
@@ -303,11 +360,10 @@ public class SKSkqkService extends JSBaseService {
 			}
 			for (SKSkqk obj : list) {
 				obj.setStatus(71L);
-				update(obj);
+				updateStatus(obj.getId(), 71L);
 			}
 		} catch (Exception e) {
 			BusinessExceptionUtil.threwException(e);
-			;
 		}
 	}
 
@@ -333,11 +389,11 @@ public class SKSkqkService extends JSBaseService {
 		}
 	}
 
-//	/**
-//	 * 试客返款的时候，增加的队列,防止重复返款
-//	 */
-//	private Map<String,String> fankuanqk = new HashMap<String, String>();
-	
+	// /**
+	// * 试客返款的时候，增加的队列,防止重复返款
+	// */
+	// private Map<String,String> fankuanqk = new HashMap<String, String>();
+
 	/**
 	 * 确认返款，进行余额流水增加
 	 * 
@@ -345,7 +401,7 @@ public class SKSkqkService extends JSBaseService {
 	 */
 	public void userMoney(long id) {
 		SKSkqk obj = selectOne(id);
-		if(obj.getStatus() != 81){
+		if (obj.getStatus() != 81) {
 			BusinessExceptionUtil.threwException("无法返款");
 		}
 		SKUserZhang zhang = new SKUserZhang();
@@ -355,7 +411,7 @@ public class SKSkqkService extends JSBaseService {
 		zhang.setYue(obj.getSalePrice());
 		sKUserZhangService.add(zhang);
 		obj.setStatus(99L);
-		update(obj);
+		updateStatus(obj.getId(), 99L);
 	}
 
 	/**

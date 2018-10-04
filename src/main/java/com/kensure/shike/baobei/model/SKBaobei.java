@@ -70,9 +70,6 @@ public class SKBaobei extends BaseInfo {
 	/** 中奖数量 */
 	private Long zjnum;
 	
-	/** 已经中奖人数 */
-	private Long yzj;
-	
 	/** 转换率 */
 	private String zhuanhua;
 
@@ -440,14 +437,6 @@ public class SKBaobei extends BaseInfo {
 
 	public void setYsqnum(Long ysqnum) {
 		this.ysqnum = ysqnum;
-	}
-
-	public Long getYzj() {
-		return yzj;
-	}
-
-	public void setYzj(Long yzj) {
-		this.yzj = yzj;
 	}
 
 	public String getDpname() {

@@ -409,10 +409,10 @@
 			created_time = #{createdTime},
 		</if>
 		<if test="updatedTime != null">
-			updated_time = #{updatedTime}
+			updated_time = #{updatedTime},
 		</if>
 		<if test="zjnum != null">
-			zjnum = #{zjnum}
+			zjnum = #{zjnum},
 		</if>		
 	</sql>
 	

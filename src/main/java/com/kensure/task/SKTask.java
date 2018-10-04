@@ -5,6 +5,7 @@ import javax.annotation.Resource;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import com.kensure.shike.baobei.service.SKBaobeiService;
 import com.kensure.shike.baobei.service.SKBbrwService;
 import com.kensure.shike.baobei.service.SKSkqkService;
 
@@ -17,6 +18,9 @@ public class SKTask {
 	@Resource
 	private SKSkqkService sKSkqkService;
 
+	@Resource
+	private SKBaobeiService sKBaobeiService;
+
 	/**
 	 * add by fankd 每天0点，设置好评
 	 */
@@ -24,12 +28,17 @@ public class SKTask {
 	public void deleteLogData() {
 		try {
 			sKSkqkService.toHaoPin();
-		} catch (Exception e) {
+		} catch (Throwable e) {
 			e.printStackTrace();
 		}
 		try {
 			sKSkqkService.toReturnMoney();
-		} catch (Exception e) {
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+		try {
+			sKBaobeiService.endBaobei();
+		} catch (Throwable e) {
 			e.printStackTrace();
 		}
 	}

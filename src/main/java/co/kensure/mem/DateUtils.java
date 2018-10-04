@@ -35,6 +35,10 @@ public class DateUtils {
 
 	public static String DATE_START = "yyyy-MM-dd 00:00:00";
 	public static String DATE_END = "yyyy-MM-dd 23:59:59";
+	
+	public static String D10 = "yyyy-MM-dd 10:00:00";
+	public static String D15 = "yyyy-MM-dd 15:00:00";
+	public static String D20 = "yyyy-MM-dd 20:00:00";
 
 	public static String MOBILE_TIME = "MM-dd HH:mm";
 
@@ -101,6 +105,21 @@ public class DateUtils {
 			BusinessExceptionUtil.threwException(e);
 		}
 		return date;
+	}
+	
+	/**
+	 * 获取当前时间的+-past小时
+	 * 
+	 * @param past
+	 *            小时
+	 * @return date
+	 */
+	public static Date getPastHour(Date day, int past) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(day);
+		calendar.set(Calendar.HOUR_OF_DAY, calendar.get(Calendar.HOUR_OF_DAY) + past);
+		Date pastday = calendar.getTime();
+		return pastday;
 	}
 
 	/**

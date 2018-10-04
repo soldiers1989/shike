@@ -245,6 +245,7 @@ CREATE TABLE `sk_sqqk` (
   `no_taobao` varchar(32) NOT NULL COMMENT 'taobao账号',
   `jiangli` decimal(10,2) DEFAULT NULL COMMENT '宝贝奖励',
   `ewai` decimal(10,2) DEFAULT NULL COMMENT '额外奖励', 
+  `next_time` datetime NOT NULL COMMENT '下一步时间',
   `created_time` datetime NOT NULL COMMENT '创建时间',
   `updated_time` datetime NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`),

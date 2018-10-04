@@ -30,11 +30,15 @@ import co.kensure.mem.CollectionUtils;
 import co.kensure.mem.DateUtils;
 import co.kensure.mem.MapUtils;
 import co.kensure.mem.NumberUtils;
+import co.kensure.sms.SMSClient;
 
 import com.kensure.basekey.BaseKeyService;
 import com.kensure.shike.baobei.dao.SKBbrwDao;
+import com.kensure.shike.baobei.model.SKBaobei;
 import com.kensure.shike.baobei.model.SKBbrw;
 import com.kensure.shike.baobei.model.SKSkqk;
+import com.kensure.shike.user.model.SKUser;
+import com.kensure.shike.user.service.SKUserService;
 
 /**
  * 宝贝试客任务服务实现类
@@ -53,6 +57,12 @@ public class SKBbrwService extends JSBaseService {
 
 	@Resource
 	private SKSkqkService sKSkqkService;
+
+	@Resource
+	private SKBaobeiService sKBaobeiService;
+
+	@Resource
+	private SKUserService sKUserService;
 
 	public SKBbrw selectOne(Long id) {
 		return dao.selectOne(id);
@@ -78,15 +88,28 @@ public class SKBbrwService extends JSBaseService {
 		return dao.selectCountByWhere(parameters);
 	}
 
+	/**
+	 * 根据宝贝id，将能抽奖的获取出来
+	 * 
+	 * @param bbid
+	 * @return
+	 */
+	public List<SKBbrw> selectByBBid(Long bbid) {
+		String daydes = DateUtils.format(new Date(), DateUtils.DAY_FORMAT);
+		Map<String, Object> parameters = MapUtils.genMap("bbid", bbid, "bigbbnum", 1, "bigdaydes", daydes, "orderby", "daydes");
+		List<SKBbrw> list = dao.selectByWhere(parameters);
+		return list;
+	}
+
 	public boolean insert(SKBbrw obj) {
 		super.beforeInsert(obj);
 		obj.setId(baseKeyService.getKey("sk_bbrw"));
 		obj.setStatus(1L);
 		obj.setYsqnum(0L);
-		if(obj.getBbnum() == null){
+		if (obj.getBbnum() == null) {
 			obj.setBbnum(0L);
 		}
-		if(obj.getZhuanhua() == null){
+		if (obj.getZhuanhua() == null) {
 			obj.setZhuanhua("0");
 		}
 		obj.setYzj(0L);
@@ -98,34 +121,34 @@ public class SKBbrwService extends JSBaseService {
 	 * 
 	 * @param obj
 	 */
-	public void initData(List<SKBbrw> rws,Long hdtypeid) {
+	public void initData(List<SKBbrw> rws, Long hdtypeid) {
 		Date date = new Date();
-		Date now = DateUtils.parse(DateUtils.format(date,DateUtils.DAY_FORMAT), DateUtils.DAY_FORMAT);
+		Date now = DateUtils.parse(DateUtils.format(date, DateUtils.DAY_FORMAT), DateUtils.DAY_FORMAT);
 		for (SKBbrw obj : rws) {
 			Date day = DateUtils.parse(obj.getDaydes(), DateUtils.DAY_FORMAT);
-			if(day.getTime() < now.getTime()){
+			if (day.getTime() < now.getTime()) {
 				BusinessExceptionUtil.threwException("时间不能早于今天");
 			}
-			if(obj.getBbnum() == null){
+			if (obj.getBbnum() == null) {
 				obj.setBbnum(0L);
 			}
 			int zhuanhua = NumberUtils.parseInteger(obj.getZhuanhua(), 0);
-			//立即申请，没有预热，每天必须有数量，转化率为100
-			if(hdtypeid == 4){
+			// 立即申请，没有预热，每天必须有数量，转化率为100
+			if (hdtypeid == 4) {
 				zhuanhua = 100;
-				if(obj.getBbnum() > 0){
+				if (obj.getBbnum() > 0) {
 					BusinessExceptionUtil.threwException("必中任务，每天必须有投放量");
 				}
 			}
-				
+
 			long sqnum = 0;
-			if(zhuanhua != 0){
+			if (zhuanhua != 0) {
 				sqnum = obj.getBbnum() * 100 / zhuanhua;
 			}
 			obj.setSqnum(sqnum);
-			
+
 			obj.setStartTime(DateUtils.parse(DateUtils.formatDateStart(day), DateUtils.DATE_FORMAT_PATTERN));
-			obj.setEndTime(DateUtils.parse(DateUtils.formatDateEnd(day), DateUtils.DATE_FORMAT_PATTERN));		
+			obj.setEndTime(DateUtils.parse(DateUtils.formatDateEnd(day), DateUtils.DATE_FORMAT_PATTERN));
 		}
 	}
 
@@ -159,7 +182,7 @@ public class SKBbrwService extends JSBaseService {
 	 * 
 	 * @param bbid
 	 */
-	public void shenqing(Long bbid,Long hdtypeid) {
+	public void shenqing(Long bbid, Long hdtypeid) {
 		List<SKBbrw> list = getList(bbid);
 		if (CollectionUtils.isEmpty(list)) {
 			BusinessExceptionUtil.threwException("宝贝今天没有任务");
@@ -228,9 +251,8 @@ public class SKBbrwService extends JSBaseService {
 			}
 
 		} catch (Exception e) {
-			BusinessExceptionUtil.threwException(e);;
+			BusinessExceptionUtil.threwException(e);
 		}
-
 	}
 
 	/**
@@ -250,32 +272,56 @@ public class SKBbrwService extends JSBaseService {
 		} else {
 			cjsl = (bbnum - yzj) / 2;
 		}
-		if(cjsl == 0){
-			return;
-		}
 
 		List<SKSkqk> list = sKSkqkService.getDengChouJiang(bbid);
 		if (CollectionUtils.isEmpty(list)) {
 			return;
 		}
+		List<SKSkqk> zjrlist = null;
 		if (list.size() <= cjsl) {
 			// 奖比人多，全部中奖
-			for (SKSkqk skqk : list) {
-				skqk.setStatus(51L);
-				sKSkqkService.update(skqk);
-			}
-			bbrw.setYzj(list.size()+bbrw.getYzj());
-		} else {
-			// 人多，需要进行抽
-			List<SKSkqk> zjrlist = poolBean((int)cjsl, list);
+			zjrlist = list;
 			for (SKSkqk skqk : zjrlist) {
 				skqk.setStatus(51L);
-				sKSkqkService.update(skqk);
+				sKSkqkService.updateStatus(skqk.getId(), skqk.getStatus());
 			}
-			bbrw.setYzj(zjrlist.size()+bbrw.getYzj());
-			
+			bbrw.setYzj(list.size() + bbrw.getYzj());
+		} else {
+			// 人多，需要进行抽
+			zjrlist = poolBean((int) cjsl, list);
+			for (SKSkqk skqk : zjrlist) {
+				skqk.setStatus(51L);
+				sKSkqkService.updateStatus(skqk.getId(), skqk.getStatus());
+			}
+			for (SKSkqk skqk : list) {
+				skqk.setStatus(21L);
+				sKSkqkService.updateStatus(skqk.getId(), skqk.getStatus());
+			}
+			bbrw.setYzj(zjrlist.size() + bbrw.getYzj());
 		}
 		update(bbrw);
+		SKBaobei baobei = sKBaobeiService.selectOne(bbid);
+		baobei.setZjnum(baobei.getZjnum()+CollectionUtils.getSize(zjrlist));
+		sKBaobeiService.update(baobei);
+		sendSMS(zjrlist);
+
+	}
+
+	private void sendSMS(List<SKSkqk> zjrlist) {
+		if (CollectionUtils.isEmpty(zjrlist)) {
+			return;
+		}
+		for (SKSkqk skqk : zjrlist) {
+			try {
+				long uid = skqk.getUserid();
+				long bbid = skqk.getBbid();
+				SKUser user = sKUserService.selectOne(uid);
+				SKBaobei baobei = sKBaobeiService.selectOne(bbid);
+				SMSClient.sendZhongJiang(user.getPhone(), baobei.getTitle(), "3小时");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	/**

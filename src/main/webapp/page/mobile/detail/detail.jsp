@@ -67,7 +67,7 @@
                 <div class="aui-product-head aui-footer-flex">
                     
                     <span>￥<%=baobei.getSalePrice() %></span>
-                    <em>剩余 <%= baobei.getBbnum()-baobei.getYzj()%>/<%=baobei.getBbnum() %>份</em>
+                    <em>剩余 <%= baobei.getBbnum()-baobei.getZjnum()%>/<%=baobei.getBbnum() %>份</em>
                 </div>
                 <div class="aui-product-title">
                     <h2><%=baobei.getTitle() %></h2>
@@ -77,7 +77,7 @@
                     <img src="images/icon-rb.png" alt="">
                     <span><%=baobei.getSqnum() %>人 已申请</span>
 					<img src="images/icon-rb.png" alt="">
-					<span><%=baobei.getYzj() %>人 已中奖</span>
+					<span><%=baobei.getZjnum() %>人 已中奖</span>
                 </div>
                
                 <div class="aui-introduce">
