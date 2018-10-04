@@ -3,6 +3,7 @@
 <% 
 	String context = BusiConstant.shangjiapath;
 	String name = BusiConstant.name;
+	String status = (String)request.getAttribute("status");
 %>
                 
 <link rel="stylesheet" type="text/css" href="<%=context%>/addJPinShop.css">
@@ -93,6 +94,18 @@
         color: #0094ff;
         cursor: pointer;
     }
+    
+    .trhead td{
+     	height:33px;
+		vertical-align:top:middle;
+		bgcolor:#f5f5f5;
+		text-align: center;
+    }
+    .trbody td{
+     	height:100px;
+		vertical-align:top:middle;
+		text-align: center;
+    }
 </style>
 <script language="javascript" type="text/javascript">
     var count=3;
@@ -103,6 +116,7 @@
     var skType = -1;
     
 </script>
+
 <div class="clearfix fabushiyong" style="padding-bottom: 0;">
     <div class="shiy_ti">
         <span style="float:none;margin-right:5px;">活动管理</span>
@@ -119,38 +133,22 @@
         <input onclick="search()" type="button" style="background: url('/Content/images/se.gif') no-repeat scroll -1px center transparent; border: 0px none; cursor: pointer; height: 28px; width: 101px; outline: none; position: relative; margin-left: 0px;">
     </div>
     <div class="shiy_tl">
-        <a class="shiy" href="/JPinShopissueBis?status=-1&amp;orderType=0&amp;sk_type=-1">全部<i>|</i></a>
-        <a class="" href="/JPinShopissueBis?status=5&amp;orderType=0&amp;sk_type=-1">待支付</a>
-        <a class="" href="/JPinShopissueBis?status=0&amp;orderType=0&amp;sk_type=-1">待审核</a>
-        <a class="" href="/JPinShopissueBis?status=1&amp;orderType=0&amp;sk_type=-1">进行中</a>
-        <a class="" href="/JPinShopissueBis?status=3&amp;orderType=0&amp;sk_type=-1">已结束</a>
-        <a class="" href="/JPinShopissueBis?status=2&amp;orderType=0&amp;sk_type=-1">已驳回</a>
+        <a class="<%=status==null?"shiy":""%>" href="<%=BusiConstant.ht_huodonglist.getKey()%>">全部<i>|</i></a>
+        <a class="<%="0".equalsIgnoreCase(status)?"shiy":""%>" href="<%=BusiConstant.ht_huodonglist.getKey()%>?status=0">待支付</a>
+        <a class="<%="1".equalsIgnoreCase(status)?"shiy":""%>" href="<%=BusiConstant.ht_huodonglist.getKey()%>?status=1">待审核</a>
+        <a class="<%="9".equalsIgnoreCase(status)?"shiy":""%>" href="<%=BusiConstant.ht_huodonglist.getKey()%>?status=9">进行中</a>
+        <a class="<%="10".equalsIgnoreCase(status)?"shiy":""%>" href="<%=BusiConstant.ht_huodonglist.getKey()%>?status=10">已结束</a>
+        <a class="<%="2".equalsIgnoreCase(status)?"shiy":""%>" href="<%=BusiConstant.ht_huodonglist.getKey()%>?status=2">已驳回</a>
     </div>
     <div class="clearfix right_g">
         <div class="right_contant table-style">
-         
-            <table width="996" cellspacing="0" cellpadding="0" id="listtable">
-                <tbody><tr>
-                    
-                    <td width="270" height="33" valign="middle" bgcolor="#f5f5f5" style="text-align: center;">
-                        <strong>活动名称</strong>
-                    </td>
-                    <td width="176" height="33" valign="middle" bgcolor="#f5f5f5" style="text-align: center;">
-                        <strong>开始时间</strong>
-                    </td>
-                    <td width="150" height="33" valign="middle" bgcolor="#f5f5f5" style="text-align: center;">
-                        <strong>活动进度</strong>
-                    </td>
-                    <td width="200" height="33" valign="middle" bgcolor="#f5f5f5" style="text-align: center;">
-                        <strong>活动操作</strong>
-                    </td>
-                    <td width="200" height="33" valign="middle" bgcolor="#f5f5f5" style="text-align: center;">
-                        <strong>用户操作</strong>
-                    </td>
-                </tr>
+         <div style="width:1000px; overflow-y:scroll;">
+            <table width="2000" cellspacing="0" style="table-layout:fixed;" cellpadding="0" id="listtable">
+                <tbody>
                   
-                  
-            </tbody></table>
+            	</tbody>
+            </table>
+            </div>
         </div>
     </div>
 </div>
@@ -159,34 +157,59 @@
 
 
 <script>
+	var theadtds = [{w:270,na:"活动名称"},{w:100,na:"开始时间"},{w:100,na:"结束时间"},{w:100,na:"商家名称"}
+	,{w:100,na:"店铺名称"},{w:100,na:"宝贝单价"},{w:100,na:"产品数量"},{w:100,na:"活动进度"},{w:100,na:"活动操作"}];
 	function sucdo(data){
+		var theadhtml = "<tr class='trhead'>";     
+		for(var i=0;i<theadtds.length;i++){
+			var row = theadtds[i];
+			theadhtml += "<td width='"+row.w+"'>";
+			theadhtml += "<strong>"+row.na+"</strong>";
+			theadhtml += "</td>";      
+		}
+		theadhtml += "</tr>";
+		$("#listtable").append(theadhtml);
+		
 		var rows = data.resultData.rows;
 		if(rows){		
 			for(var i=0;i<rows.length;i++){
 				var row = rows[i];
-				var html =   "<tr> "       
-                +"<td width=\"270\" height=\"100\" valign=\"middle\">"
+				var html =   "<tr class='trbody'> "       
+                +"<td width='"+theadtds[0].w+"'>"
                 +"<div class=\"xi_lt clearfix\" style=\"margin-right: 0\">"
-                +"<a style='width: 60px; height: 60px;'>"
+                +"<a style='width: 60px; height: 60px;' href='"+row.url+"' target='_blank'>"
                 +"<img src='"+row.zturl+"'  height='60' width='60'> </a>"
                 +"    <div class=\"cd_lxq cm_cd_lxq\">"
-                +"        <a  style=\"margin-right: 0\">"
                 +"            <span style=\"margin-left: 0px; width: 170px; line-height: 12px;\">" 
                 +"                <em class=\"iconfont icon-tb\" style=\"font-weight:500;font-size:15px;\">" 
                 +"                </em>"+row.title 
-                +"            </span>" 
-                +"        </a>" 
+                +"            </span>"       
                 +"        <input style=\"height: 15px; background: transparent; margin: 10px 0;\" type=\"text\" placeholder=\"备注\" class=\"beizhu\" id=\"sk_note_83882\" onblur=\"SetNoet(83882, 7, '') \">" 
                 +"    </div>" 
                 +" </div>" 
                 +"</td>" 
-                +"<td height=\"100\" valign=\"middle\" width=\"176\" align=\"center\">" 
+                +"<td width='"+theadtds[1].w+"'>" 
                 +" <em style=\"color: #a9a9a9;\">"+row.startTimeStr+"</em>" 
                 +"</td>" 
-                +" <td height=\"100\" valign=\"middle\" align=\"center\" width=\"150\">" 
+                +"<td width='"+theadtds[2].w+"'>" 
+                +" <em style=\"color: #a9a9a9;\">"+row.endTimeStr+"</em>" 
+                +"</td>"   
+                +"<td width='"+theadtds[3].w+"'>" 
+                +" <em style=\"color: #a9a9a9;\">"+row.userName+"</em>" 
+                +"</td>"
+                +"<td width='"+theadtds[4].w+"'>" 
+                +" <em style=\"color: #a9a9a9;\">"+row.dpname+"</em>" 
+                +"</td>"
+                +"<td width='"+theadtds[5].w+"'>" 
+                +"     <em style=\"color: #f25f55\">"+row.salePrice+"</em>" 
+                +"  </td>" 
+                +"<td width='"+theadtds[6].w+"'>" 
+                +"     <em style=\"color: #f25f55\">"+row.bbnum+"</em>" 
+                +"</td>"                
+                +"<td width='"+theadtds[7].w+"'>" 
                 +"     <em style=\"color: #f25f55\">"+row.statusStr+"</em>" 
                 +"  </td>" 
-                +" <td height=\"100\" align=\"center\" width=\"200\">";
+                +"<td width='"+theadtds[8].w+"'>";
                 if(row.status == 1){
                 	html+="    <div class=\"wae_cer\">" 
                       +"        <input type='button' value='审核通过' onclick='tongguo("+row.id+")'/>"
@@ -194,7 +217,6 @@
                 }
               
                 html+="</td>" 
-                +"<td height=\"100\" align=\"center\" width=\"200\">--</td>" 
                 +" </tr>" 
 				$("#listtable").append(html);
 			}
@@ -203,7 +225,7 @@
 	}
 
    function dianpulist(){
-	   var data = {};
+	   var data = {status:<%=status%>};
 	   var url = "<%=BusiConstant.shangjia_baobeilist_do.getKey()%>";
 	   postdo(url, data, sucdo,null, null);
    }

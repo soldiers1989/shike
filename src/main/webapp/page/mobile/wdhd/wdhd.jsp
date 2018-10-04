@@ -274,7 +274,6 @@
             }else if(row.status == 61){
                 // 提交订单两天后，可提交评价
                 var time = format(row.updatedTime + 1000*60*60*24*2 - new Date().getTime());
-
                 btn = "        <div class=\"jp-btn clearfix\">\n" +
                     "           <span class=\"time\">"+ time +"</span>可提交评论 " +
                     "            <a href=\"javascript:void(1);\" class=\"gray\">等待收货</a>\n" +

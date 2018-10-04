@@ -330,6 +330,15 @@ public class SKBaobeiService extends JSBaseService {
 			parameters.remove("userid");
 		}
 		List<SKBaobei> list = selectByWhere(parameters);
+		if (skuser.getType() == 3 && CollectionUtils.isNotEmpty(list)) {
+			for(SKBaobei skbaobei:list){
+				SKDianPu dianp = sKDianPuService.selectOne(skbaobei.getDpid());
+				SKUser user = sKUserService.selectOne(skbaobei.getUserid());
+				skbaobei.setDpname(dianp.getName());
+				skbaobei.setUserName(user.getName());
+			}
+		}	
+		
 		return list;
 	}
 

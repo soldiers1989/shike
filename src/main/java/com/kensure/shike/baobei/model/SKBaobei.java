@@ -33,6 +33,9 @@ public class SKBaobei extends BaseInfo {
 
 	/** 用户id */
 	private Long userid;
+	
+	/** 用户名称 */
+	private String userName;
 
 	/** 店铺id */
 	private Long dpid;
@@ -336,7 +339,7 @@ public class SKBaobei extends BaseInfo {
 	}
 	
 	public String getStartTimeStr() {
-		return DateUtils.format(startTime);
+		return DateUtils.format(startTime,DateUtils.DAY_FORMAT);
 	}
 
 	public void setStartTime(Date startTime) {
@@ -349,6 +352,10 @@ public class SKBaobei extends BaseInfo {
 
 	public void setEndTime(Date endTime) {
 		this.endTime = endTime;
+	}
+	
+	public String getEndTimeStr() {
+		return DateUtils.format(endTime,DateUtils.DAY_FORMAT);
 	}
 
 	public Long getDisorder() {
@@ -458,5 +465,13 @@ public class SKBaobei extends BaseInfo {
 	public void setZjnum(Long zjnum) {
 		this.zjnum = zjnum;
 	}
-	
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
 }
