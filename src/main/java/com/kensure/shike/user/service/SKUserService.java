@@ -440,7 +440,6 @@ public class SKUserService extends JSBaseService {
 	 */
 	public void updateLoginPwd(String oldPassword, String newPassword) {
 		SKUser skuser = getUser();
-		SKUserService.checkUserSK(skuser);
 
 		ParamUtils.isBlankThrewException(oldPassword, "原密码不能为空");
 		ParamUtils.isBlankThrewException(newPassword, "新密码不能为空");
@@ -450,6 +449,28 @@ public class SKUserService extends JSBaseService {
 		SKUser user = new SKUser();
 		user.setId(skuser.getId());
 		user.setPassword(newPassword);
+		update(user);
+	}
+	
+	/**
+	 * 更新支付密码
+	 */
+	public void updatePayPwd(String oldPassword, String newPassword) {
+		SKUser skuser = getUser();
+
+		ParamUtils.isBlankThrewException(oldPassword, "原密码不能为空");
+		ParamUtils.isBlankThrewException(newPassword, "新密码不能为空");
+		String pa = skuser.getPaypassword();
+		//支付密码为空，使用登录密码
+		if(StringUtils.isBlank(pa)){
+			pa = skuser.getPassword();
+		}
+		
+		ParamUtils.isErrorThrewException(oldPassword.equals(pa), "原密码错误");
+
+		SKUser user = new SKUser();
+		user.setId(skuser.getId());
+		user.setPaypassword(newPassword);
 		update(user);
 	}
 }

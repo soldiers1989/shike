@@ -240,6 +240,11 @@ public class SKUserController {
 			String oldPassword = json.getString("oldPassword");
 			String newPassword = json.getString("newPassword");
 			sKUserService.updateLoginPwd(oldPassword, newPassword);
+		}// 修改支付密码
+		else if ("6".equals(type)) {
+			String oldPassword = json.getString("oldPassword");
+			String newPassword = json.getString("newPassword");
+			sKUserService.updatePayPwd(oldPassword, newPassword);
 		}
 
 		return new ResultRowInfo();

@@ -60,7 +60,7 @@
                     </div>
                     <!--mod_tv-->
                     <div class="mer_pct">
-                        <a target="_parent" id="hrefsubmit" href="javascript:void(0);">提交</a>
+                        <a href="#" onclick="gaimi();">提交</a>
                     </div>
                     <!--mer_pct-->
                 </div>
@@ -73,9 +73,14 @@
 <script>
 	var chognzhiusername = "<span>您的<%=BusiConstant.name %>商家账号：</span>"+$.cookie("mdname");
    $("#chongzhiusername").html(chognzhiusername);
-   function tixiantijiao(){
-	   var data = {fangshi:1,jiaoyihao:$("#name").val(),jine:$("#money").val()};
-	   var url = "<%=BusiConstant.shangjia_chongzhi_do.getKey()%>";
+   function gaimi(){
+	   var type = 5;
+	   var d1 = $("#RadioGroup1_1");
+	   if(d1.hasClass("mod_lef")){
+		   type = 6;
+	   }
+	   var data = {type:type,oldPassword:$("#oldpassword").val(),newPassword:$("#newpwd").val()};
+	   var url = "<%=BusiConstant.shike_user_update_do.getKey()%>";
 	   postdo(url, data, null,null, null);
    }
    

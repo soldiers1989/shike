@@ -30,6 +30,9 @@ public class SKUser extends BaseInfo{
 
 	/**密码*/		
 	private String password; 
+	
+	/**支付密码*/		
+	private String paypassword; 
 
 	/**推荐人ID*/		
 	private Long refereeId; 
@@ -183,6 +186,14 @@ public class SKUser extends BaseInfo{
 
 	public void setRealname(String realname) {
 		this.realname = realname;
+	}
+
+	public String getPaypassword() {
+		return paypassword;
+	}
+
+	public void setPaypassword(String paypassword) {
+		this.paypassword = paypassword;
 	}
 	
 }
