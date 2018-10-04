@@ -123,6 +123,7 @@ $(function () {
     lingaSort.shopcat = globle.getUrlParam("shopcat") || -1;
     lingaSort.sort = globle.getUrlParam("sort") || 1;
     lingaSort.orderType = globle.getUrlParam("orderType") || 0;
+    lingaSort.bigStartTime = globle.getUrlParam("bigStartTime") || "";
     lingaSort.minprice = "";
     lingaSort.maxprice = "";
     lingaSort.paytype = "";
@@ -130,9 +131,14 @@ $(function () {
     lingaSort.isSendGold = 0;
 
     if (lingaSort.order == '1') {
-        $(".jp-con .con-cat li").removeClass("act");
-        $("#order" + lingaSort.order).addClass("act");
-        // $(that).parent().addClass("act");
+        // $(".jp-con .con-cat li").removeClass("act");
+        // $("#order" + lingaSort.order).addClass("act");
+        // // $(that).parent().addClass("act");
+
+
+
+        $(".jp-con .con-cat").click();
+        // document.getElementById("order").click();
     }
 
     getList();
@@ -404,10 +410,17 @@ $(function () {
 
                 for (var i = 0; i < data.resultData.rows.length; i++) {
                     var row = data.resultData.rows[i];
+                    // 高价值
+                    var highPrice = "";
+                    if (row.salePrice >= 100) {
+                        highPrice = "<div><span class=\"red\">高价值</span></div>"
+                    }
+
                     var html = "<li><a data-id=\""+ row.id +"\" class=\"tod\"><img\n" +
                         "                    src=\""+ row.zturl +"\"\n" +
                         "                    data-original=\""+ row.zturl +"\"\n" +
                         "                    class=\"lazy\" style=\"display: inline;\">\n" +
+                        highPrice +
                         "            </a>\n" +
                         "                <p><span class=\"iconfont icon-tb\"></span> "+ row.title +"</p>\n" +
                         "                <div class=\"jp-num\"><span>¥"+ row.salePrice +"</span> <span>"+ row.sqnum +"人申请</span></div>\n" +
@@ -599,7 +612,7 @@ $(function () {
             // vmDetail.$data.activity_name = data.dpname;
             $("#activity_name").html(row.title); // 商品名称
             $("#shengyu").html("剩余 "+(row.bbnum - row.zjnum)+"/"+row.bbnum+" 份"); // 剩余
-            $("#ysqnum").html(row.ysqnum + "人 已申请"); // 已经申请数量
+            $("#ysqnum").html(row.sqnum + "人 已申请"); // 已经申请数量
             $("#yzj").html(row.zjnum + "人 已中奖"); // 已经中奖人数
             $("#salePrice").html("¥" + row.salePrice); // 宝贝单价
 
@@ -607,6 +620,17 @@ $(function () {
             $("#logo_pic2").attr("src", row.tplist[1].url); // 图2
             $("#logo_pic3").attr("src", row.tplist[2].url); // 图3
             $("#logo_pic4").attr("src", row.tplist[3].url); // 图4
+
+            if (row.huabei == '1') {
+                $("#huabei").css("display", "block");
+            } else {
+                $("#huabei").css("display", "none");
+            }
+            if (row.xinyongka == '1') {
+                $("#xinyongka").css("display", "block");
+            } else {
+                $("#xinyongka").css("display", "none");
+            }
 
 
             // vmDetail.$data.clinch_price = (data.Data.clinch_price - 0).toFixed(2);;
@@ -663,8 +687,10 @@ $(function () {
             var goldText = "";
             var goldBtn = "";
 
-            $("#get-invite").attr("class", "get-invite");
-            $("#get-invite").html("金币兑换");
+            $("#get-invite").attr("class", "get-apply gray ");
+            $("#get-invite").html("暂不支持金币兑换");
+            // $("#get-invite").attr("class", "get-invite");
+            // $("#get-invite").html("金币兑换");
 
             // goldText = "已兑完";
             // $(".get-invite").html(goldText);
@@ -843,15 +869,7 @@ $(function () {
             // });
             window.scrollTo(0, 0);
         });
-        // //空图片黑名单
-        // var emptyImg = [
-        //           'https://assets.alicdn.com/kissy/1.0.0/build/imglazyload/spaceball.gif',
-        //           'https://img.alicdn.com/imgextra/i2/51762646/TB22ZiEdgMPMeJjy1XdXXasrXXa_!!51762646.jpg_468x468q90s150.jpg_q90.jpg_468x468q90s150.jpg',
-        //           'https://img.alicdn.com/imgextra/i2/51762646/TB2rytqXaagSKJjy0FbXXa.mVXa_!!51762646.jpg_468x468q90s150.jpg_q90.jpg_468x468q90s150.jpg',
-        //           'https://img.alicdn.com/imgextra/i2/51762646/TB2BWhpXjuhSKJjSspmXXcQDpXa_!!51762646.jpg_468x468q90s150.jpg_q90.jpg_468x468q90s150.jpg',
-        //           'https://img.alicdn.com/imgextra/i3/51762646/TB2b0iGdlUSMeJjSszeXXcKgpXa_!!51762646.jpg_468x468q90s150.jpg_q90.jpg_468x468q90s150.jpg',
-        //           'https://img.alicdn.com/imgextra/i1/692125945/TB2Xk8lbFXXXXXeXpXXXXXXXXXX-692125945.gif'
-        // ];
+
         $("#detail #list-apply1").html("");
         $("#detail #guss-like").hide();
         $("#get-more").hide()
@@ -930,13 +948,13 @@ $(function () {
 function getPaiB(money, reMoney) {
     var html = '<div class="tryout"><h3 class="meili-color">试用流程：</h3><p>1、申请试用，获得试用资格。<br />' +
         '2、申请通过后，按照搜索流程提示，以 <em><icon class="meili-color">' + money + '</icon> 元去指定平台下单。<br />' +
-        '3、下单完成后，回美丽啪填写购买付款的订单号。<br />' +
+        '3、下单完成后，回试呗网填写购买付款的订单号。<br />' +
         ' 4、等待收货 → 确认收货 → 给予宝贝评价，并填写试用报告。<br />' +
         '5、报告通过 → 返还 <em><icon class="meili-color">' + reMoney + '</icon></em>' +
-        ' 元到您的美丽啪账户中 → 试用完成。</p></div><div class="tryout"><h3 class="meili-color">注意事项</h3><p>' +
-        '1、禁止私自使用信用卡、花呗、淘金币、优惠券、红包、天猫积分等下单(美丽啪指定可使用除外)。<br />' +
+        ' 元到您的试呗网账户中 → 试用完成。</p></div><div class="tryout"><h3 class="meili-color">注意事项</h3><p>' +
+        '1、禁止私自使用信用卡、花呗、淘金币、优惠券、红包、天猫积分等下单(试呗网指定可使用除外)。<br />' +
         '2、禁止通过淘宝客、返利网、一淘等返现返利网链接下单。<br />' +
-        '以上由于买家违规下单所产生的费用，由买家承担。美丽啪有权冻结其帐号，限制提现操作，IP列入黑名单。</p></div>' +
+        '以上由于买家违规下单所产生的费用，由买家承担。试呗网有权冻结其帐号，限制提现操作，IP列入黑名单。</p></div>' +
         '<div class="tryout"><h3 class="meili-color">温馨提示：</h3><p>' +
         '1、用户获得试用资格后，请根据时间提示按时提交订单号和试用报告。<br />' +
         '2、若因未按时提交以上信息而被系统取消试用资格，用户可在“可恢复”中选择恢复资格。<br/> ' +

@@ -1,9 +1,12 @@
 <%@page import="java.util.List"%>
 <%@page import="com.kensure.shike.constant.BusiConstant"%>
+<%@ page import="co.kensure.mem.DateUtils" %>
+<%@ page import="java.util.Date" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
     String context = BusiConstant.shikemobilepath;
+    String day1 = DateUtils.format(new Date(),DateUtils.DAY_FORMAT);
 %>
 <!DOCTYPE html>
 <html lang="zh" style="font-size: 22.125px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -402,7 +405,7 @@
         <div class="shangxin-title-box clearfix">
             <span class="shangxin-title">今日上新</span>
 
-            <a class="right-title" href="<%=BusiConstant.shike_haohuo.getKey() %>?order=1">今日上新<strong id="jrsxCount" style="margin: 0 0.1rem;">29205</strong>件好货 <i class="iconfont icon-gengduo1"></i></a>
+            <a class="right-title" href="<%=BusiConstant.shike_haohuo.getKey() %>?order=1&bigStartTime=<%=day1 %>">今日上新<strong id="jrsxCount" style="margin: 0 0.1rem;">29205</strong>件好货 <i class="iconfont icon-gengduo1"></i></a>
         </div>
         <div class="shangxin-goods-box">
             <div>

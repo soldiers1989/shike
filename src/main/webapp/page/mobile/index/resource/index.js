@@ -45,12 +45,13 @@ $(function () {
     function jinrilistCallback(data) {
         $("#jrsxCount").html(data.resultData.total);
 
+        var date = new Date().toLocaleDateString()
 
         for (var i = 0; i < data.resultData.rows.length; i++) {
             var row = data.resultData.rows[i];
             var html = "<li>\n" +
                 "                            \n" +
-                "                            <a href=\"/shike/skm/haohuo?order=1\">\n" +
+                "                            <a href=\"/shike/skm/haohuo?order=1&bigStartTime="+ date +"\">" +
                 "                                <img src=\""+ row.zturl +"\">\n" +
                 "                                <span class=\"t-price\">¥"+ row.salePrice +"</span>\n" +
                 "                                <span class=\"t-btn\">免费申请</span>\n" +
