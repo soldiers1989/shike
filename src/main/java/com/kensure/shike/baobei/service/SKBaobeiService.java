@@ -423,6 +423,8 @@ public class SKBaobeiService extends JSBaseService {
 		}
 		sk.setStatus(9L);
 		update(sk);
+		//修改账户信息
+		sKUserZhangService.commit(sk.getUserid(), 3L, sk.getId());
 	}
 
 	/**

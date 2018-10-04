@@ -17,6 +17,8 @@
 		no_weixin as noWeixin,
 		no_taoqufen as noTaoqufen,
 		type,
+		realname,
+		paypassword,
 		created_time as createdTime,
 		updated_time as updatedTime
     </sql>
@@ -36,6 +38,8 @@
 		no_weixin,
 		no_taoqufen,
 		type,
+		realname,
+		paypassword,
 		created_time,
 		updated_time
     </sql>
@@ -57,6 +61,8 @@
 			#{noWeixin},
 			#{noTaoqufen},
 			#{type},
+			#{realname},			
+			#{paypassword},
 			#{createdTime},
 			#{updatedTime}
 		)
@@ -80,6 +86,8 @@
 				#{item.noWeixin},
 				#{item.noTaoqufen},
 				#{item.type},
+				#{item.realname},
+				#{item.paypassword},		
 				#{item.createdTime},
 				#{item.updatedTime}
 			)
@@ -125,6 +133,9 @@
 		</if>
 		<if test="type != null">			
 			and type = #{type}			
+		</if>
+		<if test="realname != null">			
+			and realname = #{realname}			
 		</if>
 		<if test="createdTime != null">			
 			and created_time = #{createdTime}			
@@ -215,12 +226,18 @@
 		<if test="type != null">
 			type = #{type},
 		</if>
+		<if test="realname != null">
+			realname = #{realname},
+		</if>
+		<if test="paypassword != null">
+			paypassword = #{paypassword},
+		</if>	
 		<if test="createdTime != null">
 			created_time = #{createdTime},
 		</if>
 		<if test="updatedTime != null">
 			updated_time = #{updatedTime}
-		</if>
+		</if>	
 	</sql>
 	
 	<update id="update" parameterType="com.kensure.shike.user.model.SKUser">

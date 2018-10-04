@@ -114,19 +114,20 @@ public class SKUserZhangService extends JSBaseService {
 
 	/**
 	 * 用户帐
+	 * 
 	 * @return
 	 */
-	public List<SKUserZhang> selectByUser(SKUser user,Integer inorout,Integer status) {
-		Map<String, Object> parameters = MapUtils.genMap("userid",user.getId(),"orderby","created_time desc");
-		if(inorout != null){
+	public List<SKUserZhang> selectByUser(SKUser user, Integer inorout, Integer status) {
+		Map<String, Object> parameters = MapUtils.genMap("userid", user.getId(), "orderby", "created_time desc");
+		if (inorout != null) {
 			parameters.put("inorout", inorout);
 		}
-		if(status != null){
+		if (status != null) {
 			parameters.put("status", status);
 		}
 		return dao.selectByWhere(parameters);
 	}
-	
+
 	/**
 	 * 新增账款
 	 * 
@@ -142,23 +143,56 @@ public class SKUserZhangService extends JSBaseService {
 		// 业务类型id,1是充值，2是提现，3是活动费用,4是试客返款
 		if (obj.getBusitypeid() == 1) {
 			obj.setInorout(1L);
-			obj.setStatus(0L);
+			obj.setStatus(1L);
 		} else if (obj.getBusitypeid() == 2) {
 			obj.setInorout(-1L);
 			obj.setStatus(0L);
 		} else if (obj.getBusitypeid() == 3) {
 			obj.setInorout(-1L);
-			obj.setStatus(1L);
+			obj.setStatus(0L);
 		} else if (obj.getBusitypeid() == 4) {
 			obj.setInorout(1L);
 			obj.setStatus(1L);
 		} else {
 			BusinessExceptionUtil.threwException("未知类型");
 		}
-		
+
 		updateYue(obj);
 		insert(obj);
 		return true;
+	}
+
+	/**
+	 * 提交账款，让他把状态变成1
+	 * 
+	 * @param userid
+	 *            用户id
+	 * @param busitypeid
+	 *            业务类型
+	 * @param busiid
+	 *            业务id
+	 * @return
+	 */
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+	public boolean commit(Long userid, Long busitypeid, Long busiid) {
+		SKUserZhang zhang = getBusi(userid, busitypeid, busiid);
+		zhang.setStatus(1L);
+		return update(zhang);
+	}
+
+	/**
+	 * 根据业务主键获取用户帐
+	 * 
+	 * @return
+	 */
+	private SKUserZhang getBusi(Long userid, Long busitypeid, Long busiid) {
+		SKUserZhang zhang = null;
+		Map<String, Object> parameters = MapUtils.genMap("userid", userid, "busiid", busiid, "busitypeid", busitypeid);
+		List<SKUserZhang> list = selectByWhere(parameters);
+		if (CollectionUtils.isNotEmpty(list)) {
+			zhang = list.get(0);
+		}
+		return zhang;
 	}
 
 	/**
@@ -169,12 +203,11 @@ public class SKUserZhangService extends JSBaseService {
 	 */
 	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
 	private boolean updateYue(SKUserZhang obj) {
-		Map<String, Object> parameters = MapUtils.genMap("userid",obj.getUserid(),"busiid",obj.getBusiid(),"busitypeid",obj.getBusitypeid());
-		List<SKUserZhang> list = selectByWhere(parameters);
-		if(CollectionUtils.isNotEmpty(list)){
+		SKUserZhang zhang = getBusi(obj.getUserid(), obj.getBusitypeid(), obj.getBusiid());
+		if (zhang != null) {
 			BusinessExceptionUtil.threwException("重复提交");
 		}
-		double y =ArithmeticUtils.mul(obj.getYue(),obj.getInorout());
+		double y = ArithmeticUtils.mul(obj.getYue(), obj.getInorout());
 		sKUserYueService.updateYue(obj.getUserid(), y, 0D);
 		return true;
 	}

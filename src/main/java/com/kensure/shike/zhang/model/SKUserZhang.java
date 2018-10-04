@@ -121,7 +121,7 @@ public class SKUserZhang extends BaseInfo{
 		if(status == 0){
 			temp = "等待审核";
 		}else if(status == 1){
-			temp = "审核通过";
+			temp = "成功";
 		}else if(status == -1){
 			temp = "拒绝通过";
 		}

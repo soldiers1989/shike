@@ -162,4 +162,37 @@ public class ShangJiaPageController {
 	public String userdefine(HttpServletRequest req, HttpServletResponse rep, Model model) {
 		return "page/shangjia/userdefine.jsp";
 	}
+	
+	// 充值列表
+	@RequestMapping("zhanglist")
+	public String zhanglist(HttpServletRequest req, HttpServletResponse rep, Model model) {
+		req.setAttribute("index", indexlist);
+		List<String> body = new ArrayList<String>();
+		body.add("index_left.jsp");
+		body.add("./manager/zhanglist_right.jsp");
+		req.setAttribute("bodypage", body);
+		return "page/shangjia/index.jsp";
+	}
+	
+	// 提现功能
+	@RequestMapping("tixian")
+	public String tixian(HttpServletRequest req, HttpServletResponse rep, Model model) {
+		req.setAttribute("index", indexlist);
+		List<String> body = new ArrayList<String>();
+		body.add("index_left.jsp");
+		body.add("./manager/tixian_right.jsp");
+		req.setAttribute("bodypage", body);
+		return "page/shangjia/index.jsp";
+	}
+	
+	// 改密功能
+	@RequestMapping("gaimi")
+	public String gaimi(HttpServletRequest req, HttpServletResponse rep, Model model) {
+		req.setAttribute("index", indexlist);
+		List<String> body = new ArrayList<String>();
+		body.add("index_left.jsp");
+		body.add("./manager/gaimi_right.jsp");
+		req.setAttribute("bodypage", body);
+		return "page/shangjia/index.jsp";
+	}
 }

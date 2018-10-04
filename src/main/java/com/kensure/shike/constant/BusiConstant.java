@@ -16,7 +16,7 @@ public class BusiConstant {
 	 * 商家页面资源路径
 	 */
 	public static final String shangjiapath = context + "/page/shangjia/ss";
-	
+	public static final String shangjiacss = context + "/page/shangjia/css";
 	
 	public static final String dddd = "footer.jsp";
 	/**
@@ -62,8 +62,9 @@ public class BusiConstant {
 	public static final KVBean shangjia_payinfo = new KVBean(context + "/shangjia/payinfo", "商家支付信息");
 	
 	public static final KVBean shangjia_shikelist = new KVBean(context + "/shangjia/shikelist", "试用情况");
-
-	
+	public static final KVBean shangjia_zhanglist = new KVBean(context + "/shangjia/zhanglist", "商家账户明细");
+	public static final KVBean shangjia_tixian = new KVBean(context + "/shangjia/tixian", "商家账户提现");
+	public static final KVBean shangjia_gaimi = new KVBean(context + "/shangjia/gaimi", "改密功能");
 	
 
 	public static final KVBean shangjia_regist_do = new KVBean(context + "/user/saveshangjia.do", "商家注册接口");

@@ -193,10 +193,9 @@ public class SKUserInoutService extends JSBaseService{
        	if(obj.getStatus() != 1){
        		BusinessExceptionUtil.threwException("重复提交");
        	}
-   	
        	obj.setStatus(9L);
        	update(obj);
-
+       	sKUserZhangService.commit(obj.getUserid(), 2L, obj.getId());
        	return true;
    	}
     

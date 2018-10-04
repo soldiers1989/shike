@@ -12,6 +12,7 @@
 		status,
 		zhanghao,
 		remark,
+		realname,
 		created_time as createdTime,
 		updated_time as updatedTime
     </sql>
@@ -26,6 +27,7 @@
 		status,
 		zhanghao,
 		remark,
+		realname,
 		created_time,
 		updated_time
     </sql>
@@ -42,6 +44,7 @@
 			#{status},
 			#{zhanghao},
 			#{remark},
+			#{realname},
 			#{createdTime},
 			#{updatedTime}
 		)
@@ -60,6 +63,7 @@
 				#{item.status},
 				#{item.zhanghao},
 				#{item.remark},
+				#{item.realname},
 				#{item.createdTime},
 				#{item.updatedTime}
 			)
@@ -97,6 +101,9 @@
 		<if test="updatedTime != null">			
 			and updated_time = #{updatedTime}			
 		</if>
+		<if test="realname != null">			
+			and realname = #{realname}			
+		</if>		
 	</sql>
     
 	<select id="selectOne" resultType="com.kensure.shike.chongzhi.model.SKUserInout" parameterType="Long" >
@@ -168,6 +175,9 @@
 		<if test="createdTime != null">
 			created_time = #{createdTime},
 		</if>
+		<if test="realname != null">
+			realname = #{realname},
+		</if>	
 		<if test="updatedTime != null">
 			updated_time = #{updatedTime}
 		</if>

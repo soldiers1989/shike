@@ -66,6 +66,9 @@ public class SKUser extends BaseInfo{
 	
 	/**余额*/		
 	private Double yue; 
+	
+	/**真实姓名*/		
+	private String realname; 
 
 	public Long getId() {
 		return id;
@@ -174,4 +177,12 @@ public class SKUser extends BaseInfo{
 		this.yue = yue;
 	}
 
+	public String getRealname() {
+		return realname;
+	}
+
+	public void setRealname(String realname) {
+		this.realname = realname;
+	}
+	
 }
