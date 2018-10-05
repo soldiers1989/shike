@@ -125,13 +125,13 @@
                 &lt;%&ndash;<a href="http://.com/UserAccount/vip"><i class="iconfont icon-VIP"></i> 立即开通&gt;</a>&ndash;%&gt;
         </div>--%>
         <%--<a class="sign-in" href="#">签到</a>--%>
-        <a class="sign-in" onclick="qidao()">签到</a>
+        <a class="sign-in" onclick="location.href = &#39;<%=BusiConstant.shike_jinbi.getKey() %>?type=1&#39;;">签到</a>
     </div>
     <div class="h23">
         <div class="usera-index-footer" onclick="location.href = &#39;<%=BusiConstant.shike_yue.getKey() %>&#39;;">
             <p>余额</p>：<p class="maney">${empty yue ? "0.00" : yue.yue }</p>
         </div>
-        <div class="usera-index-footer" onclick="jinbi()">
+        <div class="usera-index-footer" onclick="location.href = &#39;<%=BusiConstant.shike_jinbi.getKey() %>&#39;;">
             <p>金币</p>：<p class="maney">${empty yue  ? "0.00" : yue.jinbi }</p>
         </div>
     </div>

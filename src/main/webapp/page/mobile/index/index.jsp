@@ -408,7 +408,7 @@
         <div class="shangxin-title-box clearfix">
             <span class="shangxin-title">今日上新</span>
 
-            <a class="right-title" href="<%=BusiConstant.shike_haohuo.getKey() %>?order=1">今日上新<strong id="jrsxCount" style="margin: 0 0.1rem;">29205</strong>件好货 <i class="iconfont icon-gengduo1"></i></a>
+            <a class="right-title" href="<%=BusiConstant.shike_haohuo.getKey() %>?order=1">今日上新<strong id="jrsxCount" style="margin: 0 0.1rem;">0</strong>件好货 <i class="iconfont icon-gengduo1"></i></a>
         </div>
         <div class="shangxin-goods-box">
             <div>

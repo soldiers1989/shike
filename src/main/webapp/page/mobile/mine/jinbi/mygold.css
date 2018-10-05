@@ -1,0 +1,29 @@
+﻿.gold-hd{ border-bottom: 1px solid #eee; height: 3.6rem; box-sizing: border-box; padding:0 0.5rem; display: flex; justify-content: space-between; align-items: center;}
+body{ background-color: #fff;}
+.gold-hd p{ font-size: 0.5rem; padding-top: 0.15rem;}
+.gold-hd div{}
+.gold-hd div em{ font-size: 0.8rem; color: #fc7108;}
+.gold-hd img{ width: 2.6rem; height: auto;}
+.gold-hd >span{ width: 4rem; height: 1.6rem; line-height: 1.6rem; background-color: #fdd912; color: #ff464e; font-size: 0.55rem; text-align: center; border-radius: 0.2rem; font-weight: bold;}
+.gold-hd >span.gray{ background-color: #c1c1c1; color: #fff;}
+
+.zt-menu { width: 100%;}
+.zt-menu ul{ height: 1.9rem;}
+.zt-menu ul li{ width: 50%; padding: 0 10%; height: 1.9rem;}
+.zt-menu ul li div{ height: 0.1rem;}
+.bar{ border-bottom: 1px solid #eeeeee;}
+.gold-list li{ border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; padding:0.5rem;}
+.gold-list li img{ width: 1.4rem;}
+.gold-list.type-list img{ width:2rem; height: auto;}
+.gold-list.type-list p{ width: 1.5rem;}
+.gold-list li>p{ width:3.2rem; font-size: 0.5rem; line-height: 1rem; height: 1rem;}
+.gold-list li>p i{ color: #fdd912; font-size: 0.8rem; margin-right: 0.2rem; height: 1rem; line-height: 1.1rem;}
+
+.gold-list li>p  *{ display: inline-block; vertical-align: middle;}
+.gold-list li a{ height: 1.3rem;line-height: 1.3rem; background-color: #fdd912; color: #ff464e; width: 3rem; }
+.gold-list li a.gray{ color: #ffffff; background: #c1c1c1;}
+.gold-list li div span{ color: #000;}
+.gold-list li div p{ color: #999; font-size: 0.5rem; padding-top: 0.05rem;}
+.gold-list li div { width:6rem; font-size: 0.55rem;}
+.gold-list li a.op0{ opacity: 0;}
+
