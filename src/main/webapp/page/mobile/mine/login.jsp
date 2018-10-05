@@ -6,21 +6,22 @@
 %>
 <!DOCTYPE html>
 <html lang="zh" style="font-size: 22.125px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    
+
     <title>登录</title>
-    <title><%=BusiConstant.name %></title>
+    <meta name="keywords" content="<%=BusiConstant.keywords %>">
+    <meta name="description" content="<%=BusiConstant.description %>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <meta name="format-detection" content="telephone=no">
     <meta name="format-detection" content="address=no">
     <meta name="full-screen" content="yes">
     <link href="http://m.meilipa.com/favicon.ico" rel="shortcut icon" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/common/css/base.css">
-<link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/common/css/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/common/css/iconfont.css">
 
     <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/common/css/style.css">
 
     <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/jquery-1.8.3.js"></script>
-<script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/Common.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/Common.js"></script>
 
     <script>
         var userId=0;

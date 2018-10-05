@@ -160,24 +160,7 @@
         var rows = data.resultData.rows;
         for(var i=0;i<rows.length;i++){
             var row = rows[i];
-            var html1 = "<div class='aui-order-box'>"
-                +"<a class='aui-well-item'>"
-                +"    <div class='aui-well-item-bd'>"
-                +"        <h3>"+row.busitypeidStr+"</h3>"
-                +"   </div>"
-                +"    <span class='aui-well-item-fr'>2019-09-09</span>"
-                +"</a>"
-                +"<p class='aui-order-fl aui-order-time'>￥"+(row.yue*row.inorout)+"</p>"
-                +"<p class='aui-order-fl aui-order-address'>"+row.statusStr+"</p>"
-                +"</div>";
-
-            var color;
-            if (row.status == 1) {
-                color = "#10b60f";
-            } else {
-                color = "#ff464e";
-            }
-            console.log(row.status)
+            var color = row.status == 1 ? "#10b60f" : "#ff464e";
 
             var html = "<div class=\"billion\" >" +
                 "        <div class=\"sbj\">\n" +

@@ -189,7 +189,7 @@
         我是代言人
         <span class="iconfont icon-wenhao" onclick="location.href = &#39;<%=BusiConstant.shike_dyren.getKey() %>&#39;"></span>
         
-        <a id="shareQrcode" href="#">分享赚10元<i class="iconfont icon-Toleft"></i></a>
+        <a id="shareQrcode" onclick="fenxiang()">分享赚10元<i class="iconfont icon-Toleft"></i></a>
     </h3>
     <ul>
         <li onclick="location.href = #">
@@ -206,9 +206,9 @@
             <span>0.00</span>
             <div></div>
         </li>
-        <li onclick="location.href=#">
+        <li onclick="location.href= &#39;<%=BusiConstant.shike_fensi.getKey() %>&#39;;">
             <p><i class="iconfont icon-people1"></i><span>粉丝</span></p>
-            <span>0</span>
+            <span>${fensiNum}</span>
             <div></div>
         </li>
         <li onclick="location.href = #">
@@ -424,6 +424,11 @@
         myAlert("维护中...")
     }
 
+    function fenxiang() {
+        var yqm = "${user.id}";
+        yqm = ( "000000" + yqm ).substr( -6 );
+        myAlert("我的专属邀请码：" + yqm)
+    }
 
 </script>
         <div style="margin-bottom: 2rem;">

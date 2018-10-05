@@ -94,6 +94,9 @@
     <div class="item">
         <input type="text" name="intiveCode" id="noTaobao" placeholder="请输入淘宝号">
     </div>
+    <div class="item">
+        <input type="text" name="refereeId" id="refereeId" placeholder="请输入邀请码，没有可不填">
+    </div>
 
     <div style="margin-top:1rem;">
         <input type="checkbox" name="name" value="" id="check" checked="checked">  我已阅读<a href="<%=BusiConstant.shike_private.getKey() %>">《隐私协议》</a>
@@ -152,14 +155,16 @@
             var qrcode = $("#pwd").val();
             var code = $("#code1").val();
             if (name && pwd) {
-                // $.post("/UserAccount/RegistCheckMobile", { mobile: name, captcha: pwd, intiveCode: code }, function (data) {
-                //     if (!data.Result) {
-                //         myAlert(data.Message);
-                //     } else {
-                //         location.href = "/UserAccount/SelectInfo?mobile=" + name + "&code=" + code;
-                //     }
-                // });
-                var data = {type:1,qrcode:qrcode,phone:name,password:$("#password").val(),noQq:$("#noQq").val(),noAlipay:$("#noAlipay").val(),noTaobao:$("#noTaobao").val()};
+                var data = {
+                    type: 1,
+                    qrcode: qrcode,
+                    phone: name,
+                    password: $("#password").val(),
+                    noQq: $("#noQq").val(),
+                    noAlipay: $("#noAlipay").val(),
+                    noTaobao: $("#noTaobao").val(),
+                    refereeId: $("#refereeId").val()
+                };
                 var url = "<%=BusiConstant.shike_addsk_do.getKey()%>";
                 postdo(url, data, registsucdo,null, null);
             }

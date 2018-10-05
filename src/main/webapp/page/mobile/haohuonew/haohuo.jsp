@@ -113,7 +113,7 @@
             <input id="search-input" placeholder="搜索你喜欢的宝贝" type="text" class="search-input">
             <span class="iconfont icon-search"></span>
         </div>
-         <i class="iconfont icon-sign" onclick="location.href=#"></i>
+         <i class="iconfont icon-sign" onclick="location.href= &#39;<%=BusiConstant.shike_jinbi.getKey() %>&#39;;"></i>
     </div>
     <div class="jp-cat-bg">
         <div class="jp-cat">
