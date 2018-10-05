@@ -19,7 +19,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
-import com.kensure.shike.baobei.model.SKBaobei;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -267,7 +266,7 @@ public class SKUserService extends JSBaseService {
 	 * @param sKUser
 	 */
 	private void invalidSKUser(SKUser sKUser) {
-//		ParamUtils.isBlankThrewException(sKUser.getNoAlipay(), "支付宝账户不能为空");
+		// ParamUtils.isBlankThrewException(sKUser.getNoAlipay(), "支付宝账户不能为空");
 		ParamUtils.isBlankThrewException(sKUser.getNoTaobao(), "淘宝账户不能为空");
 	}
 
@@ -369,6 +368,7 @@ public class SKUserService extends JSBaseService {
 
 	/**
 	 * 更新手机号码
+	 * 
 	 * @param newPhone
 	 * @param verifyCode
 	 */
@@ -380,11 +380,11 @@ public class SKUserService extends JSBaseService {
 		ParamUtils.isBlankThrewException(newPhone, "手机号码不能为空");
 		ParamUtils.isBlankThrewException(verifyCode, "验证码不能为空");
 
-        SKSms skSms = sKSmsService.selectByMobile(newPhone, 1);
+		SKSms skSms = sKSmsService.selectByMobile(newPhone, 1);
 
-        ParamUtils.isErrorThrewException(skSms != null && verifyCode.equals(skSms.getQrcode()), "验证码不正确");
+		ParamUtils.isErrorThrewException(skSms != null && verifyCode.equals(skSms.getQrcode()), "验证码不正确");
 
-        SKUser user = new SKUser();
+		SKUser user = new SKUser();
 		user.setId(skuser.getId());
 		user.setPhone(newPhone);
 		update(user);
@@ -451,7 +451,7 @@ public class SKUserService extends JSBaseService {
 		user.setPassword(newPassword);
 		update(user);
 	}
-	
+
 	/**
 	 * 更新支付密码
 	 */
@@ -461,11 +461,11 @@ public class SKUserService extends JSBaseService {
 		ParamUtils.isBlankThrewException(oldPassword, "原密码不能为空");
 		ParamUtils.isBlankThrewException(newPassword, "新密码不能为空");
 		String pa = skuser.getPaypassword();
-		//支付密码为空，使用登录密码
-		if(StringUtils.isBlank(pa)){
+		// 支付密码为空，使用登录密码
+		if (StringUtils.isBlank(pa)) {
 			pa = skuser.getPassword();
 		}
-		
+
 		ParamUtils.isErrorThrewException(oldPassword.equals(pa), "原密码错误");
 
 		SKUser user = new SKUser();
@@ -473,4 +473,42 @@ public class SKUserService extends JSBaseService {
 		user.setPaypassword(newPassword);
 		update(user);
 	}
+
+	/**
+	 * 验证支付密码
+	 */
+	public void checkPayPwd(String payPassWord) {
+		SKUser skuser = getUser();
+		ParamUtils.isBlankThrewException(payPassWord, "支付密码不能为空");
+		String pa = skuser.getPaypassword();
+		// 支付密码为空，使用登录密码
+		ParamUtils.isBlankThrewException(pa, "支付密码还未设置，请去账户安全中进行设置");
+		ParamUtils.isErrorThrewException(payPassWord.equals(pa), "支付密码错误");
+	}
+
+	/**
+	 * 更新支付宝账号和真实姓名
+	 */
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+	public void update(String noAlipay, String realname) {
+		SKUser skuser = getUser();
+		ParamUtils.isBlankThrewException(noAlipay, "支付宝账号不能为空");
+		ParamUtils.isBlankThrewException(realname, "真实姓名不能为空");
+		SKUser user = new SKUser();
+		user.setId(skuser.getId());
+		user.setNoAlipay(noAlipay);
+		user.setRealname(realname);
+		update(user);
+	}
+	
+	/**
+	 * 验证支付密码，同时修改用户支付信息
+	 */
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+	public void checkAndUpdate(String payPassWord,String noAlipay, String realname) {
+		checkPayPwd(payPassWord);
+		update(noAlipay, realname);
+	}
+	
+	
 }

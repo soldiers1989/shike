@@ -34,195 +34,201 @@ import com.kensure.shike.user.service.SKUserService;
 import com.kensure.shike.zhang.model.SKUserZhang;
 import com.kensure.shike.zhang.service.SKUserZhangService;
 
-
 /**
  * 用余额充值和提现记录服务实现类
+ * 
  * @author fankd created on 2018-9-8
- * @since 
+ * @since
  */
 @Service
-public class SKUserInoutService extends JSBaseService{
-	
+public class SKUserInoutService extends JSBaseService {
+
 	@Resource
 	private SKUserInoutDao dao;
-    
+
 	@Resource
 	private SKUserService sKUserService;
-	
+
 	@Resource
 	private BaseKeyService baseKeyService;
-	
+
 	@Resource
 	private SKUserZhangService sKUserZhangService;
-	
-    
-    public SKUserInout selectOne(Long id){
-    	return dao.selectOne(id);
-    }
-	
-	public List<SKUserInout> selectByIds(Collection<Long> ids){
+
+	public SKUserInout selectOne(Long id) {
+		return dao.selectOne(id);
+	}
+
+	public List<SKUserInout> selectByIds(Collection<Long> ids) {
 		return dao.selectByIds(ids);
 	}
-	
-	public List<SKUserInout> selectAll(){
+
+	public List<SKUserInout> selectAll() {
 		return dao.selectAll();
 	}
-	
-	public List<SKUserInout> selectByWhere(Map<String, Object> parameters){
+
+	public List<SKUserInout> selectByWhere(Map<String, Object> parameters) {
 		return dao.selectByWhere(parameters);
 	}
-	
-	
-	public long selectCount(){
+
+	public long selectCount() {
 		return dao.selectCount();
 	}
-	
-	public long selectCountByWhere(Map<String, Object> parameters){
+
+	public long selectCountByWhere(Map<String, Object> parameters) {
 		return dao.selectCountByWhere(parameters);
 	}
-	
-	
-	public boolean insert(SKUserInout obj){
+
+	public boolean insert(SKUserInout obj) {
 		super.beforeInsert(obj);
 		obj.setId(baseKeyService.getKey("sk_user_inout"));
 		obj.setStatus(1L);
 		return dao.insert(obj);
 	}
-	
-	public boolean insertInBatch(List<SKUserInout> objs){
+
+	public boolean insertInBatch(List<SKUserInout> objs) {
 		return dao.insertInBatch(objs);
 	}
-	
-	
-	public boolean update(SKUserInout obj){
+
+	public boolean update(SKUserInout obj) {
 		return dao.update(obj);
 	}
-    
-    public boolean updateByMap(Map<String, Object> params){
+
+	public boolean updateByMap(Map<String, Object> params) {
 		return dao.updateByMap(params);
 	}
-    
-    
-	public boolean delete(Long id){
+
+	public boolean delete(Long id) {
 		return dao.delete(id);
-	}	
-	
-    public boolean deleteMulti(Collection<Long> ids){
+	}
+
+	public boolean deleteMulti(Collection<Long> ids) {
 		return dao.deleteMulti(ids);
 	}
-    
-    public boolean deleteByWhere(Map<String, Object> parameters){
+
+	public boolean deleteByWhere(Map<String, Object> parameters) {
 		return dao.deleteByWhere(parameters);
 	}
-    
-    /**
-     * 根据用户获取充值记录
-     * @return
-     */
-    public List<SKUserInout> getInoutList(int typeid){
-    	SKUser skuser = sKUserService.getUser();
-    	SKUserService.checkUser(skuser);
-    	Map<String, Object> parameters = MapUtils.genMap("userid",skuser.getId(),"typeid",typeid,"orderby","created_time desc");
-    	if(skuser.getType() == 3){
-    		parameters.remove("userid");
-    	}
-    	List<SKUserInout> list = selectByWhere(parameters);
-    	return list;
-    }
-    
-    /**
+
+	/**
+	 * 根据用户获取充值记录
+	 * 
+	 * @return
+	 */
+	public List<SKUserInout> getInoutList(int typeid) {
+		SKUser skuser = sKUserService.getUser();
+		SKUserService.checkUser(skuser);
+		Map<String, Object> parameters = MapUtils.genMap("userid", skuser.getId(), "typeid", typeid, "orderby", "created_time desc");
+		if (skuser.getType() == 3) {
+			parameters.remove("userid");
+		}
+		List<SKUserInout> list = selectByWhere(parameters);
+		return list;
+	}
+
+	/**
 	 * 商家充值保存
 	 */
-    @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
-    public boolean saveIn(SKUserInout obj){
-    	SKUser skuser = sKUserService.getUser();
-    	SKUserService.checkUser(skuser);
-    	obj.setUserid(skuser.getId());
-    	obj.setTypeid(1L);
-    	
-    	//进行校验
-    	ParamUtils.isErrorThrewException(obj.getJine()>=100,"金额必须大于等于100");
-    	if(obj.getFangshi() == 1L){
-    		//支付宝 充值
-    		ParamUtils.isBlankThrewException(obj.getJiaoyihao(),"交易号不能为空"); 		
-    	}else if(obj.getFangshi() == 2L){
-    		//银行卡 充值
-    		ParamUtils.isBlankThrewException(obj.getJiaoyihao(),"打款方账户名不能为空"); 	
-    	}else{
-    		BusinessExceptionUtil.threwException("参数错误");
-    	}
-    	insert(obj);
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+	public boolean saveIn(SKUserInout obj) {
+		SKUser skuser = sKUserService.getUser();
+		SKUserService.checkUser(skuser);
+		obj.setUserid(skuser.getId());
+		obj.setTypeid(1L);
+
+		// 进行校验
+		ParamUtils.isErrorThrewException(obj.getJine() >= 100, "金额必须大于等于100");
+		if (obj.getFangshi() == 1L) {
+			// 支付宝 充值
+			ParamUtils.isBlankThrewException(obj.getJiaoyihao(), "交易号不能为空");
+		} else if (obj.getFangshi() == 2L) {
+			// 银行卡 充值
+			ParamUtils.isBlankThrewException(obj.getJiaoyihao(), "打款方账户名不能为空");
+		} else {
+			BusinessExceptionUtil.threwException("参数错误");
+		}
+		insert(obj);
 		return true;
 	}
-    
-    /**
-   	 * 用户或者商家进行余额提现
-   	 */
-       @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
-       public boolean saveOut(SKUserInout obj){
-       	SKUser skuser = sKUserService.getUser();
-       	SKUserService.checkUser(skuser);
-       	obj.setUserid(skuser.getId());
-       	obj.setTypeid(2L);
-       	obj.setJiaoyihao(skuser.getNoAlipay());
-       	obj.setFangshi(1L);
-       	
-       	//进行校验
-       	ParamUtils.isErrorThrewException(obj.getJine()>=10,"金额必须大于等于10");
-    	ParamUtils.isBlankThrewException(obj.getJiaoyihao(),"支付宝不能为空");
-       	insert(obj);
-      //增加流水
-    	SKUserZhang zhang = new SKUserZhang();
-    	zhang.setUserid(obj.getUserid());
-    	zhang.setBusiid(obj.getId());
-    	zhang.setBusitypeid(2L);
-    	zhang.setYue(obj.getJine());
-    	sKUserZhangService.add(zhang);  
-   		return true;
-   	}
-    
-      /**
-   	 * 后台通过提现
-   	 */
-       @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
-       public boolean tongguoOut(Long id){
-       	SKUser skuser = sKUserService.getUser();
-       	SKUserService.checkUserAdmin(skuser);
-       	
-       	SKUserInout obj = selectOne(id);
-       	if(obj.getStatus() != 1){
-       		BusinessExceptionUtil.threwException("重复提交");
-       	}
-       	obj.setStatus(9L);
-       	update(obj);
-       	sKUserZhangService.commit(obj.getUserid(), 2L, obj.getId());
-       	return true;
-   	}
-    
-    
-    /**
+
+	/**
+	 * 用户或者商家进行余额提现
+	 */
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+	public boolean saveOut(SKUserInout obj) {
+		SKUser skuser = sKUserService.getUser();
+		SKUserService.checkUser(skuser);
+		obj.setUserid(skuser.getId());
+		obj.setTypeid(2L);
+		obj.setJiaoyihao(skuser.getNoAlipay());
+		obj.setZhanghao(skuser.getNoAlipay());
+		obj.setFangshi(1L);
+		obj.setRemark(obj.getJiaoyihao()+" 提现 "+obj.getJine());
+
+		// 进行校验
+		ParamUtils.isErrorThrewException(obj.getJine() >= 10, "金额必须大于等于10");
+		ParamUtils.isBlankThrewException(obj.getJiaoyihao(), "支付宝不能为空");
+		insert(obj);
+		// 增加流水
+		SKUserZhang zhang = new SKUserZhang();
+		zhang.setUserid(obj.getUserid());
+		zhang.setBusiid(obj.getId());
+		zhang.setBusitypeid(2L);
+		zhang.setYue(obj.getJine());
+		sKUserZhangService.add(zhang);
+		return true;
+	}
+
+	/**
+	 * 用户或者商家进行余额提现,需要检验用户支付密码，同时改变用户的支付宝信息
+	 */
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+	public boolean saveOutSer(SKUserInout obj,String payPassWord) {
+		sKUserService.checkAndUpdate(payPassWord, obj.getZhanghao(), obj.getRealname());
+		return saveOut(obj);
+	}
+
+	/**
+	 * 后台通过提现
+	 */
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+	public boolean tongguoOut(Long id) {
+		SKUser skuser = sKUserService.getUser();
+		SKUserService.checkUserAdmin(skuser);
+
+		SKUserInout obj = selectOne(id);
+		if (obj.getStatus() != 1) {
+			BusinessExceptionUtil.threwException("重复提交");
+		}
+		obj.setStatus(9L);
+		update(obj);
+		sKUserZhangService.commit(obj.getUserid(), 2L, obj.getId());
+		return true;
+	}
+
+	/**
 	 * 后台通过充值，增加余额
 	 */
-    @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
-    public boolean tongguo(Long id){
-    	SKUser skuser = sKUserService.getUser();
-    	SKUserService.checkUserAdmin(skuser);
-    	
-    	SKUserInout obj = selectOne(id);
-    	if(obj.getStatus() != 1){
-    		BusinessExceptionUtil.threwException("重复提交");
-    	}
-    	
-    	obj.setStatus(9L);
-    	update(obj);
-    	//增加流水
-    	SKUserZhang zhang = new SKUserZhang();
-    	zhang.setUserid(obj.getUserid());
-    	zhang.setBusiid(id);
-    	zhang.setBusitypeid(1L);
-    	zhang.setYue(obj.getJine());
-    	sKUserZhangService.add(zhang);  
-    	return true;
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+	public boolean tongguo(Long id) {
+		SKUser skuser = sKUserService.getUser();
+		SKUserService.checkUserAdmin(skuser);
+
+		SKUserInout obj = selectOne(id);
+		if (obj.getStatus() != 1) {
+			BusinessExceptionUtil.threwException("重复提交");
+		}
+
+		obj.setStatus(9L);
+		update(obj);
+		// 增加流水
+		SKUserZhang zhang = new SKUserZhang();
+		zhang.setUserid(obj.getUserid());
+		zhang.setBusiid(id);
+		zhang.setBusitypeid(1L);
+		zhang.setYue(obj.getJine());
+		sKUserZhangService.add(zhang);
+		return true;
 	}
 
 }

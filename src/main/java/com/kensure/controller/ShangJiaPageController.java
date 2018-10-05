@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -122,6 +123,10 @@ public class ShangJiaPageController {
 		body.add("index_left.jsp");
 		body.add("./manager/huodong_right.jsp");
 		req.setAttribute("bodypage", body);
+		String status = req.getParameter("status");
+		if(StringUtils.isNotBlank(status)){
+			req.setAttribute("status", status);
+		}
 		return "page/shangjia/index.jsp";
 	}
 

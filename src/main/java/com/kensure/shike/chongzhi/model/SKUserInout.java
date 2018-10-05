@@ -36,6 +36,9 @@ public class SKUserInout extends BaseInfo{
 
 	/**支付宝交易号，打款方账户名*/		
 	private String jiaoyihao; 
+	
+	/**正式姓名*/		
+	private String realname; 
 
 	/**金额*/		
 	private Double jine; 
@@ -130,4 +133,13 @@ public class SKUserInout extends BaseInfo{
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
+
+	public String getRealname() {
+		return realname;
+	}
+
+	public void setRealname(String realname) {
+		this.realname = realname;
+	}
+
 }

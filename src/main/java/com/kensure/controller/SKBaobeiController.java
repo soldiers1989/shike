@@ -1,5 +1,6 @@
 package com.kensure.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -7,7 +8,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import co.kensure.frame.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +15,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import co.kensure.frame.Const;
+import co.kensure.frame.ResultInfo;
+import co.kensure.frame.ResultRowInfo;
+import co.kensure.frame.ResultRowsInfo;
 import co.kensure.http.RequestUtils;
 import co.kensure.io.FileUtils;
 import co.kensure.mem.DateUtils;
@@ -22,6 +26,7 @@ import co.kensure.mem.Utils;
 
 import com.alibaba.fastjson.JSONObject;
 import com.kensure.shike.baobei.model.SKBaobei;
+import com.kensure.shike.baobei.model.SKGroupStatus;
 import com.kensure.shike.baobei.model.SKJysj;
 import com.kensure.shike.baobei.model.SKPayInfo;
 import com.kensure.shike.baobei.model.SKSkqk;
@@ -316,7 +321,7 @@ public class SKBaobeiController {
 		sKBaobeiService.endBaobei();
 		return new ResultRowInfo();
 	}
-	
+
 	/**
 	 * 商家确认返款
 	 */
@@ -338,6 +343,19 @@ public class SKBaobeiController {
 		JSONObject json = RequestUtils.paramToJson(req);
 		Long id = json.getLong("id");
 		List<SKSkqk> list = sKSkqkService.getSkqkList(id);
+		return new ResultRowsInfo(list);
+	}
+
+	/**
+	 * 状态
+	 */
+	@ResponseBody
+	@RequestMapping(value = "statustj.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	public ResultInfo statustj(HttpServletRequest req, HttpServletResponse rep) {
+		List<SKGroupStatus> list = sKBaobeiService.groubByStatus();
+		if(list == null){
+			list = new ArrayList<SKGroupStatus>();
+		}
 		return new ResultRowsInfo(list);
 	}
 

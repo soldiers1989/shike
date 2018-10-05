@@ -10,12 +10,15 @@
  * 修改内容: 
  */
 package com.kensure.shike.baobei.dao;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+
 import co.kensure.annotation.MyBatisRepository;
 import co.kensure.frame.JSBaseDao;
-import java.util.List;
-import java.util.Collection;
-import java.util.Map;
+
 import com.kensure.shike.baobei.model.SKBaobei;
+import com.kensure.shike.baobei.model.SKGroupStatus;
 
 /**
  * 商品活动表Dao接口类
@@ -35,6 +38,8 @@ public interface SKBaobeiDao extends JSBaseDao<SKBaobei> {
 	
 	public List<SKBaobei> selectByWhere(Map<String, Object> parameters);
 	
+	public List<SKGroupStatus> groubByStatus(Map<String, Object> parameters);
+
 	
 	public long selectCount();
 	

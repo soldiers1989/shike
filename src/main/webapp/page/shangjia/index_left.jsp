@@ -28,7 +28,7 @@
 					class="iconfont icon-Toleft il5 ft_up_down"
 					style="color: rgb(102, 102, 102);"></i></li>
 				<li><a href="<%=BusiConstant.shangjia_dianpulist.getKey()%>" id="openWindows18" target="_self">店铺管理</a></li>
-				<li><a href="<%=BusiConstant.shangjia_zhanglist.getKey()%>" id="openWindows6" >提现/账户明细</a>
+				<li><a href="<%=BusiConstant.shangjia_tixian.getKey()%>" id="openWindows6" >提现/账户明细</a>
 				</li>
 				<li><a href="<%=BusiConstant.shangjia_gaimi.getKey()%>" id="openWindows8" target="_blank">账户安全</a></li>
 				<li><a href="<%=BusiConstant.shangjia_chongzhi.getKey()%>" id="openWindows17" target="_self">账户充值</a></li>

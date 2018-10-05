@@ -72,6 +72,22 @@ public class SKInoutController {
 		sKUserInoutService.saveOut(obj);
 		return new ResultRowInfo();
 	}
+	
+	/**
+	 * 提现保存,同时需要校验支付密码
+	 */
+	@ResponseBody
+	@RequestMapping(value = "saveoutser.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	public ResultInfo saveoutser(HttpServletRequest req, HttpServletResponse rep) {
+		/**
+		 * 打款方账户名 jine 金额
+		 */
+		JSONObject json = RequestUtils.paramToJson(req);
+		String paypassword = json.getString("paypassword");
+		SKUserInout obj = JSONObject.parseObject(json.toJSONString(), SKUserInout.class);
+		sKUserInoutService.saveOutSer(obj,paypassword);
+		return new ResultRowInfo();
+	}
 
 	/**
 	 * 获取充值列表
@@ -82,7 +98,7 @@ public class SKInoutController {
 		List<SKUserInout> list = sKUserInoutService.getInoutList(1);
 		return new ResultRowsInfo(list);
 	}
-	
+
 	/**
 	 * 获取提现列表
 	 */
@@ -127,8 +143,8 @@ public class SKInoutController {
 		JSONObject json = RequestUtils.paramToJson(req);
 		Integer inorout = json.getInteger("inorout");
 		Integer status = json.getInteger("status");
-		
-		List<SKUserZhang> list = sKUserZhangService.selectByUser(user, inorout,status);
+
+		List<SKUserZhang> list = sKUserZhangService.selectByUser(user, inorout, status);
 		return new ResultRowsInfo(list);
 	}
 

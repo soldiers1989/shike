@@ -76,6 +76,8 @@ public class BusiConstant {
 	public static final KVBean ht_chongzhitongguo_do = new KVBean(context + "/inout/tongguo.do", "通过充值");
 	
 	public static final KVBean sk_saveout_do = new KVBean(context + "/inout/saveout.do", "提现接口");
+	public static final KVBean sk_saveoutser_do = new KVBean(context + "/inout/saveoutser.do", "提现接口,需要支付密码");
+	
 	public static final KVBean ht_tongguoout_do = new KVBean(context + "/inout/tongguoout.do", "通过充值");
 	
 	
@@ -95,7 +97,8 @@ public class BusiConstant {
 	public static final KVBean shike_skqklist_do = new KVBean(context + "/baobei/skqklist.do", "商家查看宝贝下的活动列表");
 	public static final KVBean shike_tklcheck_do = new KVBean(context + "/baobei/tklcheck.do", "淘口令校验");
 	public static final KVBean shike_dpnamecheck_do = new KVBean(context + "/baobei/dpnamecheck.do", "店铺名称校验");
-	public static final KVBean shike_fankuan_do = new KVBean(context + "/baobei/fankuan.do", "返款接口");
+	public static final KVBean shike_fankuan_do = new KVBean(context + "/baobei/fankuan.do", "返款接口");	
+	public static final KVBean shike_statustj_do = new KVBean(context + "/baobei/statustj.do", "统计状态");
 
 
 	public static final KVBean shike_deletesq_do = new KVBean(context + "/baobei/deletesq.do", "删除申请");

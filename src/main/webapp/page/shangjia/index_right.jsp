@@ -81,9 +81,9 @@
                     
                     <div class="clearfix" style="margin-top:12px;">
                         <a class="bis_bg_top_btn" href="<%=BusiConstant.shangjia_chongzhi.getKey() %>" target="_blank">充 值</a>
-                        <a class="bis_bg_top_btn2" href="#" target="_blank">账户明细</a>
+                        <a class="bis_bg_top_btn2" href="<%=BusiConstant.shangjia_zhanglist.getKey() %>" target="_blank">账户明细</a>
                         <i style="float: left; color: #666;line-height: 28px;">|</i>
-                        <a class="bis_bg_top_btn2" href="javascript:" >提现</a>
+                        <a class="bis_bg_top_btn2" href="<%=BusiConstant.shangjia_tixian.getKey() %>" >提现</a>
                     </div>
                 </div>
             </div>
@@ -98,18 +98,17 @@
                 
                 <ul class="clearfix">
                     <li>
-                        <a href="https://www.meilipa.com/JPinShopissueBis?status=5" target="_blank" class="bis_bg_top_btn3">
-                            待支付：<em>0</em><i></i>
+                        <a href="<%=BusiConstant.shangjia_huodonglist.getKey()%>?status=0" target="_blank" class="bis_bg_top_btn3">待支付：<em id="status0">0</em><i></i>
                         </a>
                     </li>
                     <li>
-                        <a href="https://www.meilipa.com/JPinShopissueBis?status=1" target="_blank" class="bis_bg_top_btn3" style="margin-left: -1px;width: 267px;">
-                            <i style="float:left"></i>进行中：<em>0</em><i></i>
+                        <a href="<%=BusiConstant.shangjia_huodonglist.getKey()%>?status=9" target="_blank" class="bis_bg_top_btn3" style="margin-left: -1px;width: 267px;">
+                            <i style="float:left"></i>进行中：<em id="status9">0</em><i></i>
                         </a>
                     </li>
                     <li>
-                        <a href="https://www.meilipa.com/JPinShopissueBis?status=4" target="_blank" class="bis_bg_top_btn3" style="margin-left:-1px;width:267px;">
-                            <i style="float:left"></i>已完成：<em>0</em>
+                        <a href="<%=BusiConstant.shangjia_huodonglist.getKey()%>?status=10" target="_blank" class="bis_bg_top_btn3" style="margin-left:-1px;width:267px;">
+                            <i style="float:left"></i>已完成：<em id="status10">0</em>
                         </a>
                     </li>
                 </ul>
@@ -229,6 +228,32 @@ function zhanghuye(){
    postdo(url, data, sucdo,null, null);
 }
 zhanghuye();
+
+function tjsucdo(data){
+	var rows = data.resultData.rows;
+	var statusmap = {};
+	for(var i=0;rows.length>i;i++){
+		var row = rows[i];
+		statusmap[row.status] = row.cnt;
+	}
+	var statusarr = [0,9,10];
+	for(var i=0;statusarr.length>i;i++){
+		var row = statusarr[i];
+		var val = statusmap[row];
+		if(!val){
+			val = 0;
+		}
+		$("#status"+row).html(val);
+	}	
+}
+function tongji(){
+   var data = {};
+   var url = "<%=BusiConstant.shike_statustj_do.getKey()%>";
+   postdo(url, data, tjsucdo,null, null);
+}
+tongji();
+
+
 </script>
 
 

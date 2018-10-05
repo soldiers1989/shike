@@ -317,6 +317,10 @@
 		</if>
 	</select>
 	
+	<select id="groubByStatus" parameterType="Map" resultType="com.kensure.shike.baobei.model.SKGroupStatus">
+		SELECT COUNT(0) AS cnt,status FROM sk_baobei WHERE userid=#{userid} GROUP BY status
+	</select>
+	
 	<sql id="setComn">		
 		<if test="userid != null">
 			userid = #{userid},

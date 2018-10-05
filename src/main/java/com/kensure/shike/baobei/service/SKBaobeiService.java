@@ -38,6 +38,7 @@ import com.kensure.shike.baobei.model.SKBaobei;
 import com.kensure.shike.baobei.model.SKBaobeiTP;
 import com.kensure.shike.baobei.model.SKBaobeiZT;
 import com.kensure.shike.baobei.model.SKBbrw;
+import com.kensure.shike.baobei.model.SKGroupStatus;
 import com.kensure.shike.baobei.model.SKJindian;
 import com.kensure.shike.baobei.model.SKJysj;
 import com.kensure.shike.baobei.model.SKPayInfo;
@@ -568,5 +569,18 @@ public class SKBaobeiService extends JSBaseService {
 			Map<String, Object> params = MapUtils.genMap("id", bb.getId(), "status", 10);
 			updateByMap(params);
 		}
+	}
+	
+	
+	/**
+	 * 对状态进行统计
+	 * 
+	 * @return
+	 */
+	public List<SKGroupStatus> groubByStatus(){
+		SKUser skuser = sKUserService.getUser();
+		Map<String, Object> parameters = MapUtils.genMap("userid",skuser.getId());
+		List<SKGroupStatus> list = dao.groubByStatus(parameters);
+		return list;
 	}
 }

@@ -3,6 +3,7 @@
 <% 
 	String context = BusiConstant.shangjiapath;
 	String name = BusiConstant.name;
+	String status = (String)request.getAttribute("status");
 %>
                 
 <link rel="stylesheet" type="text/css" href="<%=context%>/addJPinShop.css">
@@ -111,12 +112,12 @@
         <input onclick="search()" type="button" style="background: url('<%=context%>/se.gif') no-repeat scroll -1px center transparent; border: 0px none; cursor: pointer; height: 28px; width: 101px; outline: none; position: relative; margin-left: 0px;">
     </div>
     <div class="shiy_tl" id="shiyall">
-        <a class="shiy" id="shiy" href="javascript:dianpulist(-10)">全部<i>|</i></a>
-        <a class="" id="shiy0" href="javascript:dianpulist(0)">待支付</a>
-        <a class="" id="shiy1" href="javascript:dianpulist(1)">待审核</a>
-        <a class="" id="shiy9" href="javascript:dianpulist(9)">进行中</a>
-        <a class="" id="shiy10" href="javascript:dianpulist(10)">已结束</a>
-        <a class="" id="shiy2" href="javascript:dianpulist(2)">已驳回</a>
+        <a class="<%=status==null?"shiy":""%>" href="<%=BusiConstant.shangjia_huodonglist.getKey()%>">全部<i>|</i></a>
+        <a class="<%="0".equalsIgnoreCase(status)?"shiy":""%>" href="<%=BusiConstant.shangjia_huodonglist.getKey()%>?status=0">待支付</a>
+        <a class="<%="1".equalsIgnoreCase(status)?"shiy":""%>" href="<%=BusiConstant.shangjia_huodonglist.getKey()%>?status=1">待审核</a>
+        <a class="<%="9".equalsIgnoreCase(status)?"shiy":""%>" href="<%=BusiConstant.shangjia_huodonglist.getKey()%>?status=9">进行中</a>
+        <a class="<%="10".equalsIgnoreCase(status)?"shiy":""%>" href="<%=BusiConstant.shangjia_huodonglist.getKey()%>?status=10">已结束</a>
+        <a class="<%="2".equalsIgnoreCase(status)?"shiy":""%>" href="<%=BusiConstant.shangjia_huodonglist.getKey()%>?status=2">已驳回</a>
     </div>
     <div class="clearfix right_g">
         <div class="right_contant table-style">
@@ -196,19 +197,7 @@
 	}
 
    function dianpulist(status){
-	   var data = {};
-	   var bt = "shiy";
-	   if(status >= 0){
-		   bt=bt+status;
-		   data.status = status;
-	   }
-	   var clist = $("#shiyall").children();
-		for(var i=0;clist.length>i;i++){
-			var ad = clist[i];
-			$("#"+ad.id).removeClass("shiy");
-		}
-		$("#"+bt).addClass("shiy");
-	   
+	   var data = {status:<%=status%>};	   
 	   var url = "<%=BusiConstant.shangjia_baobeilist_do.getKey()%>";
 	   postdo(url, data, sucdo,null, null);
    }
