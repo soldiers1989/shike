@@ -141,9 +141,9 @@
             });
         }
         $("#seach-btn").on("click", function () {
-            mypage = 1;
-            $("#list-funs").html("");
-            getList(mypage);
+            // mypage = 1;
+            // $("#list-funs").html("");
+            // getList(mypage);
         });
     });
 
@@ -194,7 +194,9 @@
     </div>
 </div>
 
-<a href="http://m.meilipa.com/invitation/InvitationqrCode?invitationCode=349975" style="height: 2rem;line-height: 2rem; z-index: 100; position: fixed;display: block;bottom: 0;left: 0;width: 100%;background-color: #ff464e;color: #fff;text-align: center;">分享获得更多奖励</a>
+<%--
+<a href="#?invitationCode=349975" style="height: 2rem;line-height: 2rem; z-index: 100; position: fixed;display: block;bottom: 0;left: 0;width: 100%;background-color: #ff464e;color: #fff;text-align: center;">分享获得更多奖励</a>
+--%>
 <div style="height: 2rem;"></div>
 <div style="display: none">
     <script src="<%=BusiConstant.shikemobilepath %>/commone/z_stat.php" language="JavaScript"></script>
