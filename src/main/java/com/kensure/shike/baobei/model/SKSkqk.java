@@ -196,6 +196,9 @@ public class SKSkqk extends BaseInfo {
 	}
 
 	public String getNextTimeStr() {
+        if (nextTime == null) {
+            return null;
+        }
 		Date now = new Date();
 		String time = "";
 		if (now.getTime() < nextTime.getTime()) {
