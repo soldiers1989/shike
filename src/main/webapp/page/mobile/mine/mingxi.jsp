@@ -1,5 +1,6 @@
 <%@page import="com.kensure.shike.constant.BusiConstant"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
     String context = BusiConstant.shikemobilepath;
 %>
@@ -79,14 +80,18 @@
 <header class="header acct-top"><i class="arrows" onclick="history.back(-1)"></i>账户明细</header>
 <div class="bar zt-menu" style="background: #fff;">
     <ul>
-        <li><a style="color: #ff464e">全部 </a>
-            <div class="sel">
-            </div>
+        <li>
+            <a style="<c:if test='${empty inorout}'>color: #ff464e</c:if>" href="<%=BusiConstant.shike_mingxi.getKey() %>">全部</a>
+            <div class="<c:if test='${empty inorout }'>sel</c:if>"></div>
         </li>
-        <%--<li><a style="color: " href="http://m.meilipa.com/UserAccount/MoneyRecords?type=0">收入</a>
+        <li>
+            <a style="<c:if test='${inorout == 1}'>color: #ff464e</c:if>" href="<%=BusiConstant.shike_mingxi.getKey() %>?inorout=1">收入</a>
+            <div class="<c:if test='${inorout == 1 }'>sel</c:if>"></div>
         </li>
-        <li><a style="color: " href="http://m.meilipa.com/UserAccount/MoneyRecords?type=1">支出</a>
-        </li>--%>
+        <li>
+            <a style="<c:if test='${inorout == -1}'>color: #ff464e</c:if>" href="<%=BusiConstant.shike_mingxi.getKey() %>?inorout=-1">支出</a>
+            <div class="<c:if test='${inorout == -1 }'>sel</c:if>"></div>
+        </li>
     </ul>
 </div>
 <div class="usera-kong"></div>
@@ -195,7 +200,7 @@
         }
     }
     function huodonglist(){
-        var data = {};
+        var data = {inorout: "${inorout}"};
         var url = "<%=BusiConstant.shangjia_zhanglist_do.getKey()%>";
         postdo(url, data, huodongsucdo,null, null);
     }

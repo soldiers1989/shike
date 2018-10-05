@@ -18,7 +18,9 @@ public class SkUserJinbi extends BaseInfo{
 	private Long userid; 
 
 	/**业务类型id 1:签到，2:购物奖励*/		
-	private Long typeid; 
+	private Long typeid;
+
+	private String typeidStr;
 
 	/**金币*/		
 	private Long jinbi;
@@ -29,15 +31,10 @@ public class SkUserJinbi extends BaseInfo{
 	/**状态，1是正常，0是未生效，-1是作废*/		
 	private Long status;
 
+	private String statusStr;
+
 	/**描述*/
 	private String remark;
-//
-//	/**创建时间*/
-//	private Date createdTime;
-
-//	/**更新时间*/
-//	private Date updatedTime;
-
 
 	public Long getId() {
 		return id;
@@ -60,6 +57,14 @@ public class SkUserJinbi extends BaseInfo{
 	public void setTypeid(Long typeid) {
 		this.typeid = typeid;
 	}
+
+	public String getTypeidStr() {
+		if (1 == typeid) {
+			typeidStr = "签到";
+		}
+		return typeidStr;
+	}
+
 	public Long getJinbi() {
 		return jinbi;
 	}
@@ -81,6 +86,19 @@ public class SkUserJinbi extends BaseInfo{
 	public void setStatus(Long status) {
 		this.status = status;
 	}
+
+    public String getStatusStr() {
+        String temp = "";
+        if(status == 0){
+            temp = "等待审核";
+        }else if(status == 1){
+            temp = "成功";
+        }else if(status == -1){
+            temp = "拒绝通过";
+        }
+        return temp;
+    }
+
 	public String getRemark() {
 		return remark;
 	}
@@ -91,15 +109,4 @@ public class SkUserJinbi extends BaseInfo{
 	public Date getCreatedTime() {
 		return createdTime;
 	}
-
-//	public void setCreatedTime(Date createdTime) {
-//		this.createdTime = createdTime;
-//	}
-//	public Date getUpdatedTime() {
-//		return updatedTime;
-//	}
-//
-//	public void setUpdatedTime(Date updatedTime) {
-//		this.updatedTime = updatedTime;
-//	}
 }

@@ -2,8 +2,11 @@ package com.kensure.controller;
 
 import co.kensure.frame.ResultInfo;
 import co.kensure.frame.ResultRowInfo;
+import co.kensure.frame.ResultRowsInfo;
 import co.kensure.http.RequestUtils;
 import com.alibaba.fastjson.JSONObject;
+import com.kensure.shike.user.model.SKUser;
+import com.kensure.shike.user.service.SKUserService;
 import com.kensure.shike.zhang.model.SkUserJinbi;
 import com.kensure.shike.zhang.service.SkUserJinbiService;
 import org.springframework.stereotype.Controller;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * 用户的金币流水
@@ -26,6 +30,9 @@ public class SKJinbiController {
 
 	@Resource
 	private SkUserJinbiService skUserJinbiService;
+
+	@Resource
+	private SKUserService sKUserService;
 
 	/**
 	 * 签到
@@ -44,24 +51,19 @@ public class SKJinbiController {
 	}
 
 
-//	/**
-//	 * 获取帐列表
-//	 */
-//	@ResponseBody
-//	@RequestMapping(value = "zhanglist.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
-//	public ResultInfo zhanglist(HttpServletRequest req, HttpServletResponse rep) {
-//		SKUser user = sKUserService.getUser();
-//		JSONObject json = RequestUtils.paramToJson(req);
-//		Integer inorout = json.getInteger("inorout");
-//		Integer status = json.getInteger("status");
-//		Integer yueOrJinbi = json.getInteger("yueOrJinbi");
-//
-//		if (yueOrJinbi == null) {
-//            yueOrJinbi = 1;
-//        }
-//
-//		List<SKUserZhang> list = sKUserZhangService.selectByUser(user, inorout, status, yueOrJinbi);
-//		return new ResultRowsInfo(list);
-//	}
+	/**
+	 * 获取金币明细列表
+	 */
+	@ResponseBody
+	@RequestMapping(value = "jinbilist.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	public ResultInfo zhanglist(HttpServletRequest req, HttpServletResponse rep) {
+		SKUser user = sKUserService.getUser();
+		JSONObject json = RequestUtils.paramToJson(req);
+		Integer inorout = json.getInteger("inorout");
+		Integer status = json.getInteger("status");
+
+		List<SkUserJinbi> list = skUserJinbiService.selectByUser(user, inorout, status);
+		return new ResultRowsInfo(list);
+	}
 
 }

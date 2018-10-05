@@ -138,4 +138,20 @@ public class SkUserJinbiService extends JSBaseService{
                 "bigCreatedTime", DateUtils.formatDateStart(new Date()));
         return selectByWhere(map);
     }
+
+    /**
+     * 试客金币列表
+     *
+     * @return
+     */
+    public List<SkUserJinbi> selectByUser(SKUser user, Integer inorout, Integer status) {
+        Map<String, Object> parameters = MapUtils.genMap("userid", user.getId(), "orderby", "created_time desc");
+        if (inorout != null) {
+            parameters.put("inorout", inorout);
+        }
+        if (status != null) {
+            parameters.put("status", status);
+        }
+        return selectByWhere(parameters);
+    }
 }

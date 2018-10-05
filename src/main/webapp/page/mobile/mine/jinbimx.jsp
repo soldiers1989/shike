@@ -1,5 +1,6 @@
 <%@page import="com.kensure.shike.constant.BusiConstant"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
     String context = BusiConstant.shikemobilepath;
 %>
@@ -149,17 +150,17 @@
     <div class="bar zt-menu" style="background: #fff; padding-top: 0rem;">
         <ul>
             <li>
-                <a style="color: #ff464e" href="#">全部 </a>
-                    <div class="sel">
-                    </div>
-            
-            </li>
-            <%--<li>
-                <a style="color: " href="#?type=0">收入</a>
+                <a style="<c:if test='${empty inorout}'>color: #ff464e</c:if>" href="<%=BusiConstant.shike_jinbimx.getKey() %>">全部</a>
+                <div class="<c:if test='${empty inorout }'>sel</c:if>"></div>
             </li>
             <li>
-                <a style="color: ;" href="#?type=1">支出</a>
-            </li>--%>
+                <a style="<c:if test='${inorout == 1}'>color: #ff464e</c:if>" href="<%=BusiConstant.shike_jinbimx.getKey() %>?inorout=1">收入</a>
+                <div class="<c:if test='${inorout == 1}'>sel</c:if>"></div>
+            </li>
+            <li>
+                <a style="<c:if test='${inorout == -1}'>color: #ff464e</c:if>" href="<%=BusiConstant.shike_jinbimx.getKey() %>?inorout=-1">支出</a>
+                <div class="<c:if test='${inorout == -1}'>sel</c:if>"></div>
+            </li>
         </ul>
     </div>
 <div id="Gold" class="con">
@@ -208,26 +209,17 @@
         var rows = data.resultData.rows;
         for(var i=0;i<rows.length;i++){
             var row = rows[i];
-            // var html = "<div class='aui-order-box'>"
-            //     +"<a class='aui-well-item'>"
-            //     +"    <div class='aui-well-item-bd'>"
-            //     +"        <h3>"+row.busitypeidStr+"</h3>"
-            //     +"   </div>"
-            //     +"    <span class='aui-well-item-fr'>2019-09-09</span>"
-            //     +"</a>"
-            //     +"<p class='aui-order-fl aui-order-time'>￥"+(row.yue*row.inorout)+"</p>"
-            //     +"<p class='aui-order-fl aui-order-address'>"+row.statusStr+"</p>"
-            //     +"</div>";
 
-            var tishi = row.remark == null || row.remark == '' ? row.busitypeidStr : row.remark;
+            var tishi = row.remark == null || row.remark == '' ? row.typeidStr : row.remark;
             var color = row.inorout == '1' ? "#fc710b" : "#aaa";
+            var inorout = row.inorout == '1' ? "+" : "-";
 
             var html = "<div class=\"billion\">\n" +
                 "        <div class=\"sbj\">\n" +
                 "            <div class=\"exactly aaaa\">\n" +
                 "                <div class=\"z l title\" onclick=\"myAlert(&#39;"+ tishi +"&#39;)\">"+ tishi +"</div>\n" +
                 "                <div class=\"z r\" style=\"color: #333333\">\n" +
-                "                    <span style=\"color: "+ color +"; font-weight: bold; \">" +(row.jinbi*row.inorout)+ "</span>\n" +
+                "                    <span style=\"color: "+ color +"; font-weight: bold; \">" +(inorout + row.jinbi)+ "</span>\n" +
                 "                </div>\n" +
                 "\n" +
                 "            </div>\n" +
@@ -244,8 +236,8 @@
         }
     }
     function jinbimxlist(){
-        var data = {yueOrJinbi: 2};
-        var url = "<%=BusiConstant.shangjia_zhanglist_do.getKey()%>";
+        var data = {inorout: "${inorout}"};
+        var url = "<%=BusiConstant.shike_jinbilist_do.getKey()%>";
         postdo(url, data, jinbimxlistCallBack,null, null);
     }
     jinbimxlist();

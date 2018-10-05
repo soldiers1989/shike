@@ -131,8 +131,8 @@
         <div class="usera-index-footer" onclick="location.href = &#39;<%=BusiConstant.shike_yue.getKey() %>&#39;;">
             <p>余额</p>：<p class="maney">${empty yue ? "0.00" : yue.yue }</p>
         </div>
-        <div class="usera-index-footer" onclick="location.href = &#39;<%=BusiConstant.shike_jinbi.getKey() %>&#39;;">
-            <p>金币</p>：<p class="maney">${empty yue  ? "0.00" : yue.jinbi }</p>
+        <div class="usera-index-footer" onclick="location.href = &#39;<%=BusiConstant.shike_jinbimx.getKey() %>&#39;;">
+            <p>金币</p>：<p class="maney">${jinbi }</p>
         </div>
     </div>
 </div><%--

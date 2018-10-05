@@ -253,9 +253,12 @@ public class ShikeMobileController {
 	// 金币明细页面
 	@RequestMapping("jinbimx")
 	public String jinbimx(HttpServletRequest req, HttpServletResponse rep, Model model) {
+        String inorout = req.getParameter("inorout");
+
 		SKUser user = sKUserService.getUser();
 		SKUserYue yue = skUserYueService.selectOne(user.getId());
 
+		req.setAttribute("inorout", inorout);
 		req.setAttribute("user", user);
 		req.setAttribute("yue", yue);
         Integer jinbi = 0;
@@ -276,6 +279,10 @@ public class ShikeMobileController {
 	// 明细页面
 	@RequestMapping("mingxi")
 	public String mingxi(HttpServletRequest req, HttpServletResponse rep, Model model) {
+        String inorout = req.getParameter("inorout");
+
+        req.setAttribute("inorout", inorout);
+
 //		return "page/mobile/lc/mingxi.jsp";
 		return "page/mobile/mine/mingxi.jsp";
 	}
@@ -304,6 +311,12 @@ public class ShikeMobileController {
 			req.setAttribute("yue", yue);
 			req.setAttribute("yzj", yzj);
 			req.setAttribute("todaySq", todaySq);
+
+            Integer jinbi = 0;
+            if (yue != null) {
+                jinbi = yue.getJinbi().intValue();
+            }
+            req.setAttribute("jinbi", jinbi);
 		}
 
 		req.setAttribute("user", user);

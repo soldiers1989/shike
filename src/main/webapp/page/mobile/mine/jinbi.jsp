@@ -98,9 +98,12 @@
     <img src="<%=BusiConstant.shikemobilepath %>/mine/jinbi/gold13.png" alt="Alternate Text">
     <div>
         我的金币：<em id="myJinbi">${jinbi}</em>
-        <p>连续签到送5/10/15/20(封顶)</p>
+        <p>签到送10金币</p>
+        <%--<p>连续签到送5/10/15/20(封顶)</p>--%>
     </div>
-        <span class="sign <c:if test='${isQiaodao}'>gray</c:if>" onclick="signin();"> 今日签到+10</span>
+        <%--<span class="sign <c:if test='${isQiaodao}'>gray</c:if>" onclick="signin();"> 今日签到+10</span>--%>
+        <c:if test='${isQiaodao}'><span class="sign gray" onclick="signin();"> 今日已签到</span></c:if>
+        <c:if test='${!isQiaodao}'><span class="sign gray" onclick="signin();"> 今日签到+10</span></c:if>
 </div>
 <div class="bar zt-menu" style="background: #fff;padding-top: 0rem;">
     <ul>
