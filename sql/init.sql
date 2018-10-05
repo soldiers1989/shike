@@ -328,3 +328,24 @@ CREATE TABLE `sk_dict` (
   PRIMARY KEY (`id`)
 );
 
+
+-- 消息页面
+CREATE TABLE `sk_cms` (
+  `id` bigint(20) NOT NULL COMMENT '主键',
+  `typeid` bigint(20) DEFAULT NULL COMMENT '类型id，1是商家中心，2是用户中心',
+  `title` varchar(1024) DEFAULT NULL COMMENT '标题',
+  `url` varchar(1024) DEFAULT NULL COMMENT '链接',
+  `disorder` int(11) DEFAULT NULL COMMENT '排序',
+  `created_time` datetime NOT NULL COMMENT '创建时间',
+  `is_del` int(11) DEFAULT NULL COMMENT '状态，0是正在活动，1是删除',
+  PRIMARY KEY (`id`)
+);
+
+-- 大文本字段
+CREATE TABLE `sk_cms_text` (
+  `id` bigint(20) NOT NULL COMMENT '主键',
+  `content` longtext DEFAULT NULL COMMENT '宝贝详情',
+  `created_time` datetime NOT NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`)
+);
+

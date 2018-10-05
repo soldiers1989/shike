@@ -66,6 +66,13 @@ public class BusiConstant {
 	public static final KVBean shangjia_tixian = new KVBean(context + "/shangjia/tixian", "商家账户提现");
 	public static final KVBean shangjia_gaimi = new KVBean(context + "/shangjia/gaimi", "改密功能");
 	
+	public static final KVBean shangjia_cms = new KVBean(context + "/gl/cms", "消息中心");
+	public static final KVBean shangjia_cmsedit = new KVBean(context + "/gl/cmsedit", "编辑消息");
+	
+	
+	
+	public static final KVBean sys_getcms_do = new KVBean(context + "/sys/getcms.do", "消息内容");
+	public static final KVBean sys_cmslist_do = new KVBean(context + "/sys/cmslist.do", "消息列表");
 
 	public static final KVBean shangjia_regist_do = new KVBean(context + "/user/saveshangjia.do", "商家注册接口");
 	public static final KVBean shangjia_checkname_do = new KVBean(context + "/user/checkname.do", "商家名称验证接口");
@@ -119,6 +126,7 @@ public class BusiConstant {
 	
 	//系统级别,获取字典
 	public static final KVBean sys_dictlist_do = new KVBean(context + "/sys/dictlist.do", "获取字典");
+	public static final KVBean sys_savecms_do = new KVBean(context + "/sys/savecms.do", "保存消息");
 	public static final KVBean user_sms_do = new KVBean(context + "/user/sms.do", "发送验证码");
 	
 	//试客路径

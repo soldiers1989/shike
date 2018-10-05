@@ -485,7 +485,7 @@ public class SKBaobeiService extends JSBaseService {
 		SKUser skuser = sKUserService.getUser();
 		SKUserService.checkUserSK(skuser);
 		SKBaobei baobei = selectOne(id);
-		if (baobei.getStatus() != 9) {
+		if (baobei.getStatus() < 9) {
 			BusinessExceptionUtil.threwException("宝贝未通过审核");
 		}
 		sKSkqkService.saveSQ(baobei, skuser);

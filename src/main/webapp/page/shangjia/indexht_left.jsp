@@ -26,6 +26,13 @@
 				<li><a href="<%=BusiConstant.ht_tixianlist.getKey()%>" id="openWindows18" target="_self">提现管理</a></li>
 				<li parentid="4"><a href="<%=BusiConstant.ht_sklist.getKey() %>" id="openWindows31" target="_self">试客列表</a></li>
 			
+				<li class="left_titi "><strong><i class="iconfont icon-zhanghuxinxi"></i>消息公告</strong> <i
+					class="iconfont icon-Toleft il5 ft_up_down"
+					style="color: rgb(102, 102, 102);"></i></li>
+				<li><a href="<%=BusiConstant.shangjia_cms.getKey()%>?typeid=1">商家帮助中心</a></li>
+				<li parentid="4"><a href="<%=BusiConstant.shangjia_cms.getKey()%>?typeid=2">试客帮助中心</a></li>
+				<li parentid="4"><a href="<%=BusiConstant.shangjia_cms.getKey()%>?typeid=3">店铺运营技巧和分析</a></li>
+			
 			</ul>
 		</div>
 	</div>

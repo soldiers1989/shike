@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kensure.shike.sys.dao.SKCMSDao"><!--dsName="" saasAspect=""-->
+	<!-- <cache readOnly="true"/> -->
+    <sql id="allFields">
+		id,
+		typeid,
+		title,
+		url,
+		disorder,
+		created_time as createdTime,
+		is_del as isDel
+    </sql>
+    
+	<sql id="insertFields">
+		id,
+		typeid,
+		title,
+		url,
+		disorder,
+		created_time,
+		is_del
+    </sql>
+	
+	<insert id="insert" parameterType="com.kensure.shike.sys.model.SKCMS">
+		insert into sk_cms (<include refid="insertFields"/>)
+		values (
+			#{id},
+			#{typeid},
+			#{title},
+			#{url},
+			#{disorder},
+			#{createdTime},
+			#{isDel}
+		)
+	</insert>
+	
+	<insert id="insertInBatch" parameterType="com.kensure.shike.sys.model.SKCMS">
+		insert into sk_cms (<include refid="insertFields"/>) values 
+		<foreach collection="list" item="item" index="index" separator=",">
+			(
+				#{item.id},
+				#{item.typeid},
+				#{item.title},
+				#{item.url},
+				#{item.disorder},
+				#{item.createdTime},
+				#{item.isDel}
+			)
+		</foreach>
+	</insert>   		
+	
+    <sql id="whereClause">
+		<if test="typeid != null">			
+			typeid = #{typeid}			
+		</if>
+		<if test="title != null">			
+			and title = #{title}			
+		</if>
+		<if test="url != null">			
+			and url = #{url}			
+		</if>
+		<if test="disorder != null">			
+			and disorder = #{disorder}			
+		</if>
+		<if test="createdTime != null">			
+			and created_time = #{createdTime}			
+		</if>
+		<if test="isDel != null">			
+			and is_del = #{isDel}			
+		</if>
+	</sql>
+    
+	<select id="selectOne" resultType="com.kensure.shike.sys.model.SKCMS" parameterType="Long" >
+		select <include refid="allFields"/> 
+		  from sk_cms 
+		 where id = #{id} 
+	</select>
+	
+	<select id="selectByIds" parameterType="List" resultType="com.kensure.shike.sys.model.SKCMS">
+		select <include refid="allFields"/> from sk_cms 
+		where id in
+		<foreach collection="list" item="item" open="(" close=")" separator=",">
+			#{item}
+		</foreach>
+	</select>
+		
+	<select id="selectAll" resultType="com.kensure.shike.sys.model.SKCMS">
+		select <include refid="allFields"/> 
+		from sk_cms 
+	</select>
+
+	<select id="selectCount" resultType="long">
+		select count(*) from sk_cms 
+	</select>
+	
+	<select id="selectCountByWhere" parameterType="Map" resultType="Long">
+		select count(*) from sk_cms 
+		<where>
+		    <include refid="whereClause"/>
+		</where>
+	</select>
+
+	<select id="selectByWhere" parameterType="Map" resultType="com.kensure.shike.sys.model.SKCMS">
+		select <include refid="allFields"/>
+		from sk_cms 
+		<where>
+		    <include refid="whereClause"/>
+		</where>				
+		<if test="orderby != null">
+			ORDER BY ${orderby}
+		</if>
+	</select>
+	
+	<sql id="setComn">		
+		<if test="typeid != null">
+			typeid = #{typeid},
+		</if>
+		<if test="title != null">
+			title = #{title},
+		</if>
+		<if test="url != null">
+			url = #{url},
+		</if>
+		<if test="disorder != null">
+			disorder = #{disorder},
+		</if>
+		<if test="createdTime != null">
+			created_time = #{createdTime},
+		</if>
+		<if test="isDel != null">
+			is_del = #{isDel}
+		</if>
+	</sql>
+	
+	<update id="update" parameterType="com.kensure.shike.sys.model.SKCMS">
+		 update sk_cms 
+		    <set>
+		    	<include refid="setComn"/>
+			</set>
+		  where id = #{id}
+	</update>
+	
+	<update id="updateByMap" parameterType="Map">
+		 update sk_cms 
+		    <set>
+		    	<include refid="setComn"/>
+			</set>
+		  where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from sk_cms where id = #{id}
+	</delete>
+	
+	<delete id="deleteMulti" parameterType="List">
+		delete from sk_cms
+		where id in
+		<foreach collection="list" item="item" open="(" close=")" separator=",">
+			#{item}
+		</foreach>
+	</delete>
+	
+	<delete id="deleteByWhere" parameterType="Map">
+		delete from sk_cms 
+		<where>
+		    <include refid="whereClause"/>
+		</where>
+	</delete>	
+
+</mapper>    

@@ -83,9 +83,9 @@ public class GLPageController {
 		body.add("./gl/huodong_right.jsp");
 		req.setAttribute("bodypage", body);
 		String status = req.getParameter("status");
-		if(StringUtils.isNotBlank(status)){
+		if (StringUtils.isNotBlank(status)) {
 			req.setAttribute("status", status);
-		}		
+		}
 		return "page/shangjia/index.jsp";
 	}
 
@@ -119,6 +119,36 @@ public class GLPageController {
 		body.add("indexht_left.jsp");
 		body.add("./gl/sklist_right.jsp");
 		req.setAttribute("bodypage", body);
+		return "page/shangjia/index.jsp";
+	}
+
+	// 消息中心
+	@RequestMapping("cms")
+	public String cms(HttpServletRequest req, HttpServletResponse rep, Model model) {
+		req.setAttribute("index", indexlist);
+		List<String> body = new ArrayList<String>();
+		body.add("indexht_left.jsp");
+		body.add("./gl/cmslist_right.jsp");
+		req.setAttribute("bodypage", body);
+		String typeid = req.getParameter("typeid");
+		req.setAttribute("typeid", typeid);
+		return "page/shangjia/index.jsp";
+	}
+
+	// 消息中心
+	@RequestMapping("cmsedit")
+	public String cmsedit(HttpServletRequest req, HttpServletResponse rep, Model model) {
+		req.setAttribute("index", indexlist);
+		List<String> body = new ArrayList<String>();
+		body.add("indexht_left.jsp");
+		body.add("./gl/cmsedit_right.jsp");
+		req.setAttribute("bodypage", body);
+		String typeid = req.getParameter("typeid");
+		req.setAttribute("typeid", typeid);		
+		String id = req.getParameter("id");
+		if(StringUtils.isNotBlank(id)){
+			req.setAttribute("id", id);
+		}	
 		return "page/shangjia/index.jsp";
 	}
 
