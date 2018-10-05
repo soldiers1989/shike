@@ -25,7 +25,9 @@ function postdo(url,data,sucessdo,errdo,compdo) {
 			if(errdo){
 				errdo(data)
 			}else{
-				alert("error:" + data.responseText);
+				if(data.responseText){
+					alert("error:" + data.responseText);
+				}			
 			}
 		},
 		complete : function(data) {

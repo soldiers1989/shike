@@ -292,7 +292,7 @@
                 var time = format(row.updatedTime + 1000*60*60*24*2 - new Date().getTime());
 
                 btn = "        <div class=\"jp-btn clearfix\">\n" +
-                    "           <span class=\"time\">"+ time +"</span>将自动返还用户担保金 " +
+                    "           <span class=\"time\">"+ time +"</span>将自动返款 " +
                     "            <a href=\"javascript:void(1);\" class=\"gray\" >等待返款</a>\n" +
                     "            <a href=\"javascript:void(1);\" class=\"black\" onclick=\"Feedback("+ row.bbid +")\">反馈问题</a>\n" +
                     "        </div>";

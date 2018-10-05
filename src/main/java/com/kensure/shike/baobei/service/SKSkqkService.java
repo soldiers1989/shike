@@ -170,6 +170,9 @@ public class SKSkqkService extends JSBaseService {
 		} else if (status.intValue() == 61) {
 			// 这个是好评时间，好评时间有10天
 			nextTime = DateUtils.getPastDay(now, 10);
+		} else if (status.intValue() == 81) {
+			// 这个是返款时间，好评时间有2天
+			nextTime = DateUtils.getPastDay(now, 2);
 		}
 		if (nextTime != null) {
 			Map<String, Object> params = MapUtils.genMap("id", id, "nextTime", nextTime);
@@ -179,7 +182,7 @@ public class SKSkqkService extends JSBaseService {
 	}
 
 	public boolean updateByMap(Map<String, Object> params) {
-		params.put("updateTime", new Date());
+		params.put("updatedTime", new Date());
 		return dao.updateByMap(params);
 	}
 
@@ -303,14 +306,14 @@ public class SKSkqkService extends JSBaseService {
 	 * @return
 	 */
 	public boolean save(SKBaobei baobei, long status, SKUser skuser) {
-		if (baobei.getStatus() != 9 || baobei.getIsDel() == 1) {
+		if (baobei.getStatus() < 9 || baobei.getIsDel() == 1) {
 			BusinessExceptionUtil.threwException("该宝贝失效！");
 		}
 		SKSkqk qk = getQkByBBId(baobei.getId(), skuser.getId());
 		if (qk.getStatus() >= status) {
 			BusinessExceptionUtil.threwException("数据有误！");
 		}
-		updateStatus(qk.getId(),status);
+		updateStatus(qk.getId(), status);
 		return true;
 	}
 
