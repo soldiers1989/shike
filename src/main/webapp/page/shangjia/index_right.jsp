@@ -123,7 +123,7 @@
                 <div class="shangjia_ggleft">
                     <ul>
                             <li class="clearfix">
-                                <a href="https://www.meilipa.com/help/BusinessRules" target="_blank" title="美丽啪商家服务协议">
+                                <a href="#" target="_blank" title="美丽啪商家服务协议">
                                     <div style="float:left;width:250px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
                                         <em style="color:#f25f55">▪</em> 美丽啪商家服务协议
                                     </div>
@@ -132,7 +132,7 @@
 
                             </li>
                             <li class="clearfix">
-                                <a href="https://www.meilipa.com/AnnounceGongGao?sk_id=42" target="_blank" title="商家维护通知">
+                                <a href="#" target="_blank" title="商家维护通知">
                                     <div style="float:left;width:250px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
                                         <em style="color:#f25f55">▪</em> 商家维护通知
                                             <em class="iconfont icon-hot" style="font-size:15px;color:#ff464e;"></em>
@@ -142,7 +142,7 @@
 
                             </li>
                             <li class="clearfix">
-                                <a href="https://www.meilipa.com/AnnounceGongGao?sk_id=25" target="_blank" title="解/换绑店铺规则">
+                                <a href="#" target="_blank" title="解/换绑店铺规则">
                                     <div style="float:left;width:250px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
                                         <em style="color:#f25f55">▪</em> 解/换绑店铺规则
                                     </div>
@@ -151,7 +151,7 @@
 
                             </li>
                             <li class="clearfix">
-                                <a href="https://www.meilipa.com/help/userRules2" target="_blank" title="美丽啪用户处罚规则">
+                                <a href="#" target="_blank" title="美丽啪用户处罚规则">
                                     <div style="float:left;width:250px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
                                         <em style="color:#f25f55">▪</em> 美丽啪用户处罚规则
                                             <em class="iconfont icon-hot" style="font-size:15px;color:#ff464e;"></em>
@@ -168,7 +168,7 @@
                 <div class="shangjia_ggleft">
                     <ul>
                             <li class="clearfix">
-                                <a href="https://www.meilipa.com/AnnounceGongGao?sk_id=28" target="_blank" title="淘宝100问必读">
+                                <a href="#" target="_blank" title="淘宝100问必读">
                                     <div style="float:left; width:250px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
                                         <em style="color:#f25f55">▪</em> 淘宝100问必读
                                     </div>
@@ -177,7 +177,7 @@
 
                             </li>
                             <li class="clearfix">
-                                <a href="https://www.meilipa.com/AnnounceGongGao?sk_id=30" target="_blank" title="店铺降权了怎么办？">
+                                <a href="#" target="_blank" title="店铺降权了怎么办？">
                                     <div style="float:left; width:250px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
                                         <em style="color:#f25f55">▪</em> 店铺降权了怎么办？
                                             <em class="iconfont icon-hot" style="font-size:15px;color:#ff464e;"></em>
@@ -187,7 +187,7 @@
 
                             </li>
                             <li class="clearfix">
-                                <a href="https://www.meilipa.com/AnnounceGongGao?sk_id=29" target="_blank" title="如何获取手淘首页流量？">
+                                <a href="#" target="_blank" title="如何获取手淘首页流量？">
                                     <div style="float:left; width:250px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
                                         <em style="color:#f25f55">▪</em> 如何获取手淘首页流量？
                                     </div>
@@ -196,7 +196,7 @@
 
                             </li>
                             <li class="clearfix">
-                                <a href="https://www.meilipa.com/AnnounceGongGao?sk_id=32" target="_blank" title="【问答】淘宝运营问答">
+                                <a href="#" target="_blank" title="【问答】淘宝运营问答">
                                     <div style="float:left; width:250px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
                                         <em style="color:#f25f55">▪</em> 【问答】淘宝运营问答
                                             <em class="iconfont icon-hot" style="font-size:15px;color:#ff464e;"></em>

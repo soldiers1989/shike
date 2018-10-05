@@ -164,7 +164,7 @@
                 var money = val;
                 var fee = 0;
 
-                fee = parseFloat(money * 0.05).toFixed(2);
+                fee = parseFloat(money * 0.06).toFixed(2);
                 if (fee < 1) {
                     fee = 1;
                 }
@@ -344,7 +344,7 @@
     <div class="phone-num">
         <span class="blank">提现到</span> <i class="iconfont icon-recharge"></i> <em id="zhifubao"></em> <%--<span class="change" onclick="location.href=&#39;/aa/a&#39;">修改</span>--%>
     </div>
-    <p class="gray">手续费：提现手续费率5%，每笔手续费最低1元。</p>
+    <p class="gray">手续费：提现手续费率6%，每笔手续费最低1元。</p>
     <div class="tx-con">
         <h3>提现金额</h3>
         <div id="num-price">
