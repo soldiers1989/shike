@@ -1,20 +1,6 @@
 package com.kensure.controller;
 
-import java.util.List;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import com.kensure.shike.zhang.model.SKUserYue;
-import com.kensure.shike.zhang.service.SKUserYueService;
-import org.apache.commons.lang.StringUtils;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-
 import co.kensure.http.RequestUtils;
-
 import com.alibaba.fastjson.JSONObject;
 import com.kensure.shike.baobei.model.SKBaobei;
 import com.kensure.shike.baobei.model.SKJindian;
@@ -26,6 +12,19 @@ import com.kensure.shike.baobei.service.SKSkqkService;
 import com.kensure.shike.baobei.service.SKWordService;
 import com.kensure.shike.user.model.SKUser;
 import com.kensure.shike.user.service.SKUserService;
+import com.kensure.shike.zhang.model.SKUserYue;
+import com.kensure.shike.zhang.model.SkUserJinbi;
+import com.kensure.shike.zhang.service.SKUserYueService;
+import com.kensure.shike.zhang.service.SkUserJinbiService;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * 试客手机端页面
@@ -54,6 +53,9 @@ public class ShikeMobileController {
 
 	@Resource
 	private SKUserYueService skUserYueService;
+
+	@Resource
+	private SkUserJinbiService skUserJinbiService;
 
 	// 首页
 	@RequestMapping("index")
@@ -219,6 +221,49 @@ public class ShikeMobileController {
 		req.setAttribute("user", user);
 		req.setAttribute("yue", yue);
 		return "page/mobile/mine/yue.jsp";
+	}
+
+	// 金币页面
+	@RequestMapping("jinbi")
+	public String jinbi(HttpServletRequest req, HttpServletResponse rep, Model model) {
+		String type = req.getParameter("type");
+
+		SKUser user = sKUserService.getUser();
+		SKUserYue yue = skUserYueService.selectOne(user.getId());
+
+        List<SkUserJinbi> list = skUserJinbiService.getTodayQiandao();
+
+        Boolean isQiaodao = false;
+        if (!list.isEmpty()) {
+            isQiaodao = true;
+        }
+
+        req.setAttribute("type", type);
+        req.setAttribute("isQiaodao", isQiaodao);  // 当天是都已经签到
+		req.setAttribute("user", user);
+		req.setAttribute("yue", yue);
+		Integer jinbi = 0;
+        if (yue != null) {
+            jinbi = yue.getJinbi().intValue();
+        }
+        req.setAttribute("jinbi", jinbi);
+		return "page/mobile/mine/jinbi.jsp";
+	}
+
+	// 金币明细页面
+	@RequestMapping("jinbimx")
+	public String jinbimx(HttpServletRequest req, HttpServletResponse rep, Model model) {
+		SKUser user = sKUserService.getUser();
+		SKUserYue yue = skUserYueService.selectOne(user.getId());
+
+		req.setAttribute("user", user);
+		req.setAttribute("yue", yue);
+        Integer jinbi = 0;
+        if (yue != null) {
+            jinbi = yue.getJinbi().intValue();
+        }
+        req.setAttribute("jinbi", jinbi);
+		return "page/mobile/mine/jinbimx.jsp";
 	}
 
 	// 提现页面

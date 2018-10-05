@@ -87,7 +87,7 @@ public class BusiConstant {
 	
 	public static final KVBean ht_tongguoout_do = new KVBean(context + "/inout/tongguoout.do", "通过充值");
 	
-	
+
 	public static final KVBean shangjia_zhanglist_do = new KVBean(context + "/inout/zhanglist.do", "账号明细列表接口");
 	public static final KVBean shangjia_chongzhilist_do = new KVBean(context + "/inout/chongzhilist.do", "商家充值列表接口");
 	public static final KVBean shangjia_tixianlist_do = new KVBean(context + "/inout/tixianlist.do", "商家提现列表接口");
@@ -109,6 +109,10 @@ public class BusiConstant {
 
 
 	public static final KVBean shike_deletesq_do = new KVBean(context + "/baobei/deletesq.do", "删除申请");
+
+
+	public static final KVBean shike_qiaodao_do = new KVBean(context + "/jinbi/qiandao.do", "试客签到接口");
+	public static final KVBean shike_jinbi_do = new KVBean(context + "/jinbi/qiandao.do", "试客签到接口");
 
 
 	//后台服务
@@ -146,6 +150,8 @@ public class BusiConstant {
 	public static final KVBean shike_regist = new KVBean(context + "/skm/regist", "注册页面");
 	public static final KVBean shike_private = new KVBean(context + "/skm/private", "隐私页面");
 	public static final KVBean shike_dyren = new KVBean(context + "/skm/dyren", "代言人页面");
+
+	public static final KVBean shike_jinbi = new KVBean(context + "/skm/jinbi", "金币页面");
 
     public static final KVBean shike_zhanghu = new KVBean(context + "/skm/zhanghu", "账户安全页面");
     public static final KVBean shike_modifyphone = new KVBean(context + "/skm/modifyphone", "修改手机号码页面");
