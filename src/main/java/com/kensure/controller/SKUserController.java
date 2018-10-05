@@ -1,22 +1,10 @@
 package com.kensure.controller;
 
-import java.util.List;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import co.kensure.exception.BusinessExceptionUtil;
 import co.kensure.frame.ResultInfo;
 import co.kensure.frame.ResultRowInfo;
 import co.kensure.frame.ResultRowsInfo;
 import co.kensure.http.RequestUtils;
-
 import com.alibaba.fastjson.JSONObject;
 import com.kensure.shike.user.model.SKUser;
 import com.kensure.shike.user.model.SKUserSession;
@@ -25,6 +13,15 @@ import com.kensure.shike.user.service.SKSmsService;
 import com.kensure.shike.user.service.SKUserService;
 import com.kensure.shike.zhang.model.SKUserYue;
 import com.kensure.shike.zhang.service.SKUserYueService;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * 用户的逻辑处理
@@ -250,4 +247,13 @@ public class SKUserController {
 		return new ResultRowInfo();
 	}
 
+	/**
+	 * 我的粉丝列表
+	 */
+	@ResponseBody
+	@RequestMapping(value = "fensilist.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	public ResultInfo fensilist(HttpServletRequest req, HttpServletResponse rep) {
+		List<SKUser> list = sKUserService.getListByRefereeId();
+		return new ResultRowsInfo(list);
+	}
 }

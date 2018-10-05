@@ -509,6 +509,17 @@ public class SKUserService extends JSBaseService {
 		checkPayPwd(payPassWord);
 		update(noAlipay, realname);
 	}
-	
-	
+
+	/**
+	 * 通过推荐人获取用户列表
+	 * @return
+	 */
+	public List<SKUser> getListByRefereeId() {
+		SKUser skuser = getUser();
+
+//		String refereeId = ("000000" + skuser.getId()).substring(-6);
+		Map<String, Object> parameters = MapUtils.genMap("refereeId", skuser.getId());
+        List<SKUser> skUsers = selectByWhere(parameters);
+        return skUsers;
+	}
 }

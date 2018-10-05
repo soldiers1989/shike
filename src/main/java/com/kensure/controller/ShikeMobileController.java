@@ -193,6 +193,12 @@ public class ShikeMobileController {
 	// 我的活动页面
 	@RequestMapping("wdhd")
 	public String wdhd(HttpServletRequest req, HttpServletResponse rep, Model model) {
+		SKUser user = sKUserService.getUser();
+
+		if (user == null) {
+			return "page/mobile/mine/login.jsp";
+		}
+
 		String status = req.getParameter("status");
 		if (StringUtils.isEmpty(status)) {
 			status = "18"; // 默认是"继续申请"页面
@@ -227,6 +233,9 @@ public class ShikeMobileController {
 	@RequestMapping("jinbi")
 	public String jinbi(HttpServletRequest req, HttpServletResponse rep, Model model) {
 		String type = req.getParameter("type");
+		if (StringUtils.isEmpty(type)) {
+			type = "1";
+		}
 
 		SKUser user = sKUserService.getUser();
 		SKUserYue yue = skUserYueService.selectOne(user.getId());
@@ -299,28 +308,41 @@ public class ShikeMobileController {
 
         SKUser user = sKUserService.getUser();
 
-        if (user != null) {
-			SKUserYue yue = skUserYueService.selectOne(user.getId());
-
-			// 已中奖
-			long yzj = sKSkqkService.getQkByByYzj(user.getId());
-
-			// 今日申请
-			long todaySq = sKSkqkService.getQkByToday(user.getId());
-
-			req.setAttribute("yue", yue);
-			req.setAttribute("yzj", yzj);
-			req.setAttribute("todaySq", todaySq);
-
-            Integer jinbi = 0;
-            if (yue != null) {
-                jinbi = yue.getJinbi().intValue();
-            }
-            req.setAttribute("jinbi", jinbi);
+        if (user == null) {
+			return "page/mobile/mine/login.jsp";
 		}
 
+//        if (user != null) {
+////		}
+
+		SKUserYue yue = skUserYueService.selectOne(user.getId());
+
+		// 已中奖
+		long yzj = sKSkqkService.getQkByByYzj(user.getId());
+
+		// 今日申请数量
+		long todaySq = sKSkqkService.getQkByToday(user.getId());
+
+		// 粉丝数量
+		long fensiNum = sKUserService.getListByRefereeId().size();
+
+		Integer jinbi = 0;
+		if (yue != null) {
+			jinbi = yue.getJinbi().intValue();
+		}
 		req.setAttribute("user", user);
+		req.setAttribute("yue", yue);
+		req.setAttribute("yzj", yzj);
+		req.setAttribute("jinbi", jinbi);
+		req.setAttribute("todaySq", todaySq);
+		req.setAttribute("fensiNum", fensiNum);
 
         return "page/mobile/mine/mine.jsp";
+	}
+
+	// 我的粉丝页面
+	@RequestMapping("fensi")
+	public String fensi(HttpServletRequest req, HttpServletResponse rep, Model model) {
+		return "page/mobile/mine/fensi.jsp";
 	}
 }
