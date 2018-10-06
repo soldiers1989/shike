@@ -261,18 +261,18 @@
                 <span>领998元</span>
             </a>
             
-        </li>
-        <li>
-            <a href="#">
-                <img class="zuan" src="<%=BusiConstant.shikemobilepath %>/index/resource/zuan10.png" alt="Alternate Text">
-                <img src="<%=BusiConstant.shikemobilepath %>/index/resource/icon4.png">
-                <span>分享赚钱</span>
-            </a>
-        </li>
+        </li>       
         <li>
             <a href="<%=BusiConstant.shike_haohuo.getKey() %>?minprice=100">
                 <img src="<%=BusiConstant.shikemobilepath %>/index/resource/icon13.png">
                 <span>高价值</span>
+            </a>
+        </li>
+         <li>
+            <a href="<%=BusiConstant.shike_help.getKey() %>/101">
+                <img class="zuan" src="<%=BusiConstant.shikemobilepath %>/index/resource/zuan10.png" alt="Alternate Text">
+                <img src="<%=BusiConstant.shikemobilepath %>/index/resource/icon4.png">
+                <span>新手教程</span>
             </a>
         </li>
         <%--<li>

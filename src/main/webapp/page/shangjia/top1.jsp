@@ -28,7 +28,7 @@
             </div>
         <div class="header_right">
             <a href="<%=BusiConstant.shangjia_index.getKey() %>" title="<%=name %>首页"><%=name %>首页</a>
-           
+           <a href="<%=BusiConstant.shike_help.getKey() %>/1" title="帮助中心">帮助中心</a>
         </div>
     </div>
 </div>

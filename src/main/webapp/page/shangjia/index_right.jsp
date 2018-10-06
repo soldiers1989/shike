@@ -1,14 +1,15 @@
+<%@page import="com.kensure.shike.sys.model.SKCMS"%>
+<%@page import="java.util.List"%>
 <%@page import="com.kensure.shike.constant.BusiConstant"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <% 
 	String context = BusiConstant.shangjiapath;
 	String name = BusiConstant.name;
+	
+	List<SKCMS> gg = (List<SKCMS>)request.getAttribute("gg");
+	List<SKCMS> jq = (List<SKCMS>)request.getAttribute("jq");
 %>
-
-
-
- 
-        <div class="shangjia_right elg-width">
+<div class="shangjia_right elg-width">
                 
 <style>
     .shangjia_left {
@@ -122,44 +123,17 @@
                 <span class="mc-notice-header">商家公告</span>
                 <div class="shangjia_ggleft">
                     <ul>
+                            <%for(SKCMS cms:gg){ %>
                             <li class="clearfix">
-                                <a href="#" target="_blank" title="美丽啪商家服务协议">
+                                <a href="<%=BusiConstant.shike_cms.getKey()%>/<%=cms.getId() %>" target="_blank">
                                     <div style="float:left;width:250px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
-                                        <em style="color:#f25f55">▪</em> 美丽啪商家服务协议
+                                        <em style="color:#f25f55">▪</em> <%=cms.getTitle()%>
                                     </div>
-                                    <em style="float:right;color:#999999;">2018-07-21</em>
+                                    <em style="float:right;color:#999999;"><%=cms.getCreatedTimeDay()%></em>
                                 </a>
-
                             </li>
-                            <li class="clearfix">
-                                <a href="#" target="_blank" title="商家维护通知">
-                                    <div style="float:left;width:250px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
-                                        <em style="color:#f25f55">▪</em> 商家维护通知
-                                            <em class="iconfont icon-hot" style="font-size:15px;color:#ff464e;"></em>
-                                    </div>
-                                    <em style="float:right;color:#999999;">2018-07-10</em>
-                                </a>
-
-                            </li>
-                            <li class="clearfix">
-                                <a href="#" target="_blank" title="解/换绑店铺规则">
-                                    <div style="float:left;width:250px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
-                                        <em style="color:#f25f55">▪</em> 解/换绑店铺规则
-                                    </div>
-                                    <em style="float:right;color:#999999;">2018-07-07</em>
-                                </a>
-
-                            </li>
-                            <li class="clearfix">
-                                <a href="#" target="_blank" title="美丽啪用户处罚规则">
-                                    <div style="float:left;width:250px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
-                                        <em style="color:#f25f55">▪</em> 美丽啪用户处罚规则
-                                            <em class="iconfont icon-hot" style="font-size:15px;color:#ff464e;"></em>
-                                    </div>
-                                    <em style="float:right;color:#999999;">2018-07-07</em>
-                                </a>
-
-                            </li>
+                            <%} %>
+      
                     </ul>
                 </div>
             </div>
@@ -167,44 +141,16 @@
                 <span class="mc-notice-header">店铺运营技巧和分析</span>
                 <div class="shangjia_ggleft">
                     <ul>
+                            <%for(SKCMS cms:jq){ %>
                             <li class="clearfix">
-                                <a href="#" target="_blank" title="淘宝100问必读">
-                                    <div style="float:left; width:250px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
-                                        <em style="color:#f25f55">▪</em> 淘宝100问必读
+                                <a href="<%=BusiConstant.shike_cms.getKey()%>/<%=cms.getId() %>" target="_blank">
+                                    <div style="float:left;width:250px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
+                                        <em style="color:#f25f55">▪</em> <%=cms.getTitle()%>
                                     </div>
-                                    <em style="float:right;color:#999999;">2018-05-14</em>
+                                    <em style="float:right;color:#999999;"><%=cms.getCreatedTimeDay()%></em>
                                 </a>
-
                             </li>
-                            <li class="clearfix">
-                                <a href="#" target="_blank" title="店铺降权了怎么办？">
-                                    <div style="float:left; width:250px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
-                                        <em style="color:#f25f55">▪</em> 店铺降权了怎么办？
-                                            <em class="iconfont icon-hot" style="font-size:15px;color:#ff464e;"></em>
-                                    </div>
-                                    <em style="float:right;color:#999999;">2018-05-14</em>
-                                </a>
-
-                            </li>
-                            <li class="clearfix">
-                                <a href="#" target="_blank" title="如何获取手淘首页流量？">
-                                    <div style="float:left; width:250px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
-                                        <em style="color:#f25f55">▪</em> 如何获取手淘首页流量？
-                                    </div>
-                                    <em style="float:right;color:#999999;">2018-03-10</em>
-                                </a>
-
-                            </li>
-                            <li class="clearfix">
-                                <a href="#" target="_blank" title="【问答】淘宝运营问答">
-                                    <div style="float:left; width:250px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
-                                        <em style="color:#f25f55">▪</em> 【问答】淘宝运营问答
-                                            <em class="iconfont icon-hot" style="font-size:15px;color:#ff464e;"></em>
-                                    </div>
-                                    <em style="float:right;color:#999999;">2018-03-10</em>
-                                </a>
-
-                            </li>
+                            <%} %>
                     </ul>
                 </div>
             </div>

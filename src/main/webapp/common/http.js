@@ -48,6 +48,7 @@ function addcookie(usersession){
 };
 
 function removecookie(){
+	var path = {path : '/'}
 	$.cookie("mdtokenid",null,path);
 	$.cookie("mdname",null,path);
 	$.cookie("mdphone",null,path);

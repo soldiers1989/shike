@@ -182,5 +182,7 @@ public class BusiConstant {
 
     public static final KVBean shike_user_update_do = new KVBean(context + "/user/update.do", "用户安全管理更新操作");
     public static final KVBean shike_user_wjpwd_do = new KVBean(context + "/user/wjpwd.do", "忘记密码更新操作");
-
+    
+    public static final KVBean shike_help = new KVBean(context + "/help", "帮助中心");
+    public static final KVBean shike_cms = new KVBean(context + "/help/cms", "内容页面");
 }

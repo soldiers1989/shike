@@ -64,5 +64,18 @@ public class HelpController {
 	}
 
 	
+	// 内容页面
+	@RequestMapping("/cms/{id}")
+	public String cms(@PathVariable String id,HttpServletRequest req, HttpServletResponse rep, Model model){
+		req.setAttribute("index", indexlist);
+		List<String> body = new ArrayList<String>();
+		body.add("./gl/cmscontent.jsp");
+		req.setAttribute("bodypage", body);
+		req.setAttribute("id", id);
+		SKCMS obj = sKCMSService.get(NumberUtils.parseLong(id, 0L));
+		req.setAttribute("obj", obj);
+		return "page/shangjia/index.jsp";
+	}
+	
 
 }
