@@ -22,6 +22,7 @@ import com.kensure.shike.zhang.service.SkUserJinbiService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
@@ -368,13 +369,11 @@ public class ShikeMobileController {
 	}
 
 	// 帮助中心页面
-	@RequestMapping("help")
-	public String help(HttpServletRequest req, HttpServletResponse rep, Model model) {
-		String id = req.getParameter("id");
-
+	@RequestMapping("help/{id}")
+	public String help(@PathVariable String id,  HttpServletRequest req, HttpServletResponse rep, Model model) {
 		List<SKCMS> sk = sKCMSService.selectByTypeId(2);
 
-		if (StringUtils.isNotBlank(id)) {
+		if (StringUtils.isNotBlank(id) && !"0".equals(id)) {
 			SKCMS obj = sKCMSService.get(NumberUtils.parseLong(id, 0L));
 			req.setAttribute("obj", obj);
 		}

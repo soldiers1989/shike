@@ -152,7 +152,7 @@ public class BusiConstant {
 	public static final KVBean shike_wjpwd = new KVBean(context + "/skm/wjpwd", "忘记密码页面");
 	public static final KVBean shike_private = new KVBean(context + "/skm/private", "隐私页面");
 	public static final KVBean shike_dyren = new KVBean(context + "/skm/dyren", "代言人页面");
-	public static final KVBean shike_help = new KVBean(context + "/skm/help", "帮助中心页面");
+	public static final KVBean shike_help_page = new KVBean(context + "/skm/help", "帮助中心页面");
 
 	public static final KVBean shike_fensi = new KVBean(context + "/skm/fensi", "我的粉丝页面");
 

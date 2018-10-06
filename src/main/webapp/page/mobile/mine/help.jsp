@@ -87,8 +87,6 @@
             //    , time: 2 //2秒后自动关闭
             //     });
             // }
-
-            location.href= <%=BusiConstant.shike_help.getKey() %>&;
         });
         var mySwiper1 = new Swiper('#swiper1', {
             pagination: '.swiper-pagination',
@@ -105,7 +103,7 @@
     });
 </script>
 <header class="header task-top frv" style="line-height: 2rem">
-    <i class="arrows" onclick="location.href=&#39;<%=BusiConstant.shike_mine.getKey() %>&#39;;"></i>
+    <i class="arrows" onclick="history.back(-1)"></i>
     帮助中心
 </header>
 <div style="height: 2rem"></div>
@@ -113,7 +111,7 @@
 
     <c:forEach items="${sk}" var="item">
          <ul class="ques-list">
-        <li data-id="#con${item.id}" onclick="location.href=&#39;<%=BusiConstant.shike_help.getKey() %>?id=${item.id}&#39;;"><i class="iconfont icon-share1"></i>${item.title } <i class="iconfont icon-Toleft"></i></li>
+        <li data-id="#con${item.id}" onclick="location.href=&#39;<%=BusiConstant.shike_help_page.getKey() %>/${item.id}&#39;;"><i class="iconfont icon-share1"></i>${item.title } <i class="iconfont icon-Toleft"></i></li>
         </ul>
         <div id="con1" class="<c:if test='${obj.id == item.id}'>act1</c:if>">
                 ${obj.content}

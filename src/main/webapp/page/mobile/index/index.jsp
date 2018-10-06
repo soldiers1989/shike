@@ -269,8 +269,8 @@
             </a>
         </li>
          <li>
-            <a href="<%=BusiConstant.shike_help.getKey() %>/101">
-                <img class="zuan" src="<%=BusiConstant.shikemobilepath %>/index/resource/zuan10.png" alt="Alternate Text">
+            <a href="<%=BusiConstant.shike_help_page.getKey() %>/0">
+                <%--<img class="zuan" src="<%=BusiConstant.shikemobilepath %>/index/resource/zuan10.png" alt="Alternate Text">--%>
                 <img src="<%=BusiConstant.shikemobilepath %>/index/resource/icon4.png">
                 <span>新手教程</span>
             </a>

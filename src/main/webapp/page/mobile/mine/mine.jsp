@@ -272,7 +272,7 @@
         <i class="iconfont icon-yijianfankui"></i>
         <p>意见反馈</p>
     </li>
-    <li onclick="location.href = &#39;<%=BusiConstant.shike_help.getKey() %>&#39;">
+    <li onclick="location.href = &#39;<%=BusiConstant.shike_help_page.getKey() %>/0&#39;">
         <i class="iconfont icon-wenhao"></i>
         <p>帮助中心</p>
     </li>
