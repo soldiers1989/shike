@@ -349,3 +349,16 @@ CREATE TABLE `sk_cms_text` (
   PRIMARY KEY (`id`)
 );
 
+-- 试客金币流水表
+CREATE TABLE `sk_user_jinbi`  (
+  `id` bigint(20) NOT NULL,
+  `userid` bigint(20) NOT NULL COMMENT '用户id',
+  `typeid` int(11) NULL DEFAULT NULL COMMENT '业务类型id,  1:签到，2:购物奖励',
+  `jinbi` int(10) NOT NULL COMMENT '金币',
+  `inorout` int(11) NOT NULL COMMENT '对这个用户流进还是流出,1是进，-1是出',
+  `status` int(11) NOT NULL COMMENT '状态，1是正常，0是未生效，-1是作废',
+  `remark` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '描述',
+  `created_time` datetime(0) NOT NULL COMMENT '创建时间',
+  `updated_time` datetime(0) NOT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`) USING BTREE
+);
