@@ -173,6 +173,7 @@ public class BusiConstant {
     public static final KVBean shike_userlist_do = new KVBean(context + "/user/userlist.do", "用户列表");
 
     public static final KVBean shike_fensilist_do = new KVBean(context + "/user/fensilist.do", "我的粉丝列表");
+    public static final KVBean shike_fanslslist_do = new KVBean(context + "/fans/fanslslist.do", "我的粉丝流水列表");
 
     public static final KVBean shike_shenqing_do = new KVBean(context + "/baobei/shenqing.do", "立即申请操作");
     public static final KVBean shike_liucheng_do = new KVBean(context + "/baobei/liucheng.do", "后续流程性操作");
