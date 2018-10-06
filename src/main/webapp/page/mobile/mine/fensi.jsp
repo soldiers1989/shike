@@ -14,7 +14,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="format-detection" content="address=no">
     <meta name="full-screen" content="yes">
-    <link href="http://m.meilipa.com/favicon.ico" rel="shortcut icon" type="image/x-icon">
+    <link href="<%=BusiConstant.context %>/favicon.ico" rel="shortcut icon" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/common/css/base.css">
     <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/common/css/iconfont.css">
 
@@ -243,7 +243,7 @@
             }
 
 
-            var html = "<li><img src=\"<%=BusiConstant.shikemobilepath %>/mine/fensi/1.png\" alt=\"Alternate Text\">\n" +
+            var html = "<li><img src=\"<%=BusiConstant.shikemobilepath %>/common/images/head.png\" alt=\"Alternate Text\">\n" +
                 "                    <div><p><span class=\"title\">"+ row.name +"</span><span class=\"tag "+ gray +"\">"+ row.typeidStr +"</span></p>\n" +
                 "                        <p><span class=\"m-time\">"+ row.createdTimeStr +"</span><em> "+ description +"</em></p></div>\n" +
                 "                </li>";

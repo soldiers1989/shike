@@ -25,7 +25,7 @@
 %>
 <!DOCTYPE html>
 <html lang="zh" style="font-size: 22.125px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    
+
     <title>我的试呗</title>
     <meta name="keywords" content="<%=BusiConstant.keywords %>">
     <meta name="description" content="<%=BusiConstant.description %>">
@@ -33,14 +33,14 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="format-detection" content="address=no">
     <meta name="full-screen" content="yes">
-    <link href="http://m.meilipa.com/favicon.ico" rel="shortcut icon" type="image/x-icon">
+    <link href="<%=BusiConstant.context %>/favicon.ico" rel="shortcut icon" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/common/css/base.css">
-<link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/common/css/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/common/css/iconfont.css">
 
     <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/common/css/style.css">
 
     <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/jquery-1.8.3.js"></script>
-<script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/Common.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/Common.js"></script>
     <script type="text/javascript" src="<%=BusiConstant.context%>/jqtable/jquery.cookie.js"></script>
     <script type="text/javascript" src="<%=BusiConstant.context%>/common/http.js?ver=<%=BusiConstant.version%>"></script>
 
@@ -116,7 +116,8 @@
         </a>
     </div>
     <div class="usera-index-top">
-        <img id="imgPic" src="<%=BusiConstant.shikemobilepath %>/mine/resource/shopdefaultavatar.jpg">
+        <%--<img id="imgPic" src="<%=BusiConstant.shikemobilepath %>/mine/resource/shopdefaultavatar.jpg">--%>
+            <img id="imgPic" src="<%=BusiConstant.shikemobilepath %>/common/images/head.png">
         <p>
             <span>${user.phone }</span>
             <%--<img style="display: inline-block;vertical-align: middle;height: 0.7rem;" src="<%=BusiConstant.shikemobilepath %>/mine/resource/vip-icon-gray.png" alt="Alternate Text">--%>
