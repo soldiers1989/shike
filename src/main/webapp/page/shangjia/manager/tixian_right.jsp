@@ -22,7 +22,7 @@
 
         <ul class="cat">
             <li class="act">
-                <i class="iconfont icon-zfb"></i> <span>支付宝提现</span> <span class="red">(1%手续费,手续费少于一元按一元收)</span> <img src="<%=context%>/vipNew3.png" alt="Alternate Text">
+                <i class="iconfont icon-zfb"></i> <span>支付宝提现</span> <span class="red">(1%手续费)</span> <img src="<%=context%>/vipNew3.png" alt="Alternate Text">
                 <i class="iconfont icon-confirm1"></i>
             </li>
         </ul>
@@ -30,8 +30,9 @@
         <div class="bd"></div>
         
         <div id="showcat1">
-            <h3>官方 <span>支付宝</span> 打款提现,我们将现金打入您提供的支付宝账号，为了安全，会进行实名认证，请提供准确的实名信息</h3>
- 
+            <h3>1、官方 <span>支付宝</span> 打款提现,我们将现金打入您提供的支付宝账号，为了安全，会进行实名认证，请提供准确的实名信息</h3>
+            <h3>2、手续费少于一元按一元收</h3>
+
         <div class="recharge-form">
             <div class="text2" id="chongzhiusername"> </div>
             <div class="text2">

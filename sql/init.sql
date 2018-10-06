@@ -29,11 +29,11 @@ CREATE TABLE `sk_login` (
 CREATE TABLE `sk_sms` (
   `id` bigint(20) NOT NULL,
   `mobile` varchar(64) NOT NULL COMMENT '手机号码',
-  `userid` bigint(20) DEFAULT NULL COMMENT '用id',
+  `userid` bigint(20) DEFAULT NULL COMMENT '用户id',
   `qrcode` varchar(64) DEFAULT NULL COMMENT '验证码',
   `created_time` datetime NOT NULL COMMENT '创建时间',
   `updated_time` datetime NOT NULL COMMENT '更新时间',
-  `type` int(6) NOT NULL COMMENT '1是验证码，2是营销短信',
+  `type` int(6) NOT NULL COMMENT '1是试客验证码，2是商家验证码,3是用户密码找回，4是商家密码找回',
   `status` int(11) DEFAULT NULL COMMENT '状态，0是未使用，1已经使用',
   `fscount` int(11) DEFAULT NULL COMMENT '发送状态',
   PRIMARY KEY (`id`),

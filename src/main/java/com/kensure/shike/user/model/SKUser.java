@@ -172,6 +172,16 @@ public class SKUser extends BaseInfo{
 		this.type = type;
 	}
 
+	public String getTypeStr() {
+		String temp = "试客";
+		if(this.type == 2){
+			temp = "商家";
+		}else if(this.type == 2){
+			temp = "管理员";
+		}
+		return temp;
+	}
+	
 	public Double getYue() {
 		return yue;
 	}

@@ -464,7 +464,7 @@
           
             <div class="two-operate">
                 <span class="page-btn twopage-btn">上一页</span>
-                <span class="submit page-btn onepage-btn" onclick="savebaobei()">提交</span>
+                <span class="submit page-btn onepage-btn" id="tijiaosj" onclick="savebaobei()">提交</span>
             </div>
         </div>
       
@@ -513,6 +513,7 @@
 	   var data = {url:$("#sk-link").val()};
 	   var url = "<%=BusiConstant.shangjia_taobaoinfo_do.getKey()%>";
 	   postdo(url, data, taobaosucdo,null, null);
+	   getDays();
    }
    
    function getDays(){ 
@@ -588,8 +589,12 @@
        return dd;
    }
    
-   
+   var baocun = false;
    function savebaobei(){
+	   if(baocun){
+		   alert("请勿重复保存");
+	   }  
+	   $("#tijiaosj").html("正在提交");
 	   var data = {dpid:$("#sk_shop_name option:selected").val(),title:$("#sk_activity_name").val()};
 	   data.url = $("#sk-link").val();
 	   data.taokl = $("#sk_taokouling").val();
@@ -657,9 +662,17 @@
 	   data.bbrwlist = JSON.stringify(bbrwlist);
 	   
 	   var url = "<%=BusiConstant.shangjia_baobeiadd_do.getKey()%>";
-	   postdo(url, data, null,null, null);
+	   postdo(url, data, svsucdo,null, svcompdo);
    }
    
+   function svsucdo(data){
+	   location.href = "<%=BusiConstant.shangjia_huodonglist.getKey()%>?status=0";
+   }
+   
+   function svcompdo(data){
+	   baocun = false;
+	   $("#tijiaosj").html("提交");
+   }
    
    function sucdo(data){
 		var rows = data.resultData.rows;

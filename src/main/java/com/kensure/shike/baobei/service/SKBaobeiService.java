@@ -320,7 +320,7 @@ public class SKBaobeiService extends JSBaseService {
 	 * 
 	 * @return
 	 */
-	public List<SKBaobei> getList(Integer status) {
+	public List<SKBaobei> getList(Integer status,String title,Integer hdtypeid) {
 		SKUser skuser = sKUserService.getUser();
 		SKUserService.checkUser(skuser);
 		Map<String, Object> parameters = MapUtils.genMap("userid", skuser.getId(), "orderby", "created_time desc");
@@ -330,7 +330,15 @@ public class SKBaobeiService extends JSBaseService {
 		if (skuser.getType() == 3) {
 			parameters.remove("userid");
 		}
+		if(StringUtils.isNotBlank(title)){
+			parameters.put("titleLike", title);
+		}
+		if(hdtypeid != null){
+			parameters.put("hdtypeid", hdtypeid);
+		}
+
 		List<SKBaobei> list = selectByWhere(parameters);
+		
 		if (skuser.getType() == 3 && CollectionUtils.isNotEmpty(list)) {
 			for(SKBaobei skbaobei:list){
 				SKDianPu dianp = sKDianPuService.selectOne(skbaobei.getDpid());

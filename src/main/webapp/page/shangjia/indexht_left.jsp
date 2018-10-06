@@ -20,11 +20,14 @@
 				<li parentid="4"><a href="<%=BusiConstant.ht_dplist.getKey() %>" id="openWindows31" target="_self">店铺列表</a></li>
 				<li class="line"></li>
 
-				<li class="left_titi "><strong><i class="iconfont icon-zhanghuxinxi"></i>试客管理</strong> <i
+				<li class="left_titi "><strong><i class="iconfont icon-zhanghuxinxi"></i>试客管理</strong> <iclass="iconfont icon-Toleft il5 ft_up_down"style="color: rgb(102, 102, 102);"></i></li>
+				<li parentid="4"><a href="<%=BusiConstant.ht_sklist.getKey() %>" id="openWindows31" target="_self">试客列表</a></li>
+
+			
+				<li class="left_titi "><strong><i class="iconfont icon-zhanghuxinxi"></i>资金管理</a> </strong> <i
 					class="iconfont icon-Toleft il5 ft_up_down"
 					style="color: rgb(102, 102, 102);"></i></li>
 				<li><a href="<%=BusiConstant.ht_tixianlist.getKey()%>" id="openWindows18" target="_self">提现管理</a></li>
-				<li parentid="4"><a href="<%=BusiConstant.ht_sklist.getKey() %>" id="openWindows31" target="_self">试客列表</a></li>
 			
 				<li class="left_titi "><strong><i class="iconfont icon-zhanghuxinxi"></i>消息公告</strong> <i
 					class="iconfont icon-Toleft il5 ft_up_down"

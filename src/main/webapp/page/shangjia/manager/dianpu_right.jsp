@@ -64,7 +64,6 @@
 				$("#listtable").append(html);
 			}
 		}
-		
 	}
 
    function dianpulist(){
@@ -77,8 +76,12 @@
    function savedianpu(){
 	   var data = {name:$("#shopname").val(),url:$("#shopurl").val()};
 	   var url = "<%=BusiConstant.shangjia_dianpuadd_do.getKey()%>";
-	   postdo(url, data, null,null, null);
+	   postdo(url, data, savesucdo,null, null);
    }
+   function savesucdo(data){
+	   location.href = "<%=BusiConstant.shangjia_dianpulist.getKey()%>";
+   }
+  
    
    function adddianpu(message, callback) {
 	    callback = savedianpu;
@@ -89,7 +92,7 @@
 	                    '<div id="msgbox" class="lila_index" style="position:absolute;top:50%;left:50%;">' +
 	                        '<div class="ling">' +
 	                            '<strong>试呗</strong> ' +
-	                            '<a onclick="$(\'#linglamsg\').remove()" style="cursor: pointer"><img src="//www.meilipa.com/Content/images/xx.jpg" /></a>' +
+	                            '<a onclick="$(\'#linglamsg\').remove()" style="cursor: pointer"></a>' +
 	                        '</div>' +
 	                        '<div class="ling_mian">' +
 	                            '<div class="sy_cgt">' + message + '</div>' +

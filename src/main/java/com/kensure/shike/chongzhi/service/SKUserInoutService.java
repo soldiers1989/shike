@@ -24,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 import co.kensure.exception.BusinessExceptionUtil;
 import co.kensure.exception.ParamUtils;
 import co.kensure.frame.JSBaseService;
+import co.kensure.mem.CollectionUtils;
 import co.kensure.mem.MapUtils;
 
 import com.kensure.basekey.BaseKeyService;
@@ -115,14 +116,24 @@ public class SKUserInoutService extends JSBaseService {
 	 * 
 	 * @return
 	 */
-	public List<SKUserInout> getInoutList(int typeid) {
+	public List<SKUserInout> getInoutList(int typeid,Integer status) {
 		SKUser skuser = sKUserService.getUser();
 		SKUserService.checkUser(skuser);
 		Map<String, Object> parameters = MapUtils.genMap("userid", skuser.getId(), "typeid", typeid, "orderby", "created_time desc");
 		if (skuser.getType() == 3) {
 			parameters.remove("userid");
 		}
+		if(status != null){
+			parameters.put("status",status);
+		}
+		
 		List<SKUserInout> list = selectByWhere(parameters);
+		if(CollectionUtils.isNotEmpty(list)){
+			for(SKUserInout inorout:list){
+				SKUser user = sKUserService.selectOne(inorout.getUserid());
+				inorout.setUser(user);
+			}
+		}
 		return list;
 	}
 

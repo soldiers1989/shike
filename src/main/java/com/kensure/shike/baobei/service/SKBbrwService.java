@@ -136,7 +136,7 @@ public class SKBbrwService extends JSBaseService {
 			// 立即申请，没有预热，每天必须有数量，转化率为100
 			if (hdtypeid == 4) {
 				zhuanhua = 100;
-				if (obj.getBbnum() > 0) {
+				if (obj.getBbnum() <= 0) {
 					BusinessExceptionUtil.threwException("必中任务，每天必须有投放量");
 				}
 			}
@@ -285,7 +285,7 @@ public class SKBbrwService extends JSBaseService {
 				skqk.setStatus(51L);
 				sKSkqkService.updateStatus(skqk.getId(), skqk.getStatus());
 			}
-			bbrw.setYzj(list.size() + bbrw.getYzj());
+			bbrw.setYzj(zjrlist.size() + bbrw.getYzj());
 		} else {
 			// 人多，需要进行抽
 			zjrlist = poolBean((int) cjsl, list);

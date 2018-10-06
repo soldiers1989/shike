@@ -20,10 +20,11 @@
             <table width="1000" border="1" cellpadding="0" id="listtable" cellspacing="0" bordercolor="#dadada">
                 <tbody>
                 <tr>
+                 
+          			<td width="200" height="30" valign="middle" bgcolor="#eaeaea">
+                        <strong>真实姓名</strong>
+                    </td>         
                     <td width="200" height="30" valign="middle" bgcolor="#eaeaea">
-                        <strong>商家姓名</strong>
-                    </td>
-                    <td width="300" height="30" valign="middle" bgcolor="#eaeaea">
                         <strong>手机号</strong>
                     </td>
                     <td width="134" height="30" valign="middle" bgcolor="#eaeaea">
@@ -55,7 +56,7 @@
 		
 			for(var i=0;i<rows.length;i++){
 				var row = rows[i];
-				var html = "<tr><td height='30'>"+row.name+"</td>";
+				var html = "<tr><td height='30'>"+row.realname+"</td>";
 				html+="<td>"+row.phone+"</td>";
 				html+="<td>"+row.noQq+"</td>";
 				html+="<td>"+row.yue+"</td>";

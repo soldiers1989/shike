@@ -11,6 +11,8 @@
  */
 package com.kensure.shike.chongzhi.model;
 
+import com.kensure.shike.user.model.SKUser;
+
 import co.kensure.frame.BaseInfo;
 
 /**
@@ -27,6 +29,9 @@ public class SKUserInout extends BaseInfo{
 
 	/**用户id*/		
 	private Long userid; 
+	
+	/**用户*/		
+	private SKUser user; 
 
 	/**商家充值 1 用户提现 2*/		
 	private Long typeid; 
@@ -140,6 +145,14 @@ public class SKUserInout extends BaseInfo{
 
 	public void setRealname(String realname) {
 		this.realname = realname;
+	}
+
+	public SKUser getUser() {
+		return user;
+	}
+
+	public void setUser(SKUser user) {
+		this.user = user;
 	}
 
 }

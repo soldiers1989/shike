@@ -107,30 +107,20 @@
 		text-align: center;
     }
 </style>
-<script language="javascript" type="text/javascript">
-    var count=3;
-    var size=10;
-    var page=1;
-    var status=-1;
-    var orderType=0;
-    var skType = -1;
-    
-</script>
 
 <div class="clearfix fabushiyong" style="padding-bottom: 0;">
     <div class="shiy_ti">
         <span style="float:none;margin-right:5px;">活动管理</span>
         <input id="key" type="text" placeholder="请输入活动名称" style="width: 200px" class="shou">
         <span style="float:none;">活动类型</span>
-        <select id="sktype" onchange="searchCat();" style="width:auto;">
-            <option value="-1" selected="selected">全部</option>
-                <option value="0">爆款打造/维护</option>
-                <option value="1"> 新品提升综合权重</option>
-                <option value="2">高客单精准打造爆款</option>
-                <option value="3">新人必中</option>
-                <option value="4">组团开奖 实时转化</option>
+        <select id="sktype" style="width:auto;">
+            <option value="" selected="selected">全部</option>
+                <option value="1">爆款打造/维护</option>
+                <option value="2"> 新品提升综合权重</option>
+                <option value="3">高客单精准打造爆款</option>
+                <option value="4">新人必中</option>
         </select>
-        <input onclick="search()" type="button" style="background: url('/Content/images/se.gif') no-repeat scroll -1px center transparent; border: 0px none; cursor: pointer; height: 28px; width: 101px; outline: none; position: relative; margin-left: 0px;">
+        <input onclick="dianpulist()" type="button" value="搜索">
     </div>
     <div class="shiy_tl">
         <a class="<%=status==null?"shiy":""%>" href="<%=BusiConstant.ht_huodonglist.getKey()%>">全部<i>|</i></a>
@@ -158,8 +148,9 @@
 
 <script>
 	var theadtds = [{w:270,na:"活动名称"},{w:100,na:"开始时间"},{w:100,na:"结束时间"},{w:100,na:"商家名称"}
-	,{w:100,na:"店铺名称"},{w:100,na:"宝贝单价"},{w:100,na:"产品数量"},{w:100,na:"活动进度"},{w:100,na:"活动操作"}];
+	,{w:100,na:"店铺名称"},{w:100,na:"宝贝单价"},{w:100,na:"产品数量"},{w:100,na:"中奖数量"},{w:100,na:"申请数量"},{w:100,na:"活动进度"},{w:100,na:"活动操作"}];
 	function sucdo(data){
+		$("#listtable").html("");
 		var theadhtml = "<tr class='trhead'>";     
 		for(var i=0;i<theadtds.length;i++){
 			var row = theadtds[i];
@@ -205,11 +196,17 @@
                 +"  </td>" 
                 +"<td width='"+theadtds[6].w+"'>" 
                 +"     <em style=\"color: #f25f55\">"+row.bbnum+"</em>" 
-                +"</td>"                
+                +"</td>"  
                 +"<td width='"+theadtds[7].w+"'>" 
+                +"     <em style=\"color: #f25f55\">"+row.zjnum+"</em>" 
+                +"</td>" 
+                +"<td width='"+theadtds[8].w+"'>" 
+                +"     <em style=\"color: #f25f55\">"+row.ysqnum+"</em>" 
+                +"</td>" 
+                +"<td width='"+theadtds[9].w+"'>" 
                 +"     <em style=\"color: #f25f55\">"+row.statusStr+"</em>" 
                 +"  </td>" 
-                +"<td width='"+theadtds[8].w+"'>";
+                +"<td width='"+theadtds[10].w+"'>";
                 if(row.status == 1){
                 	html+="    <div class=\"wae_cer\">" 
                       +"        <input type='button' value='审核通过' onclick='tongguo("+row.id+")'/>"
@@ -225,7 +222,7 @@
 	}
 
    function dianpulist(){
-	   var data = {status:<%=status%>};
+	   var data = {status:<%=status%>,title:$("#key").val(),hdtypeid:$("#sktype option:selected").val()};
 	   var url = "<%=BusiConstant.shangjia_baobeilist_do.getKey()%>";
 	   postdo(url, data, sucdo,null, null);
    }

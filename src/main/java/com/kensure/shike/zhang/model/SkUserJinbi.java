@@ -1,39 +1,40 @@
 package com.kensure.shike.zhang.model;
 
-import co.kensure.frame.BaseInfo;;import java.util.Date;
+import co.kensure.frame.BaseInfo;
 
 /**
  * 试客金币流水对象类
+ * 
  * @author fankd created on 2018-10-5
  * @since
  */
-public class SkUserJinbi extends BaseInfo{
+public class SkUserJinbi extends BaseInfo {
 
 	private static final long serialVersionUID = 3545276994084105527L;
-	
-	/***/		
+
+	/***/
 	private Long id;
 
-	/**用户id*/		
-	private Long userid; 
+	/** 用户id */
+	private Long userid;
 
-	/**业务类型id 1:签到，2:购物奖励*/		
+	/** 业务类型id 1:签到，2:购物奖励 */
 	private Long typeid;
 
 	private String typeidStr;
 
-	/**金币*/		
+	/** 金币 */
 	private Long jinbi;
 
-	/**对这个用户流进还是流出,1是进，-1是出*/		
+	/** 对这个用户流进还是流出,1是进，-1是出 */
 	private Long inorout;
 
-	/**状态，1是正常，0是未生效，-1是作废*/		
+	/** 状态，1是正常，0是未生效，-1是作废 */
 	private Long status;
 
 	private String statusStr;
 
-	/**描述*/
+	/** 描述 */
 	private String remark;
 
 	public Long getId() {
@@ -43,6 +44,7 @@ public class SkUserJinbi extends BaseInfo{
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public Long getUserid() {
 		return userid;
 	}
@@ -50,6 +52,7 @@ public class SkUserJinbi extends BaseInfo{
 	public void setUserid(Long userid) {
 		this.userid = userid;
 	}
+
 	public Long getTypeid() {
 		return typeid;
 	}
@@ -72,6 +75,7 @@ public class SkUserJinbi extends BaseInfo{
 	public void setJinbi(Long jinbi) {
 		this.jinbi = jinbi;
 	}
+
 	public Long getInorout() {
 		return inorout;
 	}
@@ -79,6 +83,7 @@ public class SkUserJinbi extends BaseInfo{
 	public void setInorout(Long inorout) {
 		this.inorout = inorout;
 	}
+
 	public Long getStatus() {
 		return status;
 	}
@@ -87,17 +92,17 @@ public class SkUserJinbi extends BaseInfo{
 		this.status = status;
 	}
 
-    public String getStatusStr() {
-        String temp = "";
-        if(status == 0){
-            temp = "等待审核";
-        }else if(status == 1){
-            temp = "成功";
-        }else if(status == -1){
-            temp = "拒绝通过";
-        }
-        return temp;
-    }
+	public String getStatusStr() {
+		String temp = "";
+		if (status == 0) {
+			temp = "等待审核";
+		} else if (status == 1) {
+			temp = "成功";
+		} else if (status == -1) {
+			temp = "拒绝通过";
+		}
+		return temp;
+	}
 
 	public String getRemark() {
 		return remark;
@@ -106,7 +111,5 @@ public class SkUserJinbi extends BaseInfo{
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
-	public Date getCreatedTime() {
-		return createdTime;
-	}
+
 }

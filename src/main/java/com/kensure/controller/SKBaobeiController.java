@@ -116,7 +116,9 @@ public class SKBaobeiController {
 	public ResultInfo list(HttpServletRequest req, HttpServletResponse rep) {
 		JSONObject json = RequestUtils.paramToJson(req);
 		Integer status = json.getInteger("status");
-		List<SKBaobei> list = sKBaobeiService.getList(status);
+		String title = json.getString("title");
+		Integer hdtypeid = json.getInteger("hdtypeid");
+		List<SKBaobei> list = sKBaobeiService.getList(status,title,hdtypeid);
 		return new ResultRowsInfo(list);
 	}
 

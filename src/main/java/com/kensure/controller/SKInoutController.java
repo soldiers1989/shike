@@ -95,7 +95,9 @@ public class SKInoutController {
 	@ResponseBody
 	@RequestMapping(value = "chongzhilist.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
 	public ResultInfo chongzhilist(HttpServletRequest req, HttpServletResponse rep) {
-		List<SKUserInout> list = sKUserInoutService.getInoutList(1);
+		JSONObject json = RequestUtils.paramToJson(req);
+		Integer status = json.getInteger("status");
+		List<SKUserInout> list = sKUserInoutService.getInoutList(1,status);
 		return new ResultRowsInfo(list);
 	}
 
@@ -105,7 +107,9 @@ public class SKInoutController {
 	@ResponseBody
 	@RequestMapping(value = "tixianlist.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
 	public ResultInfo tixianlist(HttpServletRequest req, HttpServletResponse rep) {
-		List<SKUserInout> list = sKUserInoutService.getInoutList(2);
+		JSONObject json = RequestUtils.paramToJson(req);
+		Integer status = json.getInteger("status");
+		List<SKUserInout> list = sKUserInoutService.getInoutList(2,status);
 		return new ResultRowsInfo(list);
 	}
 
