@@ -10,6 +10,8 @@ import java.util.Map;
 /**
  * 代言人粉丝流水表Dao接口类
  * 
+ * @author fankd created on 2018-10-6
+ * @since 
  */
  @MyBatisRepository
 public interface SkUserFansDao extends JSBaseDao<SkUserFans> {

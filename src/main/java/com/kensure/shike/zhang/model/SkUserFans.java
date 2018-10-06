@@ -16,7 +16,10 @@ public class SkUserFans extends BaseInfo{
 	private Long userid; 
 
 	/**推荐人id*/		
-	private Long refereeId; 
+	private Long refereeId;
+
+	/**业务id*/
+	private Long busiid;
 
 	/**业务类型id 1:首单奖励，2:下单奖励*/		
 	private Long typeid;
@@ -64,6 +67,15 @@ public class SkUserFans extends BaseInfo{
 	public void setRefereeId(Long refereeId) {
 		this.refereeId = refereeId;
 	}
+
+	public Long getBusiid() {
+		return busiid;
+	}
+
+	public void setBusiid(Long busiid) {
+		this.busiid = busiid;
+	}
+
 	public Long getTypeid() {
 		return typeid;
 	}

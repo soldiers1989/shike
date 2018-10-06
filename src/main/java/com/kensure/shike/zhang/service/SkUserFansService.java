@@ -100,6 +100,7 @@ public class SkUserFansService extends JSBaseService{
 
         fans.setUserid(userId);
         fans.setRefereeId(refereeId);
+        fans.setBusiid(userId);
         fans.setTypeid(1L);
         fans.setOriginJine(10D);
         fans.setBili(1);
@@ -120,7 +121,9 @@ public class SkUserFansService extends JSBaseService{
         for(SkUserFans fans : list) {
             SKUser skUser = sKUserService.selectOne(fans.getUserid());
 
-            fans.setName(skUser.getName());
+            if (skUser != null) {
+                fans.setName(skUser.getName());
+            }
         }
 
         return list;

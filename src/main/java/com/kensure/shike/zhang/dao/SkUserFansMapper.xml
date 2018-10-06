@@ -6,6 +6,7 @@
 		id,
 		userid,
 		referee_id as refereeId,
+		busiid,
 		typeid,
 		origin_jine as originJine,
 		bili,
@@ -20,6 +21,7 @@
 		id,
 		userid,
 		referee_id,
+		busiid,
 		typeid,
 		origin_jine,
 		bili,
@@ -36,6 +38,7 @@
 			#{id},
 			#{userid},
 			#{refereeId},
+			#{busiid},
 			#{typeid},
 			#{originJine},
 			#{bili},
@@ -54,6 +57,7 @@
 				#{item.id},
 				#{item.userid},
 				#{item.refereeId},
+				#{item.busiid},
 				#{item.typeid},
 				#{item.originJine},
 				#{item.bili},
@@ -72,6 +76,9 @@
 		</if>
 		<if test="refereeId != null">			
 			and referee_id = #{refereeId}			
+		</if>
+		<if test="busiid != null">			
+			and busiid = #{busiid}			
 		</if>
 		<if test="typeid != null">			
 			and typeid = #{typeid}			
@@ -146,6 +153,9 @@
 		</if>
 		<if test="refereeId != null">
 			referee_id = #{refereeId},
+		</if>
+		<if test="busiid != null">
+			busiid = #{busiid},
 		</if>
 		<if test="typeid != null">
 			typeid = #{typeid},
