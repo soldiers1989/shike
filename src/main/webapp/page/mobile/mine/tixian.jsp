@@ -337,7 +337,7 @@
     }
 </style>
 
-<header class="header acct-top"><i class="arrows" onclick="history.back(-1) "></i>提现</header>
+<header class="header acct-top"><i class="arrows" onclick="location.href = &#39;<%=BusiConstant.shike_yue.getKey() %>&#39;"></i>提现</header>
 <div style="height: 2rem;"></div>
 <form id="apply-con" action="#" method="POST">
      <input name="password" style="text-indent: 1em;" id="pwd" type="hidden" class="moneya">
@@ -367,7 +367,7 @@
         </h3>
         
     </div>
-    <a style="color: #3B8DE4; float: right; margin-right: 0.6rem;" href="#">忘记密码?</a>
+    <a style="color: #3B8DE4; float: right; margin-right: 0.6rem;" href="#"><%--忘记密码?--%></a>
     <input type="button" onclick="tixian()" class="tx-btn" value="申请提现">
 </form>
 

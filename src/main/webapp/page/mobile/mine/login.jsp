@@ -86,7 +86,7 @@
     <div class="btn" style="display: none;" id="weixinBtn">
         <i class="iconfont icon-wx"></i>微信浏览器登录
     </div>--%>
-    <a href="#">忘记密码？</a>
+    <a href="<%=BusiConstant.shike_wjpwd.getKey()%>">忘记密码？</a>
 </div>
 
 <script>
@@ -164,7 +164,11 @@
         function loginsucdo(data){
             var usersession = data.resultData.row;
             addcookie(usersession);
-            history.go(-1);
+            if ("${type}" == 1) {
+                window.location.href="<%=BusiConstant.shike_haohuo.getKey()%>";
+            } else {
+                history.go(-1);
+            }
         }
         function login(){
             var data = {type:1,mobile:$("#name").val(),password:$("#pwd").val()};
