@@ -364,3 +364,36 @@ CREATE TABLE `sk_user_jinbi`  (
   `updated_time` datetime(0) NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
 );
+
+-- 意见反馈表
+CREATE TABLE `sk_yijian`  (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `userid` bigint(20) NOT NULL COMMENT '用户id',
+  `phone` bigint(20) NOT NULL COMMENT '手机号码',
+  `qq` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT 'qq',
+  `wchat` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '微信',
+  `typeid` int(11) NOT NULL COMMENT '类型 1:新功能建议 2:功能异常 3:体验问题 4:服务投诉 5:活动问题 6:其他',
+  `content` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '描述内容',
+  `picture_url` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '图片url',
+  `created_time` datetime(0) NOT NULL COMMENT '创建时间',
+  `updated_time` datetime(0) NOT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`) USING BTREE
+);
+
+-- 代言人粉丝奖励记录表
+CREATE TABLE `sk_user_fans`  (
+  `id` bigint(20) NOT NULL,
+  `userid` bigint(20) NOT NULL COMMENT '用户id',
+  `referee_id` bigint(20) NOT NULL COMMENT '推荐人id',
+  `busiid` bigint(20) NULL DEFAULT NULL COMMENT '业务id',
+  `typeid` int(11) NOT NULL COMMENT '业务类型id,  1:首单奖励，2:下单奖励',
+  `origin_jine` double(255, 0) NOT NULL COMMENT '原金额',
+  `bili` int(10) NOT NULL COMMENT '比例',
+  `jine` double(255, 0) NOT NULL COMMENT '金额 = 原金额 * 比例',
+  `status` int(11) NOT NULL COMMENT '状态，0是待下单，1是即将到账，9是已到账，-1是作废',
+  `remark` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '描述',
+  `created_time` datetime(0) NOT NULL COMMENT '创建时间',
+  `updated_time` datetime(0) NOT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`) USING BTREE
+) ;
+
