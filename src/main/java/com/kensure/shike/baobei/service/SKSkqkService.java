@@ -241,7 +241,7 @@ public class SKSkqkService extends JSBaseService {
 
 	// 获取宝贝试用情况，是给商家展现的
 	public List<SKSkqk> getSkqkList(long bbid) {
-		Map<String, Object> parameters = MapUtils.genMap("bbid", bbid, "bigthanstatus", 81);
+		Map<String, Object> parameters = MapUtils.genMap("bbid", bbid, "bigthanstatus", 51);
 		List<SKSkqk> list = selectByWhere(parameters);
 		for (SKSkqk skskqk : list) {
 			List<SKJysj> jylist = sKJysjService.selectByBbidAndUserid(skskqk.getBbid(), skskqk.getUserid());

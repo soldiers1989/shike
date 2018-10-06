@@ -16,6 +16,7 @@ import org.apache.log4j.Logger;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
+import co.kensure.api.ApiUtil;
 import co.kensure.frame.Const;
 import co.kensure.time.MyTimer;
 import co.kensure.time.MyTimerTasker;
@@ -56,6 +57,8 @@ public class InitStartUpServlet extends HttpServlet {
 		SKDictService sKDictService = (SKDictService)ServiceUtil.getBean(SKDictService.class);
 		sKDictService.initDict();
 
+		ApiUtil.init();
+		
 //		//初始化w_config
 //		MyConfigService myConfigService = (MyConfigService)ServiceUtil.getBean(MyConfigService.class);
 //		myConfigService.initCache();

@@ -1,12 +1,20 @@
+<%@page import="co.kensure.api.ApiDesc"%>
+<%@page import="co.kensure.api.ApiUtil"%>
 <%@page import="com.kensure.shike.constant.BusiConstant"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <% 
 	String path = BusiConstant.shangjiapath;
 	String name = BusiConstant.name;
+	String servletPath = request.getRequestURL().toString();  
+	ApiDesc api = ApiUtil.get(servletPath);
+	String title = "试呗网";
+	if(api != null){
+		title = api.getName();
+	}
 %>
 <head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="shortcut icon" href="<%=BusiConstant.context%>/favicon.ico" type="image/x-icon">
-    <title>商家注册 – <%=name%></title>
+    <title><%=title %> – <%=name%></title>
     <meta name="keywords" content="试客网,试客联盟,试客之家,试客联盟网,试客联盟中心,免费试用,试用网,免费试用网,免费试用平台,<%=name%>">
     <meta name="description" content="欢迎来免费试用网:<%=name%>.">
     <link rel="stylesheet" type="text/css" href="<%=path%>/base.css?ver=<%=BusiConstant.version%>">

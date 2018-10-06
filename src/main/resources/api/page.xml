@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<apis>
+	<api key="/shangjia/about" name="关于我们" auth="none" type="get" />
+	<api key="/shangjia/userdefine" name="用户协议" auth="none" type="get" />
+	<api key="/shangjia/login" name="商家登录" auth="none" type="get" />
+	<api key="/shangjia/regist" name="商家注册" auth="none" type="get" />
+	<api key="/shangjia/index" name="商家主页" auth="admin,saler" type="get" />
+	<api key="/shangjia/manageradd" name="商品管理页面" auth="admin,saler" type="get" />
+	<api key="/shangjia/chongzhi" name="商家充值" auth="admin,saler" type="put" />
+	<api key="/shangjia/chongzhilist" name="商家充值列表" auth="admin,saler" type="get" />
+	<api key="/shangjia/dianpulist" name="商家店铺管理" auth="admin,saler" type="get" />
+	<api key="/shangjia/huodonglist" name="商家活动信息查询" auth="admin,saler" type="get" />
+	<api key="/shangjia/payinfo" name="商家支付信息" auth="admin,saler" type="put" />
+	<api key="/shangjia/shikelist" name="试用情况" auth="admin,saler" type="get" />
+	<api key="/shangjia/zhanglist" name="商家账户明细" auth="admin,saler" type="get" />
+	<api key="/shangjia/tixian" name="商家账户提现" auth="admin,saler" type="put" />
+	<api key="/shangjia/gaimi" name="改密功能" auth="admin,saler" type="put" />
+
+	<api key="/user/saveshangjia.do" name="商家注册接口" auth="none" type="put" />
+	<api key="/user/checkname.do" name="商家名称验证接口" auth="none" type="get"/>
+	<api key="/user/getzhyue.do" name="用户余额接口" auth="all" type="get" /> 
+	<api key="/user/checkphone.do" name="商家手机验证接口" auth="none" type="get" />
+	<api key="/user/login.do" name="商家登录接口" auth="none" type="put" />
+
+	<api key="/inout/savein.do" name="充值接口" auth="all" type="put" />
+	<api key="/inout/tongguo.do" name="通过充值" auth="admin" type="put" />
+	<api key="/inout/saveout.do" name="提现接口" auth="all" type="put" />
+	<api key="/inout/saveoutser.do" name="提现接口,需要支付密码" auth="all" type="put" />
+	<api key="/inout/tongguoout.do" name="通过充值" auth="admin" type="put" />
+	<api key="/inout/zhanglist.do" name="账号明细列表接口" auth="all" type="get" />
+	<api key="/inout/chongzhilist.do" name="商家充值列表接口" auth="all" type="get" />
+	<api key="/inout/tixianlist.do" name="商家提现列表接口" auth="all" type="get" />
+
+	<api key="/dianpu/add.do" name="商家店铺新增" auth="admin,saler" type="put" />
+	<api key="/dianpu/list.do" name="商家店铺列表" auth="admin,saler" type="get" />
+
+	<api key="/baobei/gettaobaoinfo.do" name="淘宝图片" auth="all" type="get" />
+	<api key="/baobei/save.do" name="活动信息保存" auth="admin,saler" type="put" />
+	<api key="/baobei/list.do" name="活动信息查询" auth="none" type="get" />
+	<api key="/baobei/payinfo.do" name="支付计算" auth="admin,saler" type="put" />
+	<api key="/baobei/pay.do" name="支付动作" auth="admin,saler" type="put" />
+	<api key="/baobei/sklist.do" name="试客查看宝贝列表" auth="none" type="get" />
+	<api key="/baobei/skwdhd.do" name="试客查看我的活动列表" auth="none" type="get" />
+	<api key="/baobei/skqklist.do" name="商家查看宝贝下的活动列表" auth="all" type="get" />
+	<api key="/baobei/tklcheck.do" name="淘口令校验" auth="all" type="get" />
+	<api key="/baobei/dpnamecheck.do" name="店铺名称校验" auth="all" type="get" />
+
+
+	<api key="/baobei/fankuan.do" name="返款接口" auth="admin,saler" type="put" />
+	<api key="/baobei/statustj.do" name="统计状态" auth="all" type="get" />
+	<api key="/baobei/deletesq.do" name="删除申请" auth="all" type="put" />
+
+	<api key="/jinbi/qiandao.do" name="试客签到接口" auth="all" type="get" />
+	<api key="/jinbi/jinbilist.do" name="金币列表明细" auth="all" type="get" />
+
+
+	<api key="/sys/cmslist.do" name="消息列表" auth="none" type="get" />
+	<api key="/sys/getcms.do" name="消息内容" auth="none" type="get" />
+
+
+
+	<api key="/gl/cms" name="消息中心" auth="admin" type="get" />
+	<api key="/gl/cmsedit" name="编辑消息" auth="admin,saler" type="put" />
+	<api key="/gl/chongzhilist" name="后台充值列表" auth="admin" type="get" />
+	<api key="/gl/huodonglist" name="后台活动列表" auth="admin" type="get" />
+	<api key="/gl/sjlist" name="商家列表" auth="admin" type="get" />
+	<api key="/gl/dplist" name="店铺列表" auth="admin" type="get" />
+	<api key="/gl/sklist" name="试客列表" auth="admin" type="get" />
+
+	<api key="/gl/tixianlist" name="后台活动列表" auth="admin" type="get" />
+	<api key="/baobei/tongguo.do" name="宝贝通过审核" auth="admin" type="put" />
+	<api key="/baobei/xiaxian.do" name="宝贝下线" auth="admin" type="put" />
+	<api key="/user/getuser.do" name="用户会话信息" auth="none" type="get" />
+
+	<api key="/sys/dictlist.do" name="获取字典" auth="none" type="get" />
+	<api key="/sys/savecms.do" name="保存消息" auth="admin" type="get" />
+	<api key="/user/sms.do" name="发送验证码" auth="none" type="put" />
+	<api key="/skm/detail" name="宝贝详情" auth="none" type="get" />
+
+	<api key="/skm/index" name="首页" auth="none" type="get" />
+	<api key="/skm/haohuo" name="好货页面" auth="none" type="get" />
+	<api key="/skm/wdhd" name="我的活动页面" auth="user" type="get" />
+
+	<api key="/skm/mine" name="我的" auth="user" type="get" />
+	<api key="/skm/yue" name="余额页面" auth="user" type="get" />
+	<api key="/skm/tixian" name="提现页面" auth="user" type="get" />
+	<api key="/skm/mingxi" name="明细页面" auth="user" type="get" />
+	<api key="/skm/jjdz" name="即将到账页面" auth="user" type="get" />
+	<api key="/skm/login" name="登陆页面" auth="none" type="get" />
+	<api key="/skm/regist" name="注册页面" auth="none" type="get" />
+	<api key="/skm/wjpwd" name="忘记密码页面" auth="none" type="get" />
+	<api key="/skm/private" name="隐私页面" auth="all" type="get" />
+	<api key="/skm/dyren" name="代言人页面" auth="all" type="get" />
+	<api key="/skm/fensi" name="我的粉丝页面" auth="all" type="get" />
+	<api key="/skm/jinbi" name="金币页面" auth="user" type="get" />
+
+	<api key="/skm/jinbimx" name="金币明细页面" auth="user" type="get" />
+	<api key="/skm/zhanghu" name="账户安全页面" auth="user" type="get" />
+	<api key="/skm/modifyphone" name="修改手机号码页面" auth="user" type="get" />
+	<api key="/skm/modifyalipay" name="修改支付宝账户页面" auth="user" type="get" />
+	<api key="/skm/modifytaobao" name="修改淘宝账号页面" auth="user" type="get" />
+
+	<api key="/skm/modifyqq" name="修改qq账号页面" auth="user" type="get" />
+	<api key="/skm/modifyloginpwd" name="修改登录密码页面" auth="user" type="get" />
+	<api key="/skm/gouwuche" name="流程页面" auth="user" type="get" />
+	<api key="/skm/haop" name="好评页面" auth="user" type="get" />
+
+	<api key="/user/addsk.do" name="试客注册并登陆" auth="none" type="put" />
+	<api key="/user/userlist.do" name="用户列表" auth="all" type="get" />
+	<api key="/user/fensilist.do" name="我的粉丝列表" auth="all" type="get" />
+
+	<api key="/fans/fanslslist.do" name="我的粉丝流水列表" auth="all" type="get" />
+	<api key="/baobei/shenqing.do" name="立即申请操作" auth="user" type="put" />
+
+	<api key="/baobei/liucheng.do" name="后续流程性操作" auth="user" type="put" />
+	<api key="/baobei/addfile.do" name="图片上传操作" auth="all" type="put" />
+	<api key="/user/update.do" name="用户安全管理更新操作" auth="user" type="put" />
+	<api key="/user/wjpwd.do" name="忘记密码更新操作" auth="user" type="put" />
+
+	<api key="/help" name="帮助中心" auth="none" type="get" />
+	<api key="/help/cms" name="内容页面" auth="none" type="get" />
+
+</apis>
