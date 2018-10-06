@@ -153,6 +153,7 @@ public class BusiConstant {
 	public static final KVBean shike_private = new KVBean(context + "/skm/private", "隐私页面");
 	public static final KVBean shike_dyren = new KVBean(context + "/skm/dyren", "代言人页面");
 	public static final KVBean shike_help_page = new KVBean(context + "/skm/help", "帮助中心页面");
+	public static final KVBean shike_yijian = new KVBean(context + "/skm/yijian", "意见反馈页面");
 
 	public static final KVBean shike_fensi = new KVBean(context + "/skm/fensi", "我的粉丝页面");
 
@@ -176,6 +177,8 @@ public class BusiConstant {
 
     public static final KVBean shike_fensilist_do = new KVBean(context + "/user/fensilist.do", "我的粉丝列表");
     public static final KVBean shike_fanslslist_do = new KVBean(context + "/fans/fanslslist.do", "我的粉丝流水列表");
+
+    public static final KVBean shike_yijian_do = new KVBean(context + "/yijian/add.do", "添加意见反馈");
 
     public static final KVBean shike_shenqing_do = new KVBean(context + "/baobei/shenqing.do", "立即申请操作");
     public static final KVBean shike_liucheng_do = new KVBean(context + "/baobei/liucheng.do", "后续流程性操作");

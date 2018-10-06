@@ -268,7 +268,7 @@
         <i class="iconfont icon-lianxikefu"></i>
         <p>联系客服</p>
     </li>
-    <li onclick="yjfk()">
+    <li onclick="location.href = &#39;<%=BusiConstant.shike_yijian.getKey() %>&#39;">
         <i class="iconfont icon-yijianfankui"></i>
         <p>意见反馈</p>
     </li>
@@ -412,12 +412,6 @@
     
     function lxjk() {
         myAlert("客户微信:000000000000000000")
-    }
-
-
-
-    function yjfk() {
-        myAlert("维护中...")
     }
 
 

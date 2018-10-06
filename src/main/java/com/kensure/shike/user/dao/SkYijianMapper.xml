@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kensure.shike.user.dao.SkYijianDao"><!--dsName="" saasAspect=""-->
+	<!-- <cache readOnly="true"/> -->
+    <sql id="allFields">
+		id,
+		userid,
+		phone,
+		qq,
+		wchat,
+		typeid,
+		content,
+		picture_url as pictureUrl,
+		created_time as createdTime,
+		updated_time as updatedTime
+    </sql>
+    
+	<sql id="insertFields">
+		id,
+		userid,
+		phone,
+		qq,
+		wchat,
+		typeid,
+		content,
+		picture_url,
+		created_time,
+		updated_time
+    </sql>
+	
+	<insert id="insert" parameterType="com.kensure.shike.user.model.SkYijian">
+		insert into sk_yijian (<include refid="insertFields"/>)
+		values (
+			#{id},
+			#{userid},
+			#{phone},
+			#{qq},
+			#{wchat},
+			#{typeid},
+			#{content},
+			#{pictureUrl},
+			#{createdTime},
+			#{updatedTime}
+		)
+	</insert>
+	
+	<insert id="insertInBatch" parameterType="com.kensure.shike.user.model.SkYijian">
+		insert into sk_yijian (<include refid="insertFields"/>) values 
+		<foreach collection="list" item="item" index="index" separator=",">
+			(
+				#{item.id},
+				#{item.userid},
+				#{item.phone},
+				#{item.qq},
+				#{item.wchat},
+				#{item.typeid},
+				#{item.content},
+				#{item.pictureUrl},
+				#{item.createdTime},
+				#{item.updatedTime}
+			)
+		</foreach>
+	</insert>   		
+	
+    <sql id="whereClause">
+		<if test="userid != null">			
+			userid = #{userid}			
+		</if>
+		<if test="phone != null">			
+			and phone = #{phone}			
+		</if>
+		<if test="qq != null">			
+			and qq = #{qq}			
+		</if>
+		<if test="wchat != null">			
+			and wchat = #{wchat}			
+		</if>
+		<if test="typeid != null">			
+			and typeid = #{typeid}			
+		</if>
+		<if test="content != null">			
+			and content = #{content}			
+		</if>
+		<if test="pictureUrl != null">			
+			and picture_url = #{pictureUrl}			
+		</if>
+		<if test="createdTime != null">			
+			and created_time = #{createdTime}			
+		</if>
+		<if test="updatedTime != null">			
+			and updated_time = #{updatedTime}			
+		</if>
+	</sql>
+    
+	<select id="selectOne" resultType="com.kensure.shike.user.model.SkYijian" parameterType="Long" >
+		select <include refid="allFields"/> 
+		  from sk_yijian 
+		 where id = #{id} 
+	</select>
+	
+	<select id="selectByIds" parameterType="List" resultType="com.kensure.shike.user.model.SkYijian">
+		select <include refid="allFields"/> from sk_yijian 
+		where id in
+		<foreach collection="list" item="item" open="(" close=")" separator=",">
+			#{item}
+		</foreach>
+	</select>
+		
+	<select id="selectAll" resultType="com.kensure.shike.user.model.SkYijian">
+		select <include refid="allFields"/> 
+		from sk_yijian 
+	</select>
+
+	<select id="selectCount" resultType="long">
+		select count(*) from sk_yijian 
+	</select>
+	
+	<select id="selectCountByWhere" parameterType="Map" resultType="Long">
+		select count(*) from sk_yijian 
+		<where>
+		    <include refid="whereClause"/>
+		</where>
+	</select>
+
+	<select id="selectByWhere" parameterType="Map" resultType="com.kensure.shike.user.model.SkYijian">
+		select <include refid="allFields"/>
+		from sk_yijian 
+		<where>
+		    <include refid="whereClause"/>
+		</where>				
+		<if test="orderby != null">
+			ORDER BY ${orderby}
+		</if>
+	</select>
+	
+	<sql id="setComn">		
+		<if test="userid != null">
+			userid = #{userid},
+		</if>
+		<if test="phone != null">
+			phone = #{phone},
+		</if>
+		<if test="qq != null">
+			qq = #{qq},
+		</if>
+		<if test="wchat != null">
+			wchat = #{wchat},
+		</if>
+		<if test="typeid != null">
+			typeid = #{typeid},
+		</if>
+		<if test="content != null">
+			content = #{content},
+		</if>
+		<if test="pictureUrl != null">
+			picture_url = #{pictureUrl},
+		</if>
+		<if test="createdTime != null">
+			created_time = #{createdTime},
+		</if>
+		<if test="updatedTime != null">
+			updated_time = #{updatedTime}
+		</if>
+	</sql>
+	
+	<update id="update" parameterType="com.kensure.shike.user.model.SkYijian">
+		 update sk_yijian 
+		    <set>
+		    	<include refid="setComn"/>
+			</set>
+		  where id = #{id}
+	</update>
+	
+	<update id="updateByMap" parameterType="Map">
+		 update sk_yijian 
+		    <set>
+		    	<include refid="setComn"/>
+			</set>
+		  where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from sk_yijian where id = #{id}
+	</delete>
+	
+	<delete id="deleteMulti" parameterType="List">
+		delete from sk_yijian
+		where id in
+		<foreach collection="list" item="item" open="(" close=")" separator=",">
+			#{item}
+		</foreach>
+	</delete>
+	
+	<delete id="deleteByWhere" parameterType="Map">
+		delete from sk_yijian 
+		<where>
+		    <include refid="whereClause"/>
+		</where>
+	</delete>	
+
+</mapper>    

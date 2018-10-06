@@ -381,4 +381,12 @@ public class ShikeMobileController {
 		return "page/mobile/mine/help.jsp";
 	}
 
+	// 意见反馈页面
+	@RequestMapping("yijian")
+	public String yijian(HttpServletRequest req, HttpServletResponse rep, Model model) {
+        SKUser user = sKUserService.getUser();
+        req.setAttribute("user", user);
+		return "page/mobile/mine/yijian.jsp";
+	}
+
 }
