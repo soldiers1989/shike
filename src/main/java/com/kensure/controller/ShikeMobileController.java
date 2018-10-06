@@ -355,6 +355,8 @@ public class ShikeMobileController {
 	// 我的粉丝页面
 	@RequestMapping("fensi")
 	public String fensi(HttpServletRequest req, HttpServletResponse rep, Model model) {
+		String status = req.getParameter("status");
+		req.setAttribute("status", status);
 		return "page/mobile/mine/fensi.jsp";
 	}
 }

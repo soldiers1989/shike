@@ -68,7 +68,7 @@
         var $document = $(document);
         //下滑加载
         var mytype = globle.getUrlParam("type");
-        $(".list-con .cat a").eq(mytype).addClass("act");
+        // $(".list-con .cat a").eq(mytype).addClass("act");
         var mypage = 1;
         getList(1);
         iniScroll();
@@ -166,25 +166,20 @@
                 <input type="text" name="name" value="" id="seach-key" placeholder="请输入粉丝昵称(可以少输,不能输错)"><span id="seach-btn" class="iconfont icon-search"></span>
             </div>--%>
             <div class="cat cat-list">
-                <div class="act">
-                    
-                   
-                    <a href="#" class="&#39;act&#39; act">全部</a>
-                    
+                <div class="<c:if test='${empty status}'>act</c:if>">
+                    <a href="<%=BusiConstant.shike_fensi.getKey() %>" class="<c:if test='${empty status}'>act</c:if>">全部</a>
                 </div>
-               <div>
-                   
-                    <a href="#">待下单 <%--(<span style="font-family:Arial;">1</span>)--%></a>
-               
+               <div class="<c:if test='${status == 0}'>act</c:if>">
+                    <a href="<%=BusiConstant.shike_fensi.getKey() %>?status=0" class="<c:if test='${status == 0}'>act</c:if>">待下单 <%--(<span style="font-family:Arial;">1</span>)--%></a>
                 </div>
-                <div>
-                    <a href="#">即将到账</a>
+                <div class="<c:if test='${status == 1}'>act</c:if>">
+                    <a href="<%=BusiConstant.shike_fensi.getKey() %>?status=1" class="<c:if test='${status == 1}'>act</c:if>">即将到账</a>
                 </div>
-                <div>
-                    <a href="#">已到账</a>
+                <div class="<c:if test='${status == 9}'>act</c:if>">
+                    <a href="<%=BusiConstant.shike_fensi.getKey() %>?status=9" class="<c:if test='${status == 9}'>act</c:if>">已到账</a>
                 </div>
-                <div>
-                    <a href="#">已失效</a>
+                <div class="<c:if test='${status == -1}'>act</c:if>">
+                    <a href="<%=BusiConstant.shike_fensi.getKey() %>?status=-1" class="<c:if test='${status == -1}'>act</c:if>">已失效</a>
                 </div>
             </div>
             <ul id="list-funs">
@@ -235,16 +230,29 @@
         for(var i=0;i<rows.length;i++){
             var row = rows[i];
 
+            var description = "";
+            if (row.typeid == 1) {
+                description =  "未下单，下单后激活";
+            } else  if (row.typeid == 2) {
+                description =  "下单金额:" + row.originJine + ",返" + row.jine;
+            }
+
+            var gray = "";
+            if (row.status < 2) {
+                gray = "gray";
+            }
+
+
             var html = "<li><img src=\"<%=BusiConstant.shikemobilepath %>/mine/fensi/1.png\" alt=\"Alternate Text\">\n" +
-                "                    <div><p><span class=\"title\">"+ row.name +"</span><span class=\"tag gray\">10元首单奖</span></p>\n" +
-                "                        <p><span class=\"m-time\">"+ row.createdTimeStr +"</span><em> 未下单，下单后激活</em></p></div>\n" +
+                "                    <div><p><span class=\"title\">"+ row.name +"</span><span class=\"tag "+ gray +"\">"+ row.typeidStr +"</span></p>\n" +
+                "                        <p><span class=\"m-time\">"+ row.createdTimeStr +"</span><em> "+ description +"</em></p></div>\n" +
                 "                </li>";
             $("#list-funs").append(html);
         }
     }
     function fensilist(){
-        var data = {};
-        var url = "<%=BusiConstant.shike_fensilist_do.getKey()%>";
+        var data = {status: "${status}"};
+        var url = "<%=BusiConstant.shike_fanslslist_do.getKey()%>";
         postdo(url, data, fensilistCallBack,null, null);
     }
     fensilist();
