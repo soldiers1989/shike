@@ -77,7 +77,7 @@
     .billion .exactly{padding-top: 0.4rem;height: 1rem;line-height: 1rem;font-size: 0.6rem;}
     .billion .l.title{width:70%;overflow: hidden;text-overflow: ellipsis;white-space:nowrap;font-weight: bold;}
 </style>
-<header class="header acct-top"><i class="arrows" onclick="history.back(-1)"></i>账户明细</header>
+<header class="header acct-top"><i class="arrows" onclick="location.href = &#39;<%=BusiConstant.shike_yue.getKey() %>&#39;"></i>账户明细</header>
 <div class="bar zt-menu" style="background: #fff;">
     <ul>
         <li>

@@ -103,7 +103,7 @@
     </div>
         <%--<span class="sign <c:if test='${isQiaodao}'>gray</c:if>" onclick="signin();"> 今日签到+10</span>--%>
         <c:if test='${isQiaodao}'><span class="sign gray" onclick="signin();"> 今日已签到</span></c:if>
-        <c:if test='${!isQiaodao}'><span class="sign gray" onclick="signin();"> 今日签到+10</span></c:if>
+        <c:if test='${!isQiaodao}'><span class="sign " onclick="signin();"> 今日签到+10</span></c:if>
 </div>
 <div class="bar zt-menu" style="background: #fff;padding-top: 0rem;">
     <ul>

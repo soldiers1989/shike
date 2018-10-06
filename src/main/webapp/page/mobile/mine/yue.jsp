@@ -13,20 +13,20 @@
 <html lang="zh" style="font-size: 30px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     
     <title>账户余额</title>
-    <meta name="keywords" content="试呗网">
-    <meta name="description" content="试呗网">
+    <meta name="keywords" content="<%=BusiConstant.keywords %>">
+    <meta name="description" content="<%=BusiConstant.description %>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <meta name="format-detection" content="telephone=no">
     <meta name="format-detection" content="address=no">
     <meta name="full-screen" content="yes">
     <link href="http://m.meilipa.com/favicon.ico" rel="shortcut icon" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/common/css/base.css">
-<link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/common/css/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/common/css/iconfont.css">
 
     <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/common/css/style.css">
 
     <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/jquery-1.8.3.js"></script>
-<script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/Common.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/Common.js"></script>
 
     <script>
         var userId=349975;
@@ -100,7 +100,7 @@
             width: 1rem;
         }
 </style>
-<header class="header acct-top"><i class="arrows" onclick="history.back(-1) "></i>账户余额</header>
+<header class="header acct-top"><i class="arrows" onclick="location.href = &#39;<%=BusiConstant.shike_mine.getKey() %>&#39;"></i>账户余额</header>
 <div style="height: 2rem;"></div>
 <div class="zangh">
     可用余额
