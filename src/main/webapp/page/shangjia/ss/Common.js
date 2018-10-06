@@ -27,8 +27,7 @@ function loginSubmit(type,returnurl) {
         $.post('/shike/user/login.do', { mobile: username.val(), password: password.val(), type: type}, function (d) {
             if (d.type == 'success') {
             	var usersession = d.resultData.row;
-            	$.cookie("mdtokenid",usersession.tokenId);
-            	$.cookie("mdname",usersession.name);
+            	addcookie(usersession);
             	if(type == 3){
             		 location.href = "/shike/gl/chongzhilist";
             	}else if(type == 1){

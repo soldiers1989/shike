@@ -129,6 +129,7 @@
         <a class="<%="9".equalsIgnoreCase(status)?"shiy":""%>" href="<%=BusiConstant.ht_huodonglist.getKey()%>?status=9">进行中</a>
         <a class="<%="10".equalsIgnoreCase(status)?"shiy":""%>" href="<%=BusiConstant.ht_huodonglist.getKey()%>?status=10">已结束</a>
         <a class="<%="2".equalsIgnoreCase(status)?"shiy":""%>" href="<%=BusiConstant.ht_huodonglist.getKey()%>?status=2">已驳回</a>
+        <a class="<%="-1".equalsIgnoreCase(status)?"shiy":""%>" href="<%=BusiConstant.ht_huodonglist.getKey()%>?status=-1">已下线</a>
     </div>
     <div class="clearfix right_g">
         <div class="right_contant table-style">
@@ -207,12 +208,12 @@
                 +"     <em style=\"color: #f25f55\">"+row.statusStr+"</em>" 
                 +"  </td>" 
                 +"<td width='"+theadtds[10].w+"'>";
-                if(row.status == 1){
-                	html+="    <div class=\"wae_cer\">" 
-                      +"        <input type='button' value='审核通过' onclick='tongguo("+row.id+")'/>"
-                      +"   </div>" 
+                html+="    <div class=\"wae_cer\">" 
+                if(row.status == 1){              	
+                      +"        <input type='button' value='审核通过' onclick='tongguo("+row.id+")'/>"                              
                 }
-              
+                html+= "        <input type='button' value='宝贝下线' onclick='xiaxian("+row.id+")'/>"
+                +"   </div>" 
                 html+="</td>" 
                 +" </tr>" 
 				$("#listtable").append(html);
@@ -231,6 +232,12 @@
    function tongguo(id){
 	   var data = {id:id};
 	   var url = "<%=BusiConstant.ht_baobeitongguo_do.getKey()%>";
+	   postdo(url, data, null,null, null);
+   }
+   
+   function xiaxian(id){
+	   var data = {id:id};
+	   var url = "<%=BusiConstant.ht_baobeixiaxiando.getKey()%>";
 	   postdo(url, data, null,null, null);
    }
       

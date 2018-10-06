@@ -20,6 +20,8 @@ import co.kensure.frame.Const;
 import co.kensure.time.MyTimer;
 import co.kensure.time.MyTimerTasker;
 
+import com.kensure.shike.sys.service.SKDictService;
+
 /**
  * 初始化servlet，初始化路径和ip
  *
@@ -50,6 +52,10 @@ public class InitStartUpServlet extends HttpServlet {
 		// 初始化根路径
 		getRootFilePath(config.getServletContext());
 		
+		//初始化字典
+		SKDictService sKDictService = (SKDictService)ServiceUtil.getBean(SKDictService.class);
+		sKDictService.initDict();
+
 //		//初始化w_config
 //		MyConfigService myConfigService = (MyConfigService)ServiceUtil.getBean(MyConfigService.class);
 //		myConfigService.initCache();

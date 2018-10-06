@@ -180,9 +180,9 @@ public class SKSkqk extends BaseInfo {
 	public String getStatusStr() {
 		String temp = "";
 		if (81 == this.status) {
-			temp = "已经好评";
+			temp = "已好评";
 		} else if (99 == this.status) {
-			temp = "已经返款";
+			temp = "已返款";
 		}
 		return temp;
 	}

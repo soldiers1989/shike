@@ -23,6 +23,8 @@
 		baoyou,
 		zengzhi,
 		yingshou,
+		shishou,
+		tuikuan,
 		status,
 		is_del as isDel,
 		hdtypeid,
@@ -59,6 +61,8 @@
 		baoyou,
 		zengzhi,
 		yingshou,
+		shishou,
+		tuikuan,
 		status,
 		is_del,
 		hdtypeid,
@@ -97,6 +101,8 @@
 			#{baoyou},
 			#{zengzhi},
 			#{yingshou},
+			#{shishou},
+			#{tuikuan},
 			#{status},
 			#{isDel},
 			#{hdtypeid},
@@ -137,6 +143,8 @@
 				#{item.baoyou},
 				#{item.zengzhi},
 				#{item.yingshou},
+				#{item.shishou},
+				#{item.tuikuan},
 				#{item.status},
 				#{item.isDel},
 				#{item.hdtypeid},
@@ -378,6 +386,12 @@
 		</if>
 		<if test="yingshou != null">
 			yingshou = #{yingshou},
+		</if>
+		<if test="shishou != null">
+			shishou = #{shishou},
+		</if>
+		<if test="tuikuan != null">
+			tuikuan = #{tuikuan},
 		</if>
 		<if test="status != null">
 			status = #{status},

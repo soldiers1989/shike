@@ -39,15 +39,17 @@ function postdo(url,data,sucessdo,errdo,compdo) {
 };
 
 function addcookie(usersession){
-	$.cookie("mdtokenid",usersession.tokenId);
-	$.cookie("mdname",usersession.name);
-	$.cookie("mdphone",usersession.phone);
-	$.cookie("mdtype",usersession.type);
+	//cookie的作用域
+	var path = {path : '/'}
+	$.cookie("mdtokenid",usersession.tokenId,path);
+	$.cookie("mdname",usersession.name,path);
+	$.cookie("mdphone",usersession.phone,path);
+	$.cookie("mdtype",usersession.type,path);
 };
 
 function removecookie(){
-	$.cookie("mdtokenid",null);
-	$.cookie("mdname",null);
-	$.cookie("mdphone",null);
-	$.cookie("mdtype",null);
+	$.cookie("mdtokenid",null,path);
+	$.cookie("mdname",null,path);
+	$.cookie("mdphone",null,path);
+	$.cookie("mdtype",null,path);
 };

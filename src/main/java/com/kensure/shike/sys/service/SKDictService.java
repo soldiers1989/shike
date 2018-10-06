@@ -11,7 +11,9 @@
  */
 package com.kensure.shike.sys.service;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,85 +27,118 @@ import co.kensure.mem.MapUtils;
 import com.kensure.shike.sys.dao.SKDictDao;
 import com.kensure.shike.sys.model.SKDict;
 
-
 /**
  * 字典表服务实现类
+ * 
  * @author fankd created on 2018-9-11
- * @since 
+ * @since
  */
 @Service
-public class SKDictService extends JSBaseService{
-	
+public class SKDictService extends JSBaseService {
+
 	@Resource
 	private SKDictDao dao;
-    
-    
-    public SKDict selectOne(Long id){
-    	return dao.selectOne(id);
-    }
-	
-	public List<SKDict> selectByIds(Collection<Long> ids){
+
+	public SKDict selectOne(Long id) {
+		return dao.selectOne(id);
+	}
+
+	public List<SKDict> selectByIds(Collection<Long> ids) {
 		return dao.selectByIds(ids);
 	}
-	
-	public List<SKDict> selectAll(){
+
+	public List<SKDict> selectAll() {
 		return dao.selectAll();
 	}
-	
-	public List<SKDict> selectByWhere(Map<String, Object> parameters){
+
+	public List<SKDict> selectByWhere(Map<String, Object> parameters) {
 		return dao.selectByWhere(parameters);
 	}
-	
-	
-	public long selectCount(){
+
+	public long selectCount() {
 		return dao.selectCount();
 	}
-	
-	public long selectCountByWhere(Map<String, Object> parameters){
+
+	public long selectCountByWhere(Map<String, Object> parameters) {
 		return dao.selectCountByWhere(parameters);
 	}
-	
-	
-	public boolean insert(SKDict obj){
+
+	public boolean insert(SKDict obj) {
 		return dao.insert(obj);
 	}
-	
-	public boolean insertInBatch(List<SKDict> objs){
+
+	public boolean insertInBatch(List<SKDict> objs) {
 		return dao.insertInBatch(objs);
 	}
-	
-	
-	public boolean update(SKDict obj){
+
+	public boolean update(SKDict obj) {
 		return dao.update(obj);
 	}
-    
-    public boolean updateByMap(Map<String, Object> params){
+
+	public boolean updateByMap(Map<String, Object> params) {
 		return dao.updateByMap(params);
 	}
-    
-    
-	public boolean delete(Long id){
+
+	public boolean delete(Long id) {
 		return dao.delete(id);
-	}	
-	
-    public boolean deleteMulti(Collection<Long> ids){
+	}
+
+	public boolean deleteMulti(Collection<Long> ids) {
 		return dao.deleteMulti(ids);
 	}
-    
-    public boolean deleteByWhere(Map<String, Object> parameters){
+
+	public boolean deleteByWhere(Map<String, Object> parameters) {
 		return dao.deleteByWhere(parameters);
 	}
-    
-    /**
-	 * 获取某个字典的列表
+
+	// 放的是一个类别的字典
+	private static Map<Integer, List<SKDict>> alldict = new HashMap<Integer, List<SKDict>>();
+	// 放是的所有的字典
+	private static Map<String, SKDict> alldictMap = new HashMap<String, SKDict>();
+
+	public void initDict() {
+		Map<String, Object> parameters = MapUtils.genMap("orderby", "typeid,disorder,id");
+		List<SKDict> list = selectByWhere(parameters);
+		alldict.clear();
+		alldictMap.clear();
+		for (SKDict dict : list) {
+			//先放类别
+			Integer typeid = dict.getTypeid();
+			String code = dict.getCode();
+			List<SKDict> dictList = alldict.get(typeid);
+			if(dictList == null){
+				dictList = new ArrayList<SKDict>();
+				alldict.put(typeid, dictList);
+			}
+			dictList.add(dict);
+			//再放单个
+			String key = typeid+"_"+code;
+			alldictMap.put(key, dict);
+		}
+
+	}
+
+	/**
+	 * 获取某类字典的列表
+	 * 
 	 * @param bbid
 	 * @return
 	 */
-	public List<SKDict> getList(Integer typeid) {
-		Map<String, Object> parameters = MapUtils.genMap("typeid", typeid, "orderby", "id");
-		List<SKDict> list = selectByWhere(parameters);
+	public static List<SKDict> getListCache(Integer typeid) {
+		List<SKDict> list = alldict.get(typeid);
 		return list;
 	}
-  
 
+	
+	/**
+	 * 获取单个字典
+	 * 
+	 * @param bbid
+	 * @return
+	 */
+	public static SKDict getDictCache(Integer typeid,String code) {
+		String key = typeid+"_"+code;
+		SKDict dict = alldictMap.get(key);
+		return dict;
+	}
 }

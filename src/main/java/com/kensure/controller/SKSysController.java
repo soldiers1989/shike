@@ -33,9 +33,6 @@ import com.kensure.shike.sys.service.SKDictService;
 public class SKSysController {
 
 	@Resource
-	private SKDictService sKDictService;
-
-	@Resource
 	private SKCMSService sKCMSService;
 	
 	
@@ -49,7 +46,7 @@ public class SKSysController {
 	public ResultInfo dictlist(HttpServletRequest req, HttpServletResponse rep) {
 		JSONObject json = RequestUtils.paramToJson(req);
 		int typeid = json.getInteger("typeid");
-		List<SKDict> list = sKDictService.getList(typeid);
+		List<SKDict> list = SKDictService.getListCache(typeid);
 		return new ResultRowsInfo(list);
 	}
 

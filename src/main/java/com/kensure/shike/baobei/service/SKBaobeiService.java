@@ -138,6 +138,10 @@ public class SKBaobeiService extends JSBaseService {
 		obj.setIsDel(0L);
 		obj.setStatus(0L);
 		obj.setZjnum(0L);
+		obj.setYingshou(0D);
+		obj.setShishou(0D);
+		obj.setTuikuan(0D);
+
 		return dao.insert(obj);
 	}
 
@@ -184,7 +188,7 @@ public class SKBaobeiService extends JSBaseService {
 
 		// 任务初始化
 		List<SKBbrw> rws = obj.getBbrwlist();
-		sKBbrwService.initData(rws,obj.getHdtypeid());
+		sKBbrwService.initData(rws, obj.getHdtypeid());
 		Long bbnum = 0L;
 		Long sqnum = 0L;
 		Date starttime = null;
@@ -201,7 +205,7 @@ public class SKBaobeiService extends JSBaseService {
 		obj.setEndTime(endtime);
 		obj.setBbnum(bbnum);
 		obj.setSqnum(sqnum);
-		//校验金额
+		// 校验金额
 		checkMoney(obj);
 		insert(obj);
 
@@ -253,6 +257,7 @@ public class SKBaobeiService extends JSBaseService {
 
 	/**
 	 * 检验基本数据
+	 * 
 	 * @param obj
 	 */
 	private void invalid(SKBaobei obj) {
@@ -268,48 +273,49 @@ public class SKBaobeiService extends JSBaseService {
 		}
 		ParamUtils.isBlankThrewException(obj.getTitle(), "标题不能为空");
 	}
-	
+
 	/**
 	 * 检验金额
+	 * 
 	 * @param obj
 	 */
 	private void checkMoney(SKBaobei obj) {
 		Long hdtypeid = obj.getHdtypeid();
 		Double salePrice = obj.getSalePrice();
 		Long bbnum = obj.getBbnum();
-		if(hdtypeid == 1 || hdtypeid == 2){
-//			爆款打造
-//			效果建议投放单期总份数：
-//			小于50元客单（0-50元）≥20份
-//			50-100元客单≥10份
-//			100-300元客单≥5份
-//			高于300元客单≥1份
-			if(salePrice<50){
-				if(bbnum<20){
+		if (hdtypeid == 1 || hdtypeid == 2) {
+			// 爆款打造
+			// 效果建议投放单期总份数：
+			// 小于50元客单（0-50元）≥20份
+			// 50-100元客单≥10份
+			// 100-300元客单≥5份
+			// 高于300元客单≥1份
+			if (salePrice < 50) {
+				if (bbnum < 20) {
 					BusinessExceptionUtil.threwException("小于50元客单（0-50元）≥20份");
 				}
-			}else if(salePrice<100){
-				if(bbnum<10){
+			} else if (salePrice < 100) {
+				if (bbnum < 10) {
 					BusinessExceptionUtil.threwException("50-100元客单≥10份");
 				}
-			}else if(salePrice<300){
-				if(bbnum<5){
+			} else if (salePrice < 300) {
+				if (bbnum < 5) {
 					BusinessExceptionUtil.threwException("100-300元客单≥5份");
 				}
-			}else{
-				if(bbnum<1){
+			} else {
+				if (bbnum < 1) {
 					BusinessExceptionUtil.threwException("高于300元客单≥1份");
 				}
 			}
-		}else if(hdtypeid == 3){
-			if(salePrice<300){
+		} else if (hdtypeid == 3) {
+			if (salePrice < 300) {
 				BusinessExceptionUtil.threwException("高于300元客单≥1份");
-			}else if(bbnum<1){
+			} else if (bbnum < 1) {
 				BusinessExceptionUtil.threwException("高于300元客单≥1份");
 			}
-		}else if(hdtypeid == 3){
-			double jine = salePrice*bbnum;
-			if(jine<500){
+		} else if (hdtypeid == 3) {
+			double jine = salePrice * bbnum;
+			if (jine < 500) {
 				BusinessExceptionUtil.threwException("总货值不低于500元");
 			}
 		}
@@ -320,49 +326,46 @@ public class SKBaobeiService extends JSBaseService {
 	 * 
 	 * @return
 	 */
-	public List<SKBaobei> getList(Integer status,String title,Integer hdtypeid) {
+	public List<SKBaobei> getList(Integer status, String title, Integer hdtypeid) {
 		SKUser skuser = sKUserService.getUser();
 		SKUserService.checkUser(skuser);
-		Map<String, Object> parameters = MapUtils.genMap("userid", skuser.getId(), "orderby", "created_time desc");
+		Map<String, Object> parameters = MapUtils.genMap("userid", skuser.getId(),"isDel",0, "orderby", "created_time desc");
 		if (status != null) {
 			parameters.put("status", status);
 		}
 		if (skuser.getType() == 3) {
 			parameters.remove("userid");
 		}
-		if(StringUtils.isNotBlank(title)){
+		if (StringUtils.isNotBlank(title)) {
 			parameters.put("titleLike", title);
 		}
-		if(hdtypeid != null){
+		if (hdtypeid != null) {
 			parameters.put("hdtypeid", hdtypeid);
 		}
 
 		List<SKBaobei> list = selectByWhere(parameters);
-		
+
 		if (skuser.getType() == 3 && CollectionUtils.isNotEmpty(list)) {
-			for(SKBaobei skbaobei:list){
+			for (SKBaobei skbaobei : list) {
 				SKDianPu dianp = sKDianPuService.selectOne(skbaobei.getDpid());
 				SKUser user = sKUserService.selectOne(skbaobei.getUserid());
 				skbaobei.setDpname(dianp.getName());
 				skbaobei.setUserName(user.getName());
 			}
-		}	
-		
+		}
+
 		return list;
 	}
 
 	/**
-	 * 根据用户活动信息
+	 * 根据用户活动信息,计算应收项目
 	 * 
 	 * @return
 	 */
-	public List<SKPayInfo> payinfo(Long id) {
+	public List<SKPayInfo> payYingShouinfo(Long id) {
 		SKUser skuser = sKUserService.getUser();
 		SKUserService.checkUser(skuser);
 		SKBaobei sk = selectOne(id);
-		if (sk.getUserid().compareTo(skuser.getId()) != 0) {
-			BusinessExceptionUtil.threwException("权限异常");
-		}
 		List<SKPayInfo> list = new ArrayList<SKPayInfo>();
 		Long num = sk.getBbnum();
 		Double price = sk.getSalePrice();
@@ -391,6 +394,66 @@ public class SKBaobeiService extends JSBaseService {
 		list.add(info5);
 		return list;
 	}
+	
+	/**
+	 * 根据用户活动信息,设置应收
+	 * 
+	 * @return
+	 */
+	public void setYingShouinfo() {
+		List<SKBaobei> bblist = selectAll();
+		for(SKBaobei bb:bblist){
+			long id = bb.getId();
+			List<SKPayInfo> list = payYingShouinfo(id);
+			SKPayInfo p = list.get(list.size() - 1);
+			bb.setYingshou(p.getXiaoji());
+			update(bb);
+		}
+	}
+	
+
+	/**
+	 * 根据用户活动信息,设置实收项目，如果是全部完成，全额收，如果是部分完成，退还未出货本金+服务费，天秤平台照样收
+	 * 
+	 * @return
+	 */
+	public void setShiShouinfo(Long id) {
+		SKBaobei sk = selectOne(id);
+		double shishou = sk.getYingshou();
+		double tuikuan = 0D;
+		if (sk.getBbnum().compareTo(sk.getZjnum()) != 0) {
+			// 任务没完成，只收20%的服务费
+			Long num = sk.getBbnum();
+			Double price = sk.getSalePrice();
+			// 所有本金
+			double xiaoji1 = ArithmeticUtils.mul(num, price, 1);
+			// 转账手续费
+			double xiaoji2 = ArithmeticUtils.mul(xiaoji1, 0.02, 1);
+			// 佣金
+			double xiaoji3 = ArithmeticUtils.mul(num, 2, 1);
+
+			// 服务费 =（转账手续费+佣金）*0.2
+			double yongjin = ArithmeticUtils.mul((xiaoji2 + xiaoji3), 0.2, 1);
+			// 实收本金
+			double shishoubenj = ArithmeticUtils.mul(sk.getZjnum(), price, 1);
+			// 天秤平台
+			double tiancheng = 10.00D;
+
+			shishou = ArithmeticUtils.add(yongjin, shishoubenj, tiancheng);
+			tuikuan = ArithmeticUtils.sub(sk.getYingshou(), shishou);
+			
+			//进行退款 增加活动退款流水
+			SKUserZhang zhang = new SKUserZhang();
+			zhang.setUserid(sk.getUserid());
+			zhang.setBusiid(id);
+			zhang.setBusitypeid(5L);
+			zhang.setYue(tuikuan);
+			sKUserZhangService.add(zhang);
+		}
+		sk.setShishou(shishou);
+		sk.setTuikuan(tuikuan);
+		update(sk);
+	}
 
 	/**
 	 * 对活动进行支付
@@ -399,13 +462,14 @@ public class SKBaobeiService extends JSBaseService {
 	 */
 	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
 	public void pay(Long id) {
-		List<SKPayInfo> list = payinfo(id);
+		List<SKPayInfo> list = payYingShouinfo(id);
 		SKPayInfo p = list.get(list.size() - 1);
 		SKBaobei sk = selectOne(id);
 		if (sk.getStatus() != 0) {
 			BusinessExceptionUtil.threwException("已经支付");
 		}
 		sk.setStatus(1L);
+		sk.setYingshou(p.getXiaoji());
 		update(sk);
 
 		// 增加流水
@@ -432,7 +496,7 @@ public class SKBaobeiService extends JSBaseService {
 		}
 		sk.setStatus(9L);
 		update(sk);
-		//修改账户信息
+		// 修改账户信息
 		sKUserZhangService.commit(sk.getUserid(), 3L, sk.getId());
 	}
 
@@ -441,9 +505,9 @@ public class SKBaobeiService extends JSBaseService {
 	 * 
 	 * @return
 	 */
-	public List<SKBaobei> getSKList(Integer typeid, String title, String order, String sort,String minprice, String maxprice, String bigStartTime) {
+	public List<SKBaobei> getSKList(Integer typeid, String title, String order, String sort, String minprice, String maxprice, String bigStartTime) {
 		Date start = new Date();
-		Map<String, Object> parameters = MapUtils.genMap("is_del", 0,"lessStartTime",start,"status", 9);
+		Map<String, Object> parameters = MapUtils.genMap("is_del", 0, "lessStartTime", start, "status", 9);
 		if (typeid != null) {
 			parameters.put("typeid", typeid);
 		}
@@ -518,6 +582,25 @@ public class SKBaobeiService extends JSBaseService {
 
 		sKJysjService.save(baobei, status, jysjList);
 	}
+	
+	
+	
+	/**
+	 * 宝贝下线，管理员将活动下线
+	 * 
+	 * @return
+	 */
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+	public void xiaxian(Long id) {
+		SKUser skuser = sKUserService.getUser();
+		SKUserService.checkUserAdmin(skuser);
+		SKBaobei baobei = selectOne(id);
+		if(baobei.getStatus() != 9){
+			BusinessExceptionUtil.threwException("非进行中活动，无需下线！");
+		}
+		baobei.setStatus(-1L);
+		setShiShouinfo(id);
+	}
 
 	/**
 	 * 核对宝贝的淘口令
@@ -577,17 +660,20 @@ public class SKBaobeiService extends JSBaseService {
 			Map<String, Object> params = MapUtils.genMap("id", bb.getId(), "status", 10);
 			updateByMap(params);
 		}
+		// 设置实收和返款,如果活动未达到预期目的，需要退款
+		for (SKBaobei bb : list) {
+			setShiShouinfo(bb.getId());
+		}
 	}
-	
-	
+
 	/**
 	 * 对状态进行统计
 	 * 
 	 * @return
 	 */
-	public List<SKGroupStatus> groubByStatus(){
+	public List<SKGroupStatus> groubByStatus() {
 		SKUser skuser = sKUserService.getUser();
-		Map<String, Object> parameters = MapUtils.genMap("userid",skuser.getId());
+		Map<String, Object> parameters = MapUtils.genMap("userid", skuser.getId());
 		List<SKGroupStatus> list = dao.groubByStatus(parameters);
 		return list;
 	}
