@@ -55,7 +55,7 @@
 
 <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/mine/fensi/index.css">
 
-<script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/fensi/jquery.infinitescroll.js"></script>
+<script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/jquery.infinitescroll.js"></script>
 
 <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/mine/fensi/invitation.css">
 
@@ -158,13 +158,13 @@
     
 </header>
 <div style="height: 2rem;"></div>
-<div id="infscr-loading" style="display: none;"><img alt="Loading..." src="<%=BusiConstant.shikemobilepath %>/mine/fensi/loading.gif"><div>玩命加载中...</div></div>
+<div id="infscr-loading" style="display: none;"><img alt="Loading..." src="<%=BusiConstant.shikemobilepath %>/common/images/loading.gif"><div>玩命加载中...</div></div>
 <div class="list money-info">
     <div class="list-con-bg">
         <div class="list-con">
-            <div class="funsSearch">
+           <%-- <div class="funsSearch">
                 <input type="text" name="name" value="" id="seach-key" placeholder="请输入粉丝昵称(可以少输,不能输错)"><span id="seach-btn" class="iconfont icon-search"></span>
-            </div>
+            </div>--%>
             <div class="cat cat-list">
                 <div class="act">
                     
@@ -199,13 +199,13 @@
 --%>
 <div style="height: 2rem;"></div>
 <div style="display: none">
-    <script src="<%=BusiConstant.shikemobilepath %>/commone/z_stat.php" language="JavaScript"></script>
-    <script src="<%=BusiConstant.shikemobilepath %>/commone/core.php" charset="utf-8"
+    <script src="<%=BusiConstant.shikemobilepath %>/common/z_stat.php" language="JavaScript"></script>
+    <script src="<%=BusiConstant.shikemobilepath %>/common/core.php" charset="utf-8"
             type="text/javascript"></script>
 
 <div id="loading" class="loading">
     <div class="loadingContent">
-        <img src="<%=BusiConstant.shikemobilepath %>/commone/images/loading.gif">
+        <img src="<%=BusiConstant.shikemobilepath %>/common/images/loading.gif">
     </div>
 </div>
 
