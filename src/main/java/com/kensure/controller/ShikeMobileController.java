@@ -1,6 +1,7 @@
 package com.kensure.controller;
 
 import co.kensure.http.RequestUtils;
+import co.kensure.mem.NumberUtils;
 import com.alibaba.fastjson.JSONObject;
 import com.kensure.shike.baobei.model.SKBaobei;
 import com.kensure.shike.baobei.model.SKJindian;
@@ -10,6 +11,8 @@ import com.kensure.shike.baobei.service.SKBaobeiService;
 import com.kensure.shike.baobei.service.SKJindianService;
 import com.kensure.shike.baobei.service.SKSkqkService;
 import com.kensure.shike.baobei.service.SKWordService;
+import com.kensure.shike.sys.model.SKCMS;
+import com.kensure.shike.sys.service.SKCMSService;
 import com.kensure.shike.user.model.SKUser;
 import com.kensure.shike.user.service.SKUserService;
 import com.kensure.shike.zhang.model.SKUserYue;
@@ -56,6 +59,10 @@ public class ShikeMobileController {
 
 	@Resource
 	private SkUserJinbiService skUserJinbiService;
+
+	@Resource
+	private SKCMSService sKCMSService;
+
 
 	// 首页
 	@RequestMapping("index")
@@ -359,4 +366,20 @@ public class ShikeMobileController {
 		req.setAttribute("status", status);
 		return "page/mobile/mine/fensi.jsp";
 	}
+
+	// 帮助中心页面
+	@RequestMapping("help")
+	public String help(HttpServletRequest req, HttpServletResponse rep, Model model) {
+		String id = req.getParameter("id");
+
+		List<SKCMS> sk = sKCMSService.selectByTypeId(2);
+
+		if (StringUtils.isNotBlank(id)) {
+			SKCMS obj = sKCMSService.get(NumberUtils.parseLong(id, 0L));
+			req.setAttribute("obj", obj);
+		}
+		req.setAttribute("sk", sk);
+		return "page/mobile/mine/help.jsp";
+	}
+
 }

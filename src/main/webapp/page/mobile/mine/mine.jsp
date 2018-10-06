@@ -65,6 +65,12 @@
 
         checkuser();
 
+        function checkuser(){
+            var mdtype = $.cookie("mdtype");
+            if(!mdtype || mdtype != 1){
+                window.location.href="<%=BusiConstant.shike_login.getKey()%>";
+            }
+        }
     </script>
     
 <link href="<%=BusiConstant.shikemobilepath %>/common/css/layer.css" type="text/css" rel="styleSheet" id="layermcss"></head>
@@ -266,9 +272,8 @@
         <i class="iconfont icon-yijianfankui"></i>
         <p>意见反馈</p>
     </li>
-    <li onclick="bzzx()">
+    <li onclick="location.href = &#39;<%=BusiConstant.shike_help.getKey() %>&#39;">
         <i class="iconfont icon-wenhao"></i>
-        
         <p>帮助中心</p>
     </li>
 </ul>
@@ -416,10 +421,6 @@
     }
 
 
-
-    function bzzx() {
-        myAlert("维护中...")
-    }
 
     function qidao() {
         myAlert("维护中...")
