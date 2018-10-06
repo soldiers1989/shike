@@ -24,13 +24,13 @@ public class SkUserFans extends BaseInfo{
 	private String typeidStr;
 
 	/**原金额*/		
-	private String originJine; 
+	private Double originJine;
 
 	/**比例*/		
-	private String bili; 
+	private int bili;
 
 	/**金额*/		
-	private String jine; 
+	private Double jine;
 
 	/**状态，0是待下单，1是即将到账，9是已到账，-1是作废*/
 	private Long status; 
@@ -83,25 +83,25 @@ public class SkUserFans extends BaseInfo{
 		return typeidStr;
 	}
 
-	public String getOriginJine() {
+	public Double getOriginJine() {
 		return originJine;
 	}
 
-	public void setOriginJine(String originJine) {
+	public void setOriginJine(Double originJine) {
 		this.originJine = originJine;
 	}
-	public String getBili() {
+	public int getBili() {
 		return bili;
 	}
 
-	public void setBili(String bili) {
+	public void setBili(int bili) {
 		this.bili = bili;
 	}
-	public String getJine() {
+	public Double getJine() {
 		return jine;
 	}
 
-	public void setJine(String jine) {
+	public void setJine(Double jine) {
 		this.jine = jine;
 	}
 	public Long getStatus() {

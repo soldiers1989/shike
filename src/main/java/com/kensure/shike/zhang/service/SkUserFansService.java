@@ -2,6 +2,7 @@ package com.kensure.shike.zhang.service;
 
 import co.kensure.frame.JSBaseService;
 import co.kensure.mem.MapUtils;
+import com.kensure.basekey.BaseKeyService;
 import com.kensure.shike.user.model.SKUser;
 import com.kensure.shike.user.service.SKUserService;
 import com.kensure.shike.zhang.dao.SkUserFansDao;
@@ -23,7 +24,10 @@ public class SkUserFansService extends JSBaseService{
 	@Resource
 	private SkUserFansDao dao;
 
-	@Resource
+    @Resource
+    private BaseKeyService baseKeyService;
+
+    @Resource
 	private SKUserService sKUserService;
     
     public SkUserFans selectOne(Long id){
@@ -53,6 +57,8 @@ public class SkUserFansService extends JSBaseService{
 	
 	
 	public boolean insert(SkUserFans obj){
+        super.beforeInsert(obj);
+        obj.setId(baseKeyService.getKey("sk_user_fans"));
 		return dao.insert(obj);
 	}
 	
@@ -81,6 +87,27 @@ public class SkUserFansService extends JSBaseService{
     public boolean deleteByWhere(Map<String, Object> parameters){
 		return dao.deleteByWhere(parameters);
 	}
+
+	// 邀请添加
+	public void addFans(Long userId, Long refereeId) {
+        SKUser skUser = sKUserService.selectOne(refereeId);
+
+        if (skUser == null) {
+            return;
+        }
+
+        SkUserFans fans = new SkUserFans();
+
+        fans.setUserid(userId);
+        fans.setRefereeId(refereeId);
+        fans.setTypeid(1L);
+        fans.setOriginJine(10D);
+        fans.setBili(1);
+        fans.setJine(fans.getOriginJine() * fans.getBili());
+        fans.setStatus(0L);
+
+        insert(fans);
+    }
     
     public List<SkUserFans> getList(Integer status) {
 		SKUser user = sKUserService.getUser();

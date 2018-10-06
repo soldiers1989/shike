@@ -11,29 +11,12 @@
  */
 package com.kensure.shike.user.service;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.context.request.RequestAttributes;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
-
 import co.kensure.exception.BusinessExceptionUtil;
 import co.kensure.exception.ParamUtils;
 import co.kensure.frame.JSBaseService;
 import co.kensure.mem.CollectionUtils;
 import co.kensure.mem.MapUtils;
 import co.kensure.mem.MobileUtils;
-
 import com.kensure.basekey.BaseKeyService;
 import com.kensure.shike.user.dao.SKUserDao;
 import com.kensure.shike.user.model.SKLogin;
@@ -42,6 +25,21 @@ import com.kensure.shike.user.model.SKUser;
 import com.kensure.shike.user.model.SKUserSession;
 import com.kensure.shike.zhang.model.SKUserYue;
 import com.kensure.shike.zhang.service.SKUserYueService;
+import com.kensure.shike.zhang.service.SkUserFansService;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
+import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 用户表服务实现类
@@ -69,6 +67,9 @@ public class SKUserService extends JSBaseService {
 
 	@Resource
 	private SKUserService sKUserService;
+
+	@Resource
+	private SkUserFansService skUserFansService;
 
 	public SKUser selectOne(Long id) {
 		return dao.selectOne(id);
@@ -248,6 +249,11 @@ public class SKUserService extends JSBaseService {
 		insert(sKUser);
 		// 验证成功
 		sKSmsService.sendSucess(code);
+
+		// 记录代言人的粉丝奖励流水
+		if (sKUser.getRefereeId() != null) {
+			skUserFansService.addFans(sKUser.getId(), sKUser.getRefereeId());
+		}
 	}
 
 	/**
