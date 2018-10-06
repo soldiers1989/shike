@@ -1,20 +1,5 @@
 package com.kensure.controller;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-
 import co.kensure.frame.Const;
 import co.kensure.frame.ResultInfo;
 import co.kensure.frame.ResultRowInfo;
@@ -23,17 +8,25 @@ import co.kensure.http.RequestUtils;
 import co.kensure.io.FileUtils;
 import co.kensure.mem.DateUtils;
 import co.kensure.mem.Utils;
-
 import com.alibaba.fastjson.JSONObject;
-import com.kensure.shike.baobei.model.SKBaobei;
-import com.kensure.shike.baobei.model.SKGroupStatus;
-import com.kensure.shike.baobei.model.SKJysj;
-import com.kensure.shike.baobei.model.SKPayInfo;
-import com.kensure.shike.baobei.model.SKSkqk;
+import com.kensure.shike.baobei.model.*;
 import com.kensure.shike.baobei.service.SKBaobeiService;
 import com.kensure.shike.baobei.service.SKBbrwService;
 import com.kensure.shike.baobei.service.SKSkqkService;
 import com.kensure.shike.baobei.service.TaoBaoService;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * 活动信息
@@ -169,7 +162,7 @@ public class SKBaobeiController {
 		String title = json.getString("title");
 		String minprice = json.getString("minprice");
 		String maxprice = json.getString("maxprice");
-		String bigStartTime = json.getString("bigStartTime");
+//		String bigStartTime = json.getString("bigStartTime");
 		String order = json.getString("order");
 		String sort = json.getString("sort");
 
@@ -190,7 +183,7 @@ public class SKBaobeiController {
 		} else {
 			sort = "asc";
 		}
-		List<SKBaobei> list = sKBaobeiService.getSKList(typeid, title, order, sort, minprice, maxprice, bigStartTime);
+		List<SKBaobei> list = sKBaobeiService.getSKList(typeid, title, order, sort, minprice, maxprice);
 		return new ResultRowsInfo(list);
 	}
 

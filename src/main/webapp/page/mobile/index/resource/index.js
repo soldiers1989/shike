@@ -36,8 +36,8 @@ $(function () {
      * 今日上新列表
      */
     function jinrilist() {
-        var data = {order:1, bigStartTime: new Date().toLocaleDateString()};
-        // var data = {order:1, bigStartTime: "2018-10-03"};
+        // var data = {order:1, bigStartTime: new Date().toLocaleDateString()};
+        var data = {order:1, sort: 1};
         var url = "/shike/baobei/sklist.do";
         postdo(url, data, jinrilistCallback,null, null);
     }
@@ -45,7 +45,9 @@ $(function () {
     function jinrilistCallback(data) {
         $("#jrsxCount").html(data.resultData.total);
 
-        for (var i = 0; i < data.resultData.rows.length; i++) {
+        var rows = data.resultData.rows.length > 10 ? 10 : data.resultData.rows.length;
+
+        for (var i = 0; i < rows; i++) {
             var row = data.resultData.rows[i];
             var html = "<li>\n" +
                 "                            \n" +
