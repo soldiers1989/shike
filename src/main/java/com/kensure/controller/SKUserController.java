@@ -56,7 +56,8 @@ public class SKUserController {
 		JSONObject json = RequestUtils.paramToJson(req);
 		String mobile = json.getString("mobile");
 		int type = json.getInteger("type");
-		sKSmsService.sendQRSms(mobile, type);
+		Integer mobileType = json.getInteger("mobileType");
+		sKSmsService.sendQRSms(mobile, type, mobileType);
 		return new ResultRowInfo();
 	}
 
@@ -243,6 +244,24 @@ public class SKUserController {
 			String newPassword = json.getString("newPassword");
 			sKUserService.updatePayPwd(oldPassword, newPassword);
 		}
+
+		return new ResultRowInfo();
+	}
+
+	/**
+	 * 忘记密码
+	 */
+	@ResponseBody
+	@RequestMapping(value = "wjpwd.do", method = { RequestMethod.POST }, produces = "application/json;charset=UTF-8")
+	public ResultInfo wjpwd(HttpServletRequest req, HttpServletResponse rep) {
+
+		JSONObject json = RequestUtils.paramToJson(req);
+		String phone = json.getString("phone");
+		String type = json.getString("type");
+		String verifyCode = json.getString("verifyCode");
+		String newPassword = json.getString("newPassword");
+
+		sKUserService.updateLoginPwd(phone, new Integer(type), verifyCode, newPassword);
 
 		return new ResultRowInfo();
 	}

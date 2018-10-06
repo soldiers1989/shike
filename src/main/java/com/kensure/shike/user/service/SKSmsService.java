@@ -11,16 +11,6 @@
  */
 package com.kensure.shike.user.service;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-
 import co.kensure.exception.BusinessExceptionUtil;
 import co.kensure.frame.JSBaseService;
 import co.kensure.mem.CollectionUtils;
@@ -28,11 +18,18 @@ import co.kensure.mem.MapUtils;
 import co.kensure.mem.MobileUtils;
 import co.kensure.mem.Utils;
 import co.kensure.sms.SMSClient;
-
 import com.kensure.basekey.BaseKeyService;
 import com.kensure.shike.user.dao.SKSmsDao;
 import com.kensure.shike.user.model.SKSms;
 import com.kensure.shike.user.model.SKUser;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 短信表服务实现类
@@ -139,12 +136,15 @@ public class SKSmsService extends JSBaseService {
 	 * @return
 	 */
 	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
-	public void sendQRSms(String mobile, int type) {
+	public void sendQRSms(String mobile, int type, Integer mobileType) {
 		MobileUtils.checkMobile(mobile);
-		SKUserService.rangeType(type);	
-		
+		SKUserService.rangeType(type);
+
+		mobileType = mobileType == null ? 0 : mobileType;
+
 		SKUser user = sKUserService.selectByMobile(mobile, type);
-		if(user != null){
+		// 短信类型： 3、4 为找回密码
+		if(user != null && (mobileType != 3 && mobileType != 4)){
 			BusinessExceptionUtil.threwException("用户已注册。");
 		}
 

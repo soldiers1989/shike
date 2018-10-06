@@ -84,6 +84,11 @@ public class ShikeMobileController {
 	// 登陆页面
 	@RequestMapping("login")
 	public String login(HttpServletRequest req, HttpServletResponse rep, Model model) {
+
+		// type=1时，代表回到页面， 否则直接后退
+		String backToIndex = req.getParameter("type");
+		req.setAttribute("type", backToIndex);
+
 //		return "page/mobile/login/login.jsp";
 		return "page/mobile/mine/login.jsp";
 	}
@@ -93,6 +98,13 @@ public class ShikeMobileController {
 	public String regist(HttpServletRequest req, HttpServletResponse rep, Model model) {
 //		return "page/mobile/login/regist.jsp";
 		return "page/mobile/mine/regist.jsp";
+	}
+
+	// 忘记密码页面
+	@RequestMapping("wjpwd")
+	public String wjpwd(HttpServletRequest req, HttpServletResponse rep, Model model) {
+//		return "page/mobile/login/regist.jsp";
+		return "page/mobile/mine/wjpwd.jsp";
 	}
 
 	// 隐私页面

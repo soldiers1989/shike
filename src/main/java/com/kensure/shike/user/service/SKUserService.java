@@ -67,6 +67,9 @@ public class SKUserService extends JSBaseService {
 	@Resource
 	private SKUserYueService sKUserYueService;
 
+	@Resource
+	private SKUserService sKUserService;
+
 	public SKUser selectOne(Long id) {
 		return dao.selectOne(id);
 	}
@@ -448,6 +451,26 @@ public class SKUserService extends JSBaseService {
 
 		SKUser user = new SKUser();
 		user.setId(skuser.getId());
+		user.setPassword(newPassword);
+		update(user);
+	}
+
+	/**
+	 * 更新登录密码（忘记密码用）
+	 */
+	public void updateLoginPwd(String phone, Integer type, String verifyCode, String newPassword) {
+		ParamUtils.isBlankThrewException(phone, "手机号码不能为空");
+		ParamUtils.isBlankThrewException(newPassword, "新密码不能为空");
+		ParamUtils.isBlankThrewException(verifyCode, "验证码不能为空");
+
+		SKSms skSms = sKSmsService.selectByMobile(phone, type);
+
+		ParamUtils.isErrorThrewException(skSms != null && verifyCode.equals(skSms.getQrcode()), "验证码不正确");
+
+        SKUser skUser = sKUserService.selectByMobile(phone, type);
+
+        SKUser user = new SKUser();
+		user.setId(skUser.getId());
 		user.setPassword(newPassword);
 		update(user);
 	}

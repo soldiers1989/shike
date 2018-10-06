@@ -148,6 +148,7 @@ public class BusiConstant {
 
 	public static final KVBean shike_login = new KVBean(context + "/skm/login", "登陆页面");
 	public static final KVBean shike_regist = new KVBean(context + "/skm/regist", "注册页面");
+	public static final KVBean shike_wjpwd = new KVBean(context + "/skm/wjpwd", "忘记密码页面");
 	public static final KVBean shike_private = new KVBean(context + "/skm/private", "隐私页面");
 	public static final KVBean shike_dyren = new KVBean(context + "/skm/dyren", "代言人页面");
 
@@ -178,5 +179,6 @@ public class BusiConstant {
     public static final KVBean shike_addfile_do = new KVBean(context + "/baobei/addfile.do", "图片上传操作");
 
     public static final KVBean shike_user_update_do = new KVBean(context + "/user/update.do", "用户安全管理更新操作");
+    public static final KVBean shike_user_wjpwd_do = new KVBean(context + "/user/wjpwd.do", "忘记密码更新操作");
 
 }
