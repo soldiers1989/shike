@@ -35,7 +35,10 @@ public class SKDict extends BaseInfo{
 	private String simpleName; 
 
 	/**类型id，1是商品分类*/		
-	private Long typeid; 
+	private Integer typeid; 
+	
+	/**排序*/		
+	private Integer disorder; 
 
 	public Long getId() {
 		return id;
@@ -65,12 +68,20 @@ public class SKDict extends BaseInfo{
 	public void setSimpleName(String simpleName) {
 		this.simpleName = simpleName;
 	}
-	public Long getTypeid() {
+	public Integer getTypeid() {
 		return typeid;
 	}
 
-	public void setTypeid(Long typeid) {
+	public void setTypeid(Integer typeid) {
 		this.typeid = typeid;
+	}
+
+	public Integer getDisorder() {
+		return disorder;
+	}
+
+	public void setDisorder(Integer disorder) {
+		this.disorder = disorder;
 	}
 
 }

@@ -18,6 +18,9 @@ import co.kensure.frame.BaseInfo;
 import co.kensure.mem.DateUtils;
 import co.kensure.mem.StringKSUtils;
 
+import com.kensure.shike.sys.model.SKDict;
+import com.kensure.shike.sys.service.SKDictService;
+
 /**
  * 商品活动表对象类
  * 
@@ -33,16 +36,16 @@ public class SKBaobei extends BaseInfo {
 
 	/** 用户id */
 	private Long userid;
-	
+
 	/** 用户名称 */
 	private String userName;
 
 	/** 店铺id */
 	private Long dpid;
-	
+
 	/** 店铺名称 */
 	private String dpname;
-	
+
 	/** 宝贝标题 */
 	private String title;
 
@@ -69,10 +72,10 @@ public class SKBaobei extends BaseInfo {
 
 	/** 已经申请数量 */
 	private Long ysqnum;
-	
+
 	/** 中奖数量 */
 	private Long zjnum;
-	
+
 	/** 转换率 */
 	private String zhuanhua;
 
@@ -97,7 +100,13 @@ public class SKBaobei extends BaseInfo {
 	/** 应付款项 */
 	private Double yingshou;
 
-	/** 流程状态，0是正常，1是申请，2是拒绝通过，9是申请通过 ,10是活动结束*/
+	/** 实收款项 */
+	private Double shishou;
+
+	/** 退款款项 */
+	private Double tuikuan;
+
+	/** 流程状态，0是正常，1是申请，2是拒绝通过，9是申请通过 ,10是活动结束 */
 	private Long status;
 
 	/** 状态，0是正在活动，1是删除 */
@@ -297,20 +306,14 @@ public class SKBaobei extends BaseInfo {
 	public Long getStatus() {
 		return status;
 	}
-	/** 流程状态，0是正常，1是申请，2是拒绝通过，9是申请通过 ,10是活动结束*/
+
+	/** 流程状态，请看字典表 typeid=3*/
 	public String getStatusStr() {
+		SKDict dict = SKDictService.getDictCache(3, this.status + "");
 		String temp = "";
-		if(status == 0){
-			temp = "未付款";
-		}else if(status == 1){
-			temp = "已付款";
-		}else if(status == 2){
-			temp = "拒绝通过";
-		}else if(status == 9){
-			temp = "通过申请";
-		}else if(status == 10){
-			temp = "活动结束";
-		}	
+		if (dict != null) {
+			temp = dict.getName();
+		}
 		return temp;
 	}
 
@@ -337,9 +340,9 @@ public class SKBaobei extends BaseInfo {
 	public Date getStartTime() {
 		return startTime;
 	}
-	
+
 	public String getStartTimeStr() {
-		return DateUtils.format(startTime,DateUtils.DAY_FORMAT);
+		return DateUtils.format(startTime, DateUtils.DAY_FORMAT);
 	}
 
 	public void setStartTime(Date startTime) {
@@ -353,9 +356,9 @@ public class SKBaobei extends BaseInfo {
 	public void setEndTime(Date endTime) {
 		this.endTime = endTime;
 	}
-	
+
 	public String getEndTimeStr() {
-		return DateUtils.format(endTime,DateUtils.DAY_FORMAT);
+		return DateUtils.format(endTime, DateUtils.DAY_FORMAT);
 	}
 
 	public Long getDisorder() {
@@ -472,6 +475,22 @@ public class SKBaobei extends BaseInfo {
 
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+
+	public Double getShishou() {
+		return shishou;
+	}
+
+	public void setShishou(Double shishou) {
+		this.shishou = shishou;
+	}
+
+	public Double getTuikuan() {
+		return tuikuan;
+	}
+
+	public void setTuikuan(Double tuikuan) {
+		this.tuikuan = tuikuan;
 	}
 
 }

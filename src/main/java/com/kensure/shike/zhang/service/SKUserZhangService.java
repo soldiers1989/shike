@@ -140,7 +140,7 @@ public class SKUserZhangService extends JSBaseService {
 		if (obj.getYue() <= 0) {
 			BusinessExceptionUtil.threwException("金额必须大约0");
 		}
-		// 业务类型id,1是充值，2是提现，3是活动费用,4是试客返款
+		// 业务类型id,1是充值，2是提现，3是活动费用,4是试客返款，5是活动返款
 		if (obj.getBusitypeid() == 1) {
 			obj.setInorout(1L);
 			obj.setStatus(1L);
@@ -151,6 +151,9 @@ public class SKUserZhangService extends JSBaseService {
 			obj.setInorout(-1L);
 			obj.setStatus(0L);
 		} else if (obj.getBusitypeid() == 4) {
+			obj.setInorout(1L);
+			obj.setStatus(1L);
+		} else if (obj.getBusitypeid() == 5) {
 			obj.setInorout(1L);
 			obj.setStatus(1L);
 		} else {

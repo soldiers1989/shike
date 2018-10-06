@@ -123,7 +123,7 @@ public class SKBaobeiController {
 	public ResultInfo payinfo(HttpServletRequest req, HttpServletResponse rep) {
 		JSONObject json = RequestUtils.paramToJson(req);
 		Long id = json.getLong("id");
-		List<SKPayInfo> list = sKBaobeiService.payinfo(id);
+		List<SKPayInfo> list = sKBaobeiService.payYingShouinfo(id);
 		return new ResultRowsInfo(list);
 	}
 
@@ -316,6 +316,29 @@ public class SKBaobeiController {
 		sKBaobeiService.endBaobei();
 		return new ResultRowInfo();
 	}
+	
+	/**
+	 * 宝贝下线
+	 */
+	@ResponseBody
+	@RequestMapping(value = "xiaxian.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	public ResultInfo xiaxian(HttpServletRequest req, HttpServletResponse rep) {
+		JSONObject json = RequestUtils.paramToJson(req);
+		Long id = json.getLong("id");
+		sKBaobeiService.xiaxian(id);
+		return new ResultRowInfo();
+	}
+	
+	/**
+	 * 初始化应收
+	 */
+	@ResponseBody
+	@RequestMapping(value = "yingshou.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	public ResultInfo yingshou(HttpServletRequest req, HttpServletResponse rep) {
+		sKBaobeiService.setYingShouinfo();
+		return new ResultRowInfo();
+	}
+	
 
 	/**
 	 * 商家确认返款

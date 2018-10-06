@@ -8,6 +8,7 @@
 		name,
 		simple_name as simpleName,
 		typeid,
+		disorder,
 		created_time as createdTime,
 		updated_time as updatedTime
     </sql>
@@ -18,6 +19,7 @@
 		name,
 		simple_name,
 		typeid,
+		disorder,
 		created_time,
 		updated_time
     </sql>
@@ -30,6 +32,7 @@
 			#{name},
 			#{simpleName},
 			#{typeid},
+			#{disorder},
 			#{createdTime},
 			#{updatedTime}
 		)
@@ -44,6 +47,7 @@
 				#{item.name},
 				#{item.simpleName},
 				#{item.typeid},
+				#{item.disorder},
 				#{item.createdTime},
 				#{item.updatedTime}
 			)
@@ -63,6 +67,9 @@
 		<if test="typeid != null">			
 			and typeid = #{typeid}			
 		</if>
+		<if test="disorder != null">			
+			and disorder = #{disorder}			
+		</if>	
 		<if test="createdTime != null">			
 			and created_time = #{createdTime}			
 		</if>
@@ -125,6 +132,9 @@
 		<if test="typeid != null">
 			typeid = #{typeid},
 		</if>
+		<if test="disorder != null">
+			disorder = #{disorder},
+		</if>	
 		<if test="createdTime != null">
 			created_time = #{createdTime},
 		</if>
