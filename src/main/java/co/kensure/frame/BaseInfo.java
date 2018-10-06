@@ -39,8 +39,14 @@ public class BaseInfo implements java.io.Serializable {
 	public String getCreatedTimeStr() {
 		return DateUtils.format(createdTime);
 	}
+	public String getCreatedTimeDay() {
+		return DateUtils.format(createdTime,DateUtils.DAY_FORMAT);
+	}
 	
 	public String getUpdatedTimeStr() {
 		return DateUtils.format(updatedTime);
+	}
+	public String getUpdatedTimeDay() {
+		return DateUtils.format(updatedTime,DateUtils.DAY_FORMAT);
 	}
 }

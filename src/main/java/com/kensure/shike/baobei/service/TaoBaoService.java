@@ -132,28 +132,26 @@ public class TaoBaoService extends JSBaseService {
 		return url;
 	}
 
-	
-	//根据url生成淘口令
-		public static String encodeTKL(String url) {
-			TaobaoClient client = new DefaultTaobaoClient("http://gw.api.taobao.com/router/rest", appkey, appsecret);
-			WirelessShareTpwdCreateRequest req = new WirelessShareTpwdCreateRequest();
-			GenPwdIsvParamDto dto = new GenPwdIsvParamDto();
-			dto.setUrl(url);
-			req.setTpwdParam(dto);
-			WirelessShareTpwdCreateResponse rsp;
-			String id = null;
-			try {
-				rsp = client.execute(req);
-				JSONObject json = (JSONObject) JSONObject.parse(rsp.getBody());
-				JSONObject bb = json.getJSONObject("wireless_share_tpwd_query_response");
-				
-			
-			} catch (ApiException e) {
-				BusinessExceptionUtil.threwException("淘口令生成出错", e);
-			}
-			return id;
+	// 根据url生成淘口令
+	public static String encodeTKL(String url) {
+		TaobaoClient client = new DefaultTaobaoClient("http://gw.api.taobao.com/router/rest", appkey, appsecret);
+		WirelessShareTpwdCreateRequest req = new WirelessShareTpwdCreateRequest();
+		GenPwdIsvParamDto dto = new GenPwdIsvParamDto();
+		dto.setUrl(url);
+		req.setTpwdParam(dto);
+		WirelessShareTpwdCreateResponse rsp;
+		String id = null;
+		try {
+			rsp = client.execute(req);
+			JSONObject json = (JSONObject) JSONObject.parse(rsp.getBody());
+			JSONObject bb = json.getJSONObject("wireless_share_tpwd_query_response");
+
+		} catch (ApiException e) {
+			BusinessExceptionUtil.threwException("淘口令生成出错", e);
 		}
-	
+		return id;
+	}
+
 	/**
 	 * 抓取淘宝图片和详情链接
 	 * 
@@ -177,7 +175,7 @@ public class TaoBaoService extends JSBaseService {
 		// fenxi();
 
 		String url = "https://detail.tmall.com/item.htm?id=551968898854&spm=a230r.7195193.1997079397.20.XRP1bz&abbucket=12";
-		String html = getContent("https://item.taobao.com/item.htm?id=573448516906&ns=1&abbucket=17#detail");
+		String html = encodeTKL(url);
 		System.out.println(html);
 	}
 

@@ -97,7 +97,11 @@
 	   var content = editor.txt.html();
 	   var data = {id:cid,typeid:<%=typeid%>,title:$("#title").val(),disorder:$("#disorder").val(),url:$("#url").val(),content:content};
 	   var url = "<%=BusiConstant.sys_savecms_do.getKey()%>";
-	   postdo(url, data, null,null, null);
+	   postdo(url, data, savesucod,null, null);
+   }
+   
+   function savesucod(data){
+	   location.href = "<%=BusiConstant.shangjia_cms.getKey()%>?typeid=<%=typeid%>";
    }
 
 </script>

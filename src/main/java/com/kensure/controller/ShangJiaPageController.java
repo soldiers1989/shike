@@ -3,6 +3,7 @@ package com.kensure.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -10,6 +11,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.kensure.shike.sys.model.SKCMS;
+import com.kensure.shike.sys.service.SKCMSService;
 
 /**
  * 商家业务的页面跳转
@@ -21,6 +25,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(value = "shangjia")
 public class ShangJiaPageController {
 
+	@Resource
+	private SKCMSService sKCMSService;
+	
 	// 商家页面，一般模板
 	private static List<String> indexlist = new ArrayList<String>();
 	static {
@@ -63,6 +70,10 @@ public class ShangJiaPageController {
 		body.add("index_left.jsp");
 		body.add("index_right.jsp");
 		req.setAttribute("bodypage", body);
+		List<SKCMS> gg = sKCMSService.selectByTypeId(3);
+		List<SKCMS> jq = sKCMSService.selectByTypeId(4);
+		req.setAttribute("gg", gg);
+		req.setAttribute("jq", jq);
 		return "page/shangjia/index.jsp";
 	}
 

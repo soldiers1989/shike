@@ -34,7 +34,8 @@
 					style="color: rgb(102, 102, 102);"></i></li>
 				<li><a href="<%=BusiConstant.shangjia_cms.getKey()%>?typeid=1">商家帮助中心</a></li>
 				<li parentid="4"><a href="<%=BusiConstant.shangjia_cms.getKey()%>?typeid=2">试客帮助中心</a></li>
-				<li parentid="4"><a href="<%=BusiConstant.shangjia_cms.getKey()%>?typeid=3">店铺运营技巧和分析</a></li>
+				<li parentid="4"><a href="<%=BusiConstant.shangjia_cms.getKey()%>?typeid=3">商家公告</a></li>
+				<li parentid="4"><a href="<%=BusiConstant.shangjia_cms.getKey()%>?typeid=4">店铺运营技巧和分析</a></li>
 			
 			</ul>
 		</div>
