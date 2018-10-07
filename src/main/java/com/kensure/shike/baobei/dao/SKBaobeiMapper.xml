@@ -237,6 +237,11 @@
 		<if test="hdtypeid != null">			
 			and hdtypeid = #{hdtypeid}			
 		</if>
+		<if test="hdtypeidNot != null">
+			<![CDATA[
+			and hdtypeid <> #{hdtypeidNot}
+			]]>
+		</if>
 		<if test="lessStartTime != null">			
 			<![CDATA[		
 			and start_time <= #{lessStartTime}		

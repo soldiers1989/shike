@@ -90,7 +90,7 @@
     }
 </script>
 <header class="header  task-top">
-    <i class="iconfont icon-Toright" style="color: #000;display: inline-block;float: left;margin-left: 0.2rem;" onclick="history.back(-1)"></i>
+    <i class="iconfont icon-Toright" style="color: #000;display: inline-block;float: left;margin-left: 0.2rem;" onclick="location.href=&#39;<%=BusiConstant.shike_mine.getKey() %>&#39;"></i>
    赚金币
 </header>
 <div style="height: 2rem;"></div>

@@ -11,19 +11,6 @@
  */
 package com.kensure.shike.baobei.service;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-
 import co.kensure.exception.BusinessExceptionUtil;
 import co.kensure.exception.ParamUtils;
 import co.kensure.frame.JSBaseService;
@@ -31,24 +18,22 @@ import co.kensure.mem.ArithmeticUtils;
 import co.kensure.mem.CollectionUtils;
 import co.kensure.mem.MapUtils;
 import co.kensure.mem.NumberUtils;
-
 import com.kensure.basekey.BaseKeyService;
 import com.kensure.shike.baobei.dao.SKBaobeiDao;
-import com.kensure.shike.baobei.model.SKBaobei;
-import com.kensure.shike.baobei.model.SKBaobeiTP;
-import com.kensure.shike.baobei.model.SKBaobeiZT;
-import com.kensure.shike.baobei.model.SKBbrw;
-import com.kensure.shike.baobei.model.SKGroupStatus;
-import com.kensure.shike.baobei.model.SKJindian;
-import com.kensure.shike.baobei.model.SKJysj;
-import com.kensure.shike.baobei.model.SKPayInfo;
-import com.kensure.shike.baobei.model.SKWord;
+import com.kensure.shike.baobei.model.*;
 import com.kensure.shike.dianpu.model.SKDianPu;
 import com.kensure.shike.dianpu.service.SKDianPuService;
 import com.kensure.shike.user.model.SKUser;
 import com.kensure.shike.user.service.SKUserService;
 import com.kensure.shike.zhang.model.SKUserZhang;
 import com.kensure.shike.zhang.service.SKUserZhangService;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
+import java.util.*;
 
 /**
  * 商品活动表服务实现类
@@ -505,7 +490,7 @@ public class SKBaobeiService extends JSBaseService {
 	 * 
 	 * @return
 	 */
-	public List<SKBaobei> getSKList(Integer typeid, String title, String order, String sort, String minprice, String maxprice) {
+	public List<SKBaobei> getSKList(Integer typeid, String title, String order, String sort, String minprice, String maxprice, Integer hdtypeid) {
 		Date start = new Date();
 		Map<String, Object> parameters = MapUtils.genMap("is_del", 0, "lessStartTime", start, "status", 9);
 		if (typeid != null) {
@@ -519,6 +504,12 @@ public class SKBaobeiService extends JSBaseService {
 		}
 		if (StringUtils.isNotBlank(minprice)) {
 			parameters.put("bigSalePrice", minprice);
+		}
+		if (hdtypeid != null && hdtypeid != 1) {
+			parameters.put("hdtypeid", hdtypeid);
+		}
+		if (hdtypeid != null && hdtypeid == 1) {
+			parameters.put("hdtypeidNot", "4");
 		}
 		if (StringUtils.isNotBlank(order)) {
 			parameters.put("orderby", order + " " + sort);
