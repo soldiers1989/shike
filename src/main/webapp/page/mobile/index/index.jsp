@@ -18,16 +18,16 @@
     <meta name="format-detection" content="address=no">
     <meta name="full-screen" content="yes">
     <link href="<%=BusiConstant.context %>/favicon.ico" rel="shortcut icon" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/index/resource/base.css">
-    <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/index/resource/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/common/css/base.css">
+    <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/common/css/iconfont.css">
 
     <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/index/resource/style.css">
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/index/resource/jquery-1.8.3.js"></script>
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/index/resource/Common.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/jquery-1.8.3.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/Common.js"></script>
+
     <script type="text/javascript" src="<%=BusiConstant.context%>/jqtable/jquery.cookie.js"></script>
-    <script type="text/javascript"
-            src="<%=BusiConstant.context%>/common/http.js?ver=<%=BusiConstant.version%>"></script>
+    <script type="text/javascript" src="<%=BusiConstant.context%>/common/http.js?ver=<%=BusiConstant.version%>"></script>
 
     <script>
         var userId=0;
@@ -389,7 +389,7 @@
             display: inline-block;
             margin: 0.2rem auto 0.1rem;
             color: #ff464e;
-            background: url(/content/images/jpin/dian-red.jpg) repeat-x;
+            background: url(<%=BusiConstant.shikemobilepath %>/common/images/dian-red.jpg) repeat-x;
             background-position: center center;
          }
          .shangxin-goods-box>div li .t-btn {
@@ -435,6 +435,7 @@
         <div style="clear: both;"></div>
     </div>
     <div class="usera-kong"></div>--%>
+
     <%--<div class="jp-groom-bg">
         <div class="groom-title">
             推荐好货
@@ -591,13 +592,15 @@
             width:125%;
         }
     </style>
+        <%--
+        备份
         <div class="clnz_box">
             <a class="clnz_img" href="<%=BusiConstant.shike_haohuo.getKey() %>?order=1&amp;typeid=1" style="color:#333;">
                 <img src="<%=BusiConstant.shikemobilepath %>/index/resource/clnz1.png" alt="">
             </a>
             <div class="jp-groom">
                 <div>
-                    <%-- 女装 --%>
+                    &lt;%&ndash; 女装 &ndash;%&gt;
                     <ul id="nvzhuanglist" style="width:26.279333rem">
 
                     </ul>
@@ -611,7 +614,7 @@
             </a>
             <div class="jp-groom">
                 <div>
-                    <%-- 男装 --%>
+                    &lt;%&ndash; 男装 &ndash;%&gt;
                     <ul id="nanzhuanglist" style="width:26.279333rem">
 
                     </ul>
@@ -625,7 +628,7 @@
         </a>
         <div class="jp-groom">
             <div>
-                <%-- 鞋子箱包 --%>
+                &lt;%&ndash; 鞋子箱包 &ndash;%&gt;
                 <ul id="xiangbaolist" style="width:26.279333rem">
 
                 </ul>
@@ -639,7 +642,7 @@
         </a>
         <div class="jp-groom">
             <div>
-                <%-- 日用百货 --%>
+                &lt;%&ndash; 日用百货 &ndash;%&gt;
                 <ul id="baihuolist" style="width:26.279333rem">
 
                 </ul>
@@ -653,7 +656,7 @@
         </a>
         <div class="jp-groom">
             <div>
-                <%-- 数码家电 --%>
+                &lt;%&ndash; 数码家电 &ndash;%&gt;
                 <ul id="dianqilist" style="width:26.279333rem">
 
                 </ul>
@@ -667,7 +670,7 @@
         </a>
         <div class="jp-groom">
             <div>
-                <%-- 家居建材 --%>
+                &lt;%&ndash; 家居建材 &ndash;%&gt;
                 <ul id="jiajulist" style="width:26.279333rem">
 
                 </ul>
@@ -681,7 +684,7 @@
         </a>
         <div class="jp-groom">
             <div>
-                <%-- 母婴用品 --%>
+                &lt;%&ndash; 母婴用品 &ndash;%&gt;
                 <ul id="muyinglist" style="width:26.279333rem">
 
                 </ul>
@@ -695,16 +698,31 @@
         </a>
         <div class="jp-groom">
             <div>
-                <%-- 美妆用品 --%>
+                &lt;%&ndash; 美妆用品 &ndash;%&gt;
                 <ul id="meizhuanglist" style="width:26.279333rem">
 
                 </ul>
             </div>
         </div>
-    </div>
+    </div>--%>
     <div class="usera-kong"></div>
 
+    <div class="jp-con" id="goods">
+        <ul class="con-cat">
+            <li class="act"><a href="<%=BusiConstant.shike_haohuo.getKey() %>?order=1">最新<i class="iconfont icon-sortD"></i></a></li>
+            <li class=""><a href="<%=BusiConstant.shike_haohuo.getKey() %>?order=2">价值<i class="iconfont icon-sortD"></i></a></li>
+            <li class=""><a href="<%=BusiConstant.shike_haohuo.getKey() %>?order=3">人气<i class="iconfont icon-sortD"></i></a></li>
+        </ul>
+
+
+        <ul id="list" class="jp-list">
+
+        </ul>
     </div>
+
+    </div>
+
+
 <%--
 <div id="detail" class="fix-detail showHidden"><div onclick="toIndex()" class="toback to-index"><i class="iconfont icon-back1"></i></div> <div id="swiper2" class="swiper-container"><div class="swiper-wrapper"><div class="swiper-slide"><img src="http://test.com/"></div> <div class="swiper-slide"><img src="http://test.com/"></div> <div class="swiper-slide"><img src="http://test.com/"></div> <div class="swiper-slide"><img src="http://test.com/"></div></div> <div class="swiper-pagination"></div> <div style="position: absolute; left: 0px; bottom: 0px; z-index: 10; display: none;"><span style="float: left; color: rgb(255, 255, 255); font-size: 0.6rem; height: 0.8rem; line-height: 0.8rem; padding: 0px 0.1rem; background: rgb(249, 127, 41);">送金币</span></div></div> <div class="info-hd"><p class="title"><span class="" style="margin-right: 0.1rem;"></span> <span class="name" style="max-width: 14rem;"></span> <!----> <!----> <!----> <!----></p> <span>价值 <em>¥</em></span> <span>剩余  份</span> <!----> <!----> <!----></div> <!----> <!----> <ul class="info-num"><li><span>人 已申请</span></li> <li><span>人 已中奖</span></li></ul> <div class="usera-kong"></div> <div class="info-cat"><span class="act">商品详情</span> <span>猜你喜欢</span></div> <div class="info-list  jp-con"><div class="act"><div class="intro"></div> <div id="guss-like"><div><i class="iconfont icon-xin"></i><span>猜你喜欢</span></div></div> <ul id="list-apply1" class="jp-list"></ul> <div id="get-more" class="get-more"><a href="http://test.com/home/list?orderType=5">加载更多</a></div></div> <div class="jp-con"><ul id="list-apply" class="jp-list"></ul> <div class="get-more"><a href="http://test.com/home/list?orderType=5">加载更多</a></div></div></div> <div id="flow2" class="flow-con"><div class="code-con"><div class="dona-bottom"><h1 style="font-size: 0.7rem; margin: 1.3866rem 0px; text-align: center; font-weight: 600;">温馨提示</h1> <div class="not-area-tips"><h2 style="margin-bottom: 0.3rem; font-weight: normal;">此商品以下地区不发货：</h2> <h2 style="line-height: 1.024rem;"></h2></div> <span class="btn confirm-btn" style="color: rgb(255, 255, 255);">确定</span></div></div></div></div>
     <div class="info-foot">
@@ -734,6 +752,84 @@
             </div>
         </div>
     </div>--%>
+
+    <div id="detail" class="fix-detail showHidden">
+        <input type="hidden" id="baobeiId">
+        <div onclick="toIndex()" class="toback to-index"><i class="iconfont icon-back1"></i></div>
+        <div id="swiper2" class="swiper-container" style="position: relative;">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide"><img id="logo_pic1" src="#"></div>
+                <div class="swiper-slide"><img id="logo_pic2" src="#"></div>
+                <div class="swiper-slide"><img id="logo_pic3" src="#"></div>
+                <div class="swiper-slide"><img id="logo_pic4" src="#"></div>
+            </div>
+            <div class="swiper-pagination"></div>
+            <div style="position: absolute; left: 0px; bottom: 0px; z-index: 10; display: none;"><span
+                    style="float: left; color: rgb(255, 255, 255); font-size: 0.6rem; height: 0.8rem; line-height: 0.8rem; padding: 0px 0.1rem; background: rgb(249, 127, 41);">送金币</span>
+            </div>
+        </div>
+        <div class="info-hd"><p class="title"><span class="" style="margin-right: 0.1rem;"></span> <span class="name" id="activity_name"
+                                                                                                         style="max-width: 14rem;"></span>
+            <em id="huabei" style="display: none">花呗</em><em id="xinyongka" style="display: none">信用卡</em>
+            <!----> <!----> <!----> <!----></p> <span>价值 <em id="salePrice">¥</em></span> <span id="shengyu">剩余  份</span> <!----> <!----> <!----></div>
+        <!----> <!---->
+        <ul class="info-num">
+            <li><span id="ysqnum">人 已申请</span></li>
+            <li><span id="yzj">人 已中奖</span></li>
+        </ul>
+        <div class="usera-kong"></div>
+        <div class="info-cat"><span class="act">商品详情</span> <%--<span>问题答疑</span>--%></div>
+        <div class="info-list">
+            <div class="act  jp-con">
+                <div class="intro"></div>
+                <div id="guss-like">
+                    <div><i class="iconfont icon-xin"></i><span>猜你喜欢</span></div>
+                </div>
+                <ul id="list-apply1" class="jp-list"></ul>
+                <div id="get-more" class="get-more"><a href="#">加载更多</a></div>
+            </div>
+            <div class="jp-con">
+                <ul id="list-apply" class="jp-list"></ul>
+                <div class="get-more"><a href="#">加载更多</a></div>
+            </div>
+        </div>
+        <div id="flow2" class="flow-con">
+            <div class="code-con">
+                <div class="dona-bottom"><h1
+                        style="font-size: 0.7rem; margin: 1.3866rem 0px; text-align: center; font-weight: 600;">温馨提示</h1>
+                    <div class="not-area-tips"><h2 style="margin-bottom: 0.3rem; font-weight: normal;">此商品以下地区不发货：</h2>
+                        <h2 style="line-height: 1.024rem;"></h2></div>
+                    <span class="btn confirm-btn" style="color: rgb(255, 255, 255);">确定</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="info-foot">
+        <div>
+            <a href="javascript:void(0)" class="back">
+                <i class="iconfont icon-fanhui to-index"></i>
+                <span class="to-index">返回</span>
+            </a>
+        </div>
+        <div class="show-flow">
+            <i class="iconfont icon-sort"></i>
+            <span>流程</span>
+        </div>
+        <a id="get-invite" class="get-invite"></a>
+        <a id="applyText" onclick="shenqin()" class="get-apply"></a>
+    </div>
+
+    <div class="flex-bg"></div>
+    <div class="flow-con" id="flow">
+        <div class="code-con">
+            <div class="dona-bottom">
+                <h3 id="detail-type">试用流程</h3>
+                <div>
+                    <img src="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/flow.png" alt="" class="dona-image">
+                </div>
+                <span class="btn">取消</span>
+            </div>
+        </div>
+    </div>
 
 
 <style>
@@ -768,20 +864,20 @@
             left: 50%;
             z-index: 10;
         }
-</style>
+</style><%--
 <div class="down-app">
     <a href="http://test.com/" onclick="clickNumber(0)">
         <img src="http://test.com/" alt="sk_gotourl">
     </a>
         <i class="iconfont icon-error1"></i>
-</div>
-<script>
+</div>--%>
+<%--<script>
 
     $(function () {
 
 
     });
-</script>
+</script>--%>
         <div style="margin-bottom: 2rem;">
         </div>
         <jsp:include page="../common/footer.jsp" flush="true"/>
@@ -790,24 +886,44 @@
 
     <div id="loading" class="loading">
     <div class="loadingContent">
-        <img src="<%=BusiConstant.shikemobilepath %>/index/resource/loading.gif">
+        <img src="<%=BusiConstant.shikemobilepath %>/common/images/loading.gif">
     </div>
 </div>
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/index/resource/jquery.form.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/index/resource/Validform_v5.3.2.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/jquery.form.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/index/resource/post.loading.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/Validform_v5.3.2.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/index/resource/layer.m.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/post.loading.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/index/resource/layerdialog.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/layer.m.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/index/resource/jquery.cookie.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/layerdialog.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/index/resource/browser.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/jquery.cookie.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/index/resource/app.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/browser.js"></script>
 
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/app.js"></script>
 
 </body></html>
+<script>
+
+    function dictsucdo(data){
+        window.location.href="<%=BusiConstant.shike_gouwuche.getKey()%>?id=" + $("#baobeiId").val();
+    }
+    function shenqin(){
+        var data = {id: $("#baobeiId").val()};
+        checkuser();
+        var url = "<%=BusiConstant.shike_shenqing_do.getKey()%>";
+        postdo(url, data, dictsucdo,null, null);
+    }
+
+    function checkuser(){
+        var mdtype = $.cookie("mdtype");
+        if(!mdtype || mdtype != 1){
+            window.location.href="<%=BusiConstant.shike_login.getKey()%>";
+        }
+    }
+
+</script>

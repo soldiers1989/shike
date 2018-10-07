@@ -42,7 +42,7 @@
 .jp-groom>div ul{width:33rem;display: flex;justify-content: space-between;padding-right: 0.4rem;}
 .jp-groom>div ul li{text-align: center;}
 .jp-groom>div ul img{width:3.2rem;height:3.2rem; display: block;}
-.jp-groom>div ul li span.t-price{ font-size: 0.55rem; margin: 0.2rem auto 0.1rem; display: inline-block; color: #ff464e; background: url(/content/images/jpin/dian-red.jpg) repeat-x; background-position: center center;}
+.jp-groom>div ul li span.t-price{ font-size: 0.55rem; margin: 0.2rem auto 0.1rem; display: inline-block; color: #ff464e; background: url(../../common/images/dian-red.jpg) repeat-x; background-position: center center;}
 .jp-groom>div ul li span.t-btn{ border-radius: 0.2rem; color: #ff464e; height: 1rem; font-size: 0.55rem; line-height: 1rem; margin:0 0.3rem;  display: block; border: 1px solid #ff464e;}
 
 
@@ -192,9 +192,9 @@
 .info-foot div i{ font-size: 0.6rem;}
 .info-foot div *{ display: block;line-height: 0.8rem;}
 .info-foot>span,.info-foot>a{font-size: 0.6rem; color: #fff; line-height: 2rem;height:2rem;text-align: center; float: left;display: block;width: 6rem; box-sizing:border-box;}
-.info-foot> .get-invite{background: url(/content/images/JPin/info-bg1.png) no-repeat ;background-position: center center;background-size: 100% 100%; }
-.info-foot> .get-invite1{background: url(/content/images/JPin/info-bg1.png) no-repeat ;background-position: center center;background-size: 100% 100%; }
-.info-foot> .get-apply{background: url(/content/images/JPin/info-bg.png) no-repeat  ;background-position: center center;background-size: 100% 100%;}
+.info-foot> .get-invite{background: url(/shike/common/images/bg/info-bg1.png) no-repeat ;background-position: center center;background-size: 100% 100%; }
+.info-foot> .get-invite1{background: url(/shike/common/images/bg/info-bg1.png) no-repeat ;background-position: center center;background-size: 100% 100%; }
+.info-foot> .get-apply{background: url(/shike/common/images/bg/info-bg.png) no-repeat  ;background-position: center center;background-size: 100% 100%;}
 .info-foot> .get-apply.w12{width:12rem;}
 .info-foot> .get-apply.pink{ line-height: 0.8rem; padding: 0.2rem 0;}
 .info-foot> .get-invite.gray{ background-image: none; background-color: #bbb; color: #fff;}

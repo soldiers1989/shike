@@ -136,8 +136,8 @@
         <ul class="con-cat">
             <li class="<c:if test="${empty param.order}">act</c:if>"><a data-href="0">综合</a></li>
             <li class="<c:if test="${param.order == '1'}">act</c:if>" ><a data-href="1">最新<i class="iconfont icon-sortD"></i></a></li>
-            <li class=""><a data-href="2">价值<i class="iconfont icon-sortD"></i></a></li>
-            <li class=""><a data-href="3">人气<i class="iconfont icon-sortD"></i></a></li>
+            <li class="<c:if test="${param.order == '2'}">act</c:if>" ><a data-href="2">价值<i class="iconfont icon-sortD"></i></a></li>
+            <li class="<c:if test="${param.order == '3'}">act</c:if>" ><a data-href="3">人气<i class="iconfont icon-sortD"></i></a></li>
             <li class="shaixuan-last"><a data-shaixuan="true">筛选<i class="iconfont icon-shaixuan"></i></a></li>
         </ul>
     </div>

@@ -279,8 +279,8 @@ $(function () {
         if (pageFlag) {
             layer.open({
                 content: '没有更多商品了'
-                    , skin: 'msg'
-                    , time: 2
+                , skin: 'msg'
+                , time: 2
             });
             return false;
         }
@@ -291,8 +291,8 @@ $(function () {
         } else {
             layer.open({
                 content: '加载中'
-                 , skin: 'msg'
-                 , time: 2
+                , skin: 'msg'
+                , time: 2
             });
         }
 
@@ -301,66 +301,101 @@ $(function () {
         lingaSort.key = key || "";
         lingaSort.type = type || -1;
         clearFlag = clearFlag || 0;
-       
+
+    }
+
+    getList2(1)
+
+
+    // 好货列表
+    function getList2(clearFlag) {
+        // if (listFlag) {
+        //     return false;
+        // }
+
+        if (clearFlag) {
+            window.scrollTo(0, 0);
+            lingaSort.page = 1;
+            // vm.$data.list = [];
+            pageFlag = false;
+            $("#list").html("")
+        }
+        if (pageFlag) {
+            layer.open({
+                content: '没有更多商品了'
+                , skin: 'msg'
+                , time: 2
+            });
+            return false;
+        }
+
+        listFlag = true;
+        if (lingaSort.page <= 1) {
+            //$("#loading").show()
+        } else {
+            layer.open({
+                content: '加载中'
+                , skin: 'msg'
+                , time: 2
+            });
+        }
+
         $.ajax({
             type: 'post',
-            url: '/aa/aa',
-            data: { page: lingaSort.page, order: lingaSort.order, key: lingaSort.key, type: lingaSort.type, sort: sort,isHomePage:1},
+            url: '/shike/baobei/sklist.do',
+            data: lingaSort,
             dataType: 'json',
             success: function (data) {
-                //$("#loading").hide()
-                listFlag = false;
-                if (data.PageIndex == Math.ceil(data.Count / data.PageSize)) {
-                    pageFlag = true;
+                if (data.type != 'success') {
+                    $(".no-search").show()
                 }
-                //if (data.Data.length == 0) {
-                //    layer.open({
-                //        content: '没有更多商品了'
-                //          , skin: 'msg'
-                //          , time: 2
-                //    });
-                //    return false;
-                //}
-                for (var i = 0; i < data.Data.length; i++) {
-                    data.Data[i].id = data.Data[i].sk_id;
-                    data.Data[i].sk_activity_name =data.Data[i].sk_activity_name
-                    data.Data[i].sk_id = "/jing/Detail?id=" + data.Data[i].sk_id;
-                    data.Data[i].showG = parseInt(data.Data[i].sk_clinch_price) >= 100 ? true : false;
-                    data.Data[i].sk_back_price = data.Data[i].sk_back_price - data.Data[i].sk_clinch_price > 0 ? true : false;
-                    data.Data[i].sk_clinch_price = "¥" + (data.Data[i].sk_clinch_price - 0).toFixed(2);
-                    data.Data[i].share_id = "/jing/share?invitationCode=" + userid + "&shopid=" + data.Data[i].id;
-                    data.Data[i].sk_shop_type = ["iconfont icon-tb", "iconfont icon-tm", "iconfont icon-jd", "iconfont icon-tb"][data.Data[i].sk_shop_type];
-                    if (data.Data[i].sk_is_original) {
-                        var index = 0;
-                        if (data.Data[i].sk_img_index == 0) {
-                            index = 1;
-                        } else {
-                            index = 0;
-                        }
-                        data.Data[i].sk_logo_pic = data.Data[i].sk_logo_pic.split("|")[index];
-                    }
-                    else {
-                        data.Data[i].sk_logo_pic = data.Data[i].sk_logo_pic.split("|")[0];
-                    }
-                    data.Data[i].sk_apply_count = data.Data[i].sk_apply_count;
-                    data.Data[i].sk_activity_name = data.Data[i].sk_activity_name.replaceAll(" ", "");
-                    data.Data[i].isNewUser = true;
-                    vm.$data.list.push(data.Data[i]);
+                $("#loading").hide()
+
+                // 数据为空
+                if (data.resultData.rows.length == 0) {
+                    $(".no-search").show()
+                } else {
+                    $(".no-search").hide()
                 }
-                lingaSort.page++;
+
+                for (var i = 0; i < data.resultData.rows.length; i++) {
+                    var row = data.resultData.rows[i];
+                    // 高价值
+                    var highPrice = "";
+                    if (row.hdtypeid == 3) {
+                        highPrice = "<div><span class=\"red\">高价值</span></div>"
+                    }
+
+                    var html = "<li><a data-id=\"" + row.id + "\" class=\"tod\"><img\n" +
+                        "                    src=\"" + row.zturl + "\"\n" +
+                        "                    data-original=\"" + row.zturl + "\"\n" +
+                        "                    class=\"lazy\" style=\"display: inline;\">\n" +
+                        highPrice +
+                        "            </a>\n" +
+                        "                <p><span class=\"iconfont icon-tb\"></span> " + row.title + "</p>\n" +
+                        "                <div class=\"jp-num\"><span>¥" + row.salePrice + "</span> <span>" + row.ysqnum + "人申请</span></div>\n" +
+                        "                <div class=\"jp-btn\"><a data-id=\"" + row.id + "\" class=\"btn tod\">免费申请</a></div>\n" +
+                        "            </li>";
+
+                    $("#list").append(html);
+                }
+
                 vm.$nextTick(function () {
-                    $("img.lazy").lazyload({ effect: "fadeIn" });
+                    $("img.lazy").lazyload({effect: "fadeIn"});
+                    $(".tod").off("click");
                     $(".tod").on("click", function () {
                         indexSW = 1;
                         scrolH = $document.scrollTop();
                         $(".jp-fixed-top,footer").fadeOut();
-                        $(".go-mj").data("href", "/jing/share?invitationCode=" + userid + "&shopid=" + $(this).data("id"));
-                        $(".go-mj").show().find("img").attr("src", "/Content/images/icon/share-icon.png");
                         $(".info-foot").fadeIn();
 
+                        $(".go-mj").show();
+                        $(".go-mj").attr("href", "/jing/share?invitationCode=" + userid + "&shopid=" + $(this).data("id"));
                         $("#detail .get-more").data("id", $(this).data("id"));
                         getDetail($(this).data("id"));
+                        $(".jp-con .con-cat").off("click");
                     });
+
                 });
 
             },
@@ -368,6 +403,73 @@ $(function () {
                 listFlag = false;
             }
         });
+
+        // $.ajax({
+        //     type: 'post',
+        //     url: '/aa/aa',
+        //     data: { page: lingaSort.page, order: lingaSort.order, key: lingaSort.key, type: lingaSort.type, sort: sort,isHomePage:1},
+        //     dataType: 'json',
+        //     success: function (data) {
+        //         //$("#loading").hide()
+        //         listFlag = false;
+        //         if (data.PageIndex == Math.ceil(data.Count / data.PageSize)) {
+        //             pageFlag = true;
+        //         }
+        //         //if (data.Data.length == 0) {
+        //         //    layer.open({
+        //         //        content: '没有更多商品了'
+        //         //          , skin: 'msg'
+        //         //          , time: 2
+        //         //    });
+        //         //    return false;
+        //         //}
+        //         for (var i = 0; i < data.Data.length; i++) {
+        //             data.Data[i].id = data.Data[i].sk_id;
+        //             data.Data[i].sk_activity_name =data.Data[i].sk_activity_name
+        //             data.Data[i].sk_id = "/jing/Detail?id=" + data.Data[i].sk_id;
+        //             data.Data[i].showG = parseInt(data.Data[i].sk_clinch_price) >= 100 ? true : false;
+        //             data.Data[i].sk_back_price = data.Data[i].sk_back_price - data.Data[i].sk_clinch_price > 0 ? true : false;
+        //             data.Data[i].sk_clinch_price = "¥" + (data.Data[i].sk_clinch_price - 0).toFixed(2);
+        //             data.Data[i].share_id = "/jing/share?invitationCode=" + userid + "&shopid=" + data.Data[i].id;
+        //             data.Data[i].sk_shop_type = ["iconfont icon-tb", "iconfont icon-tm", "iconfont icon-jd", "iconfont icon-tb"][data.Data[i].sk_shop_type];
+        //             if (data.Data[i].sk_is_original) {
+        //                 var index = 0;
+        //                 if (data.Data[i].sk_img_index == 0) {
+        //                     index = 1;
+        //                 } else {
+        //                     index = 0;
+        //                 }
+        //                 data.Data[i].sk_logo_pic = data.Data[i].sk_logo_pic.split("|")[index];
+        //             }
+        //             else {
+        //                 data.Data[i].sk_logo_pic = data.Data[i].sk_logo_pic.split("|")[0];
+        //             }
+        //             data.Data[i].sk_apply_count = data.Data[i].sk_apply_count;
+        //             data.Data[i].sk_activity_name = data.Data[i].sk_activity_name.replaceAll(" ", "");
+        //             data.Data[i].isNewUser = true;
+        //             vm.$data.list.push(data.Data[i]);
+        //         }
+        //         lingaSort.page++;
+        //         vm.$nextTick(function () {
+        //             $("img.lazy").lazyload({ effect: "fadeIn" });
+        //             $(".tod").on("click", function () {
+        //                 indexSW = 1;
+        //                 scrolH = $document.scrollTop();
+        //                 $(".jp-fixed-top,footer").fadeOut();
+        //                 $(".go-mj").data("href", "/jing/share?invitationCode=" + userid + "&shopid=" + $(this).data("id"));
+        //                 $(".go-mj").show().find("img").attr("src", "/Content/images/icon/share-icon.png");
+        //                 $(".info-foot").fadeIn();
+        //
+        //                 $("#detail .get-more").data("id", $(this).data("id"));
+        //                 getDetail($(this).data("id"));
+        //             });
+        //         });
+        //
+        //     },
+        //     error: function () {
+        //         listFlag = false;
+        //     }
+        // });
     }
 
     //回退按钮
@@ -489,56 +591,38 @@ $(function () {
         $(".info-cat span").removeClass("act").eq(0).addClass("act");
         $(".info-list>div").removeClass("act").eq(0).addClass("act");
         getMoreFlag = true;
-        $.post("/Jing/JinpDetail", { id: id }, function (data) {
-            goodPrice = (data.Data && data.Data.sk_replace_price) ? data.Data.sk_replace_price : 0;   //给金币不足弹框使用
-            $("#index").addClass("showHidden");                 //隐藏列表，高度清空
-            $("#detail").removeClass("showHidden");             //显示商品详情  
-            vmDetail.$data.activity_name = data.Data.activity_name;
-            vmDetail.$data.clinch_price = (data.Data.clinch_price - 0).toFixed(2);
-            vmDetail.$data.remaining_copies = data.Data.remaining_copies;
-            vmDetail.$data.apply_count = data.Data.apply_count;
-            vmDetail.$data.Cart = data.Data.Cart;
-            vmDetail.$data.apply_sendgold = data.Data.apply_sendgold;
-            vmDetail.$data.Collects = data.Data.Collects;
-            vmDetail.$data.Prize = data.Data.Prize;
-            vmDetail.$data.hour = data.Data.hour;
-            vmDetail.$data.sk_is_BlockLottery = data.Data.sk_is_BlockLottery;  //是否参团
-            vmDetail.$data.sk_group_passcount = data.Data.sk_group_passcount;
-            vmDetail.$data.sk_group_SendCount = data.Data.sk_group_SendCount;  //需组团人数
-            vmDetail.$data.restzt = data.Data.sk_group_passcount ? data.Data.sk_group_passcount.split('/')[0] : '0';  //组团剩余份数
-            vmDetail.$data.sk_is_useCreditCard = data.Data.sk_is_useCreditCard;         //信用卡
-            var str = data.Data.sk_nondelivery_area || '';
-            if (str) {
-                vmDetail.$data.sk_nondelivery_area = str.substring(0., str.length - 1).replaceAll(',', '，') + '。';         //偏远地区
-            }
-            vmDetail.$data.sk_is_useTokio = data.Data.sk_is_useTokio;                   //花呗  白条
-            vmDetail.$data.sk_isvoucher = data.Data.sk_isvoucher;                       //优惠券
-            vmDetail.$data.sk_commodity_source = data.Data.sk_commodity_source;         //2表示京东
-            vmDetail.$data.send_gold = data.Data.send_gold;  //送多少金币
-            
 
-            var shoptype = data.Data.sk_commodity_source;
-            vmDetail.$data.sk_shop_type = ["iconfont icon-tb", "iconfont icon-tm", "iconfont icon-jd", "iconfont icon-tb"][shoptype];
-            if (data.Data.is_original) {
-                var index = 0;
-                if (data.Data.img_index == 0) {
-                    index = 1;
-                } else {
-                    index = 0;
-                }
-                vmDetail.$data.logo_pic1 = data.Data.logo_pic.split("|")[index];
-                vmDetail.$data.logo_pic2 = vmDetail.$data.logo_pic1;
-                vmDetail.$data.logo_pic3 = vmDetail.$data.logo_pic1;
-                vmDetail.$data.logo_pic4 = vmDetail.$data.logo_pic1;
+        $.post("/shike/baobei/detail.do", { id: id }, function (data) {
+            // goodPrice = (data.Data && data.Data.sk_replace_price) ? data.Data.sk_replace_price : 0;   //给金币不足弹框使用
+            $("#index").addClass("showHidden");                 //隐藏列表，高度清空
+            $("#detail").removeClass("showHidden");             //显示商品详情
+
+            var row = data.resultData.row;
+            $("#baobeiId").val(row.id);
+
+            // vmDetail.$data.activity_name = data.dpname;
+            $("#activity_name").html(row.title); // 商品名称
+            $("#shengyu").html("剩余 "+(row.bbnum - row.zjnum)+"/"+row.bbnum+" 份"); // 剩余
+            $("#ysqnum").html(row.ysqnum + "人 已申请"); // 已经申请数量
+            $("#yzj").html(row.zjnum + "人 已中奖"); // 已经中奖人数
+            $("#salePrice").html("¥" + row.salePrice); // 宝贝单价
+
+            $("#logo_pic1").attr("src", row.tplist[0].url); // 图1
+            $("#logo_pic2").attr("src", row.tplist[1].url); // 图2
+            $("#logo_pic3").attr("src", row.tplist[2].url); // 图3
+            $("#logo_pic4").attr("src", row.tplist[3].url); // 图4
+
+            if (row.huabei == '1') {
+                $("#huabei").css("display", "block");
             } else {
-                vmDetail.$data.logo_pic1 = data.Data.logo_pic.split("|")[0];
-                vmDetail.$data.logo_pic2 = data.Data.logo_pic.split("|")[1];
-                vmDetail.$data.logo_pic3 = data.Data.logo_pic.split("|")[2];
-                vmDetail.$data.logo_pic4 = data.Data.logo_pic.split("|")[3];
+                $("#huabei").css("display", "none");
             }
-            var goldText = "";
-            var goldBtn = "";
-        
+            if (row.xinyongka == '1') {
+                $("#xinyongka").css("display", "block");
+            } else {
+                $("#xinyongka").css("display", "none");
+            }
+
             if (!mySwiper1) {
                 mySwiper1 = new Swiper('#swiper2', {
                     autoplay: 5000,
@@ -547,108 +631,23 @@ $(function () {
             } else {
                 mySwiper1.slideTo(0, 0, false);
             }
+            var goldText = "";
+            var goldBtn = "";
 
-            if (data.Data.sk_is_BlockLottery) {   //参团
-                var pinkBtn = "get-apply pink",
-                    pinkText = (data.Data.applyText == "继续参团" ? "继续参团" : "立即参团") + "<br><span style='font-size:0.512rem;'>距开奖仅差" + (parseInt(data.Data.sk_group_SendCount) - parseInt(data.Data.sk_group_applycount)) + "人</span>";
+            $("#get-invite").attr("class", "get-apply gray ");
+            $("#get-invite").html("暂不支持金币兑换");
 
-                
-                goldText = "暂无金币份额";
-                goldBtn = "get-invite gray";
-                $(".get-invite").attr("class", goldBtn);
-                $(".get-invite").html(goldText);
-
-                $(".dona-image").attr("src", "/Content/images/JPin/flow2.png");
-                $("#detail-type").html("组团流程");
-                
-                if (data.Data.hour >= 21 || vmDetail.$data.restzt == '0') {
-                    $("#applyText").attr("class", "get-apply gray");
-                    $("#applyText").attr("href", 'javascript:void(0)');
-                    $("#applyText").html("今日份额已满");
-                }
-                else if (data.Data.applyText == "明日继续申请") {
-                    $("#applyText").attr("class", "get-apply gray");
-                    $("#applyText").html("明日继续申请");
-                    $("#applyText").attr("href", 'javascript:void(0)');
-                }
-                else if (data.Data.applyText == "已申请") {
-                    $("#applyText").attr("class", "get-apply");
-                    $("#applyText").html("已申请");
-                    $("#applyText").attr("href", 'javascript:void(0)');
-                } else {
-                    $("#applyText").attr("href", '/JpinShopIssue/OrderFlow?activityId=' + id + "&free=" + data.Data.free);
-                    $("#applyText").attr("class", pinkBtn);
-                    $("#applyText").html(pinkText);
-                }
-                if (!data.Data.isSubmit) {
-                    pinkBtn = "get-apply gray";
-                    $("#applyText").attr("href", 'javascript:void(0)');
-                    $("#applyText").attr("class", pinkBtn);
-                }
+            if (row.bbnum == row.zjnum) {
+                $("#applyText").html("已兑完");
+                $("#applyText").attr("class", "get-invite ");
             } else {
-                $(".dona-image").attr("src", "/Content/images/JPin/flow.png");
-                $("#detail-type").html("试用流程");
-                if (data.Data.sk_replace_count == 0 || data.Data.sk_gold_applyCount == data.Data.sk_replace_count) {
-                    goldText = "已兑完";
-                    goldBtn = "get-invite gray";
-                } else {
-                    if (data.Data.sk_lottery_mode == 0 && (data.Data.sk_activity_type == 2 && compareTime(addDate(data.Data.sk_begindate, 2), getNowFormatDate()) || data.Data.sk_activity_type == 3 && compareTime(addDate(data.Data.sk_begindate, 3), getNowFormatDate()))) {
-                        if (data.Data.sk_activity_type == 2) {
-                            goldText = DateMinus(getNowFormatDate(), addDate(data.Data.sk_begindate, 2)) + "小时后可以兑换" + data.Data.sk_begindate;
-                            goldBtn = "get-invite gray";
-                        } else {
-                            goldText = DateMinus(getNowFormatDate(), addDate(data.Data.sk_begindate, 3)) + "小时后可以兑换2";
-                            goldBtn = "get-invite gray";
-                        }
-                    } else {
-                        if (data.Data.sk_replace_price > myGold) {
-                            //goldText = "金币不足";
-                            //goldBtn = "get-invite gray";
-                            goldText = "金币不足<br><span style='font-size:0.512rem;'>" + data.Data.sk_replace_price + "金币</span>";
-                            goldBtn = "get-invite gold double-line";
-                            $(".get-invite").off("click");
-                            $(".get-invite").on("click", function () {
-                                GoldAplly(id);
-                            });
-                        } else {
-                            goldText = "金币兑换" + "<br /><span style='font-size:0.512rem;'>" + data.Data.sk_replace_price + "金币</span>";
-                            goldBtn = "get-invite gold";
-                            $(".get-invite").off("click");
-                            $(".get-invite").on("click", function () {
-                                GoldAplly(id);
-                            });
-                        }
-                    }
-                }
-                $(".get-invite").attr("class", goldBtn);
-                $(".get-invite").html(goldText);
-                //var dataHref = '/JpinShopIssue/OrderFlow?activityId=' + id + "&free=" + data.Data.free + "&applyType=1";
-                //$(".get-invite").attr("data-href", dataHref);
-                //vmDetail.$data.logo_pic4 = data.Data.logo_pic.split("|")[3];
-                console.log(data.Data.isSubmit)
-                if (data.Data.isSubmit) {
-                    
-                    $("#applyText").attr("href", '/JpinShopIssue/OrderFlow?activityId=' + id + "&free" + data.Data.free);
-                } else {
-                    //$("#applyText").attr("class", "gray");
-                    $("#applyText").attr("href", 'javascript:void(0)');
-                }
-                if (data.Data.applyText == "还有机会") {
-                    $("#applyText").attr("class", "gray");
-                }
-                //if (!data.Data.isSubmit) {
-             
-                //}
-                if (data.Data.applyText == "已申请") {
-                    $("#applyText").html(data.Data.applyText);
-                    $("#applyText").attr("class", "get-apply gray");
-                } else {
-                    $("#applyText").html(data.Data.applyText);
-                    $("#applyText").attr("class", "get-apply");
-                }
+                $("#applyText").html("立即申请");
+                $("#applyText").attr("class", "get-apply");
             }
+
             vmDetail.$nextTick(function () {
                 $(".not-area").off("click");
+                //点击弹出不发货
                 $(".not-area").on("click", function () {
                     $(".flex-bg").fadeIn(300);
                     $("#flow2").css("display", "block");
@@ -656,59 +655,245 @@ $(function () {
                 });
             });
             $("#applyText").removeClass("w12");
-            if (!data.Data.isSubmit) {
-                goldText = "已申请";
-                goldBtn = "get-invite white";
-                $(".get-invite").attr("class", goldBtn);
-                $(".get-invite").html(goldText);
-                $(".get-invite").off("click");
-                $("#applyText").addClass("w12");
-            } else if (!data.Data.isGoldSubmit) {
-                goldText = "今日已兑完";
-                goldBtn = "get-invite gray";
-                $(".get-invite").attr("class", goldBtn);
-                $(".get-invite").html(goldText);
-                $(".get-invite").off("click");
-            }
 
+            // $("#detail .intro").html(data.xiangqing.content.split("sktag")[0]);
+            $("#detail .intro img").lazyload({ effect: "fadeIn" });
 
-            if (data.Data.is_original) {
-                var money = data.Data.clinch_price;
-                var reMoney = data.Data.return_moeny;
-                $("#detail #guss-like").show();
-                $("#detail .intro").html(getPaiB(money, reMoney));
-                $("#get-more").show()
-                getMoreDetail();
-                window.scrollTo(0, 0);
-                return false;
+            if(row.xiangqing) {
+                var rows = row.xiangqing.content.split("sktag");
+                for (var i = 0; i < rows.length; i++) {
+                    var img = "<img src=\"" + rows[i] + "\">";
+                    $("#detail .intro").append(img)
+                }
             }
-            $.post("/Jing/GetShopDetail", { id: id, url: data.Data.shopissueUrl }, function (data) {
-                data.Data.tbhtml = data.Data.tbhtml.replaceAll("模板保护代码", "");
-                data.Data.tbhtml = data.Data.tbhtml.replaceAll('<p>&nbsp;</p>', '');
-                data.Data.tbhtml = data.Data.tbhtml.replaceAll('<p style="text-align: center;">&nbsp;</p>', '');
-                /*
-                * 正则替换空图片
-                * */
-                data.Data.tbhtml = data.Data.tbhtml.replace(/<img[^>]+data-original=[\'\"]([^"]+)[\'\"][^>]*>/gi, function (match, capture) {
-                    if (emptyImg.indexOf(capture) != -1) {
-                        return '';
-                    }
-                    return match;
-                });
-                $("#detail .intro").html(data.Data.tbhtml);
-                $("#detail .intro img").lazyload({ effect: "fadeIn" });
-            });
+            $("#detail .intro img").lazyload({ effect: "fadeIn" });
+
             window.scrollTo(0, 0);
         });
-        //空图片黑名单
-        var emptyImg = [
-                  'https://assets.alicdn.com/kissy/1.0.0/build/imglazyload/spaceball.gif',
-                  'https://img.alicdn.com/imgextra/i2/51762646/TB22ZiEdgMPMeJjy1XdXXasrXXa_!!51762646.jpg_468x468q90s150.jpg_q90.jpg_468x468q90s150.jpg',
-                  'https://img.alicdn.com/imgextra/i2/51762646/TB2rytqXaagSKJjy0FbXXa.mVXa_!!51762646.jpg_468x468q90s150.jpg_q90.jpg_468x468q90s150.jpg',
-                  'https://img.alicdn.com/imgextra/i2/51762646/TB2BWhpXjuhSKJjSspmXXcQDpXa_!!51762646.jpg_468x468q90s150.jpg_q90.jpg_468x468q90s150.jpg',
-                  'https://img.alicdn.com/imgextra/i3/51762646/TB2b0iGdlUSMeJjSszeXXcKgpXa_!!51762646.jpg_468x468q90s150.jpg_q90.jpg_468x468q90s150.jpg',
-                  'https://img.alicdn.com/imgextra/i1/692125945/TB2Xk8lbFXXXXXeXpXXXXXXXXXX-692125945.gif'
-        ];
+
+
+
+
+        // $.post("/Jing/JinpDetail", { id: id }, function (data) {
+        //     goodPrice = (data.Data && data.Data.sk_replace_price) ? data.Data.sk_replace_price : 0;   //给金币不足弹框使用
+        //     $("#index").addClass("showHidden");                 //隐藏列表，高度清空
+        //     $("#detail").removeClass("showHidden");             //显示商品详情
+        //     vmDetail.$data.activity_name = data.Data.activity_name;
+        //     vmDetail.$data.clinch_price = (data.Data.clinch_price - 0).toFixed(2);
+        //     vmDetail.$data.remaining_copies = data.Data.remaining_copies;
+        //     vmDetail.$data.apply_count = data.Data.apply_count;
+        //     vmDetail.$data.Cart = data.Data.Cart;
+        //     vmDetail.$data.apply_sendgold = data.Data.apply_sendgold;
+        //     vmDetail.$data.Collects = data.Data.Collects;
+        //     vmDetail.$data.Prize = data.Data.Prize;
+        //     vmDetail.$data.hour = data.Data.hour;
+        //     vmDetail.$data.sk_is_BlockLottery = data.Data.sk_is_BlockLottery;  //是否参团
+        //     vmDetail.$data.sk_group_passcount = data.Data.sk_group_passcount;
+        //     vmDetail.$data.sk_group_SendCount = data.Data.sk_group_SendCount;  //需组团人数
+        //     vmDetail.$data.restzt = data.Data.sk_group_passcount ? data.Data.sk_group_passcount.split('/')[0] : '0';  //组团剩余份数
+        //     vmDetail.$data.sk_is_useCreditCard = data.Data.sk_is_useCreditCard;         //信用卡
+        //     var str = data.Data.sk_nondelivery_area || '';
+        //     if (str) {
+        //         vmDetail.$data.sk_nondelivery_area = str.substring(0., str.length - 1).replaceAll(',', '，') + '。';         //偏远地区
+        //     }
+        //     vmDetail.$data.sk_is_useTokio = data.Data.sk_is_useTokio;                   //花呗  白条
+        //     vmDetail.$data.sk_isvoucher = data.Data.sk_isvoucher;                       //优惠券
+        //     vmDetail.$data.sk_commodity_source = data.Data.sk_commodity_source;         //2表示京东
+        //     vmDetail.$data.send_gold = data.Data.send_gold;  //送多少金币
+        //
+        //
+        //     var shoptype = data.Data.sk_commodity_source;
+        //     vmDetail.$data.sk_shop_type = ["iconfont icon-tb", "iconfont icon-tm", "iconfont icon-jd", "iconfont icon-tb"][shoptype];
+        //     if (data.Data.is_original) {
+        //         var index = 0;
+        //         if (data.Data.img_index == 0) {
+        //             index = 1;
+        //         } else {
+        //             index = 0;
+        //         }
+        //         vmDetail.$data.logo_pic1 = data.Data.logo_pic.split("|")[index];
+        //         vmDetail.$data.logo_pic2 = vmDetail.$data.logo_pic1;
+        //         vmDetail.$data.logo_pic3 = vmDetail.$data.logo_pic1;
+        //         vmDetail.$data.logo_pic4 = vmDetail.$data.logo_pic1;
+        //     } else {
+        //         vmDetail.$data.logo_pic1 = data.Data.logo_pic.split("|")[0];
+        //         vmDetail.$data.logo_pic2 = data.Data.logo_pic.split("|")[1];
+        //         vmDetail.$data.logo_pic3 = data.Data.logo_pic.split("|")[2];
+        //         vmDetail.$data.logo_pic4 = data.Data.logo_pic.split("|")[3];
+        //     }
+        //     var goldText = "";
+        //     var goldBtn = "";
+        //
+        //     if (!mySwiper1) {
+        //         mySwiper1 = new Swiper('#swiper2', {
+        //             autoplay: 5000,
+        //             pagination: '.swiper-pagination',
+        //         });
+        //     } else {
+        //         mySwiper1.slideTo(0, 0, false);
+        //     }
+        //
+        //     if (data.Data.sk_is_BlockLottery) {   //参团
+        //         var pinkBtn = "get-apply pink",
+        //             pinkText = (data.Data.applyText == "继续参团" ? "继续参团" : "立即参团") + "<br><span style='font-size:0.512rem;'>距开奖仅差" + (parseInt(data.Data.sk_group_SendCount) - parseInt(data.Data.sk_group_applycount)) + "人</span>";
+        //
+        //
+        //         goldText = "暂无金币份额";
+        //         goldBtn = "get-invite gray";
+        //         $(".get-invite").attr("class", goldBtn);
+        //         $(".get-invite").html(goldText);
+        //
+        //         $(".dona-image").attr("src", "/Content/images/JPin/flow2.png");
+        //         $("#detail-type").html("组团流程");
+        //
+        //         if (data.Data.hour >= 21 || vmDetail.$data.restzt == '0') {
+        //             $("#applyText").attr("class", "get-apply gray");
+        //             $("#applyText").attr("href", 'javascript:void(0)');
+        //             $("#applyText").html("今日份额已满");
+        //         }
+        //         else if (data.Data.applyText == "明日继续申请") {
+        //             $("#applyText").attr("class", "get-apply gray");
+        //             $("#applyText").html("明日继续申请");
+        //             $("#applyText").attr("href", 'javascript:void(0)');
+        //         }
+        //         else if (data.Data.applyText == "已申请") {
+        //             $("#applyText").attr("class", "get-apply");
+        //             $("#applyText").html("已申请");
+        //             $("#applyText").attr("href", 'javascript:void(0)');
+        //         } else {
+        //             $("#applyText").attr("href", '/JpinShopIssue/OrderFlow?activityId=' + id + "&free=" + data.Data.free);
+        //             $("#applyText").attr("class", pinkBtn);
+        //             $("#applyText").html(pinkText);
+        //         }
+        //         if (!data.Data.isSubmit) {
+        //             pinkBtn = "get-apply gray";
+        //             $("#applyText").attr("href", 'javascript:void(0)');
+        //             $("#applyText").attr("class", pinkBtn);
+        //         }
+        //     } else {
+        //         $(".dona-image").attr("src", "/Content/images/JPin/flow.png");
+        //         $("#detail-type").html("试用流程");
+        //         if (data.Data.sk_replace_count == 0 || data.Data.sk_gold_applyCount == data.Data.sk_replace_count) {
+        //             goldText = "已兑完";
+        //             goldBtn = "get-invite gray";
+        //         } else {
+        //             if (data.Data.sk_lottery_mode == 0 && (data.Data.sk_activity_type == 2 && compareTime(addDate(data.Data.sk_begindate, 2), getNowFormatDate()) || data.Data.sk_activity_type == 3 && compareTime(addDate(data.Data.sk_begindate, 3), getNowFormatDate()))) {
+        //                 if (data.Data.sk_activity_type == 2) {
+        //                     goldText = DateMinus(getNowFormatDate(), addDate(data.Data.sk_begindate, 2)) + "小时后可以兑换" + data.Data.sk_begindate;
+        //                     goldBtn = "get-invite gray";
+        //                 } else {
+        //                     goldText = DateMinus(getNowFormatDate(), addDate(data.Data.sk_begindate, 3)) + "小时后可以兑换2";
+        //                     goldBtn = "get-invite gray";
+        //                 }
+        //             } else {
+        //                 if (data.Data.sk_replace_price > myGold) {
+        //                     //goldText = "金币不足";
+        //                     //goldBtn = "get-invite gray";
+        //                     goldText = "金币不足<br><span style='font-size:0.512rem;'>" + data.Data.sk_replace_price + "金币</span>";
+        //                     goldBtn = "get-invite gold double-line";
+        //                     $(".get-invite").off("click");
+        //                     $(".get-invite").on("click", function () {
+        //                         GoldAplly(id);
+        //                     });
+        //                 } else {
+        //                     goldText = "金币兑换" + "<br /><span style='font-size:0.512rem;'>" + data.Data.sk_replace_price + "金币</span>";
+        //                     goldBtn = "get-invite gold";
+        //                     $(".get-invite").off("click");
+        //                     $(".get-invite").on("click", function () {
+        //                         GoldAplly(id);
+        //                     });
+        //                 }
+        //             }
+        //         }
+        //         $(".get-invite").attr("class", goldBtn);
+        //         $(".get-invite").html(goldText);
+        //         //var dataHref = '/JpinShopIssue/OrderFlow?activityId=' + id + "&free=" + data.Data.free + "&applyType=1";
+        //         //$(".get-invite").attr("data-href", dataHref);
+        //         //vmDetail.$data.logo_pic4 = data.Data.logo_pic.split("|")[3];
+        //         console.log(data.Data.isSubmit)
+        //         if (data.Data.isSubmit) {
+        //
+        //             $("#applyText").attr("href", '/JpinShopIssue/OrderFlow?activityId=' + id + "&free" + data.Data.free);
+        //         } else {
+        //             //$("#applyText").attr("class", "gray");
+        //             $("#applyText").attr("href", 'javascript:void(0)');
+        //         }
+        //         if (data.Data.applyText == "还有机会") {
+        //             $("#applyText").attr("class", "gray");
+        //         }
+        //         //if (!data.Data.isSubmit) {
+        //
+        //         //}
+        //         if (data.Data.applyText == "已申请") {
+        //             $("#applyText").html(data.Data.applyText);
+        //             $("#applyText").attr("class", "get-apply gray");
+        //         } else {
+        //             $("#applyText").html(data.Data.applyText);
+        //             $("#applyText").attr("class", "get-apply");
+        //         }
+        //     }
+        //     vmDetail.$nextTick(function () {
+        //         $(".not-area").off("click");
+        //         $(".not-area").on("click", function () {
+        //             $(".flex-bg").fadeIn(300);
+        //             $("#flow2").css("display", "block");
+        //             $("#flow2").removeClass("fadeout");
+        //         });
+        //     });
+        //     $("#applyText").removeClass("w12");
+        //     if (!data.Data.isSubmit) {
+        //         goldText = "已申请";
+        //         goldBtn = "get-invite white";
+        //         $(".get-invite").attr("class", goldBtn);
+        //         $(".get-invite").html(goldText);
+        //         $(".get-invite").off("click");
+        //         $("#applyText").addClass("w12");
+        //     } else if (!data.Data.isGoldSubmit) {
+        //         goldText = "今日已兑完";
+        //         goldBtn = "get-invite gray";
+        //         $(".get-invite").attr("class", goldBtn);
+        //         $(".get-invite").html(goldText);
+        //         $(".get-invite").off("click");
+        //     }
+        //
+        //
+        //     if (data.Data.is_original) {
+        //         var money = data.Data.clinch_price;
+        //         var reMoney = data.Data.return_moeny;
+        //         $("#detail #guss-like").show();
+        //         $("#detail .intro").html(getPaiB(money, reMoney));
+        //         $("#get-more").show()
+        //         getMoreDetail();
+        //         window.scrollTo(0, 0);
+        //         return false;
+        //     }
+        //     $.post("/Jing/GetShopDetail", { id: id, url: data.Data.shopissueUrl }, function (data) {
+        //         data.Data.tbhtml = data.Data.tbhtml.replaceAll("模板保护代码", "");
+        //         data.Data.tbhtml = data.Data.tbhtml.replaceAll('<p>&nbsp;</p>', '');
+        //         data.Data.tbhtml = data.Data.tbhtml.replaceAll('<p style="text-align: center;">&nbsp;</p>', '');
+        //         /*
+        //         * 正则替换空图片
+        //         * */
+        //         data.Data.tbhtml = data.Data.tbhtml.replace(/<img[^>]+data-original=[\'\"]([^"]+)[\'\"][^>]*>/gi, function (match, capture) {
+        //             if (emptyImg.indexOf(capture) != -1) {
+        //                 return '';
+        //             }
+        //             return match;
+        //         });
+        //         $("#detail .intro").html(data.Data.tbhtml);
+        //         $("#detail .intro img").lazyload({ effect: "fadeIn" });
+        //     });
+        //     window.scrollTo(0, 0);
+        // });
+        // //空图片黑名单
+        // var emptyImg = [
+        //           'https://assets.alicdn.com/kissy/1.0.0/build/imglazyload/spaceball.gif',
+        //           'https://img.alicdn.com/imgextra/i2/51762646/TB22ZiEdgMPMeJjy1XdXXasrXXa_!!51762646.jpg_468x468q90s150.jpg_q90.jpg_468x468q90s150.jpg',
+        //           'https://img.alicdn.com/imgextra/i2/51762646/TB2rytqXaagSKJjy0FbXXa.mVXa_!!51762646.jpg_468x468q90s150.jpg_q90.jpg_468x468q90s150.jpg',
+        //           'https://img.alicdn.com/imgextra/i2/51762646/TB2BWhpXjuhSKJjSspmXXcQDpXa_!!51762646.jpg_468x468q90s150.jpg_q90.jpg_468x468q90s150.jpg',
+        //           'https://img.alicdn.com/imgextra/i3/51762646/TB2b0iGdlUSMeJjSszeXXcKgpXa_!!51762646.jpg_468x468q90s150.jpg_q90.jpg_468x468q90s150.jpg',
+        //           'https://img.alicdn.com/imgextra/i1/692125945/TB2Xk8lbFXXXXXeXpXXXXXXXXXX-692125945.gif'
+        // ];
         $("#detail #list-apply1").html("");
         $("#detail #guss-like").hide();
         $("#get-more").hide()
