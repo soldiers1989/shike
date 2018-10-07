@@ -137,8 +137,11 @@ public class BusiConstant {
 	//试客路径
 	public static final String shikemobilepath = context + "/page/mobile";
 	
-	public static final KVBean shike_detail = new KVBean(context + "/skm/detail", "宝贝详情");
 	public static final KVBean shike_index = new KVBean(context + "/skm/index", "首页");
+	public static final KVBean shike_zjmj = new KVBean(context + "/skm/zjmj", "中奖秘笈页面");
+	public static final KVBean shike_zqmj = new KVBean(context + "/skm/zqmj", "赚钱秘笈页面");
+
+	public static final KVBean shike_detail = new KVBean(context + "/skm/detail", "宝贝详情");
 	public static final KVBean shike_haohuo = new KVBean(context + "/skm/haohuo", "好货页面");
 	public static final KVBean shike_wdhd = new KVBean(context + "/skm/wdhd", "我的活动页面");
 	public static final KVBean shike_mine = new KVBean(context + "/skm/mine", "我的");

@@ -1,27 +1,9 @@
-<%@page import="com.kensure.shike.baobei.model.SKWord"%>
-<%@page import="com.kensure.shike.baobei.model.SKBaobeiTP"%>
-<%@page import="com.kensure.shike.baobei.model.SKBaobei"%>
-<%@page import="java.util.List"%>
 <%@page import="com.kensure.shike.constant.BusiConstant"%>
 <%@ page import="com.kensure.shike.user.model.SKUser" %>
-<%@ page import="com.kensure.shike.zhang.model.SKUserYue" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
     String context = BusiConstant.shikemobilepath;
     SKUser user = (SKUser)request.getAttribute("user");
-
-    /*Double yuee = 0.00;
-    Double jinbi = 0.00;
-    if (user != null) {
-        SKUserYue yue = (SKUserYue)request.getAttribute("yue");
-
-        if (yue != null && yue.getYue() != null) {
-            yuee = yue.getYue();
-        }
-        if (yue != null && yue.getJinbi() != null) {
-            jinbi = yue.getJinbi();
-        }
-    }*/
 %>
 <!DOCTYPE html>
 <html lang="zh" style="font-size: 22.125px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -430,7 +412,7 @@
         <div style="margin-bottom: 2rem;">
         </div>
         <jsp:include page="../common/footer.jsp" flush="true"/>
-        <div style="display: none"><script src="<%=BusiConstant.shikemobilepath %>/mine/resource/z_stat.php" language="JavaScript"></script><script src="<%=BusiConstant.shikemobilepath %>/mine/resource/core.php" charset="utf-8" type="text/javascript"></script><a href="http://www.cnzz.com/stat/website.php?web_id=1264685315" target="_blank" title="站长统计">站长统计</a></div>
+        <div style="display: none"><script src="<%=BusiConstant.shikemobilepath %>/mine/resource/z_stat.php" language="JavaScript"></script><script src="<%=BusiConstant.shikemobilepath %>/mine/resource/core.php" charset="utf-8" type="text/javascript"></script>
    
     <div id="loading" class="loading">
     <div class="loadingContent">
