@@ -577,42 +577,35 @@
 
 	<div style="display: none">
 		<script
-			src="<%=BusiConstant.shikemobilepath%>/liucheng/gouwuche/z_stat.php"
+			src="<%=BusiConstant.shikemobilepath%>/common/z_stat.php"
 			language="JavaScript"></script>
 		<script
-			src="<%=BusiConstant.shikemobilepath%>/liucheng/gouwuche/core.php"
+			src="<%=BusiConstant.shikemobilepath%>/common/core.php"
 			charset="utf-8" type="text/javascript"></script>
 	</div>
 
 	<div id="loading" class="loading">
 		<div class="loadingContent">
 			<img
-				src="<%=BusiConstant.shikemobilepath%>/liucheng/gouwuche/loading.gif">
+				src="<%=BusiConstant.shikemobilepath%>/common/images/loading.gif">
 		</div>
 	</div>
-	<script type="text/javascript"
-		src="<%=BusiConstant.shikemobilepath%>/liucheng/gouwuche/jquery.form.js"></script>
 
-	<script type="text/javascript"
-		src="<%=BusiConstant.shikemobilepath%>/liucheng/gouwuche/Validform_v5.3.2.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/jquery.form.js"></script>
 
-	<script type="text/javascript"
-		src="<%=BusiConstant.shikemobilepath%>/liucheng/gouwuche/post.loading.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/Validform_v5.3.2.js"></script>
 
-	<script type="text/javascript"
-		src="<%=BusiConstant.shikemobilepath%>/liucheng/gouwuche/layer.m.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/post.loading.js"></script>
 
-	<script type="text/javascript"
-		src="<%=BusiConstant.shikemobilepath%>/liucheng/gouwuche/layerdialog.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/layer.m.js"></script>
 
-	<script type="text/javascript"
-		src="<%=BusiConstant.shikemobilepath%>/liucheng/gouwuche/jquery.cookie.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/layerdialog.js"></script>
 
-	<script type="text/javascript"
-		src="<%=BusiConstant.shikemobilepath%>/liucheng/gouwuche/browser.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/jquery.cookie.js"></script>
 
-	<script type="text/javascript"
-		src="<%=BusiConstant.shikemobilepath%>/liucheng/gouwuche/app.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/browser.js"></script>
+
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/app.js"></script>
 
 
 </body>

@@ -327,7 +327,7 @@ public class SKSkqkService extends JSBaseService {
 	public List<SKSkqk> getSkQKList(long status) {
 		SKUser user = sKUserService.getUser();
 		SKUserService.checkUserSK(user);
-		Map<String, Object> parameters = MapUtils.genMap("userid", user.getId());
+		Map<String, Object> parameters = MapUtils.genMap("userid", user.getId(), "orderby", "updated_time desc");
 		if (status == 51) {
 			parameters.put("bigthanstatus", 51);
 			parameters.put("lessthanstatus", 81);
