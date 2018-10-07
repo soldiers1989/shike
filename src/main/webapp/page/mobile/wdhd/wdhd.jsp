@@ -256,20 +256,20 @@
             if(row.status>0 && row.status<21){
                 btn = "        <div class=\"jp-btn clearfix\">\n" +
                     "            <a href=\"<%=BusiConstant.shike_gouwuche.getKey() %>?id="+ row.bbid +"\" class=\"\">继续申请</a>\n" +
-                    "            <a href=\"javascript:void(1);\" class=\"black\" onclick=\"Feedback("+ row.bbid +")\">反馈问题</a>\n" +
+                 //   "            <a href=\"javascript:void(1);\" class=\"black\" onclick=\"Feedback("+ row.bbid +")\">反馈问题</a>\n" +
                     "            <a href=\"javascript:void(1);\" class=\"black\" onclick=\"DeletedOrder("+ row.id +")\">删除</a>\n" +
                     "        </div>";
             }else if(row.status == 21){
             	var time = format(row.nextTime - new Date().getTime());
                 btn = "        <div class=\"jp-btn clearfix\">\n" +time+
                 "        进行抽奖 <a href=\"javascript:void(1);\" class=\"gray\" >等待抽奖</a>\n" +
-                "            <a href=\"javascript:void(1);\" class=\"black\" onclick=\"Feedback("+ row.bbid +")\">反馈问题</a>\n" +
+              //  "            <a href=\"javascript:void(1);\" class=\"black\" onclick=\"Feedback("+ row.bbid +")\">反馈问题</a>\n" +
                 "        </div>";
         	}else if(row.status == 51){
         		var time = format(row.nextTime - new Date().getTime());
                 btn = "        <div class=\"jp-btn clearfix\">\n" + time +
                     "          自动取消资格   <a href=\"<%=BusiConstant.shike_gouwuche.getKey() %>?id="+ row.bbid +"\" class=\"\">提交订单</a>\n" +
-                    "            <a href=\"javascript:void(1);\" class=\"black\" onclick=\"Feedback("+ row.bbid +")\">反馈问题</a>\n" +
+                //    "            <a href=\"javascript:void(1);\" class=\"black\" onclick=\"Feedback("+ row.bbid +")\">反馈问题</a>\n" +
                     "        </div>";
             }else if(row.status == 61){
                 // 提交订单两天后，可提交评价
@@ -277,7 +277,7 @@
                 btn = "        <div class=\"jp-btn clearfix\">\n" +
                     "           <span class=\"time\">"+ time +"</span>可提交评论 " +
                     "            <a href=\"javascript:void(1);\" class=\"gray\">等待收货</a>\n" +
-                    "            <a href=\"javascript:void(1);\" class=\"black\" onclick=\"Feedback("+ row.bbid +")\">反馈问题</a>\n" +
+               //     "            <a href=\"javascript:void(1);\" class=\"black\" onclick=\"Feedback("+ row.bbid +")\">反馈问题</a>\n" +
                     "        </div>";
             }else if(row.status == 71){
                 // 收到货过后10天内，必须评价
@@ -285,7 +285,7 @@
                 btn = "        <div class=\"jp-btn clearfix\">\n" +
                     "           <span class=\"time\">"+ time +"</span> 自动取消资格 " +
                     "            <a href=\"<%=BusiConstant.shike_haop.getKey() %>?id="+ row.bbid +"\" class=\"\">提交好评</a>\n" +
-                    "            <a href=\"javascript:void(1);\" class=\"black\" onclick=\"Feedback("+ row.bbid +")\">反馈问题</a>\n" +
+              //      "            <a href=\"javascript:void(1);\" class=\"black\" onclick=\"Feedback("+ row.bbid +")\">反馈问题</a>\n" +
                     "        </div>";
             }else if(row.status == 81){
                 // 评价过后两天后，可返回担保金
@@ -294,18 +294,18 @@
                 btn = "        <div class=\"jp-btn clearfix\">\n" +
                     "           <span class=\"time\">"+ time +"</span>将自动返款 " +
                     "            <a href=\"javascript:void(1);\" class=\"gray\" >等待返款</a>\n" +
-                    "            <a href=\"javascript:void(1);\" class=\"black\" onclick=\"Feedback("+ row.bbid +")\">反馈问题</a>\n" +
+                //    "            <a href=\"javascript:void(1);\" class=\"black\" onclick=\"Feedback("+ row.bbid +")\">反馈问题</a>\n" +
                     "        </div>";
             }else if(row.status == 99){
                 btn = "        <div class=\"jp-btn clearfix\">\n" +
                     "            <a href=\"javascript:void(1);\" class=\"gray\" >已返款</a>\n" +
-                    "            <a href=\"javascript:void(1);\" class=\"black\" onclick=\"Feedback("+ row.bbid +")\">反馈问题</a>\n" +
+                 //   "            <a href=\"javascript:void(1);\" class=\"black\" onclick=\"Feedback("+ row.bbid +")\">反馈问题</a>\n" +
                     "        </div>";
             } else if(row.status == -2){
                 btn = "        <div class=\"jp-btn clearfix\">\n" +
                     "           <span class='time yello'><i class='iconfont   icon-shijian'></i>原因：系统自动取消</span>" +
                     "            <a href=\"javascript:void(1);\" class=\"gray\" >已取消</a>\n" +
-                    "            <a href=\"javascript:void(1);\" class=\"black\" onclick=\"Feedback("+ row.bbid +")\">反馈问题</a>\n" +
+                //    "            <a href=\"javascript:void(1);\" class=\"black\" onclick=\"Feedback("+ row.bbid +")\">反馈问题</a>\n" +
                     "        </div>";
             }
 

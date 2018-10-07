@@ -156,7 +156,7 @@
     <br>
     (b) 在使用本应用网络服务进行网上交易时，您不可避免的要向交易对方或潜在的交易对方披露自己的个人信息，如联络方式或者邮政地址。请您妥善保护自己的个人信息，仅在必要的情形下向他人提供。如您发现自己的个人信息泄密，尤其是本应用用户名及密码发生泄露，请您立即联络本应用客服，以便本应用采取相应措施。
 </div>
-        <div style="display: none"><script src="<%=BusiConstant.shikemobilepath %>/mine/private/z_stat.php" language="JavaScript"></script><script src="<%=BusiConstant.shikemobilepath %>/mine/private/core.php" charset="utf-8" type="text/javascript"></script><a href="http://www.cnzz.com/stat/website.php?web_id=1264685315" target="_blank" title="站长统计">站长统计</a></div>
+        <div style="display: none"><script src="<%=BusiConstant.shikemobilepath %>/mine/private/z_stat.php" language="JavaScript"></script><script src="<%=BusiConstant.shikemobilepath %>/mine/private/core.php" charset="utf-8" type="text/javascript"></script>
    
     <div id="loading" class="loading">
     <div class="loadingContent">

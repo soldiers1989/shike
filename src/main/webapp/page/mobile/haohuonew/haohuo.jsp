@@ -126,10 +126,10 @@
     </div>
     <div class="plat" id="plat" style="background: #f5f5f5;">
         <div class="div-container" style="width: 19.5rem;">
-            <span class="act" data-num="">全部</span>
-            <span class="" data-num="1">普通试用</span>
-            <span class="" data-num="3">高价值</span>
-            <span class="" data-num="4">必中任务</span>
+            <span class="<c:if test="${empty param.hdtypeid}">act</c:if>" data-num="">全部</span>
+            <span class="<c:if test="${param.hdtypeid == '1'}">act</c:if>" data-num="1">普通试用</span>
+            <span class="<c:if test="${param.hdtypeid == '3'}">act</c:if>" data-num="3">高价值</span>
+            <span class="<c:if test="${param.hdtypeid == '4'}">act</c:if>" data-num="4">必中任务</span>
         </div>
     </div>
     <div class="jp-con">
@@ -335,9 +335,11 @@
         <jsp:include page="../common/footer.jsp" flush="true"/>
         <%--<div class="toTop" onclick="$(&#39;body,html&#39;).animate({scrollTop:0},500);">--%>
     </div>
-    <div style="display: none"><script src="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/z_stat.php" language="JavaScript"></script><script src="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/core.php" charset="utf-8" type="text/javascript"></script><a href="http://www.cnzz.com/stat/website.php?web_id=1264685315" target="_blank" title="站长统计">站长统计</a></div>
-   
-    <div id="loading" class="loading" style="display: none;">
+<div style="display: none">
+    <script src="<%=BusiConstant.shikemobilepath %>/common/z_stat.php" language="JavaScript"></script>
+    <script src="<%=BusiConstant.shikemobilepath %>/common/core.php" charset="utf-8" type="text/javascript"></script>
+
+<div id="loading" class="loading" style="display: none;">
     <div class="loadingContent">
         <img src="<%=BusiConstant.shikemobilepath %>/common/images/loading.gif">
     </div>

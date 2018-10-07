@@ -244,13 +244,13 @@
     </div>
     <ul class="jp-icon">
         <li>
-            <a href="#">
+            <a href="<%=BusiConstant.shike_haohuo.getKey() %>?hdtypeid=4">
                 <img src="<%=BusiConstant.shikemobilepath %>/index/resource/icon1.png">
-                <span>新人必中</span>
+                <span>必中任务</span>
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="<%=BusiConstant.shike_zjmj.getKey() %>">
                 <img src="<%=BusiConstant.shikemobilepath %>/index/resource/icon7.png">
                 <span>中奖秘籍</span>
             </a>
@@ -262,7 +262,7 @@
             </a>
         </li>
         <li>
-            <a href="<%=BusiConstant.shike_haohuo.getKey() %>?minprice=100">
+            <a href="<%=BusiConstant.shike_haohuo.getKey() %>?hdtypeid=3">
                 <img src="<%=BusiConstant.shikemobilepath %>/index/resource/icon13.png">
                 <span>高价值</span>
             </a>

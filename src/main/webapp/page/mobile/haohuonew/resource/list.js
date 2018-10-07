@@ -123,7 +123,7 @@ $(function () {
     lingaSort.shopcat = globle.getUrlParam("shopcat") || -1;
     lingaSort.sort = globle.getUrlParam("sort") || 1;
     lingaSort.orderType = globle.getUrlParam("orderType") || 0;
-    lingaSort.hdtypeid  = globle.getUrlParam("hdtypeid ") || "";
+    lingaSort.hdtypeid  = globle.getUrlParam("hdtypeid") || "";
     lingaSort.bigStartTime = globle.getUrlParam("bigStartTime") || "";
     lingaSort.minprice = globle.getUrlParam("minprice") || "";
     lingaSort.maxprice = globle.getUrlParam("maxprice") || "";

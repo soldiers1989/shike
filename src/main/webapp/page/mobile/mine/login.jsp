@@ -184,7 +184,7 @@
         <div style="margin-bottom: 2rem;">
         </div>
         <jsp:include page="../common/footer.jsp" flush="true"/>
-        <div style="display: none"><script src="<%=BusiConstant.shikemobilepath %>/mine/login/z_stat.php" language="JavaScript"></script><script src="<%=BusiConstant.shikemobilepath %>/mine/login/core.php" charset="utf-8" type="text/javascript"></script><a href="http://www.cnzz.com/stat/website.php?web_id=1264685315" target="_blank" title="站长统计">站长统计</a></div>
+        <div style="display: none"><script src="<%=BusiConstant.shikemobilepath %>/mine/login/z_stat.php" language="JavaScript"></script><script src="<%=BusiConstant.shikemobilepath %>/mine/login/core.php" charset="utf-8" type="text/javascript"></script>
    
     <div id="loading" class="loading" style="display: none;">
     <div class="loadingContent">
