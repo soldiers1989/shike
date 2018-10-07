@@ -36,6 +36,10 @@
             </td>
             <td>
                 <input name="url" id="url" type="text" style="width: 80%" />
+                <form id="infoLogoForm2">
+                 <input accept="image/*" name="file" id="gzbaobei" type="file" value="图片上传"/>
+                 </form>
+                
             </td>
         </tr>
           <tr>
@@ -93,6 +97,35 @@
    if(cid){
 	   getc();
    }
+   
+   var uploading1 = false;
+   $("#gzbaobei").on("change", function(){
+       if(uploading1){
+           alert("文件正在上传中，请稍候");
+           return false;
+       }
+       $.ajax({
+           url: "<%=BusiConstant.shike_addfile_do.getKey()%>",
+           type: 'POST',
+           cache: false,
+           data: new FormData($('#infoLogoForm2')[0]),
+           processData: false,
+           contentType: false,
+           dataType:"json",
+           beforeSend: function(){
+           	uploading1 = true;
+           },
+           success : function(data) {
+               if (data.type == 'success') {
+               	var d = "<%=BusiConstant.context%>"+data.resultData.row
+               	$("#url").val( d );
+               } else {
+                   alert(data.msg);
+               }
+               uploading1 = false;
+           }
+       });
+   });
    
    function save(){
 	   var content = editor.txt.html();
