@@ -395,4 +395,10 @@ public class ShikeMobileController {
 		return "page/mobile/index/zjmj.jsp";
 	}
 
+	// 赚钱秘笈页面
+	@RequestMapping("zqmj")
+	public String zqmj(HttpServletRequest req, HttpServletResponse rep, Model model) {
+		return "page/mobile/index/zqmj.jsp";
+	}
+
 }

@@ -256,7 +256,7 @@
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="<%=BusiConstant.shike_zqmj.getKey() %>">
                 <img src="<%=BusiConstant.shikemobilepath %>/index/resource/icon9.png">
                 <span>赚钱秘籍</span>
             </a>
@@ -274,49 +274,11 @@
                 <span>新手教程</span>
             </a>
         </li>
-        <%--<li>
-            
-                <a href="http://test.com/home/list?orderType=3">
-                    <img src="<%=BusiConstant.shikemobilepath %>/index/resource/icon11.png">
-                    <span>京东试用</span>
-                </a>
-            
-            
-        </li>
-        <li>
-            <a href="#">
-                <img src="<%=BusiConstant.shikemobilepath %>/index/resource/icon2.png">
-                <span>VIP</span>
-            </a>
-        </li>
-        <li>
-                 <a href="http://test.com/help/applyshop">
-                <img src="<%=BusiConstant.shikemobilepath %>/index/resource/icon8.png">
-                <span>月入过万</span>
-            </a>
-           
-        </li>
-        <li>
-            <a href="#">
-                <img src="<%=BusiConstant.shikemobilepath %>/index/resource/icon7.png">
-                <span>中奖秘籍</span>
-            </a>
-        </li>
-        <li>
-            <a href="http://test.com/Lottery">
-                <img src="<%=BusiConstant.shikemobilepath %>/index/resource/icon12.png">
-                <span>金币抽奖</span>
-            </a>
-        </li>--%>
     </ul>
     <%--<div class="report">
         &lt;%&ndash;<img src="<%=BusiConstant.shikemobilepath %>/index/resource/report.png" alt="Alternate Text">&ndash;%&gt;
             <ul style="margin-top: 0px;">
-
                 <li><em>[aa***] </em>获得<em> 0.35元 </em>邀请粉丝下单奖</li>
-                <li><em>[bbb***] </em>获得<em> 0.38元 </em>邀请粉丝下单奖</li>
-                <li><em>[cc***] </em>获得<em> 0.13元 </em>邀请粉丝下单奖</li>
-                <li><em>[dd***] </em>获得<em> 0.32元 </em>邀请粉丝下单奖</li>
             </ul>
     </div>--%>
     <div class="usera-kong"></div>
