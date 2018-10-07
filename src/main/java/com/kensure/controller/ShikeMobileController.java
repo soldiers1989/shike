@@ -68,14 +68,24 @@ public class ShikeMobileController {
 	// 首页
 	@RequestMapping("index")
 	public String index(HttpServletRequest req, HttpServletResponse rep, Model model) {
-//		return "page/mobile/haohuo/haohuo.jsp";
+
+		// 首页轮播
+		List<SKCMS> banner = sKCMSService.selectByTypeId(5);
+		req.setAttribute("banner", banner);
 		return "page/mobile/index/index.jsp";
+	}
+
+	// CMS内容页面
+	@RequestMapping("/cms/{id}")
+	public String cms(@PathVariable String id, HttpServletRequest req, HttpServletResponse rep, Model model) {
+		SKCMS cms = sKCMSService.get(NumberUtils.parseLong(id, 0L));
+		req.setAttribute("cms", cms);
+		return "page/mobile/index/cms.jsp";
 	}
 
 	// 好货页面
 	@RequestMapping("haohuo")
 	public String home(HttpServletRequest req, HttpServletResponse rep, Model model) {
-//		return "page/mobile/haohuo/haohuo.jsp";
 		return "page/mobile/haohuonew/haohuo.jsp";
 	}
 
@@ -97,21 +107,18 @@ public class ShikeMobileController {
 		String backToIndex = req.getParameter("type");
 		req.setAttribute("type", backToIndex);
 
-//		return "page/mobile/login/login.jsp";
 		return "page/mobile/mine/login.jsp";
 	}
 
 	// 注册
 	@RequestMapping("regist")
 	public String regist(HttpServletRequest req, HttpServletResponse rep, Model model) {
-//		return "page/mobile/login/regist.jsp";
 		return "page/mobile/mine/regist.jsp";
 	}
 
 	// 忘记密码页面
 	@RequestMapping("wjpwd")
 	public String wjpwd(HttpServletRequest req, HttpServletResponse rep, Model model) {
-//		return "page/mobile/login/regist.jsp";
 		return "page/mobile/mine/wjpwd.jsp";
 	}
 
@@ -170,8 +177,6 @@ public class ShikeMobileController {
 	// 修改登录密码页面
 	@RequestMapping("modifyloginpwd")
 	public String loginPwd(HttpServletRequest req, HttpServletResponse rep, Model model) {
-//		SKUser user = sKUserService.getUser();
-//		req.setAttribute("user", user);
 		return "page/mobile/mine/modifyloginpwd.jsp";
 	}
 
@@ -234,7 +239,6 @@ public class ShikeMobileController {
 		Long id = json.getLong("id");
 		SKBaobei baobei = sKBaobeiService.getSKBaobei(id);
 		req.setAttribute("baobei", baobei);
-//		return "page/mobile/lc/haop.jsp";
 		return "page/mobile/liucheng/haop.jsp";
 	}
 	
@@ -252,12 +256,17 @@ public class ShikeMobileController {
 	// 金币页面
 	@RequestMapping("jinbi")
 	public String jinbi(HttpServletRequest req, HttpServletResponse rep, Model model) {
+
+		SKUser user = sKUserService.getUser();
+		if (user == null) {
+			return "page/mobile/mine/login.jsp";
+		}
+
 		String type = req.getParameter("type");
 		if (StringUtils.isEmpty(type)) {
 			type = "1";
 		}
 
-		SKUser user = sKUserService.getUser();
 		SKUserYue yue = skUserYueService.selectOne(user.getId());
 
         List<SkUserJinbi> list = skUserJinbiService.getTodayQiandao();
@@ -301,7 +310,6 @@ public class ShikeMobileController {
 	// 提现页面
 	@RequestMapping("tixian")
 	public String tixian(HttpServletRequest req, HttpServletResponse rep, Model model) {
-//		return "page/mobile/lc/tixian.jsp";
 		return "page/mobile/mine/tixian.jsp";
 	}
 	
@@ -311,8 +319,6 @@ public class ShikeMobileController {
         String inorout = req.getParameter("inorout");
 
         req.setAttribute("inorout", inorout);
-
-//		return "page/mobile/lc/mingxi.jsp";
 		return "page/mobile/mine/mingxi.jsp";
 	}
 	
@@ -331,9 +337,6 @@ public class ShikeMobileController {
         if (user == null) {
 			return "page/mobile/mine/login.jsp";
 		}
-
-//        if (user != null) {
-////		}
 
 		SKUserYue yue = skUserYueService.selectOne(user.getId());
 

@@ -232,12 +232,11 @@
     <div style="height: 3.5rem;"></div>
     <div id="swiper" class="swiper-container swiper-container-horizontal">
         <div class="swiper-wrapper" style="transform: translate3d(0px, 0px, 0px); transition-duration: 300ms;">
-                <div class="swiper-slide swiper-slide-active" style="width: 354px;">
-                    <a href="#" onclick="updateAdvClick(43)"><img src="<%=BusiConstant.shikemobilepath %>/index/resource/2a5740e8-b8fc-4061-8253-33febbb34ed4"></a>
-                </div>
+            <c:forEach items="${banner}" var="item">
                 <div class="swiper-slide swiper-slide-next" style="width: 354px;">
-                    <a href="#" onclick="updateAdvClick(59)"><img src="<%=BusiConstant.shikemobilepath %>/index/resource/1a0d3ec3-549c-437a-a0af-baa6c9bf23e1"></a>
+                    <a href="<%=BusiConstant.shike_cms_page.getKey() %>${item.id}" onclick="updateAdvClick(59)"><img src="${item.url }"></a>
                 </div>
+            </c:forEach>
         </div>
         <!-- 如果需要分页器 -->
         <div class="swiper-pagination swiper-pagination-bullets"><span class="swiper-pagination-bullet swiper-pagination-bullet-active"></span><span class="swiper-pagination-bullet"></span></div>
