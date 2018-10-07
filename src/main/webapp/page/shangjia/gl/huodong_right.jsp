@@ -120,7 +120,7 @@
                 <option value="3">高客单精准打造爆款</option>
                 <option value="4">新人必中</option>
         </select>
-        <input onclick="dianpulist()" type="button" value="搜索">
+        <input onclick="dianpulist(1)" type="button" value="搜索">
     </div>
     <div class="shiy_tl">
         <a class="<%=status==null?"shiy":""%>" href="<%=BusiConstant.ht_huodonglist.getKey()%>">全部<i>|</i></a>
@@ -141,6 +141,9 @@
             </table>
             </div>
         </div>
+        <div id="fanye">
+
+		</div>
     </div>
 </div>
             </div>
@@ -163,6 +166,7 @@
 		$("#listtable").append(theadhtml);
 		
 		var rows = data.resultData.rows;
+		fanye.init(data.resultData.total);	
 		if(rows){		
 			for(var i=0;i<rows.length;i++){
 				var row = rows[i];
@@ -222,12 +226,17 @@
 		
 	}
 
-   function dianpulist(){
-	   var data = {status:<%=status%>,title:$("#key").val(),hdtypeid:$("#sktype option:selected").val()};
+	var fanye = new FanYe("fanye","dianpulist",0,20,1);
+	
+   function dianpulist(current){
+	   if(!fanye.setpage(current)){
+			return;
+		}
+	   var data = {status:<%=status%>,title:$("#key").val(),hdtypeid:$("#sktype option:selected").val(),pageNo:fanye.current,pageSize:fanye.limit};
 	   var url = "<%=BusiConstant.shangjia_baobeilist_do.getKey()%>";
 	   postdo(url, data, sucdo,null, null);
    }
-   dianpulist();
+   dianpulist(1);
    
    function tongguo(id){
 	   var data = {id:id};

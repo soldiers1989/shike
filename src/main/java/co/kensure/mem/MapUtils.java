@@ -321,14 +321,9 @@ public class MapUtils {
 	 * 
 	 * @return
 	 */
-	public static void putPageInfo(Map<String, Object> map, JSONObject json) {
-		String limit = json.getString("limit");
-		String current = json.getString("current");
-		Integer limitI = NumberUtils.parseInteger(limit, 20);
-		Integer currentI = NumberUtils.parseInteger(current, 1);
-		Integer offset = (currentI - 1) * limitI;
-		map.put("limit", limitI);
-		map.put("offset", offset);
+	public static void putPageInfo(Map<String, Object> map, PageInfo page) {
+		map.put("limit", page.getPageSize());
+		map.put("offset", page.getPageOffset());
 	}
 
 }

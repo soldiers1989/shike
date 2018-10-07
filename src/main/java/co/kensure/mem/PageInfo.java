@@ -5,17 +5,20 @@ public class PageInfo {
 	/**
 	 * 页数
 	 */
-	private int pageNo;
+	private int pageNo = 1;
 	/**
 	 * 每页个数
 	 */
-	private int pageSize;
+	private int pageSize = 20;
 
 	/**
 	 * 偏移数
 	 */
 	private int pageOffset;
 	
+	public PageInfo(){
+		
+	}	
 	public PageInfo(int pageNo,int pageSize){
 		setPageNo(pageNo);
 		setPageSize(pageSize);

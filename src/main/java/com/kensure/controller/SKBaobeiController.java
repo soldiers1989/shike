@@ -1,5 +1,22 @@
 package com.kensure.controller;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
 import co.kensure.frame.Const;
 import co.kensure.frame.ResultInfo;
 import co.kensure.frame.ResultRowInfo;
@@ -7,34 +24,21 @@ import co.kensure.frame.ResultRowsInfo;
 import co.kensure.http.RequestUtils;
 import co.kensure.io.FileUtils;
 import co.kensure.mem.DateUtils;
+import co.kensure.mem.PageInfo;
 import co.kensure.mem.Utils;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.kensure.shike.baobei.model.*;
+import com.kensure.shike.baobei.model.SKBaobei;
+import com.kensure.shike.baobei.model.SKGroupStatus;
+import com.kensure.shike.baobei.model.SKJysj;
+import com.kensure.shike.baobei.model.SKPayInfo;
+import com.kensure.shike.baobei.model.SKSkqk;
 import com.kensure.shike.baobei.service.SKBaobeiService;
 import com.kensure.shike.baobei.service.SKBbrwService;
 import com.kensure.shike.baobei.service.SKSkqkService;
 import com.kensure.shike.baobei.service.TaoBaoService;
 import com.kensure.shike.constant.BusiConstant;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.util.MultiValueMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
 
 /**
  * 活动信息
@@ -119,8 +123,10 @@ public class SKBaobeiController {
 		Integer status = json.getInteger("status");
 		String title = json.getString("title");
 		Integer hdtypeid = json.getInteger("hdtypeid");
-		List<SKBaobei> list = sKBaobeiService.getList(status,title,hdtypeid);
-		return new ResultRowsInfo(list);
+		PageInfo page = JSONObject.parseObject(json.toJSONString(), PageInfo.class);
+		List<SKBaobei> list = sKBaobeiService.getList(status,title,hdtypeid,page);
+		long cont = sKBaobeiService.getListCount(status,title,hdtypeid,page);	
+		return new ResultRowsInfo(list,cont);
 	}
 
 	/**

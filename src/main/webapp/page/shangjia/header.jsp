@@ -32,5 +32,5 @@
 <script type="text/javascript" src="<%=path%>/jquery.form.js"></script>
 
 <script type="text/javascript" src="<%=BusiConstant.context%>/common/http.js?ver=<%=BusiConstant.version%>"></script>
-
+<script type="text/javascript" src="<%=BusiConstant.context%>/common/fanye.js?ver=<%=BusiConstant.version%>"></script>
 </head>

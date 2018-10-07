@@ -11,6 +11,19 @@
  */
 package com.kensure.shike.baobei.service;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
 import co.kensure.exception.BusinessExceptionUtil;
 import co.kensure.exception.ParamUtils;
 import co.kensure.frame.JSBaseService;
@@ -18,22 +31,25 @@ import co.kensure.mem.ArithmeticUtils;
 import co.kensure.mem.CollectionUtils;
 import co.kensure.mem.MapUtils;
 import co.kensure.mem.NumberUtils;
+import co.kensure.mem.PageInfo;
+
 import com.kensure.basekey.BaseKeyService;
 import com.kensure.shike.baobei.dao.SKBaobeiDao;
-import com.kensure.shike.baobei.model.*;
+import com.kensure.shike.baobei.model.SKBaobei;
+import com.kensure.shike.baobei.model.SKBaobeiTP;
+import com.kensure.shike.baobei.model.SKBaobeiZT;
+import com.kensure.shike.baobei.model.SKBbrw;
+import com.kensure.shike.baobei.model.SKGroupStatus;
+import com.kensure.shike.baobei.model.SKJindian;
+import com.kensure.shike.baobei.model.SKJysj;
+import com.kensure.shike.baobei.model.SKPayInfo;
+import com.kensure.shike.baobei.model.SKWord;
 import com.kensure.shike.dianpu.model.SKDianPu;
 import com.kensure.shike.dianpu.service.SKDianPuService;
 import com.kensure.shike.user.model.SKUser;
 import com.kensure.shike.user.service.SKUserService;
 import com.kensure.shike.zhang.model.SKUserZhang;
 import com.kensure.shike.zhang.service.SKUserZhangService;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-
-import javax.annotation.Resource;
-import java.util.*;
 
 /**
  * 商品活动表服务实现类
@@ -311,7 +327,38 @@ public class SKBaobeiService extends JSBaseService {
 	 * 
 	 * @return
 	 */
-	public List<SKBaobei> getList(Integer status, String title, Integer hdtypeid) {
+	public List<SKBaobei> getList(Integer status, String title, Integer hdtypeid, PageInfo page) {
+		Map<String, Object> parameters = getListMapper(status, title, hdtypeid, page);
+		List<SKBaobei> list = selectByWhere(parameters);
+		SKUser skuser = sKUserService.getUser();
+		if (skuser.getType() == 3 && CollectionUtils.isNotEmpty(list)) {
+			for (SKBaobei skbaobei : list) {
+				SKDianPu dianp = sKDianPuService.selectOne(skbaobei.getDpid());
+				SKUser user = sKUserService.selectOne(skbaobei.getUserid());
+				skbaobei.setDpname(dianp.getName());
+				skbaobei.setUserName(user.getName());
+			}
+		}
+		return list;
+	}
+	
+	/**
+	 * 根据用户活动信息
+	 * 
+	 * @return
+	 */
+	public long getListCount(Integer status, String title, Integer hdtypeid,PageInfo page) {
+		Map<String, Object> parameters = getListMapper(status, title, hdtypeid, page);
+		long count = selectCountByWhere(parameters);
+		return count;
+	}
+	
+	/**
+	 * 根据用户活动信息
+	 * 
+	 * @return
+	 */
+	private Map<String, Object> getListMapper(Integer status, String title, Integer hdtypeid,PageInfo page) {
 		SKUser skuser = sKUserService.getUser();
 		SKUserService.checkUser(skuser);
 		Map<String, Object> parameters = MapUtils.genMap("userid", skuser.getId(),"isDel",0, "orderby", "created_time desc");
@@ -327,20 +374,11 @@ public class SKBaobeiService extends JSBaseService {
 		if (hdtypeid != null) {
 			parameters.put("hdtypeid", hdtypeid);
 		}
-
-		List<SKBaobei> list = selectByWhere(parameters);
-
-		if (skuser.getType() == 3 && CollectionUtils.isNotEmpty(list)) {
-			for (SKBaobei skbaobei : list) {
-				SKDianPu dianp = sKDianPuService.selectOne(skbaobei.getDpid());
-				SKUser user = sKUserService.selectOne(skbaobei.getUserid());
-				skbaobei.setDpname(dianp.getName());
-				skbaobei.setUserName(user.getName());
-			}
-		}
-
-		return list;
+		MapUtils.putPageInfo(parameters, page);
+		return parameters;
 	}
+	
+	
 
 	/**
 	 * 根据用户活动信息,计算应收项目

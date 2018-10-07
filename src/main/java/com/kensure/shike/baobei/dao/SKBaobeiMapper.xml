@@ -328,6 +328,9 @@
 		<if test="orderby != null">
 			ORDER BY ${orderby}
 		</if>
+		<if test="limit != null">
+			LIMIT #{limit} OFFSET #{offset}
+		</if>
 	</select>
 	
 	<select id="groubByStatus" parameterType="Map" resultType="com.kensure.shike.baobei.model.SKGroupStatus">
