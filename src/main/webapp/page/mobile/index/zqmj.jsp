@@ -24,7 +24,7 @@
     <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/Common.js"></script>
 
     <script>
-        var userId=349975;
+        var userId=0;
         (function (doc, win) {
             var docEl = doc.documentElement,
             resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',

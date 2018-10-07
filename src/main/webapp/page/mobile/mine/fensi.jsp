@@ -27,7 +27,7 @@
     <script type="text/javascript" src="<%=BusiConstant.context%>/common/http.js?ver=<%=BusiConstant.version%>"></script>
 
     <script>
-        var userId=349975;
+        var userId=0;
         (function (doc, win) {
             var docEl = doc.documentElement,
             resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
@@ -190,7 +190,7 @@
 </div>
 
 <%--
-<a href="#?invitationCode=349975" style="height: 2rem;line-height: 2rem; z-index: 100; position: fixed;display: block;bottom: 0;left: 0;width: 100%;background-color: #ff464e;color: #fff;text-align: center;">分享获得更多奖励</a>
+<a href="#?invitationCode=0" style="height: 2rem;line-height: 2rem; z-index: 100; position: fixed;display: block;bottom: 0;left: 0;width: 100%;background-color: #ff464e;color: #fff;text-align: center;">分享获得更多奖励</a>
 --%>
 <div style="height: 2rem;"></div>
 <div style="display: none">

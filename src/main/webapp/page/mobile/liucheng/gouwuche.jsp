@@ -3,6 +3,7 @@
 <%@page import="com.kensure.shike.constant.BusiConstant"%>
 <%@ page import="com.kensure.shike.baobei.model.SKBaobei"%>
 <%@ page import="com.kensure.shike.baobei.model.SKWord"%>
+<%@ page import="java.util.Random" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -11,10 +12,10 @@
 	String context = BusiConstant.shikemobilepath;
     SKBaobei baobei = (SKBaobei)request.getAttribute("baobei");
     List<SKWord> words = (List<SKWord>)request.getAttribute("words");
-    SKWord word = null;
-    if(words != null){
-        word = words.get(0);
-    }
+//    SKWord word = null;
+//    if(words != null){
+//        word = words.get(0);
+//    }
 
     String wordStr = "";
     for(SKWord skWord : words) {
@@ -22,53 +23,65 @@
 	}
 
     List<SKJindian> jindians = (List<SKJindian>)request.getAttribute("jindians");
-    SKJindian  jd = jindians.get(0);
+	SKJindian jd = null;
+	for(SKJindian skJindian : jindians) {
+		if (skJindian.getTypeid() == 1) {
+			jd = skJindian;
+		}
+	}
+
+	// 进店路径 1：名称  2：淘口令
+	Integer type = 1;
+
+	if (jindians.size() == 1) {
+		type = jindians.get(0).getTypeid();
+	} else if(jindians.size() == 2) {
+		Random random = new Random();
+		int randomNum = random.nextInt(100);
+
+		if (jindians.get(0).getBili() > randomNum) {
+			type = jindians.get(0).getTypeid();
+		} else {
+			type = jindians.get(1).getTypeid();
+		}
+	}
+
+	request.setAttribute("type", type);
 %>
 <!DOCTYPE html>
 <html lang="zh" style="font-size: 31.125px;">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-<meta
-	content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"
-	name="viewport" />
-<meta content="yes" name="apple-mobile-web-app-capable" />
-<meta content="black" name="apple-mobile-web-app-status-bar-style" />
-<meta content="telephone=no" name="format-detection" />
-<link href="<%=BusiConstant.shikemobilepath%>/lc/css/style.css"
-	rel="stylesheet" type="text/css" />
-<script type="text/javascript"
-	src="<%=BusiConstant.shikemobilepath%>/detail/js/jquery.min.js"></script>
-<script type="text/javascript"
-	src="<%=BusiConstant.context%>/jqtable/jquery.cookie.js"></script>
-<script type="text/javascript"
-	src="<%=BusiConstant.context%>/common/http.js?ver=<%=BusiConstant.version%>"></script>
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" name="viewport"/>
+	<meta content="yes" name="apple-mobile-web-app-capable"/>
+	<meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+	<meta content="telephone=no" name="format-detection"/>
 
-<title>试用流程</title>
-<meta name="keywords" content="试呗,免费试用,试用网,免费试用网,试用中心,试客,试客网">
-<meta name="description" content="欢迎来免费试呗.">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<meta name="format-detection" content="telephone=no">
-<meta name="format-detection" content="address=no">
-<meta name="full-screen" content="yes">
-<link href="<%=BusiConstant.context %>/favicon.ico" rel="shortcut icon"
-	type="image/x-icon">
-<link rel="stylesheet" type="text/css"
-	href="<%=BusiConstant.shikemobilepath%>/liucheng/gouwuche/base.css">
-<link rel="stylesheet" type="text/css"
-	href="<%=BusiConstant.shikemobilepath%>/liucheng/gouwuche/iconfont.css">
+	<title>试用流程</title>
+	<meta name="keywords" content="<%=BusiConstant.keywords %>">
+	<meta name="description" content="<%=BusiConstant.description %>">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+	<meta name="format-detection" content="telephone=no">
+	<meta name="format-detection" content="address=no">
+	<meta name="full-screen" content="yes">
+	<link href="<%=BusiConstant.context %>/favicon.ico" rel="shortcut icon" type="image/x-icon">
+	<link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath%>/common/css/base.css">
+	<link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath%>/common/css/iconfont.css">
 
-<link rel="stylesheet" type="text/css"
-	href="<%=BusiConstant.shikemobilepath%>/liucheng/gouwuche/style.css">
+	<link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath%>/liucheng/gouwuche/style.css">
 
-<script type="text/javascript"
-	src="<%=BusiConstant.shikemobilepath%>/liucheng/gouwuche/jquery-1.8.3.js"></script>
-<script type="text/javascript"
-	src="<%=BusiConstant.shikemobilepath%>/liucheng/gouwuche/Common.js"></script>
+	<script type="text/javascript" src="<%=BusiConstant.shikemobilepath%>/common/js/jquery-1.8.3.js"></script>
+	<script type="text/javascript" src="<%=BusiConstant.shikemobilepath%>/common/js/Common.js"></script>
 
-<script>
-        var userId=349975;
+	<%--<link href="<%=BusiConstant.shikemobilepath%>/lc/css/style.css" rel="stylesheet" type="text/css"/>
+	<script type="text/javascript" src="<%=BusiConstant.shikemobilepath%>/detail/js/jquery.min.js"></script>--%>
+
+	<script type="text/javascript" src="<%=BusiConstant.context%>/jqtable/jquery.cookie.js"></script>
+	<script type="text/javascript" src="<%=BusiConstant.context%>/common/http.js?ver=<%=BusiConstant.version%>"></script>
+
+	<script>
+        var userId=0;
         (function (doc, win) {
             var docEl = doc.documentElement,
             resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
@@ -87,22 +100,18 @@
         })(document, window);
     </script>
 
-<link
-	href="<%=BusiConstant.shikemobilepath%>/liucheng/gouwuche/layer.css"
-	type="text/css" rel="styleSheet" id="layermcss">
+	<link href="<%=BusiConstant.shikemobilepath%>/liucheng/gouwuche/layer.css"
+			type="text/css" rel="styleSheet" id="layermcss">
 </head>
 <body>
 
-	<link rel="stylesheet" type="text/css"
-		href="<%=BusiConstant.shikemobilepath%>/liucheng/gouwuche/index.css">
+	<link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath%>/liucheng/gouwuche/index.css">
 
-	<link rel="stylesheet" type="text/css"
-		href="<%=BusiConstant.shikemobilepath%>/liucheng/gouwuche/goods.css">
+	<link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath%>/liucheng/gouwuche/goods.css">
 
-	<link rel="stylesheet" type="text/css"
-		href="<%=BusiConstant.shikemobilepath%>/liucheng/gouwuche/mytryout.css">
+	<link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath%>/liucheng/gouwuche/mytryout.css">
 
-	<script>
+<script>
     var tbao = "";
     $(function () {
         tbao=$("#tabao").val();
@@ -145,29 +154,49 @@
 		</div>
 		<div class="FlowCon">
 			<ul>
-				<li><span class="num">1</span><em class="title">找到宝贝</em><br>
-					打开<em class="red">手机淘宝APP</em>
-					<div class="lh14">
-						搜索商品：<em id="skWord" class="red nextKey-item1">${words[0].word}</em>
-						<span class="change-btn <c:if test='${fn:length(words) == 1}'>gray</c:if>">换一换</span>
-					</div>
-					<%--<div class="lh14">
-						排序方式：<em class="red nextKey-item2">综合排序</em>
-					</div>
-					<div class="filter-img lh14">
-						筛选方式：<img
-							src="<%=BusiConstant.shikemobilepath%>/liucheng/gouwuche/filter.png">
-					</div>
-					<div style="line-height: 1.5rem;">
-						筛选条件： <em
-							style="display: inline-block; width: 10rem; vertical-align: top; text-align: justify; letter-spacing: 0.03rem; line-height: 0.9rem; padding-top: 0.3rem;">
-							折扣与服务（<%=jd.getZkfw()==null?"无":jd.getZkfw()%>）
-						</em>
+				<c:if test='${type == 1}'>
+					<li>
+						<span class="num">1</span><em class="title">找到宝贝</em><br>
+						打开<em class="red">手机淘宝APP</em>
+						<div class="lh14">
+							搜索商品：<em id="skWord" class="red nextKey-item1">${words[0].word}</em>
+							<span class="change-btn <c:if test='${fn:length(words) == 1}'>gray</c:if>">换一换</span>
+						</div>
+							<div class="lh14">
+                                排序方式：<em class="red nextKey-item2">综合排序</em>
+                            </div>
+                            <div class="filter-img lh14">
+                                筛选方式：<img
+                                    src="<%=BusiConstant.shikemobilepath%>/liucheng/gouwuche/filter.png">
+                            </div>
+                            <div style="line-height: 1.5rem;">
+                                筛选条件： <em
+                                    style="display: inline-block; width: 10rem; vertical-align: top; text-align: justify; letter-spacing: 0.03rem; line-height: 0.9rem; padding-top: 0.3rem;">
+                                    折扣与服务（<%=jd.getZkfw()==null?"无":jd.getZkfw()%>）
+                                </em>
+                            </div>
+                            <%--<div class="lh14">
+                                价格区间：<em class="red nextKey-item34">-</em>
+                            </div>--%>
+					</li>
+				</c:if>
 
-					</div>
-					<div class="lh14">
-						价格区间：<em class="red nextKey-item34">-</em>
-					</div></li>--%>
+				<c:if test='${type == 2}'>
+					<li>
+						<span class="num">1</span><em class="title">找到宝贝</em>
+						<div>点击下方复制按钮，复制这条信息。</div>
+						<input style="text-indent: 1em; width: 100%;border: 1px solid #ddd;height: 1.6rem;line-height: 1.6rem;" type="text" id="copy-con" name="name" value="${baobei.taokl}">
+						<div class="jpcopy">
+							<span onclick="" data-clipboard-action="copy" data-clipboard-target="#copy-con" id="copy-button" class="jpcopy-btn">复制</span>
+						</div>
+						<div class="warn" style="margin-bottom: 0.4rem;">
+							<i class="iconfont icon-weitongguo"></i>如复制失败，请选择长按复制
+						</div>
+						<div style="">打开手机淘宝APP,即可看到宝贝</div>
+						<div class="mg-bd"></div>
+					</li>
+				</c:if>
+
 				<li><span class="num">2</span><em class="title">核对宝贝</em>
 					<div style="color: #aaa">以下两种方式二选一</div>
 					<div class="flow-cat">

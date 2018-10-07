@@ -96,7 +96,7 @@
         bindCaptcha("#pwdwarn", "#name");
         $(".submit-btn").on("click", function () {
             if ($("#pwd").val().length <= 0 || $("#name").val().length <= 0) {
-                myAlert("手机号或者邀请码未填写");
+                myAlert("手机号或者验证码未填写");
                 return false;
             }
             var name = $("#name").val();
