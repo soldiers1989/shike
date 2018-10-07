@@ -456,6 +456,9 @@
 			<if test="ysqnumAdd != null">
 				ysqnum = ysqnum+#{ysqnumAdd},
 			</if>
+			<if test="zjnumAdd != null">
+                zjnum = zjnum + #{zjnumAdd},
+			</if>
 			</set>
 		  where id = #{id}
 	</update>

@@ -425,7 +425,7 @@ $(function () {
                         highPrice +
                         "            </a>\n" +
                         "                <p><span class=\"iconfont icon-tb\"></span> "+ row.title +"</p>\n" +
-                        "                <div class=\"jp-num\"><span>¥"+ row.salePrice +"</span> <span>"+ row.sqnum +"人申请</span></div>\n" +
+                        "                <div class=\"jp-num\"><span>¥"+ row.salePrice +"</span> <span>"+ row.ysqnum +"人申请</span></div>\n" +
                         "                <div class=\"jp-btn\"><a data-id=\""+row.id+"\" class=\"btn tod\">免费申请</a></div>\n" +
                         "            </li>";
 
@@ -614,7 +614,7 @@ $(function () {
             // vmDetail.$data.activity_name = data.dpname;
             $("#activity_name").html(row.title); // 商品名称
             $("#shengyu").html("剩余 "+(row.bbnum - row.zjnum)+"/"+row.bbnum+" 份"); // 剩余
-            $("#ysqnum").html(row.sqnum + "人 已申请"); // 已经申请数量
+            $("#ysqnum").html(row.ysqnum + "人 已申请"); // 已经申请数量
             $("#yzj").html(row.zjnum + "人 已中奖"); // 已经中奖人数
             $("#salePrice").html("¥" + row.salePrice); // 宝贝单价
 
@@ -702,8 +702,14 @@ $(function () {
             //     $("#applyText").html(data.Data.applyText);
             //     $("#applyText").attr("class", "get-apply gray");
             // } else {
+
+            if (row.bbnum == row.zjnum) {
+                $("#applyText").html("已兑完");
+                $("#applyText").attr("class", "get-invite ");
+            } else {
                 $("#applyText").html("立即申请");
                 $("#applyText").attr("class", "get-apply");
+            }
             // }
 
             // if (data.Data.sk_is_BlockLottery) {   //参团

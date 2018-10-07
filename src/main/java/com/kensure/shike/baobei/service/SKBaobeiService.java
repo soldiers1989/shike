@@ -548,7 +548,8 @@ public class SKBaobeiService extends JSBaseService {
 		if (baobei.getStatus() < 9) {
 			BusinessExceptionUtil.threwException("宝贝未通过审核");
 		}
-		sKSkqkService.saveSQ(baobei, skuser);
+
+        sKSkqkService.saveSQ(baobei, skuser);
 		Map<String, Object> params = MapUtils.genMap("id", id, "ysqnumAdd", 1);
 		updateByMap(params);
 	}
@@ -566,7 +567,20 @@ public class SKBaobeiService extends JSBaseService {
 		if (baobei.getStatus() < 9) {
 			BusinessExceptionUtil.threwException("宝贝未通过审核");
 		}
-		sKSkqkService.save(baobei, status, skuser);
+
+		// status=21(关注收藏) 并且 活动类型为"必中商品"时，直接中奖
+		if (status == 21 && baobei.getHdtypeid() != null && baobei.getHdtypeid() == 4) {
+
+			Map<String, Object> params = MapUtils.genMap("id", id, "zjnumAdd", 1);
+			updateByMap(params);
+
+			sKBbrwService.zhongjiang(baobei.getId());
+
+			sKSkqkService.save(baobei, 51, skuser);
+		} else {
+
+			sKSkqkService.save(baobei, status, skuser);
+		}
 
 		sKJysjService.save(baobei, status, jysjList);
 	}

@@ -348,4 +348,25 @@ public class SKBbrwService extends JSBaseService {
 
 	}
 
+	/**
+	 * 中奖 （必中）
+	 *
+	 * @return
+	 */
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+	public void zhongjiang(Long bbid) {
+		String todayStr = DateUtils.format(new Date(), DateUtils.DAY_FORMAT);
+		Map<String, Object> parameters = MapUtils.genMap("bbid", bbid, "daydes", todayStr, "status", 1);
+		List<SKBbrw> list = selectByWhere(parameters);
+		if (CollectionUtils.isEmpty(list)) {
+			return;
+		}
+
+		SKBbrw skBbrw = list.get(0);
+
+		// 今日任务中奖人数+1
+		Map<String, Object> param = MapUtils.genMap("id", skBbrw.getId(), "yzjAdd", 1);
+		updateByMap(param);
+	}
+
 }

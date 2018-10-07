@@ -273,7 +273,7 @@
                     "        </div>";
             }else if(row.status == 61){
                 // 提交订单两天后，可提交评价
-                var time = format(row.updatedTime + 1000*60*60*24*2 - new Date().getTime());
+                var time = format(row.nextTime - new Date().getTime());
                 btn = "        <div class=\"jp-btn clearfix\">\n" +
                     "           <span class=\"time\">"+ time +"</span>可提交评论 " +
                     "            <a href=\"javascript:void(1);\" class=\"gray\">等待收货</a>\n" +
@@ -281,7 +281,7 @@
                     "        </div>";
             }else if(row.status == 71){
                 // 收到货过后10天内，必须评价
-                var time = format(row.updatedTime + 1000*60*60*24*10 - new Date().getTime());
+                var time = format(row.nextTime - new Date().getTime());
                 btn = "        <div class=\"jp-btn clearfix\">\n" +
                     "           <span class=\"time\">"+ time +"</span> 自动取消资格 " +
                     "            <a href=\"<%=BusiConstant.shike_haop.getKey() %>?id="+ row.bbid +"\" class=\"\">提交好评</a>\n" +
@@ -289,7 +289,7 @@
                     "        </div>";
             }else if(row.status == 81){
                 // 评价过后两天后，可返回担保金
-                var time = format(row.updatedTime + 1000*60*60*24*2 - new Date().getTime());
+                var time = format(row.nextTime - new Date().getTime())
 
                 btn = "        <div class=\"jp-btn clearfix\">\n" +
                     "           <span class=\"time\">"+ time +"</span>将自动返款 " +
@@ -299,6 +299,12 @@
             }else if(row.status == 99){
                 btn = "        <div class=\"jp-btn clearfix\">\n" +
                     "            <a href=\"javascript:void(1);\" class=\"gray\" >已返款</a>\n" +
+                    "            <a href=\"javascript:void(1);\" class=\"black\" onclick=\"Feedback("+ row.bbid +")\">反馈问题</a>\n" +
+                    "        </div>";
+            } else if(row.status == -2){
+                btn = "        <div class=\"jp-btn clearfix\">\n" +
+                    "           <span class='time yello'><i class='iconfont   icon-shijian'></i>原因：系统自动取消</span>" +
+                    "            <a href=\"javascript:void(1);\" class=\"gray\" >已取消</a>\n" +
                     "            <a href=\"javascript:void(1);\" class=\"black\" onclick=\"Feedback("+ row.bbid +")\">反馈问题</a>\n" +
                     "        </div>";
             }
@@ -335,6 +341,9 @@
     }
 
     function format(diff) {
+        if (diff < 0) {
+            return "00天00时00分后";
+        }
         var tmpl = '%{d}天%{h}时%{m}分后', day, hour, minute, second, millisecond;
         day = Math.floor(diff / 1000 / 60 / 60 / 24);
         hour = Math.floor(diff / 1000 / 60 / 60 % 24);

@@ -169,7 +169,7 @@
 <div class="new-alert" style="display: block;">
     <div class="new-con">
       
-        <a href="http://m.meilipa.com/home/list"></a>
+        <a href="http://test.com/home/list"></a>
     </div>
     <i class="iconfont icon-error1" onclick="$(&#39;.new-alert&#39;).hide();"></i>
 </div>--%>
@@ -251,17 +251,16 @@
         </li>
         <li>
             <a href="#">
-                <img src="<%=BusiConstant.shikemobilepath %>/index/resource/icon2.png">
-                <span>VIP</span>
+                <img src="<%=BusiConstant.shikemobilepath %>/index/resource/icon7.png">
+                <span>中奖秘籍</span>
             </a>
         </li>
         <li>
-                <a href="#">
-                <img src="<%=BusiConstant.shikemobilepath %>/index/resource/icon3.png">
-                <span>领998元</span>
+            <a href="#">
+                <img src="<%=BusiConstant.shikemobilepath %>/index/resource/icon9.png">
+                <span>赚钱秘籍</span>
             </a>
-            
-        </li>       
+        </li>
         <li>
             <a href="<%=BusiConstant.shike_haohuo.getKey() %>?minprice=100">
                 <img src="<%=BusiConstant.shikemobilepath %>/index/resource/icon13.png">
@@ -277,7 +276,7 @@
         </li>
         <%--<li>
             
-                <a href="http://m.meilipa.com/home/list?orderType=3">
+                <a href="http://test.com/home/list?orderType=3">
                     <img src="<%=BusiConstant.shikemobilepath %>/index/resource/icon11.png">
                     <span>京东试用</span>
                 </a>
@@ -285,26 +284,26 @@
             
         </li>
         <li>
-            <a href="http://m.meilipa.com/help/lottery">
-                <img src="<%=BusiConstant.shikemobilepath %>/index/resource/icon7.png">
-                <span>中奖秘籍</span>
+            <a href="#">
+                <img src="<%=BusiConstant.shikemobilepath %>/index/resource/icon2.png">
+                <span>VIP</span>
             </a>
         </li>
         <li>
-                 <a href="http://m.meilipa.com/help/applyshop">
+                 <a href="http://test.com/help/applyshop">
                 <img src="<%=BusiConstant.shikemobilepath %>/index/resource/icon8.png">
                 <span>月入过万</span>
             </a>
            
         </li>
         <li>
-            <a href="http://m.meilipa.com/help/InviteArts">
-                <img src="<%=BusiConstant.shikemobilepath %>/index/resource/icon9.png">
-                <span>赚钱秘籍</span>
+            <a href="#">
+                <img src="<%=BusiConstant.shikemobilepath %>/index/resource/icon7.png">
+                <span>中奖秘籍</span>
             </a>
         </li>
         <li>
-            <a href="http://m.meilipa.com/Lottery">
+            <a href="http://test.com/Lottery">
                 <img src="<%=BusiConstant.shikemobilepath %>/index/resource/icon12.png">
                 <span>金币抽奖</span>
             </a>
@@ -421,16 +420,16 @@
     </div>
     <%--<div class="usera-kong"></div>
     <div class="indexCat">
-        <a class="indexCat1" href="http://m.meilipa.com/jing/SecKill">
+        <a class="indexCat1" href="http://test.com/jing/SecKill">
             <img src="<%=BusiConstant.shikemobilepath %>/index/resource/indexCat5.png" alt="Alternate Text">
 
             <div class="down-time"><p style="font-size: 0.5rem;margin-top:-0.2rem;">14-21点开抢</p></div>
         </a>
 
-        <a href="http://m.meilipa.com/home/list?orderType=5" class="indexCat2">
+        <a href="http://test.com/home/list?orderType=5" class="indexCat2">
             <img src="<%=BusiConstant.shikemobilepath %>/index/resource/indexCat2.png" alt="Alternate Text">
         </a>
-        <a class="indexCat3" href="http://m.meilipa.com/jing/goldHit">
+        <a class="indexCat3" href="http://test.com/jing/goldHit">
             <img src="<%=BusiConstant.shikemobilepath %>/index/resource/indexCat3.png" alt="Alternate Text">
         </a>
         <div style="clear: both;"></div>
@@ -707,7 +706,7 @@
 
     </div>
 <%--
-<div id="detail" class="fix-detail showHidden"><div onclick="toIndex()" class="toback to-index"><i class="iconfont icon-back1"></i></div> <div id="swiper2" class="swiper-container"><div class="swiper-wrapper"><div class="swiper-slide"><img src="http://m.meilipa.com/"></div> <div class="swiper-slide"><img src="http://m.meilipa.com/"></div> <div class="swiper-slide"><img src="http://m.meilipa.com/"></div> <div class="swiper-slide"><img src="http://m.meilipa.com/"></div></div> <div class="swiper-pagination"></div> <div style="position: absolute; left: 0px; bottom: 0px; z-index: 10; display: none;"><span style="float: left; color: rgb(255, 255, 255); font-size: 0.6rem; height: 0.8rem; line-height: 0.8rem; padding: 0px 0.1rem; background: rgb(249, 127, 41);">送金币</span></div></div> <div class="info-hd"><p class="title"><span class="" style="margin-right: 0.1rem;"></span> <span class="name" style="max-width: 14rem;"></span> <!----> <!----> <!----> <!----></p> <span>价值 <em>¥</em></span> <span>剩余  份</span> <!----> <!----> <!----></div> <!----> <!----> <ul class="info-num"><li><span>人 已申请</span></li> <li><span>人 已中奖</span></li></ul> <div class="usera-kong"></div> <div class="info-cat"><span class="act">商品详情</span> <span>猜你喜欢</span></div> <div class="info-list  jp-con"><div class="act"><div class="intro"></div> <div id="guss-like"><div><i class="iconfont icon-xin"></i><span>猜你喜欢</span></div></div> <ul id="list-apply1" class="jp-list"></ul> <div id="get-more" class="get-more"><a href="http://m.meilipa.com/home/list?orderType=5">加载更多</a></div></div> <div class="jp-con"><ul id="list-apply" class="jp-list"></ul> <div class="get-more"><a href="http://m.meilipa.com/home/list?orderType=5">加载更多</a></div></div></div> <div id="flow2" class="flow-con"><div class="code-con"><div class="dona-bottom"><h1 style="font-size: 0.7rem; margin: 1.3866rem 0px; text-align: center; font-weight: 600;">温馨提示</h1> <div class="not-area-tips"><h2 style="margin-bottom: 0.3rem; font-weight: normal;">此商品以下地区不发货：</h2> <h2 style="line-height: 1.024rem;"></h2></div> <span class="btn confirm-btn" style="color: rgb(255, 255, 255);">确定</span></div></div></div></div>
+<div id="detail" class="fix-detail showHidden"><div onclick="toIndex()" class="toback to-index"><i class="iconfont icon-back1"></i></div> <div id="swiper2" class="swiper-container"><div class="swiper-wrapper"><div class="swiper-slide"><img src="http://test.com/"></div> <div class="swiper-slide"><img src="http://test.com/"></div> <div class="swiper-slide"><img src="http://test.com/"></div> <div class="swiper-slide"><img src="http://test.com/"></div></div> <div class="swiper-pagination"></div> <div style="position: absolute; left: 0px; bottom: 0px; z-index: 10; display: none;"><span style="float: left; color: rgb(255, 255, 255); font-size: 0.6rem; height: 0.8rem; line-height: 0.8rem; padding: 0px 0.1rem; background: rgb(249, 127, 41);">送金币</span></div></div> <div class="info-hd"><p class="title"><span class="" style="margin-right: 0.1rem;"></span> <span class="name" style="max-width: 14rem;"></span> <!----> <!----> <!----> <!----></p> <span>价值 <em>¥</em></span> <span>剩余  份</span> <!----> <!----> <!----></div> <!----> <!----> <ul class="info-num"><li><span>人 已申请</span></li> <li><span>人 已中奖</span></li></ul> <div class="usera-kong"></div> <div class="info-cat"><span class="act">商品详情</span> <span>猜你喜欢</span></div> <div class="info-list  jp-con"><div class="act"><div class="intro"></div> <div id="guss-like"><div><i class="iconfont icon-xin"></i><span>猜你喜欢</span></div></div> <ul id="list-apply1" class="jp-list"></ul> <div id="get-more" class="get-more"><a href="http://test.com/home/list?orderType=5">加载更多</a></div></div> <div class="jp-con"><ul id="list-apply" class="jp-list"></ul> <div class="get-more"><a href="http://test.com/home/list?orderType=5">加载更多</a></div></div></div> <div id="flow2" class="flow-con"><div class="code-con"><div class="dona-bottom"><h1 style="font-size: 0.7rem; margin: 1.3866rem 0px; text-align: center; font-weight: 600;">温馨提示</h1> <div class="not-area-tips"><h2 style="margin-bottom: 0.3rem; font-weight: normal;">此商品以下地区不发货：</h2> <h2 style="line-height: 1.024rem;"></h2></div> <span class="btn confirm-btn" style="color: rgb(255, 255, 255);">确定</span></div></div></div></div>
     <div class="info-foot">
         <div>
             <a href="javascript:void(0)" class="back">
@@ -771,8 +770,8 @@
         }
 </style>
 <div class="down-app">
-    <a href="http://m.meilipa.com/" onclick="clickNumber(0)">
-        <img src="http://m.meilipa.com/" alt="sk_gotourl">
+    <a href="http://test.com/" onclick="clickNumber(0)">
+        <img src="http://test.com/" alt="sk_gotourl">
     </a>
         <i class="iconfont icon-error1"></i>
 </div>

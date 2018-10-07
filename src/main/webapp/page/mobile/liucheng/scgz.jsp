@@ -14,23 +14,24 @@
 <html lang="zh" style="font-size: 22.125px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     
     <title>试用流程</title>
-    <meta name="keywords" content="试呗,免费试用,试用网,免费试用网,试用中心,试客,试客网">
-    <meta name="description" content="欢迎来免费试呗.">
+    <meta name="keywords" content="<%=BusiConstant.keywords %>">
+    <meta name="description" content="<%=BusiConstant.description %>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <meta name="format-detection" content="telephone=no">
     <meta name="format-detection" content="address=no">
     <meta name="full-screen" content="yes">
     <link href="/shike/favicon.ico" rel="shortcut icon" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/liucheng/scgz/base.css">
-<link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/liucheng/scgz/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/common/css/base.css">
+    <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/common/css/iconfont.css">
 
     <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/liucheng/scgz/style.css">
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/scgz/jquery-1.8.3.js"></script>
-	<script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/scgz/Common.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/jquery-1.8.3.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/Common.js"></script>
+
     <script type="text/javascript" src="<%=BusiConstant.context%>/jqtable/jquery.cookie.js"></script>
     <script type="text/javascript" src="<%=BusiConstant.context%>/common/http.js?ver=<%=BusiConstant.version%>"></script>
-    
+
 
     <script>
         var userId=0;
@@ -54,15 +55,15 @@
     
 <link href="<%=BusiConstant.shikemobilepath %>/liucheng/scgz/layer.css" type="text/css" rel="styleSheet" id="layermcss"></head>
 <body>
-    
+
 
 <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/liucheng/scgz/index.css">
 
-<link href="http://m.meilipa.com/Scripts/Validform/style.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="http://m.meilipa.com/Content/themes/JPinFlow.css?e8a92ed9020c6c19049b6a6633057564">
+<link href="<%=BusiConstant.shikemobilepath %>/liucheng/scgz/style.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/liucheng/scgz/JPinFlow.css">
 
-<script src="http://m.meilipa.com/Scripts/Validform/Validform_v5.3.2.js"></script>
-<script src="http://m.meilipa.com/Scripts/jquery.form.js"></script>
+<script src="<%=BusiConstant.shikemobilepath %>/common/js/Validform_v5.3.2.js"></script>
+<script src="<%=BusiConstant.shikemobilepath %>/common/js/jquery.form.js"></script>
 <script src="<%=BusiConstant.shikemobilepath %>/common/js/uploadimage.js"></script>
 <script>
     var referrer = '';     //记录上一页地址
@@ -100,20 +101,20 @@
                 <li>
                     <span class="num">3</span>在宝贝详情页底部<em class="red">点击关注/收藏 </em>按钮关注/收藏宝贝，如图：
                     <div class="storage-img mt3">
-                        <img src="http://m.meilipa.com/Content/images/JPin/storageGood.png">
+                        <img src="<%=BusiConstant.shikemobilepath %>/common/images/storageGood.png">
 
                     </div>
                     <div class="up-img mt3">
-                        关注/收藏宝贝截图：<img class="good-img" src="http://m.meilipa.com/Content/images/JPin/up-img.png">
+                        关注/收藏宝贝截图：<img class="good-img" src="<%=BusiConstant.shikemobilepath %>/common/images/up-img.png">
                     </div>
                 </li>
                 <li>
                     <span class="num">4</span>在宝贝详情页底部点击店铺按钮进入店铺，页面顶部店铺名旁边，<em class="red">点击关注</em>如图：
                     <div class="storage-img mt3">
-                        <img src="http://m.meilipa.com/Content/images/JPin/storageShop.png">
+                        <img src="<%=BusiConstant.shikemobilepath %>/common/images/storageShop.png">
                     </div>
                     <div class="up-img mt3">
-                        关注/收藏店铺截图：<img class="shop-img" src="http://m.meilipa.com/Content/images/JPin/up-img.png">
+                        关注/收藏店铺截图：<img class="shop-img" src="<%=BusiConstant.shikemobilepath %>/common/images/up-img.png">
                     </div>
                 </li>
 
@@ -178,13 +179,19 @@
 
 
         function dictsucdo(data){
-            myAlert("提交成功，等待抽奖", function () {
-                window.location.href="<%=BusiConstant.shike_wdhd.getKey()%>?status=21";
-            });
+            if ("${baobei.hdtypeid}" == 4) {
+                myAlert("提交成功，可以中奖活动页直接提交订单", function () {
+                    window.location.href="<%=BusiConstant.shike_wdhd.getKey()%>?status=51";
+                });
+            } else {
+                myAlert("提交成功，等待抽奖", function () {
+                    window.location.href="<%=BusiConstant.shike_wdhd.getKey()%>?status=21";
+                });
+            }
         }
         function add(){
             var ds = [{content:logo1,busitype:"sc"},{content:logo2,busitype:"gz"}];
-            var data = {id:<%=baobei.getId()%>,status:21,datas:JSON.stringify(ds)};
+            var data = {id:<%=baobei.getId()%>,status: 21,datas:JSON.stringify(ds)};
             var url = "<%=BusiConstant.shike_liucheng_do.getKey()%>";
             postdo(url, data, dictsucdo,null, null);
         }
@@ -253,28 +260,30 @@
 
 
 </script>
-        <div style="display: none"><script src="<%=BusiConstant.shikemobilepath %>/liucheng/scgz/z_stat.php" language="JavaScript"></script><script src="<%=BusiConstant.shikemobilepath %>/liucheng/scgz/core.php" charset="utf-8" type="text/javascript"></script><a href="http://www.cnzz.com/stat/website.php?web_id=1264685315" target="_blank" title="站长统计">站长统计</a></div>
-   
-    <div id="loading" class="loading">
+<div style="display: none">
+    <script src="<%=BusiConstant.shikemobilepath %>/common/z_stat.php" language="JavaScript"></script>
+    <script src="<%=BusiConstant.shikemobilepath %>/common/core.php" charset="utf-8" type="text/javascript"></script>
+
+<div id="loading" class="loading">
     <div class="loadingContent">
-        <img src="<%=BusiConstant.shikemobilepath %>/liucheng/scgz/loading.gif">
+        <img src="<%=BusiConstant.shikemobilepath %>/common/images/loading.gif">
     </div>
 </div>
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/scgz/jquery.form.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/jquery.form.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/scgz/Validform_v5.3.2.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/Validform_v5.3.2.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/scgz/post.loading.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/post.loading.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/scgz/layer.m.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/layer.m.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/scgz/layerdialog.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/layerdialog.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/scgz/jquery.cookie.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/jquery.cookie.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/scgz/browser.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/browser.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/scgz/app.js"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/app.js"></script>
 
 
 <form action="<%=BusiConstant.context %>/baobei/addfile.do" method="post"><input type="file"
@@ -282,12 +291,12 @@
                                                                                                          name="file"
                                                                                                          style="display:none">
 </form>
-<form action="http://m.meilipa.com/CommonBase/UploadPic?compressType=JpinOrderFlow" method="post"><input type="file"
+<form action="http://test.com/CommonBase/UploadPic?compressType=JpinOrderFlow" method="post"><input type="file"
                                                                                                          accept="image/*;"
                                                                                                          name="file"
                                                                                                          style="display:none">
 </form>
-<form action="http://m.meilipa.com/CommonBase/UploadPic?compressType=JpinOrderFlow" method="post"><input type="file"
+<form action="http://test.com/CommonBase/UploadPic?compressType=JpinOrderFlow" method="post"><input type="file"
                                                                                                          accept="image/*;"
                                                                                                          name="file"
                                                                                                          style="display:none">
