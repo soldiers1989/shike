@@ -113,7 +113,9 @@
 	<api key="/baobei/shenqing.do" name="立即申请操作" auth="user" type="put" />
 
 	<api key="/baobei/liucheng.do" name="后续流程性操作" auth="user" type="put" />
-	<api key="/baobei/addfile.do" name="图片上传操作" auth="all" type="put" />
+	<api key="/baobei/addfile.do" name="图片上传操作" auth="none" type="put" />
+	<api key="/baobei/addfiles.do" name="图片上传操作,富文本框" auth="none" type="put" />
+	
 	<api key="/user/update.do" name="用户安全管理更新操作" auth="user" type="put" />
 	<api key="/user/wjpwd.do" name="忘记密码更新操作" auth="user" type="put" />
 

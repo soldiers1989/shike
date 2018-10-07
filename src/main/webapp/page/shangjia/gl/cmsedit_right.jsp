@@ -1,3 +1,4 @@
+<%@page import="co.kensure.api.ApiUtil"%>
 <%@page import="com.kensure.shike.constant.BusiConstant"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <% 
@@ -66,7 +67,7 @@
 	
 	$('#home_silder_page_editer').height(window.innerHeight * 0.8);
 	var editor = new window.wangEditor('#home_silder_page_editer_toolbar', '#home_silder_page_editer');
-	editor.customConfig.uploadImgShowBase64 = true;
+	editor.customConfig.uploadImgServer = "<%=ApiUtil.getUrl("/baobei/addfiles.do")%>";
 	editor.create();
 	
 	var cid = <%=id%>;

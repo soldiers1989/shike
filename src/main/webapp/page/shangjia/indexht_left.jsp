@@ -1,3 +1,6 @@
+<%@page import="com.kensure.shike.sys.model.SKDict"%>
+<%@page import="java.util.List"%>
+<%@page import="com.kensure.shike.sys.service.SKDictService"%>
 <%@page import="com.kensure.shike.constant.BusiConstant"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -32,11 +35,11 @@
 				<li class="left_titi "><strong><i class="iconfont icon-zhanghuxinxi"></i>消息公告</strong> <i
 					class="iconfont icon-Toleft il5 ft_up_down"
 					style="color: rgb(102, 102, 102);"></i></li>
-				<li><a href="<%=BusiConstant.shangjia_cms.getKey()%>?typeid=1">商家帮助中心</a></li>
-				<li parentid="4"><a href="<%=BusiConstant.shangjia_cms.getKey()%>?typeid=2">试客帮助中心</a></li>
-				<li parentid="4"><a href="<%=BusiConstant.shangjia_cms.getKey()%>?typeid=3">商家公告</a></li>
-				<li parentid="4"><a href="<%=BusiConstant.shangjia_cms.getKey()%>?typeid=4">店铺运营技巧和分析</a></li>
-			
+				<%
+				List<SKDict> cmsl = SKDictService.getListCache(4);
+				for(SKDict c:cmsl){ %>
+				<li><a href="<%=BusiConstant.shangjia_cms.getKey()%>?typeid=<%=c.getCode()%>"><%=c.getName()%></a></li>
+				<%} %>
 			</ul>
 		</div>
 	</div>

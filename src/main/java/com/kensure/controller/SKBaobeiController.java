@@ -8,23 +8,31 @@ import co.kensure.http.RequestUtils;
 import co.kensure.io.FileUtils;
 import co.kensure.mem.DateUtils;
 import co.kensure.mem.Utils;
+
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.kensure.shike.baobei.model.*;
 import com.kensure.shike.baobei.service.SKBaobeiService;
 import com.kensure.shike.baobei.service.SKBbrwService;
 import com.kensure.shike.baobei.service.SKSkqkService;
 import com.kensure.shike.baobei.service.TaoBaoService;
+import com.kensure.shike.constant.BusiConstant;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -219,12 +227,36 @@ public class SKBaobeiController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "addfile.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
-	public ResultInfo addfile(MultipartFile file) {
+	public ResultInfo addfile(MultipartFile file,HttpServletRequest req) {
 		String path = "/filetemp/" + DateUtils.format(new Date(), DateUtils.DAY_FORMAT1);
 		String name = Utils.getUUID() + ".jpg";
 		FileUtils.fileToIo(file, Const.ROOT_PATH + path, name);
 		String url = path + "/" + name;
 		return new ResultRowInfo(url);
+	}
+	
+	
+	/**
+	 * 上传图片,给富文本框,返回结果不一样
+	 */
+	@ResponseBody
+	@RequestMapping(value = "addfiles.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	public JSONObject addfiles(MultipartHttpServletRequest request) {
+		Collection<List<MultipartFile>> multipartFiles = request.getMultiFileMap().values();
+		String path = "/filetemp/" + DateUtils.format(new Date(), DateUtils.DAY_FORMAT1);
+		JSONObject map = new JSONObject();
+		map.put("errno", 0);
+		JSONArray data = new JSONArray();
+		map.put("data", data);
+		for(List<MultipartFile> filelist:multipartFiles){
+			for(MultipartFile file:filelist){
+				String name = Utils.getUUID() + ".jpg";
+				FileUtils.fileToIo(file, Const.ROOT_PATH + path, name);
+				String url = BusiConstant.context+path + "/" + name;
+				data.add(url);
+			}	
+		}
+		return map;
 	}
 
 	/**

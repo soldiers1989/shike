@@ -5,12 +5,7 @@
 <% 
 	String path = BusiConstant.shangjiapath;
 	String name = BusiConstant.name;
-	String servletPath = request.getRequestURL().toString();  
-	ApiDesc api = ApiUtil.get(servletPath);
-	String title = "试呗网";
-	if(api != null){
-		title = api.getName();
-	}
+	String title = (String)request.getAttribute("wangzhangtitle");
 %>
 <head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="shortcut icon" href="<%=BusiConstant.context%>/favicon.ico" type="image/x-icon">

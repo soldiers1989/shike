@@ -12,6 +12,8 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
 
+import com.kensure.shike.constant.BusiConstant;
+
 /**
  * 接口定义配置解析类
  * 
@@ -37,6 +39,13 @@ public class ApiUtil {
 		ApiDesc api = apiMap.get(key);
 		return api;
 	}
+	
+	public static String getUrl(String key) {
+		ApiDesc api = apiMap.get(key);
+		String url = BusiConstant.context+api.getKey();
+		return url;
+	}
+	
 
 	/**
 	 * 初始化接口定义,扫描所有interface下的xml文件
