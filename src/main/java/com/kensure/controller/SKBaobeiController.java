@@ -173,6 +173,7 @@ public class SKBaobeiController {
 //		String bigStartTime = json.getString("bigStartTime");
 		String order = json.getString("order");
 		String sort = json.getString("sort");
+		Integer hdtypeid  = json.getInteger("hdtypeid");
 
 		// 排序字段
 		if ("1".equals(order)) { // 最新
@@ -191,7 +192,7 @@ public class SKBaobeiController {
 		} else {
 			sort = "asc";
 		}
-		List<SKBaobei> list = sKBaobeiService.getSKList(typeid, title, order, sort, minprice, maxprice);
+		List<SKBaobei> list = sKBaobeiService.getSKList(typeid, title, order, sort, minprice, maxprice, hdtypeid);
 		return new ResultRowsInfo(list);
 	}
 

@@ -123,6 +123,7 @@ $(function () {
     lingaSort.shopcat = globle.getUrlParam("shopcat") || -1;
     lingaSort.sort = globle.getUrlParam("sort") || 1;
     lingaSort.orderType = globle.getUrlParam("orderType") || 0;
+    lingaSort.hdtypeid  = globle.getUrlParam("hdtypeid ") || "";
     lingaSort.bigStartTime = globle.getUrlParam("bigStartTime") || "";
     lingaSort.minprice = globle.getUrlParam("minprice") || "";
     lingaSort.maxprice = globle.getUrlParam("maxprice") || "";
@@ -175,7 +176,8 @@ $(function () {
     //平台类型
     $(".plat span").on("click", function () {
         $(this).addClass("act").siblings().removeClass("act");
-        lingaSort.orderType = $(this).data("num");
+        // lingaSort.orderType = $(this).data("num");
+        lingaSort.hdtypeid  = $(this).data("num");
         lingaSort.sort = 1;
         getList(1);
     });
@@ -412,7 +414,7 @@ $(function () {
                     var row = data.resultData.rows[i];
                     // 高价值
                     var highPrice = "";
-                    if (row.salePrice >= 100) {
+                    if (row.hdtypeid == 3) {
                         highPrice = "<div><span class=\"red\">高价值</span></div>"
                     }
 

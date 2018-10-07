@@ -124,17 +124,14 @@
             </ul>
         </div>
     </div>
-    <%--<div class="plat" id="plat" style="background: #f5f5f5;">
+    <div class="plat" id="plat" style="background: #f5f5f5;">
         <div class="div-container" style="width: 19.5rem;">
-            <span class="act" data-num="0">全部</span>
-            <span class="" data-num="1">组团开奖</span>
-            <span class="" data-num="5">90%中奖率</span>
-            <span class="" data-num="3">京东</span>
-            <span class="" data-num="4">赏金任务</span>
-            <span class="" data-num="2">高价值</span>
-
+            <span class="act" data-num="">全部</span>
+            <span class="" data-num="1">普通试用</span>
+            <span class="" data-num="3">高价值</span>
+            <span class="" data-num="4">必中任务</span>
         </div>
-    </div>--%>
+    </div>
     <div class="jp-con">
         <ul class="con-cat">
             <li class="<c:if test="${empty param.order}">act</c:if>"><a data-href="0">综合</a></li>
