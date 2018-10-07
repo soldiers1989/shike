@@ -12,10 +12,7 @@
                 
 
 <div class="clearfix right_bottom">
-    <div class="account">
-        <a href="<%=BusiConstant.shangjia_chongzhi.getKey()%>">账户充值</a>
-        <a class="seled" style="margin-left:-5px;">充值记录</a>
-    </div>
+ 
     <div class="hxt">
     </div>
     <!--zh_title-->
