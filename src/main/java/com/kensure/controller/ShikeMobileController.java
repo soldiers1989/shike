@@ -70,7 +70,7 @@ public class ShikeMobileController {
 	public String index(HttpServletRequest req, HttpServletResponse rep, Model model) {
 
 		// 首页轮播
-		List<SKCMS> banner = sKCMSService.selectByTypeId(5);
+		List<SKCMS> banner = sKCMSService.selectByTypeId(6);
 		req.setAttribute("banner", banner);
 		return "page/mobile/index/index.jsp";
 	}
