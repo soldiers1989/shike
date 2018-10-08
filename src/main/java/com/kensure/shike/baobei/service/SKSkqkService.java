@@ -169,6 +169,9 @@ public class SKSkqkService extends JSBaseService {
 			nextTime = DateUtils.getPastHour(now, 3);
 		} else if (status.intValue() == 61) {
 			// 这个是好评时间，好评时间有10天
+			nextTime = DateUtils.getPastDay(now, 2);
+		} else if (status.intValue() == 71) {
+			// 这个是好评时间，好评时间有10天
 			nextTime = DateUtils.getPastDay(now, 10);
 		} else if (status.intValue() == 81) {
 			// 这个是返款时间，好评时间有2天
