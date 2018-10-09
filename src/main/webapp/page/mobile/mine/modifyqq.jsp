@@ -58,10 +58,10 @@
         $(k).parent().remove();
     }
 
-    var returnurl = "";
-    $(function () {
-        $("#form").Validform();
-    });
+    // var returnurl = "";
+    // $(function () {
+    //     $("#form").Validform();
+    // });
 </script>
 <style>
     .regist-content .renzheng{
@@ -91,7 +91,8 @@
 <div class="regist-content conent alipay" id="form">
                 <section class="clearfix">
                     <input id="noQq" style="width: 100%" name="sk_taobao" value="${user.noQq}" class="auto-input it lf" type="text" placeholder="请填写淘宝账号" datatype="*" maxlength="50">
-                <span class="Validform_checktip"></span></section>
+                <%--<span class="Validform_checktip"></span>--%>
+                </section>
   
     <%--<img src="<%=BusiConstant.shikemobilepath %>/mine/qq/add.png" style=" height: 51px;width: 51px;text-align: center " id="addTB">--%>
     <section class="auto-btn" id="PayBtnSubmit">提交</section>
@@ -127,13 +128,19 @@
 <script>
     $(function () {
         $("#PayBtnSubmit").click(function () {
-            var arrayTB = "";
-            if ($(".Validform_wrong").length < 1) {
-                $("[name='sk_taobao']").each(function () {
-                    arrayTB += "≌✿" + $(this).val();
-                });
-                updateQq();
+            if ($("#noQq").val() == '') {
+                myAlert("QQ账号不能为空");
+                return;
             }
+
+            updateQq();
+
+            // var arrayTB = "";
+            // if ($(".Validform_wrong").length < 1) {
+            //     $("[name='sk_taobao']").each(function () {
+            //         arrayTB += "≌✿" + $(this).val();
+            //     });
+            // }
         });
 
         $("#addTB").click(function () {

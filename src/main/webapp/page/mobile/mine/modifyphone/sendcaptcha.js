@@ -81,14 +81,15 @@ function sendSmsCode() {
 }
 
 function sendSmsCodeCallBack(data) {
-    if (data.type == 'success') {
-        myAlert("发送成功");
+    if (!data.type == 'success') {
+        myAlert(data.message);
         canGet = false;
         LUOCAPTCHA.reset()
         $(_ctr).bind("click", function () {
             checkCaptcha()
         });
     } else {
+        myAlert("发送成功");
         var i = 120;
         var timer = setInterval(function () {
             i--;

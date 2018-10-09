@@ -576,12 +576,8 @@
 </script>
 
 	<div style="display: none">
-		<script
-			src="<%=BusiConstant.shikemobilepath%>/common/z_stat.php"
-			language="JavaScript"></script>
-		<script
-			src="<%=BusiConstant.shikemobilepath%>/common/core.php"
-			charset="utf-8" type="text/javascript"></script>
+		<script src="<%=BusiConstant.shikemobilepath%>/common/z_stat.php" language="JavaScript"></script>
+		<script src="<%=BusiConstant.shikemobilepath%>/common/core.php" charset="utf-8" type="text/javascript"></script>
 	</div>
 
 	<div id="loading" class="loading">

@@ -63,7 +63,7 @@
 <script type="text/javascript" src="<%=BusiConstant.context%>/common/http.js?ver=<%=BusiConstant.version%>"></script>
 <script>
     $(function() {
-        $("#form").Validform();
+        // $("#form").Validform();
         // $("#form").form({
         //     success: function(data) {
         //         if (!data.Result) {
@@ -75,6 +75,35 @@
         // });
         bindCaptcha("#btnCaptcha", "#mobile");
     });
+
+    // $("#BtnSubmit").click(function () {
+    function BtnSubmit() {
+        if ($("#mobile").val() == '') {
+            myAlert("手机号不能为空");
+            return;
+        }
+
+        var reg = /^[1][3,4,5,6,7,8,9][0-9]{9}$/;
+        var m = $("#mobile").val().trim();
+        if (!reg.test(m)) {
+            myAlert("手机号不正确");
+            return;
+        }
+
+        if ($("#verifyCode").val() == '') {
+            myAlert("验证码不能为空");
+            return;
+        }
+
+        updatePhone();
+
+        // var arrayTB = "";
+        // if ($(".Validform_wrong").length < 1) {
+        //     $("[name='sk_taobao']").each(function () {
+        //         arrayTB += "≌✿" + $(this).val();
+        //     });
+        // }
+    }
 
     function updatePhone() {
         var data = {newPhone: $("#mobile").val(), verifyCode: $("#verifyCode").val(), type: 1};
@@ -111,13 +140,15 @@
             <section class="clearfix">
                 <%--<input type="hidden" value="${user.phone }" id="mobile">--%>
                 <%--<span class="cellphone nw-doit">手机号：<span>${user.phone }</span></span>--%>
-                <input name="mobile" id="mobile" class="auto-input it lf" style="margin-top:0;" type="number" placeholder="请填写手机号码" datatype="m">
+                <input name="mobile" id="mobile" class="auto-input it lf" style="margin-top:0;" type="number" placeholder="请填写新手机号码" datatype="m">
                 <div id="btnCaptcha" class="auto-btn bl rt" style="background: #919096; margin-right: 0;">发送验证码</div>
             </section>
 
-            <section><input id="verifyCode" name="captcha" class="auto-input" type="text" placeholder="输入您收到的验证码" datatype="*"><span
-                    class="Validform_checktip"></span></section>
-            <section class="auto-btn" onclick="updatePhone() ">提交</section>
+            <section><input id="verifyCode" name="captcha" class="auto-input" type="text" placeholder="输入您收到的验证码" datatype="*">
+                <%--<span
+                    class="Validform_checktip"></span>--%>
+            </section>
+            <section class="auto-btn" onclick="BtnSubmit()">提交</section>
         </div>
     </div>
 </form>

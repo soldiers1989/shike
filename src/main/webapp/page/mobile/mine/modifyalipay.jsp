@@ -59,9 +59,9 @@
     }
 
     var returnurl = "";
-    $(function () {
-        $("#form").Validform();
-    });
+    // $(function () {
+    //     $("#form").Validform();
+    // });
 </script>
 <style>
     .regist-content .renzheng{
@@ -92,7 +92,8 @@
     <section class="clearfix">
         <input id="noAlipay" style="width: 100%" name="sk_taobao" value="${user.noAlipay}"
                class="auto-input it lf" type="text" placeholder="请填写支付宝账号" datatype="*" maxlength="50">
-        <span class="Validform_checktip"></span></section>
+        <%--<span class="Validform_checktip"></span>--%>
+    </section>
     <section class="auto-btn" id="PayBtnSubmit">提交</section>
 </div>
 
@@ -127,16 +128,22 @@
 <script>
     $(function () {
         $("#PayBtnSubmit").click(function () {
-            var arrayTB = "";
-            if ($(".Validform_wrong").length < 1) {
-                $("[name='sk_taobao']").each(function () {
-                    arrayTB += "≌✿" + $(this).val();
-                });
+            if ($("#noAlipay").val() == '') {
+                myAlert("支付宝账号不能为空");
+                return;
+            }
+
+            updateAlipay();
+
+            // var arrayTB = "";
+            // if ($(".Validform_wrong").length < 1) {
+                // $("[name='sk_taobao']").each(function () {
+                //     arrayTB += "≌✿" + $(this).val();
+                // });
                 // if (!inputBlur()) {
                 //     return;
                 // }
-                updateAlipay();
-            }
+            // }
         });
     })
 
