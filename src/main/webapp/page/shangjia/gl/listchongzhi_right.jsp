@@ -21,6 +21,9 @@
             <table width="1000" border="1" cellpadding="0" id="listtable" cellspacing="0" bordercolor="#dadada">
                 <tbody>
                 <tr>
+                	<td width="200" height="30" valign="middle" bgcolor="#eaeaea">
+                        <strong>序列</strong>
+                    </td>
                     <td width="200" height="30" valign="middle" bgcolor="#eaeaea">
                         <strong>充值时间</strong>
                     </td>
@@ -49,11 +52,11 @@
 <script>
 	function sucdo(data){
 		var rows = data.resultData.rows;
-		if(rows){
-		
+		if(rows){		
 			for(var i=0;i<rows.length;i++){
 				var row = rows[i];
-				var html = "<tr><td height='30'>"+row.createdTimeStr+"</td>";
+				var html = "<tr><td height='30'>"+row.id+"</td>";
+				html+="<td>"+row.createdTimeStr+"</td>"
 				html+="<td>"+row.jiaoyihao+"</td>";
 				html+="<td>"+row.jine+"</td>";
 				html+="<td>"+row.statusStr+"</td>";
@@ -76,9 +79,11 @@
    }
    
    function tongguo(id){
-	   var data = {id:id};
-	   var url = "<%=BusiConstant.ht_chongzhitongguo_do.getKey()%>";
-	   postdo(url, data, null,null, null);
+	   if(confirm('确认通过？')){
+		   var data = {id:id};
+		   var url = "<%=BusiConstant.ht_chongzhitongguo_do.getKey()%>";
+		   postdo(url, data, null,null, null);
+	   }
    }
    chongzhilist();
    

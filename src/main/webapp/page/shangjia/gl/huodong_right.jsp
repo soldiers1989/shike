@@ -151,7 +151,7 @@
 
 
 <script>
-	var theadtds = [{w:270,na:"活动名称"},{w:100,na:"开始时间"},{w:100,na:"结束时间"},{w:100,na:"商家名称"}
+	var theadtds = [{w:50,na:"序号"},{w:270,na:"活动名称"},{w:100,na:"开始时间"},{w:100,na:"结束时间"},{w:100,na:"商家名称"}
 	,{w:100,na:"店铺名称"},{w:100,na:"宝贝单价"},{w:100,na:"产品数量"},{w:100,na:"中奖数量"},{w:100,na:"申请数量"},{w:100,na:"活动进度"},{w:100,na:"活动操作"}];
 	function sucdo(data){
 		$("#listtable").html("");
@@ -170,8 +170,11 @@
 		if(rows){		
 			for(var i=0;i<rows.length;i++){
 				var row = rows[i];
-				var html =   "<tr class='trbody'> "       
-                +"<td width='"+theadtds[0].w+"'>"
+				var html =   "<tr class='trbody'> "  
+				+"<td width='"+theadtds[0].w+"'>" 
+                +" <em style=\"color: #a9a9a9;\">"+row.id+"</em>" 
+                +"</td>" 
+                +"<td width='"+theadtds[1].w+"'>"
                 +"<div class=\"xi_lt clearfix\" style=\"margin-right: 0\">"
                 +"<a style='width: 60px; height: 60px;' href='"+row.url+"' target='_blank'>"
                 +"<img src='"+row.zturl+"'  height='60' width='60'> </a>"
@@ -184,42 +187,44 @@
                 +"    </div>" 
                 +" </div>" 
                 +"</td>" 
-                +"<td width='"+theadtds[1].w+"'>" 
+                +"<td width='"+theadtds[2].w+"'>" 
                 +" <em style=\"color: #a9a9a9;\">"+row.startTimeStr+"</em>" 
                 +"</td>" 
-                +"<td width='"+theadtds[2].w+"'>" 
+                +"<td width='"+theadtds[3].w+"'>" 
                 +" <em style=\"color: #a9a9a9;\">"+row.endTimeStr+"</em>" 
                 +"</td>"   
-                +"<td width='"+theadtds[3].w+"'>" 
+                +"<td width='"+theadtds[4].w+"'>" 
                 +" <em style=\"color: #a9a9a9;\">"+row.userName+"</em>" 
                 +"</td>"
-                +"<td width='"+theadtds[4].w+"'>" 
+                +"<td width='"+theadtds[5].w+"'>" 
                 +" <em style=\"color: #a9a9a9;\">"+row.dpname+"</em>" 
                 +"</td>"
-                +"<td width='"+theadtds[5].w+"'>" 
+                +"<td width='"+theadtds[6].w+"'>" 
                 +"     <em style=\"color: #f25f55\">"+row.salePrice+"</em>" 
                 +"  </td>" 
-                +"<td width='"+theadtds[6].w+"'>" 
+                +"<td width='"+theadtds[7].w+"'>" 
                 +"     <em style=\"color: #f25f55\">"+row.bbnum+"</em>" 
                 +"</td>"  
-                +"<td width='"+theadtds[7].w+"'>" 
+                +"<td width='"+theadtds[8].w+"'>" 
                 +"     <em style=\"color: #f25f55\">"+row.zjnum+"</em>" 
                 +"</td>" 
-                +"<td width='"+theadtds[8].w+"'>" 
+                +"<td width='"+theadtds[9].w+"'>" 
                 +"     <em style=\"color: #f25f55\">"+row.ysqnum+"</em>" 
                 +"</td>" 
-                +"<td width='"+theadtds[9].w+"'>" 
+                +"<td width='"+theadtds[10].w+"'>" 
                 +"     <em style=\"color: #f25f55\">"+row.statusStr+"</em>" 
                 +"  </td>" 
-                +"<td width='"+theadtds[10].w+"'>";
-                html+="    <div class=\"wae_cer\">" 
+                +"<td width='"+theadtds[11].w+"'>";
+                html+="    <div class=\"wae_cer\">";
                 if(row.status == 1){              	
-                      +"        <input type='button' value='审核通过' onclick='tongguo("+row.id+")'/>"                              
+                	html+="        <input type='button' value='审核通过' onclick='tongguo("+row.id+")'/>";
+                	html+="        <input type='button' value='拒绝通过' onclick='untongguo("+row.id+")'/>";           	
+                }else{
+                	html+= "        <input type='button' value='宝贝下线' onclick='xiaxian("+row.id+")'/>";
                 }
-                html+= "        <input type='button' value='宝贝下线' onclick='xiaxian("+row.id+")'/>"
-                +"   </div>" 
-                html+="</td>" 
-                +" </tr>" 
+              
+                html+="   </div>";
+                html+="</td></tr>";
 				$("#listtable").append(html);
 			}
 		}
@@ -238,16 +243,28 @@
    }
    dianpulist(1);
    
-   function tongguo(id){
-	   var data = {id:id};
-	   var url = "<%=BusiConstant.ht_baobeitongguo_do.getKey()%>";
-	   postdo(url, data, null,null, null);
+   function tongguo(id){	  
+	   if(confirm('确认通过？')){
+		   var data = {id:id};
+		   var url = "<%=BusiConstant.ht_baobeitongguo_do.getKey()%>";
+		   postdo(url, data, null,null, null);
+	   }	  
+   }
+   
+   function untongguo(id){
+	   if(confirm('确认拒绝？')){
+		   var data = {id:id};
+		   var url = "<%=BusiConstant.ht_baobeiuntongguo_do.getKey()%>";
+		   postdo(url, data, null,null, null);
+	   }	
    }
    
    function xiaxian(id){
-	   var data = {id:id};
-	   var url = "<%=BusiConstant.ht_baobeixiaxiando.getKey()%>";
-	   postdo(url, data, null,null, null);
+	   if(confirm('确认拒绝？')){
+		   var data = {id:id};
+		   var url = "<%=BusiConstant.ht_baobeixiaxiando.getKey()%>";
+		   postdo(url, data, null,null, null);
+	   }	
    }
       
 </script>

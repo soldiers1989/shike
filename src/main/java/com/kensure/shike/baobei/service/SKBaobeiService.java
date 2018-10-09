@@ -522,6 +522,23 @@ public class SKBaobeiService extends JSBaseService {
 		// 修改账户信息
 		sKUserZhangService.commit(sk.getUserid(), 3L, sk.getId());
 	}
+	
+	/**
+	 * 不通过，同时退钱
+	 * 
+	 * @return
+	 */
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+	public void untongguo(Long id) {
+		SKUser skuser = sKUserService.getUser();
+		SKUserService.checkUserAdmin(skuser);
+		SKBaobei baobei = selectOne(id);
+		if(baobei.getStatus() != 1){
+			BusinessExceptionUtil.threwException("非审核中宝贝，无法拒绝！");
+		}
+		baobei.setStatus(2L);
+		setShiShouinfo(id);
+	}
 
 	/**
 	 * 试客查看的活动列表,根据关键字和活动类型查询

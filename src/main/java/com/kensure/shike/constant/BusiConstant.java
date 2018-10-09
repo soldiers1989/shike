@@ -125,6 +125,8 @@ public class BusiConstant {
 	
 
 	public static final KVBean ht_baobeitongguo_do = new KVBean(context + "/baobei/tongguo.do", "宝贝通过审核");
+	public static final KVBean ht_baobeiuntongguo_do = new KVBean(context + "/baobei/untongguo.do", "宝贝通过审核");
+	
 	public static final KVBean ht_baobeixiaxiando = new KVBean(context + "/baobei/xiaxian.do", "宝贝下线");
 	public static final KVBean user_getuser_do = new KVBean(context + "/user/getuser.do", "用户会话信息");
 	

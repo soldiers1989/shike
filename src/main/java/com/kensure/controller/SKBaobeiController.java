@@ -164,6 +164,19 @@ public class SKBaobeiController {
 		sKBaobeiService.tongguo(id);
 		return new ResultRowInfo();
 	}
+	
+	/**
+	 * 通过
+	 */
+	@ResponseBody
+	@RequestMapping(value = "untongguo.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	public ResultInfo untongguo(HttpServletRequest req, HttpServletResponse rep) {
+		JSONObject json = RequestUtils.paramToJson(req);
+		Long id = json.getLong("id");
+		sKBaobeiService.untongguo(id);
+		return new ResultRowInfo();
+	}
+	
 
 	/**
 	 * 试客查看的活动列表

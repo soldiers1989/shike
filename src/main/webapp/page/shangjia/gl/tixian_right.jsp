@@ -50,7 +50,7 @@
             </div>
 
 <script>
-var theadtds = [{w:200,na:"提现时间"},{w:100,na:"提现支付宝"},{w:100,na:"提现金额"},{w:100,na:"提现手续费"}
+var theadtds = [{w:50,na:"序号"},{w:200,na:"提现时间"},{w:100,na:"提现支付宝"},{w:100,na:"提现金额"},{w:100,na:"提现手续费"}
 ,{w:100,na:"到账金额"},{w:100,na:"提现状态"},{w:100,na:"用户手机"},{w:100,na:"用户类型"},{w:100,na:"真实姓名"},{w:100,na:"操作"}];
 
 	function sucdo(data){
@@ -80,7 +80,8 @@ var theadtds = [{w:200,na:"提现时间"},{w:100,na:"提现支付宝"},{w:100,na
 				   shouxufei = 1;
 			    }
 			   var daozhang = row.jine-shouxufei;
-				var html = "<tr class='trbody'><td>"+row.createdTimeStr+"</td>";
+				var html = "<tr class='trbody'><td>"+row.id+"</td>";
+				html+="<td>"+row.createdTimeStr+"</td>";
 				html+="<td>"+row.jiaoyihao+"</td>";
 				html+="<td>"+row.jine+"</td>";
 				html+="<td>"+shouxufei+"</td>";
@@ -104,9 +105,11 @@ var theadtds = [{w:200,na:"提现时间"},{w:100,na:"提现支付宝"},{w:100,na
    }
    
    function tongguo(id){
-	   var data = {id:id};
-	   var url = "<%=BusiConstant.ht_tongguoout_do.getKey()%>";
-	   postdo(url, data, null,null, null);
+	   if(confirm('确认通过？')){
+		   var data = {id:id};
+		   var url = "<%=BusiConstant.ht_tongguoout_do.getKey()%>";
+		   postdo(url, data, null,null, null);
+	   }
    }
    chongzhilist();
    
