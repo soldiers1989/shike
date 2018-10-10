@@ -80,5 +80,5 @@ function openDialog(id, callback) {
 }
 
 function alertDownApp() {
-    myAlert("<div><a href='/Other/AppDownload' style='display: block; width: 100%; height: 100%;overflow: hidden; color: #fff;'>安装美丽啪APP才能分享，立即下载</a><div>");
+    myAlert("<div><a href='/Other/AppDownload' style='display: block; width: 100%; height: 100%;overflow: hidden; color: #fff;'>安装试呗网APP才能分享，立即下载</a><div>");
 }
