@@ -38,7 +38,6 @@ public class SKFansController {
 	@ResponseBody
 	@RequestMapping(value = "fanslslist.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
 	public ResultInfo fanslslist(HttpServletRequest req, HttpServletResponse rep) {
-//		SKUser user = sKUserService.getUser();
 		JSONObject json = RequestUtils.paramToJson(req);
 		Integer status = json.getInteger("status");
 

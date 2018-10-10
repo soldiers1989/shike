@@ -127,6 +127,28 @@ public class SkUserJinbiService extends JSBaseService{
         insert(obj);
     }
 
+	/**
+	 * 邀请奖励
+	 * @param userId
+	 */
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+    public void addYqjl(Long userId) {
+
+        SKUser user = sKUserService.selectOne(userId);
+
+		SkUserJinbi jinbi = new SkUserJinbi();
+        jinbi.setUserid(user.getId());
+
+		jinbi.setJinbi(100L);  // 邀请人得到100金币
+        jinbi.setTypeid(3L);   // 3:邀请奖励
+        jinbi.setInorout(1L);
+        jinbi.setStatus(1L);
+
+        sKUserYueService.updateYue(user.getId(), null, new Double(jinbi.getJinbi()));
+
+        insert(jinbi);
+    }
+
     /**
      * 获取当天签到金币
      */
@@ -154,4 +176,26 @@ public class SkUserJinbiService extends JSBaseService{
         }
         return selectByWhere(parameters);
     }
+
+    /**
+     * 根据type统计出所有金币额
+     * @param typeid
+     * @return
+     */
+    public Long sumByType(Long typeid) {
+		SKUser user = sKUserService.getUser();
+
+		Map<String, Object> parameters = MapUtils.genMap("userid", user.getId());
+		if (typeid != null) {
+			parameters.put("typeid", typeid);
+		}
+        List<SkUserJinbi> list = selectByWhere(parameters);
+
+        Long sum = 0L;
+        for (SkUserJinbi jinbi : list) {
+            sum += jinbi.getInorout() * jinbi.getJinbi();
+        }
+
+        return sum;
+	}
 }

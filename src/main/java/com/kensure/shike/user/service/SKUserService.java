@@ -26,6 +26,7 @@ import com.kensure.shike.user.model.SKUserSession;
 import com.kensure.shike.zhang.model.SKUserYue;
 import com.kensure.shike.zhang.service.SKUserYueService;
 import com.kensure.shike.zhang.service.SkUserFansService;
+import com.kensure.shike.zhang.service.SkUserJinbiService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -70,6 +71,9 @@ public class SKUserService extends JSBaseService {
 
 	@Resource
 	private SkUserFansService skUserFansService;
+
+	@Resource
+	private SkUserJinbiService skUserJinbiService;
 
 	public SKUser selectOne(Long id) {
 		return dao.selectOne(id);
@@ -250,9 +254,11 @@ public class SKUserService extends JSBaseService {
 		// 验证成功
 		sKSmsService.sendSucess(code);
 
-		// 记录代言人的粉丝奖励流水
+		// 记录代言人的粉丝奖励流水；并发送金币奖励
 		if (sKUser.getRefereeId() != null) {
 			skUserFansService.addFans(sKUser.getId(), sKUser.getRefereeId());
+
+			skUserJinbiService.addYqjl(sKUser.getRefereeId());
 		}
 	}
 

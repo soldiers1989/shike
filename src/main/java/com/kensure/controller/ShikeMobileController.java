@@ -18,6 +18,7 @@ import com.kensure.shike.user.service.SKUserService;
 import com.kensure.shike.zhang.model.SKUserYue;
 import com.kensure.shike.zhang.model.SkUserJinbi;
 import com.kensure.shike.zhang.service.SKUserYueService;
+import com.kensure.shike.zhang.service.SkUserFansService;
 import com.kensure.shike.zhang.service.SkUserJinbiService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
@@ -60,6 +61,9 @@ public class ShikeMobileController {
 
 	@Resource
 	private SkUserJinbiService skUserJinbiService;
+
+	@Resource
+	private SkUserFansService skUserFansService;
 
 	@Resource
 	private SKCMSService sKCMSService;
@@ -271,6 +275,7 @@ public class ShikeMobileController {
 
         List<SkUserJinbi> list = skUserJinbiService.getTodayQiandao();
 
+        // 判断当天是否已经签到
         Boolean isQiaodao = false;
         if (!list.isEmpty()) {
             isQiaodao = true;
@@ -340,7 +345,7 @@ public class ShikeMobileController {
 
 		SKUserYue yue = skUserYueService.selectOne(user.getId());
 
-		// 已中奖
+		// 当前是已中奖状态的 宝贝数量
 		long yzj = sKSkqkService.getQkByByYzj(user.getId());
 
 		// 今日申请数量
@@ -349,7 +354,16 @@ public class ShikeMobileController {
 		// 粉丝数量
 		long fensiNum = sKUserService.getListByRefereeId().size();
 
-		Integer jinbi = 0;
+		// 邀请奖励的金币数
+        Long jinbiSum = skUserJinbiService.sumByType(3L);
+
+        // 已到账奖金总数
+        Double ydzSum = skUserFansService.sumByStatus(9L);
+
+        // 即将到账奖金总数
+        Double jjdzSum = skUserFansService.sumByStatus(1L);
+
+        Integer jinbi = 0;
 		if (yue != null) {
 			jinbi = yue.getJinbi().intValue();
 		}
@@ -359,6 +373,9 @@ public class ShikeMobileController {
 		req.setAttribute("jinbi", jinbi);
 		req.setAttribute("todaySq", todaySq);
 		req.setAttribute("fensiNum", fensiNum);
+		req.setAttribute("jinbiSum", jinbiSum);
+		req.setAttribute("ydzSum", ydzSum);
+		req.setAttribute("jjdzSum", jjdzSum);
 
         return "page/mobile/mine/mine.jsp";
 	}

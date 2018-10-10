@@ -109,6 +109,15 @@ public class SkUserFansService extends JSBaseService{
 
         insert(fans);
     }
+
+
+    public List<SkUserFans> getByBusiid(Integer busiid) {
+        SKUser user = sKUserService.getUser();
+
+        Map<String, Object> map = MapUtils.genMap("user_id", user.getId(),
+                "busiid", busiid);
+        return selectByWhere(map);
+    }
     
     public List<SkUserFans> getList(Integer status) {
 		SKUser user = sKUserService.getUser();
@@ -127,6 +136,28 @@ public class SkUserFansService extends JSBaseService{
         }
 
         return list;
+	}
+
+	/**
+	 * 根据status统计出所有金额
+	 * @param status
+	 * @return
+	 */
+	public Double sumByStatus(Long status) {
+		SKUser user = sKUserService.getUser();
+
+		Map<String, Object> parameters = MapUtils.genMap("referee_id", user.getId());
+		if (status != null) {
+			parameters.put("status", status);
+		}
+		List<SkUserFans> list = selectByWhere(parameters);
+
+		Double sum = 0.00;
+		for (SkUserFans jinbi : list) {
+			sum += jinbi.getJine();
+		}
+
+		return sum;
 	}
   
 }

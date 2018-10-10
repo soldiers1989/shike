@@ -185,14 +185,14 @@
             <p>
                 <i class="iconfont icon-jinbi1"></i><span>奖金</span>
             </p>
-            <span>0</span>
+            <span>${ydzSum}</span>
             <div></div>
         </li>
         <li onclick="location.href = #">
             <p>
                 <i class="iconfont icon-money1"></i><span>即将到账</span>
             </p>
-            <span>0.00</span>
+            <span>${jjdzSum}</span>
             <div></div>
         </li>
         <li onclick="location.href= &#39;<%=BusiConstant.shike_fensi.getKey() %>&#39;;">
@@ -202,7 +202,7 @@
         </li>
         <li onclick="location.href = #">
             <p><i class="iconfont icon-jinbi"></i><span>金币</span></p>
-            <span>0</span>
+            <span>${jinbiSum }</span>
         </li>
     </ul>
 </div><%--
