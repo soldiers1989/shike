@@ -266,9 +266,17 @@
               //  "            <a href=\"javascript:void(1);\" class=\"black\" onclick=\"Feedback("+ row.bbid +")\">反馈问题</a>\n" +
                 "        </div>";
         	}else if(row.status == 51){
-        		var time = format(row.nextTime - new Date().getTime());
-                btn = "        <div class=\"jp-btn clearfix\">\n" + time +
-                    "          自动取消资格   <a href=\"<%=BusiConstant.shike_gouwuche.getKey() %>?id="+ row.bbid +"\" class=\"\">提交订单</a>\n" +
+                var timeDiff = row.nextTime - new Date().getTime();
+        		var time = format(timeDiff);
+
+        		var dandBtn = "";
+        		if (timeDiff > 0) {
+                    dandBtn = "  <a href='<%=BusiConstant.shike_gouwuche.getKey() %>?id="+ row.bbid +"' class=''>提交订单</a>\n";
+                } else {
+                    dandBtn = "  <a class='gray'>订单已过期</a>\n";
+                }
+
+                btn = "        <div class=\"jp-btn clearfix\">\n" + time + "自动取消资格" + dandBtn +
                 //    "            <a href=\"javascript:void(1);\" class=\"black\" onclick=\"Feedback("+ row.bbid +")\">反馈问题</a>\n" +
                     "        </div>";
             }else if(row.status == 61){
@@ -281,10 +289,19 @@
                     "        </div>";
             }else if(row.status == 71){
                 // 收到货过后10天内，必须评价
-                var time = format(row.nextTime - new Date().getTime());
+
+                var timeDiff = row.nextTime - new Date().getTime();
+                var time = format(timeDiff);
+
+                var haopBtn = "";
+                if (timeDiff > 0) {
+                    haopBtn = "  <a href='<%=BusiConstant.shike_haop.getKey() %>?id="+ row.bbid +"' class=''>提交好评</a>";
+                } else {
+                    haopBtn = "  <a class='gray'>提交好评已过期</a>";
+                }
+
                 btn = "        <div class=\"jp-btn clearfix\">\n" +
-                    "           <span class=\"time\">"+ time +"</span> 自动取消资格 " +
-                    "            <a href=\"<%=BusiConstant.shike_haop.getKey() %>?id="+ row.bbid +"\" class=\"\">提交好评</a>\n" +
+                    "           <span class=\"time\">"+ time +"</span> 自动取消资格 " + haopBtn +
               //      "            <a href=\"javascript:void(1);\" class=\"black\" onclick=\"Feedback("+ row.bbid +")\">反馈问题</a>\n" +
                     "        </div>";
             }else if(row.status == 81){
@@ -323,13 +340,7 @@
                 "            </li>\n" +
                 "            <li><em>下单账号："+row.noTaobao+"</em></li>\n" +
                 "            <li><em>规格："+row.baobei.guige+"</em></li>\n" +
-                "        </ul>\n" +
-                // "        <div class=\"jp-btn clearfix\">\n" +
-                // "            <a href=\"http://localhost:8081/shike/skm/gouwuche?id=701\" class=\"\">继续申请</a>\n" +
-                // "            <a href=\"javascript:void(1);\" class=\"black\" onclick=\"Feedback(92821)\">反馈问题</a>\n" +
-                // "            <a href=\"javascript:void(1);\" class=\"black\" onclick=\"DeletedOrder(22093979)\">删除</a>\n" +
-                // "        </div>\n" +
-                btn +
+                "        </ul>\n" + btn +
                 "    </dd>";
 
             $("#list").append(html);
