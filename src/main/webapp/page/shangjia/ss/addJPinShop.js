@@ -233,20 +233,20 @@ $(function () {
     
 
     //
-    if (GetQueryString("id") || GetQueryString("fromid")) {
-        if (linkImgFlag) {
-            return false;
-        }
-        linkImgFlag = true;
-        $('#qrcodeTable').qrcode({
-            render: "canvas",
-            text: $("#sk-link").val(), 
-            width: "160",               //二维码的宽度
-            height: "160",              //二维码的高度
-            background: "#ffffff",       //二维码的后景色
-            foreground: "#000000",        //二维码的前景色
-        });
-    }
+//    if (GetQueryString("id") || GetQueryString("fromid")) {
+//        if (linkImgFlag) {
+//            return false;
+//        }
+//        linkImgFlag = true;
+//        $('#qrcodeTable').qrcode({
+//            render: "canvas",
+//            text: $("#sk-link").val(), 
+//            width: "160",               //二维码的宽度
+//            height: "160",              //二维码的高度
+//            background: "#ffffff",       //二维码的后景色
+//            foreground: "#000000",        //二维码的前景色
+//        });
+//    }
 
     //提示语
     $(".alt2").on("click", function () {

@@ -8,6 +8,8 @@
 	Date now = new Date();
 	String day1 = DateUtils.format(now,DateUtils.DAY_FORMAT);
 	String day2 = DateUtils.format(DateUtils.getPastDay(now, 6),DateUtils.DAY_FORMAT);
+	
+	String id = request.getParameter("id");
 %>
                 
 <link rel="stylesheet" type="text/css" href="<%=context%>/addJPinShop.css">
@@ -18,6 +20,7 @@
 
 <div class="fine">
        <div class="onepage">
+       		<input id="baobeiid" type="hidden" name="baobeiid" />
             <h2 class="title">发布免费试用</h2>
             <div class="slide-item">
                 <div class="l-title">
@@ -337,7 +340,7 @@
                                 <em class="ptText7">淘口令</em>：
                             </span>
                             <div class="item-con">
-                                <input type="text" name="sk_taokouling" class="w560" datatype="*">
+                                <input type="text" id="sk_taokouling" name="sk_taokouling" class="w560" datatype="*">
                             <span class="Validform_checktip"></span></div>
                     </div>
 
@@ -528,7 +531,7 @@
 	   
 	   var days = parseInt(enddate.getTime()/ (1000 * 60 * 60 * 24)) -  parseInt(begindate.getTime()/ (1000 * 60 * 60 * 24))+1;
 	   if(days > 15){
-		   alert("活动不能查过15天");
+		   alert("活动不能超过15天");
 		   return;
 	   }
 	   $("#Date-num").html(days);
@@ -596,6 +599,10 @@
 	   }  
 	   $("#tijiaosj").html("正在提交");
 	   var data = {dpid:$("#sk_shop_name option:selected").val(),title:$("#sk_activity_name").val()};
+	   var id = $('#baobeiid').val();
+	   if (id) {
+		   data.id = id;
+	   }
 	   data.url = $("#sk-link").val();
 	   data.taokl = $("#sk_taokouling").val();
 	   data.zturl = $("#picbbzt")[0].src;
@@ -606,10 +613,10 @@
 	   data.typeid = $("#sk_commodity_type option:selected").val();
 	   data.hdtypeid = $(".jp-watch dt.act").index()+1;
 	
-	   data.xinyongka = $("#sk_is_useCreditCard radio:checked").val();
-	   data.huabei = $("#sk_is_useTokio radio:checked").val();
-	   data.shaitu = $("#sk_no_appraise_chart radio:checked").val();
-	   data.wangwang = $("#sk_no_contact_chat radio:checked").val();
+	   data.xinyongka = $("#sk_is_useCreditCard").is(':checked') ? 1 : 0;
+	   data.huabei = $("#sk_is_useTokio").is(':checked') ? 1 : 0;
+	   data.shaitu = $("#sk_no_appraise_chart").is(':checked') ? 1 : 0;
+	   data.wangwang = $("#sk_no_contact_chat").is(':checked') ? 1 : 0;
 	   
 	   //图片
 	   var tplist = [];
@@ -617,6 +624,10 @@
 		for(var i=0;i<imgs.length && i < 4;i++){	
 			var img = imgs[i];
 			var tp = {url:img.src};
+			var imgId = $(img).data('id');
+			if (imgId) {
+				tp.id = imgId;
+			}
 			tplist.push(tp);
 		}      
 	   data.tplist = JSON.stringify(tplist);
@@ -635,8 +646,16 @@
 	         spCodesTemp += (","+$(this).val());
         }
        });
+ 	   var searchId = $('#app_search_bili').data('id');
 	   var search = {typeid:"1",bili:app_search_bili,ykj:sk_one_price,zkfw:spCodesTemp};
+	   if (searchId) {
+		   search.id = searchId;
+	   }
+	   var tpwdId = $("#txt_taokoulingBz").data('id');
 	   var kouling = {typeid:"2",bili:txt_taokoulingBz};
+	   if (tpwdId) {
+		   kouling.id = tpwdId;
+	   }
 
 	   jdlist.push(search);
 	   jdlist.push(kouling);
@@ -644,18 +663,37 @@
 	   
 	   //关键字
 	   var wordlist = [];
-	   var app_search_keys = $("#app_search_keys").val();
+	   
+	   $('.add-key').each(function(i){
+		   var app_search_keys = $(this).children('input[name=app_search_keys]').val();
+		   var app_sort_claim = $(this).children('select[name=app_sort_claim]').children('option:selected').val();
+		   var keyWord = {
+				   word:app_search_keys,
+				   ordermethod:app_sort_claim
+			   };
+		   var keyId =  $(this).data('id');
+		   if (keyId) {
+			   keyWord.id = keyId;
+		   }
+		   wordlist.push(keyWord);
+	   });
+	  
+	   /* var app_search_keys = $("#app_search_keys").val();
 	   var app_sort_claim = $("#app_sort_claim option:selected").val(); 
 	   var key1 = {word:app_search_keys,ordermethod:app_sort_claim};
-	   wordlist.push(key1);
+	   wordlist.push(key1); */
 	   data.wordlist = JSON.stringify(wordlist);
 	   
 	   //宝贝任务
 	   var bbrwlist = [];
 	   for(var i=0;i<21;i++){
-		  var sj = $("#shijian"+i); 
-		  if(sj && sj.val()){
-			  var rwdata = {daydes:sj.val(),bbnum:$("#fenshu"+i).val(),zhuanhua:$("#zhuanhua"+i).val()};
+		  var $sj = $("#shijian"+i); 
+		  if($sj && $sj.val()){
+			  var rwdata = {daydes:$sj.val(),bbnum:$("#fenshu"+i).val(),zhuanhua:$("#zhuanhua"+i).val()};
+			  var sjId = $sj.data('id');
+			  if (sjId) {
+				  rwdata.id = sjId;
+			  }
 			  bbrwlist.push(rwdata);
 		  }
 	   }
@@ -664,6 +702,123 @@
 	   var url = "<%=BusiConstant.shangjia_baobeiadd_do.getKey()%>";
 	   postdo(url, data, svsucdo,null, svcompdo);
    }
+   
+   /**
+    	加载宝贝详情，如果存在ID的情况下
+   */
+   function loadBaoBeiDetailIfNeed(id) {
+	   if (id) {
+		   var url = '<%=BusiConstant.shangjia_baobei_full_do.getKey()%>';
+		   postdo(url, { id: id }, function(data) {
+			   console.log(JSON.stringify(data));
+			   var data = data.resultData.row;
+			   $('#baobeiid').val(data.id);
+			   $('#sk_shop_name').val(data.dpid);
+			   $('#sk_activity_name').val(data.title);
+			   $("#sk-link").val(data.url);
+			   $("#sk_taokouling").val(data.taokl);
+			   $("#picbbzt")[0].src = data.zturl;
+			   $("#sk_clinch_price").val(data.salePrice ? data.salePrice : 0);
+			   $("#sk_qq").val(data.noQq);
+			   $("#sk_size").val(data.guige);
+			   $("#sk_commodity_type").val(data.typeid);
+			   $(".jp-watch dt").removeClass('act');
+			   $($(".jp-watch dt")[data.hdtypeid - 1]).addClass('act');
+			   $("#sk_is_useCreditCard").prop('checked', data.xinyongka == 1);
+			   $("#sk_is_useTokio").prop('checked', data.huabei == 1);
+			   $("#sk_no_appraise_chart").prop('checked', data.shaitu == 1);
+			   $("#sk_no_contact_chat").prop('checked', data.wangwang == 1);
+			   
+			   // 图片列表
+			   var tplist = data.tplist;
+			   $("#img-con").children('img').remove();
+			   for (var i = tplist.length - 1; i >= 0; i--) {
+					var pic = tplist[i];
+					var $img = $(document.createElement('img'));
+					$img.addClass('pic');
+					$img.data('id', pic.id);
+					$img.data('bbid', pic.bbid);
+					$img.attr('src',pic.url);
+					$("#img-con").prepend($img);
+			   }
+			   
+			   // 进店方式列表
+			   var jdlist = data.jdlist;
+			   if (jdlist) {
+				   for (var jd of jdlist) {
+					   if (jd.typeid == '1') {
+						   $('#app_search_bili').data('id', jd.id);
+						   $('#app_search_bili').val(jd.bili);
+						   $('#sk_one_price').val(jd.ykj);
+						   var zkfw = jd.zkfw;
+						   if (zkfw && zkfw.length > 0) {
+							   zkfw = zkfw.split(',');
+							   for (var zkfwName of zkfw) {
+								   $('input:checkbox[value="' + zkfwName + '"]').prop('checked',true);
+							   }
+						   }
+					   } else if (jd.typeid == '2') {
+						   $("#txt_taokoulingBz").val(jd.bili);
+						   $("#txt_taokoulingBz").data('id', jd.id);
+					   }
+				   }
+			   }
+			   
+			   // 关键词列表
+			   var wordlist = data.wordlist;
+			   if (wordlist) {
+				   var $keyList = $('#key-list');
+				   var $firstKeyWord = null;
+				   for (var i = 0; i < wordlist.length; i++) {
+					   var word = wordlist[i];
+					  if (i == 0) {
+						   var $addKey = $($keyList[0]).children('.add-key');
+						   $addKey.data('id', word.id);
+						   $addKey.find('input[name=app_search_keys]').val(word.word);
+						   $addKey.find('select[name=app_sort_claim]').val(word.ordermethod);
+						   $firstKeyWord = $addKey;
+					  } else {
+						  var $otherKeyWord = $firstKeyWord.clone(true);
+						  $keyList.append($otherKeyWord);
+						  $otherKeyWord.data('id', word.id);
+						  var $icon = $otherKeyWord.find('.key-word-icon');
+						  $icon.removeClass('icon-add');
+						  $icon.addClass('icon-remove');
+						  $otherKeyWord.find('input[name=app_search_keys]').val(word.word);
+						  $otherKeyWord.find('select[name=app_sort_claim]').val(word.ordermethod);
+					  }
+				   }
+			   }			   
+			   
+			   // 活动时间
+			   var startTimeStr = data.startTimeStr;
+			   var endTimeStr = data.endTimeStr;
+			   
+			   $("#begindate").val(startTimeStr);
+			   $("#enddate").val(endTimeStr);
+			   getDays();
+			   
+			   // 宝贝任务列表
+			   var bbrwlist = data.bbrwlist;
+			   var allNum = 0;
+			   for (var i = 0; i < bbrwlist.length; i++) {
+				   var rw = bbrwlist[i];
+				   $('#shijian' + i).val(rw.daydes);
+				   $('#shijian' + i).data('id', rw.id);
+				   var num = rw.bbnum;
+				   allNum += num;
+				   $('#fenshu' + i).val(num);
+				   $('#zhuanhua' + i).val(rw.zhuanhua);
+			   }
+			   $('#all-num').html(allNum);
+		   }, function(data) {
+			   console.log(data);
+		   });
+	   }
+   }
+   
+   // 加载宝贝详情
+   loadBaoBeiDetailIfNeed(<%=id%>);
    
    function svsucdo(data){
 	   location.href = "<%=BusiConstant.shangjia_huodonglist.getKey()%>?status=0";

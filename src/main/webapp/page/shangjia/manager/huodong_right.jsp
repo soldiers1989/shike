@@ -156,6 +156,12 @@
 		if(rows){		
 			for(var i=0;i<rows.length;i++){
 				var row = rows[i];
+				
+				var editBtn = '';
+				if (row.status == 0 || row.status == 2) {
+					editBtn = "<span> | </span><a href='<%=BusiConstant.shangjia_activity_edit.getKey()%>?id="+row.id+"' target='_blank'>活动编辑</a>";
+				}
+				
 				var html =   "<tr> "       
                 +"<td width=\"270\" height=\"100\" valign=\"middle\">"
                 +"<div class=\"xi_lt clearfix\" style=\"margin-right: 0\">"
@@ -189,7 +195,9 @@
                 
                 html+="   </div>"
                 +"</td>" 
-                +"<td height=\"100\" align=\"center\" width=\"200\"><a href='<%=BusiConstant.shangjia_shikelist.getKey()%>?id="+row.id+"' target='_blank'>试用情况</a></td>" 
+                +"<td height=\"100\" align=\"center\" width=\"200\"><a href='<%=BusiConstant.shangjia_shikelist.getKey()%>?id="+row.id+"' target='_blank'>试用情况</a>"
+                + editBtn
+                +"</td>" 
                 +" </tr>" 
 				$("#listtable").append(html);
 			}

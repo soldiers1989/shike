@@ -73,6 +73,15 @@ public class SKBaobeiController {
 		return new ResultRowInfo(baobei);
 	}
 
+	@ResponseBody
+	@RequestMapping(value="baobeiFull.do", method = {RequestMethod.POST}, produces = "application/json;charset=UTF-8")
+	public ResultInfo baoBeiFull(HttpServletRequest req, HttpServletResponse rep, Model model) {
+		JSONObject json = RequestUtils.paramToJson(req);
+		Long id = json.getLong("id");
+		SKBaobei baobei = this.sKBaobeiService.getBaoBeiFull(id);
+		return new ResultRowInfo(baobei);
+	}
+	
 	/**
 	 * 根据url获取商品的详情
 	 */
@@ -109,7 +118,7 @@ public class SKBaobeiController {
 		 * tplist 图片列表[{url:}] jdlist 进店路径[{typeid:,bili:}] wordlist
 		 * 关键字[{word:,ordermethod:}] bbrwlist 宝贝任务[{bbnum:,zhuanhua:,daydes:,}]
 		 */
-		sKBaobeiService.addBaobei(obj);
+		sKBaobeiService.saveBaoBei(obj);
 		return new ResultRowInfo();
 	}
 

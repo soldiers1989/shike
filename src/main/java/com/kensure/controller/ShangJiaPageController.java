@@ -155,6 +155,17 @@ public class ShangJiaPageController {
 		return "page/shangjia/index.jsp";
 	}
 
+	@RequestMapping("actedit")
+	public String actedit(HttpServletRequest req, HttpServletResponse rep) {
+		req.setAttribute("index", indexlist);
+		
+		List<String> body = new ArrayList<String>();
+		body.add("index_left.jsp");
+		body.add("./manager/index_right.jsp");
+		req.setAttribute("bodypage", body);
+		return "page/shangjia/index.jsp";
+	}
+	
 	// 支付页面
 	@RequestMapping("payinfo")
 	public String payinfo(HttpServletRequest req, HttpServletResponse rep, Model model) {

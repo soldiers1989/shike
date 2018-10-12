@@ -62,6 +62,7 @@ public class BusiConstant {
 	public static final KVBean shangjia_payinfo = new KVBean(context + "/shangjia/payinfo", "商家支付信息");
 	
 	public static final KVBean shangjia_shikelist = new KVBean(context + "/shangjia/shikelist", "试用情况");
+	public static final KVBean shangjia_activity_edit = new KVBean(context + "/shangjia/actedit", "活动编辑");
 	public static final KVBean shangjia_zhanglist = new KVBean(context + "/shangjia/zhanglist", "商家账户明细");
 	public static final KVBean shangjia_tixian = new KVBean(context + "/shangjia/tixian", "商家账户提现");
 	public static final KVBean shangjia_gaimi = new KVBean(context + "/shangjia/gaimi", "改密功能");
@@ -96,6 +97,8 @@ public class BusiConstant {
 	public static final KVBean shangjia_dianpualist_do = new KVBean(context + "/dianpu/list.do", "商家店铺列表");
 	public static final KVBean shangjia_taobaoinfo_do = new KVBean(context + "/baobei/gettaobaoinfo.do", "淘宝图片");
 	public static final KVBean shangjia_baobeiadd_do = new KVBean(context + "/baobei/save.do", "活动信息保存");
+	public static final KVBean shangjia_baobei_detail_do = new KVBean(context + "/baobei/detail.do", "活动信息详情");
+	public static final KVBean shangjia_baobei_full_do = new KVBean(context + "/baobei/baobeiFull.do", "活动信息完整详情");
 	public static final KVBean shangjia_baobeilist_do = new KVBean(context + "/baobei/list.do", "活动信息查询");
 	public static final KVBean shangjia_payinfo_do = new KVBean(context + "/baobei/payinfo.do", "支付计算");
 	public static final KVBean shangjia_pay_do = new KVBean(context + "/baobei/pay.do", "支付运作");

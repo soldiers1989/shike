@@ -14,6 +14,7 @@ package com.kensure.shike.baobei.service;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,6 +30,7 @@ import co.kensure.exception.ParamUtils;
 import co.kensure.frame.JSBaseService;
 import co.kensure.mem.ArithmeticUtils;
 import co.kensure.mem.CollectionUtils;
+import co.kensure.mem.ListUtils;
 import co.kensure.mem.MapUtils;
 import co.kensure.mem.NumberUtils;
 import co.kensure.mem.PageInfo;
@@ -178,18 +180,31 @@ public class SKBaobeiService extends JSBaseService {
 	 * @return
 	 */
 	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
-	public boolean addBaobei(SKBaobei obj) {
-		invalid(obj);
+	public boolean saveBaoBei(SKBaobei obj) {
+		SKBaobei oldBaoBei = null;
+		boolean newFlag = true;
+		if (obj.getId() != null) {
+			oldBaoBei = this.selectOne(obj.getId());
+			if (oldBaoBei == null) {
+				BusinessExceptionUtil.threwException("修改记录不存在");
+			}
+			newFlag = false;
+		}
+		invalid(obj, oldBaoBei);
 		SKUser user = sKUserService.getUser();
 		SKUserService.checkUser(user);
 
 		obj.setUserid(user.getId());
-		obj.setYingshou(0D);
-		obj.setDisorder(System.currentTimeMillis());
+		if (obj.getYingshou() == null) {
+			obj.setYingshou(0D);
+		}
+		if (obj.getDisorder() == null) {
+			obj.setDisorder(System.currentTimeMillis());
+		}
 
 		// 任务初始化
 		List<SKBbrw> rws = obj.getBbrwlist();
-		sKBbrwService.initData(rws, obj.getHdtypeid());
+		sKBbrwService.initData(rws, obj.getHdtypeid(), newFlag);
 		Long bbnum = 0L;
 		Long sqnum = 0L;
 		Date starttime = null;
@@ -208,10 +223,14 @@ public class SKBaobeiService extends JSBaseService {
 		obj.setSqnum(sqnum);
 		// 校验金额
 		checkMoney(obj);
-		insert(obj);
+		if (obj.getId() == null) {
+			this.insert(obj);
+		} else {
+			this.update(obj);
+		}
 
-		// 任务保存
-		sKBbrwService.add(rws, obj.getId());
+		// 任务保存,并删除无效的旧数据
+		sKBbrwService.saveOrUpdateInBatch(rws, obj.getId(), newFlag);
 
 		// 图片
 		List<SKBaobeiTP> tps = obj.getTplist();
@@ -219,7 +238,11 @@ public class SKBaobeiService extends JSBaseService {
 		for (SKBaobeiTP tp : tps) {
 			tp.setBbid(obj.getId());
 			tp.setDisorder(i);
-			sKBaobeiTPService.insert(tp);
+			if (tp.getId() == null) {
+				this.sKBaobeiTPService.insert(tp);
+			} else {
+				this.sKBaobeiTPService.update(tp);
+			}
 			i++;
 		}
 
@@ -231,18 +254,43 @@ public class SKBaobeiService extends JSBaseService {
 				continue;
 			}
 			jd.setBbid(obj.getId());
-			sKJindianService.insert(jd);
+			if (jd.getId() == null) {
+				this.sKJindianService.insert(jd);
+			} else {
+				this.sKJindianService.update(jd);
+			}
 			n += jd.getBili();
 		}
 		if (n != 100) {
 			BusinessExceptionUtil.threwException("比例之和必须为100");
 		}
+		
+		// 关键字处理
+		Map<Long, SKWord> oldKeyWordMap = null;
+		if (!newFlag) {
+			List<SKWord> oldKeyWords = this.sKWordService.getList(obj.getId());
+			oldKeyWordMap = ListUtils.listToMap(oldKeyWords, "id");
+		}
 
-		// 关键字
 		List<SKWord> words = obj.getWordlist();
 		for (SKWord word : words) {
 			word.setBbid(obj.getId());
-			sKWordService.insert(word);
+			if (word.getId() == null) {
+				this.sKWordService.insert(word);
+			} else {
+				this.sKWordService.update(word);
+				if (oldKeyWordMap != null) {
+					oldKeyWordMap.remove(word.getId());
+				}
+			}
+		}
+		
+		if (oldKeyWordMap != null && oldKeyWordMap.size() > 0) {
+			List<Long> ids = new ArrayList<>();
+			for (SKWord word : oldKeyWordMap.values()) {
+				ids.add(word.getId());
+			}
+			this.sKWordService.deleteMulti(ids);
 		}
 
 		// 宝贝详情
@@ -251,7 +299,11 @@ public class SKBaobeiService extends JSBaseService {
 		String content = TaoBaoService.getContent(obj.getUrl());
 		zt.setBbid(obj.getId());
 		zt.setContent(content);
-		sKBaobeiZTService.insert(zt);
+		if (zt.getId() == null) {
+			this.sKBaobeiZTService.insert(zt);
+		} else {
+			this.sKBaobeiZTService.update(zt);
+		}
 
 		return true;
 	}
@@ -261,7 +313,7 @@ public class SKBaobeiService extends JSBaseService {
 	 * 
 	 * @param obj
 	 */
-	private void invalid(SKBaobei obj) {
+	private void invalid(SKBaobei obj, SKBaobei oldBaoBei) {
 		ParamUtils.isBlankThrewException(obj.getTitle(), "标题不能为空");
 		ParamUtils.isBlankThrewException(obj.getDpid(), "店铺不能为空");
 		ParamUtils.isBlankThrewException(obj.getUrl(), "链接不能为空");
@@ -273,6 +325,9 @@ public class SKBaobeiService extends JSBaseService {
 			BusinessExceptionUtil.threwException("价格必须大于1");
 		}
 		ParamUtils.isBlankThrewException(obj.getTitle(), "标题不能为空");
+		if (oldBaoBei != null && oldBaoBei.getStatus() != 0 && oldBaoBei.getStatus() != 2) {
+			BusinessExceptionUtil.threwException("活动状态不正确，不允许修改");
+		}
 	}
 
 	/**
@@ -591,6 +646,28 @@ public class SKBaobeiService extends JSBaseService {
 	}
 
 	/**
+	 * 获取完整的宝贝信息
+	 * @param id
+	 * @return
+	 */
+	public SKBaobei getBaoBeiFull(Long id) {
+		SKBaobei baobei = this.getSKBaobei(id);
+		// 进店方式
+		List<SKJindian> jdList = this.sKJindianService.getList(id);
+		baobei.setJdlist(jdList);
+		
+		// 关键词
+		List<SKWord> wordList = this.sKWordService.getList(id);
+		baobei.setWordlist(wordList);
+		
+		// 任务列表
+		List<SKBbrw> bbrwList = this.sKBbrwService.selectByWhere(MapUtils.genMap("bbid", id));
+		baobei.setBbrwlist(bbrwList);
+		
+		return baobei;
+	}
+	
+	/**
 	 * 申请
 	 * 
 	 * @return
@@ -734,4 +811,5 @@ public class SKBaobeiService extends JSBaseService {
 		List<SKGroupStatus> list = dao.groubByStatus(parameters);
 		return list;
 	}
+
 }

@@ -28,6 +28,7 @@ import co.kensure.exception.BusinessExceptionUtil;
 import co.kensure.frame.JSBaseService;
 import co.kensure.mem.CollectionUtils;
 import co.kensure.mem.DateUtils;
+import co.kensure.mem.ListUtils;
 import co.kensure.mem.MapUtils;
 import co.kensure.mem.NumberUtils;
 import co.kensure.sms.SMSClient;
@@ -121,12 +122,12 @@ public class SKBbrwService extends JSBaseService {
 	 * 
 	 * @param obj
 	 */
-	public void initData(List<SKBbrw> rws, Long hdtypeid) {
+	public void initData(List<SKBbrw> rws, Long hdtypeid, boolean newFlag) {
 		Date date = new Date();
 		Date now = DateUtils.parse(DateUtils.format(date, DateUtils.DAY_FORMAT), DateUtils.DAY_FORMAT);
 		for (SKBbrw obj : rws) {
 			Date day = DateUtils.parse(obj.getDaydes(), DateUtils.DAY_FORMAT);
-			if (day.getTime() < now.getTime()) {
+			if (newFlag && day.getTime() < now.getTime()) {
 				BusinessExceptionUtil.threwException("时间不能早于今天");
 			}
 			if (obj.getBbnum() == null) {
@@ -157,10 +158,33 @@ public class SKBbrwService extends JSBaseService {
 	 * 
 	 * @param obj
 	 */
-	public void add(List<SKBbrw> rws, Long bbid) {
+	public void saveOrUpdateInBatch(List<SKBbrw> rws, Long bbid, boolean newFlag) {
+		Map<Long, SKBbrw> oldRwMap = null;
+		if (!newFlag) {
+			List<SKBbrw> oldRws = this.selectByWhere(MapUtils.genMap("bbid",bbid));
+			oldRwMap = ListUtils.listToMap(oldRws, "id");
+		}
+		
+		// 插入新的或更新旧的
 		for (SKBbrw obj : rws) {
 			obj.setBbid(bbid);
-			insert(obj);
+			if (obj.getId() == null) {
+				this.insert(obj);
+			} else {
+				this.update(obj);
+				if (oldRwMap != null) {
+					oldRwMap.remove(obj.getId());
+				}
+			}
+		}
+		
+		// 删除新列表不存在的
+		if (oldRwMap != null && oldRwMap.size() > 0) {
+			List<Long> ids = new ArrayList<Long>();
+			for (SKBbrw rw : oldRwMap.values()) {
+				ids.add(rw.getId());
+			}
+			this.deleteMulti(ids);
 		}
 	}
 

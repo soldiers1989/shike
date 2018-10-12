@@ -11,10 +11,13 @@
  */
 package co.kensure.mem;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -60,4 +63,38 @@ public final class ListUtils {
 		return longList;
 	}
 
+	/**
+	 * 将List中的元素以元素中某个字段为Key转为Map
+	 * @author qiuxs
+	 *
+	 * @param list
+	 * @param fieldName
+	 * @return
+	 *
+	 * 创建时间：2018年7月26日 下午10:16:01
+	 */
+	@SuppressWarnings("unchecked")
+	public static <K, V> Map<K, V> listToMap(List<V> list, String fieldName) {
+		Map<K, V> map = new HashMap<>();
+		if (list == null || list.size() == 0) {
+			return map;
+		}
+		// 处理List中元素为Map的情况
+		if (list.get(0) instanceof Map) {
+			for (V v : list) {
+				map.put(((Map<?, K>) v).get(fieldName), v);
+			}
+		} else {
+			Field field = ReflectUtils.getAccessibleField(list.get(0).getClass(), fieldName);
+			for (V v : list) {
+				try {
+					map.put((K) field.get(v), v);
+				} catch (IllegalArgumentException | IllegalAccessException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return map;
+	}
+	
 }

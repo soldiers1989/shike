@@ -15,7 +15,7 @@ public class ResultRowInfo extends ResultInfo {
 	}
 	
 	public ResultRowInfo(Object row) {
-		super(ResultType.SUCCESS, Const.SAVE_SUCCESS, row, null, null, 0);
+		super(ResultType.SUCCESS, Const.SELECT_SUCCESS, row, null, null, 0);
 	}
 	
 
