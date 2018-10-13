@@ -180,7 +180,7 @@ CREATE TABLE `sk_baobei` (
   `yingshou` decimal(10,2) DEFAULT NULL COMMENT '应付款项',
   `shishou` decimal(10,2) DEFAULT NULL COMMENT '实收款项',
   `tuikuan` decimal(10,2) DEFAULT NULL COMMENT '退款款项',
-  `status` int(11) DEFAULT NULL COMMENT '流程状态 -1是下线，0是正常，1是已经付款，2是拒绝通过，9是申请通过,10是活动结束',
+  `status` int(11) DEFAULT NULL COMMENT '流程状态  dict表，typeid=3',
   `is_del` int(11) DEFAULT NULL COMMENT '状态，0是正在活动，1是删除',
   `hdtypeid` int(11) DEFAULT NULL COMMENT '活动类型id',
   `start_time` datetime NOT NULL COMMENT '活动开始时间',

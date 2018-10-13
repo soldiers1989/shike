@@ -122,16 +122,23 @@
 		<if test="nextTime != null">			
 			and next_time = #{nextTime}			
 		</if>
+		<if test="lessNextTime != null">	
+		<![CDATA[		
+			and next_time <= #{lessNextTime}		
+		]]>	
+		</if>
 		<if test="createdTime != null">			
 			and created_time = #{createdTime}			
 		</if>
 		<if test="bigCreatedTime != null">
+			<![CDATA[
 			and created_time >= #{bigCreatedTime}
+			]]>
 		</if>
 		<if test="lessCreatedTime != null">
-		<![CDATA[
+			<![CDATA[
 			and created_time <= #{lessCreatedTime}
-		]]>
+			]]>
 		</if>
 		<if test="updatedTime != null">			
 			and updated_time = #{updatedTime}			

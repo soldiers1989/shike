@@ -432,4 +432,55 @@ public class SKSkqkService extends JSBaseService {
 		List<SKSkqk> list = selectByWhere(parameters);
 		return list;
 	}
+
+	
+	/**
+	 * 获取宝贝未完成的申请
+	 * 
+	 * @param bbid
+	 * @param userid
+	 * @return
+	 */
+	public List<SKSkqk> getWaitList(long bbid) {
+		Map<String, Object> parameters = MapUtils.genMap("bbid", bbid, "lessthanstatus", 98, "bigthanstatus", 0);
+		List<SKSkqk> list = selectByWhere(parameters);
+		return list;
+	}
+	
+	/**
+	 * 取消一些申请的数据
+	 * 
+	 * @param bbid
+	 * @param userid
+	 * @return
+	 */
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+	public void quxiao() {
+		Date now = new Date();
+		//先处理0-51状态的数据
+		Map<String, Object> parameters = MapUtils.genMap("lessNextTime", now, "lessthanstatus", 98, "bigthanstatus", 0);
+		List<SKSkqk> list = selectByWhere(parameters);
+		for (SKSkqk skqk : list) {
+			if (skqk.getStatus() < 51) {
+				// 如果是中将前，没啥问题
+			} else {		
+				long bbid = skqk.getBbid();
+				 List<SKBbrw> bbrwl = sKBbrwService.getList(bbid);
+				if(CollectionUtils.isNotEmpty(bbrwl)){
+					SKBbrw bbrw = bbrwl.get(0);
+					bbrw.setYzj(bbrw.getYzj()-1);
+				}
+				
+				//修改已中奖数量
+				SKBaobei baobei = sKBaobeiService.selectOne(bbid);
+							
+				SKBaobei obj = new SKBaobei();
+				obj.setId(baobei.getId());
+				obj.setZjnum(baobei.getZjnum()-1);
+				sKBaobeiService.update(obj);			
+			}
+			// 自动取消
+			updateStatus(skqk.getId(), -2L);
+		}
+	}
 }

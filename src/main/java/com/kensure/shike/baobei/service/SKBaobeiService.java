@@ -45,6 +45,7 @@ import com.kensure.shike.baobei.model.SKGroupStatus;
 import com.kensure.shike.baobei.model.SKJindian;
 import com.kensure.shike.baobei.model.SKJysj;
 import com.kensure.shike.baobei.model.SKPayInfo;
+import com.kensure.shike.baobei.model.SKSkqk;
 import com.kensure.shike.baobei.model.SKWord;
 import com.kensure.shike.dianpu.model.SKDianPu;
 import com.kensure.shike.dianpu.service.SKDianPuService;
@@ -264,7 +265,7 @@ public class SKBaobeiService extends JSBaseService {
 		if (n != 100) {
 			BusinessExceptionUtil.threwException("比例之和必须为100");
 		}
-		
+
 		// 关键字处理
 		Map<Long, SKWord> oldKeyWordMap = null;
 		if (!newFlag) {
@@ -284,7 +285,7 @@ public class SKBaobeiService extends JSBaseService {
 				}
 			}
 		}
-		
+
 		if (oldKeyWordMap != null && oldKeyWordMap.size() > 0) {
 			List<Long> ids = new ArrayList<>();
 			for (SKWord word : oldKeyWordMap.values()) {
@@ -396,27 +397,27 @@ public class SKBaobeiService extends JSBaseService {
 		}
 		return list;
 	}
-	
+
 	/**
 	 * 根据用户活动信息
 	 * 
 	 * @return
 	 */
-	public long getListCount(Integer status, String title, Integer hdtypeid,PageInfo page) {
+	public long getListCount(Integer status, String title, Integer hdtypeid, PageInfo page) {
 		Map<String, Object> parameters = getListMapper(status, title, hdtypeid, page);
 		long count = selectCountByWhere(parameters);
 		return count;
 	}
-	
+
 	/**
 	 * 根据用户活动信息
 	 * 
 	 * @return
 	 */
-	private Map<String, Object> getListMapper(Integer status, String title, Integer hdtypeid,PageInfo page) {
+	private Map<String, Object> getListMapper(Integer status, String title, Integer hdtypeid, PageInfo page) {
 		SKUser skuser = sKUserService.getUser();
 		SKUserService.checkUser(skuser);
-		Map<String, Object> parameters = MapUtils.genMap("userid", skuser.getId(),"isDel",0, "orderby", "created_time desc");
+		Map<String, Object> parameters = MapUtils.genMap("userid", skuser.getId(), "isDel", 0, "orderby", "created_time desc");
 		if (status != null) {
 			parameters.put("status", status);
 		}
@@ -432,8 +433,6 @@ public class SKBaobeiService extends JSBaseService {
 		MapUtils.putPageInfo(parameters, page);
 		return parameters;
 	}
-	
-	
 
 	/**
 	 * 根据用户活动信息,计算应收项目
@@ -472,7 +471,7 @@ public class SKBaobeiService extends JSBaseService {
 		list.add(info5);
 		return list;
 	}
-	
+
 	/**
 	 * 根据用户活动信息,设置应收
 	 * 
@@ -480,7 +479,7 @@ public class SKBaobeiService extends JSBaseService {
 	 */
 	public void setYingShouinfo() {
 		List<SKBaobei> bblist = selectAll();
-		for(SKBaobei bb:bblist){
+		for (SKBaobei bb : bblist) {
 			long id = bb.getId();
 			List<SKPayInfo> list = payYingShouinfo(id);
 			SKPayInfo p = list.get(list.size() - 1);
@@ -488,7 +487,6 @@ public class SKBaobeiService extends JSBaseService {
 			update(bb);
 		}
 	}
-	
 
 	/**
 	 * 根据用户活动信息,设置实收项目，如果是全部完成，全额收，如果是部分完成，退还未出货本金+服务费，天秤平台照样收
@@ -519,8 +517,8 @@ public class SKBaobeiService extends JSBaseService {
 
 			shishou = ArithmeticUtils.add(yongjin, shishoubenj, tiancheng);
 			tuikuan = ArithmeticUtils.sub(sk.getYingshou(), shishou);
-			
-			//进行退款 增加活动退款流水
+
+			// 进行退款 增加活动退款流水
 			SKUserZhang zhang = new SKUserZhang();
 			zhang.setUserid(sk.getUserid());
 			zhang.setBusiid(id);
@@ -577,7 +575,7 @@ public class SKBaobeiService extends JSBaseService {
 		// 修改账户信息
 		sKUserZhangService.commit(sk.getUserid(), 3L, sk.getId());
 	}
-	
+
 	/**
 	 * 不通过，同时退钱
 	 * 
@@ -588,7 +586,7 @@ public class SKBaobeiService extends JSBaseService {
 		SKUser skuser = sKUserService.getUser();
 		SKUserService.checkUserAdmin(skuser);
 		SKBaobei baobei = selectOne(id);
-		if(baobei.getStatus() != 1){
+		if (baobei.getStatus() != 1) {
 			BusinessExceptionUtil.threwException("非审核中宝贝，无法拒绝！");
 		}
 		baobei.setStatus(2L);
@@ -647,6 +645,7 @@ public class SKBaobeiService extends JSBaseService {
 
 	/**
 	 * 获取完整的宝贝信息
+	 * 
 	 * @param id
 	 * @return
 	 */
@@ -655,18 +654,18 @@ public class SKBaobeiService extends JSBaseService {
 		// 进店方式
 		List<SKJindian> jdList = this.sKJindianService.getList(id);
 		baobei.setJdlist(jdList);
-		
+
 		// 关键词
 		List<SKWord> wordList = this.sKWordService.getList(id);
 		baobei.setWordlist(wordList);
-		
+
 		// 任务列表
 		List<SKBbrw> bbrwList = this.sKBbrwService.selectByWhere(MapUtils.genMap("bbid", id));
 		baobei.setBbrwlist(bbrwList);
-		
+
 		return baobei;
 	}
-	
+
 	/**
 	 * 申请
 	 * 
@@ -681,7 +680,7 @@ public class SKBaobeiService extends JSBaseService {
 			BusinessExceptionUtil.threwException("宝贝未通过审核");
 		}
 
-        sKSkqkService.saveSQ(baobei, skuser);
+		sKSkqkService.saveSQ(baobei, skuser);
 		Map<String, Object> params = MapUtils.genMap("id", id, "ysqnumAdd", 1);
 		updateByMap(params);
 	}
@@ -716,9 +715,7 @@ public class SKBaobeiService extends JSBaseService {
 
 		sKJysjService.save(baobei, status, jysjList);
 	}
-	
-	
-	
+
 	/**
 	 * 宝贝下线，管理员将活动下线
 	 * 
@@ -729,7 +726,7 @@ public class SKBaobeiService extends JSBaseService {
 		SKUser skuser = sKUserService.getUser();
 		SKUserService.checkUserAdmin(skuser);
 		SKBaobei baobei = selectOne(id);
-		if(baobei.getStatus() != 9){
+		if (baobei.getStatus() != 9) {
 			BusinessExceptionUtil.threwException("非进行中活动，无需下线！");
 		}
 		baobei.setStatus(-1L);
@@ -792,6 +789,30 @@ public class SKBaobeiService extends JSBaseService {
 		for (SKBaobei bb : list) {
 			bb.setStatus(10L);
 			Map<String, Object> params = MapUtils.genMap("id", bb.getId(), "status", 10);
+			updateByMap(params);
+		}
+	}
+
+	/**
+	 * 宝贝结算，和商家算钱，看下是否需要退还给他们钱
+	 * 
+	 * @return
+	 */
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+	public void jiesuanBaobei() {
+		Map<String, Object> parameters = MapUtils.genMap("status", 10);
+		List<SKBaobei> list = selectByWhere(parameters);
+		if (CollectionUtils.isEmpty(list)) {
+			return;
+		}
+		// 修改状态
+		for (SKBaobei bb : list) {
+			List<SKSkqk> sqlist = sKSkqkService.getWaitList(bb.getId());
+			if (CollectionUtils.isNotEmpty(sqlist)) {
+				continue;
+			}
+			bb.setStatus(20L);
+			Map<String, Object> params = MapUtils.genMap("id", bb.getId(), "status", 20);
 			updateByMap(params);
 		}
 		// 设置实收和返款,如果活动未达到预期目的，需要退款

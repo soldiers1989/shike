@@ -22,7 +22,7 @@ public class SKTask {
 	private SKBaobeiService sKBaobeiService;
 
 	/**
-	 * add by fankd 每天0点，设置好评
+	 * add by fankd 每天0点，设置好评\返款\结束活动\结算活动
 	 */
 	@Scheduled(cron = "0 0 0 1/1 * ?")
 	public void deleteLogData() {
@@ -41,6 +41,11 @@ public class SKTask {
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
+		try {
+			sKBaobeiService.jiesuanBaobei();
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -48,7 +53,11 @@ public class SKTask {
 	 */
 	@Scheduled(cron = "0 0 10 1/1 * ?")
 	public void choujiang1() {
-		sKBbrwService.doChouJiang(false);
+		try {
+			sKBbrwService.doChouJiang(false);
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -56,7 +65,12 @@ public class SKTask {
 	 */
 	@Scheduled(cron = "0 0 15 1/1 * ?")
 	public void choujiang2() {
-		sKBbrwService.doChouJiang(false);
+		try {
+
+			sKBbrwService.doChouJiang(false);
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -64,7 +78,23 @@ public class SKTask {
 	 */
 	@Scheduled(cron = "0 0 20 1/1 * ?")
 	public void choujiang3() {
-		sKBbrwService.doChouJiang(true);
+		try {
+			sKBbrwService.doChouJiang(true);
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * add by fankd 每10分钟调度一次，取消一些数据
+	 */
+	@Scheduled(cron = "0 0/1 * * * ?")
+	public void quxiao() {
+		try {
+			sKSkqkService.quxiao();
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
 	}
 
 }
