@@ -117,6 +117,7 @@
         <a class="<%="1".equalsIgnoreCase(status)?"shiy":""%>" href="<%=BusiConstant.shangjia_huodonglist.getKey()%>?status=1">待审核</a>
         <a class="<%="9".equalsIgnoreCase(status)?"shiy":""%>" href="<%=BusiConstant.shangjia_huodonglist.getKey()%>?status=9">进行中</a>
         <a class="<%="10".equalsIgnoreCase(status)?"shiy":""%>" href="<%=BusiConstant.shangjia_huodonglist.getKey()%>?status=10">已结束</a>
+        <a class="<%="20".equalsIgnoreCase(status)?"shiy":""%>" href="<%=BusiConstant.shangjia_huodonglist.getKey()%>?status=20">已结算</a>
         <a class="<%="2".equalsIgnoreCase(status)?"shiy":""%>" href="<%=BusiConstant.shangjia_huodonglist.getKey()%>?status=2">已驳回</a>
     </div>
     <div class="clearfix right_g">
