@@ -88,7 +88,7 @@ public class SKTask {
 	/**
 	 * add by fankd 每10分钟调度一次，取消一些数据
 	 */
-	@Scheduled(cron = "0 0/1 * * * ?")
+	@Scheduled(cron = "0 0/10 * * * ?")
 	public void quxiao() {
 		try {
 			sKSkqkService.quxiao();
