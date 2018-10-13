@@ -39,6 +39,7 @@ import com.kensure.shike.user.model.SKUser;
 import com.kensure.shike.user.service.SKUserService;
 import com.kensure.shike.zhang.model.SKUserZhang;
 import com.kensure.shike.zhang.service.SKUserZhangService;
+import com.kensure.shike.zhang.service.SkUserFansService;
 
 /**
  * 试客情况表服务实现类
@@ -66,6 +67,9 @@ public class SKSkqkService extends JSBaseService {
 
 	@Resource
 	private SKUserZhangService sKUserZhangService;
+	
+	@Resource
+	private SkUserFansService skUserFansService;
 
 	@Resource
 	private SKJysjService sKJysjService;
@@ -405,6 +409,7 @@ public class SKSkqkService extends JSBaseService {
 	 * 
 	 * @param id
 	 */
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
 	public void userMoney(long id) {
 		SKSkqk obj = selectOne(id);
 		if (obj.getStatus() != 81) {
@@ -417,6 +422,9 @@ public class SKSkqkService extends JSBaseService {
 		zhang.setYue(obj.getSalePrice());
 		sKUserZhangService.add(zhang);
 		obj.setStatus(99L);
+		//新人到账
+		skUserFansService.newUser(obj.getUserid());
+			
 		updateStatus(obj.getId(), 99L);
 	}
 

@@ -11,6 +11,9 @@
  */
 package com.kensure.shike.zhang.model;
 
+import com.kensure.shike.sys.model.SKDict;
+import com.kensure.shike.sys.service.SKDictService;
+
 import co.kensure.frame.BaseInfo;;
 
 /**
@@ -75,15 +78,10 @@ public class SKUserZhang extends BaseInfo{
 		return busitypeid;
 	}
 	public String getBusitypeidStr() {
+		SKDict dict = SKDictService.getDictCache(5, this.status + "");
 		String temp = "";
-		if(busitypeid == 1){
-			temp = "充值";
-		}else if(busitypeid == 2){
-			temp = "提现";
-		}else if(busitypeid == 3){
-			temp = "活动";
-		}else if(busitypeid == 4){
-			temp = "返款";
+		if (dict != null) {
+			temp = dict.getName();
 		}
 		return temp;
 	}

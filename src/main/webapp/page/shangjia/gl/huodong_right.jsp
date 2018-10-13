@@ -1,4 +1,5 @@
 <%@page import="com.kensure.shike.constant.BusiConstant"%>
+<%@page import="co.kensure.api.ApiUtil"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <% 
 	String context = BusiConstant.shangjiapath;
@@ -128,7 +129,7 @@
         <a class="<%="1".equalsIgnoreCase(status)?"shiy":""%>" href="<%=BusiConstant.ht_huodonglist.getKey()%>?status=1">待审核</a>
         <a class="<%="9".equalsIgnoreCase(status)?"shiy":""%>" href="<%=BusiConstant.ht_huodonglist.getKey()%>?status=9">进行中</a>
         <a class="<%="10".equalsIgnoreCase(status)?"shiy":""%>" href="<%=BusiConstant.ht_huodonglist.getKey()%>?status=10">已结束</a>
-        <a class="<%="20".equalsIgnoreCase(status)?"shiy":""%>" href="<%=BusiConstant.shangjia_huodonglist.getKey()%>?status=20">已结算</a>
+        <a class="<%="20".equalsIgnoreCase(status)?"shiy":""%>" href="<%=BusiConstant.ht_huodonglist.getKey()%>?status=20">已结算</a>
         <a class="<%="2".equalsIgnoreCase(status)?"shiy":""%>" href="<%=BusiConstant.ht_huodonglist.getKey()%>?status=2">已驳回</a>
         <a class="<%="-1".equalsIgnoreCase(status)?"shiy":""%>" href="<%=BusiConstant.ht_huodonglist.getKey()%>?status=-1">已下线</a>
     </div>
@@ -218,13 +219,13 @@
                 +"<td width='"+theadtds[11].w+"'>";
                 html+="    <div class=\"wae_cer\">";
                 if(row.status == 1){              	
-                	html+="        <input type='button' value='审核通过' onclick='tongguo("+row.id+")'/>";
-                	html+="        <input type='button' value='拒绝通过' onclick='untongguo("+row.id+")'/>";           	
+                	html+="        <input type='button' value='通过' onclick='tongguo("+row.id+")'/>";
+                	html+="        <input type='button' value='拒绝' onclick='untongguo("+row.id+")'/>";  
                 }else{
-                	html+= "        <input type='button' value='宝贝下线' onclick='xiaxian("+row.id+")'/>";
+                	html+= "        <input type='button' value='下线' onclick='xiaxian("+row.id+")'/>";
                 }
-              
-                html+="   </div>";
+                html+="   <a href='<%=BusiConstant.shangjia_activity_edit.getKey()%>?id="+row.id+"' target='_blank'>编辑</a>";
+                html+="   <a href='<%=ApiUtil.getUrl("/gl/xiangqing")%>?id="+row.id+"' target='_blank'>淘宝详情</a></div>";
                 html+="</td></tr>";
 				$("#listtable").append(html);
 			}

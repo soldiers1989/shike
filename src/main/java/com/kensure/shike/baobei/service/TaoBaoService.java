@@ -62,25 +62,29 @@ public class TaoBaoService extends JSBaseService {
 	 * @return
 	 */
 	public static String getContent(String url) {
-		String id = getContentId(url);
-		String html = "";
 		StringBuffer sb = new StringBuffer();
-		if (StringUtils.isNotBlank(id)) {
-			String m = "http://hws.m.taobao.com/cache/wdesc/5.0/?id=" + id;
-			html = HttpUtils.getBody(m);
-			String tag = "tfsContent : '";
-			String c1 = html.substring(html.indexOf(tag) + tag.length());
-			c1 = c1.substring(0, c1.indexOf("',"));
-			String[] c2 = c1.split("src=\"");
-			for (String c3 : c2) {
-				if (c3.contains("\"")) {
-					String c4 = c3.substring(0, c3.indexOf("\""));
-					if (c4.indexOf("_!!") != -1) {
-						sb.append(c4).append("sktag");
+		try {
+			String id = getContentId(url);
+			String html = "";		
+			if (StringUtils.isNotBlank(id)) {
+				String m = "http://hws.m.taobao.com/cache/wdesc/5.0/?id=" + id;
+				html = HttpUtils.getBody(m);
+				String tag = "tfsContent : '";
+				String c1 = html.substring(html.indexOf(tag) + tag.length());
+				c1 = c1.substring(0, c1.indexOf("',"));
+				String[] c2 = c1.split("src=\"");
+				for (String c3 : c2) {
+					if (c3.contains("\"")) {
+						String c4 = c3.substring(0, c3.indexOf("\""));
+						if (c4.indexOf("_!!") != -1) {
+							sb.append(c4).append("sktag");
+						}
 					}
 				}
 			}
-		}
+		} catch (Exception e) {
+			BusinessExceptionUtil.threwException("抓取淘宝详情出错，请点击淘宝详情查看");
+		}	
 		return sb.toString();
 	}
 

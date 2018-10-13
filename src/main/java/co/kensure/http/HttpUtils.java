@@ -10,10 +10,6 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicHttpResponse;
 import org.apache.http.util.EntityUtils;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
 import co.kensure.exception.BusinessExceptionUtil;
 import co.kensure.io.FileUtils;
@@ -65,7 +61,7 @@ public class HttpUtils {
 			if (StatusCode == 200) {
 				html = EntityUtils.toString(response.getEntity(), "utf-8");
 			}else{
-				BusinessExceptionUtil.threwException("get data StatusCode");
+				BusinessExceptionUtil.threwException("get data StatusCode="+StatusCode);
 			}
 		} catch (Exception e) {
 			BusinessExceptionUtil.threwException(e);

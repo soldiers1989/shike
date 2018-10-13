@@ -1,8 +1,10 @@
 package com.kensure.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -10,6 +12,12 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import co.kensure.mem.NumberUtils;
+
+import com.kensure.shike.baobei.model.SKBaobei;
+import com.kensure.shike.baobei.service.SKBaobeiService;
+import com.kensure.shike.baobei.service.TaoBaoService;
 
 /**
  * 商家业务的页面跳转
@@ -21,6 +29,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(value = "gl")
 public class GLPageController {
 
+	@Resource
+	private SKBaobeiService sKBaobeiService;
 	// 商家页面，一般模板
 	private static List<String> indexlist = new ArrayList<String>();
 	static {
@@ -144,12 +154,25 @@ public class GLPageController {
 		body.add("./gl/cmsedit_right.jsp");
 		req.setAttribute("bodypage", body);
 		String typeid = req.getParameter("typeid");
-		req.setAttribute("typeid", typeid);		
+		req.setAttribute("typeid", typeid);
 		String id = req.getParameter("id");
-		if(StringUtils.isNotBlank(id)){
+		if (StringUtils.isNotBlank(id)) {
 			req.setAttribute("id", id);
-		}	
+		}
 		return "page/shangjia/index.jsp";
+	}
+
+	// 跳转到淘宝详情页面
+	@RequestMapping("xiangqing")
+	public void xiangqing(HttpServletRequest req, HttpServletResponse rep) {	
+		try {
+			Long id = NumberUtils.parseLong(req.getParameter("id"), null);
+			SKBaobei bb = sKBaobeiService.selectOne(id );
+			String itemid = TaoBaoService.getContentId(bb.getUrl());
+			rep.sendRedirect("http://hws.m.taobao.com/cache/wdesc/5.0/?id="+itemid);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

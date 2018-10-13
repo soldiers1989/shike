@@ -113,7 +113,7 @@ CREATE TABLE `sk_user_zhang` (
   `id` bigint(20) NOT NULL ,
   `userid` bigint(20) NOT NULL COMMENT '用户id',
   `busiid` bigint(20) NOT NULL COMMENT '业务id',
-  `busitypeid` int(11) NOT NULL COMMENT '业务类型id,1是充值，2是提现，3是活动费用, 4是试客返款,5是活动退款',
+  `busitypeid` int(11) NOT NULL COMMENT '业务类型id,dict表 typeid=5',
   `yue`  decimal(10,2) NOT NULL COMMENT '金额',
   `jinbi` decimal(10,2) NOT NULL COMMENT '金币',
   `inorout` int(11) NOT NULL COMMENT '对这个用户流进还是流出,1是进，-1是出',

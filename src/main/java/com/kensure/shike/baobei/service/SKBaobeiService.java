@@ -14,7 +14,6 @@ package com.kensure.shike.baobei.service;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -294,19 +293,21 @@ public class SKBaobeiService extends JSBaseService {
 			this.sKWordService.deleteMulti(ids);
 		}
 
+		return true;
+	}
+
+	private void saveContent(long bbid, String url) {
 		// 宝贝详情
 		SKBaobeiZT zt = new SKBaobeiZT();
-		zt.setUrl(obj.getUrl());
-		String content = TaoBaoService.getContent(obj.getUrl());
-		zt.setBbid(obj.getId());
+		zt.setUrl(url);
+		String content = TaoBaoService.getContent(url);
+		zt.setBbid(bbid);
 		zt.setContent(content);
 		if (zt.getId() == null) {
 			this.sKBaobeiZTService.insert(zt);
 		} else {
 			this.sKBaobeiZTService.update(zt);
 		}
-
-		return true;
 	}
 
 	/**
@@ -574,6 +575,7 @@ public class SKBaobeiService extends JSBaseService {
 		update(sk);
 		// 修改账户信息
 		sKUserZhangService.commit(sk.getUserid(), 3L, sk.getId());
+		saveContent(id, sk.getUrl());
 	}
 
 	/**
