@@ -367,11 +367,11 @@ public class SKBaobeiService extends JSBaseService {
 			}
 		} else if (hdtypeid == 3) {
 			if (salePrice < 300) {
-				BusinessExceptionUtil.threwException("高于300元客单≥1份");
+				BusinessExceptionUtil.threwException("高于300元");
 			} else if (bbnum < 1) {
 				BusinessExceptionUtil.threwException("高于300元客单≥1份");
 			}
-		} else if (hdtypeid == 3) {
+		} else if (hdtypeid == 4) {
 			double jine = salePrice * bbnum;
 			if (jine < 500) {
 				BusinessExceptionUtil.threwException("总货值不低于500元");
