@@ -834,5 +834,17 @@ public class SKBaobeiService extends JSBaseService {
 		List<SKGroupStatus> list = dao.groubByStatus(parameters);
 		return list;
 	}
+	
+	/**
+	 * 增加申请数
+	 * 
+	 * @return
+	 */
+	public void addsqs(Long id, Long sqs) {
+		SKUser skuser = sKUserService.getUser();
+		SKUserService.checkUserAdmin(skuser);
+		Map<String, Object> params = MapUtils.genMap("id", id, "ysqnumAdd", sqs);
+		updateByMap(params);
+	}
 
 }

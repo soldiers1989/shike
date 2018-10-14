@@ -369,7 +369,7 @@
 			sqnum = #{sqnum},
 		</if>
 		<if test="ysqnum != null">
-			sqnum = #{ysqnum},
+			ysqnum = #{ysqnum},
 		</if>	
 		<if test="zhuanhua != null">
 			zhuanhua = #{zhuanhua},

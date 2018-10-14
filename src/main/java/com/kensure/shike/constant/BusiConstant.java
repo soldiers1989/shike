@@ -198,4 +198,7 @@ public class BusiConstant {
     
     public static final KVBean shike_help = new KVBean(context + "/help", "帮助中心");
     public static final KVBean shike_cms = new KVBean(context + "/help/cms", "内容页面");
+    
+    public static final KVBean shike_baobei_sqs_do = new KVBean(context + "/baobei/sqs.do", "增加申请数");
+    
 }

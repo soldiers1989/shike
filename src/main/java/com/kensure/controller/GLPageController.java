@@ -35,10 +35,7 @@ public class GLPageController {
 	private static List<String> indexlist = new ArrayList<String>();
 	static {
 		indexlist.add("top1.jsp");
-		indexlist.add("banner.jsp");
-		indexlist.add("banner1.jsp");
 		indexlist.add("index_content.jsp");
-		indexlist.add("footer.jsp");
 	}
 
 	// 后台登录页面

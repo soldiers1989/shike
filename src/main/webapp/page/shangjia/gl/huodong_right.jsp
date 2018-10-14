@@ -96,6 +96,10 @@
         cursor: pointer;
     }
     
+    .trhead{
+     	position: relative; 
+		top:expression(this.offsetParent.scrollTop-2);  
+    }
     .trhead td{
      	height:33px;
 		vertical-align:top:middle;
@@ -103,10 +107,16 @@
 		text-align: center;
     }
     .trbody td{
-     	height:100px;
+     	height:30px;
 		vertical-align:top:middle;
 		text-align: center;
     }
+    .table-style table tr {
+    margin-bottom: 2px;
+    border: 1px solid #e8e8e8;
+    background: #f9f9f9;
+    display: block;
+	}
 </style>
 
 <div class="clearfix fabushiyong" style="padding-bottom: 0;">
@@ -119,7 +129,7 @@
                 <option value="1">爆款打造/维护</option>
                 <option value="2"> 新品提升综合权重</option>
                 <option value="3">高客单精准打造爆款</option>
-                <option value="4">新人必中</option>
+                <option value="4">必中任务</option>
         </select>
         <input onclick="dianpulist(1)" type="button" value="搜索">
     </div>
@@ -135,7 +145,13 @@
     </div>
     <div class="clearfix right_g">
         <div class="right_contant table-style">
-         <div style="width:1000px; overflow-y:scroll;">
+        	<div style="width:1000px;height:600px; overflows:scroll;">
+         	<table width="2000" cellspacing="0" style="table-layout:fixed;" cellpadding="0" id="headtable">
+                <tbody>
+                  
+            	</tbody>
+            </table>
+            
             <table width="2000" cellspacing="0" style="table-layout:fixed;" cellpadding="0" id="listtable">
                 <tbody>
                   
@@ -155,18 +171,18 @@
 <script>
 	var theadtds = [{w:50,na:"序号"},{w:270,na:"活动名称"},{w:100,na:"开始时间"},{w:100,na:"结束时间"},{w:100,na:"商家名称"}
 	,{w:100,na:"店铺名称"},{w:100,na:"宝贝单价"},{w:100,na:"产品数量"},{w:100,na:"中奖数量"},{w:100,na:"申请数量"},{w:100,na:"活动进度"},{w:100,na:"活动操作"}];
+	var theadhtml = "<tr class='trhead'>";     
+	for(var i=0;i<theadtds.length;i++){
+		var row = theadtds[i];
+		theadhtml += "<td width='"+row.w+"'>";
+		theadhtml += "<strong>"+row.na+"</strong>";
+		theadhtml += "</td>";      
+	}
+	theadhtml += "</tr>";
+	$("#headtable").append(theadhtml);
+	
 	function sucdo(data){
-		$("#listtable").html("");
-		var theadhtml = "<tr class='trhead'>";     
-		for(var i=0;i<theadtds.length;i++){
-			var row = theadtds[i];
-			theadhtml += "<td width='"+row.w+"'>";
-			theadhtml += "<strong>"+row.na+"</strong>";
-			theadhtml += "</td>";      
-		}
-		theadhtml += "</tr>";
-		$("#listtable").append(theadhtml);
-		
+		$("#listtable").html("");	
 		var rows = data.resultData.rows;
 		fanye.init(data.resultData.total);	
 		if(rows){		
@@ -176,18 +192,12 @@
 				+"<td width='"+theadtds[0].w+"'>" 
                 +" <em style=\"color: #a9a9a9;\">"+row.id+"</em>" 
                 +"</td>" 
-                +"<td width='"+theadtds[1].w+"'>"
-                +"<div class=\"xi_lt clearfix\" style=\"margin-right: 0\">"
-                +"<a style='width: 60px; height: 60px;' href='"+row.url+"' target='_blank'>"
-                +"<img src='"+row.zturl+"'  height='60' width='60'> </a>"
-                +"    <div class=\"cd_lxq cm_cd_lxq\">"
-                +"            <span style=\"margin-left: 0px; width: 170px; line-height: 12px;\">" 
-                +"                <em class=\"iconfont icon-tb\" style=\"font-weight:500;font-size:15px;\">" 
-                +"                </em>"+row.title 
-                +"            </span>"       
-                +"        <input style=\"height: 15px; background: transparent; margin: 10px 0;\" type=\"text\" placeholder=\"备注\" class=\"beizhu\" id=\"sk_note_83882\" onblur=\"SetNoet(83882, 7, '') \">" 
-                +"    </div>" 
-                +" </div>" 
+                +"<td width='"+theadtds[1].w+"'>"              
+                +"<a href='"+row.url+"' target='_blank'>"          
+                +row.title          
+                +"</a>" 	
+                +"   <a href='<%=BusiConstant.shangjia_activity_edit.getKey()%>?id="+row.id+"' target='_blank'>编辑</a>"
+                +"   <a href='<%=ApiUtil.getUrl("/gl/xiangqing")%>?id="+row.id+"' target='_blank'>淘宝详情</a></div>"
                 +"</td>" 
                 +"<td width='"+theadtds[2].w+"'>" 
                 +" <em style=\"color: #a9a9a9;\">"+row.startTimeStr+"</em>" 
@@ -224,8 +234,7 @@
                 }else{
                 	html+= "        <input type='button' value='下线' onclick='xiaxian("+row.id+")'/>";
                 }
-                html+="   <a href='<%=BusiConstant.shangjia_activity_edit.getKey()%>?id="+row.id+"' target='_blank'>编辑</a>";
-                html+="   <a href='<%=ApiUtil.getUrl("/gl/xiangqing")%>?id="+row.id+"' target='_blank'>淘宝详情</a></div>";
+                html+= "        <input type='button' value='增加申请数' onclick='addsq("+row.id+")'/>";
                 html+="</td></tr>";
 				$("#listtable").append(html);
 			}
@@ -250,6 +259,17 @@
 		   var data = {id:id};
 		   var url = "<%=BusiConstant.ht_baobeitongguo_do.getKey()%>";
 		   postdo(url, data, null,null, null);
+	   }	  
+   }
+   
+   function addsq(id){	  
+	   if(confirm('确认增加？')){
+		   var str = window.prompt("请输入增加数量","10");
+		   if(str){
+			   var data = {id:id,sqs:str};
+			   var url = "<%=BusiConstant.shike_baobei_sqs_do.getKey()%>";
+			   postdo(url, data, null,null, null);
+		   }	  
 	   }	  
    }
    

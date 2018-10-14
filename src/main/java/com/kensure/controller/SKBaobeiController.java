@@ -437,5 +437,18 @@ public class SKBaobeiController {
 		}
 		return new ResultRowsInfo(list);
 	}
+	
+	/**
+	 * 增加申请数量
+	 */
+	@ResponseBody
+	@RequestMapping(value = "sqs.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	public ResultInfo addsqs(HttpServletRequest req, HttpServletResponse rep) {
+		JSONObject json = RequestUtils.paramToJson(req);
+		Long id = json.getLong("id");
+		Long sqs = json.getLong("sqs");
+		sKBaobeiService.addsqs(id, sqs);
+		return new ResultRowInfo();
+	}
 
 }
