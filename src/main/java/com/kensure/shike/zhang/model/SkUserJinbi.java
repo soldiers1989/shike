@@ -64,6 +64,10 @@ public class SkUserJinbi extends BaseInfo {
 	public String getTypeidStr() {
 		if (1 == typeid) {
 			typeidStr = "签到";
+		} else if (2 == typeid) {
+			typeidStr = "购物奖励";
+		} else if (3 == typeid) {
+			typeidStr = "邀请奖励";
 		}
 		return typeidStr;
 	}

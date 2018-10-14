@@ -345,7 +345,7 @@ public class ShikeMobileController {
 
 		SKUserYue yue = skUserYueService.selectOne(user.getId());
 
-		// 当前是已中奖状态的 宝贝数量
+		// 当前是已中奖状态的 任务数量
 		long yzj = sKSkqkService.getQkByByYzj(user.getId());
 
 		// 今日申请数量
