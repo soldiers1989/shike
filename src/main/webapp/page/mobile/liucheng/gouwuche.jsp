@@ -135,7 +135,6 @@
 	<div style="height: 2rem"></div>
 	<div class="Flow">
 		<div class="Flow-hd">
-			<%--<img src="<%=BusiConstant.shikemobilepath %>/liucheng/gouwuche/7da6e911-c7a6-44df-932f-984d459d9ba3">--%>
 			<img src="${baobei.zturl}">
 
 			<ul>
@@ -517,21 +516,23 @@
     function dictsucdo(data){
         window.location.href="<%=BusiConstant.shike_gouwuche.getKey()%>?id=<%=baobei.getId()%>";
     }
-    function addgouwuche(){ 	 
-    	 var dssp = $(".validate-list dd.act");
-    	 var key_word = dssp.find(".link").val();
-    	 var typeid = dssp.index()+1;
-         if (!key_word) {
-             layer.open({
-                 content: '验证值为空，请重新填写'
-                 ,btn: '关闭'
-             });
-             return false;
-         }
-        var ds = [{content:key_word,typeid:typeid}];
-        var data = {id:<%=baobei.getId()%>,status:18,datas:JSON.stringify(ds)};
-        var url = "<%=BusiConstant.shike_liucheng_do.getKey()%>";
-        postdo(url, data, dictsucdo,null, null);
+    function addgouwuche(){
+		var dssp = $(".validate-list dd.act");
+		var key_word = dssp.find(".link").val();
+		var typeid = dssp.index()+1;
+		if (!key_word) {
+			layer.open({
+			 content: '验证值为空，请重新填写'
+			 ,btn: '关闭'
+			});
+			return false;
+		}
+		// 去除特殊字符
+		key_word = key_word.replace('👉','').replace('👈','')
+		var ds = [{content:key_word,typeid:typeid}];
+		var data = {id:<%=baobei.getId()%>,status:18,datas:JSON.stringify(ds)};
+		var url = "<%=BusiConstant.shike_liucheng_do.getKey()%>";
+		postdo(url, data, dictsucdo,null, null);
     }
     //核对淘口令
     function checkTKL(tkl){

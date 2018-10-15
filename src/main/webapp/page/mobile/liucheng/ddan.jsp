@@ -80,7 +80,7 @@
     <div style="height: 2rem"></div>
     <div class="Flow">
         <div class="Flow-hd">
-            <img src="<%=BusiConstant.shikemobilepath %>/liucheng/ddan/5d90d9ee-d3d8-4771-8d40-a2675f3618ee">
+            <img src="${baobei.zturl}">
             <ul>
                 <li><span class="iconfont icon-tb"></span> <span>${baobei.title}</span></li>
                 <li>店铺名称：<span>${baobei.dpnameS}</span></li>
