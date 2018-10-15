@@ -145,7 +145,7 @@
     </div>
     <div class="clearfix right_g">
         <div class="right_contant table-style">
-        	<div style="width:1000px;height:600px; overflows:scroll;">
+        	<div style="width:1000px;height:800px; overflow:scroll;">
          	<table width="2000" cellspacing="0" style="table-layout:fixed;" cellpadding="0" id="headtable">
                 <tbody>
                   
@@ -155,7 +155,7 @@
             <table width="2000" cellspacing="0" style="table-layout:fixed;" cellpadding="0" id="listtable">
                 <tbody>
                   
-            	</tbody>
+            	</tbody> 
             </table>
             </div>
         </div>
