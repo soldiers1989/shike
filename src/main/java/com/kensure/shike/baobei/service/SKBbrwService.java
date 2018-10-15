@@ -383,7 +383,7 @@ public class SKBbrwService extends JSBaseService {
 		Map<String, Object> parameters = MapUtils.genMap("bbid", bbid, "daydes", todayStr, "status", 1);
 		List<SKBbrw> list = selectByWhere(parameters);
 		if (CollectionUtils.isEmpty(list)) {
-			return;
+			BusinessExceptionUtil.threwException("该宝贝今天没有任务");
 		}
 
 		SKBbrw skBbrw = list.get(0);
