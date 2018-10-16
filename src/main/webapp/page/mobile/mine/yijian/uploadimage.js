@@ -34,8 +34,8 @@ function bindUploadImage(div, callback, isMultiple, compressType, checkSize) {
                     $("#loading").fadeOut();
                     return;
                 }
-                if ((checkSize == null || checkSize == true) && f.size > 1024 * 1024*5) {
-                    myAlert("图片大小不能超过5M");
+                if ((checkSize == null || checkSize == true) && f.size > 1024 * 1024*10) {
+                    myAlert("图片大小不能超过10M");
                     $("#loading").fadeOut();
                     check = false;
                     return;
