@@ -55,7 +55,7 @@
 
 <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/mine/tixian/goods.css">
 <script type="text/javascript" src="<%=BusiConstant.context%>/jqtable/jquery.cookie.js"></script>
-<script type="text/javascript" src="<%=BusiConstant.context%>/common/http.js?ver=<%=BusiConstant.version%>"></script>
+<script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/http.js?ver=<%=BusiConstant.version%>"></script>
 
 
 <script>

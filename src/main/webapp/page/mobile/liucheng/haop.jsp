@@ -26,8 +26,7 @@
     <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/jquery-1.8.3.js"></script>
     <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/Common.js"></script>
     <script type="text/javascript" src="<%=BusiConstant.context%>/jqtable/jquery.cookie.js"></script>
-    <script type="text/javascript"
-            src="<%=BusiConstant.context%>/common/http.js?ver=<%=BusiConstant.version%>"></script>
+    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/http.js?ver=<%=BusiConstant.version%>"></script>
     <script src="<%=BusiConstant.shikemobilepath %>/common/js/uploadimage.js"></script>
 
     <script>
