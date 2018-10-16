@@ -14,6 +14,9 @@ package com.kensure.shike.baobei.model;
 import java.util.Date;
 import java.util.List;
 
+import com.kensure.shike.sys.model.SKDict;
+import com.kensure.shike.sys.service.SKDictService;
+
 import co.kensure.frame.BaseInfo;
 
 /**
@@ -178,11 +181,10 @@ public class SKSkqk extends BaseInfo {
 	}
 
 	public String getStatusStr() {
+		SKDict dict = SKDictService.getDictCache(6, this.status + "");
 		String temp = "";
-		if (81 == this.status) {
-			temp = "已好评";
-		} else if (99 == this.status) {
-			temp = "已返款";
+		if (dict != null) {
+			temp = dict.getName();
 		}
 		return temp;
 	}

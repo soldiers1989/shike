@@ -69,23 +69,40 @@
 				html+="<td>"+row.noTaobao+"</td>";				
 				var jys = row.jylist;
 				var jymap = {};
-				for(var i=0;i<jys.length;i++){
-					var jy = jys[i];
+				for(var j=0;j<jys.length;j++){
+					var jy = jys[j];
 					var key = jy.status+"-"+jy.typeid+"-"+jy.busitype;
 					jymap[key] = jy;
 				}
 				
-				html+="<td>"+jymap["61-2-ddh"].content+"</td>";
-				html+="<td><img src='"+jymap["61-3-dd"].content +"'  height='60' width='60'></td>";
-				html+="<td>"+jymap["81-2-hpy"].content+"</td>";
-				html+="<td><img src='"+jymap["81-3-hp"].content +"'  height='60' width='60'></td>";
+				
+				var ddh612 = "";
+				if(jymap["61-2-ddh"]){
+					ddh612 =  jymap["61-2-ddh"].content
+				}
+				var hp613 = "";
+				if(jymap["61-3-dd"]){
+					hp613 =  jymap["61-3-dd"].content
+				}
+				
+				var hpy812 = "";
+				if(jymap["81-2-hpy"]){
+					hpy812 =  jymap["81-2-hpy"].content
+				}
+				var hp813 = "";
+				if(jymap["81-3-hp"]){
+					hp813 =  jymap["81-3-hp"].content
+				}
+				
+				html+="<td>"+ddh612+"</td>";
+				html+="<td><img src='"+hp613 +"'  height='60' width='60'></td>";
+				html+="<td>"+hpy812+"</td>";
+				html+="<td><img src='"+hp813 +"'  height='60' width='60'></td>";
 				if(row.status == 81){
 					html+="<td><input type='button' value='同意返款' onclick='fankuan("+row.id+")'</td>";
 				}else{
 					html+="<td></td>";
-				}
-				
-				
+				}	
 				html+="</tr>";
 				$("#listtable").append(html);
 			}

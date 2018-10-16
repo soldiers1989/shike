@@ -132,7 +132,7 @@ public class SKDianPuService extends JSBaseService {
 		if (role.getDianpushu() <= CollectionUtils.getSize(dianpulist)) {
 			BusinessExceptionUtil.threwException("店铺数超过上限，请联系客服升级会员");
 		}
-
+		obj.setName(obj.getName().trim());
 		insert(obj);
 		return true;
 	}
