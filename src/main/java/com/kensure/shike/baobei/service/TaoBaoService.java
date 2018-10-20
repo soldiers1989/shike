@@ -130,9 +130,13 @@ public class TaoBaoService extends JSBaseService {
 	}
 
 	private static String getTKLId(String url) {
-		String tag = ".com/i";
-		url = url.substring(url.indexOf(tag) + tag.length());
-		url = url.substring(0, url.indexOf(".htm"));
+		if(url.indexOf("item.htm?") > 0){
+			url = getContentId(url);
+		}else{
+			String tag = ".com/i";
+			url = url.substring(url.indexOf(tag) + tag.length());
+			url = url.substring(0, url.indexOf(".htm"));
+		}	
 		return url;
 	}
 
@@ -178,8 +182,8 @@ public class TaoBaoService extends JSBaseService {
 	public static void main(String[] args) {
 		// fenxi();
 
-		String url = "https://detail.tmall.com/item.htm?id=551968898854&spm=a230r.7195193.1997079397.20.XRP1bz&abbucket=12";
-		String html = encodeTKL(url);
+		String url = "【夏季儿童棉绸家居服男孩女孩宝宝睡衣小孩空调服套装男童女童薄款】，復·制这段描述￥2wRCb6weVfY￥后到淘寳[来自超级会员的分享]";
+		String html = parseTKL(url);
 		System.out.println(html);
 	}
 
