@@ -9,6 +9,11 @@
 		typeid,
 		url,
 		status,
+		wangwang,
+		mjtp,
+		qq,
+		weixin,
+		phone,
 		created_time as createdTime,
 		updated_time as updatedTime
     </sql>
@@ -20,6 +25,11 @@
 		typeid,
 		url,
 		status,
+		wangwang,
+		mjtp,
+		qq,
+		weixin,
+		phone,
 		created_time,
 		updated_time
     </sql>
@@ -33,6 +43,11 @@
 			#{typeid},
 			#{url},
 			#{status},
+			#{wangwang},
+			#{mjtp},
+			#{qq},
+			#{weixin},
+			#{phone},
 			#{createdTime},
 			#{updatedTime}
 		)
@@ -48,6 +63,11 @@
 				#{item.typeid},
 				#{item.url},
 				#{item.status},
+				#{item.wangwang},
+				#{item.mjtp},
+				#{item.qq},
+				#{item.weixin},
+				#{item.phone},
 				#{item.createdTime},
 				#{item.updatedTime}
 			)
@@ -139,7 +159,22 @@
 			created_time = #{createdTime},
 		</if>
 		<if test="updatedTime != null">
-			updated_time = #{updatedTime}
+			updated_time = #{updatedTime},
+		</if>
+		<if test="wangwang != null">
+			wangwang = #{wangwang},
+		</if>
+		<if test="mjtp != null">
+			mjtp = #{mjtp},
+		</if>
+		<if test="qq != null">
+			qq = #{qq},
+		</if>
+		<if test="weixin != null">
+			weixin = #{weixin},
+		</if>
+		<if test="phone != null">
+			phone = #{phone}
 		</if>
 	</sql>
 	
