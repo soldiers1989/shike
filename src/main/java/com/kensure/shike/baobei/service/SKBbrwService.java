@@ -372,6 +372,7 @@ public class SKBbrwService extends JSBaseService {
 
 	}
 
+	
 	/**
 	 * 中奖 （必中）
 	 *
@@ -385,9 +386,26 @@ public class SKBbrwService extends JSBaseService {
 		if (CollectionUtils.isEmpty(list)) {
 			BusinessExceptionUtil.threwException("该宝贝今天没有任务");
 		}
-
 		SKBbrw skBbrw = list.get(0);
-
+		Date now = new Date();
+		int hour = DateUtils.getHour(now);
+		int bbnum = skBbrw.getBbnum().intValue();
+		int yzj = skBbrw.getYzj().intValue();
+		//当前时间最大中奖数量
+		int maxzj = 0;
+		//7点，放30%
+		if(hour >= 7){
+			maxzj = bbnum*3/10;
+		}else if(hour >= 14){
+		//14点，放60%
+			maxzj = bbnum*6/10;
+		}else if(hour >= 19){
+		//19点，放100%
+			maxzj = bbnum;
+		}
+		if(yzj >= maxzj){
+			BusinessExceptionUtil.threwException("宝贝该时间段已经放完！");
+		}
 		// 今日任务中奖人数+1
 		Map<String, Object> param = MapUtils.genMap("id", skBbrw.getId(), "yzjAdd", 1);
 		updateByMap(param);
