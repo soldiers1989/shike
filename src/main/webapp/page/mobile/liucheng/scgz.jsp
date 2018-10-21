@@ -27,11 +27,13 @@
     <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/liucheng/scgz/style.css">
 
     <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/jquery-1.8.3.js"></script>
+
     <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/Common.js"></script>
 
     <script type="text/javascript" src="<%=BusiConstant.context%>/jqtable/jquery.cookie.js"></script>
     <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/http.js?ver=<%=BusiConstant.version%>"></script>
 
+    <script src="https://unpkg.com/qiniu-js@2.5.0/dist/qiniu.min.js"></script>
 
     <script>
         var userId=0;
@@ -68,6 +70,8 @@
 <script>
     var referrer = '';     //记录上一页地址
 </script>
+
+<input type="hidden" id="qiniu" value="<%=BusiConstant.qiniu_context %>">
 
     <header class="header task-top frv" style="line-height: 2rem">
         <i class="arrows" onclick="history.back(-1)"></i>
@@ -161,14 +165,14 @@
         var uploading2 = false;
 
         bindUploadImage('.good-img', function (p) {
-            $('.good-img').attr("src", "<%=BusiConstant.context %>" + p);
-            $('.good-img').data("src", "<%=BusiConstant.context %>" + p);
-            logo1 = "<%=BusiConstant.context %>" + p;
+            $('.good-img').attr("src", p);
+            $('.good-img').data("src", p);
+            logo1 = p;
             uploading1 = true;
         }, false, "JpinOrderFlow");
         bindUploadImage('.shop-img', function (p) {
-            $('.shop-img').attr("src", "<%=BusiConstant.context %>" + p);
-            $('.shop-img').data("src", "<%=BusiConstant.context %>" + p);
+            $('.shop-img').attr("src", p);
+            $('.shop-img').data("src", p);
             logo2 = "<%=BusiConstant.context %>" + p;
             uploading2 = true;
         }, false, "JpinOrderFlow");

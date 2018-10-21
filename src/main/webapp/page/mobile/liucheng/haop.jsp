@@ -27,10 +27,13 @@
     <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/Common.js"></script>
     <script type="text/javascript" src="<%=BusiConstant.context%>/jqtable/jquery.cookie.js"></script>
     <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/http.js?ver=<%=BusiConstant.version%>"></script>
-    <script src="<%=BusiConstant.shikemobilepath %>/common/js/uploadimage.js"></script>
+
+    <script src="https://unpkg.com/qiniu-js@2.5.0/dist/qiniu.min.js"></script>
+
+    <script src="<%=BusiConstant.shikemobilepath %>/common/js/uploadimageNew.js"></script>
 
     <script>
-        /*var userId=0;
+        var userId=0;
         (function (doc, win) {
             var docEl = doc.documentElement,
             resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
@@ -46,7 +49,7 @@
             win.addEventListener(resizeEvt, recalc, false);
             doc.addEventListener('DOMContentLoaded', recalc, false);
             recalc();
-        })(document, window);*/
+        })(document, window);
     </script>
     
 <link href="<%=BusiConstant.shikemobilepath %>/liucheng/haop/layer.css" type="text/css" rel="styleSheet" id="layermcss"></head>
@@ -59,7 +62,6 @@
 <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/liucheng/haop/goods.css">
 
 <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/liucheng/haop/jquery.countdown.js"></script>
-
 <style>
     .tpsc {
         min-height: 100px;
@@ -98,13 +100,12 @@
             }
         });
         bindUploadImage('#uploadbtn', function (path) {
-            path = "<%=BusiConstant.context %>" + path;
             var html = '<li class="tpsc"><img name="preview" src="' + path + '" class="baob" style="width:85px;height:85px"><textarea name="preview" class="wby vfff" placeholder="简单的介绍下您收到的宝贝图片"></textarea><div class="caca" onclick="$(this).parent().remove();">X</div></li>';
             $('#picList').append(html);
             $("html, body").animate({ scrollTop: $("#picList").offset().top }, 500);
         }, true, 2, true);
         bindUploadImage('#uploadbtn1', function (path) {
-            path = "<%=BusiConstant.context %>" + path;
+            <%--path = "<%=BusiConstant.context %>" + path;--%>
             var html = '<li class="tpsc"><img name="preview1" src="' + path + '" class="baob" style="width:85px;height:85px"><div class="caca" onclick="$(this).parent().remove();">X</div></li>';
             $('#picList1').append(html);
             $("html, body").animate({ scrollTop: $("#picList1").offset().top }, 500);
@@ -115,13 +116,11 @@
             }
         }, true, 2, true);
         bindUploadImage('#uploadbtn2', function (path) {
-            path = "<%=BusiConstant.context %>" + path;
             var html = '<li class="tpsc"><img name="preview2" src="' + path + '" class="baob" style="width:85px;height:85px"><textarea name="preview1" class="wby vfff" placeholder="简单的介绍下您收到的宝贝图片"></textarea><div class="caca" onclick="$(this).parent().remove();">X</div></li>';
             $('#picList2').append(html);
             $("html, body").animate({ scrollTop: $("#picList1").offset().top }, 500);
         }, true, 2, true);
         bindUploadImage('#uploadbtn3', function (path) {
-            path = "<%=BusiConstant.context %>" + path;
             var html = '<li class="tpsc"><img name="preview3" src="' + path + '" class="baob" style="width:85px;height:85px"><div class="caca" onclick="$(this).parent().remove();">X</div></li>';
             $('#picList3').append(html);
             $("html, body").animate({ scrollTop: $("#picList1").offset().top }, 500);
@@ -362,17 +361,8 @@
             提交
         </div>
     </form>
-</script><%--
-<script type="text/html" id="message">
-    为了给广大用户带来更好的试用体验，试呗网手机端系统正在升级，暂无法提交试用报告，请在电脑或手机上登录试呗网www.meilipa.com进行操作，预计在4月10号晚上6点完成升级，对您造成的麻烦我们深感抱歉
-    <div class="own" onclick="layer.closeAll() ">
-        确定
-    </div>
-</script>--%>
+</script>
 <div style="display: none">
-    <script src="<%=BusiConstant.shikemobilepath %>/common/z_stat.php" language="JavaScript"></script>
-    <script src="<%=BusiConstant.shikemobilepath %>/common/core.php" charset="utf-8"
-            type="text/javascript"></script>
 
 <div id="loading" class="loading">
     <div class="loadingContent">

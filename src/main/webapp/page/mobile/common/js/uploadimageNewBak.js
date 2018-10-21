@@ -1,5 +1,5 @@
 ﻿/*
-* 该js为 图片存qiniu
+* 该js为 图片存本地
 * */
 
 //通用上传图片方法
@@ -18,6 +18,7 @@ function bindUploadImage(div, callback, isMultiple, compressType, checkSize) {
         file.attr("multiple", "multiple");
     }
 }
+
 
 /*
         三个参数
@@ -82,70 +83,87 @@ function convertBase64UrlToBlob(urlData){
     return new Blob([u8arr], {type:mime});
 }
 
+var xhr;
 //上传文件方法
 function UpladFile(id, callBackTo) {
     $("#loading").fadeIn();
     var fileObj = document.getElementById(id).files[0]; // js 获取文件对象
+    var url = "/shike/baobei/addfile.do"; // 接收上传文件的后台地址
 
-    var url = "/shike/qiniu/token.do";
+    var form = new FormData(); // FormData 对象
 
     if(fileObj.size/500 > 1025) { //大于500k，进行压缩上传
         photoCompress(fileObj, {
             quality: 0.2
         }, function(base64Codes){
+            // console.log("压缩后：" + base.length / 1024 + " " + base);
             var bl = convertBase64UrlToBlob(base64Codes);
+            form.append("file", bl, "file_"+Date.parse(new Date())+".jpg"); // 文件对象
+            xhr = new XMLHttpRequest();  // XMLHttpRequest 对象
+            xhr.open("post", url, true); //post方式，url为服务器请求地址，true 该参数规定请求是否异步处理。
+            // xhr.onload = uploadComplete; //请求完成
+            xhr.onload = function (evt) {   //请求完成
+                var data = JSON.parse(evt.target.responseText);
+                if(data.type = 'success') {
+                    callBackTo(data.resultData.row);
+                } else {
+                    myAlert("上传失败，请重试");
+                }
+                $("#loading").fadeOut();
+            };
 
-            postdo(url, {}, function (data) {
-                uploadToQiniu(data.resultData.row, bl, callBackTo);
-            },null, null);
+            xhr.onerror =  uploadFailed; //请求失败
+
+            // xhr.upload.onprogress = progressFunction;//【上传进度调用方法实现】
+            xhr.upload.onloadstart = function(){//上传开始执行方法
+                ot = new Date().getTime();   //设置上传开始时间
+                oloaded = 0;//设置上传开始时，以上传的文件大小为0
+            };
+
+            xhr.send(form); //开始上传，发送form数据
         });
     }else{ //小于等于500k 原图上传
+        form.append("file", fileObj); // 文件对象
+        xhr = new XMLHttpRequest();  // XMLHttpRequest 对象
+        xhr.open("post", url, true); //post方式，url为服务器请求地址，true 该参数规定请求是否异步处理。
+        xhr.onload = function (evt) {   //请求完成
+            var data = JSON.parse(evt.target.responseText);
+            if(data.type = 'success') {
+                callBackTo(data.resultData.row);
+            } else {
+                myAlert("上传失败，请重试");
+            }
+            $("#loading").fadeOut();
+        };
+        xhr.onerror =  uploadFailed; //请求失败
 
-        postdo(url, {}, function (data) {
-            uploadToQiniu(data.resultData.row, fileObj, callBackTo);
-        },null, null);
+        // xhr.upload.onprogress = progressFunction;//【上传进度调用方法实现】
+        xhr.upload.onloadstart = function(){//上传开始执行方法
+            ot = new Date().getTime();   //设置上传开始时间
+            oloaded = 0;//设置上传开始时，以上传的文件大小为0
+        };
+
+        xhr.send(form); //开始上传，发送form数据
     }
 }
 
-// upload to qiniu
-function uploadToQiniu(token, picFile, callback) {
-
-    // var key = new Date().getTime();
-    var key = guid();
-    var putExtra = {
-        fname: "",
-        params: {},
-        mimeType: [] || null
-    };
-    var config = {
-        useCdnDomain: false,
-        region: null
-    };
-
-    var observer = {
-        next(res){
-        },
-        error(err){
-            myAlert("上传失败！");
-            $("#loading").fadeOut();
-        },
-        complete(res){
-            // callback($("#qiniu").val() + key)
-            callback("http://pgp5wv0s2.bkt.clouddn.com/" + key)
-            $("#loading").fadeOut();
-        }
-    }
-
-    var observable = qiniu.upload(picFile, key, token, putExtra, config)
-
-    var subscription = observable.subscribe(observer) // 上传开始
+//上传失败
+function uploadFailed(evt) {
+    myAlert("上传失败！");
+    $("#loading").fadeOut();
 }
 
-//用于生成uuid
-function S4() {
-    return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
-}
-function guid() {
-    var guid = (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
-    return guid.replace(/-/g,"");
-}
+// //上传成功响应
+// function uploadComplete(evt) {
+//     //服务断接收完文件返回的结果
+//     var data = JSON.parse(evt.target.responseText);
+//     if(data.type = 'success') {
+//         myAlert("上传成功");
+//     } else {
+//         myAlert("上传失败，请重试");
+//     }
+// }
+// //取消上传
+// function cancleUploadFile(){
+//     xhr.abort();
+// }
