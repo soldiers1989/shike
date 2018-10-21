@@ -597,6 +597,7 @@ $(function () {
     var mySwiper1 = "";
     var goodPrice = 0;
     function getDetail(id) {
+        $("#loading").fadeIn();
         current_id = id;
         $("#detail .get-more").data("id", id);
         $("#detail .get-more span").html("加载更多");
@@ -628,6 +629,11 @@ $(function () {
         $("#ysqnum").html(row.ysqnum + "人 已申请"); // 已经申请数量
         $("#yzj").html(row.zjnum + "人 已中奖"); // 已经中奖人数
         $("#salePrice").html("¥" + row.salePrice); // 宝贝单价
+
+        $("#logo_pic1").attr("src", "#"); // 图1
+        $("#logo_pic2").attr("src", "#"); // 图2
+        $("#logo_pic3").attr("src", "#"); // 图3
+        $("#logo_pic4").attr("src", "#"); // 图4
 
         $("#logo_pic1").attr("src", row.tplist[0].url); // 图1
         $("#logo_pic2").attr("src", row.tplist[1].url); // 图2
@@ -887,6 +893,8 @@ $(function () {
         //         $("#detail .intro img").lazyload({ effect: "fadeIn" });
         // });
         window.scrollTo(0, 0);
+
+        $("#loading").fadeOut();
     }
 
     var getMoreFlag = true;

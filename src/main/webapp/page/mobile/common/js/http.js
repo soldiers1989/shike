@@ -1,5 +1,6 @@
 //封装post请求方法
 function postdo(url,data,sucessdo,errdo,compdo) {
+    // $("#loading").fadeIn();
 	var tokenid = $.cookie("mdtokenid");
 	$.ajax({
         type: "POST",
@@ -10,6 +11,7 @@ function postdo(url,data,sucessdo,errdo,compdo) {
         },
 		data : data,
 		success : function(data) {
+            $("#loading").fadeOut();
 			var strresult = $.parseJSON(data);
 			if (strresult.type == 'success') {
 				if(sucessdo){
@@ -29,11 +31,13 @@ function postdo(url,data,sucessdo,errdo,compdo) {
                     myAlert("error:" + data.responseText);
 				}
 			}
+            $("#loading").fadeOut();
 		},
 		complete : function(data) {
 			if(compdo){
 				compdo(data)
 			}
+            $("#loading").fadeOut();
 		}
 	});	
 };

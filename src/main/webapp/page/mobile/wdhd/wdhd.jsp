@@ -457,11 +457,6 @@
         </div>
         <jsp:include page="../common/footer.jsp" flush="true"/>
 
-<div style="display: none">
-    <script src="<%=BusiConstant.shikemobilepath %>/common/z_stat.php" language="JavaScript"></script>
-    <script src="<%=BusiConstant.shikemobilepath %>/common/core.php" charset="utf-8"
-            type="text/javascript"></script>
-
 <div id="loading" class="loading">
     <div class="loadingContent">
         <img src="<%=BusiConstant.shikemobilepath %>/common/images/loading.gif">

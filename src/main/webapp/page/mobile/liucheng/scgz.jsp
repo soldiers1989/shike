@@ -64,7 +64,7 @@
 
 <script src="<%=BusiConstant.shikemobilepath %>/common/js/Validform_v5.3.2.js"></script>
 <script src="<%=BusiConstant.shikemobilepath %>/common/js/jquery.form.js"></script>
-<script src="<%=BusiConstant.shikemobilepath %>/common/js/uploadimage.js"></script>
+<script src="<%=BusiConstant.shikemobilepath %>/common/js/uploadimageNew.js"></script>
 <script>
     var referrer = '';     //记录上一页地址
 </script>
@@ -151,7 +151,7 @@
         }
     }
 
-    var id = '21353190';
+    var id = '0';
     var askType = 'False';
     $(function () {
 
@@ -180,7 +180,7 @@
 
         function dictsucdo(data){
             if ("${baobei.hdtypeid}" == 4) {
-                myAlert("提交成功，可以中奖活动页直接提交订单", function () {
+                myAlert("提交成功，到中奖活动页直接提交订单", function () {
                     window.location.href="<%=BusiConstant.shike_wdhd.getKey()%>?status=51";
                 });
             } else {
@@ -260,10 +260,6 @@
 
 
 </script>
-<div style="display: none">
-    <script src="<%=BusiConstant.shikemobilepath %>/common/z_stat.php" language="JavaScript"></script>
-    <script src="<%=BusiConstant.shikemobilepath %>/common/core.php" charset="utf-8" type="text/javascript"></script>
-
 <div id="loading" class="loading">
     <div class="loadingContent">
         <img src="<%=BusiConstant.shikemobilepath %>/common/images/loading.gif">
