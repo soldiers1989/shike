@@ -73,10 +73,9 @@ public class ControllerInterceptor extends HandlerInterceptorAdapter {
 			if("put".equals(api.getType())){
 				if(user != null){
 					long userid = user.getId();
+					KeyLock.doLock(userid+"");
 				}
-			}
-			
-			
+			}			
 		}
 		request.setAttribute("wangzhangtitle", title);
 		return true;
@@ -89,7 +88,7 @@ public class ControllerInterceptor extends HandlerInterceptorAdapter {
  
     @Override
     public void afterCompletion(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception e) throws Exception {
-    	
+    	KeyLock.unlock();
     }
 
 
