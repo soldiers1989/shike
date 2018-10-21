@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import co.kensure.api.ApiDesc;
@@ -43,11 +44,11 @@ public class ControllerInterceptor extends HandlerInterceptorAdapter {
 		String title = BusiConstant.name;
 		if (api != null) {
 			title = api.getName();
+			SKUser user = sKUserService.getUser();
 			// 进行权限认证
 			String auth = api.getAuth();
 			// 有权限认证
-			if (!"none".equals(auth)) {
-				SKUser user = sKUserService.getUser();
+			if (!"none".equals(auth)) {			
 				//拥有权限
 				boolean hasauth = true;
 				if(user == null){
@@ -68,10 +69,30 @@ public class ControllerInterceptor extends HandlerInterceptorAdapter {
 					}
 				}	
 			}
+			//put的数据，进行重复性认证
+			if("put".equals(api.getType())){
+				if(user != null){
+					long userid = user.getId();
+				}
+			}
+			
+			
 		}
 		request.setAttribute("wangzhangtitle", title);
 		return true;
 	}
+	
+	@Override
+    public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView) throws Exception {
+     
+    }
+ 
+    @Override
+    public void afterCompletion(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception e) throws Exception {
+    	
+    }
+
+
 	
 	private String jiexi(String url){
 		String loginUrl = loginmap.get("skm");
