@@ -86,6 +86,7 @@ function convertBase64UrlToBlob(urlData){
 function UpladFile(id, callBackTo) {
     $("#loading").fadeIn();
     var fileObj = document.getElementById(id).files[0]; // js 获取文件对象
+    var fileName = fileObj.name;
 
     var url = "/shike/qiniu/token.do";
 
@@ -96,22 +97,23 @@ function UpladFile(id, callBackTo) {
             var bl = convertBase64UrlToBlob(base64Codes);
 
             postdo(url, {}, function (data) {
-                uploadToQiniu(data.resultData.row, bl, callBackTo);
+                uploadToQiniu(data.resultData.row, bl,  fileName, callBackTo);
             },null, null);
         });
     }else{ //小于等于500k 原图上传
 
         postdo(url, {}, function (data) {
-            uploadToQiniu(data.resultData.row, fileObj, callBackTo);
+            uploadToQiniu(data.resultData.row, fileObj, fileName, callBackTo);
         },null, null);
     }
 }
 
 // upload to qiniu
-function uploadToQiniu(token, picFile, callback) {
+function uploadToQiniu(token, picFile, fileName, callback) {
 
-    // var key = new Date().getTime();
-    var key = guid();
+    var key = guid() + ".jpg";
+    // var key = new Date().getTime() + "_" + fileName;
+
     var putExtra = {
         fname: "",
         params: {},
