@@ -36,11 +36,32 @@ public class DateUtils {
 	public static String DATE_START = "yyyy-MM-dd 00:00:00";
 	public static String DATE_END = "yyyy-MM-dd 23:59:59";
 	
+	public static String D07 = "yyyy-MM-dd 07:00:00";
 	public static String D10 = "yyyy-MM-dd 10:00:00";
+	public static String D14 = "yyyy-MM-dd 14:00:00";
 	public static String D15 = "yyyy-MM-dd 15:00:00";
 	public static String D20 = "yyyy-MM-dd 20:00:00";
 
 	public static String MOBILE_TIME = "MM-dd HH:mm";
+	
+	public static void main(String[] args) {
+		 
+		 String aa = format( new Date(),D07);
+
+	}
+	
+	/**
+	 * 功能描述：返回小
+	 *
+	 * @param date
+	 *            日期
+	 * @return 返回小时
+	 */
+	public static int getHour(Date date) {
+	    Calendar calendar = Calendar.getInstance();
+	    calendar.setTime(date);
+	    return calendar.get(Calendar.HOUR_OF_DAY);
+	}
 
 	/**
 	 * 以默认格式掩码"yyyy-MM-dd HH:mm:ss"格式化日期

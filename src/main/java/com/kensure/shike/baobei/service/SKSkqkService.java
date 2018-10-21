@@ -169,7 +169,7 @@ public class SKSkqkService extends JSBaseService {
 				}
 			}
 		} else if (status.intValue() == 51) {
-			// 中奖之后，是3天的等待时间
+			// 中奖之后，3个小时的下单时间，如果超过3个小时，取消中奖
 			nextTime = DateUtils.getPastHour(now, 3);
 		} else if (status.intValue() == 61) {
 			// 这个是好评时间，好评时间有10天

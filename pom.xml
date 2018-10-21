@@ -491,9 +491,6 @@
 		<finalName>shike</finalName>
 
 		<plugins>
-
-
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -520,35 +517,6 @@
 			</resource>
 		</resources>
 	</build>
-
-
-	<repositories>
-		<repository>
-			<id>hzdlsoft</id>
-			<name>hzdlsoft Repository</name>
-			<url>http://svn.hzdlsoft.com:7081/nexus/content/groups/public/</url>
-			<layout>default</layout>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
-
-	<distributionManagement>
-		<repository>
-			<id>Releases</id>
-			<name>hzdlsoft Release Repository</name>
-			<url>http://svn.hzdlsoft.com:7081/nexus/content/repositories/releases</url>
-		</repository>
-		<snapshotRepository>
-			<id>Snapshots</id>
-			<name>hzdlsoft Snapshot Repository</name>
-			<url>http://svn.hzdlsoft.com:7081/nexus/content/repositories/snapshots</url>
-		</snapshotRepository>
-	</distributionManagement>
 
 	<profiles>
 		<profile>
