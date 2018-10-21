@@ -35,6 +35,21 @@
                     <td width="200" height="30" valign="middle" bgcolor="#eaeaea">
                         <strong>注册时间</strong>
                     </td>
+                    <td width="200" height="30" valign="middle" bgcolor="#eaeaea">
+                        <strong>图片</strong>
+                    </td>
+                    <td width="200" height="30" valign="middle" bgcolor="#eaeaea">
+                        <strong>旺旺</strong>
+                    </td>
+                    <td width="200" height="30" valign="middle" bgcolor="#eaeaea">
+                        <strong>QQ</strong>
+                    </td>
+                    <td width="200" height="30" valign="middle" bgcolor="#eaeaea">
+                        <strong>微信</strong>
+                    </td>
+                    <td width="200" height="30" valign="middle" bgcolor="#eaeaea">
+                        <strong>电话</strong>
+                    </td>
                      <td width="200" height="30" valign="middle" bgcolor="#eaeaea">
                         <strong>操作</strong>
                     </td>
@@ -60,6 +75,11 @@
 				html+="<td>"+row.url+"</td>";
 				html+="<td>"+row.userName+"</td>";
 				html+="<td>"+row.createdTimeStr+"</td>";
+				html+="<td><a href='"+row.mjtp+"' target='_blank'><img src='"+row.mjtp+"' width='200'/></td>";
+				html+="<td>"+row.wangwang+"</td>";
+				html+="<td>"+row.qq+"</td>";
+				html+="<td>"+row.weixin+"</td>";
+				html+="<td>"+row.phone+"</td>";
 				html+="<td>";
 				html+="</td>";		
 				html+="</tr>";

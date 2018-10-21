@@ -40,6 +40,21 @@ public class SKDianPu extends BaseInfo{
 	/**状态，0是正常，-1是停用*/		
 	private Long status; 
 	
+	/**店铺旺旺*/		
+	private String wangwang; 
+	
+	/**卖家图片*/		
+	private String mjtp; 
+	
+	/**负责人qq*/		
+	private String qq; 
+	
+	/**负责人微信*/		
+	private String weixin;
+	
+	/**负责人手机*/		
+	private String phone; 
+	
 	private String userName;
 
 	public Long getId() {
@@ -100,5 +115,44 @@ public class SKDianPu extends BaseInfo{
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-	
+
+	public String getWangwang() {
+		return wangwang;
+	}
+
+	public void setWangwang(String wangwang) {
+		this.wangwang = wangwang;
+	}
+
+	public String getMjtp() {
+		return mjtp;
+	}
+
+	public void setMjtp(String mjtp) {
+		this.mjtp = mjtp;
+	}
+
+	public String getQq() {
+		return qq;
+	}
+
+	public void setQq(String qq) {
+		this.qq = qq;
+	}
+
+	public String getWeixin() {
+		return weixin;
+	}
+
+	public void setWeixin(String weixin) {
+		this.weixin = weixin;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 }

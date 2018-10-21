@@ -222,4 +222,15 @@ public class ShangJiaPageController {
 		req.setAttribute("bodypage", body);
 		return "page/shangjia/index.jsp";
 	}
+	
+	// 店铺新增
+	@RequestMapping("addDianPu")
+	public String addDianPu(HttpServletRequest req, HttpServletResponse rep, Model model) {
+		req.setAttribute("index", indexlist);
+		List<String> body = new ArrayList<String>();
+		body.add("index_left.jsp");
+		body.add("./manager/dianpu_add.jsp");
+		req.setAttribute("bodypage", body);
+		return "page/shangjia/index.jsp";
+	}
 }

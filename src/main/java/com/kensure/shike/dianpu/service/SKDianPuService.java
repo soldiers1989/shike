@@ -126,6 +126,9 @@ public class SKDianPuService extends JSBaseService {
 		SKUserService.checkUser(user);
 		ParamUtils.isBlankThrewException(obj.getName(), "名称不能为空");
 		ParamUtils.isBlankThrewException(obj.getUrl(), "链接不能为空");
+		ParamUtils.isBlankThrewException(obj.getWangwang(), "旺旺不能为空");
+		ParamUtils.isBlankThrewException(obj.getMjtp(), "卖家中心图片不能为空");
+		ParamUtils.isBlankThrewException(obj.getPhone(), "负责人手机不能为空");
 		obj.setUserid(user.getId());
 		SKRole role = sKRoleService.selectRoleByCode(user.getLevelCode());
 		List<SKDianPu> dianpulist = selectByUserId(user.getId());

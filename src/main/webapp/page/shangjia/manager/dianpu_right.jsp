@@ -1,3 +1,4 @@
+<%@page import="co.kensure.api.ApiUtil"%>
 <%@page import="com.kensure.shike.constant.BusiConstant"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <% 
@@ -31,16 +32,20 @@
         background-color: #ff464e;
     }
 </style>
-<div style="width: 755px;padding: 0 30px;">
+<div style="width: 905px;padding: 0 30px;">
     <h1 style="font-size: 16px; font-weight: normal; padding: 25px 0; border-bottom: 1px dashed #ddd;">
-        <span class="btn btn-red" onclick="adddianpu()">绑定店铺</span><em style="font-size: 12px;color: #ff464e;">（绑定店铺已达上限，如仍需添加店铺请联系客服）</em>
+        <span class="btn btn-red"><a href="<%=ApiUtil.getUrl("/shangjia/addDianPu")%>">绑定店铺</a></span><em style="font-size: 12px;color: #ff464e;">（绑定店铺已达上限，如仍需添加店铺请联系客服）</em>
     </h1>
     <table width="100%" border="0" cellpadding="0" cellspacing="0" id="listtable" style="color: #666;line-height: 18px;font-size: 14px;">
         <tbody><tr style="background-color: #f9f9f9;line-height: 30px;">
             <th width="10%">店铺类型</th>
-            <th width="20%">店铺信息</th>
+            <th width="10%">店铺信息</th>
             <th width="30%">店铺首页网址</th>
-            <th width="20%">添加时间</th>
+            <th width="10%">添加时间</th>
+            <th width="10%">旺旺</th>
+            <th width="10%">负责人QQ</th>
+            <th width="10%">负责人微信</th>
+            <th width="10%">负责人电话</th>
         </tr>
          
             </tbody></table>
@@ -60,6 +65,10 @@
 				html+="<td style='text-align: center'>"+row.name+"</td>";
 				html+="<td style='text-align: center'>"+row.url+"</td>";
 				html+="<td style='text-align: center'>"+row.createdTimeStr+"</td>";
+				html+="<td style='text-align: center'>"+row.wangwang+"</td>";
+				html+="<td style='text-align: center'>"+row.qq+"</td>";
+				html+="<td style='text-align: center'>"+row.weixin+"</td>";
+				html+="<td style='text-align: center'>"+row.phone+"</td>";
 				html+="</tr>";
 				$("#listtable").append(html);
 			}

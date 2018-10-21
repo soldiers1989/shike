@@ -121,6 +121,7 @@
 
 	<api key="/help" name="帮助中心" auth="none" type="get" />
 	<api key="/help/cms" name="内容页面" auth="none" type="get" />
+	<api key="/shangjia/addDianPu" name="店铺新增" auth="admin,saler" type="get" />
 	
 	<api key="/gl/xiangqing" name="淘宝详情" auth="none" type="get" />
 	
