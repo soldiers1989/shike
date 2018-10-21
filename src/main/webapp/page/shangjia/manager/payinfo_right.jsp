@@ -32,9 +32,12 @@
                 </tr>
             </tbody></table>
         </div>
-        <div>
-        <input type="button" value="确认付款" onclick="pay()"/>
-        </div>
+      
+        <div class="mer_pct">
+          <a href="#" onclick="pay();">确认付款</a>
+      </div>
+       
+       
     </div>
     <!--page-->
 </div>
