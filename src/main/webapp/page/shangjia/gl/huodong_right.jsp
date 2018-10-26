@@ -10,7 +10,7 @@
 <link rel="stylesheet" type="text/css" href="<%=context%>/addJPinShop.css">
 
 
-<div class="shangjia_right elg-width">
+<div class="gl_right elg-width">
                 
 
 <style>
@@ -119,7 +119,7 @@
 	}
 </style>
 
-<div class="clearfix fabushiyong" style="padding-bottom: 0;">
+<div class="clearfix glhoutai" style="padding-bottom: 0;">
     <div class="shiy_ti">
         <span style="float:none;margin-right:5px;">活动管理</span>
         <input id="key" type="text" placeholder="请输入活动名称" style="width: 200px" class="shou">
@@ -131,7 +131,7 @@
                 <option value="3">高客单精准打造爆款</option>
                 <option value="4">必中任务</option>
         </select>
-        <input onclick="dianpulist(1)" type="button" value="搜索">
+        <input onclick="huodonglist(1)" type="button" value="搜索">
     </div>
     <div class="shiy_tl">
         <a class="<%=status==null?"shiy":""%>" href="<%=BusiConstant.ht_huodonglist.getKey()%>">全部<i>|</i></a>
@@ -145,8 +145,8 @@
     </div>
     <div class="clearfix right_g">
         <div class="right_contant table-style">
-        	<div style="width:1000px;height:800px; overflow:scroll;">
-         	<table width="2000" cellspacing="0" style="table-layout:fixed;" cellpadding="0" id="headtable">
+        	
+         	<table  cellspacing="0" style="table-layout:fixed;" cellpadding="0" id="headtable">
          	<thead>
         
    		 	</thead>
@@ -155,7 +155,6 @@
           	</tbody>
             </table>
          
-            </div>
         </div>
         <div id="fanye">
 
@@ -213,7 +212,7 @@
 		}	
 	}
 
-	var fanye = new FanYe("fanye","dianpulist",0,20,1);
+	var fanye = new FanYe("fanye","huodonglist",0,20,1);
 	
    function huodonglist(current){
 	   if(!fanye.setpage(current)){

@@ -35,7 +35,7 @@ public class GLPageController {
 	private static List<String> indexlist = new ArrayList<String>();
 	static {
 		indexlist.add("top1.jsp");
-		indexlist.add("index_content.jsp");
+		indexlist.add("./gl/index_content.jsp");
 	}
 
 	// 后台登录页面
@@ -51,7 +51,7 @@ public class GLPageController {
 
 		List<String> body = new ArrayList<String>();
 		body.add("indexht_left.jsp");
-		body.add("./manager/listchongzhi_right.jsp");
+		body.add("listchongzhi_right.jsp");
 		req.setAttribute("bodypage", body);
 		return "page/shangjia/index.jsp";
 	}
@@ -63,7 +63,7 @@ public class GLPageController {
 
 		List<String> body = new ArrayList<String>();
 		body.add("indexht_left.jsp");
-		body.add("./gl/listchongzhi_right.jsp");
+		body.add("listchongzhi_right.jsp");
 		req.setAttribute("bodypage", body);
 		return "page/shangjia/index.jsp";
 	}
@@ -75,7 +75,7 @@ public class GLPageController {
 
 		List<String> body = new ArrayList<String>();
 		body.add("indexht_left.jsp");
-		body.add("./gl/tixian_right.jsp");
+		body.add("tixian_right.jsp");
 		req.setAttribute("bodypage", body);
 		return "page/shangjia/index.jsp";
 	}
@@ -87,7 +87,7 @@ public class GLPageController {
 
 		List<String> body = new ArrayList<String>();
 		body.add("indexht_left.jsp");
-		body.add("./gl/huodong_right.jsp");
+		body.add("huodong_right.jsp");
 		req.setAttribute("bodypage", body);
 		String status = req.getParameter("status");
 		if (StringUtils.isNotBlank(status)) {
@@ -102,7 +102,7 @@ public class GLPageController {
 		req.setAttribute("index", indexlist);
 		List<String> body = new ArrayList<String>();
 		body.add("indexht_left.jsp");
-		body.add("./gl/sjlist_right.jsp");
+		body.add("sjlist_right.jsp");
 		req.setAttribute("bodypage", body);
 		return "page/shangjia/index.jsp";
 	}
@@ -113,7 +113,7 @@ public class GLPageController {
 		req.setAttribute("index", indexlist);
 		List<String> body = new ArrayList<String>();
 		body.add("indexht_left.jsp");
-		body.add("./gl/dplist_right.jsp");
+		body.add("dplist_right.jsp");
 		req.setAttribute("bodypage", body);
 		return "page/shangjia/index.jsp";
 	}
@@ -124,7 +124,7 @@ public class GLPageController {
 		req.setAttribute("index", indexlist);
 		List<String> body = new ArrayList<String>();
 		body.add("indexht_left.jsp");
-		body.add("./gl/sklist_right.jsp");
+		body.add("sklist_right.jsp");
 		req.setAttribute("bodypage", body);
 		return "page/shangjia/index.jsp";
 	}
@@ -135,7 +135,7 @@ public class GLPageController {
 		req.setAttribute("index", indexlist);
 		List<String> body = new ArrayList<String>();
 		body.add("indexht_left.jsp");
-		body.add("./gl/cmslist_right.jsp");
+		body.add("cmslist_right.jsp");
 		req.setAttribute("bodypage", body);
 		String typeid = req.getParameter("typeid");
 		req.setAttribute("typeid", typeid);
@@ -148,7 +148,7 @@ public class GLPageController {
 		req.setAttribute("index", indexlist);
 		List<String> body = new ArrayList<String>();
 		body.add("indexht_left.jsp");
-		body.add("./gl/cmsedit_right.jsp");
+		body.add("cmsedit_right.jsp");
 		req.setAttribute("bodypage", body);
 		String typeid = req.getParameter("typeid");
 		req.setAttribute("typeid", typeid);
