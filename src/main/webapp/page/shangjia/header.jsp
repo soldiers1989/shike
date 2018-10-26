@@ -33,4 +33,5 @@
 
 <script type="text/javascript" src="<%=BusiConstant.context%>/common/http.js?ver=<%=BusiConstant.version%>"></script>
 <script type="text/javascript" src="<%=BusiConstant.context%>/common/fanye.js?ver=<%=BusiConstant.version%>"></script>
+<script type="text/javascript" src="<%=BusiConstant.context%>/common/table.js?ver=<%=BusiConstant.version%>"></script>
 </head>
