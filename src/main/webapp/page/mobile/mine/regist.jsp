@@ -26,6 +26,10 @@
     <script type="text/javascript" src="<%=BusiConstant.context%>/jqtable/jquery.cookie.js"></script>
     <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/http.js?ver=<%=BusiConstant.version%>"></script>
 
+
+    <script src="https://unpkg.com/qiniu-js@2.5.0/dist/qiniu.min.js"></script>
+    <script src="<%=BusiConstant.shikemobilepath %>/common/js/uploadimageNew.js?ver=<%=BusiConstant.version%>"></script>
+
     <script>
         var userId=0;
         (function (doc, win) {
@@ -54,8 +58,11 @@
 <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/mine/regist/mytryout.css">
 
 <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/mine/regist/account.css">
+<link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/liucheng/scgz/JPinFlow.css">
 
+<%--
 <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/regist/uploadimage.js"></script>
+--%>
 
 <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/regist/sendcaptcha.js"></script>
 
@@ -98,6 +105,31 @@
         <input type="text" name="refereeId" id="refereeId" placeholder="请输入邀请码，没有可不填">
     </div>
 
+    <div class="FlowCon">
+        <ul>
+            <li>
+                <span class="num"></span>打开支付宝，请上传<em class="red">支付宝个人信息页面</em>截图，如图：
+                <div class="storage-img mt3">
+                    <img style="height:80px" src="<%=BusiConstant.shikemobilepath %>/common/images/alipayImg.jpg">
+
+                </div>
+                <div class="up-img mt3">
+                    支付宝个人信息页面截图：<img class="alipay-img" src="<%=BusiConstant.shikemobilepath %>/common/images/up-img.png">
+                </div>
+            </li>
+            <li>
+                <span class="num"></span>打开淘宝，请上传<em class="red">淘宝个人资料页面</em>截图，如图：
+                <div class="storage-img mt3">
+                    <img style="height:80px" src="<%=BusiConstant.shikemobilepath %>/common/images/taobaoImg.jpg">
+                </div>
+                <div class="up-img mt3">
+                    淘宝个人资料页面截图：<img class="taobao-img" src="<%=BusiConstant.shikemobilepath %>/common/images/up-img.png">
+                </div>
+            </li>
+
+        </ul>
+    </div>
+
     <div style="margin-top:1rem;">
         <input type="checkbox" name="name" value="" id="check" checked="checked">  我已阅读<a href="<%=BusiConstant.shike_private.getKey() %>">《隐私协议》</a>
     </div>
@@ -108,6 +140,24 @@
 
 <script>
     $(function () {
+        var logo1 = "";
+        var logo2 = "";
+        var uploading1 = false;
+        var uploading2 = false;
+
+        bindUploadImage('.alipay-img', function (p) {
+            $('.alipay-img').attr("src", p);
+            $('.alipay-img').data("src", p);
+            logo1 = p;
+            uploading1 = true;
+        }, false, "JpinOrderFlow");
+        bindUploadImage('.taobao-img', function (p) {
+            $('.taobao-img').attr("src", p);
+            $('.taobao-img').data("src", p);
+            logo2 = p;
+            uploading2 = true;
+        }, false, "JpinOrderFlow");
+
         $("#pwdwarn1").on("click", function () {
             var mobile = $("#name").val();
             if (/^[1][3,4,5,6,7,8,9][0-9]{9}$/.test(mobile)) {
@@ -151,6 +201,17 @@
                 myAlert("验证码未填写");
                 return false;
             }
+
+            var alipayImg = $('.alipay-img').data("src");
+            var taobaoImg = $('.taobao-img').data("src");
+            if (!alipayImg) {
+                myAlert("您还没有上传支付宝截图");
+                return false;
+            }
+            if (!taobaoImg) {
+                myAlert("您还没有上传淘宝截图");
+                return false;
+            }
             var name = $("#name").val();
             var qrcode = $("#pwd").val();
             var code = $("#code1").val();
@@ -163,6 +224,8 @@
                     noQq: $("#noQq").val(),
                     noAlipay: $("#noAlipay").val(),
                     noTaobao: $("#noTaobao").val(),
+                    alipayImg: alipayImg,
+                    taobaoImg: taobaoImg,
                     refereeId: $("#refereeId").val()
                 };
                 var url = "<%=BusiConstant.shike_addsk_do.getKey()%>";
@@ -223,8 +286,11 @@
         <div style="height:2.15rem;">
         </div>
         <jsp:include page="../common/footer.jsp" flush="true"/>
-        <div style="display: none"><script src="<%=BusiConstant.shikemobilepath %>/mine/regist/z_stat.php" language="JavaScript"></script><script src="<%=BusiConstant.shikemobilepath %>/mine/regist/core.php" charset="utf-8" type="text/javascript"></script>
-   
+<%--<div style="display: none">
+    <script src="<%=BusiConstant.shikemobilepath %>/mine/regist/z_stat.php" language="JavaScript"></script>
+    <script src="<%=BusiConstant.shikemobilepath %>/mine/regist/core.php" charset="utf-8"
+            type="text/javascript"></script>--%>
+
     <div id="loading" class="loading">
     <div class="loadingContent">
         <img src="<%=BusiConstant.shikemobilepath %>/common/images/loading.gif">

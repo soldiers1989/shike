@@ -248,6 +248,8 @@ public class SKUserService extends JSBaseService {
 			BusinessExceptionUtil.threwException("验证码过期。");
 		}
 		sKUser.setLevel(1);
+		// 设置支付密码（默认为登录密码）
+		sKUser.setPaypassword(sKUser.getPassword());
 		sKUser.setLevelCode("0001");
 		// 插入数据
 		insert(sKUser);
@@ -272,6 +274,8 @@ public class SKUserService extends JSBaseService {
 		ParamUtils.isBlankThrewException(sKUser.getPassword(), "密码不能为空");
 		ParamUtils.isBlankThrewException(sKUser.getPhone(), "手机号不能为空");
 		ParamUtils.isBlankThrewException(sKUser.getNoQq(), "qq不能为空");
+		ParamUtils.isBlankThrewException(sKUser.getTaobaoImg(), "淘宝截图不能为空");
+		ParamUtils.isBlankThrewException(sKUser.getAlipayImg(), "支付宝截图不能为空");
 		MobileUtils.checkMobile(sKUser.getPhone());
 	}
 

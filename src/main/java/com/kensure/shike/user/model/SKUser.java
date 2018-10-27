@@ -53,7 +53,13 @@ public class SKUser extends BaseInfo{
 	private String noAlipay; 
 
 	/**taobao账号*/		
-	private String noTaobao; 
+	private String noTaobao;
+
+	/**支付宝截图*/
+	private String alipayImg;
+
+	/**taobao截图*/
+	private String taobaoImg;
 
 	/**qq账号*/		
 	private String noQq; 
@@ -138,6 +144,22 @@ public class SKUser extends BaseInfo{
 	}
 	public String getNoTaobao() {
 		return noTaobao;
+	}
+
+	public String getAlipayImg() {
+		return alipayImg;
+	}
+
+	public void setAlipayImg(String alipayImg) {
+		this.alipayImg = alipayImg;
+	}
+
+	public String getTaobaoImg() {
+		return taobaoImg;
+	}
+
+	public void setTaobaoImg(String taobaoImg) {
+		this.taobaoImg = taobaoImg;
 	}
 
 	public void setNoTaobao(String noTaobao) {
