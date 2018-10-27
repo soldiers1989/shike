@@ -369,6 +369,16 @@ public class SKBaobeiController {
 	}
 
 	/**
+	 * 结算测试
+	 */
+	@ResponseBody
+	@RequestMapping(value = "jiesuan.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	public ResultInfo jiesuan(HttpServletRequest req, HttpServletResponse rep) {
+		sKBaobeiService.jiesuanBaobei();
+		return new ResultRowInfo();
+	}
+	
+	/**
 	 * 结束宝贝
 	 */
 	@ResponseBody
