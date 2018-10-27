@@ -10,7 +10,7 @@
 <link rel="stylesheet" type="text/css" href="<%=context%>/addJPinShop.css">
 
 
-<div class="shangjia_right elg-width">
+<div class="gl_right elg-width">
                 
 
 <style>
@@ -119,7 +119,7 @@
 	}
 </style>
 
-<div class="clearfix fabushiyong" style="padding-bottom: 0;">
+<div class="clearfix glhoutai" style="padding-bottom: 0;">
     <div class="shiy_ti">
         <span style="float:none;margin-right:5px;">活动管理</span>
         <input id="key" type="text" placeholder="请输入活动名称" style="width: 200px" class="shou">
@@ -131,7 +131,7 @@
                 <option value="3">高客单精准打造爆款</option>
                 <option value="4">必中任务</option>
         </select>
-        <input onclick="dianpulist(1)" type="button" value="搜索">
+        <input onclick="huodonglist(1)" type="button" value="搜索">
     </div>
     <div class="shiy_tl">
         <a class="<%=status==null?"shiy":""%>" href="<%=BusiConstant.ht_huodonglist.getKey()%>">全部<i>|</i></a>
@@ -145,19 +145,16 @@
     </div>
     <div class="clearfix right_g">
         <div class="right_contant table-style">
-        	<div style="width:1000px;height:800px; overflow:scroll;">
-         	<table width="2000" cellspacing="0" style="table-layout:fixed;" cellpadding="0" id="headtable">
-                <tbody>
-                  
-            	</tbody>
+        	
+         	<table  cellspacing="0" style="table-layout:fixed;" cellpadding="0" id="headtable">
+         	<thead>
+        
+   		 	</thead>
+             <tbody>
+                
+          	</tbody>
             </table>
-            
-            <table width="2000" cellspacing="0" style="table-layout:fixed;" cellpadding="0" id="listtable">
-                <tbody>
-                  
-            	</tbody> 
-            </table>
-            </div>
+         
         </div>
         <div id="fanye">
 
@@ -169,90 +166,63 @@
 
 
 <script>
-	var theadtds = [{w:50,na:"序号"},{w:270,na:"活动名称"},{w:100,na:"开始时间"},{w:100,na:"结束时间"},{w:100,na:"商家名称"}
-	,{w:100,na:"店铺名称"},{w:100,na:"宝贝单价"},{w:100,na:"产品数量"},{w:100,na:"中奖数量"},{w:100,na:"申请数量"},{w:100,na:"活动进度"},{w:100,na:"活动操作"}];
-	var theadhtml = "<tr class='trhead'>";     
-	for(var i=0;i<theadtds.length;i++){
-		var row = theadtds[i];
-		theadhtml += "<td width='"+row.w+"'>";
-		theadhtml += "<strong>"+row.na+"</strong>";
-		theadhtml += "</td>";      
+	var table = createtable("headtable");
+	var titlefun = function(row){
+		var tdinner = "<a href='"+row.url+"' target='_blank'>"          
+        +row.title          
+        +"</a>" 	
+        +"   <a href='<%=BusiConstant.shangjia_activity_edit.getKey()%>?id="+row.id+"' target='_blank'>编辑</a>"
+        +"   <a href='<%=ApiUtil.getUrl("/gl/xiangqing")%>?id="+row.id+"' target='_blank'>淘宝详情</a>"
+		return tdinner;
 	}
-	theadhtml += "</tr>";
-	$("#headtable").append(theadhtml);
+	
+	var optfun = function(row){
+		var tdinner = "    <div class=\"wae_cer\">";
+        if(row.status == 1){              	
+        	tdinner+="        <input type='button' value='通过' onclick='tongguo("+row.id+")'/>";
+        	tdinner+="        <input type='button' value='拒绝' onclick='untongguo("+row.id+")'/>";  
+        }else{
+        	tdinner+= "        <input type='button' value='下线' onclick='xiaxian("+row.id+")'/>";
+        }
+        tdinner+= "        <input type='button' value='增加申请数' onclick='addsq("+row.id+")'/>";
+		return tdinner;
+	}
+	
+	table.th = [{w:50,na:"序号",colname:"id"}
+	,{w:270,na:"活动名称",callfun:titlefun}
+	,{w:100,na:"开始时间",colname:"startTimeStr"}
+	,{w:100,na:"结束时间",colname:"endTimeStr"}
+	,{w:100,na:"商家名称",colname:"userName"}
+	,{w:100,na:"店铺名称",colname:"dpname"}
+	,{w:100,na:"宝贝单价",colname:"salePrice"}
+	,{w:100,na:"产品数量",colname:"bbnum"}
+	,{w:100,na:"中奖数量",colname:"zjnum"}
+	,{w:100,na:"申请数量",colname:"ysqnum"}
+	,{w:100,na:"活动进度",colname:"statusStr"}
+	,{w:100,na:"活动操作",callfun:optfun}];
+	
+	table.thinit();
 	
 	function sucdo(data){
-		$("#listtable").html("");	
 		var rows = data.resultData.rows;
 		fanye.init(data.resultData.total);	
-		if(rows){		
-			for(var i=0;i<rows.length;i++){
-				var row = rows[i];
-				var html =   "<tr class='trbody'> "  
-				+"<td width='"+theadtds[0].w+"'>" 
-                +" <em style=\"color: #a9a9a9;\">"+row.id+"</em>" 
-                +"</td>" 
-                +"<td width='"+theadtds[1].w+"'>"              
-                +"<a href='"+row.url+"' target='_blank'>"          
-                +row.title          
-                +"</a>" 	
-                +"   <a href='<%=BusiConstant.shangjia_activity_edit.getKey()%>?id="+row.id+"' target='_blank'>编辑</a>"
-                +"   <a href='<%=ApiUtil.getUrl("/gl/xiangqing")%>?id="+row.id+"' target='_blank'>淘宝详情</a></div>"
-                +"</td>" 
-                +"<td width='"+theadtds[2].w+"'>" 
-                +" <em style=\"color: #a9a9a9;\">"+row.startTimeStr+"</em>" 
-                +"</td>" 
-                +"<td width='"+theadtds[3].w+"'>" 
-                +" <em style=\"color: #a9a9a9;\">"+row.endTimeStr+"</em>" 
-                +"</td>"   
-                +"<td width='"+theadtds[4].w+"'>" 
-                +" <em style=\"color: #a9a9a9;\">"+row.userName+"</em>" 
-                +"</td>"
-                +"<td width='"+theadtds[5].w+"'>" 
-                +" <em style=\"color: #a9a9a9;\">"+row.dpname+"</em>" 
-                +"</td>"
-                +"<td width='"+theadtds[6].w+"'>" 
-                +"     <em style=\"color: #f25f55\">"+row.salePrice+"</em>" 
-                +"  </td>" 
-                +"<td width='"+theadtds[7].w+"'>" 
-                +"     <em style=\"color: #f25f55\">"+row.bbnum+"</em>" 
-                +"</td>"  
-                +"<td width='"+theadtds[8].w+"'>" 
-                +"     <em style=\"color: #f25f55\">"+row.zjnum+"</em>" 
-                +"</td>" 
-                +"<td width='"+theadtds[9].w+"'>" 
-                +"     <em style=\"color: #f25f55\">"+row.ysqnum+"</em>" 
-                +"</td>" 
-                +"<td width='"+theadtds[10].w+"'>" 
-                +"     <em style=\"color: #f25f55\">"+row.statusStr+"</em>" 
-                +"  </td>" 
-                +"<td width='"+theadtds[11].w+"'>";
-                html+="    <div class=\"wae_cer\">";
-                if(row.status == 1){              	
-                	html+="        <input type='button' value='通过' onclick='tongguo("+row.id+")'/>";
-                	html+="        <input type='button' value='拒绝' onclick='untongguo("+row.id+")'/>";  
-                }else{
-                	html+= "        <input type='button' value='下线' onclick='xiaxian("+row.id+")'/>";
-                }
-                html+= "        <input type='button' value='增加申请数' onclick='addsq("+row.id+")'/>";
-                html+="</td></tr>";
-				$("#listtable").append(html);
-			}
-		}
-		
+		if(rows){	
+			table.data = rows;
+			table.tdinit();		
+		}	
 	}
 
-	var fanye = new FanYe("fanye","dianpulist",0,20,1);
+	var fanye = new FanYe("fanye","huodonglist",0,20,1);
 	
-   function dianpulist(current){
+   function huodonglist(current){
 	   if(!fanye.setpage(current)){
 			return;
 		}
 	   var data = {status:<%=status%>,title:$("#key").val(),hdtypeid:$("#sktype option:selected").val(),pageNo:fanye.current,pageSize:fanye.limit};
-	   var url = "<%=BusiConstant.shangjia_baobeilist_do.getKey()%>";
+	   var url = "<%=ApiUtil.getUrl("/baobei/list.do")%>";
 	   postdo(url, data, sucdo,null, null);
    }
-   dianpulist(1);
+   huodonglist(1);
    
    function tongguo(id){	  
 	   if(confirm('确认通过？')){
@@ -268,10 +238,17 @@
 		   if(str){
 			   var data = {id:id,sqs:str};
 			   var url = "<%=BusiConstant.shike_baobei_sqs_do.getKey()%>";
-			   postdo(url, data, null,null, null);
+			   var s = function(redata){
+				   var row = table.getrow(id);
+				   row.ysqnum =row.ysqnum+parseInt(str);
+				   table.tdinit();
+			   }
+			   postdo(url, data, s,null, null);
 		   }	  
 	   }	  
    }
+   
+   
    
    function untongguo(id){
 	   if(confirm('确认拒绝？')){
@@ -282,7 +259,7 @@
    }
    
    function xiaxian(id){
-	   if(confirm('确认拒绝？')){
+	   if(confirm('确认下线？')){
 		   var data = {id:id};
 		   var url = "<%=BusiConstant.ht_baobeixiaxiando.getKey()%>";
 		   postdo(url, data, null,null, null);

@@ -18,6 +18,7 @@
 <link rel="stylesheet" type="text/css" href="<%=path%>/jquery.fancybox.css?ver=<%=BusiConstant.version%>">
 <link rel="stylesheet" type="text/css" href="<%=path%>/credit.css?ver=<%=BusiConstant.version%>">
 <link rel="stylesheet" type="text/css" href="<%=path%>/iconfont.css?ver=<%=BusiConstant.version%>">
+<link rel="stylesheet" type="text/css" href="<%=BusiConstant.context%>/page/shangjia/css/gl_index.css?ver=<%=BusiConstant.version%>">
 
 <script type="text/javascript" src="<%=path%>/jquery-1.8.3.js"></script>
 <script type="text/javascript" src="<%=BusiConstant.context%>/jqtable/jquery.cookie.js"></script>
@@ -33,4 +34,5 @@
 
 <script type="text/javascript" src="<%=BusiConstant.context%>/common/http.js?ver=<%=BusiConstant.version%>"></script>
 <script type="text/javascript" src="<%=BusiConstant.context%>/common/fanye.js?ver=<%=BusiConstant.version%>"></script>
+<script type="text/javascript" src="<%=BusiConstant.context%>/common/table.js?ver=<%=BusiConstant.version%>"></script>
 </head>

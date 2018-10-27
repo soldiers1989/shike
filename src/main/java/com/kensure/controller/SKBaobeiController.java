@@ -458,7 +458,7 @@ public class SKBaobeiController {
 		Long id = json.getLong("id");
 		Long sqs = json.getLong("sqs");
 		sKBaobeiService.addsqs(id, sqs);
-		return new ResultRowInfo();
+		return new ResultRowInfo(id);
 	}
 
 }
