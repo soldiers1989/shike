@@ -1,6 +1,13 @@
+<%@page import="co.kensure.http.RequestUtils"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<% response.sendRedirect("skm/index");%>
+<% 
+if(RequestUtils.isMobileAgent(request)){
+	response.sendRedirect("skm/index");
+}else{
+	response.sendRedirect("shangjia/login");
+}
+%>
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="format-detection" content="telephone=no">
     <title>线上贷</title>
