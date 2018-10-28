@@ -12,7 +12,7 @@
 
 <script src="<%=BusiConstant.context%>/wangEdit/wangEditor.min.js"></script>
 
-<div class="shangjia_right elg-width">
+<div class="gl_right elg-width">
                 
 
 <div class="clearfix right_bottom">

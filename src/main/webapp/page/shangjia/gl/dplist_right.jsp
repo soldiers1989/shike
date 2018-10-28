@@ -8,7 +8,7 @@
 <link rel="stylesheet" type="text/css" href="<%=context%>/addJPinShop.css">
 
 
-<div class="shangjia_right elg-width">
+<div class="gl_right elg-width">
                 
 
 <div class="clearfix right_bottom">
@@ -16,8 +16,8 @@
     </div>
     <!--zh_title-->
     <div class="huodong">
-        <div class="huodong_main" style="text-align: center">
-            <table width="1000" border="1" cellpadding="0" id="listtable" cellspacing="0" bordercolor="#dadada">
+        
+            <table width="100%" border="1" cellpadding="0" id="listtable" cellspacing="0" bordercolor="#dadada">
                 <tbody>
                 <tr>
                 	<td width="100" height="30" valign="middle" bgcolor="#eaeaea">
@@ -55,7 +55,7 @@
                     </td>
                 </tr>
             </tbody></table>
-        </div>
+ 
     </div>
     <!--page-->
 </div>

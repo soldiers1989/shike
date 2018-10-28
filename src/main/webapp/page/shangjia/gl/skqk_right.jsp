@@ -131,16 +131,7 @@
         </select>
         <input onclick="huodonglist(1)" type="button" value="搜索">
     </div>
-    <div class="shiy_tl">
-        <a class="<%=status==null?"shiy":""%>" href="<%=BusiConstant.ht_huodonglist.getKey()%>">全部<i>|</i></a>
-        <a class="<%="0".equalsIgnoreCase(status)?"shiy":""%>" href="<%=BusiConstant.ht_huodonglist.getKey()%>?status=0">待支付</a>
-        <a class="<%="1".equalsIgnoreCase(status)?"shiy":""%>" href="<%=BusiConstant.ht_huodonglist.getKey()%>?status=1">待审核</a>
-        <a class="<%="9".equalsIgnoreCase(status)?"shiy":""%>" href="<%=BusiConstant.ht_huodonglist.getKey()%>?status=9">进行中</a>
-        <a class="<%="10".equalsIgnoreCase(status)?"shiy":""%>" href="<%=BusiConstant.ht_huodonglist.getKey()%>?status=10">已结束</a>
-        <a class="<%="20".equalsIgnoreCase(status)?"shiy":""%>" href="<%=BusiConstant.ht_huodonglist.getKey()%>?status=20">已结算</a>
-        <a class="<%="2".equalsIgnoreCase(status)?"shiy":""%>" href="<%=BusiConstant.ht_huodonglist.getKey()%>?status=2">已驳回</a>
-        <a class="<%="-1".equalsIgnoreCase(status)?"shiy":""%>" href="<%=BusiConstant.ht_huodonglist.getKey()%>?status=-1">已下线</a>
-    </div>
+   
     <div class="clearfix right_g">
         <div class="right_contant table-style">
         	
@@ -187,18 +178,19 @@
 		return tdinner;
 	}
 	
-	table.th = [{w:50,na:"序号",colname:"id"}
-	,{w:270,na:"活动名称",callfun:titlefun}
-	,{w:100,na:"开始时间",colname:"startTimeStr"}
-	,{w:100,na:"结束时间",colname:"endTimeStr"}
-	,{w:100,na:"商家名称",colname:"userName"}
-	,{w:100,na:"店铺名称",colname:"dpname"}
-	,{w:100,na:"宝贝单价",colname:"salePrice"}
-	,{w:100,na:"产品数量",colname:"bbnum"}
-	,{w:100,na:"中奖数量",colname:"zjnum"}
-	,{w:100,na:"申请数量",colname:"ysqnum"}
-	,{w:100,na:"活动进度",colname:"statusStr"}
-	,{w:100,na:"活动操作",callfun:optfun}];
+	table.th = [{w:50,na:"订单id",colname:"id"}
+	,{w:270,na:"活动id",colname:"bbid"}
+	,{w:100,na:"创建时间",colname:"startTimeStr"}
+	,{w:100,na:"试客id",colname:"userid"}
+	,{w:100,na:"试客账号",colname:"phone"}
+	,{w:100,na:"淘宝账号",colname:"dpname"}
+	,{w:100,na:"商家账号",colname:"salePrice"}
+	,{w:100,na:"商品名称",colname:"bbnum"}
+	,{w:100,na:"店铺名称",colname:"zjnum"}
+	,{w:100,na:"商品链接",colname:"ysqnum"}
+	,{w:100,na:"详情链接",callfun:optfun}
+	,{w:100,na:"状态",colname:"ysqnum"}
+	,{w:100,na:"试用详情",colname:"ysqnum"}];
 	
 	table.thinit();
 	
@@ -218,51 +210,10 @@
 			return;
 		}
 	   var data = {status:<%=status%>,title:$("#key").val(),hdtypeid:$("#sktype option:selected").val(),pageNo:fanye.current,pageSize:fanye.limit};
-	   var url = "<%=ApiUtil.getUrl("/baobei/list.do")%>";
+	   var url = "<%=ApiUtil.getUrl("/skqk/list.do")%>";
 	   postdo(url, data, sucdo,null, null);
    }
    huodonglist(1);
    
-   function tongguo(id){	  
-	   if(confirm('确认通过？')){
-		   var data = {id:id};
-		   var url = "<%=BusiConstant.ht_baobeitongguo_do.getKey()%>";
-		   postdo(url, data, null,null, null);
-	   }	  
-   }
-   
-   function addsq(id){	  
-	   if(confirm('确认增加？')){
-		   var str = window.prompt("请输入增加数量","10");
-		   if(str){
-			   var data = {id:id,sqs:str};
-			   var url = "<%=BusiConstant.shike_baobei_sqs_do.getKey()%>";
-			   var s = function(redata){
-				   var row = table.getrow(id);
-				   row.ysqnum =row.ysqnum+parseInt(str);
-				   table.tdinit();
-			   }
-			   postdo(url, data, s,null, null);
-		   }	  
-	   }	  
-   }
-   
-   
-   
-   function untongguo(id){
-	   if(confirm('确认拒绝？')){
-		   var data = {id:id};
-		   var url = "<%=BusiConstant.ht_baobeiuntongguo_do.getKey()%>";
-		   postdo(url, data, null,null, null);
-	   }	
-   }
-   
-   function xiaxian(id){
-	   if(confirm('确认下线？')){
-		   var data = {id:id};
-		   var url = "<%=BusiConstant.ht_baobeixiaxiando.getKey()%>";
-		   postdo(url, data, null,null, null);
-	   }	
-   }
       
 </script>

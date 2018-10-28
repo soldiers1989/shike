@@ -54,3 +54,5 @@ function removecookie(){
 	$.cookie("mdphone",null,path);
 	$.cookie("mdtype",null,path);
 };
+
+

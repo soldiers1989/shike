@@ -126,5 +126,7 @@
 	<api key="/gl/xiangqing" name="淘宝详情" auth="none" type="get" />
 	<api key="/gl/login" name="管理登陆页面" auth="none" type="get" />
 	<api key="/gl/index" name="管理首页页面" auth="admin" type="get" />
-
+	<api key="/gl/skqklist" name="试客试用情况" auth="admin" type="get" />
+	
+	<api key="/skqk/list.do" name="试客试用情况" auth="admin" type="get" />
 </apis>

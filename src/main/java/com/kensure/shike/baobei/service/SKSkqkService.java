@@ -25,9 +25,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import co.kensure.exception.BusinessExceptionUtil;
 import co.kensure.frame.JSBaseService;
+import co.kensure.mem.ArithmeticUtils;
 import co.kensure.mem.CollectionUtils;
 import co.kensure.mem.DateUtils;
 import co.kensure.mem.MapUtils;
+import co.kensure.mem.PageInfo;
 
 import com.kensure.basekey.BaseKeyService;
 import com.kensure.shike.baobei.dao.SKSkqkDao;
@@ -353,6 +355,33 @@ public class SKSkqkService extends JSBaseService {
 		}
 		return list;
 	}
+	
+	
+	/**
+	 * 管理端，查询试客情况
+	 * @return
+	 */
+	public List<SKSkqk> getList(SKSkqk skqkquery,PageInfo page) {
+		Map<String, Object> parameters = MapUtils.bean2Map(skqkquery, true);
+		MapUtils.putPageInfo(parameters, page);
+		List<SKSkqk> list = selectByWhere(parameters);
+		if (CollectionUtils.isNotEmpty(list)) {
+			for (SKSkqk skqk : list) {
+				
+			}
+		}
+		return list;
+	}
+	
+	/**
+	 * 管理端，查询试客情况总计
+	 * @return
+	 */
+	public Long getListCount(SKSkqk skqkquery) {
+		Map<String, Object> parameters = MapUtils.bean2Map(skqkquery, true);
+		long size = selectCountByWhere(parameters);
+		return size;
+	}
 
 	/**
 	 * 对提交的订单进行轮询，超过3天就是进行好评业务
@@ -419,7 +448,9 @@ public class SKSkqkService extends JSBaseService {
 		zhang.setUserid(obj.getUserid());
 		zhang.setBusiid(id);
 		zhang.setBusitypeid(4L);
-		zhang.setYue(obj.getSalePrice());
+		double yue = ArithmeticUtils.add(obj.getSalePrice(),obj.getJiangli());
+		zhang.setYue(yue);
+		zhang.setRemark("本金:"+obj.getSalePrice()+"；奖励："+obj.getJiangli());
 		sKUserZhangService.add(zhang);
 		obj.setStatus(99L);
 		// 新人到账

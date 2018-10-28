@@ -161,15 +161,30 @@ public class GLPageController {
 
 	// 跳转到淘宝详情页面
 	@RequestMapping("xiangqing")
-	public void xiangqing(HttpServletRequest req, HttpServletResponse rep) {	
+	public void xiangqing(HttpServletRequest req, HttpServletResponse rep) {
 		try {
 			Long id = NumberUtils.parseLong(req.getParameter("id"), null);
-			SKBaobei bb = sKBaobeiService.selectOne(id );
+			SKBaobei bb = sKBaobeiService.selectOne(id);
 			String itemid = TaoBaoService.getContentId(bb.getUrl());
-			rep.sendRedirect("http://hws.m.taobao.com/cache/wdesc/5.0/?id="+itemid);
+			rep.sendRedirect("http://hws.m.taobao.com/cache/wdesc/5.0/?id=" + itemid);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	// 试客活动列表
+	@RequestMapping("skqklist")
+	public String skqklist(HttpServletRequest req, HttpServletResponse rep, Model model) {
+		req.setAttribute("index", indexlist);
+		List<String> body = new ArrayList<String>();
+		body.add("indexht_left.jsp");
+		body.add("skqk_right.jsp");
+		req.setAttribute("bodypage", body);
+		String status = req.getParameter("status");
+		if (StringUtils.isNotBlank(status)) {
+			req.setAttribute("status", status);
+		}
+		return "page/shangjia/index.jsp";
 	}
 
 }
