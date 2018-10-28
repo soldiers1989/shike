@@ -78,7 +78,7 @@ public class SKUserZhang extends BaseInfo{
 		return busitypeid;
 	}
 	public String getBusitypeidStr() {
-		SKDict dict = SKDictService.getDictCache(5, this.status + "");
+		SKDict dict = SKDictService.getDictCache(5, this.busitypeid + "");
 		String temp = "";
 		if (dict != null) {
 			temp = dict.getName();

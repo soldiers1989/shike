@@ -51,6 +51,7 @@
 <body>
 
 <input id="status" type="hidden" value="${status}">
+<input id="status" type="text" value="">
 <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/wdhd/resource/index.css">
 
 <link href="<%=BusiConstant.shikemobilepath %>/wdhd/resource/list.css" rel="stylesheet">

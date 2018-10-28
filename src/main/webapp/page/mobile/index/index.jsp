@@ -254,12 +254,12 @@
                 <span>中奖秘籍</span>
             </a>
         </li>
-        <li>
+        <%--<li>
             <a href="<%=BusiConstant.shike_zqmj.getKey() %>">
                 <img src="<%=BusiConstant.shikemobilepath %>/index/resource/icon9.png">
                 <span>赚钱秘籍</span>
             </a>
-        </li>
+        </li>--%>
         <li>
             <a href="<%=BusiConstant.shike_haohuo.getKey() %>?hdtypeid=3">
                 <img src="<%=BusiConstant.shikemobilepath %>/index/resource/icon13.png">
@@ -271,6 +271,12 @@
                 <%--<img class="zuan" src="<%=BusiConstant.shikemobilepath %>/index/resource/zuan10.png" alt="Alternate Text">--%>
                 <img src="<%=BusiConstant.shikemobilepath %>/index/resource/icon4.png">
                 <span>新手教程</span>
+            </a>
+        </li>
+        <li>
+            <a href="<%=BusiConstant.shike_jbcj.getKey() %>">
+                <img src="<%=BusiConstant.shikemobilepath %>/index/resource/icon12.png">
+                <span>金币抽奖</span>
             </a>
         </li>
     </ul>

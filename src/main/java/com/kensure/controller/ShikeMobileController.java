@@ -421,4 +421,26 @@ public class ShikeMobileController {
 		return "page/mobile/index/zqmj.jsp";
 	}
 
+	// 金币抽奖页面
+	@RequestMapping("jbcj")
+	public String jbcj(HttpServletRequest req, HttpServletResponse rep, Model model) {
+		SKUser user = sKUserService.getUser();
+		if (user == null) {
+			return "page/mobile/mine/login.jsp";
+		}
+
+		SKUserYue yue = skUserYueService.selectOne(user.getId());
+		Integer jinbi = 0;
+		if (yue != null) {
+			jinbi = yue.getJinbi().intValue();
+		}
+
+		// 当天剩余抽奖数
+        Integer todayCj = skUserJinbiService.countTodayCj();
+
+        req.setAttribute("jinbi", jinbi);
+        req.setAttribute("todayCj", todayCj);
+		return "page/mobile/index/jbcj.jsp";
+	}
+
 }

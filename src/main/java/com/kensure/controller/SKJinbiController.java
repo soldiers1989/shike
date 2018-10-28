@@ -18,6 +18,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 用户的金币流水
@@ -64,6 +65,17 @@ public class SKJinbiController {
 
 		List<SkUserJinbi> list = skUserJinbiService.selectByUser(user, inorout, status);
 		return new ResultRowsInfo(list);
+	}
+
+
+	/**
+	 * 金币抽奖（50金币一次）
+	 */
+	@ResponseBody
+	@RequestMapping(value = "jbcj.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	public ResultInfo jbcj(HttpServletRequest req, HttpServletResponse rep) {
+        Map<String, Object> map = skUserJinbiService.choujiang();
+        return new ResultRowInfo(map);
 	}
 
 }

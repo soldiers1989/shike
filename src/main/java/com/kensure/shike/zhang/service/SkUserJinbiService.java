@@ -9,16 +9,15 @@ import com.kensure.basekey.BaseKeyService;
 import com.kensure.shike.user.model.SKUser;
 import com.kensure.shike.user.service.SKUserService;
 import com.kensure.shike.zhang.dao.SkUserJinbiDao;
+import com.kensure.shike.zhang.model.SKUserYue;
+import com.kensure.shike.zhang.model.SKUserZhang;
 import com.kensure.shike.zhang.model.SkUserJinbi;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 /**
@@ -37,6 +36,9 @@ public class SkUserJinbiService extends JSBaseService{
 
 	@Resource
 	private SKUserYueService sKUserYueService;
+
+	@Resource
+	private SKUserZhangService skUserZhangService;
 
 	@Resource
 	private SKUserService sKUserService;
@@ -148,7 +150,7 @@ public class SkUserJinbiService extends JSBaseService{
 	 * 添加金币流水
 	 */
 	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
-	public void addJbls(Long userId, Long jinbie, Long typeId, Long inOrOut) {
+	public SkUserJinbi addJbls(Long userId, Long jinbie, Long typeId, Long inOrOut) {
 		SKUser user = sKUserService.selectOne(userId);
 
 		SkUserJinbi jinbi = new SkUserJinbi();
@@ -159,9 +161,11 @@ public class SkUserJinbiService extends JSBaseService{
 		jinbi.setInorout(inOrOut);
 		jinbi.setStatus(1L);
 
-		sKUserYueService.updateYue(user.getId(), null, new Double(jinbi.getJinbi()));
+		sKUserYueService.updateYue(user.getId(), null, new Double(jinbi.getJinbi()) * inOrOut);
 
 		insert(jinbi);
+
+		return jinbi;
 	}
 
     /**
@@ -213,4 +217,138 @@ public class SkUserJinbiService extends JSBaseService{
 
         return sum;
 	}
+
+    /**
+     * 统计今天剩余抽奖次数 (最多3次)
+     * @return
+     */
+	public Integer countTodayCj() {
+        SKUser user = sKUserService.getUser();
+        Map<String, Object> parameters = MapUtils.genMap("typeid", "4",
+                "userid", user.getId(),
+                "bigCreatedTime", DateUtils.formatDateStart(new Date()));
+        List<SkUserJinbi> list = selectByWhere(parameters);
+        return 3 - list.size();
+    }
+
+    /**
+     * 金币抽奖
+     * @return
+     */
+	public Map<String, Object> choujiang() {
+        SKUserYue skUserYue = sKUserYueService.selectByUser();
+
+        if (skUserYue == null || skUserYue.getJinbi() <= 50) {
+            BusinessExceptionUtil.threwException("金币余额不足!");
+        }
+
+        Integer countTodayCj = countTodayCj();
+        if (countTodayCj <= 0) {
+            BusinessExceptionUtil.threwException("今日抽奖次数已用尽!");
+        }
+
+        // 剩余金币
+        Double yueJinbi = skUserYue.getJinbi() - 50;
+
+        SKUser user = sKUserService.getUser();
+
+        // 金币抽奖 -50
+        SkUserJinbi skUserJinbi = addJbls(user.getId(), 50L, 4L, -1L);
+
+        // 获取抽奖的结果
+        Integer result = getChoujiangResult();
+
+        // 抽奖结果： 现金
+        if (result >= 0 && result <= 5) {
+
+            Double yue = 0.0;
+            switch (result) {
+                case 0://0.01元现金
+                    yue = 0.01;
+                    break;
+                case 1://0.02元现金
+                    yue = 0.02;
+                    break;
+                case 2://0.05元现金
+                    yue = 0.05;
+                    break;
+                case 3://0.1元现金
+                    yue = 0.1;
+                    break;
+                case 4://2元现金
+                    yue = 2.0;
+                    break;
+                case 5://5元现金
+                    yue = 5.0;
+                    break;
+                default:
+            }
+
+            SKUserZhang skUserZhang = new SKUserZhang();
+            skUserZhang.setUserid(user.getId());
+            skUserZhang.setYue(yue);
+            skUserZhang.setBusiid(skUserJinbi.getId());
+            skUserZhang.setBusitypeid(7L);
+            skUserZhangService.add(skUserZhang);
+        }
+        // 抽奖结果： 金币
+        else if(result == 9 || result == 10) {
+            Long jinbi = result == 9 ? 60L : 100L;
+
+            yueJinbi += jinbi;
+
+            // 抽奖得金币
+            addJbls(user.getId(), jinbi, 5L, 1L);
+        }
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("result", result);
+        map.put("jinbi", yueJinbi - 50);
+        map.put("count", countTodayCj - 1);
+        return map;
+    }
+
+    /**
+     * 0://0.01元现金   概率: 10%      [0,100)
+     * 1://0.02元现金   概率: 10%      [100,200)
+     * 2://0.05元现金   概率: 10%      [200,300)
+     * 3://0.1元现金    概率: 10%      [300,400)
+     * 4://2元现金      概率: 0.2%     [400,402)
+     * 5://5元现金      概率: 0.1%     [402,403)
+     * 6://10元现金     概率: 0%
+     * 7://30元现金     概率: 0%
+     * 8://50元现金     概率: 0%
+     * 9://60金币       概率: 20%      [403,603)
+     * 10://100金币     概率: 10%      [603,703)
+     * 19://再接再厉    概率: 29.7%    [703,1000)
+     * @return
+     */
+    public Integer getChoujiangResult() {
+
+        Random random = new Random();
+        int i = random.nextInt(1000);
+
+        Integer result;
+        if (i < 100) {
+            result = 0;
+        } else if (i < 200) {
+            result = 1;
+        } else if (i < 300) {
+            result = 2;
+        } else if (i < 400) {
+            result = 3;
+        } else if (i < 402) {
+            result = 4;
+        } else if (i < 403) {
+            result = 5;
+        } else if (i < 603) {
+            result = 9;
+        } else if (i < 703) {
+            result = 10;
+        } else {
+            result = 19;
+        }
+
+        return result;
+    }
 }
