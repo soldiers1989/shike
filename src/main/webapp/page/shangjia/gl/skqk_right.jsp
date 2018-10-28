@@ -119,8 +119,24 @@
 
 <div class="clearfix glhoutai" style="padding-bottom: 0;">
     <div class="shiy_ti">
-        <span style="float:none;margin-right:5px;">活动管理</span>
-        <input id="key" type="text" placeholder="请输入活动名称" style="width:50px" class="shou">
+        <span style="float:none;margin-right:5px;">试客账号</span>
+        <input id="key" type="text" style="width:80px" >
+        
+        <span style="float:none;margin-right:5px;">试客id</span>
+        <input id="key" type="text" style="width:80px" >
+        
+        <span style="float:none;margin-right:5px;">商家账号</span>
+        <input id="key" type="text" style="width:80px" >
+        
+        <span style="float:none;margin-right:5px;">商家id</span>
+        <input id="key" type="text" style="width:80px" >
+        
+        <span style="float:none;margin-right:5px;">活动id</span>
+        <input id="key" type="text" style="width:80px" >
+        
+        <span style="float:none;margin-right:5px;">生成时间</span>
+        <input id="key" type="text" style="width:80px" >至
+        <input id="key" type="text" style="width:80px" >
       
         <input onclick="huodonglist(1)" type="button" value="搜索">
     </div>
@@ -158,16 +174,8 @@
 		return tdinner;
 	}
 	
-	var optfun = function(row){
-		var tdinner = "    <div class=\"wae_cer\">";
-        if(row.status == 1){              	
-        	tdinner+="        <input type='button' value='通过' onclick='tongguo("+row.id+")'/>";
-        	tdinner+="        <input type='button' value='拒绝' onclick='untongguo("+row.id+")'/>";  
-        }else if(row.status == 9){
-        	tdinner+= "        <input type='button' value='下线' onclick='xiaxian("+row.id+")'/>";
-        	tdinner+= "        <input type='button' value='增加申请数' onclick='addsq("+row.id+")'/>";
-        }
-        
+	var syqkfun = function(row){
+		var tdinner = "<a href='<%=BusiConstant.shangjia_activity_edit.getKey()%>?id="+row.bbid+"' target='_blank'>查看</a>"
 		return tdinner;
 	}
 	
@@ -183,7 +191,7 @@
 	,{w:100,na:"商品链接",callfun:urlfun}
 	,{w:100,na:"详情链接",callfun:xiangqingfun}
 	,{w:100,na:"状态",colname:"statusStr"}
-	,{w:100,na:"试用详情",colname:"ysqnum"}];
+	,{w:100,na:"试用详情",callfun:syqkfun}];
 	
 	table.thinit();
 	
@@ -192,7 +200,7 @@
 		fanye.init(data.resultData.total);	
 		if(rows){	
 			table.data = rows;
-			table.tdinit();		
+			table.tdinit();
 		}	
 	}
 

@@ -369,6 +369,7 @@ public class SKSkqkService extends JSBaseService {
 	public List<SKSkqkLeft> getList(SKSkqk skqkquery, PageInfo page) {
 		Map<String, Object> parameters = MapUtils.bean2Map(skqkquery, true);
 		MapUtils.putPageInfo(parameters, page);
+		parameters.put("orderby", "t.created_time desc");
 		List<SKSkqkLeft> list = leftdao.selectByWhere(parameters);
 		return list;
 	}
