@@ -161,10 +161,10 @@ public class SKBbrwService extends JSBaseService {
 	public void saveOrUpdateInBatch(List<SKBbrw> rws, Long bbid, boolean newFlag) {
 		Map<Long, SKBbrw> oldRwMap = null;
 		if (!newFlag) {
-			List<SKBbrw> oldRws = this.selectByWhere(MapUtils.genMap("bbid",bbid));
+			List<SKBbrw> oldRws = this.selectByWhere(MapUtils.genMap("bbid", bbid));
 			oldRwMap = ListUtils.listToMap(oldRws, "id");
 		}
-		
+
 		// 插入新的或更新旧的
 		for (SKBbrw obj : rws) {
 			obj.setBbid(bbid);
@@ -177,7 +177,7 @@ public class SKBbrwService extends JSBaseService {
 				}
 			}
 		}
-		
+
 		// 删除新列表不存在的
 		if (oldRwMap != null && oldRwMap.size() > 0) {
 			List<Long> ids = new ArrayList<Long>();
@@ -325,7 +325,7 @@ public class SKBbrwService extends JSBaseService {
 		}
 		update(bbrw);
 		SKBaobei baobei = sKBaobeiService.selectOne(bbid);
-		baobei.setZjnum(baobei.getZjnum()+CollectionUtils.getSize(zjrlist));
+		baobei.setZjnum(baobei.getZjnum() + CollectionUtils.getSize(zjrlist));
 		sKBaobeiService.update(baobei);
 		sendSMS(zjrlist);
 
@@ -372,7 +372,6 @@ public class SKBbrwService extends JSBaseService {
 
 	}
 
-	
 	/**
 	 * 中奖 （必中）
 	 *
@@ -391,19 +390,20 @@ public class SKBbrwService extends JSBaseService {
 		int hour = DateUtils.getHour(now);
 		int bbnum = skBbrw.getBbnum().intValue();
 		int yzj = skBbrw.getYzj().intValue();
-		//当前时间最大中奖数量
+		// 当前时间最大中奖数量
 		int maxzj = 0;
-		//7点，放30%
-		if(hour >= 7){
-			maxzj = bbnum*3/10;
-		}else if(hour >= 14){
-		//14点，放60%
-			maxzj = bbnum*6/10;
-		}else if(hour >= 19){
-		//19点，放100%
+
+		if (hour >= 19) {
+			// 19点，放100%
 			maxzj = bbnum;
+		} else if (hour >= 14) {
+			// 14点，放60%
+			maxzj = bbnum * 6 / 10;
+		} else if (hour >= 7) {
+			// 7点，放30%
+			maxzj = bbnum * 3 / 10;
 		}
-		if(yzj >= maxzj){
+		if (yzj >= maxzj) {
 			BusinessExceptionUtil.threwException("宝贝该时间段已经放完！");
 		}
 		// 今日任务中奖人数+1

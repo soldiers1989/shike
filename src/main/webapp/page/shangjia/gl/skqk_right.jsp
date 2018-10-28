@@ -120,15 +120,8 @@
 <div class="clearfix glhoutai" style="padding-bottom: 0;">
     <div class="shiy_ti">
         <span style="float:none;margin-right:5px;">活动管理</span>
-        <input id="key" type="text" placeholder="请输入活动名称" style="width: 200px" class="shou">
-        <span style="float:none;">活动类型</span>
-        <select id="sktype" style="width:auto;">
-            <option value="" selected="selected">全部</option>
-                <option value="1">爆款打造/维护</option>
-                <option value="2"> 新品提升综合权重</option>
-                <option value="3">高客单精准打造爆款</option>
-                <option value="4">必中任务</option>
-        </select>
+        <input id="key" type="text" placeholder="请输入活动名称" style="width:50px" class="shou">
+      
         <input onclick="huodonglist(1)" type="button" value="搜索">
     </div>
    
@@ -156,12 +149,12 @@
 
 <script>
 	var table = createtable("headtable");
-	var titlefun = function(row){
-		var tdinner = "<a href='"+row.url+"' target='_blank'>"          
-        +row.title          
-        +"</a>" 	
-        +"   <a href='<%=BusiConstant.shangjia_activity_edit.getKey()%>?id="+row.id+"' target='_blank'>编辑</a>"
-        +"   <a href='<%=ApiUtil.getUrl("/gl/xiangqing")%>?id="+row.id+"' target='_blank'>淘宝详情</a>"
+	var urlfun = function(row){
+		var tdinner = "<a href='"+row.url+"' target='_blank'>查看</a>";
+		return tdinner;
+	}
+	var xiangqingfun = function(row){
+		var tdinner = "<a href='<%=BusiConstant.shangjia_activity_edit.getKey()%>?id="+row.bbid+"' target='_blank'>查看</a>"
 		return tdinner;
 	}
 	
@@ -179,17 +172,17 @@
 	}
 	
 	table.th = [{w:50,na:"订单id",colname:"id"}
-	,{w:270,na:"活动id",colname:"bbid"}
-	,{w:100,na:"创建时间",colname:"startTimeStr"}
-	,{w:100,na:"试客id",colname:"userid"}
-	,{w:100,na:"试客账号",colname:"phone"}
-	,{w:100,na:"淘宝账号",colname:"dpname"}
-	,{w:100,na:"商家账号",colname:"salePrice"}
-	,{w:100,na:"商品名称",colname:"bbnum"}
-	,{w:100,na:"店铺名称",colname:"zjnum"}
-	,{w:100,na:"商品链接",colname:"ysqnum"}
-	,{w:100,na:"详情链接",callfun:optfun}
-	,{w:100,na:"状态",colname:"ysqnum"}
+	,{w:50,na:"活动id",colname:"bbid"}
+	,{w:150,na:"创建时间",colname:"createdTimeStr"}
+	,{w:50,na:"试客id",colname:"userid"}
+	,{w:100,na:"试客账号",colname:"skphone"}
+	,{w:100,na:"淘宝账号",colname:"noTaobao"}
+	,{w:100,na:"商家账号",colname:"sjname"}
+	,{w:100,na:"商品名称",colname:"title"}
+	,{w:100,na:"店铺名称",colname:"dpname"}
+	,{w:100,na:"商品链接",callfun:urlfun}
+	,{w:100,na:"详情链接",callfun:xiangqingfun}
+	,{w:100,na:"状态",colname:"statusStr"}
 	,{w:100,na:"试用详情",colname:"ysqnum"}];
 	
 	table.thinit();

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kensure.shike.baobei.dao.SKSkqkLeftDao"><!--dsName="" saasAspect=""-->
+	<!-- <cache readOnly="true"/> -->
+    <sql id="allFields">
+		t.id,
+		t.bbid,
+		t.userid,
+		t.status,
+		t.last_status as lastStatus,
+		t.jinbi,
+		t.sale_price as salePrice,
+		t.jiangli,
+		t.ewai,
+		t.no_taobao as noTaobao,
+		t.next_time as nextTime,
+		t.created_time as createdTime,
+		t.updated_time as updatedTime,
+		sk.phone AS skphone,
+		baobei.title AS title,
+		baobei.url AS url,
+		dp.name AS dpname,
+		sj.name AS sjname
+    </sql>		
+	
+    <sql id="whereClause">
+		<if test="bbid != null">			
+			bbid = #{bbid}			
+		</if>
+		<if test="rwid != null">			
+			and rwid = #{rwid}			
+		</if>
+		<if test="status != null">			
+			and status = #{status}			
+		</if>
+		<if test="bigthanstatus != null">	
+		<![CDATA[		
+			and status >= #{bigthanstatus}		
+		]]>	
+		</if>
+		<if test="lessthanstatus != null">	
+		<![CDATA[		
+			and status <= #{lessthanstatus}		
+		]]>	
+		</if>
+		<if test="lastStatus != null">			
+			and last_status = #{lastStatus}			
+		</if>
+		<if test="noTaobao != null">			
+			and no_taobao = #{noTaobao}			
+		</if>		
+		<if test="userid != null">			
+			and userid = #{userid}			
+		</if>		
+		<if test="jinbi != null">			
+			and jinbi = #{jinbi}			
+		</if>
+		<if test="salePrice != null">			
+			and sale_price = #{salePrice}			
+		</if>
+		<if test="jiangli != null">			
+			and jiangli = #{jiangli}			
+		</if>
+		<if test="ewai != null">			
+			and ewai = #{ewai}			
+		</if>	
+		<if test="nextTime != null">			
+			and next_time = #{nextTime}			
+		</if>
+		<if test="lessNextTime != null">	
+		<![CDATA[		
+			and next_time <= #{lessNextTime}		
+		]]>	
+		</if>
+		<if test="createdTime != null">			
+			and created_time = #{createdTime}			
+		</if>
+		<if test="bigCreatedTime != null">
+			<![CDATA[
+			and created_time >= #{bigCreatedTime}
+			]]>
+		</if>
+		<if test="lessCreatedTime != null">
+			<![CDATA[
+			and created_time <= #{lessCreatedTime}
+			]]>
+		</if>
+		<if test="updatedTime != null">			
+			and updated_time = #{updatedTime}			
+		</if>
+		<if test="lessupdatedTime != null">			
+			<![CDATA[		
+			and updated_time <= #{lessupdatedTime}		
+			]]>		
+		</if>
+		
+	</sql>
+	
+	<select id="selectCountByWhere" parameterType="Map" resultType="Long">
+		select count(*) from sk_sqqk 
+		<where>
+		    <include refid="whereClause"/>
+		</where>
+	</select>
+
+	<select id="selectByWhere" parameterType="Map" resultType="com.kensure.shike.baobei.model.SKSkqkLeft">
+		select <include refid="allFields"/>
+		from sk_sqqk t 
+		   LEFT JOIN sk_user sk 
+		    ON t.userid = sk.id 
+		   LEFT JOIN sk_baobei baobei 
+		    ON baobei.id = t.bbid 
+		   LEFT JOIN sk_dianpu dp 
+		    ON baobei.dpid = dp.id 
+		   LEFT JOIN sk_user sj 
+		    ON baobei.userid = sj.id 
+		<where>
+		    <include refid="whereClause"/>
+		</where>				
+		<if test="orderby != null">
+			ORDER BY ${orderby}
+		</if>
+		<if test="limit != null">
+			LIMIT #{limit} OFFSET #{offset}
+		</if>
+	</select>
+
+</mapper>    

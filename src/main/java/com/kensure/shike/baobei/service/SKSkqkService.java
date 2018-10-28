@@ -33,10 +33,12 @@ import co.kensure.mem.PageInfo;
 
 import com.kensure.basekey.BaseKeyService;
 import com.kensure.shike.baobei.dao.SKSkqkDao;
+import com.kensure.shike.baobei.dao.SKSkqkLeftDao;
 import com.kensure.shike.baobei.model.SKBaobei;
 import com.kensure.shike.baobei.model.SKBbrw;
 import com.kensure.shike.baobei.model.SKJysj;
 import com.kensure.shike.baobei.model.SKSkqk;
+import com.kensure.shike.baobei.model.SKSkqkLeft;
 import com.kensure.shike.user.model.SKUser;
 import com.kensure.shike.user.service.SKUserService;
 import com.kensure.shike.zhang.model.SKUserZhang;
@@ -54,6 +56,9 @@ public class SKSkqkService extends JSBaseService {
 
 	@Resource
 	private SKSkqkDao dao;
+
+	@Resource
+	private SKSkqkLeftDao leftdao;
 
 	@Resource
 	private BaseKeyService baseKeyService;
@@ -355,26 +360,22 @@ public class SKSkqkService extends JSBaseService {
 		}
 		return list;
 	}
-	
-	
+
 	/**
 	 * 管理端，查询试客情况
+	 * 
 	 * @return
 	 */
-	public List<SKSkqk> getList(SKSkqk skqkquery,PageInfo page) {
+	public List<SKSkqkLeft> getList(SKSkqk skqkquery, PageInfo page) {
 		Map<String, Object> parameters = MapUtils.bean2Map(skqkquery, true);
 		MapUtils.putPageInfo(parameters, page);
-		List<SKSkqk> list = selectByWhere(parameters);
-		if (CollectionUtils.isNotEmpty(list)) {
-			for (SKSkqk skqk : list) {
-				
-			}
-		}
+		List<SKSkqkLeft> list = leftdao.selectByWhere(parameters);
 		return list;
 	}
-	
+
 	/**
 	 * 管理端，查询试客情况总计
+	 * 
 	 * @return
 	 */
 	public Long getListCount(SKSkqk skqkquery) {
@@ -448,9 +449,9 @@ public class SKSkqkService extends JSBaseService {
 		zhang.setUserid(obj.getUserid());
 		zhang.setBusiid(id);
 		zhang.setBusitypeid(4L);
-		double yue = ArithmeticUtils.add(obj.getSalePrice(),obj.getJiangli());
+		double yue = ArithmeticUtils.add(obj.getSalePrice(), obj.getJiangli());
 		zhang.setYue(yue);
-		zhang.setRemark("本金:"+obj.getSalePrice()+"；奖励："+obj.getJiangli());
+		zhang.setRemark("本金:" + obj.getSalePrice() + "；奖励：" + obj.getJiangli());
 		sKUserZhangService.add(zhang);
 		obj.setStatus(99L);
 		// 新人到账
@@ -501,10 +502,10 @@ public class SKSkqkService extends JSBaseService {
 		for (SKSkqk skqk : list) {
 			if (skqk.getStatus() < 51) {
 				// 如果是中将前，没啥问题
-			} else if(skqk.getStatus() == 61){
-				//等待收货好评的状态，遇到了跳过去
+			} else if (skqk.getStatus() == 61) {
+				// 等待收货好评的状态，遇到了跳过去
 				continue;
-			}else {
+			} else {
 				long bbid = skqk.getBbid();
 				List<SKBbrw> bbrwl = sKBbrwService.getList(bbid);
 				if (CollectionUtils.isNotEmpty(bbrwl)) {
