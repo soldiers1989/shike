@@ -50,7 +50,7 @@
 <link href="<%=BusiConstant.shikemobilepath %>/wdhd/resource/layer.css" type="text/css" rel="styleSheet" id="layermcss"></head>
 <body>
 
-<input id="status" type="text" value="${status}">
+<input id="status" type="hidden" value="${status}">
 <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/wdhd/resource/index.css">
 
 <link href="<%=BusiConstant.shikemobilepath %>/wdhd/resource/list.css" rel="stylesheet">

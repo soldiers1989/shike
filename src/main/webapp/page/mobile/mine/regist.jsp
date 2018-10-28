@@ -286,10 +286,6 @@
         <div style="height:2.15rem;">
         </div>
         <jsp:include page="../common/footer.jsp" flush="true"/>
-<%--<div style="display: none">
-    <script src="<%=BusiConstant.shikemobilepath %>/mine/regist/z_stat.php" language="JavaScript"></script>
-    <script src="<%=BusiConstant.shikemobilepath %>/mine/regist/core.php" charset="utf-8"
-            type="text/javascript"></script>--%>
 
     <div id="loading" class="loading">
     <div class="loadingContent">

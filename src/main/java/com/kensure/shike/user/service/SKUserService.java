@@ -256,6 +256,9 @@ public class SKUserService extends JSBaseService {
 		// 验证成功
 		sKSmsService.sendSucess(code);
 
+		// 注册奖励
+        skUserJinbiService.addZcjl(sKUser.getId());
+
 		// 记录代言人的粉丝奖励流水；并发送金币奖励
 		if (sKUser.getRefereeId() != null) {
 			skUserFansService.addFans(sKUser.getId(), sKUser.getRefereeId());

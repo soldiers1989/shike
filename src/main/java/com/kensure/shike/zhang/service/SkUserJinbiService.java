@@ -117,37 +117,52 @@ public class SkUserJinbiService extends JSBaseService{
             BusinessExceptionUtil.threwException("今日已签到，请明日再来!");
         }
 
-        obj.setUserid(user.getId());
-        obj.setTypeid(1L);
-        obj.setInorout(1L);
-        obj.setStatus(1L);
+        if (obj.getJinbi() > 20) {
+            BusinessExceptionUtil.threwException("金币数据有误!");
+        }
 
-        sKUserYueService.updateYue(user.getId(), null, new Double(obj.getJinbi()));
+		addJbls(user.getId(), obj.getJinbi(), 1L, 1L);
+    }
 
-        insert(obj);
+
+	/**
+	 * 注册账号 +100（一次性活动）
+	 * @param userId
+	 */
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+    public void addZcjl(Long userId) {
+		addJbls(userId, 100L, 21L, 1L);
     }
 
 	/**
-	 * 邀请奖励
+	 * 邀请粉丝注册 +300
 	 * @param userId
 	 */
 	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
     public void addYqjl(Long userId) {
+		// 邀请人得到300金币  typeId:  3:邀请奖励
+		addJbls(userId, 300L, 3L, 1L);
+    }
 
-        SKUser user = sKUserService.selectOne(userId);
+	/**
+	 * 添加金币流水
+	 */
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+	public void addJbls(Long userId, Long jinbie, Long typeId, Long inOrOut) {
+		SKUser user = sKUserService.selectOne(userId);
 
 		SkUserJinbi jinbi = new SkUserJinbi();
-        jinbi.setUserid(user.getId());
+		jinbi.setUserid(user.getId());
 
-		jinbi.setJinbi(100L);  // 邀请人得到100金币
-        jinbi.setTypeid(3L);   // 3:邀请奖励
-        jinbi.setInorout(1L);
-        jinbi.setStatus(1L);
+		jinbi.setJinbi(jinbie);  // 邀请人得到100金币
+		jinbi.setTypeid(typeId);   // 3:邀请奖励
+		jinbi.setInorout(inOrOut);
+		jinbi.setStatus(1L);
 
-        sKUserYueService.updateYue(user.getId(), null, new Double(jinbi.getJinbi()));
+		sKUserYueService.updateYue(user.getId(), null, new Double(jinbi.getJinbi()));
 
-        insert(jinbi);
-    }
+		insert(jinbi);
+	}
 
     /**
      * 获取当天签到金币
