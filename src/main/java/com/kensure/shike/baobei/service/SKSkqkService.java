@@ -511,11 +511,12 @@ public class SKSkqkService extends JSBaseService {
 	public void quxiao() {
 		Date now = new Date();
 		// 先处理0-51状态的数据
-		Map<String, Object> parameters = MapUtils.genMap("lessNextTime", now, "lessthanstatus", 80, "bigthanstatus", 0);
+		Map<String, Object> parameters = MapUtils.genMap("lessNextTime", now, "lessthanstatus", 80, "bigthanstatus", 51);
 		List<SKSkqk> list = selectByWhere(parameters);
 		for (SKSkqk skqk : list) {
 			if (skqk.getStatus() < 51) {
 				// 如果是中将前，没啥问题
+				continue;
 			} else if (skqk.getStatus() == 61) {
 				// 等待收货好评的状态，遇到了跳过去
 				continue;
@@ -535,6 +536,25 @@ public class SKSkqkService extends JSBaseService {
 				obj.setZjnum(baobei.getZjnum() - 1);
 				sKBaobeiService.update(obj);
 			}
+			// 自动取消
+			updateStatus(skqk.getId(), -2L);
+		}
+	}
+	
+	
+	/**
+	 * 取消一些结束活动的申请的数据
+	 * 
+	 * @param bbid
+	 * @param userid
+	 * @return
+	 */
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+	public void endquxiao(long bbid) {
+		// 先处理0-51状态的数据
+		Map<String, Object> parameters = MapUtils.genMap("bbid",bbid,"lessthanstatus", 50);
+		List<SKSkqk> list = selectByWhere(parameters);
+		for (SKSkqk skqk : list) {
 			// 自动取消
 			updateStatus(skqk.getId(), -2L);
 		}

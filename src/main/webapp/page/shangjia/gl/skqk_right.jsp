@@ -4,7 +4,7 @@
 <% 
 	String context = BusiConstant.shangjiapath;
 	String name = BusiConstant.name;
-	String status = (String)request.getAttribute("status");
+	String bbid = (String)request.getAttribute("bbid");
 %>
                 
 <link rel="stylesheet" type="text/css" href="<%=context%>/addJPinShop.css">
@@ -130,7 +130,7 @@
         <input name="sjname" type="text" style="width:80px" >
         
         <span style="float:none;margin-right:5px;">活动id</span>
-        <input name="bbid" type="text" style="width:80px" >
+        <input name="bbid" type="text" value="<%=bbid%>" style="width:80px" >
         
         <span style="float:none;margin-right:5px;">生成时间</span>
         <input name="aa" type="text" style="width:80px" >至

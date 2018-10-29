@@ -170,7 +170,7 @@
         +row.title          
         +"</a>" 	
         +"   <a href='<%=BusiConstant.shangjia_activity_edit.getKey()%>?id="+row.id+"' target='_blank'>编辑</a>"
-        +"   <a href='<%=ApiUtil.getUrl("/gl/xiangqing")%>?id="+row.id+"' target='_blank'>淘宝详情</a>"
+        +"   <a href='<%=ApiUtil.getUrl("/gl/xiangqing")%>?id="+row.id+"' target='_blank'>淘宝详情</a>";
 		return tdinner;
 	}
 	
@@ -187,6 +187,13 @@
 		return tdinner;
 	}
 	
+	var jindufun = function(row){
+		var tdinner = "<a href='<%=ApiUtil.getUrl("/gl/skqklist")%>?bbid="+row.id+"' target='_blank'>"          
+        +row.statusStr          
+        +"</a>";
+		return tdinner;
+	}
+	
 	table.th = [{w:50,na:"序号",colname:"id"}
 	,{w:270,na:"活动名称",callfun:titlefun}
 	,{w:100,na:"开始时间",colname:"startTimeStr"}
@@ -197,7 +204,7 @@
 	,{w:100,na:"产品数量",colname:"bbnum"}
 	,{w:100,na:"中奖数量",colname:"zjnum"}
 	,{w:100,na:"申请数量",colname:"ysqnum"}
-	,{w:100,na:"活动进度",colname:"statusStr"}
+	,{w:100,na:"活动进度",callfun:jindufun}
 	,{w:100,na:"活动操作",callfun:optfun}];
 	
 	table.thinit();

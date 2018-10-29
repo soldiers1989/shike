@@ -194,10 +194,11 @@ public class GLPageController {
 		body.add("indexht_left.jsp");
 		body.add("skqk_right.jsp");
 		req.setAttribute("bodypage", body);
-		String status = req.getParameter("status");
-		if (StringUtils.isNotBlank(status)) {
-			req.setAttribute("status", status);
+		String bbid = req.getParameter("bbid");
+		if (StringUtils.isBlank(bbid)) {
+			bbid = "";
 		}
+		req.setAttribute("bbid", bbid);
 		return "page/shangjia/index.jsp";
 	}
 

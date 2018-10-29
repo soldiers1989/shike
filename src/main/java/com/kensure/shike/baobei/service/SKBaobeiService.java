@@ -230,7 +230,7 @@ public class SKBaobeiService extends JSBaseService {
 		if (obj.getId() == null) {
 			this.insert(obj);
 		} else {
-			if(oldBaoBei.getStatus()<0){
+			if(oldBaoBei.getStatus()==2){
 				obj.setStatus(0L);
 			}
 			this.update(obj);
@@ -779,6 +779,7 @@ public class SKBaobeiService extends JSBaseService {
 			bb.setStatus(10L);
 			Map<String, Object> params = MapUtils.genMap("id", bb.getId(), "status", 10);
 			updateByMap(params);
+			sKSkqkService.endquxiao(bb.getId());
 		}
 	}
 

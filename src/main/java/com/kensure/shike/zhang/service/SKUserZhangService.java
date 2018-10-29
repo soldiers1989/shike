@@ -153,7 +153,6 @@ public class SKUserZhangService extends JSBaseService {
 		} else if (obj.getBusitypeid() == 3) {
 			obj.setInorout(-1L);
 			obj.setStatus(0L);
-			obj.setBillno(""+System.currentTimeMillis());
 		} else if (obj.getBusitypeid() == 4) {
 			obj.setInorout(1L);
 			obj.setStatus(1L);
@@ -170,6 +169,14 @@ public class SKUserZhangService extends JSBaseService {
 			obj.setInorout(1L);
 			obj.setStatus(1L);
 			obj.setBillno(""+System.currentTimeMillis());
+			SKUserZhang out3 = getBusi(obj.getUserid(), 3L, obj.getBusiid());
+			if(out3 != null){
+				out3.setBillno(""+System.currentTimeMillis());
+				out3.setStatus(-1L);
+				update(out3);
+			}else{
+				BusinessExceptionUtil.threwException("找不到相应的订单");
+			}
 		} else {
 			BusinessExceptionUtil.threwException("未知类型");
 		}
