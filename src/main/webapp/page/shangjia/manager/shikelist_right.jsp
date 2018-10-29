@@ -106,8 +106,7 @@
 				html+="</tr>";
 				$("#listtable").append(html);
 			}
-		}
-		
+		}	
 	}
 
    function chongzhilist(){
@@ -119,9 +118,11 @@
    chongzhilist();
    
    function fankuan(id){
-	   var data = {id:id};
-	   var url = "<%=BusiConstant.shike_fankuan_do.getKey()%>";
-	   postdo(url, data, null,null, null);
+	   if(confirm('确认返款？')){
+		   var data = {id:id};
+		   var url = "<%=BusiConstant.shike_fankuan_do.getKey()%>";
+		   postdo(url, data, null,null, null);
+	   }
    }
    
 </script>

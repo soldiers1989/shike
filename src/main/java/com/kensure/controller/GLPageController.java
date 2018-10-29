@@ -68,6 +68,20 @@ public class GLPageController {
 		return "page/shangjia/index.jsp";
 	}
 
+	// 试客使用详情
+	@RequestMapping("skqkdetail")
+	public String skqkdetail(HttpServletRequest req, HttpServletResponse rep, Model model) {
+		req.setAttribute("index", indexlist);
+
+		List<String> body = new ArrayList<String>();
+		body.add("indexht_left.jsp");
+		body.add("skqkdetail_right.jsp");
+		req.setAttribute("bodypage", body);
+		String id = req.getParameter("id");
+		req.setAttribute("id", id);
+		return "page/shangjia/index.jsp";
+	}
+
 	// 提现列表
 	@RequestMapping("tixianlist")
 	public String tixianlist(HttpServletRequest req, HttpServletResponse rep, Model model) {

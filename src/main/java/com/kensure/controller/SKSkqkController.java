@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import co.kensure.frame.ResultInfo;
+import co.kensure.frame.ResultRowInfo;
 import co.kensure.frame.ResultRowsInfo;
 import co.kensure.http.RequestUtils;
 import co.kensure.mem.PageInfo;
@@ -60,4 +61,15 @@ public class SKSkqkController {
 		return new ResultRowsInfo(list, cont);
 	}
 
+	/**
+	 * 试客试用详情
+	 */
+	@ResponseBody
+	@RequestMapping(value = "getdetail.do", method = { RequestMethod.POST }, produces = "application/json;charset=UTF-8")
+	public ResultInfo getdetail(HttpServletRequest req, HttpServletResponse rep) {
+		JSONObject json = RequestUtils.paramToJson(req);
+		Long id = json.getLong("id");
+		SKSkqk skqk = sKSkqkService.getSkqkDetail(id);
+		return new ResultRowInfo(skqk);
+	}
 }

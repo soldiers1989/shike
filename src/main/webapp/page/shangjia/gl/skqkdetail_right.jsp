@@ -4,7 +4,7 @@
 <% 
 	String context = BusiConstant.shangjiapath;
 	String name = BusiConstant.name;
-	String status = (String)request.getAttribute("status");
+	String id = (String)request.getAttribute("id");
 %>
                 
 <link rel="stylesheet" type="text/css" href="<%=context%>/addJPinShop.css">
@@ -115,48 +115,20 @@
     background: #f9f9f9;
     display: block;
 	}
+	
 </style>
 
 <div class="clearfix glhoutai" style="padding-bottom: 0;">
-    <div class="shiy_ti">
-        <span style="float:none;margin-right:5px;">试客账号</span>
-        <input id="key" type="text" style="width:80px" >
-        
-        <span style="float:none;margin-right:5px;">试客id</span>
-        <input id="key" type="text" style="width:80px" >
-        
-        <span style="float:none;margin-right:5px;">商家账号</span>
-        <input id="key" type="text" style="width:80px" >
-        
-        <span style="float:none;margin-right:5px;">商家id</span>
-        <input id="key" type="text" style="width:80px" >
-        
-        <span style="float:none;margin-right:5px;">活动id</span>
-        <input id="key" type="text" style="width:80px" >
-        
-        <span style="float:none;margin-right:5px;">生成时间</span>
-        <input id="key" type="text" style="width:80px" >至
-        <input id="key" type="text" style="width:80px" >
-      
-        <input onclick="huodonglist(1)" type="button" value="搜索">
-    </div>
    
     <div class="clearfix right_g">
         <div class="right_contant table-style">
         	
          	<table  cellspacing="0" style="table-layout:fixed;" cellpadding="0" id="headtable">
-         	<thead>
-        
-   		 	</thead>
-             <tbody>
-                
-          	</tbody>
+         	
             </table>
          
         </div>
-        <div id="fanye">
-
-		</div>
+     
     </div>
 </div>
             </div>
@@ -164,57 +136,65 @@
 
 
 <script>
-	var table = createtable("headtable");
-	var urlfun = function(row){
-		var tdinner = "<a href='"+row.url+"' target='_blank'>查看</a>";
-		return tdinner;
-	}
-	var xiangqingfun = function(row){
-		var tdinner = "<a href='<%=BusiConstant.shangjia_activity_edit.getKey()%>?id="+row.bbid+"' target='_blank'>查看</a>"
-		return tdinner;
-	}
-	
-	var syqkfun = function(row){
-		var tdinner = "<a href='<%=ApiUtil.getUrl("/gl/skqkdetail")%>?id="+row.id+"' target='_blank'>查看</a>"
-		return tdinner;
-	}
-	
-	table.th = [{w:50,na:"订单id",colname:"id"}
-	,{w:50,na:"活动id",colname:"bbid"}
-	,{w:150,na:"创建时间",colname:"createdTimeStr"}
-	,{w:50,na:"试客id",colname:"userid"}
-	,{w:100,na:"试客账号",colname:"skphone"}
-	,{w:100,na:"淘宝账号",colname:"noTaobao"}
-	,{w:100,na:"商家账号",colname:"sjname"}
-	,{w:100,na:"商品名称",colname:"title"}
-	,{w:100,na:"店铺名称",colname:"dpname"}
-	,{w:100,na:"商品链接",callfun:urlfun}
-	,{w:100,na:"详情链接",callfun:xiangqingfun}
-	,{w:100,na:"状态",colname:"statusStr"}
-	,{w:100,na:"试用详情",callfun:syqkfun}];
-	
-	table.thinit();
+
 	
 	function sucdo(data){
-		var rows = data.resultData.rows;
-		fanye.init(data.resultData.total);	
-		if(rows){	
-			table.data = rows;
-			table.tdinit();
-		}	
+		var row = data.resultData.row;
+		var html = "";
+		html = "<tr><td width=150>状态</td><td width=500>"+row.statusStr+"</td></tr>";
+		var jys = row.jylist;
+		var jymap = {};
+		for(var j=0;jys && j<jys.length;j++){
+			var jy = jys[j];
+			var key = jy.status+"-"+jy.typeid+"-"+jy.busitype;
+			jymap[key] = jy;
+		}
+		var sc213 = "";
+		if(jymap["21-3-gz"]){
+			sc213 =  jymap["21-3-sc"].content
+		}
+		html += "<tr><td>收藏图</td><td><img src='"+sc213 +"' width='500'></td></tr>";
+		
+		var gz213 = "";
+		if(jymap["21-3-gz"]){
+			gz213 =  jymap["21-3-gz"].content
+		}
+		html += "<tr><td>关注图</td><td><img src='"+gz213 +"' width='500'></td></tr>";
+		
+		var ddh612 = "";
+		if(jymap["61-2-ddh"]){
+			ddh612 =  jymap["61-2-ddh"].content
+		}
+		html += "<tr><td>订单号</td><td>"+ddh612+"</td></tr>";
+		
+		var dd613 = "";
+		if(jymap["61-3-dd"]){
+			dd613 =  jymap["61-3-dd"].content
+		}
+		html += "<tr><td>订单图</td><td><img src='"+dd613 +"' width='500'></td></tr>";
+		
+		var hpy812 = "";
+		if(jymap["81-2-hpy"]){
+			hpy812 =  jymap["81-2-hpy"].content
+		}
+		html += "<tr><td>好评语</td><td>"+hpy812+"</td></tr>";
+		
+		var hp813 = "";
+		if(jymap["81-3-hp"]){
+			hp813 =  jymap["81-3-hp"].content
+		}
+		html += "<tr><td>好评图</td><td><img src='"+hp813 +"' width='500'></td></tr>";
+		
+		$("#headtable").append(html);		
 	}
 
-	var fanye = new FanYe("fanye","huodonglist",0,20,1);
 	
-   function huodonglist(current){
-	   if(!fanye.setpage(current)){
-			return;
-		}
-	   var data = {status:<%=status%>,title:$("#key").val(),hdtypeid:$("#sktype option:selected").val(),pageNo:fanye.current,pageSize:fanye.limit};
-	   var url = "<%=ApiUtil.getUrl("/skqk/list.do")%>";
+   function xiangqing(){
+	   var data = {id:<%=id%>};
+	   var url = "<%=ApiUtil.getUrl("/skqk/getdetail.do")%>";
 	   postdo(url, data, sucdo,null, null);
    }
-   huodonglist(1);
+   xiangqing();
    
       
 </script>

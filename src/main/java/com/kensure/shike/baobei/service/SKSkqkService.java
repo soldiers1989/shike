@@ -264,6 +264,18 @@ public class SKSkqkService extends JSBaseService {
 		return list;
 	}
 
+	/**
+	 * 根据试客情况获取他的详情
+	 * @param id
+	 * @return
+	 */
+	public SKSkqk getSkqkDetail(long id){
+		SKSkqk skqk = selectOne(id);
+		List<SKJysj> jylist = sKJysjService.selectByBbidAndUserid(skqk.getBbid(), skqk.getUserid());
+		skqk.setJylist(jylist);
+		return skqk;
+	}
+	
 	private static Map<String, String> sqqkMap = new HashMap<String, String>();
 
 	/**
