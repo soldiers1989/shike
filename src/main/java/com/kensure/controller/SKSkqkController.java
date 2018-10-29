@@ -20,6 +20,7 @@ import co.kensure.mem.PageInfo;
 import com.alibaba.fastjson.JSONObject;
 import com.kensure.shike.baobei.model.SKSkqk;
 import com.kensure.shike.baobei.model.SKSkqkLeft;
+import com.kensure.shike.baobei.query.SKSkqkLeftQuery;
 import com.kensure.shike.baobei.service.SKBaobeiService;
 import com.kensure.shike.baobei.service.SKBbrwService;
 import com.kensure.shike.baobei.service.SKSkqkService;
@@ -54,7 +55,7 @@ public class SKSkqkController {
 	@RequestMapping(value = "list.do", method = { RequestMethod.POST }, produces = "application/json;charset=UTF-8")
 	public ResultInfo list(HttpServletRequest req, HttpServletResponse rep) {
 		JSONObject json = RequestUtils.paramToJson(req);
-		SKSkqk skqk = JSONObject.parseObject(json.toJSONString(), SKSkqk.class);
+		SKSkqkLeftQuery skqk = JSONObject.parseObject(json.toJSONString(), SKSkqkLeftQuery.class);
 		PageInfo page = JSONObject.parseObject(json.toJSONString(), PageInfo.class);
 		List<SKSkqkLeft> list = sKSkqkService.getList(skqk, page);
 		long cont = sKSkqkService.getListCount(skqk);

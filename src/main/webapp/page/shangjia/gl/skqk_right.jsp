@@ -119,25 +119,23 @@
 
 <div class="clearfix glhoutai" style="padding-bottom: 0;">
     <div class="shiy_ti">
+    <form id="skqkchaxun">
         <span style="float:none;margin-right:5px;">试客账号</span>
-        <input id="key" type="text" style="width:80px" >
+        <input name="skphone" type="text" style="width:80px" >
         
         <span style="float:none;margin-right:5px;">试客id</span>
-        <input id="key" type="text" style="width:80px" >
+        <input name="userid" type="text" style="width:80px" >
         
         <span style="float:none;margin-right:5px;">商家账号</span>
-        <input id="key" type="text" style="width:80px" >
-        
-        <span style="float:none;margin-right:5px;">商家id</span>
-        <input id="key" type="text" style="width:80px" >
+        <input name="sjname" type="text" style="width:80px" >
         
         <span style="float:none;margin-right:5px;">活动id</span>
-        <input id="key" type="text" style="width:80px" >
+        <input name="bbid" type="text" style="width:80px" >
         
         <span style="float:none;margin-right:5px;">生成时间</span>
-        <input id="key" type="text" style="width:80px" >至
-        <input id="key" type="text" style="width:80px" >
-      
+        <input name="aa" type="text" style="width:80px" >至
+        <input name="bb" type="text" style="width:80px" >
+     </form>
         <input onclick="huodonglist(1)" type="button" value="搜索">
     </div>
    
@@ -164,6 +162,22 @@
 
 
 <script>
+	$.fn.serializeObject = function(){  
+	    var o = {};  
+	    var a = this.serializeArray();  
+	    $.each(a, function() {  
+	        if (o[this.name]) {  
+	            if (!o[this.name].push) {  
+	                o[this.name] = [o[this.name]];  
+	            }  
+	            o[this.name].push(this.value || '');  
+	        } else {  
+	            o[this.name] = this.value || '';  
+	        }  
+	    });  
+	    return o;  
+	 }
+
 	var table = createtable("headtable");
 	var urlfun = function(row){
 		var tdinner = "<a href='"+row.url+"' target='_blank'>查看</a>";
@@ -210,11 +224,15 @@
 	   if(!fanye.setpage(current)){
 			return;
 		}
-	   var data = {status:<%=status%>,title:$("#key").val(),hdtypeid:$("#sktype option:selected").val(),pageNo:fanye.current,pageSize:fanye.limit};
+	   var data = $('#skqkchaxun').serializeObject();
+	   data.pageNo = fanye.current;
 	   var url = "<%=ApiUtil.getUrl("/skqk/list.do")%>";
 	   postdo(url, data, sucdo,null, null);
    }
    huodonglist(1);
    
+   
+
+  
       
 </script>

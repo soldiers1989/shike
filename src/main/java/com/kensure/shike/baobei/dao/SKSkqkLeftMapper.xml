@@ -31,10 +31,16 @@
 			and t.status = #{status}			
 		</if>
 		<if test="noTaobao != null">			
-			and no_taobao like concat('%',#{noTaobao},'%')	
+			and t.no_taobao like concat('%',#{noTaobao},'%')	
+		</if>	
+		<if test="sjname != null">			
+			and sj.name like concat('%',#{sjname},'%')	
+		</if>
+		<if test="skphone != null">			
+			and sk.phone like concat('%',#{skphone},'%')	
 		</if>		
 		<if test="userid != null">			
-			and userid = #{userid}			
+			and t.userid = #{userid}			
 		</if>		
 		<if test="jinbi != null">			
 			and jinbi = #{jinbi}			
@@ -48,20 +54,15 @@
 		<if test="ewai != null">			
 			and ewai = #{ewai}			
 		</if>	
-		<if test="bigCreatedTime != null">
+		<if test="startCreatedTime != null">
 			<![CDATA[
-			and created_time >= #{bigCreatedTime}
+			and created_time >= #{startCreatedTime}
 			]]>
 		</if>
-		<if test="lessCreatedTime != null">
+		<if test="endCreatedTime != null">
 			<![CDATA[
-			and created_time <= #{lessCreatedTime}
+			and created_time <= #{endCreatedTime}
 			]]>
-		</if>
-		<if test="lessupdatedTime != null">			
-			<![CDATA[		
-			and updated_time <= #{lessupdatedTime}		
-			]]>		
 		</if>
 		
 	</sql>

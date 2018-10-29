@@ -185,9 +185,12 @@ public class MapUtils {
 			Object value = null;
 			try {
 				value = PropertyUtils.getProperty(bean, key);
-				if (ignoreNull && value == null) {
-					continue;
-				}
+				if (ignoreNull)
+					if (value == null) {
+						continue;
+					} else if (value instanceof String && StringUtils.isBlank(value.toString())) {
+						continue;
+					}
 			} catch (Exception e) {
 				throw new RuntimeException(e);
 			}

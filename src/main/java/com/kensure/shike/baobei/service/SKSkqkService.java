@@ -39,6 +39,7 @@ import com.kensure.shike.baobei.model.SKBbrw;
 import com.kensure.shike.baobei.model.SKJysj;
 import com.kensure.shike.baobei.model.SKSkqk;
 import com.kensure.shike.baobei.model.SKSkqkLeft;
+import com.kensure.shike.baobei.query.SKSkqkLeftQuery;
 import com.kensure.shike.user.model.SKUser;
 import com.kensure.shike.user.service.SKUserService;
 import com.kensure.shike.zhang.model.SKUserZhang;
@@ -378,7 +379,7 @@ public class SKSkqkService extends JSBaseService {
 	 * 
 	 * @return
 	 */
-	public List<SKSkqkLeft> getList(SKSkqk skqkquery, PageInfo page) {
+	public List<SKSkqkLeft> getList(SKSkqkLeftQuery skqkquery, PageInfo page) {
 		Map<String, Object> parameters = MapUtils.bean2Map(skqkquery, true);
 		MapUtils.putPageInfo(parameters, page);
 		parameters.put("orderby", "t.created_time desc");
@@ -391,7 +392,7 @@ public class SKSkqkService extends JSBaseService {
 	 * 
 	 * @return
 	 */
-	public Long getListCount(SKSkqk skqkquery) {
+	public Long getListCount(SKSkqkLeftQuery skqkquery) {
 		Map<String, Object> parameters = MapUtils.bean2Map(skqkquery, true);
 		long size = selectCountByWhere(parameters);
 		return size;
