@@ -526,6 +526,7 @@ public class SKSkqkService extends JSBaseService {
 				if (CollectionUtils.isNotEmpty(bbrwl)) {
 					SKBbrw bbrw = bbrwl.get(0);
 					bbrw.setYzj(bbrw.getYzj() - 1);
+					sKBbrwService.update(bbrw);
 				}
 
 				// 修改已中奖数量

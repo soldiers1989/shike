@@ -78,7 +78,7 @@ public class SKTask {
 	/**
 	 * add by fankd 每10分钟调度一次，设置好评\返款\取消一些数据
 	 */
-	@Scheduled(cron = "0 0/10 * * * ?")
+	@Scheduled(cron = "0 4/10 * * * ? ")
 	public void quxiao() {
 		try {
 			sKSkqkService.toHaoPin();

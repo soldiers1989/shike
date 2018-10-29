@@ -449,6 +449,17 @@ public class SKBaobeiController {
 	}
 	
 	/**
+	 * 状态
+	 */
+	@ResponseBody
+	@RequestMapping(value = "quxiao.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	public ResultInfo quxiao(HttpServletRequest req, HttpServletResponse rep) {
+		sKSkqkService.quxiao();
+		return new ResultRowInfo();
+	}
+	
+	
+	/**
 	 * 增加申请数量
 	 */
 	@ResponseBody
