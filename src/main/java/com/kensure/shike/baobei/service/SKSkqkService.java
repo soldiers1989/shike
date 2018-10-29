@@ -25,16 +25,21 @@ import org.springframework.transaction.annotation.Transactional;
 
 import co.kensure.exception.BusinessExceptionUtil;
 import co.kensure.frame.JSBaseService;
+import co.kensure.mem.ArithmeticUtils;
 import co.kensure.mem.CollectionUtils;
 import co.kensure.mem.DateUtils;
 import co.kensure.mem.MapUtils;
+import co.kensure.mem.PageInfo;
 
 import com.kensure.basekey.BaseKeyService;
 import com.kensure.shike.baobei.dao.SKSkqkDao;
+import com.kensure.shike.baobei.dao.SKSkqkLeftDao;
 import com.kensure.shike.baobei.model.SKBaobei;
 import com.kensure.shike.baobei.model.SKBbrw;
 import com.kensure.shike.baobei.model.SKJysj;
 import com.kensure.shike.baobei.model.SKSkqk;
+import com.kensure.shike.baobei.model.SKSkqkLeft;
+import com.kensure.shike.baobei.query.SKSkqkLeftQuery;
 import com.kensure.shike.user.model.SKUser;
 import com.kensure.shike.user.service.SKUserService;
 import com.kensure.shike.zhang.model.SKUserZhang;
@@ -52,6 +57,9 @@ public class SKSkqkService extends JSBaseService {
 
 	@Resource
 	private SKSkqkDao dao;
+
+	@Resource
+	private SKSkqkLeftDao leftdao;
 
 	@Resource
 	private BaseKeyService baseKeyService;
@@ -257,6 +265,18 @@ public class SKSkqkService extends JSBaseService {
 		return list;
 	}
 
+	/**
+	 * 根据试客情况获取他的详情
+	 * @param id
+	 * @return
+	 */
+	public SKSkqk getSkqkDetail(long id){
+		SKSkqk skqk = selectOne(id);
+		List<SKJysj> jylist = sKJysjService.selectByBbidAndUserid(skqk.getBbid(), skqk.getUserid());
+		skqk.setJylist(jylist);
+		return skqk;
+	}
+	
 	private static Map<String, String> sqqkMap = new HashMap<String, String>();
 
 	/**
@@ -355,6 +375,30 @@ public class SKSkqkService extends JSBaseService {
 	}
 
 	/**
+	 * 管理端，查询试客情况
+	 * 
+	 * @return
+	 */
+	public List<SKSkqkLeft> getList(SKSkqkLeftQuery skqkquery, PageInfo page) {
+		Map<String, Object> parameters = MapUtils.bean2Map(skqkquery, true);
+		MapUtils.putPageInfo(parameters, page);
+		parameters.put("orderby", "t.created_time desc");
+		List<SKSkqkLeft> list = leftdao.selectByWhere(parameters);
+		return list;
+	}
+
+	/**
+	 * 管理端，查询试客情况总计
+	 * 
+	 * @return
+	 */
+	public Long getListCount(SKSkqkLeftQuery skqkquery) {
+		Map<String, Object> parameters = MapUtils.bean2Map(skqkquery, true);
+		long size = selectCountByWhere(parameters);
+		return size;
+	}
+
+	/**
 	 * 对提交的订单进行轮询，超过3天就是进行好评业务
 	 * 
 	 * @return
@@ -419,7 +463,9 @@ public class SKSkqkService extends JSBaseService {
 		zhang.setUserid(obj.getUserid());
 		zhang.setBusiid(id);
 		zhang.setBusitypeid(4L);
-		zhang.setYue(obj.getSalePrice());
+		double yue = ArithmeticUtils.add(obj.getSalePrice(), obj.getJiangli());
+		zhang.setYue(yue);
+		zhang.setRemark("本金:" + obj.getSalePrice() + "；奖励：" + obj.getJiangli());
 		sKUserZhangService.add(zhang);
 		obj.setStatus(99L);
 		// 新人到账
@@ -465,15 +511,16 @@ public class SKSkqkService extends JSBaseService {
 	public void quxiao() {
 		Date now = new Date();
 		// 先处理0-51状态的数据
-		Map<String, Object> parameters = MapUtils.genMap("lessNextTime", now, "lessthanstatus", 80, "bigthanstatus", 0);
+		Map<String, Object> parameters = MapUtils.genMap("lessNextTime", now, "lessthanstatus", 80, "bigthanstatus", 51);
 		List<SKSkqk> list = selectByWhere(parameters);
 		for (SKSkqk skqk : list) {
 			if (skqk.getStatus() < 51) {
 				// 如果是中将前，没啥问题
-			} else if(skqk.getStatus() == 61){
-				//等待收货好评的状态，遇到了跳过去
 				continue;
-			}else {
+			} else if (skqk.getStatus() == 61) {
+				// 等待收货好评的状态，遇到了跳过去
+				continue;
+			} else {
 				long bbid = skqk.getBbid();
 				List<SKBbrw> bbrwl = sKBbrwService.getList(bbid);
 				if (CollectionUtils.isNotEmpty(bbrwl)) {
@@ -489,6 +536,25 @@ public class SKSkqkService extends JSBaseService {
 				obj.setZjnum(baobei.getZjnum() - 1);
 				sKBaobeiService.update(obj);
 			}
+			// 自动取消
+			updateStatus(skqk.getId(), -2L);
+		}
+	}
+	
+	
+	/**
+	 * 取消一些结束活动的申请的数据
+	 * 
+	 * @param bbid
+	 * @param userid
+	 * @return
+	 */
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+	public void endquxiao(long bbid) {
+		// 先处理0-51状态的数据
+		Map<String, Object> parameters = MapUtils.genMap("bbid",bbid,"lessthanstatus", 50);
+		List<SKSkqk> list = selectByWhere(parameters);
+		for (SKSkqk skqk : list) {
 			// 自动取消
 			updateStatus(skqk.getId(), -2L);
 		}

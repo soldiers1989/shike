@@ -68,6 +68,20 @@ public class GLPageController {
 		return "page/shangjia/index.jsp";
 	}
 
+	// 试客使用详情
+	@RequestMapping("skqkdetail")
+	public String skqkdetail(HttpServletRequest req, HttpServletResponse rep, Model model) {
+		req.setAttribute("index", indexlist);
+
+		List<String> body = new ArrayList<String>();
+		body.add("indexht_left.jsp");
+		body.add("skqkdetail_right.jsp");
+		req.setAttribute("bodypage", body);
+		String id = req.getParameter("id");
+		req.setAttribute("id", id);
+		return "page/shangjia/index.jsp";
+	}
+
 	// 提现列表
 	@RequestMapping("tixianlist")
 	public String tixianlist(HttpServletRequest req, HttpServletResponse rep, Model model) {
@@ -161,15 +175,31 @@ public class GLPageController {
 
 	// 跳转到淘宝详情页面
 	@RequestMapping("xiangqing")
-	public void xiangqing(HttpServletRequest req, HttpServletResponse rep) {	
+	public void xiangqing(HttpServletRequest req, HttpServletResponse rep) {
 		try {
 			Long id = NumberUtils.parseLong(req.getParameter("id"), null);
-			SKBaobei bb = sKBaobeiService.selectOne(id );
+			SKBaobei bb = sKBaobeiService.selectOne(id);
 			String itemid = TaoBaoService.getContentId(bb.getUrl());
-			rep.sendRedirect("http://hws.m.taobao.com/cache/wdesc/5.0/?id="+itemid);
+			rep.sendRedirect("http://hws.m.taobao.com/cache/wdesc/5.0/?id=" + itemid);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	// 试客活动列表
+	@RequestMapping("skqklist")
+	public String skqklist(HttpServletRequest req, HttpServletResponse rep, Model model) {
+		req.setAttribute("index", indexlist);
+		List<String> body = new ArrayList<String>();
+		body.add("indexht_left.jsp");
+		body.add("skqk_right.jsp");
+		req.setAttribute("bodypage", body);
+		String bbid = req.getParameter("bbid");
+		if (StringUtils.isBlank(bbid)) {
+			bbid = "";
+		}
+		req.setAttribute("bbid", bbid);
+		return "page/shangjia/index.jsp";
 	}
 
 }

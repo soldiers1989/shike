@@ -1,3 +1,4 @@
+<%@page import="co.kensure.api.ApiUtil"%>
 <%@page import="com.kensure.shike.constant.BusiConstant"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <% 
@@ -8,7 +9,7 @@
 <link rel="stylesheet" type="text/css" href="<%=context%>/addJPinShop.css">
 
 
-<div class="shangjia_right elg-width">
+<div class="gl_right elg-width">
                 
 
 <div class="clearfix right_bottom">
@@ -32,6 +33,9 @@
                     </td>
                     <td width="134" height="30" valign="middle" bgcolor="#eaeaea">
                         <strong>充值金额</strong>
+                    </td>
+                     <td width="134" height="30" valign="middle" bgcolor="#eaeaea">
+                        <strong>商家账号</strong>
                     </td>
                     <td width="200" height="30" valign="middle" bgcolor="#eaeaea">
                         <strong>充值状态</strong>
@@ -59,10 +63,12 @@
 				html+="<td>"+row.createdTimeStr+"</td>"
 				html+="<td>"+row.jiaoyihao+"</td>";
 				html+="<td>"+row.jine+"</td>";
+				html+="<td>"+row.user.name+"</td>";
 				html+="<td>"+row.statusStr+"</td>";
 				html+="<td>";
 				if(row.status == 1){
 					html+="<input type='button' value='通过' onclick='tongguo("+row.id+")'/>";
+					html+="&nbsp;<input type='button' value='不通过' onclick='untongguo("+row.id+")'/>";
 				}
 				html+="</td>";
 				html+="</tr>";
@@ -74,15 +80,26 @@
 
    function chongzhilist(){
 	   var data = {};
-	   var url = "<%=BusiConstant.shangjia_chongzhilist_do.getKey()%>";
+	   var url = "<%=ApiUtil.getUrl("/inout/chongzhilist.do")%>";
 	   postdo(url, data, sucdo,null, null);
    }
    
    function tongguo(id){
 	   if(confirm('确认通过？')){
 		   var data = {id:id};
-		   var url = "<%=BusiConstant.ht_chongzhitongguo_do.getKey()%>";
+		   var url = "<%=ApiUtil.getUrl("/inout/tongguo.do")%>";
 		   postdo(url, data, null,null, null);
+	   }
+   }
+   
+   function untongguo(id){
+	   if(confirm('确认不通过？')){
+		   var str = window.prompt("请输入拒绝原因","钱没到账");
+		   if(str){
+			   var data = {id:id,remark:str};
+			   var url = "<%=ApiUtil.getUrl("/inout/untongguo.do")%>";
+			   postdo(url, data, null,null, null);
+		   }
 	   }
    }
    chongzhilist();

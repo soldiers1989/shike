@@ -147,9 +147,9 @@
                         <span>付款方式 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;允许使用信用卡和<em class="ptText11">花呗</em>支付，将会使数据更加真实</span>
                     </div>
                     <div class="item">
-                        <input type="checkbox" name="sk_is_useCreditCard" id="sk_is_useCreditCard" value="1">
+                        <input type="checkbox" name="sk_is_useCreditCard" id="sk_is_useCreditCard" value="1" checked>
                         <label for="sk_is_useCreditCard" style="margin-right: 53px;"><em>允许买家使用信用卡支付</em></label>
-                        <input type="checkbox" name="sk_is_useTokio" id="sk_is_useTokio" value="1">
+                        <input type="checkbox" name="sk_is_useTokio" id="sk_is_useTokio" value="1" checked>
                         <label for="sk_is_useTokio" style="margin-right: 53px;"><em>允许买家使用<em class="ptText11">花呗</em>支付</em></label>
                     </div>
                 </div>
@@ -163,10 +163,10 @@
                 <div class="item">
                     <span class="label vt" style="width: 110px;">购买提醒：</span>
                     <div class="item-con">
-                        <input type="checkbox" name="sk_no_appraise_chart" id="sk_no_appraise_chart" value="1">
+                        <input type="checkbox" name="sk_no_appraise_chart" id="sk_no_appraise_chart" checked value="1">
                         <label for="sk_no_appraise_chart" style="margin-right: 53px;">无需晒图</label>
                         
-                        <input type="checkbox" name="sk_no_contact_chat" id="sk_no_contact_chat" value="1">
+                        <input type="checkbox" name="sk_no_contact_chat" id="sk_no_contact_chat" value="1" checked>
                         <label for="sk_no_contact_chat" style="margin-right: 53px;">无需<em id="ptText6">旺旺聊天</em></label>
                     </div>
                 </div> 
@@ -362,18 +362,6 @@
 
                 <div class="key-word">
 
-                    <div class="fold jd-hide">
-                        <div class="f-title">
-                            <input type="checkbox" checked="checked" disabled=""> <span>货比多家</span>
-                            <i class="iconfont icon-Toboottom"></i>
-                            <i class="iconfont icon-Totop"></i>
-                        </div>
-                        <p class="f-warn">
-                            <span class="sj"></span>
-                            用户会浏览你的产品的同行产品，最终到你这里下单，更进一步提升你的搜索转化效果
-                        </p>
-                    </div>
-
                     <div class="fold">
                         <div class="f-title">
                             <input type="checkbox" checked="checked" disabled=""> <span>无线端下单</span>
@@ -385,20 +373,7 @@
                             用户会通过手机淘宝/手机京东的方式领取任务，完成浏览/加购/收藏/下单/评价 等方式进一步提升你的单品转化权重和店铺转化权重！
                         </p>
                     </div>
-
-                    <div class="fold">
-                        <div class="f-title">
-                            <input type="checkbox" checked="checked" disabled=""> <span>试用心得审核</span>
-                            <i class="iconfont icon-Toboottom"></i>
-                            <i class="iconfont icon-Totop"></i>
-                        </div>
-                        <p class="f-warn">
-                            <span class="sj"></span>
-                            用户提交试用心得—商家审核—审核通过后，用户复制到淘宝/京东；标准级、专业级、星耀级会员享有该功能。
-                                <a class="up" target="_blank" href="/VIP/ApplyVip?isadd=1">去升级</a>
-                        </p>
-                    </div>
-
+   
                     <div class="fold">
                         <div class="f-title">
                             <input type="checkbox" checked="checked" disabled=""> <span>账号安全</span>
@@ -421,17 +396,7 @@
                             同个商品在规定时间内不会有人重复中奖
                         </p>
                     </div>
-                    <div class="fold jd-hide">
-                        <div class="f-title">
-                            <input type="checkbox" checked="checked" disabled=""> <span>猜你喜欢</span>
-                            <i class="iconfont icon-Toboottom"></i>
-                            <i class="iconfont icon-Totop"></i>
-                        </div>
-                        <p class="f-warn">
-                            <span class="sj"></span>
-                            免费提供猜你喜欢功能，用户下单后，在您的生意参谋后台会显示 购买路径为猜你喜欢
-                        </p>
-                    </div>
+                 
 
                     <div class="fold">
                         <div class="f-title">
@@ -447,23 +412,105 @@
 
                     <div class="fold jd-hide">
                         <div class="f-title">
-                            <input type="checkbox" checked="checked" disabled=""> <span>查看买家记录</span>
+                            <input type="checkbox" checked="checked" disabled=""> <span>PC、H5首页焦点展示位：广告位有限，请联系客户</span>
                             <i class="iconfont icon-Toboottom"></i>
                             <i class="iconfont icon-Totop"></i>
                         </div>
                         <p class="f-warn">
                             <span class="sj"></span>
-                            买家近期在淘宝/京东中的购买记录
+                           <a target="_blank" class="on-service" href="http://wpa.qq.com/msgrd?v=3&amp;uin=64202412&amp;site=qq&amp;menu=yes">
+	                 <img border="0" style="padding-top:8px" src="http://pub.idqqimg.com/qconn/wpa/button/button_11.gif" alt="点击这里给我发消息" title="点击这里给我发消息">64202412
+	                </a>
                         </p>
                     </div>
 
-                  
-
+                   <div class="fold">
+                        <div class="f-title">
+                            <input type="checkbox" checked="checked" disabled=""> <span>默认五星好评</span>
+                            <i class="iconfont icon-Toboottom"></i>
+                            <i class="iconfont icon-Totop"></i>
+                        </div>
+                        <p class="f-warn">
+                            <span class="sj"></span>
+                          	  默认五星好评
+                        </p>
+                    </div>
+ 					<div class="fold">
+                        <div class="f-title">
+                            <input type="checkbox" checked="checked" disabled=""> <span>普通文字好评</span>
+                            <i class="iconfont icon-Toboottom"></i>
+                            <i class="iconfont icon-Totop"></i>
+                        </div>
+                        <p class="f-warn">
+                            <span class="sj"></span>
+                          	 试客进行收货评价时需填写20字以上的文字好评。
+                        </p>
+                    </div>
+                   
+                   
+                   	<div class="fold act">
+                        <div class="f-title">
+                            <input type="checkbox" checked="checked" disabled=""> <span>试用红包加赏</span>
+                            <i class="iconfont icon-Toboottom"></i>
+                            <i class="iconfont icon-Totop"></i>
+                        </div>
+                        <p class="f-warn">
+                            <span class="sj"></span>
+                          	 请填写红包金额:<input type="text" id="sk_jiangli" name="sk_jiangli" class="w560" value="0">元/每单
+                        </p>
+                    </div>
                    
                 </div>
               
             </div>
 
+          
+            <div class="slide-item">
+                <div class="l-title">
+                    <span>1</span>基础服务
+                    <em class="open-slide">修改</em> <i class="iconfont icon-zhengque"></i>
+                </div>
+
+                <div class="key-word">
+
+                    <div class="fold">
+                        <div class="f-title">
+                            <input type="checkbox" checked="checked" disabled=""> <span>快速返款（每单收取商品押金*2%）</span>
+                            <i class="iconfont icon-Toboottom"></i>
+                            <i class="iconfont icon-Totop"></i>
+                        </div>
+                        <p class="f-warn">
+                            <span class="sj"></span>
+                            试客完成试用后，平台将直接使用商家押金操作返款（商家无需耗费时间人力处理退款，省时省力）
+                        </p>
+                    </div>
+   
+                    <div class="fold">
+                        <div class="f-title">
+                            <input type="checkbox" checked="checked" disabled=""> <span>系统自动抽奖（每单收取2元）</span>
+                            <i class="iconfont icon-Toboottom"></i>
+                            <i class="iconfont icon-Totop"></i>
+                        </div>
+                        <p class="f-warn">
+                            <span class="sj"></span>
+                            系统将自动抽选出更合适商家商品品类的试客，节约商家运营成本和时间，也有利于试客中奖分布更广泛，每单收取2元
+                        </p>
+                    </div>
+                    <div class="fold">
+                        <div class="f-title">
+                            <input type="checkbox" checked="checked" disabled=""> <span>精准投放（10元）</span>
+                            <i class="iconfont icon-Toboottom"></i>
+                            <i class="iconfont icon-Totop"></i>
+                        </div>
+                        <p class="f-warn"> <span class="sj"></span> 1、千人千面和专题模块的橱窗展现，提升商品曝光，吸引性趣相投的用户实现流量导入；</p>
+                        <p class="f-warn">    2、平台会根据产品人群定向推送给更符合标签的试客，让标签试客优先申请，扩大整体商品展现量；</p>
+                        <p class="f-warn">    3、对中奖试客做短期行为标签的精准匹配，优化标签权重，优先中奖； </p>
+                    </div>
+ 
+                </div>
+              
+            </div>
+          
           
             <div class="two-operate">
                 <span class="page-btn twopage-btn">上一页</span>
@@ -607,7 +654,7 @@
 	   data.taokl = $("#sk_taokouling").val();
 	   data.zturl = $("#picbbzt")[0].src;
 	   data.sale_price = $("#sk_clinch_price").val();
-	   data.jiangli = 0;
+	   data.jiangli = $("#sk_jiangli").val();
 	   data.no_qq = $("#sk_qq").val();
 	   data.guige = $("#sk_size").val();
 	   data.typeid = $("#sk_commodity_type option:selected").val();
@@ -717,7 +764,8 @@
 			   $('#sk_activity_name').val(data.title);
 			   $("#sk-link").val(data.url);
 			   $("#sk_taokouling").val(data.taokl);
-			   $("#picbbzt")[0].src = data.zturl;
+			   $("#picbbzt")[0].src = data.zturl;	   
+			   $("#sk_jiangli").val(data.jiangli ? data.jiangli : 0);
 			   $("#sk_clinch_price").val(data.salePrice ? data.salePrice : 0);
 			   $("#sk_qq").val(data.noQq);
 			   $("#sk_size").val(data.guige);

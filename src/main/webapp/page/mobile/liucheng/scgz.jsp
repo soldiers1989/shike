@@ -173,7 +173,7 @@
         bindUploadImage('.shop-img', function (p) {
             $('.shop-img').attr("src", p);
             $('.shop-img').data("src", p);
-            logo2 = "<%=BusiConstant.context %>" + p;
+            logo2 = p;
             uploading2 = true;
         }, false, "JpinOrderFlow");
         bindUploadImage('.up-ask-img', function (p) {

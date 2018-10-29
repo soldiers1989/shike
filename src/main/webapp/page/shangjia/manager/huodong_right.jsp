@@ -183,7 +183,7 @@
                 +"</td>" 
                 +" <td height=\"100\" valign=\"middle\" align=\"center\" width=\"150\">" 
                 +"     <em style=\"color: #f25f55\">"+row.statusStr+"</em>" 
-                +"     <em style=\"color: #f25f55\">宝贝中奖情况:"+row.zjnum+"/"+row.bbnum+",共申请"+row.ysqnum+"</em>" 
+                +"     <em style=\"color: #f25f55\">宝贝中奖情况:"+row.zjnum+"/"+row.bbnum+",申请数"+row.ysqnum+"</em>" 
                 
                 +"  </td>" 
                 +" <td height=\"100\" align=\"center\" width=\"200\">" 

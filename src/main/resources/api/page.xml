@@ -24,6 +24,7 @@
 
 	<api key="/inout/savein.do" name="充值接口" auth="all" type="put" />
 	<api key="/inout/tongguo.do" name="通过充值" auth="admin" type="put" />
+	<api key="/inout/untongguo.do" name="不通过充值" auth="admin" type="put" />
 	<api key="/inout/saveout.do" name="提现接口" auth="all" type="put" />
 	<api key="/inout/saveoutser.do" name="提现接口,需要支付密码" auth="all" type="put" />
 	<api key="/inout/tongguoout.do" name="通过充值" auth="admin" type="put" />
@@ -66,6 +67,7 @@
 	<api key="/gl/sjlist" name="商家列表" auth="admin" type="get" />
 	<api key="/gl/dplist" name="店铺列表" auth="admin" type="get" />
 	<api key="/gl/sklist" name="试客列表" auth="admin" type="get" />
+	<api key="/gl/skqkdetail" name="试用详情" auth="admin" type="get" />
 
 	<api key="/gl/tixianlist" name="后台活动列表" auth="admin" type="get" />
 	<api key="/baobei/tongguo.do" name="宝贝通过审核" auth="admin" type="put" />
@@ -116,8 +118,8 @@
 	<api key="/baobei/addfile.do" name="图片上传操作" auth="none" type="put" />
 	<api key="/baobei/addfiles.do" name="图片上传操作,富文本框" auth="none" type="put" />
 	
-	<api key="/user/update.do" name="用户安全管理更新操作" auth="user" type="put" />
-	<api key="/user/wjpwd.do" name="忘记密码更新操作" auth="user" type="put" />
+	<api key="/user/update.do" name="用户安全管理更新操作" auth="all" type="put" />
+	<api key="/user/wjpwd.do" name="忘记密码更新操作" auth="all" type="put" />
 
 	<api key="/help" name="帮助中心" auth="none" type="get" />
 	<api key="/help/cms" name="内容页面" auth="none" type="get" />
@@ -126,5 +128,9 @@
 	<api key="/gl/xiangqing" name="淘宝详情" auth="none" type="get" />
 	<api key="/gl/login" name="管理登陆页面" auth="none" type="get" />
 	<api key="/gl/index" name="管理首页页面" auth="admin" type="get" />
-
+	<api key="/gl/skqklist" name="试客试用情况" auth="admin" type="get" />
+	
+	<api key="/skqk/list.do" name="试客试用情况" auth="admin" type="get" />
+	<api key="/skqk/getdetail.do" name="试用详情" auth="admin" type="get" />
+	
 </apis>

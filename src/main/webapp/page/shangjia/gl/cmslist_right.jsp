@@ -9,7 +9,7 @@
 <link rel="stylesheet" type="text/css" href="<%=context%>/addJPinShop.css">
 
 
-<div class="shangjia_right elg-width">
+<div class="gl_right elg-width">
                 
 
 <div class="clearfix right_bottom">

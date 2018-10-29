@@ -16,7 +16,7 @@
     
     <!--zh_title-->
     <div class="huodong">
-        <div class="huodong_main" style="text-align: center">
+        <div class="huodong_main">
             <table width="1000" border="1" cellpadding="0" id="listtable" cellspacing="0" bordercolor="#dadada">
                 <tbody>
                 <tr>

@@ -16,7 +16,8 @@
 <table>
 <tr><th>编号</th> <th>名称</th><th>操作</th></tr>
 <tr><td>1</td> <td>抽奖</td><td><input type="button" value="抽奖" onclick="dosomething('cjtest.do')"/></td></tr>
-<tr><td>1</td> <td>应收设置</td><td><input type="button" value="应收设置" onclick="dosomething('yingshou.do')"/></td></tr>
+<tr><td>2</td> <td>应收设置</td><td><input type="button" value="应收设置" onclick="dosomething('yingshou.do')"/></td></tr>
+<tr><td>3</td> <td>查看数据源</td><td><a href="<%=context%>/druid/index.html" target="_blank">查看</a></td></tr>
 </table>
 </div>
 </body>

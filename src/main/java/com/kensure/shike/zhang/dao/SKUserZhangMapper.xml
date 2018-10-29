@@ -12,6 +12,7 @@
 		inorout,
 		status,
 		remark,
+		billno,
 		created_time as createdTime,
 		updated_time as updatedTime
     </sql>
@@ -26,6 +27,7 @@
 		inorout,
 		status,
 		remark,
+		billno,
 		created_time,
 		updated_time
     </sql>
@@ -42,6 +44,7 @@
 			#{inorout},
 			#{status},
 			#{remark},
+			#{billno},
 			#{createdTime},
 			#{updatedTime}
 		)
@@ -60,6 +63,7 @@
 				#{item.inorout},
 				#{item.status},
 				#{item.remark},
+				#{item.billno},		
 				#{item.createdTime},
 				#{item.updatedTime}
 			)
@@ -91,6 +95,9 @@
 		<if test="remark != null">			
 			and remark = #{remark}			
 		</if>
+		<if test="billno != null">			
+			and billno = #{billno}			
+		</if>	
 		<if test="createdTime != null">			
 			and created_time = #{createdTime}			
 		</if>
@@ -164,6 +171,9 @@
 		</if>
 		<if test="remark != null">
 			remark = #{remark},
+		</if>
+		<if test="billno != null">			
+			billno = #{billno},		
 		</if>
 		<if test="createdTime != null">
 			created_time = #{createdTime},

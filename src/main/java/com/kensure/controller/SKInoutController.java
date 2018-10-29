@@ -124,6 +124,19 @@ public class SKInoutController {
 		sKUserInoutService.tongguo(id);
 		return new ResultRowInfo();
 	}
+	
+	/**
+	 * 不通过
+	 */
+	@ResponseBody
+	@RequestMapping(value = "untongguo.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	public ResultInfo untongguo(HttpServletRequest req, HttpServletResponse rep) {
+		JSONObject json = RequestUtils.paramToJson(req);
+		Long id = json.getLong("id");
+		String remark = json.getString("remark");
+		sKUserInoutService.untongguo(id,remark);
+		return new ResultRowInfo(id);
+	}
 
 	/**
 	 * 提现通过

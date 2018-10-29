@@ -104,12 +104,10 @@
      	height:33px;
 		vertical-align:top:middle;
 		bgcolor:#f5f5f5;
-		text-align: center;
     }
     .trbody td{
      	height:30px;
 		vertical-align:top:middle;
-		text-align: center;
     }
     .table-style table tr {
     margin-bottom: 2px;
@@ -172,7 +170,7 @@
         +row.title          
         +"</a>" 	
         +"   <a href='<%=BusiConstant.shangjia_activity_edit.getKey()%>?id="+row.id+"' target='_blank'>编辑</a>"
-        +"   <a href='<%=ApiUtil.getUrl("/gl/xiangqing")%>?id="+row.id+"' target='_blank'>淘宝详情</a>"
+        +"   <a href='<%=ApiUtil.getUrl("/gl/xiangqing")%>?id="+row.id+"' target='_blank'>淘宝详情</a>";
 		return tdinner;
 	}
 	
@@ -181,10 +179,18 @@
         if(row.status == 1){              	
         	tdinner+="        <input type='button' value='通过' onclick='tongguo("+row.id+")'/>";
         	tdinner+="        <input type='button' value='拒绝' onclick='untongguo("+row.id+")'/>";  
-        }else{
+        }else if(row.status == 9){
         	tdinner+= "        <input type='button' value='下线' onclick='xiaxian("+row.id+")'/>";
+        	tdinner+= "        <input type='button' value='增加申请数' onclick='addsq("+row.id+")'/>";
         }
-        tdinner+= "        <input type='button' value='增加申请数' onclick='addsq("+row.id+")'/>";
+        
+		return tdinner;
+	}
+	
+	var jindufun = function(row){
+		var tdinner = "<a href='<%=ApiUtil.getUrl("/gl/skqklist")%>?bbid="+row.id+"' target='_blank'>"          
+        +row.statusStr          
+        +"</a>";
 		return tdinner;
 	}
 	
@@ -198,7 +204,7 @@
 	,{w:100,na:"产品数量",colname:"bbnum"}
 	,{w:100,na:"中奖数量",colname:"zjnum"}
 	,{w:100,na:"申请数量",colname:"ysqnum"}
-	,{w:100,na:"活动进度",colname:"statusStr"}
+	,{w:100,na:"活动进度",callfun:jindufun}
 	,{w:100,na:"活动操作",callfun:optfun}];
 	
 	table.thinit();

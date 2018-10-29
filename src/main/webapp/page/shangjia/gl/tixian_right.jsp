@@ -20,7 +20,7 @@
     }
 </style>
 
-<div class="shangjia_right elg-width">
+<div class="gl_right elg-width">
                 
 
 <div class="clearfix right_bottom">
