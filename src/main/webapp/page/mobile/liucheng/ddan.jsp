@@ -29,6 +29,8 @@
     <script type="text/javascript" src="<%=BusiConstant.context%>/jqtable/jquery.cookie.js"></script>
     <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/http.js?ver=<%=BusiConstant.version%>"></script>
 
+    <script src="https://unpkg.com/qiniu-js@2.5.0/dist/qiniu.min.js"></script>
+
     <script>
         var userId=0;
         (function (doc, win) {
@@ -57,7 +59,7 @@
 
 <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/liucheng/ddan/JPinFlow.css">
 
-<script src="<%=BusiConstant.shikemobilepath %>/common/js/uploadimage.js"></script>
+<script src="<%=BusiConstant.shikemobilepath %>/common/js/uploadimageNew.js"></script>
 <script src="<%=BusiConstant.shikemobilepath %>/liucheng/ddan/clipboard.min.js"></script>
 <script>
     var referrer = '';     //记录上一页地址
@@ -235,8 +237,8 @@
         /****换一换结束****/
         bindUploadImage('.up-num-img', function (p) {
 
-            $('.up-num-img').attr("src", "<%=BusiConstant.context %>" + p);
-            $('.up-num-img').data("src", "<%=BusiConstant.context %>" + p);
+            $('.up-num-img').attr("src", p);
+            $('.up-num-img').data("src", p);
             logo2 = "<%=BusiConstant.context %>" + p;
         },false,"JpinOrderFlow");
 
@@ -337,15 +339,12 @@
 
 </script>
 <div style="display: none">
-    <script src="<%=BusiConstant.shikemobilepath %>/common/z_stat.php" language="JavaScript"></script>
-    <script src="<%=BusiConstant.shikemobilepath %>/common/core.php" charset="utf-8"
-            type="text/javascript"></script>
 
-<div id="loading" class="loading">
-    <div class="loadingContent">
-        <img src="<%=BusiConstant.shikemobilepath %>/common/images/loading.gif">
+    <div id="loading" class="loading">
+        <div class="loadingContent">
+            <img src="<%=BusiConstant.shikemobilepath %>/common/images/loading.gif">
+        </div>
     </div>
-</div>
     <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/jquery.form.js"></script>
 
     <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/Validform_v5.3.2.js"></script>
