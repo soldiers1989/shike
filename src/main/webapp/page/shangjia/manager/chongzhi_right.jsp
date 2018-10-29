@@ -1,3 +1,4 @@
+<%@page import="co.kensure.api.ApiUtil"%>
 <%@page import="com.kensure.shike.constant.BusiConstant"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <% 
@@ -68,7 +69,7 @@
       
 
         <div>
-            <img class="img" id="img" src="<%=context%>//zhcz.png" alt="Alternate Text">
+            <img class="img" id="img" src="<%=context%>/zhcz.png" alt="Alternate Text">
         </div>
 
         <div class="red-warn">
@@ -95,8 +96,12 @@
 	   if(confirm('流水号：'+jiaoyihao+',金额:'+jine+',确认充值？')){
 		   var data = {fangshi:1,jiaoyihao:jiaoyihao,jine:jine};
 		   var url = "<%=BusiConstant.shangjia_chongzhi_do.getKey()%>";
-		   postdo(url, data, null,null, null);
+		   postdo(url, data, sucdo,null, null);
 	   }
+   }
+   
+   function sucdo(data){
+	   window.location.href="<%=ApiUtil.getUrl("/shangjia/chongzhilist")%>";
    }
    
 </script>
