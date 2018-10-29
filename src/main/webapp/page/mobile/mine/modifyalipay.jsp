@@ -1,5 +1,6 @@
 <%@page import="com.kensure.shike.constant.BusiConstant"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
     String context = BusiConstant.shikemobilepath;
 %>
@@ -24,6 +25,9 @@
 
     <script type="text/javascript" src="<%=BusiConstant.context%>/jqtable/jquery.cookie.js"></script>
     <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/http.js?ver=<%=BusiConstant.version%>"></script>
+
+    <script src="https://unpkg.com/qiniu-js@2.5.0/dist/qiniu.min.js"></script>
+    <script src="<%=BusiConstant.shikemobilepath %>/common/js/uploadimageNew.js?ver=<%=BusiConstant.version%>"></script>
 
     <script>
         var userId=0;
@@ -52,6 +56,7 @@
 
 <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/mine/modifytaobao/regist.css">
 
+<link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/liucheng/scgz/JPinFlow.css">
 <script>
     var param = 0;
     function delTb(k) {
@@ -94,15 +99,34 @@
                class="auto-input it lf" type="text" placeholder="请填写支付宝账号" datatype="*" maxlength="50">
         <%--<span class="Validform_checktip"></span>--%>
     </section>
+    <div class="FlowCon">
+        <ul>
+            <li>
+                <c:if test="${empty user.alipayImg}">
+                    <span class=""></span>打开支付宝，请上传<em class="red">支付宝个人信息页面</em>截图，如图：
+                    <div class="storage-img mt3" style="text-align: center">
+                        <img style="height:80px" src="<%=BusiConstant.shikemobilepath %>/common/images/alipayImg.jpg">
+
+                    </div>
+                    <div class="up-img mt3">
+                        支付宝个人信息页面截图：<img class="alipay-img" src="<%=BusiConstant.shikemobilepath %>/common/images/up-img.png">
+                    </div>
+                </c:if>
+                <c:if test="${!empty user.alipayImg}">
+                    <div class="up-img mt3">
+                        <img class="alipay-img" src="${user.alipayImg}"> &nbsp;(点击图片进行修改)
+                    </div>
+                </c:if>
+            </li>
+        </ul>
+    </div>
     <section class="auto-btn" id="PayBtnSubmit">提交</section>
 </div>
 
 <div style="height:2.15rem;">
 </div>
 <jsp:include page="../common/footer.jsp" flush="true"/>
-<div style="display: none">
-    <script src="<%=BusiConstant.shikemobilepath %>/common/z_stat.php" language="JavaScript"></script>
-    <script src="<%=BusiConstant.shikemobilepath %>/common/core.php" charset="utf-8" type="text/javascript"></script>
+
 <div id="loading" class="loading">
     <div class="loadingContent">
         <img src="<%=BusiConstant.shikemobilepath %>/common/images/loading.gif">
@@ -127,10 +151,25 @@
 
 <script>
     $(function () {
+        var logo = "";
+        var uploading = false;
+
+        bindUploadImage('.alipay-img', function (p) {
+            $('.alipay-img').attr("src", p);
+            $('.alipay-img').data("src", p);
+            logo = p;
+            uploading = true;
+        }, false, "JpinOrderFlow");
+
         $("#PayBtnSubmit").click(function () {
             if ($("#noAlipay").val() == '') {
                 myAlert("支付宝账号不能为空");
                 return;
+            }
+            var alipayImg = $('.alipay-img').data("src");
+            if (!alipayImg) {
+                myAlert("您还没有上传修改后的支付宝截图");
+                return false;
             }
 
             updateAlipay();
@@ -148,7 +187,7 @@
     })
 
     function updateAlipay(){
-        var data = {noAlipay: $("#noAlipay").val(), type: 2};
+        var data = {noAlipay: $("#noAlipay").val(), alipayImg: $('.alipay-img').data("src"), type: 2};
         var url = "<%=BusiConstant.shike_user_update_do.getKey()%>";
         postdo(url, data, huodongsucdo,null, null);
     }

@@ -13,6 +13,8 @@
 		name,
 		no_alipay as noAlipay,
 		no_taobao as noTaobao,
+		alipay_img as alipayImg,
+		taobao_img as taobaoImg,
 		no_qq as noQq,
 		no_weixin as noWeixin,
 		no_taoqufen as noTaoqufen,
@@ -217,6 +219,12 @@
 		</if>
 		<if test="noTaobao != null">
 			no_taobao = #{noTaobao},
+		</if>
+		<if test="alipayImg != null">
+			alipay_img = #{alipayImg},
+		</if>
+		<if test="taobaoImg != null">
+			taobao_img = #{taobaoImg},
 		</if>
 		<if test="noQq != null">
 			no_qq = #{noQq},

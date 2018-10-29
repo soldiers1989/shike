@@ -58,7 +58,7 @@
         })
     }
 </script>
-<header class="header regist-top"><i class="arrows" onclick="history.back(-1) "></i>账户安全</header>
+<header class="header regist-top"><i class="arrows" onclick="location.href = &#39;<%=BusiConstant.shike_mine.getKey() %>&#39;  "></i>账户安全</header>
 <div class="content password">
     <div class="item">
         <div class="ls">

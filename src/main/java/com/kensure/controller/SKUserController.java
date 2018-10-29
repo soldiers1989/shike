@@ -218,15 +218,17 @@ public class SKUserController {
 			String verifyCode = json.getString("verifyCode");
 			sKUserService.updatePhone(newPhone, verifyCode);
 		}
-		// 修改淘宝账号
+		// 修改支付宝账号
 		else if ("2".equals(type)) {
 			String noAlipay = json.getString("noAlipay");
-			sKUserService.updateAlipay(noAlipay);
+			String alipayImg = json.getString("alipayImg");
+			sKUserService.updateAlipay(noAlipay, alipayImg);
 		}
 		// 修改淘宝账号
 		else if ("3".equals(type)) {
 			String noTaobao = json.getString("noTaobao");
-			sKUserService.updateTabobao(noTaobao);
+			String taobaoImg = json.getString("taobaoImg");
+			sKUserService.updateTabobao(noTaobao, taobaoImg);
 		}
 		// 修改qq账号
 		else if ("4".equals(type)) {

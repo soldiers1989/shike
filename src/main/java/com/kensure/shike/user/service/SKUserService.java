@@ -415,30 +415,34 @@ public class SKUserService extends JSBaseService {
 	/**
 	 * 更新支付宝账号
 	 */
-	public void updateAlipay(String noAlipay) {
+	public void updateAlipay(String noAlipay, String alipayImg) {
 		SKUser skuser = getUser();
 		SKUserService.checkUserSK(skuser);
 
 		ParamUtils.isBlankThrewException(noAlipay, "支付宝账户不能为空");
+		ParamUtils.isBlankThrewException(noAlipay, "支付宝截图不能为空");
 
 		SKUser user = new SKUser();
 		user.setId(skuser.getId());
 		user.setNoAlipay(noAlipay);
+		user.setAlipayImg(alipayImg);
 		update(user);
 	}
 
 	/**
 	 * 更新淘宝账号
 	 */
-	public void updateTabobao(String noTaobao) {
+	public void updateTabobao(String noTaobao, String taobaoImg) {
 		SKUser skuser = getUser();
 		SKUserService.checkUserSK(skuser);
 
 		ParamUtils.isBlankThrewException(noTaobao, "淘宝账户不能为空");
+		ParamUtils.isBlankThrewException(taobaoImg, "淘宝截图不能为空");
 
 		SKUser user = new SKUser();
 		user.setId(skuser.getId());
 		user.setNoTaobao(noTaobao);
+		user.setTaobaoImg(taobaoImg);
 		update(user);
 	}
 
