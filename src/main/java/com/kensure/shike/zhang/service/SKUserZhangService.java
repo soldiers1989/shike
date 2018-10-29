@@ -85,6 +85,9 @@ public class SKUserZhangService extends JSBaseService {
 		if (obj.getYue() == null) {
 			obj.setYue(0D);
 		}
+		if (obj.getBillno() == null) {
+			obj.setBillno("0");
+		}
 		return dao.insert(obj);
 	}
 
@@ -140,7 +143,7 @@ public class SKUserZhangService extends JSBaseService {
 		if (obj.getYue() <= 0) {
 			BusinessExceptionUtil.threwException("金额必须大约0");
 		}
-		// 业务类型id,1是充值，2是提现，3是活动费用,4是试客返款，5是活动返款,6是新人首单;7是金币抽奖
+		// 业务类型id,1是充值，2是提现，3是活动费用,4是试客返款，5是活动返款,6是新人首单;7是金币抽奖，8是活动驳回
 		if (obj.getBusitypeid() == 1) {
 			obj.setInorout(1L);
 			obj.setStatus(1L);
@@ -150,6 +153,7 @@ public class SKUserZhangService extends JSBaseService {
 		} else if (obj.getBusitypeid() == 3) {
 			obj.setInorout(-1L);
 			obj.setStatus(0L);
+			obj.setBillno(""+System.currentTimeMillis());
 		} else if (obj.getBusitypeid() == 4) {
 			obj.setInorout(1L);
 			obj.setStatus(1L);
@@ -159,9 +163,13 @@ public class SKUserZhangService extends JSBaseService {
 		} else if (obj.getBusitypeid() == 6) {
 			obj.setInorout(1L);
 			obj.setStatus(1L);
-		}  else if (obj.getBusitypeid() == 7) {
+		} else if (obj.getBusitypeid() == 7) {
 			obj.setInorout(1L);
 			obj.setStatus(1L);
+		} else if (obj.getBusitypeid() == 8) {
+			obj.setInorout(1L);
+			obj.setStatus(1L);
+			obj.setBillno(""+System.currentTimeMillis());
 		} else {
 			BusinessExceptionUtil.threwException("未知类型");
 		}
@@ -196,7 +204,7 @@ public class SKUserZhangService extends JSBaseService {
 	 */
 	private SKUserZhang getBusi(Long userid, Long busitypeid, Long busiid) {
 		SKUserZhang zhang = null;
-		Map<String, Object> parameters = MapUtils.genMap("userid", userid, "busiid", busiid, "busitypeid", busitypeid);
+		Map<String, Object> parameters = MapUtils.genMap("userid", userid, "busiid", busiid, "busitypeid", busitypeid,"billno","0");
 		List<SKUserZhang> list = selectByWhere(parameters);
 		if (CollectionUtils.isNotEmpty(list)) {
 			zhang = list.get(0);

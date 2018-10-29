@@ -175,7 +175,7 @@ public class SKBaobeiController {
 	}
 	
 	/**
-	 * 通过
+	 * 不通过
 	 */
 	@ResponseBody
 	@RequestMapping(value = "untongguo.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")

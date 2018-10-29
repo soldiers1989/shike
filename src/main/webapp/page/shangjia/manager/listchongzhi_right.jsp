@@ -36,6 +36,9 @@
                     <td width="200" height="30" valign="middle" bgcolor="#eaeaea">
                         <strong>充值状态</strong>
                     </td>
+                    <td width="200" height="30" valign="middle" bgcolor="#eaeaea">
+                        <strong>描述</strong>
+                    </td>
                 </tr>
             </tbody></table>
         </div>
@@ -57,6 +60,7 @@
 				html+="<td>"+row.jiaoyihao+"</td>";
 				html+="<td>"+row.jine+"</td>";
 				html+="<td>"+row.statusStr+"</td>";
+				html+="<td>"+row.remark+"</td>";
 				html+="</tr>";
 				$("#listtable").append(html);
 			}

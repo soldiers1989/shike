@@ -230,6 +230,9 @@ public class SKBaobeiService extends JSBaseService {
 		if (obj.getId() == null) {
 			this.insert(obj);
 		} else {
+			if(oldBaoBei.getStatus()<0){
+				obj.setStatus(0L);
+			}
 			this.update(obj);
 		}
 
@@ -493,6 +496,28 @@ public class SKBaobeiService extends JSBaseService {
 		sk.setTuikuan(tuikuan);
 		update(sk);
 	}
+	
+	/**
+	 * 活动全额返款，一般在活动驳回的时候使用
+	 * 
+	 * @return
+	 */
+	public void setAllBack(Long id) {
+		SKBaobei sk = selectOne(id);
+		double shishou = sk.getYingshou();
+		
+		// 进行活动驳回 增加活动驳回流水
+		SKUserZhang zhang = new SKUserZhang();
+		zhang.setUserid(sk.getUserid());
+		zhang.setBusiid(id);
+		zhang.setBusitypeid(8L);
+		zhang.setYue(shishou);
+		sKUserZhangService.add(zhang);
+		
+		sk.setShishou(0D);
+		sk.setTuikuan(shishou);
+		update(sk);
+	}
 
 	/**
 	 * 对活动进行支付
@@ -554,7 +579,7 @@ public class SKBaobeiService extends JSBaseService {
 			BusinessExceptionUtil.threwException("非审核中宝贝，无法拒绝！");
 		}
 		baobei.setStatus(2L);
-		setShiShouinfo(id);
+		setAllBack(id);
 	}
 
 	/**

@@ -90,9 +90,13 @@
 	var chognzhiusername = "<span>您的<%=BusiConstant.name %>商家账号：</span>"+$.cookie("mdname");
    $("#chongzhiusername").html(chognzhiusername);
    function chongzhitijiao(){
-	   var data = {fangshi:1,jiaoyihao:$("#name").val(),jine:$("#money").val()};
-	   var url = "<%=BusiConstant.shangjia_chongzhi_do.getKey()%>";
-	   postdo(url, data, null,null, null);
+	   var jiaoyihao = $("#name").val();
+	   var jine = $("#money").val();
+	   if(confirm('流水号：'+jiaoyihao+',金额:'+jine+',确认充值？')){
+		   var data = {fangshi:1,jiaoyihao:jiaoyihao,jine:jine};
+		   var url = "<%=BusiConstant.shangjia_chongzhi_do.getKey()%>";
+		   postdo(url, data, null,null, null);
+	   }
    }
    
 </script>

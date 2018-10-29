@@ -117,14 +117,15 @@ CREATE TABLE `sk_user_zhang` (
   `yue`  decimal(10,2) NOT NULL COMMENT '金额',
   `jinbi` decimal(10,2) NOT NULL COMMENT '金币',
   `inorout` int(11) NOT NULL COMMENT '对这个用户流进还是流出,1是进，-1是出',
-  `status` int(11) NOT NULL COMMENT '状态，1是正常，0是未生效，-1是作废',
+  `status` int(11) NOT NULL COMMENT '状态，1是正常，0是未生效，-1是不通过',
   `remark` varchar(1024) DEFAULT NULL COMMENT '描述',
+  `billno` varchar(32) DEFAULT NULL COMMENT '流水号,活动支付的时候，根据时间刷入流水号',
   `created_time` datetime NOT NULL COMMENT '创建时间',
   `updated_time` datetime NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
 ) ;
 
-CREATE UNIQUE INDEX sk_user_zhang_uni ON sk_user_zhang(userid,busiid,busitypeid,inorout); 
+CREATE UNIQUE INDEX sk_user_zhang_uni ON sk_user_zhang(userid,busiid,busitypeid,inorout,billno); 
 
 -- 用用户余额和金币流水帐，明细
 CREATE TABLE `sk_user_zhang_detail` (

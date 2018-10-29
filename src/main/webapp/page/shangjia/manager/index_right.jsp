@@ -764,7 +764,8 @@
 			   $('#sk_activity_name').val(data.title);
 			   $("#sk-link").val(data.url);
 			   $("#sk_taokouling").val(data.taokl);
-			   $("#picbbzt")[0].src = data.zturl;
+			   $("#picbbzt")[0].src = data.zturl;	   
+			   $("#sk_jiangli").val(data.jiangli ? data.jiangli : 0);
 			   $("#sk_clinch_price").val(data.salePrice ? data.salePrice : 0);
 			   $("#sk_qq").val(data.noQq);
 			   $("#sk_size").val(data.guige);

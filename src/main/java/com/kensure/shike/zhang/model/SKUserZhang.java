@@ -14,44 +14,49 @@ package com.kensure.shike.zhang.model;
 import com.kensure.shike.sys.model.SKDict;
 import com.kensure.shike.sys.service.SKDictService;
 
-import co.kensure.frame.BaseInfo;;
+import co.kensure.frame.BaseInfo;
+
+;
 
 /**
  * 用户余额流水对象类
+ * 
  * @author fankd created on 2018-9-9
  * @since
  */
-public class SKUserZhang extends BaseInfo{
+public class SKUserZhang extends BaseInfo {
 
 	private static final long serialVersionUID = 3545276994084105527L;
-	
-	/***/		
+
+	/***/
 	private Long id;
 
-	/**用户id*/		
-	private Long userid; 
+	/** 用户id */
+	private Long userid;
 
-	/**业务id*/		
-	private Long busiid; 
+	/** 业务id */
+	private Long busiid;
 
-	/**业务类型id,1是商家充值，2是试客提现，3是活动费用*/		
-	private Long busitypeid; 
+	/** 业务类型id,1是商家充值，2是试客提现，3是活动费用 */
+	private Long busitypeid;
 
-	/**余额*/		
-	private Double yue; 
+	/** 余额 */
+	private Double yue;
 
-	/**金币*/		
-	private Double jinbi; 
+	/** 金币 */
+	private Double jinbi;
 
-	/**对这个用户流进还是流出,1是进，-1是出*/		
-	private Long inorout; 
+	/** 对这个用户流进还是流出,1是进，-1是出 */
+	private Long inorout;
 
-	/**状态，1是正常，0是未生效，-1是作废*/		
-	private Long status; 
+	/** 状态，1是正常，0是未生效，-1是作废 */
+	private Long status;
 
-	/**描述*/		
-	private String remark; 
+	/** 描述 */
+	private String remark;
 
+	/** 流水号 */
+	private String billno;
 
 	public Long getId() {
 		return id;
@@ -60,6 +65,7 @@ public class SKUserZhang extends BaseInfo{
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public Long getUserid() {
 		return userid;
 	}
@@ -67,6 +73,7 @@ public class SKUserZhang extends BaseInfo{
 	public void setUserid(Long userid) {
 		this.userid = userid;
 	}
+
 	public Long getBusiid() {
 		return busiid;
 	}
@@ -74,9 +81,11 @@ public class SKUserZhang extends BaseInfo{
 	public void setBusiid(Long busiid) {
 		this.busiid = busiid;
 	}
+
 	public Long getBusitypeid() {
 		return busitypeid;
 	}
+
 	public String getBusitypeidStr() {
 		SKDict dict = SKDictService.getDictCache(5, this.busitypeid + "");
 		String temp = "";
@@ -85,10 +94,11 @@ public class SKUserZhang extends BaseInfo{
 		}
 		return temp;
 	}
-	
+
 	public void setBusitypeid(Long busitypeid) {
 		this.busitypeid = busitypeid;
 	}
+
 	public Double getYue() {
 		return yue;
 	}
@@ -96,6 +106,7 @@ public class SKUserZhang extends BaseInfo{
 	public void setYue(Double yue) {
 		this.yue = yue;
 	}
+
 	public Double getJinbi() {
 		return jinbi;
 	}
@@ -103,6 +114,7 @@ public class SKUserZhang extends BaseInfo{
 	public void setJinbi(Double jinbi) {
 		this.jinbi = jinbi;
 	}
+
 	public Long getInorout() {
 		return inorout;
 	}
@@ -110,24 +122,35 @@ public class SKUserZhang extends BaseInfo{
 	public void setInorout(Long inorout) {
 		this.inorout = inorout;
 	}
+
 	public Long getStatus() {
 		return status;
+	}
+	
+	public String getBillno() {
+		return billno;
+	}
+
+	public void setBillno(String billno) {
+		this.billno = billno;
 	}
 
 	public String getStatusStr() {
 		String temp = "";
-		if(status == 0){
+		if (status == 0) {
 			temp = "等待审核";
-		}else if(status == 1){
+		} else if (status == 1) {
 			temp = "成功";
-		}else if(status == -1){
+		} else if (status == -1) {
 			temp = "拒绝通过";
 		}
 		return temp;
 	}
+
 	public void setStatus(Long status) {
 		this.status = status;
 	}
+
 	public String getRemark() {
 		return remark;
 	}

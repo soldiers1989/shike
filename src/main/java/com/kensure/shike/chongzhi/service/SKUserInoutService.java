@@ -242,4 +242,21 @@ public class SKUserInoutService extends JSBaseService {
 		return true;
 	}
 
+	
+	/**
+	 * 后台不通过充值审批，增加原因
+	 */
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+	public boolean untongguo(Long id,String remark) {
+		SKUser skuser = sKUserService.getUser();
+		SKUserService.checkUserAdmin(skuser);
+		SKUserInout obj = selectOne(id);
+		if (obj.getStatus() != 1) {
+			BusinessExceptionUtil.threwException("重复提交");
+		}
+		obj.setRemark(remark);
+		obj.setStatus(-1L);
+		update(obj);
+		return true;
+	}
 }
