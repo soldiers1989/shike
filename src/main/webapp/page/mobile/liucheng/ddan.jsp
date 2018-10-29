@@ -31,6 +31,7 @@
 
     <script src="https://unpkg.com/qiniu-js@2.5.0/dist/qiniu.min.js"></script>
 
+
     <script>
         var userId=0;
         (function (doc, win) {
