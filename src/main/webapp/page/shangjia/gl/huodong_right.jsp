@@ -183,7 +183,8 @@
         	tdinner+= "        <input type='button' value='下线' onclick='xiaxian("+row.id+")'/>";
         	tdinner+= "        <input type='button' value='增加申请数' onclick='addsq("+row.id+")'/>";
         }
-        
+    	tdinner += "<a href='<%=ApiUtil.getUrl("/gl/zjqk")%>?id="+row.id+"' target='_blank'>中奖概览</a>";
+        tdinner += "    </div>";
 		return tdinner;
 	}
 	
@@ -205,7 +206,7 @@
 	,{w:100,na:"中奖数量",colname:"zjnum"}
 	,{w:100,na:"申请数量",colname:"ysqnum"}
 	,{w:100,na:"活动进度",callfun:jindufun}
-	,{w:100,na:"活动操作",callfun:optfun}];
+	,{w:200,na:"活动操作",callfun:optfun}];
 	
 	table.thinit();
 	

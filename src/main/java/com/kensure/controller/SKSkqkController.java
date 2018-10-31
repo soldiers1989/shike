@@ -18,12 +18,15 @@ import co.kensure.http.RequestUtils;
 import co.kensure.mem.PageInfo;
 
 import com.alibaba.fastjson.JSONObject;
+import com.kensure.shike.baobei.model.SKBbrw;
 import com.kensure.shike.baobei.model.SKSkqk;
 import com.kensure.shike.baobei.model.SKSkqkLeft;
+import com.kensure.shike.baobei.model.SKZjqk;
 import com.kensure.shike.baobei.query.SKSkqkLeftQuery;
 import com.kensure.shike.baobei.service.SKBaobeiService;
 import com.kensure.shike.baobei.service.SKBbrwService;
 import com.kensure.shike.baobei.service.SKSkqkService;
+import com.kensure.shike.baobei.service.SKZjqkService;
 import com.kensure.shike.baobei.service.TaoBaoService;
 
 /**
@@ -47,6 +50,9 @@ public class SKSkqkController {
 
 	@Resource
 	private SKBbrwService sKBbrwService;
+
+	@Resource
+	private SKZjqkService sKZjqkService;
 
 	/**
 	 * 试客使用情况列表
@@ -72,5 +78,29 @@ public class SKSkqkController {
 		Long id = json.getLong("id");
 		SKSkqk skqk = sKSkqkService.getSkqkDetail(id);
 		return new ResultRowInfo(skqk);
+	}
+
+	/**
+	 * 任务概览
+	 */
+	@ResponseBody
+	@RequestMapping(value = "getbbrw.do", method = { RequestMethod.POST }, produces = "application/json;charset=UTF-8")
+	public ResultInfo getbbrw(HttpServletRequest req, HttpServletResponse rep) {
+		JSONObject json = RequestUtils.paramToJson(req);
+		Long id = json.getLong("id");
+		List<SKBbrw> bbrw = sKBbrwService.getBbList(id);
+		return new ResultRowsInfo(bbrw);
+	}
+
+	/**
+	 * 中奖情况概览
+	 */
+	@ResponseBody
+	@RequestMapping(value = "getzjqk.do", method = { RequestMethod.POST }, produces = "application/json;charset=UTF-8")
+	public ResultInfo getzjqk(HttpServletRequest req, HttpServletResponse rep) {
+		JSONObject json = RequestUtils.paramToJson(req);
+		Long id = json.getLong("id");
+		List<SKZjqk> zjqk = sKZjqkService.selectByBbid(id);
+		return new ResultRowsInfo(zjqk);
 	}
 }

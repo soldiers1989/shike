@@ -38,6 +38,7 @@ import com.kensure.shike.baobei.dao.SKBbrwDao;
 import com.kensure.shike.baobei.model.SKBaobei;
 import com.kensure.shike.baobei.model.SKBbrw;
 import com.kensure.shike.baobei.model.SKSkqk;
+import com.kensure.shike.baobei.model.SKZjqk;
 import com.kensure.shike.user.model.SKUser;
 import com.kensure.shike.user.service.SKUserService;
 
@@ -64,6 +65,9 @@ public class SKBbrwService extends JSBaseService {
 
 	@Resource
 	private SKUserService sKUserService;
+
+	@Resource
+	private SKZjqkService sKZjqkService;
 
 	public SKBbrw selectOne(Long id) {
 		return dao.selectOne(id);
@@ -232,6 +236,18 @@ public class SKBbrwService extends JSBaseService {
 		return list;
 	}
 
+	/**
+	 * 获取宝贝所有的任务
+	 * 
+	 * @param bbid
+	 * @return
+	 */
+	public List<SKBbrw> getBbList(Long bbid) {
+		Map<String, Object> parameters = MapUtils.genMap("bbid", bbid,"orderby","daydes");
+		List<SKBbrw> list = selectByWhere(parameters);
+		return list;
+	}
+	
 	public boolean insertInBatch(List<SKBbrw> objs) {
 		return dao.insertInBatch(objs);
 	}
@@ -331,19 +347,27 @@ public class SKBbrwService extends JSBaseService {
 
 	}
 
+	/**
+	 * 发送短信
+	 * 
+	 * @param zjrlist
+	 */
 	private void sendSMS(List<SKSkqk> zjrlist) {
 		if (CollectionUtils.isEmpty(zjrlist)) {
 			return;
 		}
 		for (SKSkqk skqk : zjrlist) {
+			SKZjqk zjqk = sKZjqkService.add(skqk);
 			try {
 				long uid = skqk.getUserid();
 				long bbid = skqk.getBbid();
 				SKUser user = sKUserService.selectOne(uid);
 				SKBaobei baobei = sKBaobeiService.selectOne(bbid);
 				SMSClient.sendZhongJiang(user.getPhone(), baobei.getTitle(), "3小时");
+				sKZjqkService.commit(zjqk);
 			} catch (Exception e) {
 				e.printStackTrace();
+				sKZjqkService.rollback(zjqk);
 			}
 		}
 	}

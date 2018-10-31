@@ -263,6 +263,20 @@ CREATE TABLE `sk_sqqk` (
   KEY `idx_sk_sqqk_bbid` (`bbid`)
 );
 
+
+-- 记录试客中奖信息数据
+CREATE TABLE `sk_zjqk` (
+  `id` bigint(20) NOT NULL COMMENT '主键',
+  `bbid` bigint(20) DEFAULT NULL COMMENT '宝贝id',
+  `userid` bigint(20) NOT NULL COMMENT '用户id',
+  `sqqkid` bigint(20) DEFAULT NULL COMMENT '申请id',
+  `daydes` varchar(16) DEFAULT NULL COMMENT '日期描述，查询用',
+  `created_time` datetime NOT NULL COMMENT '创建时间',
+  `updated_time` datetime NOT NULL COMMENT '更新时间',
+  `status` int(11) DEFAULT NULL COMMENT '短息状态，0是未发，1是发送成功，-1是发送失败',
+  PRIMARY KEY (`id`)
+);
+
 -- 宝贝试客申请中，产生的校验数据
 CREATE TABLE `sk_jysj` (
   `id` bigint(20) NOT NULL COMMENT '主键',
