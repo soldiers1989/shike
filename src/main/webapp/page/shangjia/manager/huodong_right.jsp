@@ -125,17 +125,17 @@
          
             <table width="996" cellspacing="0" cellpadding="0" id="listtable">
                 <tbody><tr>                 
-                    <td width="270" height="33" valign="middle" bgcolor="#f5f5f5" style="text-align: center;">
+                    <td width="300" height="33" valign="middle" bgcolor="#f5f5f5" style="text-align: center;">
                         <strong>活动名称</strong>
                     </td>
-                    <td width="176" height="33" valign="middle" bgcolor="#f5f5f5" style="text-align: center;">
+                    <td width="100" height="33" valign="middle" bgcolor="#f5f5f5" style="text-align: center;">
                         <strong>开始时间</strong>
                     </td>
-                    <td width="150" height="33" valign="middle" bgcolor="#f5f5f5" style="text-align: center;">
+                    <td width="100" height="33" valign="middle" bgcolor="#f5f5f5" style="text-align: center;">
                         <strong>活动进度</strong>
                     </td>
                     <td width="200" height="33" valign="middle" bgcolor="#f5f5f5" style="text-align: center;">
-                        <strong>活动操作</strong>
+                        <strong>活动情况</strong>
                     </td>
                     <td width="200" height="33" valign="middle" bgcolor="#f5f5f5" style="text-align: center;">
                         <strong>用户操作</strong>
@@ -156,50 +156,46 @@
 		var rows = data.resultData.rows;
 		if(rows){		
 			for(var i=0;i<rows.length;i++){
-				var row = rows[i];
-				
+				var row = rows[i];			
 				var editBtn = '';
 				if (row.status == 0 || row.status == 2) {
-					editBtn = "<span> | </span><a href='<%=BusiConstant.shangjia_activity_edit.getKey()%>?id="+row.id+"' target='_blank'>活动编辑</a>";
-				}
-				
+					editBtn = "<span> | </span><a href='<%=BusiConstant.shangjia_activity_edit.getKey()%>?id="+row.id+"' target='_blank'>修改活动</a>";
+				}			
 				var html =   "<tr> "       
-                +"<td width=\"270\" height=\"100\" valign=\"middle\">"
+                +"<td width=\"300\" height=\"100\" valign=\"middle\">"
                 +"<div class=\"xi_lt clearfix\" style=\"margin-right: 0\">"
                 +"<a style='width: 60px; height: 60px;'>"
                 +"<img src='"+row.zturl+"'  height='60' width='60'> </a>"
                 +"    <div class=\"cd_lxq cm_cd_lxq\">"            
                 +"        <a style=\"margin-right: 0\">"
-                +"            <span style=\"margin-left: 0px; width: 170px; line-height: 12px;\">" 
+                +"            <span style=\"margin-left: 0px; width: 230px; line-height: 12px;\">" 
                 +"                <em class=\"iconfont icon-tb\" style=\"font-weight:500;font-size:15px;\">" 
-                +"                </em>"+row.title 
+                +"                </em>"+row.title         
                 +"            </span>" 
+                +"【活动编号："+row.id+"】"
+                +"<br>【创建时间："+row.createdTimeStr+"】"
                 +"        </a>" 
                 +"    </div>" 
                 +" </div>" 
                 +"</td>" 
-                +"<td height=\"100\" valign=\"middle\" width=\"176\" align=\"center\">" 
+                +"<td height=\"100\" valign=\"middle\" width=\"100\" align=\"center\">" 
                 +" <em style=\"color: #a9a9a9;\">"+row.startTimeStr+"</em>" 
                 +"</td>" 
-                +" <td height=\"100\" valign=\"middle\" align=\"center\" width=\"150\">" 
-                +"     <em style=\"color: #f25f55\">"+row.statusStr+"</em>" 
-                +"     <em style=\"color: #f25f55\">宝贝中奖情况:"+row.zjnum+"/"+row.bbnum+",申请数"+row.ysqnum+"</em>" 
-                
+                +" <td height=\"100\" valign=\"middle\" align=\"center\" width=\"100\">" 
+                +"     <em style=\"color: #f25f55\">"+row.statusStr+"</em>"      
                 +"  </td>" 
                 +" <td height=\"100\" align=\"center\" width=\"200\">" 
-                +"    <div class=\"wae_cer\">";
-                if(row.status == 0){
-                	html+="        <a href=\"<%=BusiConstant.shangjia_payinfo.getKey()%>?id="+row.id+"\" href=\"_blank\" class=\"dv_psdb\">" 
-                    +"                 	支付" 
-                    +"            </a>";
-                }
-                
-                html+="   </div>"
+                +"     担保金:￥"+row.yingshou+"<br>(共"+row.bbnum+",剩"+(row.bbnum-row.zjnum)+") "+row.ysqnum+"人申请"
                 +"</td>" 
                 +"<td height=\"100\" align=\"center\" width=\"200\"><a href='<%=BusiConstant.shangjia_shikelist.getKey()%>?id="+row.id+"' target='_blank'>试用情况</a>"
-                + editBtn
-                +"</td>" 
-                +" </tr>" 
+                + editBtn;
+                if(row.status == 0){
+                	html+="    <div class=\"wae_cer\">";
+                	html+="        <a href=\"<%=BusiConstant.shangjia_payinfo.getKey()%>?id="+row.id+"\" href=\"_blank\" class=\"dv_psdb\">交保证金</a>";
+                	html+="   </div>";
+                }
+                html+="</td>";
+                html+=" </tr>" 
 				$("#listtable").append(html);
 			}
 		}	
