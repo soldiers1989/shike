@@ -406,8 +406,8 @@ public class SKSkqkService extends JSBaseService {
 	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
 	public void toHaoPin() {
 		try {
-			Date day = DateUtils.getPastDay(new Date(), -3);
-			Map<String, Object> parameters = MapUtils.genMap("status", 61, "lessupdatedTime", day);
+			Date day = new Date();
+			Map<String, Object> parameters = MapUtils.genMap("status", 61, "lessNextTime", day);
 			List<SKSkqk> list = selectByWhere(parameters);
 			if (CollectionUtils.isEmpty(list)) {
 				return;
