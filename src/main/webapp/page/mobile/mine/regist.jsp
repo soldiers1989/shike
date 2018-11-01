@@ -92,19 +92,21 @@
     <%--<div class="item">
             <input type="text" name="intiveCode" id="code1" placeholder="请输入邀请码，没有可不填">
     </div>--%>
-    <div class="item">
+   <%-- <div class="item">
         <input type="text" name="intiveCode" id="noQq" placeholder="请输入QQ号">
     </div>
     <div class="item">
         <input type="text" name="intiveCode" id="noAlipay" placeholder="请输入支付宝号">
     </div>
+      --%>
     <div class="item">
         <input type="text" name="intiveCode" id="noTaobao" placeholder="请输入淘宝号">
     </div>
+  
     <div class="item">
         <input type="text" name="refereeId" id="refereeId" placeholder="请输入邀请码，没有可不填">
     </div>
-
+<%-- 
     <div class="FlowCon">
         <ul>
             <li>
@@ -129,7 +131,7 @@
 
         </ul>
     </div>
-
+ --%>
     <div style="margin-top:1rem;">
         <input type="checkbox" name="name" value="" id="check" checked="checked">  我已阅读<a href="<%=BusiConstant.shike_private.getKey() %>">《隐私协议》</a>
     </div>
@@ -202,16 +204,16 @@
                 return false;
             }
 
-            var alipayImg = $('.alipay-img').data("src");
-            var taobaoImg = $('.taobao-img').data("src");
-            if (!alipayImg) {
-                myAlert("您还没有上传支付宝截图");
-                return false;
-            }
-            if (!taobaoImg) {
-                myAlert("您还没有上传淘宝截图");
-                return false;
-            }
+           // var alipayImg = $('.alipay-img').data("src");
+           // var taobaoImg = $('.taobao-img').data("src");
+           // if (!alipayImg) {
+           //     myAlert("您还没有上传支付宝截图");
+           //     return false;
+           // }
+           // if (!taobaoImg) {
+           //     myAlert("您还没有上传淘宝截图");
+           //     return false;
+           // }
             var name = $("#name").val();
             var qrcode = $("#pwd").val();
             var code = $("#code1").val();
@@ -221,11 +223,11 @@
                     qrcode: qrcode,
                     phone: name,
                     password: $("#password").val(),
-                    noQq: $("#noQq").val(),
-                    noAlipay: $("#noAlipay").val(),
+                   // noQq: $("#noQq").val(),
+                   // noAlipay: $("#noAlipay").val(),
                     noTaobao: $("#noTaobao").val(),
-                    alipayImg: alipayImg,
-                    taobaoImg: taobaoImg,
+                   // alipayImg: alipayImg,
+                   // taobaoImg: taobaoImg,
                     refereeId: $("#refereeId").val()
                 };
                 var url = "<%=BusiConstant.shike_addsk_do.getKey()%>";

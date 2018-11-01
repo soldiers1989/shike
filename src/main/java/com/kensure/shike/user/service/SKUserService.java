@@ -276,7 +276,7 @@ public class SKUserService extends JSBaseService {
 		ParamUtils.isBlankThrewException(sKUser.getName(), "用户名不能为空");
 		ParamUtils.isBlankThrewException(sKUser.getPassword(), "密码不能为空");
 		ParamUtils.isBlankThrewException(sKUser.getPhone(), "手机号不能为空");
-		ParamUtils.isBlankThrewException(sKUser.getNoQq(), "qq不能为空");
+//		ParamUtils.isBlankThrewException(sKUser.getNoQq(), "qq不能为空");
 //		ParamUtils.isBlankThrewException(sKUser.getTaobaoImg(), "淘宝截图不能为空");
 //		ParamUtils.isBlankThrewException(sKUser.getAlipayImg(), "支付宝截图不能为空");
 		MobileUtils.checkMobile(sKUser.getPhone());

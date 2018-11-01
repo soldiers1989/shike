@@ -99,27 +99,7 @@
                class="auto-input it lf" type="text" placeholder="请填写支付宝账号" datatype="*" maxlength="50">
         <%--<span class="Validform_checktip"></span>--%>
     </section>
-    <div class="FlowCon">
-        <ul>
-            <li>
-                <c:if test="${empty user.alipayImg}">
-                    <span class=""></span>打开支付宝，请上传<em class="red">支付宝个人信息页面</em>截图，如图：
-                    <div class="storage-img mt3" style="text-align: center">
-                        <img style="height:80px" src="<%=BusiConstant.shikemobilepath %>/common/images/alipayImg.jpg">
-
-                    </div>
-                    <div class="up-img mt3">
-                        支付宝个人信息页面截图：<img class="alipay-img" src="<%=BusiConstant.shikemobilepath %>/common/images/up-img.png">
-                    </div>
-                </c:if>
-                <c:if test="${!empty user.alipayImg}">
-                    <div class="up-img mt3">
-                        <img class="alipay-img" src="${user.alipayImg}"> &nbsp;(点击图片进行修改)
-                    </div>
-                </c:if>
-            </li>
-        </ul>
-    </div>
+   
     <section class="auto-btn" id="PayBtnSubmit">提交</section>
 </div>
 
@@ -166,11 +146,11 @@
                 myAlert("支付宝账号不能为空");
                 return;
             }
-            var alipayImg = $('.alipay-img').data("src");
-            if (!alipayImg) {
-                myAlert("您还没有上传修改后的支付宝截图");
-                return false;
-            }
+           // var alipayImg = $('.alipay-img').data("src");
+           // if (!alipayImg) {
+           //    myAlert("您还没有上传修改后的支付宝截图");
+           //     return false;
+           // }
 
             updateAlipay();
 
