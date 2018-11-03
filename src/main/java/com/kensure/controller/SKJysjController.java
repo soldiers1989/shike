@@ -79,4 +79,29 @@ public class SKJysjController {
 		return new ResultInfo();
 	}
 
+	/**
+	 * 更新修改好评信息
+	 */
+	@ResponseBody
+	@RequestMapping(value = "updatehp.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	public ResultInfo updatehp(HttpServletRequest req, HttpServletResponse rep) {
+		JSONObject json = RequestUtils.paramToJson(req);
+		Long hpyId = json.getLong("hpyId");
+		String hpy = json.getString("hpy");
+		Long hpId = json.getLong("hpId");
+		String hpImg = json.getString("hpImg");
+
+		SKJysj hpySk = new SKJysj();
+        hpySk.setId(hpyId);
+        hpySk.setContent(hpy);
+		skJysjService.update(hpySk);
+
+		SKJysj hp = new SKJysj();
+        hp.setId(hpId);
+        hp.setContent(hpImg);
+		skJysjService.update(hp);
+
+		return new ResultInfo();
+	}
+
 }

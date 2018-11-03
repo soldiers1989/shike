@@ -480,9 +480,7 @@ public class ShikeMobileController {
         Long id = Long.valueOf(req.getParameter("id"));
 
         SKSkqk skSkqk = sKSkqkService.selectOne(id);
-        SKBaobei skBaobei = sKBaobeiService.getSKBaobei(skSkqk.getBbid());
-
-        List<SKJysj> skJysjs = skJysjService.selectByBbidAndUserid(skBaobei.getId(), user.getId());
+        List<SKJysj> skJysjs = skJysjService.selectByBbidAndUserid(skSkqk.getBbid(), user.getId());
 
         for (SKJysj skJysj : skJysjs) {
             // 收藏
@@ -505,22 +503,45 @@ public class ShikeMobileController {
         Long id = Long.valueOf(req.getParameter("id"));
 
         SKSkqk skSkqk = sKSkqkService.selectOne(id);
-        SKBaobei skBaobei = sKBaobeiService.getSKBaobei(skSkqk.getBbid());
-
-        List<SKJysj> skJysjs = skJysjService.selectByBbidAndUserid(skBaobei.getId(), user.getId());
+        List<SKJysj> skJysjs = skJysjService.selectByBbidAndUserid(skSkqk.getBbid(), user.getId());
 
         for (SKJysj skJysj : skJysjs) {
-            // 订单
+            // 订单图片
             if ("dd".equals(skJysj.getBusitype())) {
                 req.setAttribute("dd", skJysj);
             }
-            // 关注
+            // 订单号码
             if ("ddh".equals(skJysj.getBusitype())) {
                 req.setAttribute("ddh", skJysj);
             }
         }
         req.setAttribute("skSkqk", skSkqk);
 		return "page/mobile/wdhd/xgdd.jsp";
+	}
+
+	// 修改好评页面
+	@RequestMapping("xghp")
+	public String xghp(HttpServletRequest req, HttpServletResponse rep, Model model) {
+        SKUser user = sKUserService.getUser();
+        Long id = Long.valueOf(req.getParameter("id"));
+
+        SKSkqk skSkqk = sKSkqkService.selectOne(id);
+        List<SKJysj> skJysjs = skJysjService.selectByBbidAndUserid(skSkqk.getBbid(), user.getId());
+
+        for (SKJysj skJysj : skJysjs) {
+            // 好评文字
+            if ("hpy".equals(skJysj.getBusitype())) {
+                req.setAttribute("hpy", skJysj);
+            }
+            // 好评图片
+            if ("hp".equals(skJysj.getBusitype())) {
+                String[] hptps = skJysj.getContent().split("sktag");
+                req.setAttribute("hptps", hptps);
+                req.setAttribute("hp", skJysj);
+            }
+        }
+        req.setAttribute("skSkqk", skSkqk);
+		return "page/mobile/wdhd/xghp.jsp";
 	}
 
 	// 金币抽奖页面

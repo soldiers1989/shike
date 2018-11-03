@@ -119,7 +119,7 @@
     </div>
     <div class="usera-kong"></div>
 
-    <%--<div class="flow-item">
+    <div class="flow-item">
         <p>好评信息</p>
         <div>
             <i class="iconfont icon-shijian"></i><span>${hp.createdTimeStr }</span>
@@ -127,16 +127,16 @@
                 <span class="btn gray">未完成</span>
             </c:if>
             <c:if test='${!empty hp}'>
-                <span class="btn red-white" data-link="modifyenterinfo">查看</span>
+                <span class="btn red-white" data-link="xghp">查看</span>
             </c:if>
         </div>
     </div>
 
-    <div class="usera-kong"></div>--%>
+    <div class="usera-kong"></div>
 </div>
 
 <script type="text/javascript">
-    var orderid = '26654366';
+    var orderid = '0';
 
     $(".info-cat span").on("click", function () {
         $(this).addClass("act").siblings().removeClass("act");
@@ -164,6 +164,8 @@
             html = '<div><iframe src="<%=BusiConstant.shike_xgscgz.getKey() %>?id=${skSkqk.id }" style="height:12rem"></iframe></div>';
         } else if (title == "xgdd") {
             html = '<div><iframe src="<%=BusiConstant.shike_xgdd.getKey() %>?id=${skSkqk.id }" style="height:12rem"></iframe></div>';
+        } else if (title == "xghp") {
+            html = '<div><iframe src="<%=BusiConstant.shike_xghp.getKey() %>?id=${skSkqk.id }" style="height:14rem"></iframe></div>';
         }
         //底部对话框
         <%--var html =--%>
