@@ -3,14 +3,10 @@ package com.kensure.controller;
 import co.kensure.http.RequestUtils;
 import co.kensure.mem.NumberUtils;
 import com.alibaba.fastjson.JSONObject;
-import com.kensure.shike.baobei.model.SKBaobei;
-import com.kensure.shike.baobei.model.SKJindian;
-import com.kensure.shike.baobei.model.SKSkqk;
-import com.kensure.shike.baobei.model.SKWord;
-import com.kensure.shike.baobei.service.SKBaobeiService;
-import com.kensure.shike.baobei.service.SKJindianService;
-import com.kensure.shike.baobei.service.SKSkqkService;
-import com.kensure.shike.baobei.service.SKWordService;
+import com.kensure.shike.baobei.model.*;
+import com.kensure.shike.baobei.service.*;
+import com.kensure.shike.dianpu.model.SKDianPu;
+import com.kensure.shike.dianpu.service.SKDianPuService;
 import com.kensure.shike.sys.model.SKCMS;
 import com.kensure.shike.sys.service.SKCMSService;
 import com.kensure.shike.user.model.SKUser;
@@ -66,7 +62,13 @@ public class ShikeMobileController {
 	private SkUserFansService skUserFansService;
 
 	@Resource
+	private SKDianPuService skDianPuService;
+
+	@Resource
 	private SKCMSService sKCMSService;
+
+	@Resource
+	private SKJysjService skJysjService;
 
 
 	// 首页
@@ -419,6 +421,106 @@ public class ShikeMobileController {
 	@RequestMapping("zqmj")
 	public String zqmj(HttpServletRequest req, HttpServletResponse rep, Model model) {
 		return "page/mobile/index/zqmj.jsp";
+	}
+
+	// 订单详情页面
+	@RequestMapping("ddxq")
+	public String ddxq(HttpServletRequest req, HttpServletResponse rep, Model model) {
+        SKUser user = sKUserService.getUser();
+
+        Long id = Long.valueOf(req.getParameter("id"));
+
+        SKSkqk skSkqk = sKSkqkService.selectOne(id);
+        SKBaobei skBaobei = sKBaobeiService.getSKBaobei(skSkqk.getBbid());
+        SKDianPu skDianPu = skDianPuService.selectOne(skBaobei.getDpid());
+
+        List<SKJysj> skJysjs = skJysjService.selectByBbidAndUserid(skBaobei.getId(), user.getId());
+
+        for (SKJysj skJysj : skJysjs) {
+            // 购物车（店铺名）
+            if ("dpm".equals(skJysj.getBusitype())) {
+                req.setAttribute("dpm", skJysj);
+            }
+            // 收藏
+            if ("sc".equals(skJysj.getBusitype())) {
+                req.setAttribute("sc", skJysj);
+            }
+            // 关注
+            if ("gz".equals(skJysj.getBusitype())) {
+                req.setAttribute("gz", skJysj);
+            }
+            // 订单
+            if ("dd".equals(skJysj.getBusitype())) {
+                req.setAttribute("dd", skJysj);
+            }
+            // 订单号
+            if ("ddh".equals(skJysj.getBusitype())) {
+                req.setAttribute("ddh", skJysj);
+            }
+            // 好评
+            if ("hp".equals(skJysj.getBusitype())) {
+                req.setAttribute("hp", skJysj);
+            }
+            // 好评图
+            if ("hpy".equals(skJysj.getBusitype())) {
+                req.setAttribute("hpy", skJysj);
+            }
+        }
+
+        req.setAttribute("skSkqk", skSkqk);
+        req.setAttribute("skBaobei", skBaobei);
+        req.setAttribute("skDianPu", skDianPu);
+        return "page/mobile/wdhd/ddxq.jsp";
+	}
+
+	// 修改收藏关注页面
+	@RequestMapping("xgscgz")
+	public String xgscgz(HttpServletRequest req, HttpServletResponse rep, Model model) {
+        SKUser user = sKUserService.getUser();
+        Long id = Long.valueOf(req.getParameter("id"));
+
+        SKSkqk skSkqk = sKSkqkService.selectOne(id);
+        SKBaobei skBaobei = sKBaobeiService.getSKBaobei(skSkqk.getBbid());
+
+        List<SKJysj> skJysjs = skJysjService.selectByBbidAndUserid(skBaobei.getId(), user.getId());
+
+        for (SKJysj skJysj : skJysjs) {
+            // 收藏
+            if ("sc".equals(skJysj.getBusitype())) {
+                req.setAttribute("sc", skJysj);
+            }
+            // 关注
+            if ("gz".equals(skJysj.getBusitype())) {
+                req.setAttribute("gz", skJysj);
+            }
+        }
+        req.setAttribute("skSkqk", skSkqk);
+		return "page/mobile/wdhd/xgscgz.jsp";
+	}
+
+	// 修改订单页面
+	@RequestMapping("xgdd")
+	public String xgdd(HttpServletRequest req, HttpServletResponse rep, Model model) {
+        SKUser user = sKUserService.getUser();
+        Long id = Long.valueOf(req.getParameter("id"));
+
+        SKSkqk skSkqk = sKSkqkService.selectOne(id);
+        SKBaobei skBaobei = sKBaobeiService.getSKBaobei(skSkqk.getBbid());
+
+        List<SKJysj> skJysjs = skJysjService.selectByBbidAndUserid(skBaobei.getId(), user.getId());
+
+        for (SKJysj skJysj : skJysjs) {
+            // 订单
+            if ("dd".equals(skJysj.getBusitype())) {
+                req.setAttribute("dd", skJysj);
+            }
+            // 关注
+            if ("ddh".equals(skJysj.getBusitype())) {
+                req.setAttribute("ddh", skJysj);
+            }
+        }
+        req.setAttribute("skSkqk", skSkqk);
+		return "page/mobile/wdhd/xgdd.jsp";
 	}
 
 	// 金币抽奖页面

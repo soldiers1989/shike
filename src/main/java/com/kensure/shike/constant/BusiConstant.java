@@ -154,6 +154,8 @@ public class BusiConstant {
 	public static final KVBean shike_detail = new KVBean(context + "/skm/detail", "宝贝详情");
 	public static final KVBean shike_haohuo = new KVBean(context + "/skm/haohuo", "好货页面");
 	public static final KVBean shike_wdhd = new KVBean(context + "/skm/wdhd", "我的活动页面");
+	public static final KVBean shike_ddxq = new KVBean(context + "/skm/ddxq", "订单详情页面");
+
 	public static final KVBean shike_mine = new KVBean(context + "/skm/mine", "我的");
 	public static final KVBean shike_yue = new KVBean(context + "/skm/yue", "余额页面");
 	public static final KVBean shike_tixian = new KVBean(context + "/skm/tixian", "提现页面");
@@ -172,6 +174,8 @@ public class BusiConstant {
 
 	public static final KVBean shike_jinbi = new KVBean(context + "/skm/jinbi", "金币页面");
 	public static final KVBean shike_jinbimx = new KVBean(context + "/skm/jinbimx", "金币明细页面");
+	public static final KVBean shike_xgscgz = new KVBean(context + "/skm/xgscgz", "修改收藏关注页面");
+	public static final KVBean shike_xgdd = new KVBean(context + "/skm/xgdd", "修改订单页面");
 
     public static final KVBean shike_zhanghu = new KVBean(context + "/skm/zhanghu", "账户安全页面");
     public static final KVBean shike_modifyphone = new KVBean(context + "/skm/modifyphone", "修改手机号码页面");
@@ -204,5 +208,8 @@ public class BusiConstant {
     public static final KVBean shike_cms = new KVBean(context + "/help/cms", "内容页面");
     
     public static final KVBean shike_baobei_sqs_do = new KVBean(context + "/baobei/sqs.do", "增加申请数");
-    
+
+    public static final KVBean shike_baobei_updatescgz_do = new KVBean(context + "/jysj/updatescgz.do", "更新修改关注信息");
+    public static final KVBean shike_baobei_updatedd_do = new KVBean(context + "/jysj/updatedd.do", "更新订单信息");
+
 }

@@ -245,6 +245,7 @@
         var rows = data.resultData.rows;
         $("#list").html("");
 
+
         for(var i=0;i<rows.length;i++){
             var row = rows[i];
 
@@ -328,7 +329,7 @@
 
             var html = "<dd class=\"my-list\">\n" +
                 "        <p class=\"title\">"+row.baobei.updatedTimeStr+"</p>\n" +
-                "        <a href=\"\">\n" +
+                "        <a href=\"<%=BusiConstant.shike_ddxq.getKey() %>?id="+ row.id +"\">\n" +
                 "            <img src=\""+row.baobei.zturl+"\">\n" +
                 "            <div style=\"position:absolute;left:0;bottom:0;\">\n" +
                 "            </div>\n" +

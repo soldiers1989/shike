@@ -240,7 +240,7 @@
 
             $('.up-num-img').attr("src", p);
             $('.up-num-img').data("src", p);
-            logo2 = "<%=BusiConstant.context %>" + p;
+            logo2 = p;
         },false,"JpinOrderFlow");
 
         bindUploadImage('.search-again-img', function (p) {
