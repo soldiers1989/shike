@@ -14,7 +14,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="format-detection" content="address=no">
     <meta name="full-screen" content="yes">
-    <link href="http://localhost/favicon.ico" rel="shortcut icon" type="image/x-icon">
+    <link href="<%=BusiConstant.context %>/favicon.ico" rel="shortcut icon" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/common/css/base.css">
     <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/common/css/iconfont.css">
 
@@ -122,12 +122,48 @@
     <c:if test="${type == '1'}">
         <ul class="gold-list">
             <li>
+                <img src="<%=BusiConstant.shikemobilepath %>/mine/jinbi/gold14.png" alt="Alternate Text">
+                <div>
+                    <span>邀请粉丝</span>
+                    <p>粉丝注册申请</p>
+                </div>
+                <p><i class="iconfont icon-jinbi2"></i><span> +300</span></p>
+                <a href="#" class="btn">领金币</a>
+            </li>
+            <li>
+                <img src="<%=BusiConstant.shikemobilepath %>/mine/jinbi/gold16.png" alt="Alternate Text">
+                <div>
+                    <span>申请试用</span>
+                    <p>单日申请10次试用</p>
+                </div>
+                <p><i class="iconfont icon-jinbi2"></i><span>+200</span></p>
+                <a href="#" class="btn">领金币</a>
+            </li>
+            <li>
+                <img src="<%=BusiConstant.shikemobilepath %>/mine/jinbi/gold18.png" alt="Alternate Text">
+                <div>
+                    <span>完成商品购买</span>
+                    <p>按商品价格*5赠送金币</p>
+                </div>
+                <p><i class="iconfont icon-jinbi2"></i><span>+500</span></p>
+                <a href="#" class="btn">领金币</a>
+            </li>
+            <li>
+                <img src="<%=BusiConstant.shikemobilepath %>/mine/jinbi/gold8.png" alt="Alternate Text">
+                <div>
+                    <span>注册账号</span>
+                    <p>一次性赠送</p>
+                </div>
+                <p><i class="iconfont icon-jinbi2"></i><span>+100</span></p>
+                <a  class="btn gray">已完成</a>
+            </li>
+            <%--<li>
                 <img src="<%=BusiConstant.shikemobilepath %>/mine/jinbi/gold18.png" alt="Alternate Text">
                 <div>
                     <span>敬请期待...</span>
                 </div>
                 <p><i></i><span> </span></p>
-            </li>
+            </li>--%>
             <%--<li>
                 <img src="<%=BusiConstant.shikemobilepath %>/mine/jinbi/gold20.png" alt="Alternate Text">
                 <div>
@@ -245,12 +281,20 @@
     <c:if test="${type == '2'}">
         <ul class="gold-list type-list">
             <li>
+                <img src="<%=BusiConstant.shikemobilepath %>/mine/jinbi/gold11.png" alt="Alternate Text">
+                <div>
+                    <span>金币抽奖</span>
+                </div>
+                <p></p>
+                <a href="<%=BusiConstant.shike_jbcj.getKey() %>" class="btn">去抽奖</a>
+            </li>
+           <%-- <li>
                 <img src="<%=BusiConstant.shikemobilepath %>/mine/jinbi/gold18.png" alt="Alternate Text">
                 <div>
                     <span>敬请期待...</span>
                 </div>
                 <p><i></i><span> </span></p>
-            </li>
+            </li>--%>
             <%--<li>
                 <img src="<%=BusiConstant.shikemobilepath %>/mine/jinbi/gold9.png" alt="Alternate Text">
                 <div>

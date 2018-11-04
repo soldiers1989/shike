@@ -123,25 +123,9 @@
     <span>使用评价：</span>
     <input type="text" name="sk_tb_hp" id="sk_tb_hp" value="${hpy.content }" placeholder="请输入订单号">
 </div>
-<%--<div class="storage">
-
-
-</div>--%>
-<div class="jing-num">
-    <span>原评价截图：</span>
-</div>
-<ul class="storage">
-    <c:forEach items="${hptps}" var="item">
-        <div class="swiper-slide swiper-slide-next" style="width: 354px;">
-            <li>
-                <img class="up-good-img" src="${item }">
-            </li>
-        </div>
-    </c:forEach>
-</ul>
 
 <div class="jing-num">
-    <span>新评价截图：</span>
+    <span>评价截图：</span>
 </div>
 <div class="text">
     <div class="wby wjsc">
@@ -151,17 +135,13 @@
     </div>
 </div>
 <ul id="picList1" class="text">
+    <c:forEach items="${hptps}" var="item">
+        <li class="tpsc">
+            <img name="preview1" src="${item}" class="baob" style="width:85px;height:85px">
+            <div class="caca" onclick="$(this).parent().remove();">X</div>
+        </li>
+    </c:forEach>
 </ul>
-
-<%--
-<div class="text">
-    <div class="wby wjsc">
-        <div class="kwdlt" id="uploadbtn1">
-            选择文件
-        </div>
-    </div>
-</div>--%>
-
 
 <div class="btn">
     保存
@@ -211,7 +191,12 @@
                 return false;
             }
             subFlag = true;
-            $.post("<%=BusiConstant.shike_baobei_updatehp_do.getKey() %>", { hpyId: "${hpy.id }", hpy: $("#sk_tb_hp").val(), hpId: "${hp.id }", hpImg: logo2 }, function (data) {
+
+            var hpImg = "";
+            $('.baob').each(function(){
+                hpImg += $(this).attr('src') + "sktag";
+            })
+            $.post("<%=BusiConstant.shike_baobei_updatehp_do.getKey() %>", { hpyId: "${hpy.id }", hpy: $("#sk_tb_hp").val(), hpId: "${hp.id }", hpImg: hpImg }, function (data) {
                 subFlag = false;
                 if (data.type == 'success') {
                     window.parent.layer.open({
