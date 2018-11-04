@@ -11,40 +11,26 @@
  */
 package com.kensure.shike.baobei.service;
 
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-
 import co.kensure.exception.BusinessExceptionUtil;
 import co.kensure.frame.JSBaseService;
-import co.kensure.mem.ArithmeticUtils;
-import co.kensure.mem.CollectionUtils;
-import co.kensure.mem.DateUtils;
-import co.kensure.mem.MapUtils;
-import co.kensure.mem.PageInfo;
-
+import co.kensure.mem.*;
 import com.kensure.basekey.BaseKeyService;
 import com.kensure.shike.baobei.dao.SKSkqkDao;
 import com.kensure.shike.baobei.dao.SKSkqkLeftDao;
-import com.kensure.shike.baobei.model.SKBaobei;
-import com.kensure.shike.baobei.model.SKBbrw;
-import com.kensure.shike.baobei.model.SKJysj;
-import com.kensure.shike.baobei.model.SKSkqk;
-import com.kensure.shike.baobei.model.SKSkqkLeft;
+import com.kensure.shike.baobei.model.*;
 import com.kensure.shike.baobei.query.SKSkqkLeftQuery;
 import com.kensure.shike.user.model.SKUser;
 import com.kensure.shike.user.service.SKUserService;
 import com.kensure.shike.zhang.model.SKUserZhang;
 import com.kensure.shike.zhang.service.SKUserZhangService;
 import com.kensure.shike.zhang.service.SkUserFansService;
+import com.kensure.shike.zhang.service.SkUserJinbiService;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
+import java.util.*;
 
 /**
  * 试客情况表服务实现类
@@ -81,6 +67,9 @@ public class SKSkqkService extends JSBaseService {
 
 	@Resource
 	private SKJysjService sKJysjService;
+
+	@Resource
+	private SkUserJinbiService skUserJinbiService;
 
 	public SKSkqk selectOne(Long id) {
 		return dao.selectOne(id);
@@ -316,6 +305,12 @@ public class SKSkqkService extends JSBaseService {
 				qk.setJiangli(baobei.getJiangli());
 				qk.setNoTaobao(skuser.getNoTaobao());
 				insert(qk);
+
+                // 单日申请10次 赠送200
+				long todaySq = getQkByToday(skuser.getId());
+				if (todaySq == 10) {
+					skUserJinbiService.addDrsq(skuser.getId());
+				}
 			} else {
 				updateStatus(qk.getId(), 1L);
 			}

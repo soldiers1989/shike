@@ -147,6 +147,16 @@ public class SkUserJinbiService extends JSBaseService{
     }
 
 	/**
+	 * 单日申请10次  +200
+	 * @param userId
+	 */
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+    public void addDrsq(Long userId) {
+		// typeId:  6:单日申请10次赠送200
+		addJbls(userId, 200L, 6L, 1L);
+    }
+
+	/**
 	 * 添加金币流水
 	 */
 	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
