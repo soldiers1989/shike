@@ -190,7 +190,7 @@
                     <span class="Validform_checktip"></span></div>
                 </div>
                 <div class="kt" style="line-height: 30px; padding-bottom: 10px; display: none;">
-                    <span style="color:#ff464e;">商家须知</span>：为保证能顺利开团，请根据实际情况设置转化率，建议转化率<span style="color:#ff464e;">不要设置的太低</span>；
+                    <span style="color:#ff464e;">商家须知</span>：请根据实际情况设置转化率，建议转化率<span style="color:#ff464e;">不要设置的太低</span>；
                 </div>
                 <div class="Date">
                     <table style="width: 100%;" class="gray">
@@ -448,16 +448,18 @@
                     </div>
                    
                    
-                   	<div class="fold act">
+                   	<div class="fold">
                         <div class="f-title">
-                            <input type="checkbox" checked="checked" disabled=""> <span>试用红包加赏</span>
+                            <input type="checkbox" id="ishbsj"> <span>货比三家,一次活动增值费20元</span>
                             <i class="iconfont icon-Toboottom"></i>
                             <i class="iconfont icon-Totop"></i>
                         </div>
                         <p class="f-warn">
                             <span class="sj"></span>
-                          	 请填写红包金额:<input type="text" id="sk_jiangli" name="sk_jiangli" class="w560" value="0">元/每单
+                          	 商品链接1:<input type="text" id="TKL1" style="width:700px;" value="">   	
                         </p>
+                        <p class="f-warn">商品链接2:<input type="text" id="TKL2" style="width:700px;" value=""></p>
+                        <p class="f-warn">商品链接3:<input type="text" id="TKL3" style="width:700px;" value=""></p>
                     </div>
                    
                 </div>
@@ -664,7 +666,13 @@
 	   data.huabei = $("#sk_is_useTokio").is(':checked') ? 1 : 0;
 	   data.shaitu = $("#sk_no_appraise_chart").is(':checked') ? 1 : 0;
 	   data.wangwang = $("#sk_no_contact_chat").is(':checked') ? 1 : 0;
-	   
+	   //货比三家
+	   var ishbsj = $("#ishbsj").is(':checked') ? 1 : 0;
+	   if(ishbsj == 1){
+		   var hbsj = {tkl1:$("#TKL1").val(),tkl2:$("#TKL2").val(),tkl3:$("#TKL3").val()};
+		   data.hbsj =  JSON.stringify(hbsj);
+	   }	   
+
 	   //图片
 	   var tplist = [];
 	   var imgs = $("#img-con").children();
@@ -776,6 +784,13 @@
 			   $("#sk_is_useTokio").prop('checked', data.huabei == 1);
 			   $("#sk_no_appraise_chart").prop('checked', data.shaitu == 1);
 			   $("#sk_no_contact_chat").prop('checked', data.wangwang == 1);
+			   
+			   if(data.hbsj){
+				   $("#ishbsj").prop('checked', true);
+				   $("#TKL1").val(data.hbsj.tkl1);
+				   $("#TKL2").val(data.hbsj.tkl2);
+				   $("#TKL3").val(data.hbsj.tkl3);
+			   }	
 			   
 			   // 图片列表
 			   var tplist = data.tplist;

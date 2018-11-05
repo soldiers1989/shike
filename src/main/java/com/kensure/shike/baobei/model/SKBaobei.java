@@ -150,6 +150,9 @@ public class SKBaobei extends BaseInfo {
 
 	/** 宝贝任务 */
 	private List<SKBbrw> bbrwlist;
+	
+	/** 货比三家 */
+	private SKHbsj hbsj;
 
 	public Long getId() {
 		return id;
@@ -491,6 +494,14 @@ public class SKBaobei extends BaseInfo {
 
 	public void setTuikuan(Double tuikuan) {
 		this.tuikuan = tuikuan;
+	}
+
+	public SKHbsj getHbsj() {
+		return hbsj;
+	}
+
+	public void setHbsj(SKHbsj hbsj) {
+		this.hbsj = hbsj;
 	}
 
 }

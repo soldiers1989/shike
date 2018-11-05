@@ -41,6 +41,7 @@ import com.kensure.shike.baobei.model.SKBaobeiTP;
 import com.kensure.shike.baobei.model.SKBaobeiZT;
 import com.kensure.shike.baobei.model.SKBbrw;
 import com.kensure.shike.baobei.model.SKGroupStatus;
+import com.kensure.shike.baobei.model.SKHbsj;
 import com.kensure.shike.baobei.model.SKJindian;
 import com.kensure.shike.baobei.model.SKJysj;
 import com.kensure.shike.baobei.model.SKPayInfo;
@@ -99,6 +100,9 @@ public class SKBaobeiService extends JSBaseService {
 
 	@Resource
 	private SKJysjService sKJysjService;
+	
+	@Resource
+	private SKHbsjService sKHbsjService;
 
 	public SKBaobei selectOne(Long id) {
 		return dao.selectOne(id);
@@ -146,6 +150,9 @@ public class SKBaobeiService extends JSBaseService {
 		obj.setYingshou(0D);
 		obj.setShishou(0D);
 		obj.setTuikuan(0D);
+		if (obj.getJiangli() == null) {
+			obj.setJiangli(0D);
+		}
 
 		return dao.insert(obj);
 	}
@@ -227,6 +234,14 @@ public class SKBaobeiService extends JSBaseService {
 		obj.setSqnum(sqnum);
 		// 校验金额
 		checkMoney(obj);
+		
+		//有没有增值服务
+		//货比三家
+		SKHbsj hbsj = obj.getHbsj();
+		if(hbsj != null){
+			obj.setZengzhi(1L);
+		}
+		
 		if (obj.getId() == null) {
 			this.insert(obj);
 		} else {
@@ -234,6 +249,11 @@ public class SKBaobeiService extends JSBaseService {
 				obj.setStatus(0L);
 			}
 			this.update(obj);
+		}
+		
+		if(hbsj != null){
+			hbsj.setId(obj.getId());
+			sKHbsjService.save(hbsj);
 		}
 
 		// 任务保存,并删除无效的旧数据
@@ -451,6 +471,9 @@ public class SKBaobeiService extends JSBaseService {
 		SKUser skuser = sKUserService.getUser();
 		SKUserService.checkUser(skuser);
 		SKBaobei sk = selectOne(id);
+		if(sk.getZengzhi()  != null && sk.getZengzhi() == 1){
+			sk.setHbsj(sKHbsjService.selectOne(id));
+		}
 		SKYingShou yingshou = new SKYingShou(sk);
 		return yingshou.getList();
 	}
@@ -465,6 +488,9 @@ public class SKBaobeiService extends JSBaseService {
 		for (SKBaobei bb : bblist) {
 			long id = bb.getId();
 			SKBaobei sk = selectOne(id);
+			if(sk.getZengzhi()  != null && sk.getZengzhi() == 1){
+				sk.setHbsj(sKHbsjService.selectOne(id));
+			}
 			SKYingShou yingshou = new SKYingShou(sk);
 			bb.setYingshou(yingshou.getLeiji().getXiaoji());
 			update(bb);
@@ -478,6 +504,9 @@ public class SKBaobeiService extends JSBaseService {
 	 */
 	public void setShiShouinfo(Long id) {
 		SKBaobei sk = selectOne(id);
+		if(sk.getZengzhi()  != null && sk.getZengzhi() == 1){
+			sk.setHbsj(sKHbsjService.selectOne(id));
+		}
 		double shishou = sk.getYingshou();
 		double tuikuan = 0D;
 		if (sk.getBbnum().compareTo(sk.getZjnum()) != 0) {
@@ -645,12 +674,15 @@ public class SKBaobeiService extends JSBaseService {
 		baobei.setJdlist(jdList);
 
 		// 关键词
-		List<SKWord> wordList = this.sKWordService.getList(id);
+		List<SKWord> wordList = sKWordService.getList(id);
 		baobei.setWordlist(wordList);
 
 		// 任务列表
-		List<SKBbrw> bbrwList = this.sKBbrwService.selectByWhere(MapUtils.genMap("bbid", id));
+		List<SKBbrw> bbrwList = sKBbrwService.selectByWhere(MapUtils.genMap("bbid", id));
 		baobei.setBbrwlist(bbrwList);
+		
+		//货币三家
+		baobei.setHbsj(sKHbsjService.selectOne(id));
 
 		return baobei;
 	}

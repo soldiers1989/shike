@@ -33,6 +33,9 @@ public class SKYingShou extends BaseInfo {
 
 	/** 计算天秤系统推荐费 */
 	private SKPayInfo tuijian;
+	
+	/** 货比三家增值费 */
+	private SKPayInfo hbsj;
 
 	/** 累计 */
 	private SKPayInfo leiji;
@@ -101,7 +104,18 @@ public class SKYingShou extends BaseInfo {
 		double xiaoji4 = 10.00D;
 		this.tuijian = new SKPayInfo("天秤系统推荐费", d4, xiaoji4);
 	}
-
+	/**
+	 * 货比三家
+	 * 
+	 * @param sk
+	 */
+	private void suanHbsj(SKBaobei sk) {
+		String d4 = "20元/次";
+		double xiaoji4 = 20.00D;
+		this.hbsj = new SKPayInfo("货比三家增值费", d4, xiaoji4);
+	}
+	
+	
 	/**
 	 * 设置宝贝应收
 	 * 
@@ -114,12 +128,22 @@ public class SKYingShou extends BaseInfo {
 		suanFuWuFei(sk);
 		suanDaShang(sk);
 		suanTuijian(sk);
-
+		if(sk.getZengzhi() == 1){
+			if(sk.getHbsj() != null){
+				suanHbsj(sk);
+			}	
+		}
+		
 		this.list.add(this.yajin);
 		this.list.add(this.shouxufei);
 		this.list.add(this.fuwufei);
 		this.list.add(this.dashang);
 		this.list.add(this.tuijian);
+		if(sk.getZengzhi() == 1){
+			if(sk.getHbsj() != null){
+				this.list.add(this.hbsj);
+			}	
+		}
 		double leiji = 0D;
 		for (SKPayInfo pi : this.list) {
 			leiji = ArithmeticUtils.add(pi.getXiaoji(), leiji);

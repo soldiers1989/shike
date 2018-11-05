@@ -40,6 +40,8 @@ public class RequestUtils {
 			String value = request.getParameter(paraName);
 			if(StringUtils.isNotBlank(value) && value.startsWith("[")){
 				json.put(paraName, JSONObject.parseArray(value));
+			}else if(StringUtils.isNotBlank(value) && value.startsWith("{")){
+				json.put(paraName, JSONObject.parseObject(value));
 			}else{
 				json.put(paraName, value);
 			}			

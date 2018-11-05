@@ -117,6 +117,7 @@ public class SKBaobeiController {
 		 * 
 		 * tplist 图片列表[{url:}] jdlist 进店路径[{typeid:,bili:}] wordlist
 		 * 关键字[{word:,ordermethod:}] bbrwlist 宝贝任务[{bbnum:,zhuanhua:,daydes:,}]
+		 * hbsj活笔三家:{tkl1:,tkl2:,tkl3}
 		 */
 		sKBaobeiService.saveBaoBei(obj);
 		return new ResultRowInfo();
