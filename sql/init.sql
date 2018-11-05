@@ -209,6 +209,16 @@ CREATE TABLE `sk_baobei` (
   PRIMARY KEY (`id`)
 );
 
+-- 货比三家
+CREATE TABLE `sk_hbsj` (
+  `id` bigint(20) NOT NULL COMMENT '主键',
+  `tkl1` varchar(512) DEFAULT NULL COMMENT '淘口令1',
+  `tkl2` varchar(512) DEFAULT NULL COMMENT '淘口令2',
+  `tkl3` varchar(512) DEFAULT NULL COMMENT '淘口令3',
+  `created_time` datetime NOT NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`)
+);
+
 -- 活动进店路径
 CREATE TABLE `sk_jindian` (
   `id` bigint(20) NOT NULL COMMENT '主键',
