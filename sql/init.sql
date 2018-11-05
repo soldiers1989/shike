@@ -7,6 +7,14 @@ CREATE TABLE `base_key` (
   PRIMARY KEY (`id`)
 ) ;
 
+-- 配置表
+CREATE TABLE `base_config` (
+  `id` varchar(64) NOT NULL,
+  `val` varchar(128) NOT NULL COMMENT '值',
+  `name` varchar(256) NOT NULL COMMENT '描述',
+  PRIMARY KEY (`id`)
+) ;
+
 -- 登录表
 CREATE TABLE `sk_login` (
   `id` bigint(20) NOT NULL COMMENT '主键',

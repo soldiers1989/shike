@@ -14,6 +14,7 @@ package com.kensure.shike.baobei.service;
 import co.kensure.exception.BusinessExceptionUtil;
 import co.kensure.frame.JSBaseService;
 import co.kensure.mem.*;
+
 import com.kensure.basekey.BaseKeyService;
 import com.kensure.shike.baobei.dao.SKSkqkDao;
 import com.kensure.shike.baobei.dao.SKSkqkLeftDao;
@@ -25,11 +26,13 @@ import com.kensure.shike.zhang.model.SKUserZhang;
 import com.kensure.shike.zhang.service.SKUserZhangService;
 import com.kensure.shike.zhang.service.SkUserFansService;
 import com.kensure.shike.zhang.service.SkUserJinbiService;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+
 import java.util.*;
 
 /**
@@ -70,6 +73,9 @@ public class SKSkqkService extends JSBaseService {
 
 	@Resource
 	private SkUserJinbiService skUserJinbiService;
+	
+	@Resource
+	private SKSkqkHelper sKSkqkHelper;
 
 	public SKSkqk selectOne(Long id) {
 		return dao.selectOne(id);
@@ -79,10 +85,6 @@ public class SKSkqkService extends JSBaseService {
 		return dao.selectByIds(ids);
 	}
 
-	public List<SKSkqk> selectAll() {
-		return dao.selectAll();
-	}
-
 	public List<SKSkqk> selectByWhere(Map<String, Object> parameters) {
 		return dao.selectByWhere(parameters);
 	}
@@ -90,6 +92,11 @@ public class SKSkqkService extends JSBaseService {
 	public long selectCount() {
 		return dao.selectCount();
 	}
+	
+	public boolean delete(Long id) {
+		return dao.delete(id);
+	}
+	
 
 	public long selectCountByWhere(Map<String, Object> parameters) {
 		return dao.selectCountByWhere(parameters);
@@ -132,74 +139,12 @@ public class SKSkqkService extends JSBaseService {
 	 * @return
 	 */
 	public boolean updateNextTime(Long id, Long status) {
-		SKSkqk sqqk = selectOne(id);
-		Date now = new Date();
-		Date nextTime = null;
-		// 需要计算时间了,21是带开奖状态，需要计算他下一次开奖时间
-		if (status.intValue() == 21) {
-			List<SKBbrw> list = sKBbrwService.selectByBBid(sqqk.getBbid());
-			if (CollectionUtils.isEmpty(list)) {
-
-			} else {
-				// 拿第一个就行了
-				SKBbrw skbbrw = list.get(0);
-				Date start = skbbrw.getStartTime();
-				Date D10 = DateUtils.getPastHour(start, 10);
-				Date D15 = DateUtils.getPastHour(start, 15);
-				Date D20 = DateUtils.getPastHour(start, 20);
-				Date D22 = DateUtils.getPastHour(start, 22);
-
-				if (skbbrw.getBbnum().longValue() > skbbrw.getYzj().longValue() && now.getTime() < D22.getTime()) {
-					if (now.getTime() < D10.getTime()) {
-						nextTime = D10;
-					} else if (now.getTime() < D15.getTime()) {
-						nextTime = D15;
-					} else if (now.getTime() < D20.getTime()) {
-						nextTime = D20;
-					} else if (now.getTime() < D22.getTime()) {
-						nextTime = D22;
-					}
-				} else if (list.size() > 1) {
-					skbbrw = list.get(1);
-					start = skbbrw.getStartTime();
-					nextTime = DateUtils.getPastHour(start, 10);
-				}
-			}
-		} else if (status.intValue() == 51) {
-			// 中奖之后，3个小时的下单时间，如果超过3个小时，取消中奖
-			nextTime = DateUtils.getPastHour(now, 3);
-		} else if (status.intValue() == 61) {
-			// 这个是好评时间，好评时间有10天
-			nextTime = DateUtils.getPastDay(now, 2);
-		} else if (status.intValue() == 71) {
-			// 这个是好评时间，好评时间有10天
-			nextTime = DateUtils.getPastDay(now, 10);
-		} else if (status.intValue() == 81) {
-			// 这个是返款时间，好评时间有2天
-			nextTime = DateUtils.getPastDay(now, 2);
-		}
-		if (nextTime != null) {
-			Map<String, Object> params = MapUtils.genMap("id", id, "nextTime", nextTime);
-			updateByMap(params);
-		}
-		return true;
+		return sKSkqkHelper.updateNextTime(id, status);
 	}
 
 	public boolean updateByMap(Map<String, Object> params) {
 		params.put("updatedTime", new Date());
 		return dao.updateByMap(params);
-	}
-
-	public boolean delete(Long id) {
-		return dao.delete(id);
-	}
-
-	public boolean deleteMulti(Collection<Long> ids) {
-		return dao.deleteMulti(ids);
-	}
-
-	public boolean deleteByWhere(Map<String, Object> parameters) {
-		return dao.deleteByWhere(parameters);
 	}
 
 	public SKSkqk getQkByBBId(long bbid, long userid) {
@@ -335,6 +280,9 @@ public class SKSkqkService extends JSBaseService {
 		if (qk.getStatus() >= status) {
 			BusinessExceptionUtil.threwException("数据有误！");
 		}
+		if (qk.getStatus() < 0) {
+			BusinessExceptionUtil.threwException("错误操作！");
+		}
 		updateStatus(qk.getId(), status);
 		return true;
 	}
@@ -438,11 +386,6 @@ public class SKSkqkService extends JSBaseService {
 		}
 	}
 
-	// /**
-	// * 试客返款的时候，增加的队列,防止重复返款
-	// */
-	// private Map<String,String> fankuanqk = new HashMap<String, String>();
-
 	/**
 	 * 确认返款，进行余额流水增加
 	 * 
@@ -536,7 +479,32 @@ public class SKSkqkService extends JSBaseService {
 			updateStatus(skqk.getId(), -2L);
 		}
 	}
+		
+	/**
+	 * 挂起某个申请
+	 * @param id 申请id
+	 */
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+	public void hump(long id) {
+		SKSkqk sqqk = selectOne(id);
+		if(sqqk.getStatus() >= 99){
+			BusinessExceptionUtil.threwException("已经返款的申请无法挂起");
+		}
+		updateStatus(id, -3L);
+	}
 	
+	/**
+	 * 取消 某个申请的挂起
+	 * @param id 申请id
+	 */
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+	public void unhump(long id) {
+		SKSkqk sqqk = selectOne(id);
+		if(sqqk.getStatus() != -3){
+			BusinessExceptionUtil.threwException("该申请没有挂起，无法取消");
+		}
+		updateStatus(id, sqqk.getLastStatus());
+	}
 	
 	/**
 	 * 取消一些结束活动的申请的数据

@@ -363,7 +363,7 @@ public class SKBbrwService extends JSBaseService {
 				long bbid = skqk.getBbid();
 				SKUser user = sKUserService.selectOne(uid);
 				SKBaobei baobei = sKBaobeiService.selectOne(bbid);
-				SMSClient.sendZhongJiang(user.getPhone(), baobei.getTitle(), "3小时");
+				SMSClient.sendZhongJiang(user.getPhone(), baobei.getTitle(), "2小时");
 				sKZjqkService.commit(zjqk);
 			} catch (Exception e) {
 				e.printStackTrace();

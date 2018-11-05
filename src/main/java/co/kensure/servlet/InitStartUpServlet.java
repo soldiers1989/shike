@@ -21,6 +21,7 @@ import co.kensure.frame.Const;
 import co.kensure.time.MyTimer;
 import co.kensure.time.MyTimerTasker;
 
+import com.kensure.mycom.config.service.MyConfigService;
 import com.kensure.shike.sys.service.SKDictService;
 
 /**
@@ -59,10 +60,9 @@ public class InitStartUpServlet extends HttpServlet {
 
 		ApiUtil.init();
 		
-//		//初始化w_config
-//		MyConfigService myConfigService = (MyConfigService)ServiceUtil.getBean(MyConfigService.class);
-//		myConfigService.initCache();
-//		Const.ROOT_URL = MyConfigService.getMyConfig("root_url").getName();
+		//初始化w_config
+		MyConfigService myConfigService = (MyConfigService)ServiceUtil.getBean(MyConfigService.class);
+		myConfigService.initCache();
 
 		// 启动一些定时器守护线程
 		try {

@@ -103,4 +103,16 @@ public class SKSkqkController {
 		List<SKZjqk> zjqk = sKZjqkService.selectByBbid(id);
 		return new ResultRowsInfo(zjqk);
 	}
+	
+	/**
+	 * 商家让某个申请挂起
+	 */
+	@ResponseBody
+	@RequestMapping(value = "hump.do", method = { RequestMethod.POST }, produces = "application/json;charset=UTF-8")
+	public ResultInfo hump(HttpServletRequest req, HttpServletResponse rep) {
+		JSONObject json = RequestUtils.paramToJson(req);
+		Long id = json.getLong("id");
+		List<SKZjqk> zjqk = sKZjqkService.selectByBbid(id);
+		return new ResultRowsInfo(zjqk);
+	}
 }
