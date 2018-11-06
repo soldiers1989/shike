@@ -189,15 +189,19 @@ public class GLPageController {
 
 	// 跳转到淘宝详情页面
 	@RequestMapping("xiangqing")
-	public void xiangqing(HttpServletRequest req, HttpServletResponse rep) {
-		try {
-			Long id = NumberUtils.parseLong(req.getParameter("id"), null);
-			SKBaobei bb = sKBaobeiService.selectOne(id);
-			String itemid = TaoBaoService.getContentId(bb.getUrl());
-			rep.sendRedirect("http://hws.m.taobao.com/cache/wdesc/5.0/?id=" + itemid);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	public String xiangqing(HttpServletRequest req, HttpServletResponse rep) {
+		req.setAttribute("index", indexlist);
+		List<String> body = new ArrayList<String>();
+		body.add("indexht_left.jsp");
+		body.add("taobao_right.jsp");
+		req.setAttribute("bodypage", body);
+		
+		Long id = NumberUtils.parseLong(req.getParameter("id"), null);
+		SKBaobei bb = sKBaobeiService.selectOne(id);
+		String itemid = TaoBaoService.getContentId(bb.getUrl());
+		req.setAttribute("id", req.getParameter("id"));
+		req.setAttribute("itemid", itemid);
+		return "page/shangjia/index.jsp";
 	}
 
 	// 试客活动列表

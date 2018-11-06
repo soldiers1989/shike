@@ -472,5 +472,20 @@ public class SKBaobeiController {
 		sKBaobeiService.addsqs(id, sqs);
 		return new ResultRowInfo(id);
 	}
+	
+	/**
+	 * 增加详情
+	 */
+	@ResponseBody
+	@RequestMapping(value = "savebody.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	public ResultInfo savebody(HttpServletRequest req, HttpServletResponse rep) {
+		JSONObject json = RequestUtils.paramToJson(req);
+		Long id = json.getLong("id");
+		String body = json.getString("body");
+		sKBaobeiService.saveBody(id, body);
+		return new ResultRowInfo(id);
+	}
+	
+	
 
 }

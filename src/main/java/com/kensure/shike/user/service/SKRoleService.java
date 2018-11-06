@@ -102,7 +102,7 @@ public class SKRoleService extends JSBaseService{
      * @return
      */
     public SKRole selectRoleByCode(String code){
-    	Map<String, Object> parameters = MapUtils.genMap("level_code",code);
+    	Map<String, Object> parameters = MapUtils.genMap("levelCode",code);
     	List<SKRole> list = selectByWhere(parameters);
     	SKRole role = null;
     	if(CollectionUtils.isNotEmpty(list)){

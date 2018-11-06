@@ -145,7 +145,18 @@ public class SKJysjService extends JSBaseService{
      */
     private void checkJysj(List<SKJysj> jysjList,Long status,SKBaobei baobei,SKUser user){
     	int size = CollectionUtils.getSize(jysjList);
-    	if(status == 18){
+    	if(status == 11){
+    		//货比三家
+    		for(SKJysj jysj:jysjList){
+    			jysj.setStatus(status);
+        		jysj.setBbid(baobei.getId());
+        		jysj.setUserid(user.getId());
+        		jysj.setTypeid(1L);
+        		if(StringUtils.isBlank(jysj.getContent())){
+        			BusinessExceptionUtil.threwException("请添加淘口令");
+        		}	
+    		}
+    	}else if(status == 18){
     		//加购物车
     		SKJysj jysj = jysjList.get(0);
     		jysj.setStatus(status);

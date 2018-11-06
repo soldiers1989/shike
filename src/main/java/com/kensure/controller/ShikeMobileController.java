@@ -201,14 +201,14 @@ public class ShikeMobileController {
 		
 		//加购物车
 		if(status<18){
+			List<SKWord> words = sKWordService.getList(id);
+			List<SKJindian> jindians = sKJindianService.getList(id);
+			req.setAttribute("words", words);
+			req.setAttribute("jindians", jindians);
 			//货比三家
 			if(status < 11 && baobei.getHbsj() != null ){
 				return "page/mobile/liucheng/hbsj.jsp";
-			}else{
-				List<SKWord> words = sKWordService.getList(id);
-				List<SKJindian> jindians = sKJindianService.getList(id);
-				req.setAttribute("words", words);
-				req.setAttribute("jindians", jindians);
+			}else{		
 				return "page/mobile/liucheng/gouwuche.jsp";
 			}		
 		}else if(status == 18){

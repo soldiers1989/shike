@@ -325,6 +325,11 @@ public class SKBaobeiService extends JSBaseService {
 
 	private void saveContent(long bbid, String url) {
 		// 宝贝详情
+		SKBaobeiZT one = sKBaobeiZTService.selectOne(bbid);
+		if(one != null){
+			return;
+		}
+		
 		SKBaobeiZT zt = new SKBaobeiZT();
 		zt.setUrl(url);
 		String content = TaoBaoService.getContent(url);
@@ -334,6 +339,22 @@ public class SKBaobeiService extends JSBaseService {
 			this.sKBaobeiZTService.insert(zt);
 		} else {
 			this.sKBaobeiZTService.update(zt);
+		}
+	}
+	
+	public void saveBody(long bbid, String body) {
+		// 宝贝详情
+		SKBaobeiZT one = sKBaobeiZTService.selectOne(bbid);
+		SKBaobei bb = selectOne(bbid);	
+		SKBaobeiZT zt = new SKBaobeiZT();
+		zt.setUrl(bb.getUrl());
+		String content = TaoBaoService.parseBody(body);
+		zt.setBbid(bbid);
+		zt.setContent(content);
+		if(one != null){
+			this.sKBaobeiZTService.update(zt);
+		}else {
+			this.sKBaobeiZTService.insert(zt);
 		}
 	}
 

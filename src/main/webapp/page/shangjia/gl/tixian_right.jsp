@@ -28,8 +28,8 @@
   
         <span style="float:none;">流程状态</span>
         <select id="sktype" style="width:auto;">
-            <option value="" selected="selected">全部</option>
-                <option value="1">未审核</option>
+                <option value="" >全部</option>
+                <option value="1" selected="selected">未审核</option>
                 <option value="9">已审核</option>
         </select>
         <input onclick="chongzhilist()" type="button" value="搜索">
@@ -38,9 +38,12 @@
     <div class="huodong">
         <div class="huodong_main" style="text-align: center">
             <table width="1000" border="1" cellpadding="0" id="listtable" cellspacing="0" bordercolor="#dadada">
-                <tbody>
-               
-            </tbody></table>
+               <thead>
+        
+   		 	</thead>
+             <tbody>
+                
+          	</tbody></table>
         </div>
     </div>
     <!--page-->
@@ -50,51 +53,48 @@
             </div>
 
 <script>
-var theadtds = [{w:50,na:"序号"},{w:200,na:"提现时间"},{w:100,na:"提现支付宝"},{w:100,na:"提现金额"},{w:100,na:"提现手续费"}
-,{w:100,na:"到账金额"},{w:100,na:"提现状态"},{w:100,na:"用户手机"},{w:100,na:"用户类型"},{w:100,na:"真实姓名"},{w:100,na:"操作"}];
 
+var table = createtable("listtable");
+var optfun = function(row){
+	var tdinner = "";
+    if(row.status == 1){              	
+    	tdinner+="<input type='button' value='通过' onclick='tongguo("+row.id+")'";  
+    }
+	return tdinner;
+}
+
+table.th =  [{w:100,na:"提款编号",colname:"id"}
+,{w:200,na:"提现时间",colname:"createdTimeStr"}
+,{w:100,na:"提现支付宝",colname:"jiaoyihao"}
+,{w:100,na:"提现金额",colname:"jine"}
+,{w:100,na:"提现手续费",colname:"shouxufei"}
+,{w:100,na:"到账金额",colname:"daozhang"}
+,{w:100,na:"提现状态",colname:"statusStr"}
+,{w:100,na:"用户手机",colname:"user.phone"}
+,{w:100,na:"用户类型",colname:"user.typeStr"}
+,{w:100,na:"真实姓名",colname:"realname"}
+,{w:100,na:"操作",callfun:optfun}];
+table.thinit();
 	function sucdo(data){
-		$("#listtable").html("");
-		var theadhtml = "<tr class='trhead'>";     
-		for(var i=0;i<theadtds.length;i++){
-			var row = theadtds[i];
-			theadhtml += "<td width='"+row.w+"'>";
-			theadhtml += "<strong>"+row.na+"</strong>";
-			theadhtml += "</td>";      
-		}
-		theadhtml += "</tr>";
-		$("#listtable").append(theadhtml);
-		
 		var rows = data.resultData.rows;
-		if(rows){
-		
+		if(rows){	
 			for(var i=0;i<rows.length;i++){
 				var row = rows[i];
 				var bei = 6;
 				if(row.user.type == 2){
 					bei = 1;
-				}
-			
+				}		
 				var shouxufei = (row.jine*bei/100).toFixed(2);
 			    if(shouxufei<1){
 				   shouxufei = 1;
 			    }
 			   var daozhang = row.jine-shouxufei;
-				var html = "<tr class='trbody'><td>"+row.id+"</td>";
-				html+="<td>"+row.createdTimeStr+"</td>";
-				html+="<td>"+row.jiaoyihao+"</td>";
-				html+="<td>"+row.jine+"</td>";
-				html+="<td>"+shouxufei+"</td>";
-				html+="<td>"+daozhang+"</td>";
-				html+="<td>"+row.statusStr+"</td>";
-				html+="<td>"+row.user.phone+"</td>";
-				html+="<td>"+row.user.typeStr+"</td>";
-				html+="<td>"+row.realname+"</td>";
-				html+="<td><input type='button' value='通过' onclick='tongguo("+row.id+")'</td>";
-				html+="</tr>";
-				$("#listtable").append(html);
-			}
+			   row.shouxufei = shouxufei;
+			   row.daozhang = daozhang;
+			}		
 		}
+		table.data = rows;
+		table.tdinit();		
 		
 	}
 
@@ -108,9 +108,13 @@ var theadtds = [{w:50,na:"序号"},{w:200,na:"提现时间"},{w:100,na:"提现�
 	   if(confirm('确认通过？')){
 		   var data = {id:id};
 		   var url = "<%=BusiConstant.ht_tongguoout_do.getKey()%>";
-		   postdo(url, data, null,null, null);
+		   postdo(url, data, tgsucdo,null, null);
 	   }
    }
+   function tgsucdo(data){
+	   chongzhilist();
+   }
+   
    chongzhilist();
    
 </script>

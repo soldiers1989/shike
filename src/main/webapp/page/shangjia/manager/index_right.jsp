@@ -448,7 +448,21 @@
                     </div>
                    
                    
-                   	<div class="fold">
+                   
+                   
+                </div>
+              
+            </div>
+
+ 		<div class="slide-item">
+                <div class="l-title">
+                    <span>1</span>增值服务
+                    <em class="open-slide">修改</em> <i class="iconfont icon-zhengque"></i>
+                </div>
+
+                <div class="key-word">
+
+                    	<div class="fold">
                         <div class="f-title">
                             <input type="checkbox" id="ishbsj"> <span>货比三家,一次活动增值费20元</span>
                             <i class="iconfont icon-Toboottom"></i>
@@ -456,15 +470,14 @@
                         </div>
                         <p class="f-warn">
                             <span class="sj"></span>
-                          	 商品链接1:<input type="text" id="TKL1" style="width:700px;" value="">   	
+                          	试客根据商家提供的关键字，浏览三个同类商品。  	
                         </p>
-                        <p class="f-warn">商品链接2:<input type="text" id="TKL2" style="width:700px;" value=""></p>
-                        <p class="f-warn">商品链接3:<input type="text" id="TKL3" style="width:700px;" value=""></p>
-                    </div>
-                   
+
+                    	</div>
+ 
                 </div>
-              
-            </div>
+
+
 
           
             <div class="slide-item">
@@ -669,7 +682,7 @@
 	   //货比三家
 	   var ishbsj = $("#ishbsj").is(':checked') ? 1 : 0;
 	   if(ishbsj == 1){
-		   var hbsj = {tkl1:$("#TKL1").val(),tkl2:$("#TKL2").val(),tkl3:$("#TKL3").val()};
+		   var hbsj = {tkl1:"",tkl2:"",tkl3:""};
 		   data.hbsj =  JSON.stringify(hbsj);
 	   }	   
 
@@ -787,9 +800,6 @@
 			   
 			   if(data.hbsj){
 				   $("#ishbsj").prop('checked', true);
-				   $("#TKL1").val(data.hbsj.tkl1);
-				   $("#TKL2").val(data.hbsj.tkl2);
-				   $("#TKL3").val(data.hbsj.tkl3);
 			   }	
 			   
 			   // 图片列表

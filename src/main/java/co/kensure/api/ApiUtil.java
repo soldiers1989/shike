@@ -41,8 +41,7 @@ public class ApiUtil {
 	}
 	
 	public static String getUrl(String key) {
-		ApiDesc api = apiMap.get(key);
-		String url = BusiConstant.context+api.getKey();
+		String url = BusiConstant.context+key;
 		return url;
 	}
 	
