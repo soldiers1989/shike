@@ -74,7 +74,6 @@ public class ShikeMobileController {
 	// 首页
 	@RequestMapping("index")
 	public String index(HttpServletRequest req, HttpServletResponse rep, Model model) {
-
 		// 首页轮播
 		List<SKCMS> banner = sKCMSService.selectByTypeId(6);
 		req.setAttribute("banner", banner);
@@ -202,11 +201,16 @@ public class ShikeMobileController {
 		
 		//加购物车
 		if(status<18){
-			List<SKWord> words = sKWordService.getList(id);
-			List<SKJindian> jindians = sKJindianService.getList(id);
-			req.setAttribute("words", words);
-			req.setAttribute("jindians", jindians);
-			return "page/mobile/liucheng/gouwuche.jsp";
+			//货比三家
+			if(status < 11 && baobei.getHbsj() != null ){
+				return "page/mobile/liucheng/hbsj.jsp";
+			}else{
+				List<SKWord> words = sKWordService.getList(id);
+				List<SKJindian> jindians = sKJindianService.getList(id);
+				req.setAttribute("words", words);
+				req.setAttribute("jindians", jindians);
+				return "page/mobile/liucheng/gouwuche.jsp";
+			}		
 		}else if(status == 18){
 			//收藏关注
 			return "page/mobile/liucheng/scgz.jsp";

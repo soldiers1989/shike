@@ -645,7 +645,7 @@ public class SKBaobeiService extends JSBaseService {
 	}
 
 	/**
-	 * 试客查看一个活动的详情 包括三张从表
+	 * 试客查看一个活动的详情 包括三张从表,还有增值服务
 	 * 
 	 * @return
 	 */
@@ -658,6 +658,9 @@ public class SKBaobeiService extends JSBaseService {
 		skbaobei.setTplist(tplist);
 		skbaobei.setXiangqing(detail);
 		skbaobei.setDpname(dianp.getName());
+		if(skbaobei.getZengzhi()  != null && skbaobei.getZengzhi() == 1){
+			skbaobei.setHbsj(sKHbsjService.selectOne(id));
+		}
 		return skbaobei;
 	}
 

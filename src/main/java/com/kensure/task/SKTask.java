@@ -56,7 +56,6 @@ public class SKTask {
 	@Scheduled(cron = "0 0 15 1/1 * ?")
 	public void choujiang2() {
 		try {
-
 			sKBbrwService.doChouJiang(false);
 		} catch (Throwable e) {
 			e.printStackTrace();
