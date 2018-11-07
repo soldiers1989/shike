@@ -437,6 +437,19 @@ public class SKSkqkService extends JSBaseService {
 		List<SKSkqk> list = selectByWhere(parameters);
 		return list;
 	}
+	
+	/**
+	 * 获取宝贝挂起的申请
+	 * 
+	 * @param bbid
+	 * @param userid
+	 * @return
+	 */
+	public List<SKSkqk> getHumpList(long bbid) {
+		Map<String, Object> parameters = MapUtils.genMap("bbid", bbid, "status", -3);
+		List<SKSkqk> list = selectByWhere(parameters);
+		return list;
+	}
 
 	/**
 	 * 取消一些申请的数据
@@ -516,7 +529,7 @@ public class SKSkqkService extends JSBaseService {
 	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
 	public void endquxiao(long bbid) {
 		// 先处理0-51状态的数据
-		Map<String, Object> parameters = MapUtils.genMap("bbid",bbid,"lessthanstatus", 50);
+		Map<String, Object> parameters = MapUtils.genMap("bbid",bbid,"lessthanstatus", 50,"bigthanstatus",0);
 		List<SKSkqk> list = selectByWhere(parameters);
 		for (SKSkqk skqk : list) {
 			// 自动取消

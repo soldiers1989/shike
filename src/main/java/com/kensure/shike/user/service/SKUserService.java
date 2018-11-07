@@ -415,17 +415,17 @@ public class SKUserService extends JSBaseService {
 	/**
 	 * 更新支付宝账号
 	 */
-	public void updateAlipay(String noAlipay, String alipayImg) {
+	public void updateAlipay(String noAlipay, String realname) {
 		SKUser skuser = getUser();
 		SKUserService.checkUserSK(skuser);
 
 		ParamUtils.isBlankThrewException(noAlipay, "支付宝账户不能为空");
-		ParamUtils.isBlankThrewException(noAlipay, "支付宝截图不能为空");
+		ParamUtils.isBlankThrewException(realname, "支付宝实名不能为空");
 
 		SKUser user = new SKUser();
 		user.setId(skuser.getId());
 		user.setNoAlipay(noAlipay);
-		user.setAlipayImg(alipayImg);
+		user.setRealname(realname);
 		update(user);
 	}
 

@@ -99,6 +99,11 @@
                class="auto-input it lf" type="text" placeholder="请填写支付宝账号" datatype="*" maxlength="50">
         <%--<span class="Validform_checktip"></span>--%>
     </section>
+      <section class="clearfix">
+        <input id="realname" style="width: 100%" name="realname" value="${user.realname}"
+               class="auto-input it lf" type="text" placeholder="请填写支付宝真实姓名" datatype="*" maxlength="50">
+        <%--<span class="Validform_checktip"></span>--%>
+    </section>
    
     <section class="auto-btn" id="PayBtnSubmit">提交</section>
 </div>
@@ -167,7 +172,7 @@
     })
 
     function updateAlipay(){
-        var data = {noAlipay: $("#noAlipay").val(), alipayImg: $('.alipay-img').data("src"), type: 2};
+        var data = {noAlipay: $("#noAlipay").val(), realname: $('#realname').val(), type: 2};
         var url = "<%=BusiConstant.shike_user_update_do.getKey()%>";
         postdo(url, data, huodongsucdo,null, null);
     }

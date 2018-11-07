@@ -221,8 +221,8 @@ public class SKUserController {
 		// 修改支付宝账号
 		else if ("2".equals(type)) {
 			String noAlipay = json.getString("noAlipay");
-			String alipayImg = json.getString("alipayImg");
-			sKUserService.updateAlipay(noAlipay, alipayImg);
+			String realname = json.getString("realname");
+			sKUserService.updateAlipay(noAlipay, realname);
 		}
 		// 修改淘宝账号
 		else if ("3".equals(type)) {

@@ -853,16 +853,20 @@ public class SKBaobeiService extends JSBaseService {
 		}
 		// 修改状态
 		for (SKBaobei bb : list) {
+			//有未完成和挂起的，都不结算
 			List<SKSkqk> sqlist = sKSkqkService.getWaitList(bb.getId());
+			if (CollectionUtils.isNotEmpty(sqlist)) {
+				continue;
+			}
+			sqlist = sKSkqkService.getHumpList(bb.getId());
 			if (CollectionUtils.isNotEmpty(sqlist)) {
 				continue;
 			}
 			bb.setStatus(20L);
 			Map<String, Object> params = MapUtils.genMap("id", bb.getId(), "status", 20);
 			updateByMap(params);
-		}
-		// 设置实收和返款,如果活动未达到预期目的，需要退款
-		for (SKBaobei bb : list) {
+			
+			// 设置实收和返款,如果活动未达到预期目的，需要退款
 			setShiShouinfo(bb.getId());
 		}
 	}

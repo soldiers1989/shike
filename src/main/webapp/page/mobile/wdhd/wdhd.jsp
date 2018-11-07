@@ -415,6 +415,7 @@
         <li class="<c:if test="${status == '51'}">act</c:if>"><a href="<%=BusiConstant.shike_wdhd.getKey() %>?status=51">中奖了</a></li>
         <%--<li class=""><a href="http://aa/JPinShopIssue/List?type=5">可恢复<span>0</span></a></li>--%>
         <li class="<c:if test="${status == '99'}">act</c:if>"><a href="<%=BusiConstant.shike_wdhd.getKey() %>?status=99">已返款</a></li>
+        <li class="<c:if test="${status == '-3'}">act</c:if>"><a href="<%=BusiConstant.shike_wdhd.getKey() %>?status=-3">已驳回</a></li>
         <li class="<c:if test="${status == '-2'}">act</c:if>"><a href="<%=BusiConstant.shike_wdhd.getKey() %>?status=-2">已取消</a></li>
 
     </ul>
