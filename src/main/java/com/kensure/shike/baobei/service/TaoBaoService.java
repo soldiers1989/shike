@@ -15,6 +15,7 @@ import co.kensure.frame.JSBaseService;
 import co.kensure.http.HttpUtils;
 
 import com.alibaba.fastjson.JSONObject;
+import com.kensure.mycom.config.service.MyConfigService;
 import com.taobao.api.ApiException;
 import com.taobao.api.DefaultTaobaoClient;
 import com.taobao.api.TaobaoClient;
@@ -111,13 +112,10 @@ public class TaoBaoService extends JSBaseService {
 		return id;
 	}
 
-	// 买来的淘客
-	private final static String appkey = "23615464";
-	private final static String appsecret = "d36f4fd1644696927465a60322f367bc";
-
 	// 解析淘口令,获取taobao商品id
 	public static String parseTKL(String TKL) {
-		TaobaoClient client = new DefaultTaobaoClient("http://gw.api.taobao.com/router/rest", appkey, appsecret);
+		TaobaoClient client = new DefaultTaobaoClient("http://gw.api.taobao.com/router/rest", 
+				MyConfigService.getMyConfig("taobao_appkey").getVal(), MyConfigService.getMyConfig("taobao_appsecret").getVal());
 		WirelessShareTpwdQueryRequest req = new WirelessShareTpwdQueryRequest();
 		req.setPasswordContent(TKL);
 		WirelessShareTpwdQueryResponse rsp;
@@ -147,7 +145,8 @@ public class TaoBaoService extends JSBaseService {
 
 	// 根据url生成淘口令
 	public static String encodeTKL(String url) {
-		TaobaoClient client = new DefaultTaobaoClient("http://gw.api.taobao.com/router/rest", appkey, appsecret);
+		TaobaoClient client = new DefaultTaobaoClient("http://gw.api.taobao.com/router/rest", 
+				MyConfigService.getMyConfig("taobao_appkey").getVal(), MyConfigService.getMyConfig("taobao_appsecret").getVal());
 		WirelessShareTpwdCreateRequest req = new WirelessShareTpwdCreateRequest();
 		GenPwdIsvParamDto dto = new GenPwdIsvParamDto();
 		dto.setUrl(url);
