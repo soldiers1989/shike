@@ -54,9 +54,22 @@ public class SKDianPuController {
 	@ResponseBody
 	@RequestMapping(value = "list.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
 	public ResultInfo list(HttpServletRequest req, HttpServletResponse rep) {
-		List<SKDianPu> list = sKDianPuService.getList();
+		JSONObject json = RequestUtils.paramToJson(req);
+		Long status = json.getLong("status");
+		List<SKDianPu> list = sKDianPuService.getList(status);
 		return new ResultRowsInfo(list);
 	}
 	
+	/**
+	 * 店铺通过审核
+	 */
+	@ResponseBody
+	@RequestMapping(value = "gongguo.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	public ResultInfo gongguo(HttpServletRequest req, HttpServletResponse rep) {
+		JSONObject json = RequestUtils.paramToJson(req);
+		Long id = json.getLong("id");
+		sKDianPuService.tongguo(id);
+		return new ResultRowInfo();
+	}
 
 }

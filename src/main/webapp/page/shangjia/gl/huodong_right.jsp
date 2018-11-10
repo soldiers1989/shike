@@ -195,12 +195,17 @@
 		return tdinner;
 	}
 	
-	table.th = [{w:50,na:"序号",colname:"id"}
+	var dianpufun = function(row){
+		var tdinner = row.dianpu.name+"("+row.dianpu.statusStr+")";
+		return tdinner;
+	}
+	
+	table.th = [{w:50,na:"编号",colname:"id"}
 	,{w:270,na:"活动名称",callfun:titlefun}
 	,{w:100,na:"开始时间",colname:"startTimeStr"}
 	,{w:100,na:"结束时间",colname:"endTimeStr"}
 	,{w:100,na:"商家名称",colname:"userName"}
-	,{w:100,na:"店铺名称",colname:"dpname"}
+	,{w:100,na:"店铺名称",callfun:dianpufun}
 	,{w:100,na:"宝贝单价",colname:"salePrice"}
 	,{w:100,na:"产品数量",colname:"bbnum"}
 	,{w:100,na:"中奖数量",colname:"zjnum"}

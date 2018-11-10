@@ -139,20 +139,36 @@ public class SKDianPuService extends JSBaseService {
 		insert(obj);
 		return true;
 	}
+	
+	
+	/**
+	 * 新增店铺
+	 * 
+	 * @return
+	 */
+	public boolean tongguo(Long id) {
+		SKDianPu one = selectOne(id);
+		one.setStatus(9L);
+		update(one);
+		return true;
+	}
 
 	/**
 	 * 根据用户获取店铺记录
 	 * 
 	 * @return
 	 */
-	public List<SKDianPu> getList() {
+	public List<SKDianPu> getList(Long status) {
 		SKUser skuser = sKUserService.getUser();
 		SKUserService.checkUser(skuser);
 		List<SKDianPu> list = null;
 		if (skuser.getType() == 3) {
-			list = getAllList();
+			list = getAllList(status);
 		} else {
-			Map<String, Object> parameters = MapUtils.genMap("userid", skuser.getId(), "status", 0L, "orderby", "created_time");
+			Map<String, Object> parameters = MapUtils.genMap("userid", skuser.getId(), "orderby", "created_time");
+			if(status != null){
+				parameters.put("status", status);
+			}
 			list = selectByWhere(parameters);
 		}
 		return list;
@@ -163,8 +179,11 @@ public class SKDianPuService extends JSBaseService {
 	 * 
 	 * @return
 	 */
-	public List<SKDianPu> getAllList() {
+	public List<SKDianPu> getAllList(Long status) {
 		Map<String, Object> parameters = MapUtils.genMap("orderby", "created_time desc");
+		if(status != null){
+			parameters.put("status", status);
+		}
 		List<SKDianPu> list = selectByWhere(parameters);
 		for(SKDianPu dp:list){
 			SKUser u = sKUserService.selectOne(dp.getUserid());

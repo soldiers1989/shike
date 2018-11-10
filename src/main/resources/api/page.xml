@@ -67,7 +67,7 @@
 	<api key="/gl/sjlist" name="商家列表" auth="admin" type="get" />
 	<api key="/gl/dplist" name="店铺列表" auth="admin" type="get" />
 	<api key="/gl/sklist" name="试客列表" auth="admin" type="get" />
-	<api key="/gl/skqkdetail" name="试用详情" auth="admin" type="get" />
+	<api key="/gl/skqkdetail" name="试用详情" auth="all" type="get" />
 	<api key="/gl/zjqk" name="商品中奖情况" auth="admin" type="get" />
 
 	<api key="/gl/tixianlist" name="后台活动列表" auth="admin" type="get" />
@@ -132,7 +132,7 @@
 	<api key="/gl/skqklist" name="试客试用情况" auth="admin" type="get" />
 	
 	<api key="/skqk/list.do" name="试客试用情况" auth="admin" type="get" />
-	<api key="/skqk/getdetail.do" name="试用详情" auth="admin" type="get" />
+	<api key="/skqk/getdetail.do" name="试用详情" auth="all" type="get" />
 	<api key="/skqk/getbbrw.do" name="任务概览" auth="admin" type="get" />
 	<api key="/skqk/getzjqk.do" name="中奖情况概览" auth="admin" type="get" />
 	

@@ -107,6 +107,14 @@ public class SKDianPu extends BaseInfo{
 	public void setStatus(Long status) {
 		this.status = status;
 	}
+	
+	public String getStatusStr() {
+		String temp = "未审核";
+		if(status == 9){
+			temp = "已审核";
+		}
+		return temp;
+	}
 
 	public String getUserName() {
 		return userName;

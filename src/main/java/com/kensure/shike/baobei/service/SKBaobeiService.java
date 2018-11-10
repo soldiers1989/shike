@@ -49,6 +49,8 @@ import com.kensure.shike.baobei.model.SKShiShou;
 import com.kensure.shike.baobei.model.SKSkqk;
 import com.kensure.shike.baobei.model.SKWord;
 import com.kensure.shike.baobei.model.SKYingShou;
+import com.kensure.shike.baobei.query.SKBaobeiQuery;
+import com.kensure.shike.baobei.query.SKBaobeiQuery1;
 import com.kensure.shike.dianpu.model.SKDianPu;
 import com.kensure.shike.dianpu.service.SKDianPuService;
 import com.kensure.shike.user.model.SKUser;
@@ -150,6 +152,9 @@ public class SKBaobeiService extends JSBaseService {
 		obj.setYingshou(0D);
 		obj.setShishou(0D);
 		obj.setTuikuan(0D);
+		if (obj.getZengzhi() == null) {
+			obj.setZengzhi(0L);
+		}
 		if (obj.getJiangli() == null) {
 			obj.setJiangli(0D);
 		}
@@ -432,14 +437,15 @@ public class SKBaobeiService extends JSBaseService {
 	 * 
 	 * @return
 	 */
-	public List<SKBaobei> getList(Integer status, String title, Integer hdtypeid, PageInfo page) {
-		Map<String, Object> parameters = getListMapper(status, title, hdtypeid, page);
+	public List<SKBaobei> getList(SKBaobeiQuery query, PageInfo page) {
+		Map<String, Object> parameters = getListMapper(query, page);
 		List<SKBaobei> list = selectByWhere(parameters);
 		SKUser skuser = sKUserService.getUser();
 		if (skuser.getType() == 3 && CollectionUtils.isNotEmpty(list)) {
 			for (SKBaobei skbaobei : list) {
 				SKDianPu dianp = sKDianPuService.selectOne(skbaobei.getDpid());
 				SKUser user = sKUserService.selectOne(skbaobei.getUserid());
+				skbaobei.setDianpu(dianp);
 				skbaobei.setDpname(dianp.getName());
 				skbaobei.setUserName(user.getName());
 			}
@@ -452,8 +458,8 @@ public class SKBaobeiService extends JSBaseService {
 	 * 
 	 * @return
 	 */
-	public long getListCount(Integer status, String title, Integer hdtypeid, PageInfo page) {
-		Map<String, Object> parameters = getListMapper(status, title, hdtypeid, page);
+	public long getListCount(SKBaobeiQuery query, PageInfo page) {
+		Map<String, Object> parameters = getListMapper(query, page);
 		long count = selectCountByWhere(parameters);
 		return count;
 	}
@@ -463,21 +469,24 @@ public class SKBaobeiService extends JSBaseService {
 	 * 
 	 * @return
 	 */
-	private Map<String, Object> getListMapper(Integer status, String title, Integer hdtypeid, PageInfo page) {
+	private Map<String, Object> getListMapper(SKBaobeiQuery query, PageInfo page) {
 		SKUser skuser = sKUserService.getUser();
 		SKUserService.checkUser(skuser);
 		Map<String, Object> parameters = MapUtils.genMap("userid", skuser.getId(), "isDel", 0, "orderby", "created_time desc");
-		if (status != null) {
-			parameters.put("status", status);
+		if (query.getStatus() != null) {
+			parameters.put("status", query.getStatus());
 		}
 		if (skuser.getType() == 3) {
 			parameters.remove("userid");
 		}
-		if (StringUtils.isNotBlank(title)) {
-			parameters.put("titleLike", title);
+		if (StringUtils.isNotBlank(query.getTitle())) {
+			parameters.put("titleLike", query.getTitle());
 		}
-		if (hdtypeid != null) {
-			parameters.put("hdtypeid", hdtypeid);
+		if (query.getHdtypeid() != null) {
+			parameters.put("hdtypeid", query.getHdtypeid());
+		}
+		if (query.getJiangli() != null) {
+			parameters.put("startjiangli", query.getJiangli());
 		}
 		MapUtils.putPageInfo(parameters, page);
 		return parameters;
@@ -637,29 +646,32 @@ public class SKBaobeiService extends JSBaseService {
 	 * 
 	 * @return
 	 */
-	public List<SKBaobei> getSKList(Integer typeid, String title, String order, String sort, String minprice, String maxprice, Integer hdtypeid) {
+	public List<SKBaobei> getSKList(SKBaobeiQuery1 query) {
 		Date start = new Date();
 		Map<String, Object> parameters = MapUtils.genMap("is_del", 0, "lessStartTime", start, "status", 9);
-		if (typeid != null) {
-			parameters.put("typeid", typeid);
+		if (query.getTypeid() != null) {
+			parameters.put("typeid", query.getTypeid());
 		}
-		if (StringUtils.isNotBlank(title)) {
-			parameters.put("titleLike", title);
+		if (StringUtils.isNotBlank(query.getTitle())) {
+			parameters.put("titleLike", query.getTitle());
 		}
-		if (StringUtils.isNotBlank(maxprice)) {
-			parameters.put("lessSalePrice", maxprice);
+		if (StringUtils.isNotBlank(query.getMaxprice())) {
+			parameters.put("endSalePrice", query.getMaxprice());
 		}
-		if (StringUtils.isNotBlank(minprice)) {
-			parameters.put("bigSalePrice", minprice);
+		if (StringUtils.isNotBlank(query.getMinprice())) {
+			parameters.put("startSalePrice", query.getMinprice());
 		}
-		if (hdtypeid != null && hdtypeid != 1) {
-			parameters.put("hdtypeid", hdtypeid);
+		if (query.getHdtypeid() != null && query.getHdtypeid() != 1) {
+			parameters.put("hdtypeid", query.getHdtypeid());
 		}
-		if (hdtypeid != null && hdtypeid == 1) {
+		if (query.getHdtypeid() != null && query.getHdtypeid() == 1) {
 			parameters.put("hdtypeidNot", "4");
 		}
-		if (StringUtils.isNotBlank(order)) {
-			parameters.put("orderby", order + " " + sort);
+		if (StringUtils.isNotBlank(query.getOrder())) {
+			parameters.put("orderby", query.getOrder() + " " + query.getSort());
+		}
+		if (query.getJiangli() != null) {
+			parameters.put("startjiangli", query.getJiangli());
 		}
 		List<SKBaobei> list = selectByWhere(parameters);
 		return list;
@@ -895,4 +907,31 @@ public class SKBaobeiService extends JSBaseService {
 		updateByMap(params);
 	}
 
+	
+	/**
+	 * 获取商家未结算的活动列表
+	 * 
+	 * @return
+	 */
+	public List<SKBaobei> getUnJiesuan() {
+		SKUser skuser = sKUserService.getUser();
+		List<Integer> statuslist = new ArrayList<Integer>();
+		statuslist.add(9);
+		statuslist.add(10);
+		Map<String, Object> parameters = MapUtils.genMap("userid",skuser.getId(),"statuslist",statuslist);
+		List<SKBaobei> list = selectByWhere(parameters);
+		return list;
+	}
+	
+	/**
+	 * 获取商家结算的活动列表
+	 * 
+	 * @return
+	 */
+	public List<SKBaobei> getJiesuan() {
+		SKUser skuser = sKUserService.getUser();
+		Map<String, Object> parameters = MapUtils.genMap("userid",skuser.getId(),"status",20);
+		List<SKBaobei> list = selectByWhere(parameters);
+		return list;
+	}
 }

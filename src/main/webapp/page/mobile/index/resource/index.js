@@ -373,7 +373,11 @@ $(function () {
                         highPrice +
                         "            </a>\n" +
                         "                <p><span class=\"iconfont icon-tb\"></span> " + row.title + "</p>\n" +
-                        "                <div class=\"jp-num\"><span>¥" + row.salePrice + "</span> <span>" + row.ysqnum + "人申请</span></div>\n" +
+                        "                <div class=\"jp-num\"><span>¥" + row.salePrice+"</span>";
+                    if(row.jiangli > 0){
+                    	html+="（奖¥"+row.jiangli+"元）";
+                    }
+                    html += " <span>" + row.ysqnum + "人申请</span></div>\n" +
                         "                <div class=\"jp-btn\"><a data-id=\"" + row.id + "\" class=\"btn tod\">免费申请</a></div>\n" +
                         "            </li>";
 
@@ -606,7 +610,9 @@ $(function () {
             $("#ysqnum").html(row.ysqnum + "人 已申请"); // 已经申请数量
             $("#yzj").html(row.zjnum + "人 已中奖"); // 已经中奖人数
             $("#salePrice").html("¥" + row.salePrice); // 宝贝单价
-
+            if(row.jiangli > 0){
+            	$("#jiangli").html("¥" + row.jiangli+"元"); // 奖励
+            } 
             $("#logo_pic1").attr("src", row.tplist[0].url); // 图1
             $("#logo_pic2").attr("src", row.tplist[1].url); // 图2
             $("#logo_pic3").attr("src", row.tplist[2].url); // 图3

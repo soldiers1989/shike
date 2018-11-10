@@ -16,7 +16,7 @@ function createtable(tableid) {
 	};
 	
 	this.tdinit = function(){
-		if(this.data && this.data.length > 0){
+		if(this.data){
 			var html = "";
 			$("#"+this.tableid+" tbody").html(html);
 			for(var i=0;i<this.data.length;i++){

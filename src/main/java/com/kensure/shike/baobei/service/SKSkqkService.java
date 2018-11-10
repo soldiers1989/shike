@@ -337,8 +337,67 @@ public class SKSkqkService extends JSBaseService {
 	 */
 	public Long getListCount(SKSkqkLeftQuery skqkquery) {
 		Map<String, Object> parameters = MapUtils.bean2Map(skqkquery, true);
-		long size = selectCountByWhere(parameters);
+		long size = leftdao.selectCountByWhere(parameters);
 		return size;
+	}
+	
+	
+	/**
+	 * 商家端，查询试客情况
+	 * status 0是进行中的活动，1是已结算活动
+	 * @return
+	 */
+	public List<SKSkqkLeft> getList1(SKSkqkLeftQuery skqkquery,Integer status, PageInfo page) {		
+		List<SKBaobei> baobeilist = null;
+		if(status == 1){
+			baobeilist = sKBaobeiService.getJiesuan();
+		}else{
+			baobeilist = sKBaobeiService.getUnJiesuan();
+		}
+		
+		if(CollectionUtils.isEmpty(baobeilist)){
+			return null;
+		}
+		
+		List<Long> ids = new ArrayList<Long>();
+		for(SKBaobei bb:baobeilist){
+			ids.add(bb.getId());
+		}
+		Map<String, Object> parameters = MapUtils.bean2Map(skqkquery, true);
+		MapUtils.putPageInfo(parameters, page);
+		parameters.put("bbidlist", ids);
+		parameters.put("shangjiastatus", 1);	
+		parameters.put("orderby", "t.created_time desc");
+		List<SKSkqkLeft> list = leftdao.selectByWhere(parameters);
+		return list;
+	}
+	
+	/**
+	 * 商家端，查询试客情况
+	 * status 0是进行中的活动，1是已结算活动
+	 * @return
+	 */
+	public Long getListCount1(SKSkqkLeftQuery skqkquery,Integer status) {		
+		List<SKBaobei> baobeilist = null;
+		if(status == 1){
+			baobeilist = sKBaobeiService.getJiesuan();
+		}else{
+			baobeilist = sKBaobeiService.getUnJiesuan();
+		}
+		
+		if(CollectionUtils.isEmpty(baobeilist)){
+			return 0L;
+		}
+		
+		List<Long> ids = new ArrayList<Long>();
+		for(SKBaobei bb:baobeilist){
+			ids.add(bb.getId());
+		}
+		Map<String, Object> parameters = MapUtils.bean2Map(skqkquery, true);
+		parameters.put("bbidlist", ids);
+		parameters.put("shangjiastatus", 1);
+		long count = leftdao.selectCountByWhere(parameters);
+		return count;
 	}
 
 	/**
@@ -498,11 +557,13 @@ public class SKSkqkService extends JSBaseService {
 	 * @param id 申请id
 	 */
 	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
-	public void hump(long id) {
+	public void hump(long id,String remark) {
 		SKSkqk sqqk = selectOne(id);
 		if(sqqk.getStatus() >= 99){
 			BusinessExceptionUtil.threwException("已经返款的申请无法挂起");
 		}
+		Map<String, Object> params = MapUtils.genMap("id", id, "remark", remark);
+		updateByMap(params);
 		updateStatus(id, -3L);
 	}
 	

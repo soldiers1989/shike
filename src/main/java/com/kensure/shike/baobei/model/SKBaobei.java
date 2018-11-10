@@ -18,6 +18,7 @@ import co.kensure.frame.BaseInfo;
 import co.kensure.mem.DateUtils;
 import co.kensure.mem.StringKSUtils;
 
+import com.kensure.shike.dianpu.model.SKDianPu;
 import com.kensure.shike.sys.model.SKDict;
 import com.kensure.shike.sys.service.SKDictService;
 
@@ -153,6 +154,9 @@ public class SKBaobei extends BaseInfo {
 	
 	/** 货比三家 */
 	private SKHbsj hbsj;
+	
+	/** 店铺 */
+	private SKDianPu dianpu;
 
 	public Long getId() {
 		return id;
@@ -504,4 +508,12 @@ public class SKBaobei extends BaseInfo {
 		this.hbsj = hbsj;
 	}
 
+	public SKDianPu getDianpu() {
+		return dianpu;
+	}
+
+	public void setDianpu(SKDianPu dianpu) {
+		this.dianpu = dianpu;
+	}
+	
 }

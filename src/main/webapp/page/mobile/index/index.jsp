@@ -274,9 +274,9 @@
             </a>
         </li>
         <li>
-            <a href="<%=BusiConstant.shike_jbcj.getKey() %>">
+            <a href="<%=BusiConstant.shike_haohuo.getKey() %>?jiangli=1">
                 <img src="<%=BusiConstant.shikemobilepath %>/index/resource/icon12.png">
-                <span>金币抽奖</span>
+                <span>有奖任务</span>
             </a>
         </li>
     </ul>
@@ -738,7 +738,7 @@
         <div class="info-hd"><p class="title"><span class="" style="margin-right: 0.1rem;"></span> <span class="name" id="activity_name"
                                                                                                          style="max-width: 14rem;"></span>
             <em id="huabei" style="display: none">花呗</em><em id="xinyongka" style="display: none">信用卡</em>
-            <!----> <!----> <!----> <!----></p> <span>价值 <em id="salePrice">¥</em></span> <span id="shengyu">剩余  份</span> <!----> <!----> <!----></div>
+            <!----> <!----> <!----> <!----></p> <span>价值 <em id="salePrice">¥</em></span> <span id="jiangli"></span> <span id="shengyu">剩余  份</span> <!----> <!----> <!----></div>
         <!----> <!---->
         <ul class="info-num">
             <li><span id="ysqnum">人 已申请</span></li>

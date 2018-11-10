@@ -67,6 +67,22 @@ public class SKSkqkController {
 		long cont = sKSkqkService.getListCount(skqk);
 		return new ResultRowsInfo(list, cont);
 	}
+	
+	
+	/**
+	 * 商家查看 试客使用情况列表
+	 */
+	@ResponseBody
+	@RequestMapping(value = "list1.do", method = { RequestMethod.POST }, produces = "application/json;charset=UTF-8")
+	public ResultInfo list1(HttpServletRequest req, HttpServletResponse rep) {
+		JSONObject json = RequestUtils.paramToJson(req);
+		Integer jiesuanstatus = json.getInteger("jiesuanstatus");
+		SKSkqkLeftQuery skqk = JSONObject.parseObject(json.toJSONString(), SKSkqkLeftQuery.class);
+		PageInfo page = JSONObject.parseObject(json.toJSONString(), PageInfo.class);
+		List<SKSkqkLeft> list = sKSkqkService.getList1(skqk,jiesuanstatus, page);
+		long cont = sKSkqkService.getListCount1(skqk,jiesuanstatus);
+		return new ResultRowsInfo(list, cont);
+	}
 
 	/**
 	 * 试客试用详情
@@ -112,7 +128,20 @@ public class SKSkqkController {
 	public ResultInfo hump(HttpServletRequest req, HttpServletResponse rep) {
 		JSONObject json = RequestUtils.paramToJson(req);
 		Long id = json.getLong("id");
-		List<SKZjqk> zjqk = sKZjqkService.selectByBbid(id);
-		return new ResultRowsInfo(zjqk);
+		String remark = json.getString("remark");
+		sKSkqkService.hump(id, remark);
+		return new ResultRowInfo();
+	}
+	
+	/**
+	 * 商家取消某个申请挂起
+	 */
+	@ResponseBody
+	@RequestMapping(value = "unhump.do", method = { RequestMethod.POST }, produces = "application/json;charset=UTF-8")
+	public ResultInfo unhump(HttpServletRequest req, HttpServletResponse rep) {
+		JSONObject json = RequestUtils.paramToJson(req);
+		Long id = json.getLong("id");
+		sKSkqkService.unhump(id);
+		return new ResultRowInfo();
 	}
 }

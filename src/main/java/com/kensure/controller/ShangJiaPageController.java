@@ -233,4 +233,25 @@ public class ShangJiaPageController {
 		req.setAttribute("bodypage", body);
 		return "page/shangjia/index.jsp";
 	}
+	
+	// 试客列表
+	@RequestMapping("skqklist")
+	public String skqklist(HttpServletRequest req, HttpServletResponse rep, Model model) {
+		req.setAttribute("index", indexlist);
+		List<String> body = new ArrayList<String>();
+		body.add("index_left.jsp");
+		body.add("./manager/skqk_right.jsp");
+		req.setAttribute("bodypage", body);
+		String bbid = req.getParameter("bbid");
+		if (StringUtils.isBlank(bbid)) {
+			bbid = "";
+		}
+		String jiesuanstatus = req.getParameter("jiesuanstatus");
+		if (StringUtils.isBlank(jiesuanstatus)) {
+			jiesuanstatus = "0";
+		}
+		req.setAttribute("bbid", bbid);
+		req.setAttribute("jiesuanstatus", jiesuanstatus);
+		return "page/shangjia/index.jsp";
+	}
 }

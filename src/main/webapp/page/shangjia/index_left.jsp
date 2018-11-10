@@ -1,3 +1,4 @@
+<%@page import="co.kensure.api.ApiUtil"%>
 <%@page import="com.kensure.shike.constant.BusiConstant"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -21,6 +22,14 @@
 				<li parentid="4"><a
 					href="<%=BusiConstant.shangjia_huodonglist.getKey() %>"
 					id="openWindows31" target="_self">淘宝活动</a></li>
+				<li class="line"></li>
+
+				<li id="4" class="left_titi"><strong><i
+						class="iconfont icon-liwuhuodong"></i>订单管理<i
+						class="iconfont icon-Toboottom il5 ft_up_down"></i></strong></li>
+				<li parentid="4"><a
+					href="<%=ApiUtil.getUrl("/shangjia/skqklist") %>"
+					id="openWindows31" target="_self">试客订单</a></li>
 				<li class="line"></li>
 
 				<li class="left_titi "><strong><i

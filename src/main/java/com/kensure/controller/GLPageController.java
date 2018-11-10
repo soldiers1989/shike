@@ -72,9 +72,7 @@ public class GLPageController {
 	@RequestMapping("skqkdetail")
 	public String skqkdetail(HttpServletRequest req, HttpServletResponse rep, Model model) {
 		req.setAttribute("index", indexlist);
-
 		List<String> body = new ArrayList<String>();
-		body.add("indexht_left.jsp");
 		body.add("skqkdetail_right.jsp");
 		req.setAttribute("bodypage", body);
 		String id = req.getParameter("id");
@@ -143,6 +141,10 @@ public class GLPageController {
 		body.add("indexht_left.jsp");
 		body.add("dplist_right.jsp");
 		req.setAttribute("bodypage", body);
+		String status = req.getParameter("status");
+		if (StringUtils.isNotBlank(status)) {
+			req.setAttribute("status", status);
+		}
 		return "page/shangjia/index.jsp";
 	}
 

@@ -1,4 +1,5 @@
 <%@page import="com.kensure.shike.constant.BusiConstant"%>
+<%@page import="co.kensure.api.ApiUtil"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <% 
 	String context = BusiConstant.shangjiapath;
@@ -94,6 +95,19 @@
         color: #0094ff;
         cursor: pointer;
     }
+    .trhead{
+     	position: relative; 
+		top:expression(this.offsetParent.scrollTop-2);  
+    }
+    .trhead td{
+     	height:33px;
+		vertical-align:top:middle;
+		bgcolor:#f5f5f5;
+    }
+    .trbody td{
+     	height:30px;
+		vertical-align:top:middle;
+    }
 </style>
 <script language="javascript" type="text/javascript">
     var count=3;
@@ -109,7 +123,7 @@
         
         <span style="float:none;margin-right:5px;">活动管理</span>
         <input id="key" type="text" placeholder="请输入活动名称" style="width: 200px" class="shou">
-        <input onclick="search()" type="button" style="background: url('<%=context%>/se.gif') no-repeat scroll -1px center transparent; border: 0px none; cursor: pointer; height: 28px; width: 101px; outline: none; position: relative; margin-left: 0px;">
+        <input onclick="dianpulist(1)" type="button" style="background: url('<%=context%>/se.gif') no-repeat scroll -1px center transparent; border: 0px none; cursor: pointer; height: 28px; width: 101px; outline: none; position: relative; margin-left: 0px;">
     </div>
     <div class="shiy_tl" id="shiyall">
         <a class="<%=status==null?"shiy":""%>" href="<%=BusiConstant.shangjia_huodonglist.getKey()%>">全部<i>|</i></a>
@@ -124,27 +138,17 @@
         <div class="right_contant table-style">
          
             <table width="996" cellspacing="0" cellpadding="0" id="listtable">
-                <tbody><tr>                 
-                    <td width="300" height="33" valign="middle" bgcolor="#f5f5f5" style="text-align: center;">
-                        <strong>活动名称</strong>
-                    </td>
-                    <td width="100" height="33" valign="middle" bgcolor="#f5f5f5" style="text-align: center;">
-                        <strong>开始时间</strong>
-                    </td>
-                    <td width="100" height="33" valign="middle" bgcolor="#f5f5f5" style="text-align: center;">
-                        <strong>活动进度</strong>
-                    </td>
-                    <td width="200" height="33" valign="middle" bgcolor="#f5f5f5" style="text-align: center;">
-                        <strong>活动情况</strong>
-                    </td>
-                    <td width="200" height="33" valign="middle" bgcolor="#f5f5f5" style="text-align: center;">
-                        <strong>用户操作</strong>
-                    </td>
-                </tr>
-                  
-                  
-            </tbody></table>
+                <thead>
+        
+	   		 	</thead>
+	             <tbody>
+	                
+	          	</tbody>
+          	</table>
         </div>
+        <div id="fanye">
+
+		</div>
     </div>
 </div>
             </div>
@@ -152,60 +156,74 @@
 
 
 <script>
+	var table = createtable("listtable");
+	var titlefun = function(row){
+			var html = "<div class=\"xi_lt clearfix\" style=\"margin-right: 0\">"
+            +"<a style='width: 60px; height: 60px;'>"
+            +"<img src='"+row.zturl+"'  height='60' width='60'> </a>"
+            +"    <div class=\"cd_lxq cm_cd_lxq\">"                       
+            +"            <span style=\"margin-left: 0px; width: 230px; line-height: 12px;\">" 
+            +"                <em class=\"iconfont icon-tb\" style=\"font-weight:500;font-size:15px;\">" 
+            +"                </em>"+row.title         
+            +"            </span>" 
+            +"【活动编号："+row.id+"】"
+            +"<br>【创建时间："+row.createdTimeStr+"】"       
+            +"    </div>" 
+            +" </div>";
+		return html;
+	}
+	
+	var optfun = function(row){
+		var tdinner = "";
+	    if (row.status == 0 || row.status == 2) {
+	    	tdinner = "<a href='<%=BusiConstant.shangjia_activity_edit.getKey()%>?id="+row.id+"' target='_blank'>修改活动</a>";
+		}
+        if(row.status == 0){
+        	tdinner+="    <div class=\"wae_cer\">";
+        	tdinner+="        <a href=\"<%=BusiConstant.shangjia_payinfo.getKey()%>?id="+row.id+"\" href=\"_blank\" class=\"dv_psdb\">交保证金</a>";
+        	tdinner+="   </div>";
+        }
+		return tdinner;
+	}
+	
+	var jindufun = function(row){
+		var tdinner = "<a href='<%=ApiUtil.getUrl("/shangjia/skqklist")%>?bbid="+row.id+"' target='_blank'>"          
+	    +row.statusStr          
+	    +"</a>";
+		return tdinner;
+	}
+	var qingkuangfun = function(row){
+		var tdinner = "担保金:￥"+row.yingshou+"<br>(共"+row.bbnum+",剩"+(row.bbnum-row.zjnum)+") "+row.ysqnum+"人申请";
+		return tdinner;
+	}
+	
+	table.th = [{w:300,na:"活动名称",callfun:titlefun}
+	,{w:100,na:"开始时间",colname:"startTimeStr"}
+	,{w:100,na:"活动进度",callfun:jindufun}
+	,{w:200,na:"活动情况",callfun:qingkuangfun}
+	,{w:200,na:"活动操作",callfun:optfun}];
+	
+	table.thinit();
+
+
 	function sucdo(data){
 		var rows = data.resultData.rows;
-		if(rows){		
-			for(var i=0;i<rows.length;i++){
-				var row = rows[i];			
-				var editBtn = '';
-				if (row.status == 0 || row.status == 2) {
-					editBtn = "<span> | </span><a href='<%=BusiConstant.shangjia_activity_edit.getKey()%>?id="+row.id+"' target='_blank'>修改活动</a>";
-				}			
-				var html =   "<tr> "       
-                +"<td width=\"300\" height=\"100\" valign=\"middle\">"
-                +"<div class=\"xi_lt clearfix\" style=\"margin-right: 0\">"
-                +"<a style='width: 60px; height: 60px;'>"
-                +"<img src='"+row.zturl+"'  height='60' width='60'> </a>"
-                +"    <div class=\"cd_lxq cm_cd_lxq\">"            
-                +"        <a style=\"margin-right: 0\">"
-                +"            <span style=\"margin-left: 0px; width: 230px; line-height: 12px;\">" 
-                +"                <em class=\"iconfont icon-tb\" style=\"font-weight:500;font-size:15px;\">" 
-                +"                </em>"+row.title         
-                +"            </span>" 
-                +"【活动编号："+row.id+"】"
-                +"<br>【创建时间："+row.createdTimeStr+"】"
-                +"        </a>" 
-                +"    </div>" 
-                +" </div>" 
-                +"</td>" 
-                +"<td height=\"100\" valign=\"middle\" width=\"100\" align=\"center\">" 
-                +" <em style=\"color: #a9a9a9;\">"+row.startTimeStr+"</em>" 
-                +"</td>" 
-                +" <td height=\"100\" valign=\"middle\" align=\"center\" width=\"100\">" 
-                +"     <em style=\"color: #f25f55\">"+row.statusStr+"</em>"      
-                +"  </td>" 
-                +" <td height=\"100\" align=\"center\" width=\"200\">" 
-                +"     担保金:￥"+row.yingshou+"<br>(共"+row.bbnum+",剩"+(row.bbnum-row.zjnum)+") "+row.ysqnum+"人申请"
-                +"</td>" 
-                +"<td height=\"100\" align=\"center\" width=\"200\"><a href='<%=BusiConstant.shangjia_shikelist.getKey()%>?id="+row.id+"' target='_blank'>试用情况</a>"
-                + editBtn;
-                if(row.status == 0){
-                	html+="    <div class=\"wae_cer\">";
-                	html+="        <a href=\"<%=BusiConstant.shangjia_payinfo.getKey()%>?id="+row.id+"\" href=\"_blank\" class=\"dv_psdb\">交保证金</a>";
-                	html+="   </div>";
-                }
-                html+="</td>";
-                html+=" </tr>" 
-				$("#listtable").append(html);
-			}
-		}	
+		table.data = rows;
+		fanye.init(data.resultData.total);	
+		table.tdinit();		
 	}
 
-   function dianpulist(status){
-	   var data = {status:<%=status%>};	   
+	var fanye = new FanYe("fanye","dianpulist",0,20,1);
+   function dianpulist(current){
+	   if(!fanye.setpage(current)){
+			return;
+		}
+	    var title = $("#key").val()
+	   
+	   var data = {status:<%=status%>,title:title};	   
 	   var url = "<%=BusiConstant.shangjia_baobeilist_do.getKey()%>";
 	   postdo(url, data, sucdo,null, null);
    }
-   dianpulist();
+   dianpulist(1);
       
 </script>

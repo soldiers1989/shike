@@ -13,6 +13,7 @@
 		sale_price as salePrice,
 		jiangli,
 		ewai,
+		remark,
 		no_taobao as noTaobao,
 		next_time as nextTime,
 		created_time as createdTime,
@@ -30,6 +31,7 @@
 		sale_price,
 		jiangli,
 		ewai,
+		remark,
 		no_taobao,
 		next_time,
 		created_time,
@@ -49,6 +51,7 @@
 			#{salePrice},
 			#{jiangli},
 			#{ewai},
+			#{remark},
 			#{noTaobao},
 			#{nextTime},
 			#{createdTime},
@@ -70,6 +73,7 @@
 				#{item.salePrice},
 				#{item.jiangli},
 				#{item.ewai},
+				#{item.remark},	
 				#{item.noTaobao},
 				#{item.nextTime},
 				#{item.createdTime},
@@ -229,6 +233,9 @@
 		<if test="createdTime != null">
 			created_time = #{createdTime},
 		</if>
+		<if test="remark != null">
+			remark = #{remark},
+		</if>	
 		<if test="updatedTime != null">
 			updated_time = #{updatedTime}
 		</if>

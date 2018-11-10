@@ -127,6 +127,7 @@ $(function () {
     lingaSort.bigStartTime = globle.getUrlParam("bigStartTime") || "";
     lingaSort.minprice = globle.getUrlParam("minprice") || "";
     lingaSort.maxprice = globle.getUrlParam("maxprice") || "";
+    lingaSort.jiangli = globle.getUrlParam("jiangli") || "";
     lingaSort.paytype = "";
     lingaSort.noApply = 0;
     lingaSort.isSendGold = 0;
@@ -176,8 +177,13 @@ $(function () {
     //平台类型
     $(".plat span").on("click", function () {
         $(this).addClass("act").siblings().removeClass("act");
-        // lingaSort.orderType = $(this).data("num");
-        lingaSort.hdtypeid  = $(this).data("num");
+        var numtype = $(this).data("num");
+        if(numtype == 5){
+        	lingaSort.jiangli  = 1;
+        }else{
+        	lingaSort.hdtypeid  = $(this).data("num");
+        	lingaSort.jiangli = 0;
+        }       
         lingaSort.sort = 1;
         getList(1);
     });
@@ -425,7 +431,11 @@ $(function () {
                         highPrice +
                         "            </a>\n" +
                         "                <p><span class=\"iconfont icon-tb\"></span> "+ row.title +"</p>\n" +
-                        "                <div class=\"jp-num\"><span>¥"+ row.salePrice +"</span> <span>"+ row.ysqnum +"人申请</span></div>\n" +
+                        "                <div class=\"jp-num\"><span>¥"+ row.salePrice +"</span> ";
+                    if(row.jiangli > 0){
+                    	html+="（奖¥"+row.jiangli+"元）";
+                    }
+                    html += "<span>"+ row.ysqnum +"人申请</span></div>\n" +
                         "                <div class=\"jp-btn\"><a data-id=\""+row.id+"\" class=\"btn tod\">免费申请</a></div>\n" +
                         "            </li>";
 
@@ -629,7 +639,9 @@ $(function () {
         $("#ysqnum").html(row.ysqnum + "人 已申请"); // 已经申请数量
         $("#yzj").html(row.zjnum + "人 已中奖"); // 已经中奖人数
         $("#salePrice").html("¥" + row.salePrice); // 宝贝单价
-
+        if(row.jiangli > 0){
+        	$("#jiangli").html("¥" + row.jiangli+"元"); // 奖励
+        }   
         $("#logo_pic1").attr("src", "#"); // 图1
         $("#logo_pic2").attr("src", "#"); // 图2
         $("#logo_pic3").attr("src", "#"); // 图3

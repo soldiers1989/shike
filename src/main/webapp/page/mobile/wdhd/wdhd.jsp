@@ -325,7 +325,13 @@
                     "            <a href=\"javascript:void(1);\" class=\"gray\" >已取消</a>\n" +
                 //    "            <a href=\"javascript:void(1);\" class=\"black\" onclick=\"Feedback("+ row.bbid +")\">反馈问题</a>\n" +
                     "        </div>";
-            }
+            }else if(row.status == -3){
+                btn = "        <div class=\"jp-btn clearfix\">\n" +
+                "           <span class='time yello'><i class='iconfont   icon-shijian'></i>原因："+row.remark+",请联系商家</span>" +
+                "            <a href=\"javascript:void(1);\" class=\"gray\" >已申诉</a>\n" +
+            //    "            <a href=\"javascript:void(1);\" class=\"black\" onclick=\"Feedback("+ row.bbid +")\">反馈问题</a>\n" +
+                "        </div>";
+       	 	}
 
             var html = "<dd class=\"my-list\">\n" +
                 "        <p class=\"title\">"+row.baobei.updatedTimeStr+"</p>\n" +

@@ -27,6 +27,11 @@
 		<if test="bbid != null">			
 			t.bbid = #{bbid}			
 		</if>
+		<if test="shangjiastatus != null">	
+		<![CDATA[		
+			and (t.status >= 51	or t.status = 11 or t.status = -3)
+		]]>	
+		</if>
 		<if test="status != null">			
 			and t.status = #{status}			
 		</if>
@@ -65,10 +70,26 @@
 			]]>
 		</if>
 		
+		<if test="bbidlist != null">			
+			and t.bbid in
+			<foreach collection="bbidlist" item="item" open="(" close=")" separator=",">
+				#{item}
+			</foreach>
+		</if>
+		
 	</sql>
 	
 	<select id="selectCountByWhere" parameterType="Map" resultType="Long">
-		select count(*) from sk_sqqk 
+		select count(*) 
+		   from sk_sqqk t 
+		   LEFT JOIN sk_user sk 
+		    ON t.userid = sk.id 
+		   LEFT JOIN sk_baobei baobei 
+		    ON baobei.id = t.bbid 
+		   LEFT JOIN sk_dianpu dp 
+		    ON baobei.dpid = dp.id 
+		   LEFT JOIN sk_user sj 
+		    ON baobei.userid = sj.id 
 		<where>
 		    <include refid="whereClause"/>
 		</where>

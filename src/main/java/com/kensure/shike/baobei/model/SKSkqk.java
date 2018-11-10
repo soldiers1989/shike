@@ -70,9 +70,12 @@ public class SKSkqk extends BaseInfo {
 	/** 额外奖励 */
 	private Double ewai;
 
+	/** 备注 */
+	private String remark;
+	
 	/** 淘宝账号 */
 	private String noTaobao;
-
+	
 	/** 校验数据 */
 	private List<SKJysj> jylist;
 
@@ -195,6 +198,14 @@ public class SKSkqk extends BaseInfo {
 
 	public void setNextTime(Date nextTime) {
 		this.nextTime = nextTime;
+	}
+	
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
 	}
 
 	public String getNextTimeStr() {

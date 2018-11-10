@@ -34,6 +34,8 @@ import com.kensure.shike.baobei.model.SKGroupStatus;
 import com.kensure.shike.baobei.model.SKJysj;
 import com.kensure.shike.baobei.model.SKPayInfo;
 import com.kensure.shike.baobei.model.SKSkqk;
+import com.kensure.shike.baobei.query.SKBaobeiQuery;
+import com.kensure.shike.baobei.query.SKBaobeiQuery1;
 import com.kensure.shike.baobei.service.SKBaobeiService;
 import com.kensure.shike.baobei.service.SKBbrwService;
 import com.kensure.shike.baobei.service.SKSkqkService;
@@ -74,14 +76,14 @@ public class SKBaobeiController {
 	}
 
 	@ResponseBody
-	@RequestMapping(value="baobeiFull.do", method = {RequestMethod.POST}, produces = "application/json;charset=UTF-8")
+	@RequestMapping(value = "baobeiFull.do", method = { RequestMethod.POST }, produces = "application/json;charset=UTF-8")
 	public ResultInfo baoBeiFull(HttpServletRequest req, HttpServletResponse rep, Model model) {
 		JSONObject json = RequestUtils.paramToJson(req);
 		Long id = json.getLong("id");
 		SKBaobei baobei = this.sKBaobeiService.getBaoBeiFull(id);
 		return new ResultRowInfo(baobei);
 	}
-	
+
 	/**
 	 * 根据url获取商品的详情
 	 */
@@ -130,13 +132,12 @@ public class SKBaobeiController {
 	@RequestMapping(value = "list.do", method = { RequestMethod.POST }, produces = "application/json;charset=UTF-8")
 	public ResultInfo list(HttpServletRequest req, HttpServletResponse rep) {
 		JSONObject json = RequestUtils.paramToJson(req);
-		Integer status = json.getInteger("status");
-		String title = json.getString("title");
-		Integer hdtypeid = json.getInteger("hdtypeid");
+
+		SKBaobeiQuery query = JSONObject.parseObject(json.toJSONString(), SKBaobeiQuery.class);
 		PageInfo page = JSONObject.parseObject(json.toJSONString(), PageInfo.class);
-		List<SKBaobei> list = sKBaobeiService.getList(status,title,hdtypeid,page);
-		long cont = sKBaobeiService.getListCount(status,title,hdtypeid,page);	
-		return new ResultRowsInfo(list,cont);
+		List<SKBaobei> list = sKBaobeiService.getList(query, page);
+		long cont = sKBaobeiService.getListCount(query, page);
+		return new ResultRowsInfo(list, cont);
 	}
 
 	/**
@@ -174,7 +175,7 @@ public class SKBaobeiController {
 		sKBaobeiService.tongguo(id);
 		return new ResultRowInfo();
 	}
-	
+
 	/**
 	 * 不通过
 	 */
@@ -186,7 +187,6 @@ public class SKBaobeiController {
 		sKBaobeiService.untongguo(id);
 		return new ResultRowInfo();
 	}
-	
 
 	/**
 	 * 试客查看的活动列表
@@ -195,33 +195,24 @@ public class SKBaobeiController {
 	@RequestMapping(value = "sklist.do", method = { RequestMethod.POST }, produces = "application/json;charset=UTF-8")
 	public ResultInfo sklist(HttpServletRequest req, HttpServletResponse rep) {
 		JSONObject json = RequestUtils.paramToJson(req);
-		Integer typeid = json.getInteger("typeid");
-		String title = json.getString("title");
-		String minprice = json.getString("minprice");
-		String maxprice = json.getString("maxprice");
-//		String bigStartTime = json.getString("bigStartTime");
-		String order = json.getString("order");
-		String sort = json.getString("sort");
-		Integer hdtypeid  = json.getInteger("hdtypeid");
-
+		SKBaobeiQuery1 query = JSONObject.parseObject(json.toJSONString(), SKBaobeiQuery1.class);
 		// 排序字段
-		if ("1".equals(order)) { // 最新
-			order = "created_time";
-		} else if ("2".equals(order)) { // 价值
-			order = "sale_price";
-		} else if ("3".equals(order)) { // 人气
-			order = "sqnum";
+		if ("1".equals(query.getOrder())) { // 最新
+			query.setOrder("created_time");
+		} else if ("2".equals(query.getOrder())) { // 价值
+			query.setOrder("sale_price");
+		} else if ("3".equals(query.getOrder())) { // 人气
+			query.setOrder("sqnum");
 		} else {
-			order = "disorder";
+			query.setOrder("disorder");
 		}
-
 		// 升序/降序
-		if ("1".equals(sort)) {
-			sort = "desc";
+		if ("1".equals(query.getSort())) {
+			query.setSort("desc");
 		} else {
-			sort = "asc";
+			query.setSort("asc");
 		}
-		List<SKBaobei> list = sKBaobeiService.getSKList(typeid, title, order, sort, minprice, maxprice, hdtypeid);
+		List<SKBaobei> list = sKBaobeiService.getSKList(query);
 		return new ResultRowsInfo(list);
 	}
 
@@ -257,15 +248,14 @@ public class SKBaobeiController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "addfile.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
-	public ResultInfo addfile(MultipartFile file,HttpServletRequest req) {
+	public ResultInfo addfile(MultipartFile file, HttpServletRequest req) {
 		String path = "/filetemp/" + DateUtils.format(new Date(), DateUtils.DAY_FORMAT1);
 		String name = Utils.getUUID() + ".jpg";
 		FileUtils.fileToIo(file, Const.ROOT_PATH + path, name);
 		String url = path + "/" + name;
 		return new ResultRowInfo(url);
 	}
-	
-	
+
 	/**
 	 * 上传图片,给富文本框,返回结果不一样
 	 */
@@ -278,13 +268,13 @@ public class SKBaobeiController {
 		map.put("errno", 0);
 		JSONArray data = new JSONArray();
 		map.put("data", data);
-		for(List<MultipartFile> filelist:multipartFiles){
-			for(MultipartFile file:filelist){
+		for (List<MultipartFile> filelist : multipartFiles) {
+			for (MultipartFile file : filelist) {
 				String name = Utils.getUUID() + ".jpg";
 				FileUtils.fileToIo(file, Const.ROOT_PATH + path, name);
-				String url = BusiConstant.context+path + "/" + name;
+				String url = BusiConstant.context + path + "/" + name;
 				data.add(url);
-			}	
+			}
 		}
 		return map;
 	}
@@ -378,7 +368,7 @@ public class SKBaobeiController {
 		sKBaobeiService.jiesuanBaobei();
 		return new ResultRowInfo();
 	}
-	
+
 	/**
 	 * 结束宝贝
 	 */
@@ -388,7 +378,7 @@ public class SKBaobeiController {
 		sKBaobeiService.endBaobei();
 		return new ResultRowInfo();
 	}
-	
+
 	/**
 	 * 宝贝下线
 	 */
@@ -400,7 +390,7 @@ public class SKBaobeiController {
 		sKBaobeiService.xiaxian(id);
 		return new ResultRowInfo();
 	}
-	
+
 	/**
 	 * 初始化应收
 	 */
@@ -410,7 +400,6 @@ public class SKBaobeiController {
 		sKBaobeiService.setYingShouinfo();
 		return new ResultRowInfo();
 	}
-	
 
 	/**
 	 * 商家确认返款
@@ -443,12 +432,12 @@ public class SKBaobeiController {
 	@RequestMapping(value = "statustj.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
 	public ResultInfo statustj(HttpServletRequest req, HttpServletResponse rep) {
 		List<SKGroupStatus> list = sKBaobeiService.groubByStatus();
-		if(list == null){
+		if (list == null) {
 			list = new ArrayList<SKGroupStatus>();
 		}
 		return new ResultRowsInfo(list);
 	}
-	
+
 	/**
 	 * 状态
 	 */
@@ -458,8 +447,7 @@ public class SKBaobeiController {
 		sKSkqkService.quxiao();
 		return new ResultRowInfo();
 	}
-	
-	
+
 	/**
 	 * 增加申请数量
 	 */
@@ -472,7 +460,7 @@ public class SKBaobeiController {
 		sKBaobeiService.addsqs(id, sqs);
 		return new ResultRowInfo(id);
 	}
-	
+
 	/**
 	 * 增加详情
 	 */
@@ -485,7 +473,5 @@ public class SKBaobeiController {
 		sKBaobeiService.saveBody(id, body);
 		return new ResultRowInfo(id);
 	}
-	
-	
 
 }

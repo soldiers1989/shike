@@ -130,6 +130,7 @@
             <span class="<c:if test="${param.hdtypeid == '1'}">act</c:if>" data-num="1">普通试用</span>
             <span class="<c:if test="${param.hdtypeid == '3'}">act</c:if>" data-num="3">高价值</span>
             <span class="<c:if test="${param.hdtypeid == '4'}">act</c:if>" data-num="4">必中任务</span>
+            <span class="<c:if test="${param.jiangli == '1'}">act</c:if>" data-num="5">有奖任务</span>
         </div>
     </div>
     <div class="jp-con">
@@ -269,7 +270,7 @@
     <div class="info-hd"><p class="title"><span class="" style="margin-right: 0.1rem;"></span> <span class="name" id="activity_name"
                                                                                                      style="max-width: 14rem;"></span>
         <em id="huabei" style="display: none">花呗</em><em id="xinyongka" style="display: none">信用卡</em>
-        <!----> <!----> <!----> <!----></p> <span>价值 <em id="salePrice">¥</em></span> <span id="shengyu">剩余  份</span> <!----> <!----> <!----></div>
+        <!----> <!----> <!----> <!----></p> <span>价值 <em id="salePrice">¥</em></span><span id="jiangli"></span> <span id="shengyu">剩余  份</span> <!----> <!----> <!----></div>
     <!----> <!---->
     <ul class="info-num">
         <li><span id="ysqnum">人 已申请</span></li>

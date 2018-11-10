@@ -1,8 +1,10 @@
+<%@page import="co.kensure.api.ApiUtil"%>
 <%@page import="com.kensure.shike.constant.BusiConstant"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <% 
 	String context = BusiConstant.shangjiapath;
 	String name = BusiConstant.name;
+	String status = (String)request.getAttribute("status");
 %>
                 
 <link rel="stylesheet" type="text/css" href="<%=context%>/addJPinShop.css">
@@ -15,6 +17,12 @@
     <div class="hxt">
     </div>
     <!--zh_title-->
+    <div class="shiy_tl" id="shiyall">
+        <a class="<%=status==null?"shiy":""%>" href="<%=ApiUtil.getUrl("/gl/dplist")%>">全部<i>|</i></a>
+        <a class="<%="0".equalsIgnoreCase(status)?"shiy":""%>" href="<%=ApiUtil.getUrl("/gl/dplist")%>?status=0">待审核</a>
+        <a class="<%="9".equalsIgnoreCase(status)?"shiy":""%>" href="<%=ApiUtil.getUrl("/gl/dplist")%>?status=9">已审核</a>
+
+    </div>
     <div class="huodong">
         
             <table width="100%" border="1" cellpadding="0" id="listtable" cellspacing="0" bordercolor="#dadada">
@@ -66,6 +74,7 @@
 <script>
 	function sucdo(data){
 		var rows = data.resultData.rows;
+		$("#listtable").html("");
 		if(rows){
 		
 			for(var i=0;i<rows.length;i++){
@@ -80,7 +89,7 @@
 				html+="<td>"+row.qq+"</td>";
 				html+="<td>"+row.weixin+"</td>";
 				html+="<td>"+row.phone+"</td>";
-				html+="<td>";
+				html+="<td><input onclick='tongguo("+row.id+")' value='通过' type='button'>";
 				html+="</td>";		
 				html+="</tr>";
 				$("#listtable").append(html);
@@ -90,16 +99,23 @@
 	}
 
    function chongzhilist(){
-	   var data = {};
-	   var url = "<%=BusiConstant.shangjia_dianpualist_do.getKey()%>";
+	   var data = {status:<%=status%>};
+	   var url = "<%=ApiUtil.getUrl("/dianpu/list.do")%>";
 	   postdo(url, data, sucdo,null, null);
    }
    
    function tongguo(id){
-	   var data = {id:id};
-	   var url = "<%=BusiConstant.ht_chongzhitongguo_do.getKey()%>";
-	   postdo(url, data, null,null, null);
+	   if(confirm('确认通过？')){
+		   var data = {id:id};
+		   var url = "<%=ApiUtil.getUrl("/dianpu/gongguo.do")%>";
+		   postdo(url, data, tongguosuc,null, null);
+	   }
    }
+   
+   function tongguosuc(data){
+	   chongzhilist();
+   }
+   
    chongzhilist();
    
 </script>

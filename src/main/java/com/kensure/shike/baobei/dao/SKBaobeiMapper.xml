@@ -187,16 +187,19 @@
 		<if test="salePrice != null">			
 			and sale_price = #{salePrice}			
 		</if>
-		<if test="lessSalePrice != null">
+		<if test="endSalePrice != null">
 			<![CDATA[
-			and sale_price <= #{lessSalePrice}
+			and sale_price <= #{endSalePrice}
 			]]>
 		</if>
-		<if test="bigSalePrice != null">
-			and sale_price >= #{bigSalePrice}
+		<if test="startSalePrice != null">
+			and sale_price >= #{startSalePrice}
 		</if>
 		<if test="jiangli != null">			
 			and jiangli = #{jiangli}			
+		</if>
+		<if test="startjiangli != null">			
+			and jiangli >= #{startjiangli}			
 		</if>
 		<if test="bbnum != null">			
 			and bbnum = #{bbnum}			
@@ -230,6 +233,12 @@
 		</if>
 		<if test="status != null">			
 			and status = #{status}			
+		</if>
+		<if test="statuslist != null">			
+			and status in
+			<foreach collection="statuslist" item="item" open="(" close=")" separator=",">
+				#{item}
+			</foreach>
 		</if>
 		<if test="isDel != null">			
 			and is_del = #{isDel}			

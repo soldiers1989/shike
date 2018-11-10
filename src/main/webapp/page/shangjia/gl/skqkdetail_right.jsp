@@ -95,20 +95,26 @@
         color: #0094ff;
         cursor: pointer;
     }
-    
-    .trhead{
-     	position: relative; 
-		top:expression(this.offsetParent.scrollTop-2);  
+    .wez{
+     	font-size:20px;
+     	 color: #0094ff;
     }
-    .trhead td{
-     	height:33px;
-		vertical-align:top:middle;
-		bgcolor:#f5f5f5;
+    .pics{
+     	font-size:20px;
+     	 color: #0094ff;
     }
-    .trbody td{
-     	height:30px;
-		vertical-align:top:middle;
+    .pics img{
+     	width:300px;
     }
+    .pics li{
+    	width:310px;
+    	float:left;
+    	margin-right:10px;
+     	 border: 1px solid #ff464e;
+    }
+     
+  
+   
     .table-style table tr {
     margin-bottom: 2px;
     border: 1px solid #e8e8e8;
@@ -122,10 +128,12 @@
    
     <div class="clearfix right_g">
         <div class="right_contant table-style">
-        	
-         	<table  cellspacing="0" style="table-layout:fixed;" cellpadding="0" id="headtable">
+        	<div id="zt"  class="wez">
          	
-            </table>
+            </div>
+         	<div id="headtable" class="pics">
+         	
+            </div>
          
         </div>
      
@@ -140,8 +148,12 @@
 	
 	function sucdo(data){
 		var row = data.resultData.row;
-		var html = "";
-		html = "<tr><td width=150>状态</td><td width=500>"+row.statusStr+"</td></tr>";
+		var html = "<ul>";
+		html += "<li>当前状态"+row.statusStr+"</li>";
+		 html += "</ul>";
+		$("#zt").append(html);	
+		
+		html = "<ul>";
 		var jys = row.jylist;
 		var jymap = {};
 		for(var j=0;jys && j<jys.length;j++){
@@ -153,38 +165,36 @@
 		if(jymap["21-3-gz"]){
 			sc213 =  jymap["21-3-sc"].content
 		}
-		html += "<tr><td>收藏图</td><td><img src='"+sc213 +"' width='500'></td></tr>";
+		html += "<li>收藏图:<br><img src='"+sc213 +"'></li>";
 		
 		var gz213 = "";
 		if(jymap["21-3-gz"]){
 			gz213 =  jymap["21-3-gz"].content
 		}
-		html += "<tr><td>关注图</td><td><img src='"+gz213 +"' width='500'></td></tr>";
+		html += "<li>关注图:<br><img src='"+gz213 +"'></li>";
 		
 		var ddh612 = "";
 		if(jymap["61-2-ddh"]){
 			ddh612 =  jymap["61-2-ddh"].content
 		}
-		html += "<tr><td>订单号</td><td>"+ddh612+"</td></tr>";
-		
+	
 		var dd613 = "";
 		if(jymap["61-3-dd"]){
 			dd613 =  jymap["61-3-dd"].content
 		}
-		html += "<tr><td>订单图</td><td><img src='"+dd613 +"' width='500'></td></tr>";
+		html += "<li>订单号："+ddh612+"<br>订单图:<br><img src='"+dd613 +"'></li>";
 		
 		var hpy812 = "";
 		if(jymap["81-2-hpy"]){
 			hpy812 =  jymap["81-2-hpy"].content
 		}
-		html += "<tr><td>好评语</td><td>"+hpy812+"</td></tr>";
 		
 		var hp813 = "";
 		if(jymap["81-3-hp"]){
 			hp813 =  jymap["81-3-hp"].content
 		}
-		html += "<tr><td>好评图</td><td><img src='"+hp813 +"' width='500'></td></tr>";
-		
+		html += "<li>好评语:"+hpy812+"<br>好评图:<br><img src='"+hp813 +"'></li>";
+		 html += "</ul>";
 		$("#headtable").append(html);		
 	}
 
