@@ -5,7 +5,9 @@ import co.kensure.frame.ResultInfo;
 import co.kensure.frame.ResultRowInfo;
 import co.kensure.frame.ResultRowsInfo;
 import co.kensure.http.RequestUtils;
+
 import com.alibaba.fastjson.JSONObject;
+import com.kensure.shike.baobei.service.SKTaobaoService;
 import com.kensure.shike.user.model.SKUser;
 import com.kensure.shike.user.model.SKUserSession;
 import com.kensure.shike.user.service.SKLoginService;
@@ -13,6 +15,7 @@ import com.kensure.shike.user.service.SKSmsService;
 import com.kensure.shike.user.service.SKUserService;
 import com.kensure.shike.zhang.model.SKUserYue;
 import com.kensure.shike.zhang.service.SKUserYueService;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import java.util.List;
 
 /**
@@ -44,6 +48,9 @@ public class SKUserController {
 
 	@Resource
 	private SKUserYueService sKUserYueService;
+	
+	@Resource
+	private SKTaobaoService sKTaobaoService;
 
 	/**
 	 * 验证码发送，包括试客、商家
@@ -277,4 +284,19 @@ public class SKUserController {
 		List<SKUser> list = sKUserService.getListByRefereeId();
 		return new ResultRowsInfo(list);
 	}
+	
+	
+	/**
+	 * 我的粉丝列表
+	 */
+	@ResponseBody
+	@RequestMapping(value = "flash.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	public ResultInfo flash(HttpServletRequest req, HttpServletResponse rep) {
+		JSONObject json = RequestUtils.paramToJson(req);
+		String sessionId = json.getString("sid");
+		sKTaobaoService.flash(sessionId);
+		return new ResultRowInfo();
+	}
+	
+	
 }

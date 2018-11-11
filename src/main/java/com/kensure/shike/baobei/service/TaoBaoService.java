@@ -2,6 +2,7 @@ package com.kensure.shike.baobei.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import co.kensure.exception.BusinessExceptionUtil;
 import co.kensure.frame.JSBaseService;
 import co.kensure.http.HttpUtils;
+import co.kensure.mem.MapUtils;
 
 import com.alibaba.fastjson.JSONObject;
 import com.kensure.mycom.config.service.MyConfigService;
@@ -183,11 +185,26 @@ public class TaoBaoService extends JSBaseService {
 		return doc;
 	}
 
+	private static final String geturl = "https://www.taodaxiang.com/credit2/index/get";
+	
+	// 根据淘宝账号获取相应信息
+	public static String postTaobaoZhangHao(String account,String sessionid) {
+		String html = "";
+		try {
+			Map<String, String> params = MapUtils.genStringMap("account",account);	
+			Map<String, String> headers = MapUtils.genStringMap("Cookie","PHPSESSID="+sessionid+";");	
+			html = HttpUtils.postParams(geturl, params,headers);
+		} catch (Exception e) {
+			BusinessExceptionUtil.threwException("获取账号信息出错", e);
+		}
+		return html;
+	}
+	
 	public static void main(String[] args) {
 		// fenxi();
-
-		String url = "【夏季儿童棉绸家居服男孩女孩宝宝睡衣小孩空调服套装男童女童薄款】，復·制这段描述￥2wRCb6weVfY￥后到淘寳[来自超级会员的分享]";
-		String html = parseTKL(url);
+		
+		String url = "fankaidilingzhi";
+		String html = postTaobaoZhangHao(url,"tq2rrl66necjb31poavg2f5jp1");
 		System.out.println(html);
 	}
 

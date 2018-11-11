@@ -11,6 +11,8 @@
  */
 package com.kensure.shike.user.model;
 
+import com.kensure.shike.baobei.model.SKTaobao;
+
 import co.kensure.frame.BaseInfo;;
 
 /**
@@ -78,6 +80,8 @@ public class SKUser extends BaseInfo{
 	
 	/**真实姓名*/		
 	private String realname; 
+	
+	private SKTaobao sKTaobao;
 
 	public Long getId() {
 		return id;
@@ -226,6 +230,14 @@ public class SKUser extends BaseInfo{
 
 	public void setPaypassword(String paypassword) {
 		this.paypassword = paypassword;
+	}
+
+	public SKTaobao getsKTaobao() {
+		return sKTaobao;
+	}
+
+	public void setsKTaobao(SKTaobao sKTaobao) {
+		this.sKTaobao = sKTaobao;
 	}
 	
 }

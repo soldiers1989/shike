@@ -11,13 +11,31 @@
  */
 package com.kensure.shike.user.service;
 
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
 import co.kensure.exception.BusinessExceptionUtil;
 import co.kensure.exception.ParamUtils;
 import co.kensure.frame.JSBaseService;
 import co.kensure.mem.CollectionUtils;
 import co.kensure.mem.MapUtils;
 import co.kensure.mem.MobileUtils;
+
 import com.kensure.basekey.BaseKeyService;
+import com.kensure.shike.baobei.service.SKTaobaoService;
 import com.kensure.shike.user.dao.SKUserDao;
 import com.kensure.shike.user.model.SKLogin;
 import com.kensure.shike.user.model.SKSms;
@@ -27,20 +45,6 @@ import com.kensure.shike.zhang.model.SKUserYue;
 import com.kensure.shike.zhang.service.SKUserYueService;
 import com.kensure.shike.zhang.service.SkUserFansService;
 import com.kensure.shike.zhang.service.SkUserJinbiService;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.context.request.RequestAttributes;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
-
-import javax.annotation.Resource;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
 
 /**
  * 用户表服务实现类
@@ -74,6 +78,9 @@ public class SKUserService extends JSBaseService {
 
 	@Resource
 	private SkUserJinbiService skUserJinbiService;
+	
+	@Resource
+	private SKTaobaoService sKTaobaoService;
 
 	public SKUser selectOne(Long id) {
 		return dao.selectOne(id);
@@ -150,7 +157,20 @@ public class SKUserService extends JSBaseService {
 			} else {
 				u.setYue(0D);
 			}
+			if(StringUtils.isNotBlank(u.getNoTaobao())){
+				u.setsKTaobao(sKTaobaoService.selectOne(u.getNoTaobao()));
+			}	
 		}
+		return list;
+	}
+	
+	/**
+	 * 获取试客信息
+	 * @return
+	 */
+	public List<SKUser> selectSKList() {
+		Map<String, Object> parameters = MapUtils.genMap("type", 1);
+		List<SKUser> list = dao.selectByWhere(parameters);
 		return list;
 	}
 

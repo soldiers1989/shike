@@ -73,6 +73,25 @@ CREATE TABLE `sk_user` (
   KEY `idx_sk_user_referee_id` (`referee_id`)
 );
 
+-- taobao账号信用情况
+CREATE TABLE `sk_taobao` (
+  `id` varchar(128) NOT NULL,
+  `shiming` varchar(12) COMMENT '是否实名认证，1实名，2未实名',
+  `reg_time` varchar(64) COMMENT '注册时间',
+  `buyer_total_point` int(11) COMMENT '总计买了几单',
+  `week_avg` varchar(64) COMMENT '每周几单',
+  `seller_good_rate` int(11) COMMENT '好评率',
+  `vip` int(11) COMMENT '会员等级',
+  `sex` varchar(64) COMMENT '男号女号',
+  `active_point` int(11) COMMENT '活跃度点数',
+  `active_level` int(11) COMMENT '活跃度等级',
+  `flag` tinyint(3) COMMENT '是否获取信息，0是未同步，1是已经同步,-1是同步失败',
+  `created_time` datetime COMMENT '创建时间',
+  `updated_time` datetime COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+);
+
+
 -- 角色表
 CREATE TABLE `sk_role` (
   `id` BIGINT(20) NOT NULL,
