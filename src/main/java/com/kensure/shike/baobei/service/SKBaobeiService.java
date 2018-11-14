@@ -349,7 +349,7 @@ public class SKBaobeiService extends JSBaseService {
 	
 	public void saveBody(long bbid, String body) {
 		// 宝贝详情
-		SKBaobeiZT one = sKBaobeiZTService.selectOne(bbid);
+		SKBaobeiZT one = sKBaobeiZTService.getDetail(bbid);
 		SKBaobei bb = selectOne(bbid);	
 		SKBaobeiZT zt = new SKBaobeiZT();
 		zt.setUrl(bb.getUrl());
