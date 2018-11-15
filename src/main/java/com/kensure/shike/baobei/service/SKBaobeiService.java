@@ -330,21 +330,16 @@ public class SKBaobeiService extends JSBaseService {
 
 	private void saveContent(long bbid, String url) {
 		// 宝贝详情
-		SKBaobeiZT one = sKBaobeiZTService.selectOne(bbid);
+		SKBaobeiZT one = sKBaobeiZTService.getDetail(bbid);
 		if(one != null){
 			return;
-		}
-		
+		}		
 		SKBaobeiZT zt = new SKBaobeiZT();
 		zt.setUrl(url);
 		String content = TaoBaoService.getContent(url);
 		zt.setBbid(bbid);
 		zt.setContent(content);
-		if (zt.getId() == null) {
-			this.sKBaobeiZTService.insert(zt);
-		} else {
-			this.sKBaobeiZTService.update(zt);
-		}
+		this.sKBaobeiZTService.insert(zt);
 	}
 	
 	public void saveBody(long bbid, String body) {
