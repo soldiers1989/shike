@@ -33,7 +33,7 @@ public class BusiConstant {
 	// 公司qq
 	public static final String gsqq = "64202412";
 	// 公司支付宝
-	public static final String gsalipay = "13606816944";
+	public static final String gsalipay = "www.52shibei.com";
 	// 公司银行名称
 	public static final String gsyhmc = "建设银行";
 	// 公司银行账户

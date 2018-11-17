@@ -37,7 +37,7 @@
         <div id="showcat1">
             <h3>官方 <span>支付宝</span> 打款充值</h3>
             <div class="recharge-num">
-                进入<em style="color:#ff464e;">支付宝</em>打款至：<span class="#ff464e"><%=BusiConstant.gsname%></span><%-- 支付宝账户号：<span class="#ff464e"><%=BusiConstant.gsalipay%></span> --%>
+                进入<em style="color:#ff464e;">支付宝</em>打款至：<span class="#ff464e"><%=BusiConstant.gsname%></span> 支付宝账户号：<span class="#ff464e"><%=BusiConstant.gsalipay%></span> 
             </div>
             <p class="warn"><span class="iconfont icon-warn"></span> 
                 <span><%=BusiConstant.name %>不提供刷单/刷销量/炒作信用等服务，若商家利用平台进行以上活动或在转账信息中备注以上信息，将依据《<%=BusiConstant.name %>商家处罚规则》处以立即清退及终生不予合作的处罚。</span></p>

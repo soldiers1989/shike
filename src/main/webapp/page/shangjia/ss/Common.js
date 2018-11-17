@@ -29,7 +29,7 @@ function loginSubmit(type,returnurl) {
             	var usersession = d.resultData.row;
             	addcookie(usersession);
             	if(type == 3){
-            		 location.href = "/shike/gl/chongzhilist";
+            		 location.href = "/shike/gl/huodonglist";
             	}else if(type == 1){
             		 location.href = "/shike/shangjia/index";
             	}

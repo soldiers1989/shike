@@ -27,7 +27,6 @@ import co.kensure.frame.JSBaseService;
 import co.kensure.http.RequestUtils;
 import co.kensure.mem.CollectionUtils;
 import co.kensure.mem.MapUtils;
-import co.kensure.mem.MobileUtils;
 import co.kensure.mem.Utils;
 
 import com.kensure.basekey.BaseKeyService;
@@ -136,10 +135,14 @@ public class SKLoginService extends JSBaseService {
 	 */
 	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
 	public SKUserSession login(String mobile, String password, int type, HttpServletRequest request) {
-		MobileUtils.checkMobile(mobile);
+//		MobileUtils.checkMobile(mobile);
 		SKUserService.rangeType(type);
 
 		SKUser u = sKUserService.selectByMobile(mobile, type);
+		if(u == null){
+			u = sKUserService.selectByName(mobile, type);
+		}
+		
 		if (u == null) {
 			BusinessExceptionUtil.threwException("用户不存在");
 		}

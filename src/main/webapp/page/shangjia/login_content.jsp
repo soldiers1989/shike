@@ -46,12 +46,17 @@
                 </div>
                 <!--zc_pqe-->
             </div>
+            
             <!--sdt_right-->
         </div>
+        <div style="float:right">
+			<a id="launchBtn" class="btnText onlineBtnText btn" target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin=<%=BusiConstant.gsqq %>&amp;site=qq&amp;menu=yes"><img src="<%=BusiConstant.context%>/page/img/qq.png"></a>	
+		</div>
         <!--stv_mca-->
     </div>
     <!--stja_mian-->
 </div>
+
 
 <script>
 var lgtype=2;

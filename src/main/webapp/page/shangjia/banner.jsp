@@ -11,9 +11,12 @@
         <div class="header_main">
             <!--header_top-->
             <div class="header_center">
-                    <div class="qn-logo">
+                    <div class="qn-logo"> 
                     </div>  
+                     <div style="padding-top:30px;font-size:18px"><a href="<%=BusiConstant.shangjia_index.getKey()%> ">商家管理中心</a>
+                     </div>  
             </div>
+          
             <!--header_center-->
             <!--nav-->
         </div>
