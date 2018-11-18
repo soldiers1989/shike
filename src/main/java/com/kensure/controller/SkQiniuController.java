@@ -23,7 +23,7 @@ public class SkQiniuController {
 
 	private String accessKey = "19aQdu9aO5mtERdtAo4kQyUsYB6KOPVdE8ukMaBh";
 	private String secretKey = "NM0gE2uPl0syJnJ7-JPuSVyXryq03YNY_ujvHQd4";
-	private String bucket = "shike";
+	private String bucket = "shike2";
 
 
 	/**

@@ -49,7 +49,7 @@ public class BusiConstant {
 	public static final String description = "试呗网";
 
 	// 七牛云外链默认域名
-	public static final String qiniu_context = "http://pgp5wv0s2.bkt.clouddn.com/";
+	public static final String qiniu_context = "http://pic3e0iaj.bkt.clouddn.com/";
 
 	public static final KVBean shangjia_about = new KVBean(context + "/shangjia/about", "关于我们");
 	public static final KVBean shangjia_userdefine = new KVBean(context + "/shangjia/userdefine", "用户协议");
