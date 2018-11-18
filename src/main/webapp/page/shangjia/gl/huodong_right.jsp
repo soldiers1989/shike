@@ -199,8 +199,26 @@
 		var tdinner = row.dianpu.name+"("+row.dianpu.statusStr+")";
 		return tdinner;
 	}
+
+	function hdtypeidfun(row) {
+        var hdtypeid= row.hdtypeid;
+        var tdinner = '';
+        if (hdtypeid == 1) {
+            tdinner = "爆款打造/维护";
+        } else if (hdtypeid == 2) {
+            tdinner = "新品提升/综合权重";
+        } else if (hdtypeid == 3) {
+            tdinner = "高客单精准打造爆款";
+        }  else if (hdtypeid == 4) {
+            tdinner = "必中任务";
+        } else {
+            tdinner = hdtypeid;
+        }
+        return tdinner;
+    }
 	
 	table.th = [{w:50,na:"编号",colname:"id"}
+	,{w:120,na:"活动类型",callfun:hdtypeidfun}
 	,{w:270,na:"活动名称",callfun:titlefun}
 	,{w:100,na:"开始时间",colname:"startTimeStr"}
 	,{w:100,na:"结束时间",colname:"endTimeStr"}

@@ -70,7 +70,7 @@
 				html+="<td>"+row.yue+"</td>";
 				html+="<td>"+row.createdTimeStr+"</td>";
                 html+="<td>"+source+"</td>";
-                html+="<td><a onclick='edit("+row.id+")'>修改</a></td>";
+                html+="<td><button onclick='edit("+row.id+")'>修改</button></td>";
 				// html+="<td>";
 				// html+="</td>";
 				html+="</tr>";

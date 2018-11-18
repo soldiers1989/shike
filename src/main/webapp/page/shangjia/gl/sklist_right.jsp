@@ -182,7 +182,7 @@
 		table.tdinit();
     }
 	
-	var fanye = new FanYe("fanye", "chongzhilist", 0, 10, 1);
+	var fanye = new FanYe("fanye", "chongzhilist", 0, 20, 1);
 
    function chongzhilist(current){
         if(!fanye.setpage(current)){
