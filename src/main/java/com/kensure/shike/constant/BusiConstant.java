@@ -214,4 +214,7 @@ public class BusiConstant {
     public static final KVBean shike_baobei_updatedd_do = new KVBean(context + "/jysj/updatedd.do", "更新订单信息");
     public static final KVBean shike_baobei_updatehp_do = new KVBean(context + "/jysj/updatehp.do", "更新好评信息");
 
+
+    public static final KVBean shike_user_audit_do = new KVBean(context + "/user/audit.do", "用户账号审核");
+
 }

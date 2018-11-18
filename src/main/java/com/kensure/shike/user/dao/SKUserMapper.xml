@@ -21,6 +21,8 @@
 		type,
 		realname,
 		paypassword,
+		audit_status as auditStatus,
+		remark as remark,
 		created_time as createdTime,
 		updated_time as updatedTime
     </sql>
@@ -249,7 +251,13 @@
 		</if>
 		<if test="paypassword != null">
 			paypassword = #{paypassword},
-		</if>	
+		</if>
+		<if test="auditStatus != null">
+			audit_status = #{auditStatus},
+		</if>
+		<if test="remark != null">
+			remark = #{remark},
+		</if>
 		<if test="createdTime != null">
 			created_time = #{createdTime},
 		</if>

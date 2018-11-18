@@ -81,6 +81,12 @@ public class SKUser extends BaseInfo{
 	/**真实姓名*/		
 	private String realname;
 
+	/**审核状态*/
+	private Integer auditStatus;
+
+	/**备注*/
+	private String remark;
+
 	/**活动申请数*/
 	private Long sqNum;
 
@@ -260,5 +266,21 @@ public class SKUser extends BaseInfo{
 
 	public void setZjNum(Long zjNum) {
 		this.zjNum = zjNum;
+	}
+
+	public Integer getAuditStatus() {
+		return auditStatus;
+	}
+
+	public void setAuditStatus(Integer auditStatus) {
+		this.auditStatus = auditStatus;
+	}
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
 	}
 }

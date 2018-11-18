@@ -149,6 +149,11 @@ public class SKLoginService extends JSBaseService {
 		if (!u.getPassword().equalsIgnoreCase(password)) {
 			BusinessExceptionUtil.threwException("用户或者密码无效");
 		}
+
+		if (u != null && u.getStatus() == -1) {
+			BusinessExceptionUtil.threwException("账号已停用");
+		}
+
 		// 会话id
 		String uuid = Utils.getUUID();
 		SKLogin sklogin = new SKLogin();

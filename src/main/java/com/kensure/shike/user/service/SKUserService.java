@@ -12,6 +12,7 @@
 package com.kensure.shike.user.service;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -611,4 +612,34 @@ public class SKUserService extends JSBaseService {
         List<SKUser> skUsers = selectByWhere(parameters);
         return skUsers;
 	}
+
+	/**
+	 * 审核用户账号
+	 * @param id
+	 * @param status
+	 * @param remark
+	 */
+	public void auditUser(Long id, Integer status, String remark) {
+		if (status == null || id == null) {
+			BusinessExceptionUtil.threwException("参数错误");
+		}
+
+        SKUser user = selectOne(id);
+        if (user == null) {
+            BusinessExceptionUtil.threwException("用户为空");
+        }
+
+        SKUser skUser = new SKUser();
+        skUser.setId(id);
+        skUser.setAuditStatus(status);
+        skUser.setRemark(remark);
+        skUser.setUpdatedTime(new Date());
+
+        // 审核不通过时，将账号置为停用
+        if (status == 2) {
+            skUser.setStatus(-1);
+        }
+
+        update(skUser);
+    }
 }

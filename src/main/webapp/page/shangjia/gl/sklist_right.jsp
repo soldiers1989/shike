@@ -75,12 +75,17 @@
     }
 
 	var table = createtable("listtable");
-	
+
 	var optfun = function(row){
-		var tdinner = ""; 
-		return tdinner;
+        var tdinner = "";
+        var auditStatus = row.auditStatus;
+        if (auditStatus == 0) {
+            tdinner = "<a onclick='auditPass("+row.id+")'>审核通过</a>";
+            tdinner += "<a onclick='auditUnpass("+row.id+")'>审核不通过</a>";
+        }
+        return tdinner;
 	}
-	
+
 	var xinyongfun = function(row){
 		var f = "";
 		if(row.sKTaobao && row.sKTaobao.buyerTotalPoint){
@@ -135,12 +140,25 @@
 		var tdinner = " <em style=\"color: #a9a9a9;\">"+f+"</em>";
 		return tdinner;
 	}
+
+	var auditfun =  function(row){
+        var auditStatus = row.auditStatus;
+        var tdinner = '';
+        if (auditStatus == 0) {
+            tdinner = "未审核";
+        } else if (auditStatus == 1) {
+            tdinner = "审核通过";
+        } else if (auditStatus == 2) {
+            tdinner = "不通过("+ row.remark +")";
+        }
+        return tdinner;
+    }
 	
 	table.th = [{w:50,na:"编号",colname:"id"}
-	,{w:100,na:"真实姓名",colname:"realname"}
+	,{w:80,na:"真实姓名",colname:"realname"}
 	,{w:100,na:"手机号",colname:"phone"}
 	,{w:100,na:"qq账号",colname:"noQq"}
-	,{w:100,na:"余额",colname:"yue"}
+	,{w:50,na:"余额",colname:"yue"}
 	,{w:100,na:"创建时间",colname:"createdTimeStr"}
 	,{w:100,na:"支付宝",colname:"noAlipay"}
 	,{w:80,na:"实名认证",callfun:shimingfun}
@@ -150,8 +168,9 @@
 	,{w:80,na:"男号女号",callfun:nannvfun}
 	,{w:80,na:"淘宝会员等级",callfun:huiyuanfun}
 	,{w:100,na:"活跃度",callfun:huoyuefun}
-	,{w:100,na:"活动申请数",colname:"sqNum"}
-	,{w:100,na:"中奖数",colname:"zjNum"}
+	,{w:50,na:"活动申请数",colname:"sqNum"}
+	,{w:50,na:"中奖数",colname:"zjNum"}
+	,{w:100,na:"审核状态",callfun:auditfun}
 	,{w:200,na:"操作",callfun:optfun}];
 	
 	table.thinit();
@@ -186,5 +205,28 @@
 	   postdo(url, data, null,null, null);
    }
    chongzhilist(1);
+
+
+    function auditPass(id) {
+        var data = {id:id, status: 1};
+        var url = "<%=BusiConstant.shike_user_audit_do.getKey()%>";
+        postdo(url, data, auditCallBack,null, null);
+    }
+
+    function auditUnpass(id) {
+        var reason = prompt("不通过原因","")
+        if (reason!=null && reason!="") {
+            var data = {id:id, status: 2, remark: reason};
+            var url = "<%=BusiConstant.shike_user_audit_do.getKey()%>";
+            postdo(url, data, auditCallBack,null, null);
+        } else {
+            alert("请输入审核不通过原因")
+        }
+    }
+    
+    function auditCallBack(data) {
+        alert("操作成功")
+        chongzhilist(fanye.current);
+    }
    
 </script>

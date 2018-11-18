@@ -306,6 +306,22 @@ public class SKUserController {
 		sKTaobaoService.flash(sessionId);
 		return new ResultRowInfo();
 	}
+
+	/**
+	 * 用户账号审核接口
+	 */
+	@ResponseBody
+	@RequestMapping(value = "audit.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	public ResultInfo audit(HttpServletRequest req, HttpServletResponse rep) {
+		JSONObject json = RequestUtils.paramToJson(req);
+		Long id = json.getLong("id");
+		Integer status = json.getInteger("status");
+		String remark = json.getString("remark");
+
+		sKUserService.auditUser(id, status, remark);
+
+		return new ResultRowInfo();
+	}
 	
 	
 }
