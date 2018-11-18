@@ -6,7 +6,9 @@ import co.kensure.frame.ResultRowInfo;
 import co.kensure.frame.ResultRowsInfo;
 import co.kensure.http.RequestUtils;
 
+import co.kensure.mem.PageInfo;
 import com.alibaba.fastjson.JSONObject;
+import com.kensure.shike.baobei.model.SKSkqkLeft;
 import com.kensure.shike.baobei.query.SKSkqkLeftQuery;
 import com.kensure.shike.baobei.service.SKTaobaoService;
 import com.kensure.shike.user.model.SKUser;
@@ -173,8 +175,12 @@ public class SKUserController {
 		JSONObject json = RequestUtils.paramToJson(req);
 		SKUserListQuery userQuery = JSONObject.parseObject(json.toJSONString(), SKUserListQuery.class);
 
-		List<SKUser> list = sKUserService.selectList(userQuery);
-		return new ResultRowsInfo(list);
+        PageInfo page = JSONObject.parseObject(json.toJSONString(), PageInfo.class);
+
+		List<SKUser> list = sKUserService.selectList(userQuery, page);
+
+        long cont = sKUserService.selectListCount(userQuery);
+        return new ResultRowsInfo(list, cont);
 	}
 
 	/**

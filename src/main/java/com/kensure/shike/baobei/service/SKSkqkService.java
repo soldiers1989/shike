@@ -597,4 +597,16 @@ public class SKSkqkService extends JSBaseService {
 			updateStatus(skqk.getId(), -2L);
 		}
 	}
+
+	// 获取该用户有效的申请数
+	public long getSkqkCountByUserId(Long userId) {
+		Map<String, Object> parameters = MapUtils.genMap("userid",userId);
+        return selectCountByWhere(parameters);
+    }
+
+	// 获取该用户活动中奖数数
+	public long getSkqkZjCountByUserId(Long userId) {
+		Map<String, Object> parameters = MapUtils.genMap("userid",userId, "bigthanstatus", 51);
+        return selectCountByWhere(parameters);
+    }
 }

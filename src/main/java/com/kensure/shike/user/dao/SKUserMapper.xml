@@ -105,7 +105,7 @@
 			id = #{id}
 		</if>
 		<if test="phone != null">
-			phone = #{phone}
+            and phone = #{phone}
 		</if>
 		<if test="password != null">			
 			and password = #{password}			
@@ -193,6 +193,9 @@
 		<if test="orderby != null">
 			ORDER BY ${orderby}
 		</if>
+        <if test="limit != null">
+            LIMIT #{limit} OFFSET #{offset}
+        </if>
 	</select>
 	
 	<sql id="setComn">		

@@ -79,7 +79,13 @@ public class SKUser extends BaseInfo{
 	private Double yue; 
 	
 	/**真实姓名*/		
-	private String realname; 
+	private String realname;
+
+	/**活动申请数*/
+	private Long sqNum;
+
+	/**活动中奖数*/
+	private Long zjNum;
 	
 	private SKTaobao sKTaobao;
 
@@ -239,5 +245,20 @@ public class SKUser extends BaseInfo{
 	public void setsKTaobao(SKTaobao sKTaobao) {
 		this.sKTaobao = sKTaobao;
 	}
-	
+
+	public Long getSqNum() {
+		return sqNum;
+	}
+
+	public void setSqNum(Long sqNum) {
+		this.sqNum = sqNum;
+	}
+
+	public Long getZjNum() {
+		return zjNum;
+	}
+
+	public void setZjNum(Long zjNum) {
+		this.zjNum = zjNum;
+	}
 }

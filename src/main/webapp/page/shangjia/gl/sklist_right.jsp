@@ -47,6 +47,9 @@
           	</tbody>
           	</table>
         </div>
+        <div id="fanye">
+
+        </div>
     </div>
     <!--page-->
 </div>
@@ -147,23 +150,25 @@
 	,{w:80,na:"男号女号",callfun:nannvfun}
 	,{w:80,na:"淘宝会员等级",callfun:huiyuanfun}
 	,{w:100,na:"活跃度",callfun:huoyuefun}
+	,{w:100,na:"活动申请数",colname:"sqNum"}
+	,{w:100,na:"中奖数",colname:"zjNum"}
 	,{w:200,na:"操作",callfun:optfun}];
 	
 	table.thinit();
 	
 	function sucdo(data){
 		var rows = data.resultData.rows;
-		fanye.init(data.resultData.total);
-		table.data = rows == null ? [] : rows;
+        fanye.init(data.resultData.total);
+        table.data = rows == null ? [] : rows;
 		table.tdinit();
     }
 	
-	var fanye = new FanYe("fanye","chongzhilist",0,20,1);
+	var fanye = new FanYe("fanye", "chongzhilist", 0, 10, 1);
 
    function chongzhilist(current){
-	   if(!fanye.setpage(current)){
-			return;
-		}
+        if(!fanye.setpage(current)){
+            return;
+        }
 
 	   // var data = {type: 1, pageNo: fanye.current, pageSize: fanye.limit};
        var data = $('#userListchaxun').serializeObject();
@@ -180,6 +185,6 @@
 	   var url = "<%=BusiConstant.ht_chongzhitongguo_do.getKey()%>";
 	   postdo(url, data, null,null, null);
    }
-   chongzhilist();
+   chongzhilist(1);
    
 </script>

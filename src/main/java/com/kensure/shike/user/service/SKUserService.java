@@ -19,6 +19,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
+import co.kensure.mem.PageInfo;
+import com.kensure.shike.baobei.service.SKSkqkService;
 import com.kensure.shike.user.model.query.SKUserListQuery;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -83,6 +85,9 @@ public class SKUserService extends JSBaseService {
 	@Resource
 	private SKTaobaoService sKTaobaoService;
 
+	@Resource
+	private SKSkqkService skSkqkService;
+
 	public SKUser selectOne(Long id) {
 		return dao.selectOne(id);
 	}
@@ -145,8 +150,10 @@ public class SKUserService extends JSBaseService {
 	 * @param parameters
 	 * @return
 	 */
-	public List<SKUser> selectList(SKUserListQuery userQuery) {
+	public List<SKUser> selectList(SKUserListQuery userQuery, PageInfo page) {
 		Map<String, Object> parameters = MapUtils.bean2Map(userQuery, true);
+        MapUtils.putPageInfo(parameters, page);
+
 		List<SKUser> list = dao.selectByWhere(parameters);
 		if (CollectionUtils.isEmpty(list)) {
 			return null;
@@ -158,12 +165,27 @@ public class SKUserService extends JSBaseService {
 			} else {
 				u.setYue(0D);
 			}
+
 			if(StringUtils.isNotBlank(u.getNoTaobao())){
 				u.setsKTaobao(sKTaobaoService.selectOne(u.getNoTaobao()));
-			}	
-		}
+			}
+
+			// 活动申请数
+            long sqNum = skSkqkService.getSkqkCountByUserId(u.getId());
+            u.setSqNum(sqNum);
+
+            // 活动中奖数
+            long zjNum = skSkqkService.getSkqkZjCountByUserId(u.getId());
+            u.setZjNum(zjNum);
+        }
 		return list;
 	}
+
+    public long selectListCount(SKUserListQuery userQuery) {
+        Map<String, Object> parameters = MapUtils.bean2Map(userQuery, true);
+        long count = dao.selectCountByWhere(parameters);
+        return count;
+    }
 	
 	/**
 	 * 获取试客信息
