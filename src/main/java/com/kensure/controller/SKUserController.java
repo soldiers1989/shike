@@ -322,6 +322,20 @@ public class SKUserController {
 
 		return new ResultRowInfo();
 	}
+
+	/**
+	 * 更新商家来源
+	 */
+	@ResponseBody
+	@RequestMapping(value = "updateSource.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	public ResultInfo updateSource(HttpServletRequest req, HttpServletResponse rep) {
+		JSONObject json = RequestUtils.paramToJson(req);
+		Long id = json.getLong("id");
+		String source = json.getString("source");
+
+		sKUserService.updateUserSource(id, source);
+		return new ResultRowInfo();
+	}
 	
 	
 }

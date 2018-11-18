@@ -21,6 +21,7 @@
 		type,
 		realname,
 		paypassword,
+		source,
 		audit_status as auditStatus,
 		remark as remark,
 		created_time as createdTime,
@@ -46,6 +47,7 @@
 		type,
 		realname,
 		paypassword,
+		audit_status,
 		created_time,
 		updated_time
     </sql>
@@ -71,6 +73,7 @@
 			#{type},
 			#{realname},			
 			#{paypassword},
+			#{auditStatus},
 			#{createdTime},
 			#{updatedTime}
 		)
@@ -96,6 +99,7 @@
 				#{item.type},
 				#{item.realname},
 				#{item.paypassword},		
+				#{item.auditStatus},
 				#{item.createdTime},
 				#{item.updatedTime}
 			)
@@ -257,6 +261,9 @@
 		</if>
 		<if test="remark != null">
 			remark = #{remark},
+		</if>
+		<if test="source != null">
+			source = #{source},
 		</if>
 		<if test="createdTime != null">
 			created_time = #{createdTime},

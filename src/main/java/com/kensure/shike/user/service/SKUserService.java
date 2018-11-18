@@ -117,6 +117,7 @@ public class SKUserService extends JSBaseService {
 		super.beforeInsert(obj);
 		obj.setId(baseKeyService.getKey("sk_user"));
 		obj.setStatus(1);
+		obj.setAuditStatus(0);
 		return dao.insert(obj);
 	}
 
@@ -171,13 +172,15 @@ public class SKUserService extends JSBaseService {
 				u.setsKTaobao(sKTaobaoService.selectOne(u.getNoTaobao()));
 			}
 
-			// 活动申请数
-            long sqNum = skSkqkService.getSkqkCountByUserId(u.getId());
-            u.setSqNum(sqNum);
+			if (userQuery.getType() != null && userQuery.getType() == 1) {
+                // 活动申请数
+                long sqNum = skSkqkService.getSkqkCountByUserId(u.getId());
+                u.setSqNum(sqNum);
 
-            // 活动中奖数
-            long zjNum = skSkqkService.getSkqkZjCountByUserId(u.getId());
-            u.setZjNum(zjNum);
+                // 活动中奖数
+                long zjNum = skSkqkService.getSkqkZjCountByUserId(u.getId());
+                u.setZjNum(zjNum);
+            }
         }
 		return list;
 	}
@@ -640,6 +643,26 @@ public class SKUserService extends JSBaseService {
             skUser.setStatus(-1);
         }
 
+        update(skUser);
+    }
+
+	/**
+	 * 更新商家来源
+	 * @param id
+	 * @param source
+	 */
+	public void updateUserSource(Long id, String source) {
+		ParamUtils.isBlankThrewException(source, "来源不能为空");
+
+        SKUser user = selectOne(id);
+        if (user == null) {
+            BusinessExceptionUtil.threwException("用户为空");
+        }
+
+        SKUser skUser = new SKUser();
+        skUser.setId(id);
+        skUser.setSource(source);
+        skUser.setUpdatedTime(new Date());
         update(skUser);
     }
 }

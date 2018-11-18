@@ -38,6 +38,9 @@
                     <td width="200" height="30" valign="middle" bgcolor="#eaeaea">
                         <strong>注册时间</strong>
                     </td>
+                    <td width="200" height="30" valign="middle" bgcolor="#eaeaea">
+                        <strong>商家来源</strong>
+                    </td>
                      <td width="200" height="30" valign="middle" bgcolor="#eaeaea">
                         <strong>操作</strong>
                     </td>
@@ -58,14 +61,18 @@
 		
 			for(var i=0;i<rows.length;i++){
 				var row = rows[i];
+				var source = row.source == null ? '' : row.source;
+
 				var html = "<tr><td height='30'>"+row.id+"</td>";
 				html+="<td>"+row.name+"</td>";
 				html+="<td>"+row.phone+"</td>";
 				html+="<td>"+row.noQq+"</td>";
 				html+="<td>"+row.yue+"</td>";
 				html+="<td>"+row.createdTimeStr+"</td>";
-				html+="<td>";
-				html+="</td>";		
+                html+="<td>"+source+"</td>";
+                html+="<td><a onclick='edit("+row.id+")'>修改</a></td>";
+				// html+="<td>";
+				// html+="</td>";
 				html+="</tr>";
 				$("#listtable").append(html);
 			}
@@ -73,7 +80,11 @@
 		
 	}
 
-   function chongzhilist(){
+   function chongzhilist(flag){
+	    if (flag) {
+            window.location.reload();
+        }
+
 	   var data = {type:2};
 	   var url = "<%=BusiConstant.shike_userlist_do.getKey()%>";
 	   postdo(url, data, sucdo,null, null);
@@ -85,5 +96,18 @@
 	   postdo(url, data, null,null, null);
    }
    chongzhilist();
+	
+	function edit(id) {
+        var source = prompt("请输入商家来源","")
+        if (source!=null && source!="") {
+            var data = {id:id, source: source};
+            var url = "<%=BusiConstant.shike_update_source_do.getKey()%>";
+            postdo(url, data, editCallBack,null, null);
+        }
+    }
+
+    function editCallBack(data) {
+        chongzhilist(true);
+    }
    
 </script>

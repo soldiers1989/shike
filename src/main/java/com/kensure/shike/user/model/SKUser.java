@@ -81,6 +81,9 @@ public class SKUser extends BaseInfo{
 	/**真实姓名*/		
 	private String realname;
 
+	/**来源(商家用户使用)*/
+	private String source;
+
 	/**审核状态*/
 	private Integer auditStatus;
 
@@ -266,6 +269,14 @@ public class SKUser extends BaseInfo{
 
 	public void setZjNum(Long zjNum) {
 		this.zjNum = zjNum;
+	}
+
+	public String getSource() {
+		return source;
+	}
+
+	public void setSource(String source) {
+		this.source = source;
 	}
 
 	public Integer getAuditStatus() {
