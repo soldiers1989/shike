@@ -19,6 +19,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
+import com.kensure.shike.user.model.query.SKUserListQuery;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -144,8 +145,8 @@ public class SKUserService extends JSBaseService {
 	 * @param parameters
 	 * @return
 	 */
-	public List<SKUser> selectList(Integer type) {
-		Map<String, Object> parameters = MapUtils.genMap("type", type);
+	public List<SKUser> selectList(SKUserListQuery userQuery) {
+		Map<String, Object> parameters = MapUtils.bean2Map(userQuery, true);
 		List<SKUser> list = dao.selectByWhere(parameters);
 		if (CollectionUtils.isEmpty(list)) {
 			return null;

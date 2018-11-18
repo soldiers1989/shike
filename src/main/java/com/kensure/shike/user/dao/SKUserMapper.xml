@@ -101,8 +101,11 @@
 	</insert>   		
 	
     <sql id="whereClause">
-		<if test="phone != null">			
-			phone = #{phone}			
+		<if test="id != null">
+			id = #{id}
+		</if>
+		<if test="phone != null">
+			phone = #{phone}
 		</if>
 		<if test="password != null">			
 			and password = #{password}			

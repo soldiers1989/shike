@@ -7,9 +7,11 @@ import co.kensure.frame.ResultRowsInfo;
 import co.kensure.http.RequestUtils;
 
 import com.alibaba.fastjson.JSONObject;
+import com.kensure.shike.baobei.query.SKSkqkLeftQuery;
 import com.kensure.shike.baobei.service.SKTaobaoService;
 import com.kensure.shike.user.model.SKUser;
 import com.kensure.shike.user.model.SKUserSession;
+import com.kensure.shike.user.model.query.SKUserListQuery;
 import com.kensure.shike.user.service.SKLoginService;
 import com.kensure.shike.user.service.SKSmsService;
 import com.kensure.shike.user.service.SKUserService;
@@ -169,8 +171,9 @@ public class SKUserController {
 	@RequestMapping(value = "userlist.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
 	public ResultInfo userlist(HttpServletRequest req, HttpServletResponse rep) {
 		JSONObject json = RequestUtils.paramToJson(req);
-		Integer type = json.getInteger("type");
-		List<SKUser> list = sKUserService.selectList(type);
+		SKUserListQuery userQuery = JSONObject.parseObject(json.toJSONString(), SKUserListQuery.class);
+
+		List<SKUser> list = sKUserService.selectList(userQuery);
 		return new ResultRowsInfo(list);
 	}
 

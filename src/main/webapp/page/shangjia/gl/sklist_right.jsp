@@ -13,6 +13,26 @@
                 
 
 <div class="clearfix right_bottom">
+    <div class="shiy_ti">
+        <form id="userListchaxun">
+            <span style="float:none;margin-right:5px;">编号</span>
+            <input name="id" type="text" style="width:80px" >
+
+            <span style="float:none;margin-right:5px;">手机号</span>
+            <input name="phone" type="text" style="width:80px" >
+
+            <span style="float:none;margin-right:5px;">QQ</span>
+            <input name="noQq" type="text" style="width:80px" >
+
+            <span style="float:none;margin-right:5px;">支付宝</span>
+            <input name="noAlipay" type="text" value="" style="width:80px" >
+
+            <span style="float:none;margin-right:5px;">淘宝</span>
+            <input name="noTaobao" type="text" value="" style="width:80px" >
+        </form>
+        <input onclick="chongzhilist(1)" type="button" value="搜索">
+    </div>
+
     <div class="hxt">
     </div>
     <!--zh_title-->
@@ -35,6 +55,22 @@
             </div>
 
 <script>
+    $.fn.serializeObject = function(){
+        var o = {};
+        var a = this.serializeArray();
+        $.each(a, function() {
+            if (o[this.name]) {
+                if (!o[this.name].push) {
+                    o[this.name] = [o[this.name]];
+                }
+                o[this.name].push(this.value || '');
+            } else {
+                o[this.name] = this.value || '';
+            }
+        });
+        return o;
+    }
+
 	var table = createtable("listtable");
 	
 	var optfun = function(row){
@@ -117,10 +153,10 @@
 	
 	function sucdo(data){
 		var rows = data.resultData.rows;
-		fanye.init(data.resultData.total);	
-		table.data = rows;
+		fanye.init(data.resultData.total);
+		table.data = rows == null ? [] : rows;
 		table.tdinit();
-	}
+    }
 	
 	var fanye = new FanYe("fanye","chongzhilist",0,20,1);
 
@@ -128,7 +164,13 @@
 	   if(!fanye.setpage(current)){
 			return;
 		}
-	   var data = {type:1,pageNo:fanye.current,pageSize:fanye.limit};
+
+	   // var data = {type: 1, pageNo: fanye.current, pageSize: fanye.limit};
+       var data = $('#userListchaxun').serializeObject();
+       data.type = 1;
+       data.pageNo = fanye.current;
+       data.pageSize = fanye.limit;
+
 	   var url = "<%=ApiUtil.getUrl("/user/userlist.do")%>";
 	   postdo(url, data, sucdo,null, null);
    }
