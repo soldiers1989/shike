@@ -18,11 +18,6 @@ import com.taobao.api.response.WirelessShareTpwdQueryResponse;
 
 public class RespositoryTest {
 
-	private final static String appkey = "23615464";
-	private final static String appsecret = "d36f4fd1644696927465a60322f367bc";
-	
-//	private final static String appkey = "25089024";
-//	private final static String appsecret = "d6afb55bc7487926a2b64ff55918cab7";
 	@Test
 	public void test() {
 		String url = "https://a.m.taobao.com/i562678558396.htm?price=21-36&sourceType=item&sourceType=item&suid=3a8355c5-8f70-43e1-9b83-5700b8520bab&ut_sk=1.Wlsrw16G1gkDANL%2Fd2YObLF2_21646297_1537788301806.Copy.1&un=814e41faeefcc0722040bd82ddc2e1ea&share_crt_v=1&sp_tk=77+lODMyYWI0QmVvOHnvv6U=&spm=a211b4.23615464&visa=13a09278fde22a2e&disablePopup=true&disableSJ=1";
