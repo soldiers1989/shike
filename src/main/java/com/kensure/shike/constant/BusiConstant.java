@@ -144,7 +144,8 @@ public class BusiConstant {
 	
 	//试客路径
 	public static final String shikemobilepath = context + "/page/mobile";
-	
+	public static final String shikewebepath = context + "/page/web";
+
 	public static final KVBean shike_index = new KVBean(context + "/skm/index", "首页");
 	public static final KVBean shike_zjmj = new KVBean(context + "/skm/zjmj", "中奖秘笈页面");
 	public static final KVBean shike_zqmj = new KVBean(context + "/skm/zqmj", "赚钱秘笈页面");

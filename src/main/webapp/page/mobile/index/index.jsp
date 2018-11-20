@@ -53,11 +53,11 @@
 <body>
     
 
-<link href="<%=BusiConstant.shikemobilepath %>/index/resource/swiper.min.css" rel="stylesheet">
-<script src="<%=BusiConstant.shikemobilepath %>/index/resource/swiper.min.js"></script>
-<script src="<%=BusiConstant.shikemobilepath %>/index/resource/jquery.lazyload.js"></script>
-<script src="<%=BusiConstant.shikemobilepath %>/index/resource/vue.js"></script>
-<script src="<%=BusiConstant.shikemobilepath %>/index/resource/jquery.infinitescroll.js"></script>
+<link href="<%=BusiConstant.shikemobilepath %>/common/css/swiper.min.css" rel="stylesheet">
+<script src="<%=BusiConstant.shikemobilepath %>/common/js/swiper.min.js"></script>
+<script src="<%=BusiConstant.shikemobilepath %>/common/js/jquery.lazyload.js"></script>
+<script src="<%=BusiConstant.shikemobilepath %>/common/js/vue.js"></script>
+<script src="<%=BusiConstant.shikemobilepath %>/common/js/jquery.infinitescroll.js"></script>
 <style>
     /*html .shangxin-goods-box>div li .t-btn, html .report, html .jp-con, html .jp-con .jp-list li div.jp-btn a, html .info-num, html .fix-detail .info-num li, html .info-foot div:first-child{
         border-width:2px;
