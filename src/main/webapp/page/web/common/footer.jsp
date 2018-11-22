@@ -15,7 +15,7 @@
                 <a href="<%=BusiConstant.shangjia_userdefine.getKey() %>" target="_blank">用户协议</a><span>|</span>
             </div>
             <div class="footer_fl">
-                <span>Copyright © 2017 meili.com</span> 浙ICP备17042206号-1&nbsp;&nbsp;浙公网安备33010302003013号&nbsp;&nbsp;<%=BusiConstant.gsyhzhm %>
+                <span>Copyright © 2018 52shibei.com</span> 桂ICP备18010689号&nbsp;&nbsp;<%=BusiConstant.gsyhzhm %>
             </div>
            
         </div>

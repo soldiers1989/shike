@@ -8,7 +8,27 @@
 %>
                 
 <link rel="stylesheet" type="text/css" href="<%=context%>/addJPinShop.css">
-
+ <style>   
+    .trhead{
+     	position: relative; 
+		top:expression(this.offsetParent.scrollTop-2);  
+    }
+    .trhead td{
+     	height:33px;
+		vertical-align:top:middle;
+		bgcolor:#f5f5f5;
+    }
+    .trbody td{
+     	height:30px;
+		vertical-align:top:middle;
+    }
+    .table-style table tr {
+    margin-bottom: 2px;
+    border: 1px solid #e8e8e8;
+    background: #f9f9f9;
+    display: block;
+	}
+</style>
 
 <div class="gl_right elg-width">
                 
@@ -26,43 +46,13 @@
     <div class="huodong">
         
             <table width="100%" border="1" cellpadding="0" id="listtable" cellspacing="0" bordercolor="#dadada">
-                <tbody>
-                <tr>
-                	<td width="100" height="30" valign="middle" bgcolor="#eaeaea">
-                        <strong>序列</strong>
-                    </td>
-                    <td width="200" height="30" valign="middle" bgcolor="#eaeaea">
-                        <strong>店铺名</strong>
-                    </td>
-                    <td width="300" height="30" valign="middle" bgcolor="#eaeaea">
-                        <strong>连接</strong>
-                    </td>
-                    <td width="134" height="30" valign="middle" bgcolor="#eaeaea">
-                        <strong>商家姓名</strong>
-                    </td>
-                    <td width="200" height="30" valign="middle" bgcolor="#eaeaea">
-                        <strong>注册时间</strong>
-                    </td>
-                    <td width="200" height="30" valign="middle" bgcolor="#eaeaea">
-                        <strong>图片</strong>
-                    </td>
-                    <td width="200" height="30" valign="middle" bgcolor="#eaeaea">
-                        <strong>旺旺</strong>
-                    </td>
-                    <td width="200" height="30" valign="middle" bgcolor="#eaeaea">
-                        <strong>QQ</strong>
-                    </td>
-                    <td width="200" height="30" valign="middle" bgcolor="#eaeaea">
-                        <strong>微信</strong>
-                    </td>
-                    <td width="200" height="30" valign="middle" bgcolor="#eaeaea">
-                        <strong>电话</strong>
-                    </td>
-                     <td width="200" height="30" valign="middle" bgcolor="#eaeaea">
-                        <strong>操作</strong>
-                    </td>
-                </tr>
-            </tbody></table>
+              <thead>
+        
+   		 	</thead>
+             <tbody>
+                
+          	</tbody>
+          	</table>
  
     </div>
     <!--page-->
@@ -72,34 +62,49 @@
             </div>
 
 <script>
-	function sucdo(data){
-		var rows = data.resultData.rows;
-		$("#listtable").html("");
-		if(rows){
-		
-			for(var i=0;i<rows.length;i++){
-				var row = rows[i];
-				var html = "<tr><td height='30'>"+row.id+"</td>";
-				html+="<td>"+row.name+"</td>";
-				html+="<td>"+row.url+"</td>";
-				html+="<td>"+row.userName+"</td>";
-				html+="<td>"+row.createdTimeStr+"</td>";
-				html+="<td><a href='"+row.mjtp+"' target='_blank'><img src='"+row.mjtp+"' width='200'/></td>";
-				html+="<td>"+row.wangwang+"</td>";
-				html+="<td>"+row.qq+"</td>";
-				html+="<td>"+row.weixin+"</td>";
-				html+="<td>"+row.phone+"</td>";
-				html+="<td><input onclick='tongguo("+row.id+")' value='通过' type='button'>";
-				html+="</td>";		
-				html+="</tr>";
-				$("#listtable").append(html);
-			}
+	var table = createtable("listtable");
+	var imgfun = function(row){
+		var tdinner = "<a href='"+row.mjtp+"' target='_blank'><img src='"+row.mjtp+"' width='200'/>";
+		return tdinner;
+	}
+	
+	var optfun = function(row){
+		var tdinner = "";   
+	    if(row.status == 0){
+	    	tdinner+="<input onclick='tongguo("+row.id+")' value='通过' type='button'>";
 		}
-		
+		return tdinner;
+	}
+	
+
+	
+	
+	table.th = [{w:50,na:"编号",colname:"id"}
+	,{w:120,na:"店铺名",colname:"name"}
+	,{w:270,na:"连接",colname:"url"}
+	,{w:100,na:"商家名称",colname:"userName"}
+	,{w:100,na:"注册时间",colname:"createdTimeStr"}
+	,{w:100,na:"图片",callfun:imgfun}
+	,{w:100,na:"旺旺",colname:"wangwang"}
+	,{w:100,na:"QQ",colname:"qq"}
+	,{w:100,na:"微信",colname:"weixin"}
+	,{w:100,na:"电话",colname:"phone"}
+	,{w:200,na:"操作",callfun:optfun}];
+	
+	table.thinit();
+	var fanye = new FanYe("fanye","chongzhilist",0,20,1);
+	function sucdo(data){	
+		var rows = data.resultData.rows;
+		fanye.init(data.resultData.total);	
+		table.data = rows;
+		table.tdinit();	
 	}
 
-   function chongzhilist(){
-	   var data = {status:<%=status%>};
+   function chongzhilist(current){
+	   if(!fanye.setpage(current)){
+			return;
+		}
+	   var data = {status:<%=status%>,pageNo:fanye.current,pageSize:fanye.limit};
 	   var url = "<%=ApiUtil.getUrl("/dianpu/list.do")%>";
 	   postdo(url, data, sucdo,null, null);
    }
@@ -113,9 +118,9 @@
    }
    
    function tongguosuc(data){
-	   chongzhilist();
+	   chongzhilist(1);
    }
    
-   chongzhilist();
+   chongzhilist(1);
    
 </script>

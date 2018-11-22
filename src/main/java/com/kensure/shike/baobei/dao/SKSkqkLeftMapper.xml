@@ -46,29 +46,17 @@
 		</if>		
 		<if test="userid != null">			
 			and t.userid = #{userid}			
-		</if>		
-		<if test="jinbi != null">			
-			and jinbi = #{jinbi}			
 		</if>
-		<if test="salePrice != null">			
-			and sale_price = #{salePrice}			
-		</if>
-		<if test="jiangli != null">			
-			and jiangli = #{jiangli}			
-		</if>
-		<if test="ewai != null">			
-			and ewai = #{ewai}			
-		</if>	
 		<if test="startCreatedTime != null">
 			<![CDATA[
-			and created_time >= #{startCreatedTime}
+			and t.created_time >= #{startCreatedTime}
 			]]>
 		</if>
 		<if test="endCreatedTime != null">
 			<![CDATA[
-			and created_time <= #{endCreatedTime}
+			and t.created_time <= #{endCreatedTime}
 			]]>
-		</if>
+		</if>		
 		
 		<if test="bbidlist != null">			
 			and t.bbid in

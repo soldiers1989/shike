@@ -1,3 +1,8 @@
+<%@page import="java.util.Date"%>
+<%@page import="co.kensure.mem.DateUtils"%>
+<%@page import="com.kensure.shike.sys.model.SKDict"%>
+<%@page import="java.util.List"%>
+<%@page import="com.kensure.shike.sys.service.SKDictService"%>
 <%@page import="com.kensure.shike.constant.BusiConstant"%>
 <%@page import="co.kensure.api.ApiUtil"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
@@ -5,6 +10,11 @@
 	String context = BusiConstant.shangjiapath;
 	String name = BusiConstant.name;
 	String bbid = (String)request.getAttribute("bbid");
+	List<SKDict> diclist = SKDictService.getListCache(6);
+	Date date1 = new Date();
+	Date date2 = DateUtils.getPastDay(date1, 1);	
+	String start = DateUtils.format(date1,DateUtils.DAY_FORMAT);
+	String end = DateUtils.format(date2,DateUtils.DAY_FORMAT);
 %>
                 
 <link rel="stylesheet" type="text/css" href="<%=context%>/addJPinShop.css">
@@ -133,8 +143,15 @@
         <input name="bbid" type="text" value="<%=bbid%>" style="width:80px" >
         
         <span style="float:none;margin-right:5px;">生成时间</span>
-        <input name="aa" type="text" style="width:80px" >至
-        <input name="bb" type="text" style="width:80px" >
+        <input name="startCreatedTime" type="date" value="">至
+        <input name="endCreatedTime" type="date" value="<%=end%>" >
+        <span style="float:none;">状态</span>     
+        <select name="status" style="width:auto;">        
+            <option value="" selected="selected">全部</option>
+            <%for(SKDict dict:diclist){ %>
+                <option value="<%=dict.getCode() %>"><%=dict.getName() %></option>
+             <%} %>
+        </select>
      </form>
         <input onclick="huodonglist(1)" type="button" value="搜索">
     </div>

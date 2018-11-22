@@ -1,5 +1,7 @@
 package com.kensure.shike.baobei.query;
 
+import java.util.Date;
+
 import co.kensure.frame.BaseInfo;
 
 /**
@@ -44,6 +46,10 @@ public class SKSkqkLeftQuery extends BaseInfo {
 	
 	/** 商家名称 */
 	private String sjname;
+	
+	private Date startCreatedTime;
+	
+	private Date endCreatedTime;
 
 	public Long getId() {
 		return id;
@@ -96,8 +102,21 @@ public class SKSkqkLeftQuery extends BaseInfo {
 		this.noTaobao = noTaobao;
 	}
 
+	public Date getStartCreatedTime() {
+		return startCreatedTime;
+	}
 
-	
+	public void setStartCreatedTime(Date startCreatedTime) {
+		this.startCreatedTime = startCreatedTime;
+	}
+
+	public Date getEndCreatedTime() {
+		return endCreatedTime;
+	}
+
+	public void setEndCreatedTime(Date endCreatedTime) {
+		this.endCreatedTime = endCreatedTime;
+	}
 
 	public String getSkphone() {
 		return skphone;
