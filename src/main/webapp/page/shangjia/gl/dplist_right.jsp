@@ -20,6 +20,13 @@
     }
     .trbody td{
      	height:30px;
+     	word-break:break-all;
+		vertical-align:top:middle;
+		overflow:hidden;
+    }
+    .trbody td em{
+     	height:30px;
+     	word-break:break-all;
 		vertical-align:top:middle;
     }
     .table-style table tr {
