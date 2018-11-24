@@ -142,7 +142,7 @@ jQuery.fn.pagination = function (maxentries, opts) {
             }
             var next = $('.next');
             if (next != null && next != 'undefined') {
-                var html = "<span id='clickme' style='   width: 74px;height: 70px;  position: relative;  margin: 0 6px 0 0;'><img  src='//www.meilipa.com/Content/images/dwyjx.png' style=' position: absolute;  left: 0;top: 6px;  cursor: pointer;' ></span><span class='pagination_font_color'>&nbsp;&nbsp;";
+                var html = "<span id='clickme' style='   width: 74px;height: 70px;  position: relative;  margin: 0 6px 0 0;'><img  src='test/images/dwyjx.png' style=' position: absolute;  left: 0;top: 6px;  cursor: pointer;' ></span><span class='pagination_font_color'>&nbsp;&nbsp;";
                 //共<span> + numPages() + </span>页
                 html += "跳至&nbsp;<input style='width: 35px;height: 35px; text-align: center; color: #333;border:1px solid #d9d9d9;' type='text' value='" + (current_page + 1) + "' id='pageIdex' />&nbsp;页&nbsp;&nbsp;";
                 html += "<a id='turnTo' href='javascript:' style='width:55px;height:35px;background:#fff;border:1px solid #d9d9d9;color:#333;'>确定</a></span>";
