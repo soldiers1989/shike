@@ -20,4 +20,20 @@ public class ShikeWebController {
 	public String index(HttpServletRequest req, HttpServletResponse rep, Model model) {
 		return "page/web/haohuo/haohuo.jsp";
 	}
+
+	// 详情
+	@RequestMapping("detail")
+	public String detail(HttpServletRequest req, HttpServletResponse rep, Model model) {
+		String id = req.getParameter("id");
+		req.setAttribute("id", id);
+		return "page/web/haohuo/detail.jsp";
+	}
+
+	// 详情图
+	@RequestMapping("detailpic")
+	public String detailpic(HttpServletRequest req, HttpServletResponse rep, Model model) {
+		String id = req.getParameter("id");
+		req.setAttribute("id", id);
+		return "page/web/haohuo/detailpic.jsp";
+	}
 }

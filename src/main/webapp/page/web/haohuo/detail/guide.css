@@ -1,0 +1,10 @@
+﻿body {
+}
+.detail_nv{ height: 39px; background-color: #f5f5f5;}
+.detail_nv a{ height: 36px; line-height: 36px; border: none; border-bottom: 2px solid transparent; margin-top: 0;}
+.detail_nv a.set{ background-color: #fff; height: 36px; line-height: 36px; border: none; border-bottom: 2px solid #f16154;}
+.shen_left{ font-size: 15px; line-height: 24px; padding: 20px;}
+.deta_main{ border: none;}
+ .icon-jd{color:#c81522 !important;}
+    .icon-tm{color:#ff002d !important;}
+    .icon-tb{color:#ff5500 !important;}

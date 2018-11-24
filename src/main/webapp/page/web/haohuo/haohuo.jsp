@@ -69,7 +69,7 @@
                     <%--<li class="showtrytype"><div class="fication"><i></i>试用品分类</div></li>
                     <li><a href="http://test.com/" class="" target="_blank">首页</a></li>--%>
                     <li>
-                        <a href="#m/" class="jpSwip  selet" target="_blank" style="background-position: center -180px;">
+                        <a href="shike_web_haohuo" class="jpSwip  selet" target="_blank" style="background-position: center -180px;">
                             试呗好货
                             <span class="ntp-hot">
                                 <img src="<%=BusiConstant.shikewebepath %>/haohuo/haohuo/new.gif" class="png_bg">

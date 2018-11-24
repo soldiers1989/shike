@@ -94,8 +94,11 @@ function listCallBack(data) {
             highPrice = "<span class=\"high-tag\">高价值</span>"
         }
 
+        // 详情页连接
+        var detailUrl = "/shike/skw/detail?id="+ row.id;
+
         var html = '<li class="pitem ">\n' +
-            '                    <a href="#" target="_blank">\n' +
+            '                    <a href="'+detailUrl+'" target="_blank">\n' +
             '                        <img class="tryimg dbdl lazy" src="'+ row.zturl +'" data-original="'+ row.zturl +'" alt="'+ row.title +'" style="display: block;">\n' +
              highPrice +
             '                                                                            <div>\n' +
@@ -103,7 +106,7 @@ function listCallBack(data) {
             '                            </div>\n' +
             '                                            </a>\n' +
             '                    <h4>\n' +
-            '                        <a href="#" target="_blank"><span class="iconfont icon-tb" style=" margin-right:3px;"></span>'+ row.title +'</a>\n' +
+            '                        <a href="'+detailUrl+'" target="_blank"><span class="iconfont icon-tb" style=" margin-right:3px;"></span>'+ row.title +'</a>\n' +
             '                    </h4>\n' +
             '                    <div class="num">\n' +
             '                        <span class="price">￥'+ row.salePrice +'</span>\n' +
@@ -111,7 +114,7 @@ function listCallBack(data) {
             '\n' +
             '                    </div>\n' +
             '                    <div class="btn">\n' +
-            '                                <a class="apply-btn" href="#" target="_blank">免费申请</a>\n' +
+            '                                <a class="apply-btn" href="'+detailUrl+'" target="_blank">免费申请</a>\n' +
             '\n' +
             '                    </div>\n' +
             '                </li>';
@@ -125,20 +128,24 @@ function jinrilistCallback(data) {
 
     for (var i = 0; i < rows; i++) {
         var row = data.resultData.rows[i];
+
+        // 详情页连接
+        var detailUrl = "/shike/skw/detail?id="+ row.id;
+
         var html = '<li style="float: left; width: 198px;">\n' +
-            '                    <a href="#" target="_blank">\n' +
+            '                    <a href="'+detailUrl+'" target="_blank">\n' +
             '                        <img class="tryimg " src="'+ row.zturl +'" alt="'+ row.title +'">\n' +
             '                    </a><h4 class="yhuahs">\n' +
-            '                    <a href="#" target="_blank">\n' +
-            '                    </a><a style="display: none" href="#">'+ row.title +'</a>\n' +
-            '                    <a href="#" target="_blank"><span class="iconfont icon-tb" style="margin-right:3px;"></span><span>'+ row.title +'</span></a>\n' +
+            '                    <a href="'+detailUrl+'" target="_blank">\n' +
+            '                    </a><a style="display: none" href="'+detailUrl+'">'+ row.title +'</a>\n' +
+            '                    <a href="'+detailUrl+'" target="_blank"><span class="iconfont icon-tb" style="margin-right:3px;"></span><span>'+ row.title +'</span></a>\n' +
             '                </h4>\n' +
             '\n' +
             '                    <p class="yhdp">\n' +
             '                        <span class="price">￥'+ row.salePrice  +'</span>\n' +
             '                        <span class="r"><em>'+ row.ysqnum +'</em>人已申请</span>\n' +
             '                    </p>\n' +
-            '                    <a href="#" target="_blank" class="ontrial">免费试用</a>\n' +
+            '                    <a href="'+detailUrl+'" target="_blank" class="ontrial">免费试用</a>\n' +
             '                </li>';
 
         $("#jinrilist").append(html);
