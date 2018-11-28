@@ -110,7 +110,7 @@
                     <span class="label vt">下单主图：</span>
                     <div class="item-con">
                         <img style="display:inline-block;vertical-align:middle;" id="picbbzt" class="pic bbzt" src="<%=context%>/no_pic.jpg">
-                        <span style="display:inline-block;vertical-align:middle;">该图为您的宝贝在淘宝/京东搜索页展示的下单主图</span>
+                        <span style="display:inline-block;vertical-align:middle;">该图为您在平台展示的图片</span>
                     </div>
                 </div>
 

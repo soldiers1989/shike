@@ -60,7 +60,7 @@ public class RequestUtils {
 		int type = 2;
 		if (requestHeader == null)
 			return type;
-		String[] deviceArray = new String[] { "android", "mac os", "windows phone" };
+		String[] deviceArray = new String[] { "android", "iPhone","iPad", "windows phone" };
 		requestHeader = requestHeader.toLowerCase();
 		for (int i = 0; i < deviceArray.length; i++) {
 			if (requestHeader.indexOf(deviceArray[i]) > 0) {

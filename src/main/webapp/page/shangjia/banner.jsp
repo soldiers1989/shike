@@ -3,6 +3,7 @@
 <% 
 	String context = BusiConstant.shangjiapath;
 	String name = BusiConstant.name;
+	String title = (String)request.getAttribute("wangzhangtitle");
 %>
 
 
@@ -13,8 +14,10 @@
             <div class="header_center">
                     <div class="qn-logo"> 
                     </div>  
-                     <div style="padding-top:30px;font-size:18px"><a href="<%=BusiConstant.shangjia_index.getKey()%> ">商家管理中心</a>
+                    <%if(!"商家登录".equals(title)){ %>
+                     <div style="padding-top:30px;font-size:18px;"><a href="<%=BusiConstant.shangjia_index.getKey()%> ">商家管理中心</a>
                      </div>  
+                     <%} %>
             </div>
           
             <!--header_center-->
