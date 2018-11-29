@@ -5,7 +5,7 @@
 if(RequestUtils.isMobileAgent(request)){
 	response.sendRedirect("skm/index");
 }else{
-	response.sendRedirect("shangjia/login");
+	response.sendRedirect("page/shangjia/ruzhu/ruzhu.html");
 }
 %>
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">

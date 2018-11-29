@@ -72,7 +72,7 @@
                            		 您还未成为黄金会员哦！
                     </p>
 
-                    <a href="#" class="bis_bg_top_btn" style="margin-top: 12px;margin-right:24px;" target="_blank">会员功能</a>
+                    <a href="<%=BusiConstant.context%>/page/shangjia/ruzhu/ruzhu.html" class="bis_bg_top_btn" style="margin-top: 12px;margin-right:24px;" target="_blank">会员功能</a>
                
                     
                 </div>
