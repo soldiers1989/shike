@@ -13,6 +13,7 @@
 		sex,
 		active_point as activePoint,
 		active_level as activeLevel,
+		taoqizhi,
 		flag,
 		created_time as createdTime,
 		updated_time as updatedTime
@@ -29,6 +30,7 @@
 		sex,
 		active_point,
 		active_level,
+		taoqizhi,
 		flag,
 		created_time,
 		updated_time
@@ -47,6 +49,7 @@
 			#{sex},
 			#{activePoint},
 			#{activeLevel},
+			#{taoqizhi},
 			#{flag},
 			#{createdTime},
 			#{updatedTime}
@@ -67,6 +70,7 @@
 				#{item.sex},
 				#{item.activePoint},
 				#{item.activeLevel},
+				#{item.taoqizhi},
 				#{item.flag},
 				#{item.createdTime},
 				#{item.updatedTime}
@@ -101,6 +105,9 @@
 		</if>
 		<if test="activeLevel != null">			
 			and active_level = #{activeLevel}			
+		</if>
+		<if test="taoqizhi != null">
+			and taoqizhi = #{taoqizhi}
 		</if>
 		<if test="flag != null">			
 			and flag = #{flag}			
@@ -181,6 +188,9 @@
 		</if>
 		<if test="activeLevel != null">
 			active_level = #{activeLevel},
+		</if>
+		<if test="taoqizhi != null">
+			taoqizhi = #{taoqizhi},
 		</if>
 		<if test="flag != null">
 			flag = #{flag},

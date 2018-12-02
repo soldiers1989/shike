@@ -21,6 +21,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 import co.kensure.mem.PageInfo;
+import com.kensure.shike.baobei.model.SKTaobao;
 import com.kensure.shike.baobei.service.SKSkqkService;
 import com.kensure.shike.user.model.query.SKUserListQuery;
 import org.apache.commons.lang3.StringUtils;
@@ -665,4 +666,27 @@ public class SKUserService extends JSBaseService {
         skUser.setUpdatedTime(new Date());
         update(skUser);
     }
+
+    /**
+     * 更新淘气值
+     * @param id
+     * @param taoqizhi
+     */
+	public void updateTaoqizhi(Long id, Integer taoqizhi) {
+		ParamUtils.isBlankThrewException(taoqizhi, "淘气值不能为空");
+
+
+		SKUser user = selectOne(id);
+		if (user == null) {
+			BusinessExceptionUtil.threwException("用户为空");
+		}
+
+        SKTaobao skTaobao = sKTaobaoService.selectOne(user.getNoTaobao());
+        if (skTaobao == null) {
+			BusinessExceptionUtil.threwException("淘宝信息为空");
+		}
+
+        skTaobao.setTaoqizhi(taoqizhi);
+        sKTaobaoService.update(skTaobao);
+	}
 }

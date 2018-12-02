@@ -5,11 +5,8 @@ import co.kensure.frame.ResultInfo;
 import co.kensure.frame.ResultRowInfo;
 import co.kensure.frame.ResultRowsInfo;
 import co.kensure.http.RequestUtils;
-
 import co.kensure.mem.PageInfo;
 import com.alibaba.fastjson.JSONObject;
-import com.kensure.shike.baobei.model.SKSkqkLeft;
-import com.kensure.shike.baobei.query.SKSkqkLeftQuery;
 import com.kensure.shike.baobei.service.SKTaobaoService;
 import com.kensure.shike.user.model.SKUser;
 import com.kensure.shike.user.model.SKUserSession;
@@ -19,7 +16,6 @@ import com.kensure.shike.user.service.SKSmsService;
 import com.kensure.shike.user.service.SKUserService;
 import com.kensure.shike.zhang.model.SKUserYue;
 import com.kensure.shike.zhang.service.SKUserYueService;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,7 +24,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import java.util.List;
 
 /**
@@ -336,6 +331,21 @@ public class SKUserController {
 		sKUserService.updateUserSource(id, source);
 		return new ResultRowInfo();
 	}
-	
+
+
+	/**
+	 * 更新淘气值
+	 */
+	@ResponseBody
+	@RequestMapping(value = "updateTaoqizhi.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	public ResultInfo updateTaoqizhi(HttpServletRequest req, HttpServletResponse rep) {
+		JSONObject json = RequestUtils.paramToJson(req);
+		Long id = json.getLong("id");
+		Integer taoqizhi = json.getInteger("taoqizhi");
+
+		sKUserService.updateTaoqizhi(id, taoqizhi);
+
+		return new ResultRowInfo();
+	}
 	
 }

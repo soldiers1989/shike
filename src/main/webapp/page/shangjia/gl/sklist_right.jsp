@@ -81,8 +81,9 @@
         var auditStatus = row.auditStatus;
         if (auditStatus == 0) {
             tdinner = "<a onclick='auditPass("+row.id+")'>审核通过</a>";
-            tdinner += "<a onclick='auditUnpass("+row.id+")'>审核不通过</a>";
+            tdinner += "<a onclick='auditUnpass("+row.id+")'>不通过</a>";
         }
+        tdinner += "<a onclick='editTaoqizhi("+row.id+")'>淘气值</a>";
         return tdinner;
 	}
 
@@ -131,7 +132,26 @@
 		var tdinner = " <em style=\"color: #a9a9a9;\">"+f+"</em>";
 		return tdinner;
 	}
-	
+
+	var taobaoimgfun = function(row){
+		var f = "";
+		if(row.taobaoImg){
+			f =  row.taobaoImg;
+            var tdinner = "<a target='_blank' href='"+row.taobaoImg+"'><img style='height: 30px; width: 40px' src='"+row.taobaoImg+"'/></a>";
+            return tdinner;
+		}
+		return '';
+	}
+
+	var taoqizhifun = function(row){
+        var f = "";
+        if(row.sKTaobao && row.sKTaobao.taoqizhi){
+            f =  row.sKTaobao.taoqizhi;
+        }
+        var tdinner = " <em style=\"color: #a9a9a9;\">"+f+"</em>";
+        return tdinner;
+	}
+
 	var nannvfun = function(row){
 		var f = "";
 		if(row.sKTaobao && row.sKTaobao.sex){
@@ -164,6 +184,8 @@
 	,{w:80,na:"实名认证",callfun:shimingfun}
 	,{w:100,na:"淘宝账号",colname:"noTaobao"}
 	,{w:100,na:"注册时间",callfun:zhucefun}
+	,{w:80,na:"淘宝截图",callfun:taobaoimgfun}
+	,{w:60,na:"淘气值",callfun:taoqizhifun}
 	,{w:200,na:"买家信用",callfun:xinyongfun}
 	,{w:80,na:"男号女号",callfun:nannvfun}
 	,{w:80,na:"淘宝会员等级",callfun:huiyuanfun}
@@ -210,7 +232,7 @@
     function auditPass(id) {
         var data = {id:id, status: 1};
         var url = "<%=BusiConstant.shike_user_audit_do.getKey()%>";
-        postdo(url, data, auditCallBack,null, null);
+        postdo(url, data, successCallBack,null, null);
     }
 
     function auditUnpass(id) {
@@ -218,13 +240,22 @@
         if (reason!=null && reason!="") {
             var data = {id:id, status: 2, remark: reason};
             var url = "<%=BusiConstant.shike_user_audit_do.getKey()%>";
-            postdo(url, data, auditCallBack,null, null);
+            postdo(url, data, successCallBack,null, null);
         } else {
             alert("请输入审核不通过原因")
         }
     }
     
-    function auditCallBack(data) {
+    function editTaoqizhi(id) {
+        var taoqizhi = prompt("请输入淘气值","")
+        if (taoqizhi!=null && taoqizhi!="") {
+            var data = {id:id, taoqizhi: taoqizhi};
+            var url = "<%=BusiConstant.shike_update_taoqizhi_do.getKey()%>";
+            postdo(url, data, successCallBack,null, null);
+        }
+    }
+    
+    function successCallBack(data) {
         alert("操作成功")
         chongzhilist(fanye.current);
     }

@@ -218,6 +218,7 @@ public class BusiConstant {
 
     public static final KVBean shike_user_audit_do = new KVBean(context + "/user/audit.do", "用户账号审核");
     public static final KVBean shike_update_source_do = new KVBean(context + "/user/updateSource.do", "修改商家来源");
+    public static final KVBean shike_update_taoqizhi_do = new KVBean(context + "/user/updateTaoqizhi.do", "修改试客淘宝淘气值");
 
 
 	public static final KVBean shike_web_haohuo = new KVBean(context + "/skw/haohuo", "好货列表页面");

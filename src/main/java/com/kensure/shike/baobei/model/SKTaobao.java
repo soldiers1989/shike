@@ -50,7 +50,10 @@ public class SKTaobao extends BaseInfo{
 	private Integer activePoint; 
 
 	/**活跃度等级*/		
-	private Integer activeLevel; 
+	private Integer activeLevel;
+
+	/**淘气值*/
+	private Integer taoqizhi;
 
 	/**是否获取信息，0是未同步，1是已经同步,-1是同步失败*/		
 	private Integer flag; 
@@ -133,4 +136,11 @@ public class SKTaobao extends BaseInfo{
 		this.flag = flag;
 	}
 
+	public Integer getTaoqizhi() {
+		return taoqizhi;
+	}
+
+	public void setTaoqizhi(Integer taoqizhi) {
+		this.taoqizhi = taoqizhi;
+	}
 }
