@@ -81,6 +81,7 @@
         试用流程
     </header>
     <div style="height: 2rem"></div>
+    <input id="taobaoImg" type="hidden" value="<%=user.getTaobaoImg() %>"/>
     <div class="Flow">
         <div class="Flow-hd">
             <img src="${baobei.zturl}">
@@ -169,6 +170,18 @@
 
     </div>
 <script>
+
+
+    $(function () {
+
+        var taobaoImg = $("#taobaoImg").val();
+
+        if (!taobaoImg) {
+            myAlert("请先上传淘宝截图后，再提交订单!", function () {
+                location.href = "<%=BusiConstant.shike_modifytaobao.getKey() %>"
+            });
+        }
+    })
 
     var logo2 = "";
 
