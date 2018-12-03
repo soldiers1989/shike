@@ -183,6 +183,12 @@
         	tdinner+= "        <input type='button' value='下线' onclick='xiaxian("+row.id+")'/>";
         	tdinner+= "        <input type='button' value='增加申请数' onclick='addsq("+row.id+")'/>";
         }
+        if(row.isXuni == 0){  
+        	tdinner+= "        <input type='button' value='虚拟商品' onclick='xuni("+row.id+")'/>";
+        }else{
+        	tdinner+= "        <input type='button' value='增加中奖数' onclick='addzj("+row.id+")'/>";
+        }
+        
     	tdinner += "<a href='<%=ApiUtil.getUrl("/gl/zjqk")%>?id="+row.id+"' target='_blank'>中奖概览</a>";
         tdinner += "    </div>";
 		return tdinner;
@@ -267,13 +273,29 @@
 		   var str = window.prompt("请输入增加数量","10");
 		   if(str){
 			   var data = {id:id,sqs:str};
-			   var url = "<%=BusiConstant.shike_baobei_sqs_do.getKey()%>";
+			   var url = "<%=ApiUtil.getUrl("/baobei/sqs.do")%>";
 			   var s = function(redata){
 				   var row = table.getrow(id);
 				   row.ysqnum =row.ysqnum+parseInt(str);
 				   table.tdinit();
 			   }
-			   postdo(url, data, s,null, null);
+			   postdo(url, data,s,null, null);
+		   }	  
+	   }	  
+   }
+   
+   function addzj(id){	  
+	   if(confirm('确认增加？')){
+		   var str = window.prompt("请输入增加数量","10");
+		   if(str){
+			   var data = {id:id,zjs:str};
+			   var url = "<%=ApiUtil.getUrl("/baobei/zjs.do")%>";
+			   var s = function(redata){
+				   var row = table.getrow(id);
+				   row.zjnum =row.zjnum+parseInt(str);
+				   table.tdinit();
+			   }
+			   postdo(url, data,s,null, null);
 		   }	  
 	   }	  
    }
@@ -292,6 +314,14 @@
 	   if(confirm('确认下线？')){
 		   var data = {id:id};
 		   var url = "<%=BusiConstant.ht_baobeixiaxiando.getKey()%>";
+		   postdo(url, data, null,null, null);
+	   }	
+   }
+   
+   function xuni(id){
+	   if(confirm('设置为虚拟商品？')){
+		   var data = {id:id};
+		   var url = "<%=ApiUtil.getUrl("/baobei/xuni.do")%>";
 		   postdo(url, data, null,null, null);
 	   }	
    }

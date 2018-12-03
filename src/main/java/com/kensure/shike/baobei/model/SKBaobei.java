@@ -136,7 +136,10 @@ public class SKBaobei extends BaseInfo {
 
 	/** 是否需要旺旺聊天 1是需要，0是不用 */
 	private Integer wangwang;
-
+	
+	/** 虚拟商品，1虚拟，0是正常 */
+	private Integer isXuni;
+	
 	/** 宝贝详情 */
 	private SKBaobeiZT xiangqing;
 
@@ -514,6 +517,14 @@ public class SKBaobei extends BaseInfo {
 
 	public void setDianpu(SKDianPu dianpu) {
 		this.dianpu = dianpu;
+	}
+
+	public Integer getIsXuni() {
+		return isXuni;
+	}
+
+	public void setIsXuni(Integer isXuni) {
+		this.isXuni = isXuni;
 	}
 	
 }

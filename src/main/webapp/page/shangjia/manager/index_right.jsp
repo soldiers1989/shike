@@ -667,7 +667,7 @@
 	   }
 	   data.url = $("#sk-link").val();
 	   data.taokl = $("#sk_taokouling").val();
-	   data.zturl = $("#picbbzt")[0].src;
+	   data.zturl = $('#picbbzt').attr("src");
 	   data.sale_price = $("#sk_clinch_price").val();
 	   data.jiangli = $("#sk_jiangli").val();
 	   data.no_qq = $("#sk_qq").val();

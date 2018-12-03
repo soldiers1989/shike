@@ -27,6 +27,7 @@ import javax.annotation.Resource;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
+import co.kensure.exception.BusinessExceptionUtil;
 import co.kensure.frame.JSBaseService;
 import co.kensure.mem.CollectionUtils;
 import co.kensure.mem.MapUtils;
@@ -135,19 +136,24 @@ public class SKTaobaoService extends JSBaseService{
     			try {
 					String html = TaoBaoService.postTaobaoZhangHao(taobao.getId(), sessionId);
 					JSONObject json = JSONObject.parseObject(html);
-					taobao.setSex(json.getString("sex"));
-					int authed = json.getInteger("authed");
-					taobao.setShiming(authed == 2 ? "1" : "0");
-					taobao.setRegTime(json.getString("reg_time"));
-					taobao.setActivePoint(json.getInteger("active_point"));
-					taobao.setActiveLevel(json.getInteger("active_level"));
-					taobao.setBuyerTotalPoint(json.getInteger("buyer_total_point"));
-					taobao.setWeekAvg(json.getString("week_avg"));
-					taobao.setSellerGoodRate(json.getInteger("buyer_good_rate"));
-					taobao.setVip(json.getInteger("vip"));
-					taobao.setFlag(1);
-				} catch (Exception e) {
-					taobao.setFlag(-1);
+					if(StringUtils.isNotBlank(json.getString("code"))){
+						taobao.setFlag(-1);
+					}else{
+						taobao.setSex(json.getString("sex"));
+						int authed = json.getInteger("authed");
+						taobao.setShiming(authed == 2 ? "1" : "0");
+						taobao.setRegTime(json.getString("reg_time"));
+						taobao.setActivePoint(json.getInteger("active_point"));
+						taobao.setActiveLevel(json.getInteger("active_level"));
+						taobao.setBuyerTotalPoint(json.getInteger("buyer_total_point"));
+						taobao.setWeekAvg(json.getString("week_avg"));
+						taobao.setSellerGoodRate(json.getInteger("buyer_good_rate"));
+						taobao.setVip(json.getInteger("vip"));
+						taobao.setFlag(1);
+					}
+					
+				} catch (Exception e) {			
+					BusinessExceptionUtil.threwException("sessionid不对.请重新获取");
 				}
     			update(taobao);
     		}

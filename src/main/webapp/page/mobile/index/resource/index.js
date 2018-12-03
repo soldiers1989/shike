@@ -52,7 +52,7 @@ $(function () {
             var html = "<li>\n" +
                 "                            \n" +
                 "                            <a href=\"/shike/skm/haohuo?order=1\">" +
-                "                                <img src=\""+ row.zturl +"\">\n" +
+                "                                <img src=\""+ row.zturl +"!200\">\n" +
                 "                                <span class=\"t-price\">¥"+ row.salePrice +"</span>\n" +
                 "                                <span class=\"t-btn\">免费申请</span>\n" +
                 "                            </a>\n" +
@@ -84,7 +84,7 @@ $(function () {
             var html = "<li>\n" +
                 "                                \n" +
                 "                                <a href=\"/shike/skm/haohuo?typeid="+ row.typeid +"\" style=\"color:#333;\">\n" +
-                "                                    <img src=\""+ row.zturl +"\">\n" +
+                "                                    <img src=\""+ row.zturl +"!200\">\n" +
                 "                                    <p>"+ row.title +"</p>\n" +
                 "                                    <div class=\"scale\">\n" +
                 "                                        <span class=\"lf t-price\">¥"+ row.salePrice +"</span>\n" +
@@ -367,7 +367,7 @@ $(function () {
                     }
 
                     var html = "<li><a data-id=\"" + row.id + "\" class=\"tod\"><img\n" +
-                        "                    src=\"" + row.zturl + "\"\n" +
+                        "                    src=\"" + row.zturl + "!200\"\n" +
                         "                    data-original=\"" + row.zturl + "\"\n" +
                         "                    class=\"lazy\" style=\"display: inline;\">\n" +
                         highPrice +

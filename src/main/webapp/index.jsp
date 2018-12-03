@@ -10,7 +10,7 @@ if(RequestUtils.isMobileAgent(request)){
 %>
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="format-detection" content="telephone=no">
-    <title>线上贷</title>
+    <title>试呗网</title>
 </head>
 <body>
 </body></html>

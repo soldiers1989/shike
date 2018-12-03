@@ -291,7 +291,7 @@ public class SKUserController {
 	
 	
 	/**
-	 * 我的粉丝列表
+	 * 用户数据获取
 	 */
 	@ResponseBody
 	@RequestMapping(value = "flash.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")

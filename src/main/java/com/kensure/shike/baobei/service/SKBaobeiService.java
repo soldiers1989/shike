@@ -102,7 +102,7 @@ public class SKBaobeiService extends JSBaseService {
 
 	@Resource
 	private SKJysjService sKJysjService;
-	
+
 	@Resource
 	private SKHbsjService sKHbsjService;
 
@@ -152,6 +152,7 @@ public class SKBaobeiService extends JSBaseService {
 		obj.setYingshou(0D);
 		obj.setShishou(0D);
 		obj.setTuikuan(0D);
+		obj.setIsXuni(0);
 		if (obj.getZengzhi() == null) {
 			obj.setZengzhi(0L);
 		}
@@ -205,7 +206,7 @@ public class SKBaobeiService extends JSBaseService {
 			newFlag = false;
 		}
 		invalid(obj, oldBaoBei);
-		if(newFlag){
+		if (newFlag) {
 			SKUser user = sKUserService.getUser();
 			SKUserService.checkUser(user);
 
@@ -239,24 +240,24 @@ public class SKBaobeiService extends JSBaseService {
 		obj.setSqnum(sqnum);
 		// 校验金额
 		checkMoney(obj);
-		
-		//有没有增值服务
-		//货比三家
+
+		// 有没有增值服务
+		// 货比三家
 		SKHbsj hbsj = obj.getHbsj();
-		if(hbsj != null){
+		if (hbsj != null) {
 			obj.setZengzhi(1L);
 		}
-		
+
 		if (obj.getId() == null) {
 			this.insert(obj);
 		} else {
-			if(oldBaoBei.getStatus()==2){
+			if (oldBaoBei.getStatus() == 2) {
 				obj.setStatus(0L);
 			}
 			this.update(obj);
 		}
-		
-		if(hbsj != null){
+
+		if (hbsj != null) {
 			hbsj.setId(obj.getId());
 			sKHbsjService.save(hbsj);
 		}
@@ -331,9 +332,9 @@ public class SKBaobeiService extends JSBaseService {
 	private void saveContent(long bbid, String url) {
 		// 宝贝详情
 		SKBaobeiZT one = sKBaobeiZTService.getDetail(bbid);
-		if(one != null){
+		if (one != null) {
 			return;
-		}		
+		}
 		SKBaobeiZT zt = new SKBaobeiZT();
 		zt.setUrl(url);
 		String content = TaoBaoService.getContent(url);
@@ -341,19 +342,19 @@ public class SKBaobeiService extends JSBaseService {
 		zt.setContent(content);
 		this.sKBaobeiZTService.insert(zt);
 	}
-	
+
 	public void saveBody(long bbid, String body) {
 		// 宝贝详情
 		SKBaobeiZT one = sKBaobeiZTService.getDetail(bbid);
-		SKBaobei bb = selectOne(bbid);	
+		SKBaobei bb = selectOne(bbid);
 		SKBaobeiZT zt = new SKBaobeiZT();
 		zt.setUrl(bb.getUrl());
 		String content = TaoBaoService.parseBody(body);
 		zt.setBbid(bbid);
 		zt.setContent(content);
-		if(one != null){
+		if (one != null) {
 			this.sKBaobeiZTService.update(zt);
-		}else {
+		} else {
 			this.sKBaobeiZTService.insert(zt);
 		}
 	}
@@ -496,7 +497,7 @@ public class SKBaobeiService extends JSBaseService {
 		SKUser skuser = sKUserService.getUser();
 		SKUserService.checkUser(skuser);
 		SKBaobei sk = selectOne(id);
-		if(sk.getZengzhi()  != null && sk.getZengzhi() == 1){
+		if (sk.getZengzhi() != null && sk.getZengzhi() == 1) {
 			sk.setHbsj(sKHbsjService.selectOne(id));
 		}
 		SKYingShou yingshou = new SKYingShou(sk);
@@ -513,7 +514,7 @@ public class SKBaobeiService extends JSBaseService {
 		for (SKBaobei bb : bblist) {
 			long id = bb.getId();
 			SKBaobei sk = selectOne(id);
-			if(sk.getZengzhi()  != null && sk.getZengzhi() == 1){
+			if (sk.getZengzhi() != null && sk.getZengzhi() == 1) {
 				sk.setHbsj(sKHbsjService.selectOne(id));
 			}
 			SKYingShou yingshou = new SKYingShou(sk);
@@ -529,14 +530,14 @@ public class SKBaobeiService extends JSBaseService {
 	 */
 	public void setShiShouinfo(Long id) {
 		SKBaobei sk = selectOne(id);
-		if(sk.getZengzhi()  != null && sk.getZengzhi() == 1){
+		if (sk.getZengzhi() != null && sk.getZengzhi() == 1) {
 			sk.setHbsj(sKHbsjService.selectOne(id));
 		}
 		double shishou = sk.getYingshou();
 		double tuikuan = 0D;
 		if (sk.getBbnum().compareTo(sk.getZjnum()) != 0) {
 			SKShiShou ss = new SKShiShou(sk);
-			shishou =ss.getLeiji().getXiaoji();
+			shishou = ss.getLeiji().getXiaoji();
 			tuikuan = ArithmeticUtils.sub(sk.getYingshou(), shishou);
 			// 进行退款 增加活动退款流水
 			SKUserZhang zhang = new SKUserZhang();
@@ -550,7 +551,7 @@ public class SKBaobeiService extends JSBaseService {
 		sk.setTuikuan(tuikuan);
 		update(sk);
 	}
-	
+
 	/**
 	 * 活动全额返款，一般在活动驳回的时候使用
 	 * 
@@ -559,7 +560,7 @@ public class SKBaobeiService extends JSBaseService {
 	public void setAllBack(Long id) {
 		SKBaobei sk = selectOne(id);
 		double shishou = sk.getYingshou();
-		
+
 		// 进行活动驳回 增加活动驳回流水
 		SKUserZhang zhang = new SKUserZhang();
 		zhang.setUserid(sk.getUserid());
@@ -567,7 +568,7 @@ public class SKBaobeiService extends JSBaseService {
 		zhang.setBusitypeid(8L);
 		zhang.setYue(shishou);
 		sKUserZhangService.add(zhang);
-		
+
 		sk.setShishou(0D);
 		sk.setTuikuan(shishou);
 		update(sk);
@@ -686,7 +687,7 @@ public class SKBaobeiService extends JSBaseService {
 		skbaobei.setTplist(tplist);
 		skbaobei.setXiangqing(detail);
 		skbaobei.setDpname(dianp.getName());
-		if(skbaobei.getZengzhi()  != null && skbaobei.getZengzhi() == 1){
+		if (skbaobei.getZengzhi() != null && skbaobei.getZengzhi() == 1) {
 			skbaobei.setHbsj(sKHbsjService.selectOne(id));
 		}
 		return skbaobei;
@@ -711,8 +712,8 @@ public class SKBaobeiService extends JSBaseService {
 		// 任务列表
 		List<SKBbrw> bbrwList = sKBbrwService.selectByWhere(MapUtils.genMap("bbid", id));
 		baobei.setBbrwlist(bbrwList);
-		
-		//货币三家
+
+		// 货币三家
 		baobei.setHbsj(sKHbsjService.selectOne(id));
 
 		return baobei;
@@ -730,6 +731,9 @@ public class SKBaobeiService extends JSBaseService {
 		SKBaobei baobei = selectOne(id);
 		if (baobei.getStatus() < 9) {
 			BusinessExceptionUtil.threwException("宝贝未通过审核");
+		}
+		if (baobei.getIsXuni() == 1) {
+			BusinessExceptionUtil.threwException("该宝贝今日已经申请完");
 		}
 
 		sKSkqkService.saveSQ(baobei, skuser);
@@ -782,7 +786,22 @@ public class SKBaobeiService extends JSBaseService {
 			BusinessExceptionUtil.threwException("非进行中活动，无需下线！");
 		}
 		baobei.setStatus(-1L);
+		update(baobei);
 		setShiShouinfo(id);
+	}
+
+	/**
+	 * 宝贝虚拟
+	 * 
+	 * @return
+	 */
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+	public void xuni(Long id) {
+		SKUser skuser = sKUserService.getUser();
+		SKUserService.checkUserAdmin(skuser);
+		SKBaobei baobei = selectOne(id);
+		baobei.setIsXuni(1);
+		update(baobei);
 	}
 
 	/**
@@ -860,7 +879,7 @@ public class SKBaobeiService extends JSBaseService {
 		}
 		// 修改状态
 		for (SKBaobei bb : list) {
-			//有未完成和挂起的，都不结算
+			// 有未完成和挂起的，都不结算
 			List<SKSkqk> sqlist = sKSkqkService.getWaitList(bb.getId());
 			if (CollectionUtils.isNotEmpty(sqlist)) {
 				continue;
@@ -872,7 +891,7 @@ public class SKBaobeiService extends JSBaseService {
 			bb.setStatus(20L);
 			Map<String, Object> params = MapUtils.genMap("id", bb.getId(), "status", 20);
 			updateByMap(params);
-			
+
 			// 设置实收和返款,如果活动未达到预期目的，需要退款
 			setShiShouinfo(bb.getId());
 		}
@@ -889,7 +908,7 @@ public class SKBaobeiService extends JSBaseService {
 		List<SKGroupStatus> list = dao.groubByStatus(parameters);
 		return list;
 	}
-	
+
 	/**
 	 * 增加申请数
 	 * 
@@ -902,7 +921,22 @@ public class SKBaobeiService extends JSBaseService {
 		updateByMap(params);
 	}
 
-	
+	/**
+	 * 增加中奖数
+	 * 
+	 * @return
+	 */
+	public void addzjs(Long id, Long zjs) {
+		SKUser skuser = sKUserService.getUser();
+		SKUserService.checkUserAdmin(skuser);
+		SKBaobei one = selectOne(id);
+		if (one.getIsXuni() != 1) {
+			BusinessExceptionUtil.threwException("该商品无法增加中奖数！！");
+		}
+		one.setZjnum(one.getZjnum() + zjs);
+		update(one);
+	}
+
 	/**
 	 * 获取商家未结算的活动列表
 	 * 
@@ -913,11 +947,11 @@ public class SKBaobeiService extends JSBaseService {
 		List<Integer> statuslist = new ArrayList<Integer>();
 		statuslist.add(9);
 		statuslist.add(10);
-		Map<String, Object> parameters = MapUtils.genMap("userid",skuser.getId(),"statuslist",statuslist);
+		Map<String, Object> parameters = MapUtils.genMap("userid", skuser.getId(), "statuslist", statuslist);
 		List<SKBaobei> list = selectByWhere(parameters);
 		return list;
 	}
-	
+
 	/**
 	 * 获取商家结算的活动列表
 	 * 
@@ -925,7 +959,7 @@ public class SKBaobeiService extends JSBaseService {
 	 */
 	public List<SKBaobei> getJiesuan() {
 		SKUser skuser = sKUserService.getUser();
-		Map<String, Object> parameters = MapUtils.genMap("userid",skuser.getId(),"status",20);
+		Map<String, Object> parameters = MapUtils.genMap("userid", skuser.getId(), "status", 20);
 		List<SKBaobei> list = selectByWhere(parameters);
 		return list;
 	}

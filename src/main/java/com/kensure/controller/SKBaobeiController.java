@@ -390,6 +390,18 @@ public class SKBaobeiController {
 		sKBaobeiService.xiaxian(id);
 		return new ResultRowInfo();
 	}
+	
+	/**
+	 * 虚拟商品
+	 */
+	@ResponseBody
+	@RequestMapping(value = "xuni.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	public ResultInfo xuni(HttpServletRequest req, HttpServletResponse rep) {
+		JSONObject json = RequestUtils.paramToJson(req);
+		Long id = json.getLong("id");
+		sKBaobeiService.xuni(id);
+		return new ResultRowInfo();
+	}
 
 	/**
 	 * 初始化应收
@@ -458,6 +470,19 @@ public class SKBaobeiController {
 		Long id = json.getLong("id");
 		Long sqs = json.getLong("sqs");
 		sKBaobeiService.addsqs(id, sqs);
+		return new ResultRowInfo(id);
+	}
+	
+	/**
+	 * 增加中奖数量
+	 */
+	@ResponseBody
+	@RequestMapping(value = "zjs.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	public ResultInfo addzjs(HttpServletRequest req, HttpServletResponse rep) {
+		JSONObject json = RequestUtils.paramToJson(req);
+		Long id = json.getLong("id");
+		Long zjs = json.getLong("zjs");
+		sKBaobeiService.addzjs(id, zjs);
 		return new ResultRowInfo(id);
 	}
 

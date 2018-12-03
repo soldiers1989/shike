@@ -36,6 +36,7 @@
 		shaitu,
 		wangwang,
 		zjnum,
+		is_xuni as isXuni,
 		created_time as createdTime,
 		updated_time as updatedTime
     </sql>
@@ -74,6 +75,7 @@
 		shaitu,
 		wangwang,
 		zjnum,
+		is_xuni,
 		created_time,
 		updated_time
     </sql>
@@ -114,6 +116,7 @@
 			#{shaitu},
 			#{wangwang},
 			#{zjnum},
+			#{isXuni},
 			#{createdTime},
 			#{updatedTime}
 		)
@@ -156,6 +159,7 @@
 				#{item.shaitu},
 				#{item.wangwang},
 				#{item.zjnum},
+				#{item.isXuni},
 				#{item.createdTime},
 				#{item.updatedTime}
 			)
@@ -448,7 +452,10 @@
 		</if>
 		<if test="zjnum != null">
 			zjnum = #{zjnum},
-		</if>		
+		</if>	
+		<if test="isXuni != null">
+			is_xuni = #{isXuni},
+		</if>
 	</sql>
 	
 	<update id="update" parameterType="com.kensure.shike.baobei.model.SKBaobei">
