@@ -120,7 +120,7 @@
 	<api key="/baobei/addfiles.do" name="图片上传操作,富文本框" auth="none" type="put" />
 	
 	<api key="/user/update.do" name="用户安全管理更新操作" auth="all" type="put" />
-	<api key="/user/wjpwd.do" name="忘记密码更新操作" auth="all" type="put" />
+	<api key="/user/wjpwd.do" name="忘记密码更新操作" auth="none" type="put" />
 
 	<api key="/help" name="帮助中心" auth="none" type="get" />
 	<api key="/help/cms" name="内容页面" auth="none" type="get" />

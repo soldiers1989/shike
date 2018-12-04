@@ -156,13 +156,12 @@ public class SKSmsService extends JSBaseService {
 			smsinfo.setQrcode(Utils.randomSMSCode());
 			insert(smsinfo);
 		} else {
-			if(smsinfo.getFscount()>4){
-				BusinessExceptionUtil.threwException("短信已经发送次数过多1");
-			}
+			
 			long s = System.currentTimeMillis() - smsinfo.getUpdatedTime().getTime();
 			if(s < 120*1000){
 				BusinessExceptionUtil.threwException("短信已经发送1");
 			}	
+			smsinfo.setQrcode(Utils.randomSMSCode());
 			update(smsinfo);
 		}
 

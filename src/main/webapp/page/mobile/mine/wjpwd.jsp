@@ -64,7 +64,7 @@
 <script src="<%=BusiConstant.shikemobilepath %>/mine/wjpwd/luosimaoApi.js"></script>
 <header class="header  task-top" style="box-shadow: none;">
    <div class="righthot thot">
-        <a class="icon-userCenter" href="http://m.meilipa.com/UserAccount/Login">
+        <a class="icon-userCenter" href="/shike/skm/login">
             <i class="iconfont icon-error3" style="color:#333;"></i>
         </a>
     </div>

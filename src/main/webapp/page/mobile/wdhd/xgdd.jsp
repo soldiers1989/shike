@@ -186,4 +186,4 @@
     <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/app.js"></script>
 
 
-<form action="" method="post"><input type="file" accept="image/*;" name="file" style="display:none"></form><form action="http://m.meilipa.com/CommonBase/UploadPic?compressType=JpinOrderFlow" method="post"><input type="file" accept="image/*;" name="file" style="display:none"></form></body></html>
+<form action="" method="post"><input type="file" accept="image/*;" name="file" style="display:none"></form><form action="/CommonBase/UploadPic?compressType=JpinOrderFlow" method="post"><input type="file" accept="image/*;" name="file" style="display:none"></form></body></html>
