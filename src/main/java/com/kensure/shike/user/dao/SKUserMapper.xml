@@ -146,6 +146,9 @@
 		<if test="noTaoqufen != null">			
 			and no_taoqufen = #{noTaoqufen}			
 		</if>
+		<if test="auditStatus != null">			
+			and audit_status = #{auditStatus}			
+		</if>	
 		<if test="type != null">			
 			and type = #{type}			
 		</if>

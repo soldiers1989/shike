@@ -67,6 +67,7 @@ CREATE TABLE `sk_user` (
   `no_weixin` varchar(32) NOT NULL COMMENT '微信账号',
   `no_taoqufen` int(11) NOT NULL COMMENT '淘趣分',
   `type` tinyint(3) NOT NULL COMMENT '类型，1是试客，2是商家，3是管理员',
+   audit_status tinyint(1) NOT NULL COMMENT '审核状态 0:未审核  1:通过  2:不通过 (试客用户使用)',
   `created_time` datetime NOT NULL COMMENT '创建时间',
   `updated_time` datetime NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`),

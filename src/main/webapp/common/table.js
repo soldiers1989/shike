@@ -40,7 +40,17 @@ function createtable(tableid) {
 		}
 	};
 	this.tddef = function(row,th){
-        var tdinner = " <em style=\"color: #a9a9a9;\">"+row[th.colname]+"</em>";
+		var colname = th.colname;
+		var tdinner = " <em style=\"color: #a9a9a9;\">";
+		var colval = row[th.colname];
+		if(colname.indexOf('.')>0){
+			var vals = colname.split('.');
+			colval = row;
+			for(var i=0;i<vals.length;i++){
+				colval = colval[vals[i]];
+			}		
+		}
+		tdinner+= colval+"</em>";
 		return tdinner;
 	};
 	this.getrow = function(id){

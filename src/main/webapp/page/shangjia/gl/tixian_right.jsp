@@ -1,4 +1,5 @@
 <%@page import="com.kensure.shike.constant.BusiConstant"%>
+<%@page import="com.kensure.mycom.config.service.MyConfigService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <% 
 	String context = BusiConstant.shangjiapath;
@@ -80,12 +81,12 @@ table.thinit();
 		if(rows){	
 			for(var i=0;i<rows.length;i++){
 				var row = rows[i];
-				var bei = 6;
+				var bei = <%=MyConfigService.getMyConfig("shike_shouxu").getVal()%>;
 				if(row.user.type == 2){
 					bei = 1;
 				}		
 				var shouxufei = (row.jine*bei/100).toFixed(2);
-			    if(shouxufei<1){
+			    if(shouxufei >0 && shouxufei<1){
 				   shouxufei = 1;
 			    }
 			   var daozhang = row.jine-shouxufei;

@@ -38,6 +38,7 @@ import com.kensure.shike.baobei.query.SKBaobeiQuery;
 import com.kensure.shike.baobei.query.SKBaobeiQuery1;
 import com.kensure.shike.baobei.service.SKBaobeiService;
 import com.kensure.shike.baobei.service.SKBbrwService;
+import com.kensure.shike.baobei.service.SKChouJiangService;
 import com.kensure.shike.baobei.service.SKSkqkService;
 import com.kensure.shike.baobei.service.TaoBaoService;
 import com.kensure.shike.constant.BusiConstant;
@@ -63,6 +64,9 @@ public class SKBaobeiController {
 
 	@Resource
 	private SKBbrwService sKBbrwService;
+	@Resource
+	private SKChouJiangService sKChouJiangService;
+	
 
 	// 获取宝贝详情
 	@ResponseBody
@@ -335,7 +339,7 @@ public class SKBaobeiController {
 	@ResponseBody
 	@RequestMapping(value = "cjtest.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
 	public ResultInfo cjtest(HttpServletRequest req, HttpServletResponse rep) {
-		sKBbrwService.doChouJiang(true);
+		sKChouJiangService.doChouJiang(true);
 		return new ResultRowInfo();
 	}
 

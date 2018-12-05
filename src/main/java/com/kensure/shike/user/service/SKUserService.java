@@ -13,6 +13,7 @@ package com.kensure.shike.user.service;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,9 +22,11 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 import co.kensure.mem.PageInfo;
+
 import com.kensure.shike.baobei.model.SKTaobao;
 import com.kensure.shike.baobei.service.SKSkqkService;
 import com.kensure.shike.user.model.query.SKUserListQuery;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -89,6 +92,31 @@ public class SKUserService extends JSBaseService {
 
 	@Resource
 	private SKSkqkService skSkqkService;
+	
+	/**
+	 * 有效用户缓存
+	 */
+	private static Map<String,Integer> invalidUser = new HashMap<String,Integer>();
+	
+	/**
+	 * 是否有效用户
+	 */
+	public boolean isInvalid(Long userId){
+		Integer flag = invalidUser.get(userId.longValue()+"");
+		if(flag == null){
+			SKUser skuser = selectOne(userId);
+			if(skuser != null){
+				flag = skuser.getAuditStatus();
+				invalidUser.put(userId.longValue()+"", flag);
+			}
+		}
+		boolean re = false;
+		if(flag != null && flag == 1){
+			re = true;
+		}	
+		return re;
+	}
+	
 
 	public SKUser selectOne(Long id) {
 		return dao.selectOne(id);
@@ -156,6 +184,7 @@ public class SKUserService extends JSBaseService {
 	public List<SKUser> selectList(SKUserListQuery userQuery, PageInfo page) {
 		Map<String, Object> parameters = MapUtils.bean2Map(userQuery, true);
         MapUtils.putPageInfo(parameters, page);
+        parameters.put("orderby", "created_time desc");
 
 		List<SKUser> list = dao.selectByWhere(parameters);
 		if (CollectionUtils.isEmpty(list)) {
@@ -491,6 +520,7 @@ public class SKUserService extends JSBaseService {
 		user.setId(skuser.getId());
 		user.setNoTaobao(noTaobao);
 		user.setTaobaoImg(taobaoImg);
+		user.setAuditStatus(0);
 		update(user);
 	}
 

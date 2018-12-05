@@ -27,6 +27,9 @@ public class SKUserListQuery extends BaseInfo {
 
 	/** 淘宝账号 */
 	private String noTaobao;
+	
+	/**审核状态*/
+	private Integer auditStatus;
 
 	public Integer getType() {
 		return type;
@@ -75,4 +78,13 @@ public class SKUserListQuery extends BaseInfo {
 	public void setNoTaobao(String noTaobao) {
 		this.noTaobao = noTaobao;
 	}
+
+	public Integer getAuditStatus() {
+		return auditStatus;
+	}
+
+	public void setAuditStatus(Integer auditStatus) {
+		this.auditStatus = auditStatus;
+	}
+	
 }

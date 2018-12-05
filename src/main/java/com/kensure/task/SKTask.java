@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.kensure.shike.baobei.service.SKBaobeiService;
 import com.kensure.shike.baobei.service.SKBbrwService;
+import com.kensure.shike.baobei.service.SKChouJiangService;
 import com.kensure.shike.baobei.service.SKSkqkService;
 
 @Service
@@ -15,6 +16,9 @@ public class SKTask {
 	@Resource
 	private SKBbrwService sKBbrwService;
 
+	@Resource
+	private SKChouJiangService sKChouJiangService;
+	
 	@Resource
 	private SKSkqkService sKSkqkService;
 
@@ -44,7 +48,7 @@ public class SKTask {
 	@Scheduled(cron = "0 0 10 1/1 * ?")
 	public void choujiang1() {
 		try {
-			sKBbrwService.doChouJiang(false);
+			sKChouJiangService.doChouJiang(false);
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
@@ -56,7 +60,7 @@ public class SKTask {
 	@Scheduled(cron = "0 0 15 1/1 * ?")
 	public void choujiang2() {
 		try {
-			sKBbrwService.doChouJiang(false);
+			sKChouJiangService.doChouJiang(false);
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
@@ -68,7 +72,7 @@ public class SKTask {
 	@Scheduled(cron = "0 0 20 1/1 * ?")
 	public void choujiang3() {
 		try {
-			sKBbrwService.doChouJiang(true);
+			sKChouJiangService.doChouJiang(true);
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}

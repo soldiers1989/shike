@@ -29,6 +29,15 @@
 
             <span style="float:none;margin-right:5px;">淘宝</span>
             <input name="noTaobao" type="text" value="" style="width:80px" >
+            
+             <span style="float:none;">审核状态</span>
+        	<select name="auditStatus" style="width:auto;">
+            <option value="" selected="selected">全部</option>
+                <option value="0">未审核</option>
+                <option value="1">审核通过</option>
+                <option value="2">不通过</option>
+
+        </select>
         </form>
         <input onclick="chongzhilist(1)" type="button" value="搜索">
     </div>
@@ -79,8 +88,10 @@
 	var optfun = function(row){
         var tdinner = "";
         var auditStatus = row.auditStatus;
-        if (auditStatus == 0) {
-            tdinner = "<a onclick='auditPass("+row.id+")'>审核通过</a>";
+        if (auditStatus != 1) {
+        	 tdinner = "<a onclick='auditPass("+row.id+")'>审核通过</a>";
+        }
+        if (auditStatus == 0) {       
             tdinner += "<a onclick='auditUnpass("+row.id+")'>不通过</a>";
         }
         tdinner += "<a onclick='editTaoqizhi("+row.id+")'>淘气值</a>";

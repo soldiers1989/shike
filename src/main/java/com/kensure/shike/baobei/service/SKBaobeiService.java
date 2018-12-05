@@ -105,6 +105,10 @@ public class SKBaobeiService extends JSBaseService {
 
 	@Resource
 	private SKHbsjService sKHbsjService;
+	
+	@Resource
+	private SKChouJiangService sKChouJiangService;
+	
 
 	public SKBaobei selectOne(Long id) {
 		return dao.selectOne(id);
@@ -757,11 +761,13 @@ public class SKBaobeiService extends JSBaseService {
 
 		// status=21(关注收藏) 并且 活动类型为"必中商品"时，直接中奖
 		if (status == 21 && baobei.getHdtypeid() != null && baobei.getHdtypeid() == 4) {
-
+			if(sKUserService.isInvalid(skuser.getId())){
+				BusinessExceptionUtil.threwException("您的信息不完整，请填写完整");
+			}
 			Map<String, Object> params = MapUtils.genMap("id", id, "zjnumAdd", 1);
 			updateByMap(params);
 
-			sKBbrwService.zhongjiang(baobei.getId());
+			sKChouJiangService.zhongjiang(baobei.getId());
 
 			sKSkqkService.save(baobei, 51, skuser);
 		} else {

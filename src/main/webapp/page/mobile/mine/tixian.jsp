@@ -1,3 +1,4 @@
+<%@page import="com.kensure.mycom.config.service.MyConfigService"%>
 <%@page import="com.kensure.shike.constant.BusiConstant"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
@@ -102,8 +103,8 @@
             var money = $("#zhanghuye").html() - 0;
             var fee = 0;
 
-            fee = parseFloat(money * 0.06).toFixed(2);
-            if (fee < 1) {
+            fee = parseFloat(money * <%=MyConfigService.getMyConfig("shike_shouxu").getVal()%>/100).toFixed(2);
+            if (0< fee && fee < 1) {
                 fee = 1;
             }
             $("#feeSpan").text(fee);
@@ -164,8 +165,8 @@
                 var money = val;
                 var fee = 0;
 
-                fee = parseFloat(money * 0.06).toFixed(2);
-                if (fee < 1) {
+                fee = parseFloat(money * <%=MyConfigService.getMyConfig("shike_shouxu").getVal()%>/100).toFixed(2);
+                if (0< fee && fee < 1) {
                     fee = 1;
                 }
                 $("#feeSpan").text(fee);
@@ -344,7 +345,7 @@
     <div class="phone-num">
         <span class="blank">提现到</span> <i class="iconfont icon-recharge"></i> <em id="zhifubao"></em> <%--<span class="change" onclick="location.href=&#39;/aa/a&#39;">修改</span>--%>
     </div>
-    <p class="gray">手续费：提现手续费率6%，每笔手续费最低1元。</p>
+    <p class="gray">手续费：提现手续费率<%=MyConfigService.getMyConfig("shike_shouxu").getVal()%>，每笔手续费最低0元。</p>
     <div class="tx-con">
         <h3>提现金额</h3>
         <div id="num-price">

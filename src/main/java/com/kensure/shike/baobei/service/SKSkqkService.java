@@ -481,7 +481,15 @@ public class SKSkqkService extends JSBaseService {
 	public List<SKSkqk> getDengChouJiang(long bbid) {
 		Map<String, Object> parameters = MapUtils.genMap("bbid", bbid, "status", 21);
 		List<SKSkqk> list = selectByWhere(parameters);
-		return list;
+		//去掉没有审核通过的试客
+		List<SKSkqk> ilist = new ArrayList<>();
+		for(SKSkqk skqk:list){
+			boolean flag = sKUserService.isInvalid(skqk.getUserid());
+			if(flag){
+				ilist.add(skqk);
+			}
+		}	
+		return ilist;
 	}
 
 	/**

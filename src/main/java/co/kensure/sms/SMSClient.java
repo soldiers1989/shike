@@ -27,9 +27,19 @@ public class SMSClient {
 	private static final String accountSid = "bdc33045964e49a9bedfd2c7e5ca8faf";
 	private static final String baseUrl = "https://api.miaodiyun.com/20150822/industrySMS/sendSMS";
 	private static final String smsToken = "00235df98cea4872b52edbc0d2ccf48a";
-//	private static final String contentTemplate = "【91米贷】您的验证码为{1}，请于{2}分钟内正确输入，如非本人操作，请忽略此短信。";
 	private static final String contentTemplate = "【试呗网】您的验证码为{1}，请于{2}分钟内正确输入，如非本人操作，请忽略此短信。";
 	private static final String contentTemplate2 = "【试呗网】您申请的{1}已审核通过，请下{2}内下单";
+	private static final String contentTemplate3 = "您绑定的淘宝账号有误，请重新绑定，如有问题请联系客户QQ64202412";
+	
+	
+	/**
+	 * 发送淘宝账号绑定错误提示短信
+	 * @param phoneNumber
+	 *            电话号码
+	 */
+	public static void sendSMSTaobao(String phoneNumber) throws Exception {
+		sendSMSMessage(phoneNumber, contentTemplate3);
+	}
 	
 	/**
 	 * 验证码发送
