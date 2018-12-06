@@ -59,23 +59,7 @@
 
 <script>
     function drawApply() {
-        // if ("False" == "True") {
-        //     myAlert("您还未设置支付密码", function () {
-        //         // location.href = '/UserAccount/SetDrawApplyPassword?returnurl=http://m.meilipa.com/UserAccount/MoneyBalance';
-        //         myAlert("维护中...")
-        //     });
-        // }else  if ("False" == "True") {
-        //     myAlert("您还未绑定手机号，立即绑定", function () {
-        //         location.href = '/UserAccount/SetMobile?returnurl=http://m.meilipa.com/UserAccount/MoneyBalance';
-        //     });
-        // } else if ("True" == "True") {
-        //     myAlert("您还未绑定支付宝，立即绑定", function () {  TODO
-        //         // location.href = '/UserAccount/ModifyAlipay?returnurl=http://m.meilipa.com/UserAccount/MoneyBalance';
-        //         myAlert("维护中...")
-        //     });
-        // } else {
-        //     location.href = '/UserAccount/MoneyDrawApply';
-        // }
+        
         if ('${yue.yue}' == '' || parseInt(${yue.yue}) == 0) {
             myAlert("余额为0，不可提现!");
         } else {

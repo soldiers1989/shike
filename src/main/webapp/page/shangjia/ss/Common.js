@@ -180,9 +180,9 @@ function login() {
     if (window.location.host == "www.nouqu.com") {
         var from = getUrlParam("fromothersite");
         if (from != null) {
-            location.href = '//www.meilipa.com/login?fromothersite=' + from;
+            location.href = '/login?fromothersite=' + from;
         } else {
-            location.href = '//www.meilipa.com/login';
+            location.href = '/login';
         }
         return;
     }
@@ -190,7 +190,7 @@ function login() {
 }
 
 function qqLogin() {
-    var url = '//www.meilipa.com/qqlogin?returnurl=' + window.location;
+    var url = '/qqlogin?returnurl=' + window.location;
     if (window.location.host == "www.nouqu.com") {
         var from = getUrlParam("fromothersite");
         if (from != null) {
@@ -295,7 +295,7 @@ function KeywordsValidation(str) {
     }
     if (tag) {
         var content = '<span style="color: #666">亲，禁止提交试用网站相关词汇</span><br />' +
-           '<span style="color: #fd5340">介绍一名商家到美丽啪奖励50元哦</span><br />' +
+           '<span style="color: #fd5340">介绍一名商家到试呗网奖励50元哦</span><br />' +
            '<span style="color: #666">获取奖励联系QQ：800009450</span>';
         myDialog({
             msg: content
@@ -367,7 +367,7 @@ function LedFuDai() {
             myDialog({
                 msg: '恭喜获得2元福袋',
                 okText: '去看看',
-                ok: function () { window.open('//www.meilipa.com/userindex'); }
+                ok: function () { window.open('/userindex'); }
             });
     });
 }
@@ -389,8 +389,8 @@ function myDialog(options) {
                     '<div style="position:relative;width:100%;height:100%">' +
                     '<div id="msgbox" class="lila_index" style="position:absolute;top:50%;left:50%;">' +
                         '<div class="ling">' +
-                            '<strong><img src="//www.meilipa.com/Content/images/lila.jpg" /></strong> ' +
-                            '<a style="cursor: pointer"><img src="//www.meilipa.com/Content/images/xx.jpg" /></a>' +
+                            '<strong><img src="/Content/images/lila.jpg" /></strong> ' +
+                            '<a style="cursor: pointer"><img src="/Content/images/xx.jpg" /></a>' +
                         '</div>' +
                         '<div class="ling_mian">' +
                             '<div class="sy_cgt">' + options.msg + '</div>' +
@@ -424,9 +424,9 @@ function myAlert(message, callback) {
                     '<div style="position:relative;width:100%;height:100%">' +
                     '<div id="msgbox" class="lila_index" style="position:absolute;top:50%;left:50%;">' +
                         '<div class="ling">' +
-                            '<strong><img src="//www.meilipa.com/Content/images/lila.jpg" /></strong> ' +
+                            '<strong><img src="/Content/images/lila.jpg" /></strong> ' +
                             '<a style="cursor: pointer">' +
-                            '<img src="//www.meilipa.com/Content/images/xx.jpg" /></a>' +
+                            '<img src="/Content/images/xx.jpg" /></a>' +
                         '</div>' +
                         '<div class="ling_mian">' +
                             '<div class="sy_cgt">' + message + '</div>' +
@@ -455,8 +455,8 @@ function myConfirm(message, callback, callback2) {
                     '<div style="position:relative;width:100%;height:100%">' +
                     '<div id="msgbox" class="lila_index" style="position:absolute;top:50%;left:50%;">' +
                         '<div class="ling">' +
-                            '<strong><img src="//www.meilipa.com/Content/images/lila.jpg" /></strong> ' +
-                            '<a onclick="$(\'#linglamsg\').remove()" style="cursor: pointer"><img src="//www.meilipa.com/Content/images/xx.jpg" /></a>' +
+                            '<strong><img src="/Content/images/lila.jpg" /></strong> ' +
+                            '<a onclick="$(\'#linglamsg\').remove()" style="cursor: pointer"><img src="/Content/images/xx.jpg" /></a>' +
                         '</div>' +
                         '<div class="ling_mian">' +
                             '<div class="sy_cgt">' + message + '</div>' +
@@ -488,8 +488,8 @@ function myPrompt(callback) {
                     '<div style="position:relative;width:100%;height:100%">' +
                     '<div id="msgbox" class="lila_index" style="position:absolute;top:50%;left:50%;">' +
                         '<div class="ling">' +
-                            '<strong><img src="//www.meilipa.com/Content/images/lila.jpg" /></strong> ' +
-                            '<a style="cursor: pointer" onclick="$(\'#linglamsg\').remove()"><img src="//www.meilipa.com/Content/images/xx.jpg" /></a>' +
+                            '<strong><img src="/Content/images/lila.jpg" /></strong> ' +
+                            '<a style="cursor: pointer" onclick="$(\'#linglamsg\').remove()"><img src="/Content/images/xx.jpg" /></a>' +
                         '</div>' +
                         '<div class="ling_mian">' +
                             '<div class="sy_cgt">' +
@@ -534,9 +534,9 @@ function keySearch(evt) {
 function searchGoods() {
     var goodsName = $("#searchText").val();
     if (goodsName != "") {
-        window.open("https://jing.meilipa.com?ck=" + goodsName);
+        window.open("?ck=" + goodsName);
     } else {
-        window.open("https://jing.meilipa.com");
+        window.open("");
     }
 }
 

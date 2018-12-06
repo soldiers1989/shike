@@ -256,7 +256,7 @@
     </div>
 </div>
 
-<form id="form" action="http://m.meilipa.com/JpinShopissue/WriteReportSubmit?addrate=false" method="POST">
+<form id="form" action="/JpinShopissue/WriteReportSubmit?addrate=false" method="POST">
     <div class="baog baogtitle">
         <div class="kk">
         </div>
@@ -387,4 +387,4 @@
     <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/app.js"></script>
 
 
-<form action="http://m.meilipa.com/CommonBase/UploadPic?compressType=2" method="post"><input type="file" accept="image/*;" name="file" style="display:none" multiple="multiple"></form><form action="http://m.meilipa.com/CommonBase/UploadPic?compressType=2" method="post"><input type="file" accept="image/*;" name="file" style="display:none" multiple="multiple"></form><form action="http://m.meilipa.com/CommonBase/UploadPic?compressType=2" method="post"><input type="file" accept="image/*;" name="file" style="display:none" multiple="multiple"></form><form action="http://m.meilipa.com/CommonBase/UploadPic?compressType=2" method="post"><input type="file" accept="image/*;" name="file" style="display:none" multiple="multiple"></form></body></html>
+<form action="/CommonBase/UploadPic?compressType=2" method="post"><input type="file" accept="image/*;" name="file" style="display:none" multiple="multiple"></form><form action="/CommonBase/UploadPic?compressType=2" method="post"><input type="file" accept="image/*;" name="file" style="display:none" multiple="multiple"></form><form action="/CommonBase/UploadPic?compressType=2" method="post"><input type="file" accept="image/*;" name="file" style="display:none" multiple="multiple"></form><form action="/CommonBase/UploadPic?compressType=2" method="post"><input type="file" accept="image/*;" name="file" style="display:none" multiple="multiple"></form></body></html>

@@ -37,10 +37,10 @@
                 <div class="oneto" id="naviate">
                     <div class="onetoa">
                         <p class="tcbt">
-                            <a href="http://jing.meilipa.com/">免费试用</a>
+                            <a href="/">免费试用</a>
                         </p>
                         <p>
-                            <a href="http://jing.meilipa.com/" target="_blank">试用专区</a>
+                            <a href="/" target="_blank">试用专区</a>
                         </p>
                     </div>
                     <div class="onetoa">

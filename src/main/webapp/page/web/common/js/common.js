@@ -289,7 +289,7 @@ function KeywordsValidation(str) {
     }
     if (tag) {
         var content = '<span style="color: #666">亲，禁止提交试用网站相关词汇</span><br />' +
-           '<span style="color: #fd5340">介绍一名商家到美丽啪奖励50元哦</span><br />' +
+           '<span style="color: #fd5340">介绍一名商家到试呗网奖励50元哦</span><br />' +
            '<span style="color: #666">获取奖励联系QQ：800009450</span>';
         myDialog({
             msg: content

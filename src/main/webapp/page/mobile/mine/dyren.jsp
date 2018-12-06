@@ -69,8 +69,7 @@
  
     <i class="iconfont icon-Toright" style="position:absolute;height:2rem;width:2rem;" onclick="history.back(-1)"></i>
     什么是代言人
-       <%-- <a href="http://m.meilipa.com/Invitation/Top10" class="righthot" style="color:red;font-size:12px;">代言人排行榜</a>--%>
-</header>
+      </header>
 <div class="h2"></div>
     <main class="question_main">
         <h2>※ 什么是<%=BusiConstant.name %>代言人：</h2>
