@@ -4,7 +4,6 @@
     String context = BusiConstant.shikemobilepath;
 %>
 <!DOCTYPE html>
-<!-- saved from url=(0045)http://m.meilipa.com/UserAccount/ModifyMobile -->
 <html lang="zh" style="font-size: 30px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
     <title>绑定手机号</title>
@@ -122,7 +121,7 @@
         }
     }
 </script>
-<form id="form" action="http://m.meilipa.com/UserAccount/CheckMobile" method="POST">
+<form id="form" action="/UserAccount/CheckMobile" method="POST">
     <div>
         <header class="header regist-top"><i class="arrows" onclick="history.back(-1) "></i>修改手机</header>
         <div class="regist-content conent alipay">

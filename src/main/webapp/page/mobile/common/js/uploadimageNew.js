@@ -133,7 +133,7 @@ function uploadToQiniu(token, picFile, fileName, callback) {
         },
         complete(res){
             // callback($("#qiniu").val() + key)
-            callback("http://pic3e0iaj.bkt.clouddn.com/" + key)
+            callback("http://img.91midai.com/" + key)
             $("#loading").fadeOut();
         }
     }

@@ -444,9 +444,9 @@ $(function () {
         if ($(this).is(":checked")) {
             $("#app-key .mb10 input").attr("disabled", "disabled").removeAttr("datatype");
             $("#app-key .mb10 select").attr("disabled", "disabled").removeAttr("datatype");
-            $("#tgInfo").html("美丽啪将推送符合您宝贝的精准关键词！");
+            $("#tgInfo").html("试呗网将推送符合您宝贝的精准关键词！");
         } else {
-            $("#tgInfo").html("美丽啪精准关键词托管可以让您的排名提升更显著哦！");
+            $("#tgInfo").html("试呗网精准关键词托管可以让您的排名提升更显著哦！");
             $("#app-key .mb10 input").removeAttr("disabled").attr("datatype", "*");;
             $("#app-key .mb10 select").removeAttr("disabled").attr("datatype", "*");;
         }

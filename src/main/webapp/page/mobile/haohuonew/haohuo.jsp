@@ -101,9 +101,7 @@
         });
     })
 </script>
-<%--<a class="go-mj" style="display: none;" href="http://m.meilipa.com/other/appdownload">
-    <img src="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/share-icon.png">
-</a>--%>
+
 <div class="jp-fixed-top" style="border-bottom: 1px solid #ddd;height: auto;">
     <div class="jp-hd">
         <a href="#">

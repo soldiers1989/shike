@@ -9,11 +9,11 @@ var browser = {
             location.href = "/UserAccount";
         } else {
             if (browser.weiXin) {
-                location.href = "http://a.app.qq.com/o/simple.jsp?pkgname=com.example.meilipa";
+                location.href = "";
             } else if (browser.ios) {
-                location.href = "https://itunes.apple.com/cn/app/qq/id1291213125";
+                location.href = "";
             } else {
-                location.href = "http://m.meilipa.com/update/meilipa.apk";
+                location.href = "";
             }
         }
     }

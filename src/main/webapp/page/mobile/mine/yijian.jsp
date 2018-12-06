@@ -269,7 +269,7 @@
 <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/app.js"></script>
 
 
-<form action="http://m.meilipa.com/CommonBase/UploadPic" method="post"><input type="file" accept="image/*;" name="file"
+<form action="/CommonBase/UploadPic" method="post"><input type="file" accept="image/*;" name="file"
                                                                               style="display:none" multiple="multiple">
 </form>
 </body>
