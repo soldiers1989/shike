@@ -219,7 +219,7 @@ public class SKBaobeiService extends JSBaseService {
 				obj.setYingshou(0D);
 			}
 			if (obj.getDisorder() == null) {
-				obj.setDisorder(System.currentTimeMillis());
+				obj.setDisorder(1000L);
 			}
 		}
 
@@ -927,6 +927,20 @@ public class SKBaobeiService extends JSBaseService {
 		updateByMap(params);
 	}
 
+	
+	/**
+	 * 设置排序
+	 * 
+	 * @return
+	 */
+	public void addpaixu(Long id, Long disorder) {
+		SKUser skuser = sKUserService.getUser();
+		SKUserService.checkUserAdmin(skuser);
+		SKBaobei one = selectOne(id);
+		one.setDisorder(disorder);
+		update(one);
+	}
+	
 	/**
 	 * 增加中奖数
 	 * 

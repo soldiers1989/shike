@@ -9,7 +9,7 @@
 
 <jsp:include page="top1.jsp" flush="true"/> 
 
-<jsp:include page="banner.jsp" flush="true"/> 
+<jsp:include page="banner0.jsp" flush="true"/> 
 
 <jsp:include page="login_content.jsp" flush="true"/> 
 

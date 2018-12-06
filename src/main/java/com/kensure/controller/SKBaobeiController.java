@@ -200,22 +200,26 @@ public class SKBaobeiController {
 	public ResultInfo sklist(HttpServletRequest req, HttpServletResponse rep) {
 		JSONObject json = RequestUtils.paramToJson(req);
 		SKBaobeiQuery1 query = JSONObject.parseObject(json.toJSONString(), SKBaobeiQuery1.class);
+		
+		// 升序/降序
+		if ("1".equals(query.getSort())) {
+			query.setSort("desc");
+		}else{
+			query.setSort("asc");
+		}
 		// 排序字段
 		if ("1".equals(query.getOrder())) { // 最新
-			query.setOrder("created_time");
+			query.setOrder("disorder,created_time");
+			query.setSort("desc");
 		} else if ("2".equals(query.getOrder())) { // 价值
 			query.setOrder("sale_price");
 		} else if ("3".equals(query.getOrder())) { // 人气
 			query.setOrder("sqnum");
 		} else {
-			query.setOrder("disorder");
-		}
-		// 升序/降序
-		if ("1".equals(query.getSort())) {
+			query.setOrder("disorder,created_time");
 			query.setSort("desc");
-		} else {
-			query.setSort("asc");
 		}
+		
 		List<SKBaobei> list = sKBaobeiService.getSKList(query);
 		return new ResultRowsInfo(list);
 	}
@@ -476,6 +480,20 @@ public class SKBaobeiController {
 		sKBaobeiService.addsqs(id, sqs);
 		return new ResultRowInfo(id);
 	}
+	
+	/**
+	 * 排序
+	 */
+	@ResponseBody
+	@RequestMapping(value = "paixu.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	public ResultInfo paixu(HttpServletRequest req, HttpServletResponse rep) {
+		JSONObject json = RequestUtils.paramToJson(req);
+		Long id = json.getLong("id");
+		Long disorder = json.getLong("disorder");
+		sKBaobeiService.addpaixu(id,disorder);
+		return new ResultRowInfo(id);
+	}
+	
 	
 	/**
 	 * 增加中奖数量

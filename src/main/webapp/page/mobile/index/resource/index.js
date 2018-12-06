@@ -129,7 +129,7 @@ $(function () {
     }
 
     // 展示列表
-    zhanshilist();
+  //  zhanshilist();
 
 
     //主页swiper
@@ -339,7 +339,7 @@ $(function () {
                 , time: 2
             });
         }
-
+        lingaSort.order=1;
         $.ajax({
             type: 'post',
             url: '/shike/baobei/sklist.do',
@@ -408,72 +408,7 @@ $(function () {
             }
         });
 
-        // $.ajax({
-        //     type: 'post',
-        //     url: '/aa/aa',
-        //     data: { page: lingaSort.page, order: lingaSort.order, key: lingaSort.key, type: lingaSort.type, sort: sort,isHomePage:1},
-        //     dataType: 'json',
-        //     success: function (data) {
-        //         //$("#loading").hide()
-        //         listFlag = false;
-        //         if (data.PageIndex == Math.ceil(data.Count / data.PageSize)) {
-        //             pageFlag = true;
-        //         }
-        //         //if (data.Data.length == 0) {
-        //         //    layer.open({
-        //         //        content: '没有更多商品了'
-        //         //          , skin: 'msg'
-        //         //          , time: 2
-        //         //    });
-        //         //    return false;
-        //         //}
-        //         for (var i = 0; i < data.Data.length; i++) {
-        //             data.Data[i].id = data.Data[i].sk_id;
-        //             data.Data[i].sk_activity_name =data.Data[i].sk_activity_name
-        //             data.Data[i].sk_id = "/jing/Detail?id=" + data.Data[i].sk_id;
-        //             data.Data[i].showG = parseInt(data.Data[i].sk_clinch_price) >= 100 ? true : false;
-        //             data.Data[i].sk_back_price = data.Data[i].sk_back_price - data.Data[i].sk_clinch_price > 0 ? true : false;
-        //             data.Data[i].sk_clinch_price = "¥" + (data.Data[i].sk_clinch_price - 0).toFixed(2);
-        //             data.Data[i].share_id = "/jing/share?invitationCode=" + userid + "&shopid=" + data.Data[i].id;
-        //             data.Data[i].sk_shop_type = ["iconfont icon-tb", "iconfont icon-tm", "iconfont icon-jd", "iconfont icon-tb"][data.Data[i].sk_shop_type];
-        //             if (data.Data[i].sk_is_original) {
-        //                 var index = 0;
-        //                 if (data.Data[i].sk_img_index == 0) {
-        //                     index = 1;
-        //                 } else {
-        //                     index = 0;
-        //                 }
-        //                 data.Data[i].sk_logo_pic = data.Data[i].sk_logo_pic.split("|")[index];
-        //             }
-        //             else {
-        //                 data.Data[i].sk_logo_pic = data.Data[i].sk_logo_pic.split("|")[0];
-        //             }
-        //             data.Data[i].sk_apply_count = data.Data[i].sk_apply_count;
-        //             data.Data[i].sk_activity_name = data.Data[i].sk_activity_name.replaceAll(" ", "");
-        //             data.Data[i].isNewUser = true;
-        //             vm.$data.list.push(data.Data[i]);
-        //         }
-        //         lingaSort.page++;
-        //         vm.$nextTick(function () {
-        //             $("img.lazy").lazyload({ effect: "fadeIn" });
-        //             $(".tod").on("click", function () {
-        //                 indexSW = 1;
-        //                 scrolH = $document.scrollTop();
-        //                 $(".jp-fixed-top,footer").fadeOut();
-        //                 $(".go-mj").data("href", "/jing/share?invitationCode=" + userid + "&shopid=" + $(this).data("id"));
-        //                 $(".go-mj").show().find("img").attr("src", "/Content/images/icon/share-icon.png");
-        //                 $(".info-foot").fadeIn();
-        //
-        //                 $("#detail .get-more").data("id", $(this).data("id"));
-        //                 getDetail($(this).data("id"));
-        //             });
-        //         });
-        //
-        //     },
-        //     error: function () {
-        //         listFlag = false;
-        //     }
-        // });
+       
     }
 
     //回退按钮

@@ -63,7 +63,7 @@ public class SKCMSService extends JSBaseService{
 	}
 	
 	public List<SKCMS> selectByTypeId(Integer typeid){
-		Map<String, Object> parameters = MapUtils.genMap("typeid",typeid);
+		Map<String, Object> parameters = MapUtils.genMap("typeid",typeid,"orderby","disorder");
 		return selectByWhere(parameters);
 	}
 	

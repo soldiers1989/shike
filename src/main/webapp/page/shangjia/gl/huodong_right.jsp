@@ -183,6 +183,8 @@
         	tdinner+= "        <input type='button' value='下线' onclick='xiaxian("+row.id+")'/>";
         	tdinner+= "        <input type='button' value='增加申请数' onclick='addsq("+row.id+")'/>";
         }
+        tdinner+= "        <input type='button' value='排序设置' onclick='paixu("+row.id+")'/>";
+        
         if(row.isXuni == 0){  
         	tdinner+= "        <input type='button' value='虚拟商品' onclick='xuni("+row.id+")'/>";
         }else{
@@ -234,6 +236,7 @@
 	,{w:100,na:"产品数量",colname:"bbnum"}
 	,{w:100,na:"中奖数量",colname:"zjnum"}
 	,{w:100,na:"申请数量",colname:"ysqnum"}
+	,{w:100,na:"排序",colname:"disorder"}
 	,{w:100,na:"活动进度",callfun:jindufun}
 	,{w:200,na:"活动操作",callfun:optfun}];
 	
@@ -282,6 +285,20 @@
 			   postdo(url, data,s,null, null);
 		   }	  
 	   }	  
+   }
+   
+   function paixu(id){	    
+		   var str = window.prompt("请设置排序","1000");
+		   if(str){
+			   var data = {id:id,disorder:str};
+			   var url = "<%=ApiUtil.getUrl("/baobei/paixu.do")%>";
+			   var s = function(redata){
+				   var row = table.getrow(id);
+				   row.disorder =parseInt(str);
+				   table.tdinit();
+			   }
+			   postdo(url, data,s,null, null);
+		   }	  
    }
    
    function addzj(id){	  

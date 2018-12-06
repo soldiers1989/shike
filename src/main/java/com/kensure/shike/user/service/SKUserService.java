@@ -41,6 +41,7 @@ import co.kensure.frame.JSBaseService;
 import co.kensure.mem.CollectionUtils;
 import co.kensure.mem.MapUtils;
 import co.kensure.mem.MobileUtils;
+import co.kensure.sms.SMSClient;
 
 import com.kensure.basekey.BaseKeyService;
 import com.kensure.shike.baobei.service.SKTaobaoService;
@@ -520,7 +521,10 @@ public class SKUserService extends JSBaseService {
 		user.setId(skuser.getId());
 		user.setNoTaobao(noTaobao);
 		user.setTaobaoImg(taobaoImg);
-		user.setAuditStatus(0);
+		String taobao = skuser.getNoTaobao();
+		if(!noTaobao.equals(taobao)){
+			user.setAuditStatus(0);
+		}		
 		update(user);
 	}
 
@@ -662,16 +666,20 @@ public class SKUserService extends JSBaseService {
         if (user == null) {
             BusinessExceptionUtil.threwException("用户为空");
         }
-
+        
         SKUser skUser = new SKUser();
         skUser.setId(id);
         skUser.setAuditStatus(status);
         skUser.setRemark(remark);
         skUser.setUpdatedTime(new Date());
 
-        // 审核不通过时，将账号置为停用
-        if (status == 2) {
-            skUser.setStatus(-1);
+        invalidUser.put(id.longValue()+"", status);
+        if(status == 2){
+        	try {
+				SMSClient.sendSMSTaobao(user.getPhone());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
         }
 
         update(skUser);

@@ -37,6 +37,15 @@ public class ShangJiaPageController {
 		indexlist.add("index_content.jsp");
 		indexlist.add("footer.jsp");
 	}
+	
+	// 商家页面，一般模板
+	private static List<String> indexlist2 = new ArrayList<String>();
+	static {
+		indexlist2.add("top1.jsp");
+		indexlist2.add("banner0.jsp");
+		indexlist2.add("index_contentnowidth.jsp");
+		indexlist2.add("footer.jsp");
+	}
 
 	// 商家用户登录模板
 	private static List<String> regist = new ArrayList<String>();
@@ -50,9 +59,19 @@ public class ShangJiaPageController {
 
 	// 注册
 	@RequestMapping("regist")
-	public String home(HttpServletRequest req, HttpServletResponse rep, Model model) {
+	public String regist(HttpServletRequest req, HttpServletResponse rep, Model model) {
 		req.setAttribute("index", regist);
 		return "page/shangjia/regist.jsp";
+	}
+	
+	// vip
+	@RequestMapping("vip")
+	public String vip(HttpServletRequest req, HttpServletResponse rep, Model model) {
+		req.setAttribute("index", indexlist2);
+		List<String> body = new ArrayList<String>();
+		body.add("vip.jsp");
+		req.setAttribute("bodypage", body);
+		return "page/shangjia/index.jsp";
 	}
 
 	// 登录
