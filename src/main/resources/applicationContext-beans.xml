@@ -72,6 +72,7 @@
         <property name="timeBetweenEvictionRunsMillis" value="10000"/>
         <property name="validationQuery" value="select now()"/>
         <property name="filters" value="stat,log4j"/>
+		<property name="connectionInitSqls" value="set names utf8mb4;"/>
         <property name="proxyFilters">
             <list>
                 <ref bean="stat-filter" />
