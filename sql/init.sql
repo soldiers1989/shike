@@ -326,7 +326,7 @@ CREATE TABLE `sk_jysj` (
   `status` int(11) DEFAULT NULL COMMENT '这个和sk_sqqk中对应',
   `typeid` int(11) DEFAULT NULL COMMENT '1是淘口令，2是名字，3是图片路径',
   `busitype` varchar(16) DEFAULT NULL COMMENT '业务类型，比如hbsj1,hbsj2,hbsj3货比三家,dpm 店铺名称,tkl 淘口令,sc:是收藏图片，gz:关注图片,dd：订单图片，ddh：订单号，hpy：好评，hp：好评图片',
-  `content` varchar(2000) DEFAULT NULL COMMENT '具体口令、名称、图片路径',
+  `content` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL  COMMENT '具体口令、名称、图片路径',
   `created_time` datetime NOT NULL COMMENT '创建时间',
   `updated_time` datetime NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`),
