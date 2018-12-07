@@ -42,7 +42,7 @@ public class ShangJiaPageController {
 	private static List<String> indexlist2 = new ArrayList<String>();
 	static {
 		indexlist2.add("top1.jsp");
-		indexlist2.add("banner0.jsp");
+		indexlist2.add("banner.jsp");
 		indexlist2.add("index_contentnowidth.jsp");
 		indexlist2.add("footer.jsp");
 	}
@@ -51,7 +51,7 @@ public class ShangJiaPageController {
 	private static List<String> regist = new ArrayList<String>();
 	static {
 		regist.add("top1.jsp");
-		regist.add("banner.jsp");
+		regist.add("banner0.jsp");
 		regist.add("regist_content.jsp");
 		regist.add("bottom1.jsp");
 		regist.add("footer.jsp");
