@@ -15,7 +15,7 @@
     List<SKWord> words = (List<SKWord>)request.getAttribute("words");
   	String wordStr = "";
   	for(SKWord skWord : words) {
-		wordStr += skWord.getWord();
+		wordStr += skWord.getWord()+"<br>";
 	}
 %>
 <!DOCTYPE html>
@@ -139,19 +139,19 @@
                         货比淘口令1：
                     </div>
                     <div class="textarea">
-                        <textarea class="goodLink" id="tkl1" placeholder="点击手机淘宝宝贝详情页“分享”按钮，选择“复制链接”然后将商品链接粘贴到此处"></textarea>
+                        <textarea class="goodLink" id="tkl1" placeholder="点击手机淘宝宝贝详情页“分享”按钮，选择“复制链接”然后将商品链接粘贴到此处">&nbsp;</textarea>
                     </div>
                     <div>
                         货比淘口令2：
                     </div>
                     <div class="textarea">
-                        <textarea class="goodLink" id="tkl2" placeholder="点击手机淘宝宝贝详情页“分享”按钮，选择“复制链接”然后将商品链接粘贴到此处"></textarea>
+                        <textarea class="goodLink" id="tkl2" placeholder="点击手机淘宝宝贝详情页“分享”按钮，选择“复制链接”然后将商品链接粘贴到此处">&nbsp;</textarea>
                     </div>
                     <div>
                         货比淘口令3：
                     </div>
                     <div class="textarea">
-                        <textarea class="goodLink" id="tkl3" placeholder="点击手机淘宝宝贝详情页“分享”按钮，选择“复制链接”然后将商品链接粘贴到此处"></textarea>
+                        <textarea class="goodLink" id="tkl3" placeholder="点击手机淘宝宝贝详情页“分享”按钮，选择“复制链接”然后将商品链接粘贴到此处">&nbsp;</textarea>
                     </div>
                 </li>
         </ul>
