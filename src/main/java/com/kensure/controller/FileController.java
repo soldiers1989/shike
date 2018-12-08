@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.Thumbnails.Builder;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +31,8 @@ import co.kensure.mem.NumberUtils;
 @RequestMapping(value = "filetemp")
 public class FileController {
 
+	private final static Logger LOGGER = Logger.getLogger(FileController.class);
+	
 	private static Map<String, Builder<File>> map = new HashMap<String, Builder<File>>();
 
 	// 图片
@@ -42,8 +45,9 @@ public class FileController {
 			try {
 				os = rep.getOutputStream();
 				f.toOutputStream(os);
-			} catch (IOException e) {
+			} catch (Throwable e) {
 				e.printStackTrace();
+				LOGGER.error(name+"=="+flag);
 			} finally {
 				try {
 					os.close();
@@ -77,11 +81,7 @@ public class FileController {
 			if (file.exists()) {
 				// 加载图片源
 				Builder<File> f = Thumbnails.of(file);
-				if (file.length() > flag1 * flag1) {
-					builder = f.size(flag1, flag1);
-				} else {
-					builder = f;
-				}
+				builder = f.size(flag1, flag1);
 				map.put(key, builder);
 			}
 		}

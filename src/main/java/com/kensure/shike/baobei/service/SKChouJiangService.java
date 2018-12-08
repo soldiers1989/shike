@@ -119,14 +119,14 @@ public class SKChouJiangService extends JSBaseService {
 		} else {
 			// 人多，需要进行抽
 			zjrlist = poolBean((int) cjsl, list);
-			for (SKSkqk skqk : zjrlist) {
-				skqk.setStatus(51L);
-				sKSkqkService.updateStatus(skqk.getId(), skqk.getStatus());
-			}
 			for (SKSkqk skqk : list) {
 				skqk.setStatus(21L);
 				sKSkqkService.updateStatus(skqk.getId(), skqk.getStatus());
 			}
+			for (SKSkqk skqk : zjrlist) {
+				skqk.setStatus(51L);
+				sKSkqkService.updateStatus(skqk.getId(), skqk.getStatus());
+			}			
 			bbrw.setYzj(zjrlist.size() + bbrw.getYzj());
 		}
 		sKBbrwService.update(bbrw);
@@ -172,7 +172,7 @@ public class SKChouJiangService extends JSBaseService {
 	 * @return
 	 */
 	private List<SKSkqk> poolBean(int jps, List<SKSkqk> cjlist) {
-		Random rand = new Random();
+		Random rand = new Random();	
 		// 中奖人列表
 		List<SKSkqk> zjrlist = new ArrayList<SKSkqk>();
 		for (int i = 0; i < jps; i++) {
