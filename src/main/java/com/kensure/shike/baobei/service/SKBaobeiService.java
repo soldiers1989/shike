@@ -157,6 +157,7 @@ public class SKBaobeiService extends JSBaseService {
 		obj.setShishou(0D);
 		obj.setTuikuan(0D);
 		obj.setIsXuni(0);
+		obj.setIsLimit(1);
 		if (obj.getZengzhi() == null) {
 			obj.setZengzhi(0L);
 		}
@@ -936,9 +937,19 @@ public class SKBaobeiService extends JSBaseService {
 	public void addpaixu(Long id, Long disorder) {
 		SKUser skuser = sKUserService.getUser();
 		SKUserService.checkUserAdmin(skuser);
-		SKBaobei one = selectOne(id);
-		one.setDisorder(disorder);
-		update(one);
+		Map<String, Object> params = MapUtils.genMap("id", id, "disorder", disorder);
+		updateByMap(params);
+	}
+	
+	/**
+	 * 取消限制
+	 * @return
+	 */
+	public void cancelLimit(Long id) {
+		SKUser skuser = sKUserService.getUser();
+		SKUserService.checkUserAdmin(skuser);
+		Map<String, Object> params = MapUtils.genMap("id", id, "isLimit", 0);
+		updateByMap(params);
 	}
 	
 	/**

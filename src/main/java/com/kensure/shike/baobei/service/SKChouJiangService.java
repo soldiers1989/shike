@@ -46,7 +46,6 @@ import com.kensure.shike.user.service.SKUserService;
 @Service
 public class SKChouJiangService extends JSBaseService {
 
-
 	@Resource
 	private SKSkqkService sKSkqkService;
 
@@ -61,6 +60,10 @@ public class SKChouJiangService extends JSBaseService {
 
 	@Resource
 	private SKBbrwService sKBbrwService;
+	
+	@Resource
+	private SKChouJiangLimitService sKChouJiangLimitService;
+	
 
 	/**
 	 * 抽奖逻辑 是否要结束
@@ -76,6 +79,9 @@ public class SKChouJiangService extends JSBaseService {
 			if (CollectionUtils.isEmpty(list)) {
 				return;
 			}
+			
+			//先缓存数据 
+			sKChouJiangLimitService.intCache();
 			for (SKBbrw bbrw : list) {
 				doOneRwCJ(bbrw, isEnd);
 			}
@@ -126,7 +132,7 @@ public class SKChouJiangService extends JSBaseService {
 			for (SKSkqk skqk : zjrlist) {
 				skqk.setStatus(51L);
 				sKSkqkService.updateStatus(skqk.getId(), skqk.getStatus());
-			}			
+			}
 			bbrw.setYzj(zjrlist.size() + bbrw.getYzj());
 		}
 		sKBbrwService.update(bbrw);
@@ -150,6 +156,7 @@ public class SKChouJiangService extends JSBaseService {
 			SKZjqk zjqk = sKZjqkService.add(skqk);
 			try {
 				long uid = skqk.getUserid();
+				sKChouJiangLimitService.add(uid);
 				long bbid = skqk.getBbid();
 				SKUser user = sKUserService.selectOne(uid);
 				SKBaobei baobei = sKBaobeiService.selectOne(bbid);
@@ -172,7 +179,7 @@ public class SKChouJiangService extends JSBaseService {
 	 * @return
 	 */
 	private List<SKSkqk> poolBean(int jps, List<SKSkqk> cjlist) {
-		Random rand = new Random();	
+		Random rand = new Random();
 		// 中奖人列表
 		List<SKSkqk> zjrlist = new ArrayList<SKSkqk>();
 		for (int i = 0; i < jps; i++) {

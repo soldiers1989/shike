@@ -507,6 +507,19 @@ public class SKBaobeiController {
 		sKBaobeiService.addzjs(id, zjs);
 		return new ResultRowInfo(id);
 	}
+	
+	
+	/**
+	 * 不限制用户的商品
+	 */
+	@ResponseBody
+	@RequestMapping(value = "cancellimit.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	public ResultInfo cancellimit(HttpServletRequest req, HttpServletResponse rep) {
+		JSONObject json = RequestUtils.paramToJson(req);
+		Long id = json.getLong("id");
+		sKBaobeiService.cancelLimit(id);
+		return new ResultRowInfo(id);
+	}
 
 	/**
 	 * 增加详情

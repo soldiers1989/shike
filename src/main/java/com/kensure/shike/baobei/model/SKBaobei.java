@@ -140,6 +140,9 @@ public class SKBaobei extends BaseInfo {
 	/** 虚拟商品，1虚拟，0是正常 */
 	private Integer isXuni;
 	
+	/** 虚拟商品，1虚拟，0是正常 */
+	private Integer isLimit;
+	
 	/** 宝贝详情 */
 	private SKBaobeiZT xiangqing;
 
@@ -526,5 +529,16 @@ public class SKBaobei extends BaseInfo {
 	public void setIsXuni(Integer isXuni) {
 		this.isXuni = isXuni;
 	}
+
+	public Integer getIsLimit() {
+		return isLimit;
+	}
+
+	public void setIsLimit(Integer isLimit) {
+		this.isLimit = isLimit;
+	}
 	
+	public boolean isLimit(){
+		return this.isLimit == 1;
+	}
 }

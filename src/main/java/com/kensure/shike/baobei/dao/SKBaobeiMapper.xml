@@ -37,6 +37,7 @@
 		wangwang,
 		zjnum,
 		is_xuni as isXuni,
+		is_limit as isLimit,
 		created_time as createdTime,
 		updated_time as updatedTime
     </sql>
@@ -76,6 +77,7 @@
 		wangwang,
 		zjnum,
 		is_xuni,
+		is_limit,
 		created_time,
 		updated_time
     </sql>
@@ -117,6 +119,7 @@
 			#{wangwang},
 			#{zjnum},
 			#{isXuni},
+			#{isLimit},
 			#{createdTime},
 			#{updatedTime}
 		)
@@ -160,6 +163,7 @@
 				#{item.wangwang},
 				#{item.zjnum},
 				#{item.isXuni},
+				#{item.isLimit},
 				#{item.createdTime},
 				#{item.updatedTime}
 			)
@@ -299,7 +303,9 @@
 		<if test="zjnum != null">			
 			and zjnum = #{zjnum}			
 		</if>
-		
+		<if test="isLimit != null">			
+			and is_limit = #{isLimit}			
+		</if>		
 	</sql>
     
 	<select id="selectOne" resultType="com.kensure.shike.baobei.model.SKBaobei" parameterType="Long" >
@@ -452,7 +458,10 @@
 		</if>
 		<if test="zjnum != null">
 			zjnum = #{zjnum},
-		</if>	
+		</if>
+		<if test="isLimit != null">
+			is_limit = #{isLimit},
+		</if>
 		<if test="isXuni != null">
 			is_xuni = #{isXuni},
 		</if>

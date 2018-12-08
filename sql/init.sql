@@ -217,6 +217,7 @@ CREATE TABLE `sk_baobei` (
   `status` int(11) DEFAULT NULL COMMENT '流程状态  dict表，typeid=3',
   `is_del` int(11) DEFAULT NULL COMMENT '状态，0是正在活动，1是删除',
   `is_xuni` int(11) DEFAULT NULL COMMENT '虚拟商品，1虚拟，0是正常',
+  `is_limit` int(11) DEFAULT NULL COMMENT '是否限制，1是限制，0是不限制',
   `hdtypeid` int(11) DEFAULT NULL COMMENT '活动类型id',
   `start_time` datetime NOT NULL COMMENT '活动开始时间',
   `end_time` datetime NOT NULL COMMENT '活动结束时间',

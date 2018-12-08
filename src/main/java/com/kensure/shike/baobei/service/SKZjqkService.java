@@ -11,15 +11,8 @@
  */
 package com.kensure.shike.baobei.service;
 
-import com.kensure.basekey.BaseKeyService;
-import com.kensure.shike.baobei.dao.SKZjqkDao;
-import com.kensure.shike.baobei.model.SKSkqk;
-import com.kensure.shike.baobei.model.SKZjqk;
-import com.kensure.shike.baobei.service.SKZjqkService;
-import com.kensure.shike.user.model.SKUser;
-import com.kensure.shike.user.service.SKUserService;
-
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -30,6 +23,15 @@ import org.springframework.stereotype.Service;
 import co.kensure.frame.JSBaseService;
 import co.kensure.mem.DateUtils;
 import co.kensure.mem.MapUtils;
+
+import com.kensure.basekey.BaseKeyService;
+import com.kensure.shike.baobei.dao.SKZjqkCountDao;
+import com.kensure.shike.baobei.dao.SKZjqkDao;
+import com.kensure.shike.baobei.model.SKSkqk;
+import com.kensure.shike.baobei.model.SKZjqk;
+import com.kensure.shike.baobei.model.SKZjqkCount;
+import com.kensure.shike.user.model.SKUser;
+import com.kensure.shike.user.service.SKUserService;
 
 
 /**
@@ -42,6 +44,9 @@ public class SKZjqkService extends JSBaseService{
 	
 	@Resource
 	private SKZjqkDao dao;
+	
+	@Resource
+	private SKZjqkCountDao countDao;
     
 	@Resource
 	private BaseKeyService baseKeyService;
@@ -137,4 +142,21 @@ public class SKZjqkService extends JSBaseService{
 		}
 		return list;
 	}
+	
+	/**
+	 * 试客一段时间的中奖情况统计
+	 * @param userid
+	 * @param startCreatedTime
+	 * @param endCreatedTime
+	 * @return
+	 */
+	public List<SKZjqkCount> groupByUserid(Long userid,Date startCreatedTime,Date endCreatedTime){
+		Map<String, Object> parameters = MapUtils.genMap("startCreatedTime",startCreatedTime,"endCreatedTime",endCreatedTime);
+		if(userid != null){
+			parameters.put("userid", userid);
+		}
+		List<SKZjqkCount> list = countDao.selectByWhere(parameters);
+		return list;
+	}
+	
 }

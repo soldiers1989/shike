@@ -181,7 +181,8 @@
         	tdinner+="        <input type='button' value='拒绝' onclick='untongguo("+row.id+")'/>";  
         }else if(row.status == 9){
         	tdinner+= "        <input type='button' value='下线' onclick='xiaxian("+row.id+")'/>";
-        	tdinner+= "        <input type='button' value='增加申请数' onclick='addsq("+row.id+")'/>";
+        	tdinner+= "        <input type='button' value='不限中奖' onclick='buxian("+row.id+")'/>";
+        	tdinner+= "        <input type='button' value='增加申请' onclick='addsq("+row.id+")'/>";
         }
         tdinner+= "        <input type='button' value='排序设置' onclick='paixu("+row.id+")'/>";
         
@@ -335,6 +336,14 @@
 	   }	
    }
    
+   function buxian(id){
+	   if(confirm('确认不限制中奖？')){
+		   var data = {id:id};
+		   var url = "<%=ApiUtil.getUrl("/baobei/cancellimit.do")%>";
+		   postdo(url, data, null,null, null);
+	   }	
+   }
+      
    function xuni(id){
 	   if(confirm('设置为虚拟商品？')){
 		   var data = {id:id};

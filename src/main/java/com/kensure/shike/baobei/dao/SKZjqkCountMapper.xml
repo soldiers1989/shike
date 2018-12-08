@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kensure.shike.baobei.dao.SKZjqkCountDao"><!--dsName="" saasAspect=""-->
+			
+	
+    <sql id="whereClause">	
+		<if test="userid != null">			
+			and userid = #{userid}			
+		</if>
+		<if test="startCreatedTime != null">
+			<![CDATA[
+			and created_time >= #{startCreatedTime}
+			]]>
+		</if>
+		<if test="endCreatedTime != null">
+			<![CDATA[
+			and created_time <= #{endCreatedTime}
+			]]>
+		</if>
+	</sql>
+	
+	<select id="selectByWhere" parameterType="Map" resultType="com.kensure.shike.baobei.model.SKZjqkCount">
+		select userid,
+		count(0) as cnt
+		from sk_zjqk 
+		<where>
+		    <include refid="whereClause"/>
+		</where>				
+		group by userid
+	</select>
+</mapper>    

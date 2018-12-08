@@ -73,7 +73,10 @@ public class SKSkqkService extends JSBaseService {
 
 	@Resource
 	private SkUserJinbiService skUserJinbiService;
-	
+
+	@Resource
+	private SKChouJiangLimitService sKChouJiangLimitService;
+
 	@Resource
 	private SKSkqkHelper sKSkqkHelper;
 
@@ -92,11 +95,10 @@ public class SKSkqkService extends JSBaseService {
 	public long selectCount() {
 		return dao.selectCount();
 	}
-	
+
 	public boolean delete(Long id) {
 		return dao.delete(id);
 	}
-	
 
 	public long selectCountByWhere(Map<String, Object> parameters) {
 		return dao.selectCountByWhere(parameters);
@@ -201,16 +203,17 @@ public class SKSkqkService extends JSBaseService {
 
 	/**
 	 * 根据试客情况获取他的详情
+	 * 
 	 * @param id
 	 * @return
 	 */
-	public SKSkqk getSkqkDetail(long id){
+	public SKSkqk getSkqkDetail(long id) {
 		SKSkqk skqk = selectOne(id);
 		List<SKJysj> jylist = sKJysjService.selectByBbidAndUserid(skqk.getBbid(), skqk.getUserid());
 		skqk.setJylist(jylist);
 		return skqk;
 	}
-	
+
 	private static Map<String, String> sqqkMap = new HashMap<String, String>();
 
 	/**
@@ -251,7 +254,7 @@ public class SKSkqkService extends JSBaseService {
 				qk.setNoTaobao(skuser.getNoTaobao());
 				insert(qk);
 
-                // 单日申请10次 赠送200
+				// 单日申请10次 赠送200
 				long todaySq = getQkByToday(skuser.getId());
 				if (todaySq == 10) {
 					skUserJinbiService.addDrsq(skuser.getId());
@@ -340,57 +343,56 @@ public class SKSkqkService extends JSBaseService {
 		long size = leftdao.selectCountByWhere(parameters);
 		return size;
 	}
-	
-	
+
 	/**
-	 * 商家端，查询试客情况
-	 * status 0是进行中的活动，1是已结算活动
+	 * 商家端，查询试客情况 status 0是进行中的活动，1是已结算活动
+	 * 
 	 * @return
 	 */
-	public List<SKSkqkLeft> getList1(SKSkqkLeftQuery skqkquery,Integer status, PageInfo page) {		
+	public List<SKSkqkLeft> getList1(SKSkqkLeftQuery skqkquery, Integer status, PageInfo page) {
 		List<SKBaobei> baobeilist = null;
-		if(status == 1){
+		if (status == 1) {
 			baobeilist = sKBaobeiService.getJiesuan();
-		}else{
+		} else {
 			baobeilist = sKBaobeiService.getUnJiesuan();
 		}
-		
-		if(CollectionUtils.isEmpty(baobeilist)){
+
+		if (CollectionUtils.isEmpty(baobeilist)) {
 			return null;
 		}
-		
+
 		List<Long> ids = new ArrayList<Long>();
-		for(SKBaobei bb:baobeilist){
+		for (SKBaobei bb : baobeilist) {
 			ids.add(bb.getId());
 		}
 		Map<String, Object> parameters = MapUtils.bean2Map(skqkquery, true);
 		MapUtils.putPageInfo(parameters, page);
 		parameters.put("bbidlist", ids);
-		parameters.put("shangjiastatus", 1);	
+		parameters.put("shangjiastatus", 1);
 		parameters.put("orderby", "t.created_time desc");
 		List<SKSkqkLeft> list = leftdao.selectByWhere(parameters);
 		return list;
 	}
-	
+
 	/**
-	 * 商家端，查询试客情况
-	 * status 0是进行中的活动，1是已结算活动
+	 * 商家端，查询试客情况 status 0是进行中的活动，1是已结算活动
+	 * 
 	 * @return
 	 */
-	public Long getListCount1(SKSkqkLeftQuery skqkquery,Integer status) {		
+	public Long getListCount1(SKSkqkLeftQuery skqkquery, Integer status) {
 		List<SKBaobei> baobeilist = null;
-		if(status == 1){
+		if (status == 1) {
 			baobeilist = sKBaobeiService.getJiesuan();
-		}else{
+		} else {
 			baobeilist = sKBaobeiService.getUnJiesuan();
 		}
-		
-		if(CollectionUtils.isEmpty(baobeilist)){
+
+		if (CollectionUtils.isEmpty(baobeilist)) {
 			return 0L;
 		}
-		
+
 		List<Long> ids = new ArrayList<Long>();
-		for(SKBaobei bb:baobeilist){
+		for (SKBaobei bb : baobeilist) {
 			ids.add(bb.getId());
 		}
 		Map<String, Object> parameters = MapUtils.bean2Map(skqkquery, true);
@@ -481,14 +483,21 @@ public class SKSkqkService extends JSBaseService {
 	public List<SKSkqk> getDengChouJiang(long bbid) {
 		Map<String, Object> parameters = MapUtils.genMap("bbid", bbid, "status", 21);
 		List<SKSkqk> list = selectByWhere(parameters);
-		//去掉没有审核通过的试客
+		// 去掉没有审核通过的试客
 		List<SKSkqk> ilist = new ArrayList<>();
-		for(SKSkqk skqk:list){
+		SKBaobei baobei = sKBaobeiService.selectOne(bbid);
+
+		for (SKSkqk skqk : list) {
 			boolean flag = sKUserService.isInvalid(skqk.getUserid());
-			if(flag){
-				ilist.add(skqk);
+			if (flag) {
+				if (baobei.isLimit()) {
+					flag = sKChouJiangLimitService.isOk(skqk.getUserid());
+				}
+				if (flag) {
+					ilist.add(skqk);
+				}
 			}
-		}	
+		}
 		return ilist;
 	}
 
@@ -504,7 +513,7 @@ public class SKSkqkService extends JSBaseService {
 		List<SKSkqk> list = selectByWhere(parameters);
 		return list;
 	}
-	
+
 	/**
 	 * 获取宝贝挂起的申请
 	 * 
@@ -559,35 +568,39 @@ public class SKSkqkService extends JSBaseService {
 			updateStatus(skqk.getId(), -2L);
 		}
 	}
-		
+
 	/**
 	 * 挂起某个申请
-	 * @param id 申请id
+	 * 
+	 * @param id
+	 *            申请id
 	 */
 	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
-	public void hump(long id,String remark) {
+	public void hump(long id, String remark) {
 		SKSkqk sqqk = selectOne(id);
-		if(sqqk.getStatus() >= 99){
+		if (sqqk.getStatus() >= 99) {
 			BusinessExceptionUtil.threwException("已经返款的申请无法挂起");
 		}
 		Map<String, Object> params = MapUtils.genMap("id", id, "remark", remark);
 		updateByMap(params);
 		updateStatus(id, -3L);
 	}
-	
+
 	/**
 	 * 取消 某个申请的挂起
-	 * @param id 申请id
+	 * 
+	 * @param id
+	 *            申请id
 	 */
 	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
 	public void unhump(long id) {
 		SKSkqk sqqk = selectOne(id);
-		if(sqqk.getStatus() != -3){
+		if (sqqk.getStatus() != -3) {
 			BusinessExceptionUtil.threwException("该申请没有挂起，无法取消");
 		}
 		updateStatus(id, sqqk.getLastStatus());
 	}
-	
+
 	/**
 	 * 取消一些结束活动的申请的数据
 	 * 
@@ -598,7 +611,7 @@ public class SKSkqkService extends JSBaseService {
 	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
 	public void endquxiao(long bbid) {
 		// 先处理0-51状态的数据
-		Map<String, Object> parameters = MapUtils.genMap("bbid",bbid,"lessthanstatus", 50,"bigthanstatus",0);
+		Map<String, Object> parameters = MapUtils.genMap("bbid", bbid, "lessthanstatus", 50, "bigthanstatus", 0);
 		List<SKSkqk> list = selectByWhere(parameters);
 		for (SKSkqk skqk : list) {
 			// 自动取消
@@ -608,13 +621,13 @@ public class SKSkqkService extends JSBaseService {
 
 	// 获取该用户有效的申请数
 	public long getSkqkCountByUserId(Long userId) {
-		Map<String, Object> parameters = MapUtils.genMap("userid",userId);
-        return selectCountByWhere(parameters);
-    }
+		Map<String, Object> parameters = MapUtils.genMap("userid", userId);
+		return selectCountByWhere(parameters);
+	}
 
 	// 获取该用户活动中奖数数
 	public long getSkqkZjCountByUserId(Long userId) {
-		Map<String, Object> parameters = MapUtils.genMap("userid",userId, "bigthanstatus", 51);
-        return selectCountByWhere(parameters);
-    }
+		Map<String, Object> parameters = MapUtils.genMap("userid", userId, "bigthanstatus", 51);
+		return selectCountByWhere(parameters);
+	}
 }
