@@ -49,11 +49,11 @@ public class FileController {
 				e.printStackTrace();
 				LOGGER.error(name+"=="+flag);
 			} finally {
-				try {
-					os.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+//				try {
+//					os.close();
+//				} catch (IOException e) {
+//					e.printStackTrace();
+//				}
 			}
 		}
 

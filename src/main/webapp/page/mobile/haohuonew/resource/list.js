@@ -426,7 +426,7 @@ $(function () {
 
                     var html = "<li><a data-id=\""+ row.id +"\" class=\"tod\"><img\n" +
                         "                    src=\""+ row.zturl +"!200\"\n" +
-                        "                    data-original=\""+ row.zturl +"\"\n" +
+                        "                    data-original=\""+ row.zturl +"!200\"\n" +
                         "                    class=\"lazy\" style=\"display: inline;\">\n" +
                         highPrice +
                         "            </a>\n" +
