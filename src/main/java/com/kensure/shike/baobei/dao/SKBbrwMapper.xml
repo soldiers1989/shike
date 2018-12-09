@@ -121,6 +121,11 @@
 				and daydes >= #{bigdaydes}		
 			]]>		
 		</if>
+		<if test="enddaydes != null">			
+			<![CDATA[		
+				and daydes <= #{enddaydes}		
+			]]>		
+		</if>
 	</sql>
     
 	<select id="selectOne" resultType="com.kensure.shike.baobei.model.SKBbrw" parameterType="Long" >

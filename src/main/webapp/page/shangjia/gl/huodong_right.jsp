@@ -184,6 +184,7 @@
         	tdinner+= "        <input type='button' value='不限中奖' onclick='buxian("+row.id+")'/>";
         	tdinner+= "        <input type='button' value='增加申请' onclick='addsq("+row.id+")'/>";
         }
+    
         tdinner+= "        <input type='button' value='排序设置' onclick='paixu("+row.id+")'/>";
         
         if(row.isXuni == 0){  
@@ -343,6 +344,7 @@
 		   postdo(url, data, null,null, null);
 	   }	
    }
+   
       
    function xuni(id){
 	   if(confirm('设置为虚拟商品？')){

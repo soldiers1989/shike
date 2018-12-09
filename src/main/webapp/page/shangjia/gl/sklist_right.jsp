@@ -90,10 +90,10 @@
         var auditStatus = row.auditStatus;
         if (auditStatus != 1) {
         	 tdinner = "<a onclick='auditPass("+row.id+")'>审核通过</a>";
-        }
-        if (auditStatus == 0) {       
+        }else if (auditStatus == 0) {       
             tdinner += "<a onclick='auditUnpass("+row.id+")'>不通过</a>";
         }
+
         tdinner += "<a onclick='editTaoqizhi("+row.id+")'>淘气值</a>";
         return tdinner;
 	}
@@ -256,7 +256,7 @@
             alert("请输入审核不通过原因")
         }
     }
-    
+
     function editTaoqizhi(id) {
         var taoqizhi = prompt("请输入淘气值","")
         if (taoqizhi!=null && taoqizhi!="") {

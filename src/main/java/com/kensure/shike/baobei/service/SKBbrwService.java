@@ -22,6 +22,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import co.kensure.exception.BusinessExceptionUtil;
+import co.kensure.exception.ParamUtils;
 import co.kensure.frame.JSBaseService;
 import co.kensure.mem.CollectionUtils;
 import co.kensure.mem.DateUtils;
@@ -69,16 +70,8 @@ public class SKBbrwService extends JSBaseService {
 		return dao.selectByIds(ids);
 	}
 
-	public List<SKBbrw> selectAll() {
-		return dao.selectAll();
-	}
-
 	public List<SKBbrw> selectByWhere(Map<String, Object> parameters) {
 		return dao.selectByWhere(parameters);
-	}
-
-	public long selectCount() {
-		return dao.selectCount();
 	}
 
 	public long selectCountByWhere(Map<String, Object> parameters) {
@@ -203,7 +196,7 @@ public class SKBbrwService extends JSBaseService {
 	 * @param bbid
 	 */
 	public void shenqing(Long bbid, Long hdtypeid) {
-		List<SKBbrw> list = getList(bbid);
+		List<SKBbrw> list = getTodayList(bbid);
 		if (CollectionUtils.isEmpty(list)) {
 			BusinessExceptionUtil.threwException("宝贝今天没有任务");
 		}
@@ -221,7 +214,7 @@ public class SKBbrwService extends JSBaseService {
 	 * @param bbid
 	 * @return
 	 */
-	public List<SKBbrw> getList(Long bbid) {
+	public List<SKBbrw> getTodayList(Long bbid) {
 		String todayStr = DateUtils.format(new Date(), DateUtils.DAY_FORMAT);
 		Map<String, Object> parameters = MapUtils.genMap("daydes", todayStr, "bbid", bbid);
 		List<SKBbrw> list = selectByWhere(parameters);
@@ -235,13 +228,27 @@ public class SKBbrwService extends JSBaseService {
 	 * @return
 	 */
 	public List<SKBbrw> getBbList(Long bbid) {
-		Map<String, Object> parameters = MapUtils.genMap("bbid", bbid,"orderby","daydes");
+		Map<String, Object> parameters = MapUtils.genMap("bbid", bbid, "orderby", "daydes");
 		List<SKBbrw> list = selectByWhere(parameters);
 		return list;
 	}
-	
-	public boolean insertInBatch(List<SKBbrw> objs) {
-		return dao.insertInBatch(objs);
+
+	/**
+	 * 获取一个有效的宝贝任务
+	 * 
+	 * @param bbid
+	 * @return
+	 */
+	public SKBbrw getValidBbrw(Long bbid) {
+		ParamUtils.isBlankThrewException(bbid, "bbid不能为空！");
+		SKBbrw bbrw = null;
+		String todayStr = DateUtils.format(new Date(), DateUtils.DAY_FORMAT);
+		Map<String, Object> parameters = MapUtils.genMap("enddaydes", todayStr, "bbid", bbid, "orderby", "daydes desc");
+		List<SKBbrw> list = selectByWhere(parameters);
+		if (CollectionUtils.isNotEmpty(list)) {
+			bbrw = list.get(0);
+		}
+		return bbrw;
 	}
 
 	public boolean update(SKBbrw obj) {
@@ -252,18 +259,21 @@ public class SKBbrwService extends JSBaseService {
 		return dao.updateByMap(params);
 	}
 
-	public boolean delete(Long id) {
-		return dao.delete(id);
-	}
-
 	public boolean deleteMulti(Collection<Long> ids) {
 		return dao.deleteMulti(ids);
 	}
 
-	public boolean deleteByWhere(Map<String, Object> parameters) {
-		return dao.deleteByWhere(parameters);
+	/**
+	 * 增加或减少中奖数
+	 * 
+	 * @param id
+	 * @param yzj
+	 *            中奖增量+-
+	 * @return
+	 */
+	public boolean addyzj(Long id, Integer yzjAdd) {
+		Map<String, Object> params = MapUtils.genMap("id", id, "yzjAdd", yzjAdd);
+		return updateByMap(params);
 	}
-
-	
 
 }

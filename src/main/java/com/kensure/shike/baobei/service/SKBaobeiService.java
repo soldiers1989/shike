@@ -126,10 +126,6 @@ public class SKBaobeiService extends JSBaseService {
 		return dao.selectByWhere(parameters);
 	}
 
-	public long selectCount() {
-		return dao.selectCount();
-	}
-
 	public long selectCountByWhere(Map<String, Object> parameters) {
 		return dao.selectCountByWhere(parameters);
 	}
@@ -181,17 +177,6 @@ public class SKBaobeiService extends JSBaseService {
 		return dao.updateByMap(params);
 	}
 
-	public boolean delete(Long id) {
-		return dao.delete(id);
-	}
-
-	public boolean deleteMulti(Collection<Long> ids) {
-		return dao.deleteMulti(ids);
-	}
-
-	public boolean deleteByWhere(Map<String, Object> parameters) {
-		return dao.deleteByWhere(parameters);
-	}
 
 	/**
 	 * 新增宝贝信息
@@ -957,15 +942,24 @@ public class SKBaobeiService extends JSBaseService {
 	 * 
 	 * @return
 	 */
-	public void addzjs(Long id, Long zjs) {
+	public void addzjs(Long id, Integer zjs) {
 		SKUser skuser = sKUserService.getUser();
 		SKUserService.checkUserAdmin(skuser);
 		SKBaobei one = selectOne(id);
 		if (one.getIsXuni() != 1) {
 			BusinessExceptionUtil.threwException("该商品无法增加中奖数！！");
 		}
-		one.setZjnum(one.getZjnum() + zjs);
-		update(one);
+		addZjsNum(id, zjs);
+	}
+	
+	/**
+	 * 增加或减少中奖数数量 +-
+	 * 
+	 * @return
+	 */
+	public void addZjsNum(Long id, Integer zjs) {
+		Map<String, Object> params = MapUtils.genMap("id", id, "zjnumAdd", zjs);
+		updateByMap(params);
 	}
 
 	/**

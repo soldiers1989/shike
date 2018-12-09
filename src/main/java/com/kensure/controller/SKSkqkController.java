@@ -134,6 +134,20 @@ public class SKSkqkController {
 	}
 	
 	/**
+	 * 无效申请
+	 */
+	@ResponseBody
+	@RequestMapping(value = "wuxiao.do", method = { RequestMethod.POST }, produces = "application/json;charset=UTF-8")
+	public ResultInfo wuxiao(HttpServletRequest req, HttpServletResponse rep) {
+		JSONObject json = RequestUtils.paramToJson(req);
+		Long id = json.getLong("id");
+		sKSkqkService.userQuxiao(id);
+		return new ResultRowInfo();
+	}
+	
+	
+	
+	/**
 	 * 商家取消某个申请挂起
 	 */
 	@ResponseBody

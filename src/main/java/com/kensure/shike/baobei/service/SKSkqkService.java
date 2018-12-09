@@ -283,8 +283,11 @@ public class SKSkqkService extends JSBaseService {
 		if (qk.getStatus() >= status) {
 			BusinessExceptionUtil.threwException("数据有误！");
 		}
-		if (qk.getStatus() < 0) {
-			BusinessExceptionUtil.threwException("错误操作！");
+		if (qk.getStatus() == -3 ) {
+			BusinessExceptionUtil.threwException("该申请已经被申诉，请和商家联系！");
+		}
+		if (qk.getStatus() == -1 ) {
+			BusinessExceptionUtil.threwException("该申请是无效申请！");
 		}
 		updateStatus(qk.getId(), status);
 		return true;
@@ -549,24 +552,41 @@ public class SKSkqkService extends JSBaseService {
 				continue;
 			} else {
 				long bbid = skqk.getBbid();
-				List<SKBbrw> bbrwl = sKBbrwService.getList(bbid);
-				if (CollectionUtils.isNotEmpty(bbrwl)) {
-					SKBbrw bbrw = bbrwl.get(0);
-					bbrw.setYzj(bbrw.getYzj() - 1);
-					sKBbrwService.update(bbrw);
-				}
+				quxiaoDev(bbid);
 
-				// 修改已中奖数量
-				SKBaobei baobei = sKBaobeiService.selectOne(bbid);
-
-				SKBaobei obj = new SKBaobei();
-				obj.setId(baobei.getId());
-				obj.setZjnum(baobei.getZjnum() - 1);
-				sKBaobeiService.update(obj);
 			}
 			// 自动取消
 			updateStatus(skqk.getId(), -2L);
 		}
+	}
+
+	/**
+	 * 手动取消申请按钮
+	 * 
+	 * @param skqkid
+	 */
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+	public void userQuxiao(Long skqkid) {
+		SKSkqk skqk = selectOne(skqkid);
+		if (skqk.getStatus() != -3) {
+			BusinessExceptionUtil.threwException("只有申诉的申请才能设为无效");
+		}
+		quxiaoDev(skqk.getBbid());
+		// 手动取消
+		updateStatus(skqk.getId(), -1L);
+
+	}
+
+	/**
+	 * 取消一个中奖后的申请，需要做的事情
+	 */
+	private void quxiaoDev(Long bbid) {
+		SKBbrw bbrw = sKBbrwService.getValidBbrw(bbid);
+		if (bbrw != null) {
+			sKBbrwService.addyzj(bbrw.getId(), -1);
+		}
+		// 修改已中奖数量
+		sKBaobeiService.addZjsNum(bbid, -1);
 	}
 
 	/**

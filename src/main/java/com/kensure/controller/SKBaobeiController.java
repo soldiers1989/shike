@@ -66,7 +66,6 @@ public class SKBaobeiController {
 	private SKBbrwService sKBbrwService;
 	@Resource
 	private SKChouJiangService sKChouJiangService;
-	
 
 	// 获取宝贝详情
 	@ResponseBody
@@ -200,11 +199,11 @@ public class SKBaobeiController {
 	public ResultInfo sklist(HttpServletRequest req, HttpServletResponse rep) {
 		JSONObject json = RequestUtils.paramToJson(req);
 		SKBaobeiQuery1 query = JSONObject.parseObject(json.toJSONString(), SKBaobeiQuery1.class);
-		
+
 		// 升序/降序
 		if ("1".equals(query.getSort())) {
 			query.setSort("desc");
-		}else{
+		} else {
 			query.setSort("asc");
 		}
 		// 排序字段
@@ -219,7 +218,7 @@ public class SKBaobeiController {
 			query.setOrder("disorder,created_time");
 			query.setSort("desc");
 		}
-		
+
 		List<SKBaobei> list = sKBaobeiService.getSKList(query);
 		return new ResultRowsInfo(list);
 	}
@@ -398,7 +397,7 @@ public class SKBaobeiController {
 		sKBaobeiService.xiaxian(id);
 		return new ResultRowInfo();
 	}
-	
+
 	/**
 	 * 虚拟商品
 	 */
@@ -480,7 +479,7 @@ public class SKBaobeiController {
 		sKBaobeiService.addsqs(id, sqs);
 		return new ResultRowInfo(id);
 	}
-	
+
 	/**
 	 * 排序
 	 */
@@ -490,11 +489,10 @@ public class SKBaobeiController {
 		JSONObject json = RequestUtils.paramToJson(req);
 		Long id = json.getLong("id");
 		Long disorder = json.getLong("disorder");
-		sKBaobeiService.addpaixu(id,disorder);
+		sKBaobeiService.addpaixu(id, disorder);
 		return new ResultRowInfo(id);
 	}
-	
-	
+
 	/**
 	 * 增加中奖数量
 	 */
@@ -503,12 +501,11 @@ public class SKBaobeiController {
 	public ResultInfo addzjs(HttpServletRequest req, HttpServletResponse rep) {
 		JSONObject json = RequestUtils.paramToJson(req);
 		Long id = json.getLong("id");
-		Long zjs = json.getLong("zjs");
+		Integer zjs = json.getInteger("zjs");
 		sKBaobeiService.addzjs(id, zjs);
 		return new ResultRowInfo(id);
 	}
-	
-	
+
 	/**
 	 * 不限制用户的商品
 	 */
