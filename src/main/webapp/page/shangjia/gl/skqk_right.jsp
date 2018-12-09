@@ -208,7 +208,7 @@
 	var syqkfun = function(row){
 		var tdinner = "<a href='<%=ApiUtil.getUrl("/gl/skqkdetail")%>?id="+row.id+"' target='_blank'>查看</a>"
 		if(row.status == -3){
-	        	tdinner+= "<input type='button' value='无效申请' onclick='wuxiao("+row.id+")'/>";
+	        	tdinner+= "<input type='button' value='同意申诉' onclick='wuxiao("+row.id+")'/>";
 	        	tdinner+="<input type='button' value='取消申诉' onclick='quxshenshu("+row.id+")'";
 	    }
 		if(row.status < 99 && row.status > 0){
@@ -256,7 +256,7 @@
    huodonglist(1);
    
    function wuxiao(id){
- 	   if(confirm('无效申请将不给试客返款？')){
+ 	   if(confirm('同意申诉将不给试客返款？')){
  		   var data = {id:id};
  		   var url = "<%=ApiUtil.getUrl("/skqk/wuxiao.do")%>";
  		   postdo(url, data, null,null, null);
