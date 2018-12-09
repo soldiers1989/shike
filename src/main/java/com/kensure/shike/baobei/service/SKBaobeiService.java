@@ -196,6 +196,12 @@ public class SKBaobeiService extends JSBaseService {
 			newFlag = false;
 		}
 		invalid(obj, oldBaoBei);
+		
+		SKDianPu dianp = sKDianPuService.selectOne(obj.getDpid());
+		if(dianp.getJihuo() != 1){
+			BusinessExceptionUtil.threwException("请激活店铺");
+		}
+		
 		if (newFlag) {
 			SKUser user = sKUserService.getUser();
 			SKUserService.checkUser(user);

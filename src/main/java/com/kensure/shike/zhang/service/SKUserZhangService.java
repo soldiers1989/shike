@@ -140,10 +140,10 @@ public class SKUserZhangService extends JSBaseService {
 	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
 	public boolean add(SKUserZhang obj) {
 		ParamUtils.isBlankThrewException(obj.getUserid(), "用户不能为空");
-		if (obj.getYue() <= 0) {
+		if (obj.getYue() < 0) {
 			BusinessExceptionUtil.threwException("金额必须大约0");
 		}
-		// 业务类型id,1是充值，2是提现，3是活动费用,4是试客返款，5是活动返款,6是新人首单;7是金币抽奖，8是活动驳回
+		// 业务类型id,1是充值，2是提现，3是活动费用,4是试客返款，5是活动返款,6是新人首单;7是金币抽奖，8是活动驳回;9是激活收费
 		if (obj.getBusitypeid() == 1) {
 			obj.setInorout(1L);
 			obj.setStatus(1L);
@@ -177,6 +177,9 @@ public class SKUserZhangService extends JSBaseService {
 			}else{
 				BusinessExceptionUtil.threwException("找不到相应的订单");
 			}
+		} else if (obj.getBusitypeid() == 9) {
+			obj.setInorout(-1L);
+			obj.setStatus(1L);
 		} else {
 			BusinessExceptionUtil.threwException("未知类型");
 		}

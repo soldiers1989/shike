@@ -31,12 +31,19 @@
 					href="<%=ApiUtil.getUrl("/shangjia/skqklist") %>"
 					id="openWindows31" target="_self">试客订单</a></li>
 				<li class="line"></li>
+				
+				<li id="4" class="left_titi"><strong><i
+						class="iconfont icon-liwuhuodong"></i>店铺管理<i
+						class="iconfont icon-Toboottom il5 ft_up_down"></i></strong></li>
+				<li><a href="<%=ApiUtil.getUrl("/shangjia/dianpulist") %>" id="openWindows18">店铺列表</a></li>
+				<li><a href="<%=ApiUtil.getUrl("/shangjia/jihuoDianPu")%>" id="openWindows18">店铺激活</a></li>
+				<li class="line"></li>
 
 				<li class="left_titi "><strong><i
 						class="iconfont icon-zhanghuxinxi"></i>账户信息</strong> <i
 					class="iconfont icon-Toleft il5 ft_up_down"
 					style="color: rgb(102, 102, 102);"></i></li>
-				<li><a href="<%=BusiConstant.shangjia_dianpulist.getKey()%>" id="openWindows18">店铺管理</a></li>
+				
 				<li><a href="<%=BusiConstant.shangjia_tixian.getKey()%>" id="openWindows6" >提现/账户明细</a>
 				</li>
 				<li><a href="<%=BusiConstant.shangjia_gaimi.getKey()%>" id="openWindows8" target="_blank">账户安全</a></li>

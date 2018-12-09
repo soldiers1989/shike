@@ -77,7 +77,8 @@ var flag = true,//状态true为正常的状态,false为放大的状态
 	}
 
 function savedianpu(){
-	   var data = {name:$("#shopname").val(),url:$("#shopurl").val(),mjtp:$("#mjtp")[0].src,wangwang:$("#wangwang").val(),qq:$("#qqid").val(),weixin:$("#weixinid").val(),phone:$("#phone").val()};
+	   var mjtp = $("#mjtp").attr("src");
+	   var data = {name:$("#shopname").val(),url:$("#shopurl").val(),mjtp:mjtp,wangwang:$("#wangwang").val(),qq:$("#qqid").val(),weixin:$("#weixinid").val(),phone:$("#phone").val()};
 	   var url = "<%=BusiConstant.shangjia_dianpuadd_do.getKey()%>";
 	   postdo(url, data, savesucdo,null, null);
 }

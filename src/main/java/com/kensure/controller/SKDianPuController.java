@@ -72,4 +72,18 @@ public class SKDianPuController {
 		return new ResultRowInfo();
 	}
 
+	/**
+	 * 店铺激活
+	 */
+	@ResponseBody
+	@RequestMapping(value = "jihuo.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	public ResultInfo jihuo(HttpServletRequest req, HttpServletResponse rep) {
+		JSONObject json = RequestUtils.paramToJson(req);
+		Long id = json.getLong("id");
+		sKDianPuService.jihuo(id);
+		return new ResultRowInfo();
+	}
+
+	
+	
 }

@@ -12,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.kensure.shike.dianpu.model.SKDianPu;
+import com.kensure.shike.dianpu.service.SKDianPuService;
 import com.kensure.shike.sys.model.SKCMS;
 import com.kensure.shike.sys.service.SKCMSService;
 
@@ -27,6 +29,8 @@ public class ShangJiaPageController {
 
 	@Resource
 	private SKCMSService sKCMSService;
+	@Resource
+	private SKDianPuService sKDianPuService;
 	
 	// 商家页面，一般模板
 	private static List<String> indexlist = new ArrayList<String>();
@@ -250,6 +254,21 @@ public class ShangJiaPageController {
 		body.add("index_left.jsp");
 		body.add("./manager/dianpu_add.jsp");
 		req.setAttribute("bodypage", body);
+		return "page/shangjia/index.jsp";
+	}
+	
+	
+	// 店铺激活
+	@RequestMapping("jihuoDianPu")
+	public String jihuoDianPu(HttpServletRequest req, HttpServletResponse rep, Model model) {
+		req.setAttribute("index", indexlist);
+		List<String> body = new ArrayList<String>();
+		body.add("index_left.jsp");
+		body.add("./manager/dianpu_jihuo.jsp");
+		req.setAttribute("bodypage", body);
+		req.setAttribute("id", req.getParameter("id"));
+		List<SKDianPu> dplist = sKDianPuService.getUserList(0);
+		req.setAttribute("dplist", dplist);
 		return "page/shangjia/index.jsp";
 	}
 	

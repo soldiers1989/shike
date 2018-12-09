@@ -88,6 +88,23 @@ public class NumberUtils {
 	}
 	
 	/**
+	 * String转成Double型，如果obj为空，返回默认值
+	 * 
+	 * @param obj
+	 * @param defaultVal
+	 * @return
+	 * @author fankd created on 2017-5-8
+	 */
+	public static Double parseDouble(String obj, Double defaultVal) {
+		if(StringUtils.isBlank(obj)){
+			return defaultVal;
+		}
+		BigDecimal big = new BigDecimal(obj);
+		Double ret = big.doubleValue();
+		return ret;
+	}
+	
+	/**
 	 * Integer型如果为空，返回默认值
 	 * 
 	 * @param obj

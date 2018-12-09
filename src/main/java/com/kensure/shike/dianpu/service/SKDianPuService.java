@@ -18,20 +18,26 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import co.kensure.exception.BusinessExceptionUtil;
 import co.kensure.exception.ParamUtils;
 import co.kensure.frame.JSBaseService;
 import co.kensure.mem.CollectionUtils;
 import co.kensure.mem.MapUtils;
+import co.kensure.mem.NumberUtils;
 
 import com.kensure.basekey.BaseKeyService;
+import com.kensure.mycom.config.service.MyConfigService;
 import com.kensure.shike.dianpu.dao.SKDianPuDao;
 import com.kensure.shike.dianpu.model.SKDianPu;
 import com.kensure.shike.user.model.SKRole;
 import com.kensure.shike.user.model.SKUser;
 import com.kensure.shike.user.service.SKRoleService;
 import com.kensure.shike.user.service.SKUserService;
+import com.kensure.shike.zhang.model.SKUserZhang;
+import com.kensure.shike.zhang.service.SKUserZhangService;
 
 /**
  * 试客店铺服务实现类
@@ -53,6 +59,9 @@ public class SKDianPuService extends JSBaseService {
 
 	@Resource
 	private SKRoleService sKRoleService;
+	
+	@Resource
+	private SKUserZhangService sKUserZhangService;
 
 	public SKDianPu selectOne(Long id) {
 		return dao.selectOne(id);
@@ -83,6 +92,7 @@ public class SKDianPuService extends JSBaseService {
 		obj.setId(baseKeyService.getKey("sk_dianpu"));
 		obj.setTypeid(1L);
 		obj.setStatus(0L);
+		obj.setJihuo(0);
 		return dao.insert(obj);
 	}
 
@@ -173,6 +183,23 @@ public class SKDianPuService extends JSBaseService {
 		}
 		return list;
 	}
+	
+	
+	/**
+	 * 根据用户获取店铺记录
+	 * 
+	 * @return
+	 */
+	public List<SKDianPu> getUserList(Integer jihuo) {
+		SKUser skuser = sKUserService.getUser();
+		SKUserService.checkUser(skuser);		
+		Map<String, Object> parameters = MapUtils.genMap("userid", skuser.getId(), "orderby", "created_time");
+		if(jihuo != null){
+			parameters.put("jihuo", jihuo);
+		}
+		List<SKDianPu> list = selectByWhere(parameters);		
+		return list;
+	}
 
 	/**
 	 * 获取店铺记录
@@ -190,6 +217,34 @@ public class SKDianPuService extends JSBaseService {
 			dp.setUserName(u.getName());
 		}
 		return list;
+	}
+	
+	/**
+	 * 激活店铺
+	 * 
+	 * @return
+	 */
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+	public boolean jihuo(Long id) {
+		ParamUtils.isBlankThrewException(id, "请选择店铺");
+		SKDianPu one = selectOne(id);
+		if(one.getJihuo() == 1){
+			BusinessExceptionUtil.threwException("店铺已经激活，请勿重复激活");
+		}	
+		one.setJihuo(1);
+		update(one);
+		
+		Double yue = NumberUtils.parseDouble(MyConfigService.getMyConfig("dianpu_jihuo").getVal(), 0D);
+		
+		SKUserZhang zhang = new SKUserZhang();
+		zhang.setUserid(one.getUserid());
+		zhang.setBusiid(id);
+		zhang.setBusitypeid(9L);
+		zhang.setYue(yue);
+		zhang.setRemark("激活金额:" + zhang.getYue());
+		sKUserZhangService.add(zhang);
+		
+		return true;
 	}
 
 }

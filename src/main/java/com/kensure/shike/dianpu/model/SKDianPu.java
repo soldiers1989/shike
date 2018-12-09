@@ -55,6 +55,9 @@ public class SKDianPu extends BaseInfo{
 	/**负责人手机*/		
 	private String phone; 
 	
+	/**激活， 0是没有激活，1是激活*/		
+	private Integer jihuo; 
+	
 	private String userName;
 
 	public Long getId() {
@@ -163,4 +166,21 @@ public class SKDianPu extends BaseInfo{
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+
+	public Integer getJihuo() {
+		return jihuo;
+	}
+
+	public void setJihuo(Integer jihuo) {
+		this.jihuo = jihuo;
+	}
+	
+	public String getJihuoStr() {
+		String temp = "未激活";
+		if(jihuo == 1){
+			temp = "已激活";
+		}
+		return temp;
+	}
+	
 }

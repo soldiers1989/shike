@@ -183,6 +183,7 @@ CREATE TABLE `sk_dianpu` (
   `weixin` varchar(126) DEFAULT NULL COMMENT '负责人微信',
   `phone` varchar(126) DEFAULT NULL COMMENT '负责人手机',
   `status` int(11) DEFAULT NULL COMMENT '状态，9是审核通过，0是正常，-1是停用',
+  `jihuo` int(11) DEFAULT NULL COMMENT '激活 0是没有激活，1是激活',
   `created_time` datetime NOT NULL COMMENT '创建时间',
   `updated_time` datetime NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)

@@ -14,6 +14,7 @@
 		qq,
 		weixin,
 		phone,
+		jihuo,
 		created_time as createdTime,
 		updated_time as updatedTime
     </sql>
@@ -30,6 +31,7 @@
 		qq,
 		weixin,
 		phone,
+		jihuo,
 		created_time,
 		updated_time
     </sql>
@@ -48,6 +50,7 @@
 			#{qq},
 			#{weixin},
 			#{phone},
+			#{jihuo},
 			#{createdTime},
 			#{updatedTime}
 		)
@@ -68,6 +71,7 @@
 				#{item.qq},
 				#{item.weixin},
 				#{item.phone},
+				#{item.jihuo},
 				#{item.createdTime},
 				#{item.updatedTime}
 			)
@@ -89,6 +93,9 @@
 		</if>
 		<if test="status != null">			
 			and status = #{status}			
+		</if>
+		<if test="jihuo != null">			
+			and jihuo = #{jihuo}			
 		</if>
 		<if test="createdTime != null">			
 			and created_time = #{createdTime}			
@@ -172,6 +179,9 @@
 		</if>
 		<if test="weixin != null">
 			weixin = #{weixin},
+		</if>
+		<if test="jihuo != null">
+			jihuo = #{jihuo},
 		</if>
 		<if test="phone != null">
 			phone = #{phone}
