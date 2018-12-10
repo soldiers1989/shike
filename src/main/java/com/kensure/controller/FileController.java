@@ -47,7 +47,7 @@ public class FileController {
 				f.toOutputStream(os);
 			} catch (Throwable e) {
 				e.printStackTrace();
-				LOGGER.error(name+"=="+flag);
+				LOGGER.error(riqi+"=="+name+"=="+flag);
 			} finally {
 //				try {
 //					os.close();
@@ -77,13 +77,23 @@ public class FileController {
 			int flag1 = NumberUtils.parseInteger(flags[1], 100);
 			String filepath = Const.ROOT_PATH + "/filetemp/" + riqi + "/" + name + "." + flag0;
 			File file = new File(filepath);
-
-			if (file.exists()) {
-				// 加载图片源
-				Builder<File> f = Thumbnails.of(file);
-				builder = f.size(flag1, flag1);
-				map.put(key, builder);
+			String filepath1 = Const.ROOT_PATH + "/filetemp/" + riqi + "/" + name + "ckbak." + flag0;
+			File file1 = new File(filepath1);
+			if(file1.exists()){
+				builder = Thumbnails.of(file1).size(flag1, flag1);
+			}else if (file.exists()) {
+				// 加载图片源		
+				try {
+					Thumbnails.of(file).size(flag1, flag1).toFile(file1);	
+//					while(file1.length()>10240){
+//						Thumbnails.of(file1).size(flag1, flag1).outputQuality(0.8).toFile(file1);	
+//					}
+					builder = Thumbnails.of(file1).size(flag1, flag1);	
+				} catch (IOException e) {
+					e.printStackTrace();
+				}		
 			}
+			map.put(key, builder);
 		}
 		return builder;
 	}
