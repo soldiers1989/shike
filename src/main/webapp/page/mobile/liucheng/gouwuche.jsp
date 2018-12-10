@@ -174,9 +174,9 @@
                                     折扣与服务（<%=jd.getZkfw()==null?"无":jd.getZkfw()%>）
                                 </em>
                             </div>
-                            <%--<div class="lh14">
-                                价格区间：<em class="red nextKey-item34">-</em>
-                            </div>--%>
+                            <div class="lh14">
+                                价格区间：<em class="red nextKey-item34"><%=jd.getYkj()==null?"无":"￥"+jd.getYkj()%></em>
+                            </div>
 					</li>
 				</c:if>
 

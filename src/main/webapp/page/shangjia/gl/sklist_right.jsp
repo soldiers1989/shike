@@ -90,8 +90,7 @@
         var auditStatus = row.auditStatus;
         if (auditStatus != 1) {
         	 tdinner = "<a onclick='auditPass("+row.id+")'>审核通过</a>";
-        }else if (auditStatus == 0) {       
-            tdinner += "<a onclick='auditUnpass("+row.id+")'>不通过</a>";
+        	 tdinner += "<a onclick='auditUnpass("+row.id+")'>不通过</a>";
         }
 
         tdinner += "<a onclick='editTaoqizhi("+row.id+")'>淘气值</a>";
