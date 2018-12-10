@@ -28,7 +28,7 @@ public class SMSClient {
 	private static final String baseUrl = "https://api.miaodiyun.com/20150822/industrySMS/sendSMS";
 	private static final String smsToken = "00235df98cea4872b52edbc0d2ccf48a";
 	private static final String contentTemplate = "【试呗网】您的验证码为{1}，请于{2}分钟内正确输入，如非本人操作，请忽略此短信。";
-	private static final String contentTemplate2 = "【试呗网】您申请的{1}已审核通过，请下{2}内下单";
+	private static final String contentTemplate2 = "【试呗网】您申请的{1}已审核通过，请在{2}内下单";
 	private static final String contentTemplate3 = "【试呗网】您绑定的淘宝账号有误，请重新绑定，如有问题请联系客服！";
 	
 	
