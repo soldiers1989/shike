@@ -753,7 +753,7 @@ public class SKBaobeiService extends JSBaseService {
 
 		// status=21(关注收藏) 并且 活动类型为"必中商品"时，直接中奖
 		if (status == 21 && baobei.getHdtypeid() != null && baobei.getHdtypeid() == 4) {
-			if(sKUserService.isInvalid(skuser.getId())){
+			if(!sKUserService.isInvalid(skuser.getId())){
 				BusinessExceptionUtil.threwException("您的信息不完整，请填写完整");
 			}
 			Map<String, Object> params = MapUtils.genMap("id", id, "zjnumAdd", 1);
