@@ -158,7 +158,7 @@ public class SkUserFansService extends JSBaseService {
 			// 新人到账
 			SKUserZhang zhang = new SKUserZhang();
 			zhang.setUserid(jb.getRefereeId());
-			zhang.setBusiid(jb.getTypeid());
+			zhang.setBusiid(jb.getUserid());
 			zhang.setBusitypeid(6L);
 			zhang.setYue(jb.getJine());
 			sKUserZhangService.add(zhang);
