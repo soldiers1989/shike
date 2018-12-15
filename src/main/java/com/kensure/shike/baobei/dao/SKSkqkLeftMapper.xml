@@ -47,6 +47,9 @@
 		<if test="userid != null">			
 			and t.userid = #{userid}			
 		</if>
+		<if test="bbid != null">
+			and t.bbid = #{bbid}
+		</if>
 		<if test="startCreatedTime != null">
 			<![CDATA[
 			and t.created_time >= #{startCreatedTime}
@@ -85,15 +88,15 @@
 
 	<select id="selectByWhere" parameterType="Map" resultType="com.kensure.shike.baobei.model.SKSkqkLeft">
 		select <include refid="allFields"/>
-		from sk_sqqk t 
-		   LEFT JOIN sk_user sk 
-		    ON t.userid = sk.id 
-		   LEFT JOIN sk_baobei baobei 
-		    ON baobei.id = t.bbid 
-		   LEFT JOIN sk_dianpu dp 
-		    ON baobei.dpid = dp.id 
-		   LEFT JOIN sk_user sj 
-		    ON baobei.userid = sj.id 
+		from sk_sqqk t
+		   LEFT JOIN sk_user sk
+		    ON t.userid = sk.id
+		   LEFT JOIN sk_baobei baobei
+		    ON baobei.id = t.bbid
+		   LEFT JOIN sk_dianpu dp
+		    ON baobei.dpid = dp.id
+		   LEFT JOIN sk_user sj
+		    ON baobei.userid = sj.id
 		<where>
 		    <include refid="whereClause"/>
 		</where>				

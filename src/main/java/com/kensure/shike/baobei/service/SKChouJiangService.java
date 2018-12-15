@@ -11,31 +11,24 @@
  */
 package com.kensure.shike.baobei.service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-
 import co.kensure.exception.BusinessExceptionUtil;
 import co.kensure.frame.JSBaseService;
 import co.kensure.mem.CollectionUtils;
 import co.kensure.mem.DateUtils;
 import co.kensure.mem.MapUtils;
 import co.kensure.sms.SMSClient;
-
 import com.kensure.shike.baobei.model.SKBaobei;
 import com.kensure.shike.baobei.model.SKBbrw;
 import com.kensure.shike.baobei.model.SKSkqk;
 import com.kensure.shike.baobei.model.SKZjqk;
 import com.kensure.shike.user.model.SKUser;
 import com.kensure.shike.user.service.SKUserService;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
+import java.util.*;
 
 /**
  * 宝贝抽奖
@@ -97,6 +90,13 @@ public class SKChouJiangService extends JSBaseService {
 	 * @param bbrw
 	 */
 	private void doOneRwCJ(SKBbrw bbrw, boolean isEnd) {
+
+        SKBaobei baobei = sKBaobeiService.selectOne(bbrw.getBbid());
+        // 拼团，不需要参加定时器抽奖
+        if (baobei.getHdtypeid() == 6L) {
+            return;
+        }
+
 		Long bbid = bbrw.getBbid();
 		Long bbnum = bbrw.getBbnum();
 		Long yzj = bbrw.getYzj();
@@ -136,7 +136,7 @@ public class SKChouJiangService extends JSBaseService {
 			bbrw.setYzj(zjrlist.size() + bbrw.getYzj());
 		}
 		sKBbrwService.update(bbrw);
-		SKBaobei baobei = sKBaobeiService.selectOne(bbid);
+
 		baobei.setZjnum(baobei.getZjnum() + CollectionUtils.getSize(zjrlist));
 		sKBaobeiService.update(baobei);
 		sendSMS(zjrlist);
@@ -227,6 +227,44 @@ public class SKChouJiangService extends JSBaseService {
 		if (yzj >= maxzj) {
 			BusinessExceptionUtil.threwException("宝贝该时间段已经放完！");
 		}
+		// 今日任务中奖人数+1
+		Map<String, Object> param = MapUtils.genMap("id", skBbrw.getId(), "yzjAdd", 1);
+		sKBbrwService.updateByMap(param);
+	}
+
+	/**
+	 * 中奖 （指定）
+	 *
+	 * @return
+	 */
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+	public void zhiding(Long id) {
+
+        SKSkqk skqk = sKSkqkService.selectOne(id);
+        if (skqk == null) {
+            BusinessExceptionUtil.threwException("申请不存在");
+        }
+
+        String todayStr = DateUtils.format(new Date(), DateUtils.DAY_FORMAT);
+		Map<String, Object> parameters = MapUtils.genMap("bbid", skqk.getBbid(), "daydes", todayStr, "status", 1);
+		List<SKBbrw> list = sKBbrwService.selectByWhere(parameters);
+		if (CollectionUtils.isEmpty(list)) {
+			BusinessExceptionUtil.threwException("该宝贝今天没有任务");
+		}
+
+		SKBbrw skBbrw = list.get(0);
+		int bbnum = skBbrw.getBbnum().intValue();
+		int yzj = skBbrw.getYzj().intValue();
+		// 当前时间最大中奖数量
+
+		if (yzj >= bbnum) {
+			BusinessExceptionUtil.threwException("宝贝该时间段已经放完！");
+		}
+
+		// 更新中奖申请
+        skqk.setStatus(51L);
+        sKSkqkService.updateStatus(skqk.getId(), skqk.getStatus());
+
 		// 今日任务中奖人数+1
 		Map<String, Object> param = MapUtils.genMap("id", skBbrw.getId(), "yzjAdd", 1);
 		sKBbrwService.updateByMap(param);

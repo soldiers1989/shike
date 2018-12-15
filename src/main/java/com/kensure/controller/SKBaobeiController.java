@@ -1,22 +1,5 @@
 package com.kensure.controller;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-
 import co.kensure.frame.Const;
 import co.kensure.frame.ResultInfo;
 import co.kensure.frame.ResultRowInfo;
@@ -26,22 +9,28 @@ import co.kensure.io.FileUtils;
 import co.kensure.mem.DateUtils;
 import co.kensure.mem.PageInfo;
 import co.kensure.mem.Utils;
-
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.kensure.shike.baobei.model.SKBaobei;
-import com.kensure.shike.baobei.model.SKGroupStatus;
-import com.kensure.shike.baobei.model.SKJysj;
-import com.kensure.shike.baobei.model.SKPayInfo;
-import com.kensure.shike.baobei.model.SKSkqk;
+import com.kensure.shike.baobei.model.*;
 import com.kensure.shike.baobei.query.SKBaobeiQuery;
 import com.kensure.shike.baobei.query.SKBaobeiQuery1;
-import com.kensure.shike.baobei.service.SKBaobeiService;
-import com.kensure.shike.baobei.service.SKBbrwService;
-import com.kensure.shike.baobei.service.SKChouJiangService;
-import com.kensure.shike.baobei.service.SKSkqkService;
-import com.kensure.shike.baobei.service.TaoBaoService;
+import com.kensure.shike.baobei.service.*;
 import com.kensure.shike.constant.BusiConstant;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
 
 /**
  * 活动信息
@@ -531,4 +520,15 @@ public class SKBaobeiController {
 		return new ResultRowInfo(id);
 	}
 
+    /**
+     * 指定中奖
+     */
+    @ResponseBody
+    @RequestMapping(value = "zhiding.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+    public ResultInfo zhiding(HttpServletRequest req, HttpServletResponse rep) {
+        JSONObject json = RequestUtils.paramToJson(req);
+        Long id = json.getLong("id");
+        sKChouJiangService.zhiding(id);
+        return new ResultRowInfo();
+    }
 }

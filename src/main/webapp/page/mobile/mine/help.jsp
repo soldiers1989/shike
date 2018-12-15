@@ -103,7 +103,7 @@
     });
 </script>
 <header class="header task-top frv" style="line-height: 2rem">
-    <i class="arrows" onclick="history.back(-1)"></i>
+    <i class="arrows" onclick="location.href = &#39;<%=BusiConstant.shike_index.getKey() %>&#39;"></i>
     帮助中心
 </header>
 <div style="height: 2rem"></div>

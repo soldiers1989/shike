@@ -1,23 +1,19 @@
 package com.kensure.controller;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import co.kensure.mem.NumberUtils;
+import com.kensure.shike.baobei.model.SKBaobei;
+import com.kensure.shike.baobei.service.SKBaobeiService;
+import com.kensure.shike.baobei.service.TaoBaoService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import co.kensure.mem.NumberUtils;
-
-import com.kensure.shike.baobei.model.SKBaobei;
-import com.kensure.shike.baobei.service.SKBaobeiService;
-import com.kensure.shike.baobei.service.TaoBaoService;
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 商家业务的页面跳转
@@ -222,4 +218,17 @@ public class GLPageController {
 		return "page/shangjia/index.jsp";
 	}
 
+	// 指定中奖
+	@RequestMapping("zdzj")
+	public String zdzj(HttpServletRequest req, HttpServletResponse rep, Model model) {
+		req.setAttribute("index", indexlist);
+
+		List<String> body = new ArrayList<String>();
+		body.add("indexht_left.jsp");
+		body.add("zdzj_right.jsp");
+		req.setAttribute("bodypage", body);
+		String id = req.getParameter("id");
+		req.setAttribute("id", id);
+		return "page/shangjia/index.jsp";
+	}
 }

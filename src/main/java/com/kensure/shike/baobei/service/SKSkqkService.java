@@ -406,6 +406,36 @@ public class SKSkqkService extends JSBaseService {
 	}
 
 	/**
+	 * 管理端端，查询试客情况
+	 *
+	 * @return
+	 */
+	public List<SKSkqkLeft> getList2(Long bbid, PageInfo page) {
+		Map<String, Object> parameters = MapUtils.bean2Map(page, true);
+		MapUtils.putPageInfo(parameters, page);
+		parameters.put("bbid", bbid);
+		parameters.put("orderby", "t.created_time desc");
+		List<SKSkqkLeft> list = leftdao.selectByWhere(parameters);
+		return list;
+	}
+
+    /**
+     * 管理端端，查询试客情况
+     *
+     * @return
+     */
+    public Long getListCount2(Long id, PageInfo page) {
+        List<Long> ids = new ArrayList<Long>();
+        ids.add(id);
+
+        Map<String, Object> parameters = MapUtils.bean2Map(page, true);
+        parameters.put("bbidlist", ids);
+        parameters.put("shangjiastatus", 1);
+        long count = leftdao.selectCountByWhere(parameters);
+        return count;
+    }
+
+	/**
 	 * 对提交的订单进行轮询，超过3天就是进行好评业务
 	 * 
 	 * @return

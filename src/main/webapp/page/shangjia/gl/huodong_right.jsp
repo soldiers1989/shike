@@ -128,6 +128,7 @@
                 <option value="2"> 新品提升综合权重</option>
                 <option value="3">高客单精准打造爆款</option>
                 <option value="4">必中任务</option>
+                <option value="6">拼团</option>
         </select>
         <input onclick="huodonglist(1)" type="button" value="搜索">
     </div>
@@ -192,6 +193,10 @@
         }else{
         	tdinner+= "        <input type='button' value='增加中奖数' onclick='addzj("+row.id+")'/>";
         }
+
+        if (row.hdtypeid == 6) {
+            tdinner+= "<a href='<%=ApiUtil.getUrl("/gl/zdzj")%>?id="+row.id+"' target='_blank'>指定中奖</a>";
+        }
         
     	tdinner += "<a href='<%=ApiUtil.getUrl("/gl/zjqk")%>?id="+row.id+"' target='_blank'>中奖概览</a>";
         tdinner += "    </div>";
@@ -221,6 +226,8 @@
             tdinner = "高客单精准打造爆款";
         }  else if (hdtypeid == 4) {
             tdinner = "必中任务";
+        }  else if (hdtypeid == 6) {
+            tdinner = "拼团";
         } else {
             tdinner = hdtypeid;
         }
@@ -318,8 +325,7 @@
 		   }	  
 	   }	  
    }
-   
-   
+
    
    function untongguo(id){
 	   if(confirm('确认拒绝？')){

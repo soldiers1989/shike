@@ -128,6 +128,7 @@
             <span class="<c:if test="${param.hdtypeid == '1'}">act</c:if>" data-num="1">普通试用</span>
             <span class="<c:if test="${param.hdtypeid == '3'}">act</c:if>" data-num="3">高价值</span>
             <span class="<c:if test="${param.hdtypeid == '4'}">act</c:if>" data-num="4">必中任务</span>
+            <span class="<c:if test="${param.hdtypeid == '5'}">act</c:if>" data-num="6">拼团</span>
             <span class="<c:if test="${param.jiangli == '1'}">act</c:if>" data-num="5">有奖任务</span>
         </div>
     </div>
