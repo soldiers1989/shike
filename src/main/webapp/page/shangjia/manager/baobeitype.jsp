@@ -14,6 +14,7 @@
                         <br>（全面优化店铺权重）<i class="iconfont icon-gou rt20"></i>
                     </dt>
                     <dt onclick="baobeitype(3)">必中任务<i class="iconfont icon-gou rt50"></i></dt>
+                    <dt onclick="baobeitype(5)">拼团<i class="iconfont icon-gou rt50"></i></dt>
 
                     <dd class="act">
                         <h4><i class="iconfont icon-select"></i>快速提升关键词排名/加购率/多天回访率/全维度UV价值</h4>
@@ -168,7 +169,25 @@
                             </span>
                         </div>
                     </dd>
+
+
+
+                    <dd>
+                        <h4><i class="iconfont icon-select"></i></h4>
+                        <ul>
+                            <li>
+                                <p class="gray">-：</p>
+                                <p>-</p>
+                                <p>-</p>
+                                <p>-</p>
+                                <p>-</p>
+                            </li>
+
+                        </ul>
+                    </dd>
                 </dl>
+
+
 
               
           

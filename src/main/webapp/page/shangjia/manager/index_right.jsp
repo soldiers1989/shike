@@ -674,7 +674,11 @@
 	   data.guige = $("#sk_size").val();
 	   data.typeid = $("#sk_commodity_type option:selected").val();
 	   data.hdtypeid = $(".jp-watch dt.act").index()+1;
-	
+	   // 拼团
+	   if (data.hdtypeid == 5) {
+           data.hdtypeid = 6;
+       }
+
 	   data.xinyongka = $("#sk_is_useCreditCard").is(':checked') ? 1 : 0;
 	   data.huabei = $("#sk_is_useTokio").is(':checked') ? 1 : 0;
 	   data.shaitu = $("#sk_no_appraise_chart").is(':checked') ? 1 : 0;
