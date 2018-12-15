@@ -93,7 +93,7 @@ public class SKChouJiangService extends JSBaseService {
 
         SKBaobei baobei = sKBaobeiService.selectOne(bbrw.getBbid());
         // 拼团，不需要参加定时器抽奖
-        if (baobei.getHdtypeid() == 6L) {
+        if (baobei.getHdtypeid() != null && baobei.getHdtypeid() == 6L) {
             return;
         }
 
