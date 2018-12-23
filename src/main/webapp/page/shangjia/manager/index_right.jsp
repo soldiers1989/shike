@@ -459,7 +459,19 @@
                     <span>1</span>增值服务
                     <em class="open-slide">修改</em> <i class="iconfont icon-zhengque"></i>
                 </div>
-
+       			<div class="key-word">
+				<div class="fold act">
+                        <div class="f-title">
+                            <input type="checkbox" checked="checked" disabled=""> <span>试用红包加赏</span>
+                            <i class="iconfont icon-Toboottom"></i>
+                            <i class="iconfont icon-Totop"></i>
+                        </div>
+                        <p class="f-warn">
+                            <span class="sj"></span>
+                          	 请填写红包金额:<input type="text" id="sk_jiangli" name="sk_jiangli" class="w560" value="0">元/每单
+                        </p>
+                    </div>
+                </div>
                 <div class="key-word">
 
                     	<div class="fold">
