@@ -31,19 +31,11 @@ public interface SKSkqkDao extends JSBaseDao<SKSkqk> {
 	
 	public List<SKSkqk> selectByIds(Collection<Long> ids);
 	
-	public List<SKSkqk> selectAll();
-	
 	public List<SKSkqk> selectByWhere(Map<String, Object> parameters);
-	
-	
-	public long selectCount();
 	
 	public long selectCountByWhere(Map<String, Object> parameters);
 	
-	
 	public boolean insert(SKSkqk obj);
-	
-	public boolean insertInBatch(List<SKSkqk> objs);
 	
 	
 	public boolean update(SKSkqk obj);

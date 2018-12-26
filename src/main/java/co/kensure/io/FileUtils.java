@@ -11,6 +11,8 @@
  */
 package co.kensure.io;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.Closeable;
 import java.io.File;
@@ -259,6 +261,27 @@ public final class FileUtils {
 			} catch (IOException e) {
 				throw new RuntimeException(e);
 			}
+		}
+	}
+
+	// 复制文件
+	public static void copyFile(File sourceFile, File targetFile) throws IOException {
+		BufferedInputStream inBuff = null;
+		BufferedOutputStream outBuff = null;
+		try {
+			inBuff = new BufferedInputStream(new FileInputStream(sourceFile));
+			outBuff = new BufferedOutputStream(new FileOutputStream(targetFile));
+			byte[] b = new byte[1024 * 5];
+			int len;
+			while ((len = inBuff.read(b)) != -1) {
+				outBuff.write(b, 0, len);
+			}
+			outBuff.flush();
+		} finally {
+			if (inBuff != null)
+				inBuff.close();
+			if (outBuff != null)
+				outBuff.close();
 		}
 
 	}

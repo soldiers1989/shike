@@ -859,7 +859,7 @@ public class SKBaobeiService extends JSBaseService {
 			bb.setStatus(10L);
 			Map<String, Object> params = MapUtils.genMap("id", bb.getId(), "status", 10);
 			updateByMap(params);
-			sKSkqkService.endquxiao(bb.getId());
+			sKSkqkService.zuoFei(bb.getId());
 		}
 	}
 
@@ -869,7 +869,7 @@ public class SKBaobeiService extends JSBaseService {
 	 * @return
 	 */
 	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
-	public void jiesuanBaobei() {
+	public void jieSuanBaobei() {
 		Map<String, Object> parameters = MapUtils.genMap("status", 10);
 		List<SKBaobei> list = selectByWhere(parameters);
 		if (CollectionUtils.isEmpty(list)) {
@@ -889,7 +889,9 @@ public class SKBaobeiService extends JSBaseService {
 			bb.setStatus(20L);
 			Map<String, Object> params = MapUtils.genMap("id", bb.getId(), "status", 20);
 			updateByMap(params);
-
+			//让一些垃圾申请作废掉
+			sKSkqkService.zuoFei(bb.getId());
+			
 			// 设置实收和返款,如果活动未达到预期目的，需要退款
 			setShiShouinfo(bb.getId());
 		}

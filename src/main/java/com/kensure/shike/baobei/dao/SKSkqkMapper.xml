@@ -57,30 +57,7 @@
 			#{createdTime},
 			#{updatedTime}
 		)
-	</insert>
-	
-	<insert id="insertInBatch" parameterType="com.kensure.shike.baobei.model.SKSkqk">
-		insert into sk_sqqk (<include refid="insertFields"/>) values 
-		<foreach collection="list" item="item" index="index" separator=",">
-			(
-				#{item.id},
-				#{item.bbid},
-				#{item.rwid},
-				#{item.userid},		
-				#{item.status},
-				#{item.lastStatus},
-				#{item.jinbi},
-				#{item.salePrice},
-				#{item.jiangli},
-				#{item.ewai},
-				#{item.remark},	
-				#{item.noTaobao},
-				#{item.nextTime},
-				#{item.createdTime},
-				#{item.updatedTime}
-			)
-		</foreach>
-	</insert>   		
+	</insert>	
 	
     <sql id="whereClause">
 		<if test="bbid != null">			
@@ -92,14 +69,14 @@
 		<if test="status != null">			
 			and status = #{status}			
 		</if>
-		<if test="bigthanstatus != null">	
+		<if test="startStatus != null">	
 		<![CDATA[		
-			and status >= #{bigthanstatus}		
+			and status >= #{startStatus}		
 		]]>	
 		</if>
-		<if test="lessthanstatus != null">	
+		<if test="endStatus != null">	
 		<![CDATA[		
-			and status <= #{lessthanstatus}		
+			and status <= #{endStatus}		
 		]]>	
 		</if>
 		<if test="lastStatus != null">			
@@ -126,30 +103,30 @@
 		<if test="nextTime != null">			
 			and next_time = #{nextTime}			
 		</if>
-		<if test="lessNextTime != null">	
+		<if test="endNextTime != null">	
 		<![CDATA[		
-			and next_time <= #{lessNextTime}		
+			and next_time <= #{endNextTime}		
 		]]>	
 		</if>
 		<if test="createdTime != null">			
 			and created_time = #{createdTime}			
 		</if>
-		<if test="bigCreatedTime != null">
+		<if test="startCreatedTime != null">
 			<![CDATA[
-			and created_time >= #{bigCreatedTime}
+			and created_time >= #{startCreatedTime}
 			]]>
 		</if>
-		<if test="lessCreatedTime != null">
+		<if test="endCreatedTime != null">
 			<![CDATA[
-			and created_time <= #{lessCreatedTime}
+			and created_time <= #{endCreatedTime}
 			]]>
 		</if>
 		<if test="updatedTime != null">			
 			and updated_time = #{updatedTime}			
 		</if>
-		<if test="lessupdatedTime != null">			
+		<if test="endUpdatedTime != null">			
 			<![CDATA[		
-			and updated_time <= #{lessupdatedTime}		
+			and updated_time <= #{endUpdatedTime}		
 			]]>		
 		</if>
 		
@@ -167,15 +144,6 @@
 		<foreach collection="list" item="item" open="(" close=")" separator=",">
 			#{item}
 		</foreach>
-	</select>
-		
-	<select id="selectAll" resultType="com.kensure.shike.baobei.model.SKSkqk">
-		select <include refid="allFields"/> 
-		from sk_sqqk 
-	</select>
-
-	<select id="selectCount" resultType="long">
-		select count(*) from sk_sqqk 
 	</select>
 	
 	<select id="selectCountByWhere" parameterType="Map" resultType="Long">

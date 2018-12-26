@@ -290,7 +290,7 @@ CREATE TABLE `sk_sqqk` (
   `bbid` bigint(20) DEFAULT NULL COMMENT '宝贝id',
   `rwid` bigint(20) DEFAULT NULL COMMENT '任务id',
   `userid` bigint(20) NOT NULL COMMENT '用户id',
-  `status` int(11) DEFAULT NULL COMMENT '0是未中奖,1是开始,-1是手动取消,-2是自动取消,-3是商家申诉,11是货比三家，18是加购物车宝贝  21是收藏关注,51是中奖，61是完成确认宝贝、提交付款订单，71收到货了， 81反馈好评晒图,99是完成任务',
+  `status` int(11) DEFAULT NULL COMMENT '0是未中奖,-10是活动结束删除的,1是开始,-1是手动取消,-2是自动取消,-3是商家申诉,11是货比三家，18是加购物车宝贝  21是收藏关注,51是中奖，61是完成确认宝贝、提交付款订单，71收到货了， 81反馈好评晒图,99是完成任务',
   `last_status` int(11) DEFAULT NULL COMMENT 'status最后为正值的状态',
   `jinbi` bigint(20) DEFAULT NULL COMMENT '使用金币数量',
   `sale_price` decimal(10,2) DEFAULT NULL COMMENT '宝贝单价',

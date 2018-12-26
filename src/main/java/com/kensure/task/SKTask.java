@@ -36,7 +36,7 @@ public class SKTask {
 			e.printStackTrace();
 		}
 		try {
-			sKBaobeiService.jiesuanBaobei();
+			sKBaobeiService.jieSuanBaobei();
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
@@ -84,17 +84,22 @@ public class SKTask {
 	@Scheduled(cron = "0 4/10 * * * ? ")
 	public void quxiao() {
 		try {
-			sKSkqkService.toHaoPin();
+			sKSkqkService.kaiQiHaoPin();
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
+		try {
+			sKSkqkService.moRenHaoPin();
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}	
 		try {
 			sKSkqkService.toReturnMoney();
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
 		try {
-			sKSkqkService.quxiao();
+			sKSkqkService.quXiaoZhongJiang();
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
