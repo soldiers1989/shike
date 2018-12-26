@@ -341,7 +341,7 @@ public class SKBaobeiController {
 	@ResponseBody
 	@RequestMapping(value = "hptest.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
 	public ResultInfo hptest(HttpServletRequest req, HttpServletResponse rep) {
-		sKSkqkService.toHaoPin();
+		sKSkqkService.kaiQiHaoPin();
 		return new ResultRowInfo();
 	}
 
@@ -361,7 +361,7 @@ public class SKBaobeiController {
 	@ResponseBody
 	@RequestMapping(value = "jiesuan.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
 	public ResultInfo jiesuan(HttpServletRequest req, HttpServletResponse rep) {
-		sKBaobeiService.jiesuanBaobei();
+		sKBaobeiService.jieSuanBaobei();
 		return new ResultRowInfo();
 	}
 
@@ -452,7 +452,7 @@ public class SKBaobeiController {
 	@ResponseBody
 	@RequestMapping(value = "quxiao.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
 	public ResultInfo quxiao(HttpServletRequest req, HttpServletResponse rep) {
-		sKSkqkService.quxiao();
+		sKSkqkService.quXiaoZhongJiang();
 		return new ResultRowInfo();
 	}
 
