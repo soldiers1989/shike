@@ -15,10 +15,10 @@ public class FileTest {
 
 	@Test
 	public void test() {
-		String path = "E:\\workspaces\\eclipse0\\nbws\\webapp";
+		String path = "E:\\workspaces\\eclipse0\\nbserver\\WebRoot";
 
 		String tartpath = "E:\\workspaces\\eclipse2";
-		Date date = DateUtils.parse("2018-12-24 00:00:00", DateUtils.DATE_FORMAT_PATTERN);
+		Date date = DateUtils.parse("2019-01-27 00:00:00", DateUtils.DATE_FORMAT_PATTERN);
 		List<String> list = new ArrayList<String>();
 		getList(path, date, list);
 		for (String filepath : list) {		
