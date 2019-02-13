@@ -62,8 +62,7 @@ public class SKUserController {
 		JSONObject json = RequestUtils.paramToJson(req);
 		String mobile = json.getString("mobile");
 		int type = json.getInteger("type");
-		Integer mobileType = json.getInteger("mobileType");
-		sKSmsService.sendQRSms(mobile, type, mobileType);
+		sKSmsService.sendQRSms(mobile, type);
 		return new ResultRowInfo();
 	}
 

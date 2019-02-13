@@ -83,6 +83,12 @@ public class ShangJiaPageController {
 	public String login(HttpServletRequest req, HttpServletResponse rep, Model model) {
 		return "page/shangjia/login.jsp";
 	}
+	
+	// 商家忘记密码
+	@RequestMapping("wjpwd")
+	public String wjpwd(HttpServletRequest req, HttpServletResponse rep, Model model) {
+		return "page/shangjia/forgetpassword.jsp";
+	}
 
 	// 首页
 	@RequestMapping("index")

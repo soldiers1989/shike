@@ -1,3 +1,4 @@
+<%@page import="co.kensure.api.ApiUtil"%>
 <%@page import="com.kensure.shike.constant.BusiConstant"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <% 
@@ -29,7 +30,7 @@
                 <!--stg_lb-->
                 <div class="sdt_bvx">
                     <strong>登录密码：</strong>
-                    <a href="/Security/FindPassword?usertype=0" tabindex="60" target="_blank">忘记密码？</a>
+                    <a href="<%=ApiUtil.getUrl("/shangjia/wjpwd")%>" tabindex="60" target="_blank">忘记密码？</a>
                 </div>
                 <!--sdt_bvx-->
                 <div class="stg_lb">

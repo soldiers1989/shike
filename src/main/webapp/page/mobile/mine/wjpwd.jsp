@@ -1,3 +1,4 @@
+<%@page import="co.kensure.api.ApiUtil"%>
 <%@page import="java.util.List"%>
 <%@page import="com.kensure.shike.constant.BusiConstant"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -112,7 +113,7 @@
 
         function updatePwd() {
             var data = {phone: $("#name").val(), type: 1, verifyCode: $("#code1").val(), newPassword: $("#pwd").val()};
-            var url = "<%=BusiConstant.shike_user_wjpwd_do.getKey()%>";
+            var url = "<%=ApiUtil.getUrl("/user/wjpwd.do")%>";;
             postdo(url, data, callBack,null, null);
         }
 

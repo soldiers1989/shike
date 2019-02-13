@@ -75,9 +75,11 @@ function afterVerification() {
 
 }
 
+//试客忘记密码
 function sendSmsCode() {
-    var data = {mobile: $("#name").val(), type: 1, mobileType: 3};
+    var data = {mobile: $("#name").val(), type: 3};
     var url = "/shike/user/sms.do";
+    $(_ctr1?_ctr1:_ctr).text("执行中..");
     postdo(url, data, sendSmsCodeCallBack,null, null);
 }
 

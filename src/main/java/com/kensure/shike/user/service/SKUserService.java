@@ -374,7 +374,7 @@ public class SKUserService extends JSBaseService {
 	 * 校验用户的类型
 	 */
 	public static void rangeType(int type) {
-		if (type < 1 || type > 3) {
+		if (type < 1 || type > 5) {
 			BusinessExceptionUtil.threwException("传参错误。");
 		}
 	}
@@ -562,14 +562,17 @@ public class SKUserService extends JSBaseService {
 
 	/**
 	 * 更新登录密码（忘记密码用）
+	 * type 1是试客，2是商家
 	 */
 	public void updateLoginPwd(String phone, Integer type, String verifyCode, String newPassword) {
 		ParamUtils.isBlankThrewException(phone, "手机号码不能为空");
 		ParamUtils.isBlankThrewException(newPassword, "新密码不能为空");
 		ParamUtils.isBlankThrewException(verifyCode, "验证码不能为空");
-
-		SKSms skSms = sKSmsService.selectByMobile(phone, type);
-
+		int smstype = 4;
+		if(type == 1){
+			smstype = 3;
+		}		
+		SKSms skSms = sKSmsService.selectByMobile(phone, smstype);
 		ParamUtils.isErrorThrewException(skSms != null && verifyCode.equals(skSms.getQrcode()), "验证码不正确");
 
         SKUser skUser = sKUserService.selectByMobile(phone, type);

@@ -132,21 +132,29 @@ public class SKSmsService extends JSBaseService {
 	 * 
 	 * @param mobile
 	 * @param type
-	 *            1是试客，2是商家，3是管理员
+	 *           1是试客验证码，2是商家验证码,3是试客密码找回，4是商家密码找回
 	 * @return
 	 */
 	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
-	public void sendQRSms(String mobile, int type, Integer mobileType) {
+	public void sendQRSms(String mobile, int type) {
 		MobileUtils.checkMobile(mobile);
 		SKUserService.rangeType(type);
-
-		mobileType = mobileType == null ? 0 : mobileType;
-
-		SKUser user = sKUserService.selectByMobile(mobile, type);
+		int usertype = type;
+		if(type == 3 ){
+			usertype = 1;
+		}else if(type == 4 ){
+			usertype = 2;
+		}
+		SKUser user = sKUserService.selectByMobile(mobile, usertype);
 		// 短信类型： 3、4 为找回密码
-		if(user != null && (mobileType != 3 && mobileType != 4)){
+		if((type == 1 && type == 2) && user != null){
 			BusinessExceptionUtil.threwException("用户已注册。");
 		}
+		
+		if((type == 3 && type == 4) && user == null ){
+			BusinessExceptionUtil.threwException("找不到该用户");
+		}
+		
 
 		SKSms smsinfo = selectByMobile(mobile,type);
 		if (smsinfo == null) {
@@ -155,8 +163,7 @@ public class SKSmsService extends JSBaseService {
 			smsinfo.setMobile(mobile);
 			smsinfo.setQrcode(Utils.randomSMSCode());
 			insert(smsinfo);
-		} else {
-			
+		} else {		
 			long s = System.currentTimeMillis() - smsinfo.getUpdatedTime().getTime();
 			if(s < 120*1000){
 				BusinessExceptionUtil.threwException("短信已经发送1");
@@ -164,7 +171,6 @@ public class SKSmsService extends JSBaseService {
 			smsinfo.setQrcode(Utils.randomSMSCode());
 			update(smsinfo);
 		}
-
 		try {
 			SMSClient.sendSMSMessage(mobile, smsinfo.getQrcode(), 30);
 		} catch (Exception e) {
