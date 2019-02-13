@@ -1,7 +1,10 @@
+<%@page import="co.kensure.http.RequestUtils"%>
 <%@page import="com.kensure.shike.constant.BusiConstant"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
     String context = BusiConstant.shikemobilepath;
+	String refereeId = RequestUtils.getStringIfNullBlank(request, "refereeId");
+
 %>
 <!DOCTYPE html>
 <html lang="zh" style="font-size: 30px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -20,7 +23,7 @@
     <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/common/css/style.css">
 
     <script type="text/javascript" async="" src="<%=BusiConstant.shikemobilepath %>/mine/regist/captcha.js"></script>
-    <script type="text/javascript" async="" src=<%=BusiConstant.shikemobilepath %>/mine/regist/api.js"></script>
+    <script type="text/javascript" async="" src="<%=BusiConstant.shikemobilepath %>/mine/regist/api.js"></script>
     <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/jquery-1.8.3.js"></script>
     <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/Common.js"></script>
     <script type="text/javascript" src="<%=BusiConstant.context%>/jqtable/jquery.cookie.js"></script>
@@ -104,7 +107,7 @@
     </div>
   
     <div class="item">
-        <input type="text" name="refereeId" id="refereeId" placeholder="请输入邀请码，没有可不填">
+        <input type="text" name="refereeId" id="refereeId" value="<%=refereeId%>" placeholder="请输入邀请码，没有可不填">
     </div>
 <%-- 
     <div class="FlowCon">

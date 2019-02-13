@@ -153,6 +153,7 @@ public class SKTaobaoService extends JSBaseService{
 					}
 					
 				} catch (Exception e) {			
+					e.printStackTrace();
 					BusinessExceptionUtil.threwException("sessionid不对.请重新获取");
 				}
     			update(taobao);

@@ -1,3 +1,4 @@
+<%@page import="co.kensure.api.ApiUtil"%>
 <%@page import="com.kensure.shike.constant.BusiConstant"%>
 <%@ page import="com.kensure.shike.user.model.SKUser" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -178,7 +179,7 @@
         我是代言人
         <span class="iconfont icon-wenhao" onclick="location.href = &#39;<%=BusiConstant.shike_dyren.getKey() %>&#39;"></span>
         
-        <a id="shareQrcode" onclick="fenxiang()">分享赚10元<i class="iconfont icon-Toleft"></i></a>
+        <a id="shareQrcode" href="<%=ApiUtil.getUrl("/skm/fenxiang")%>">分享赚10元<i class="iconfont icon-Toleft"></i></a>
     </h3>
     <ul>
         <li onclick="location.href = #">
@@ -402,11 +403,6 @@
         myAlert("维护中...")
     }
 
-    function fenxiang() {
-        var yqm = "${user.id}";
-        yqm = ( "000000" + yqm ).substr( -6 );
-        myAlert("我的专属邀请码：" + yqm)
-    }
 
 </script>
         <div style="margin-bottom: 2rem;">

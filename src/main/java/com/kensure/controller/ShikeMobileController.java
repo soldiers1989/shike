@@ -1,10 +1,34 @@
 package com.kensure.controller;
 
+import java.util.List;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.lang.StringUtils;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import co.kensure.frame.Const;
 import co.kensure.http.RequestUtils;
 import co.kensure.mem.NumberUtils;
+import co.kensure.mem.QRUtils;
+import co.kensure.mem.StringKSUtils;
+
 import com.alibaba.fastjson.JSONObject;
-import com.kensure.shike.baobei.model.*;
-import com.kensure.shike.baobei.service.*;
+import com.kensure.shike.baobei.model.SKBaobei;
+import com.kensure.shike.baobei.model.SKJindian;
+import com.kensure.shike.baobei.model.SKJysj;
+import com.kensure.shike.baobei.model.SKSkqk;
+import com.kensure.shike.baobei.model.SKWord;
+import com.kensure.shike.baobei.service.SKBaobeiService;
+import com.kensure.shike.baobei.service.SKJindianService;
+import com.kensure.shike.baobei.service.SKJysjService;
+import com.kensure.shike.baobei.service.SKSkqkService;
+import com.kensure.shike.baobei.service.SKWordService;
 import com.kensure.shike.dianpu.model.SKDianPu;
 import com.kensure.shike.dianpu.service.SKDianPuService;
 import com.kensure.shike.sys.model.SKCMS;
@@ -16,16 +40,6 @@ import com.kensure.shike.zhang.model.SkUserJinbi;
 import com.kensure.shike.zhang.service.SKUserYueService;
 import com.kensure.shike.zhang.service.SkUserFansService;
 import com.kensure.shike.zhang.service.SkUserJinbiService;
-import org.apache.commons.lang.StringUtils;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 
 /**
  * 试客手机端页面
@@ -42,13 +56,13 @@ public class ShikeMobileController {
 
 	@Resource
 	private SKJindianService sKJindianService;
-	
+
 	@Resource
 	private SKWordService sKWordService;
-	
+
 	@Resource
 	private SKSkqkService sKSkqkService;
-	
+
 	@Resource
 	private SKUserService sKUserService;
 
@@ -69,7 +83,6 @@ public class ShikeMobileController {
 
 	@Resource
 	private SKJysjService skJysjService;
-
 
 	// 首页
 	@RequestMapping("index")
@@ -118,6 +131,7 @@ public class ShikeMobileController {
 	// 注册
 	@RequestMapping("regist")
 	public String regist(HttpServletRequest req, HttpServletResponse rep, Model model) {
+		RequestUtils.paramToAttr(req);
 		return "page/mobile/mine/regist.jsp";
 	}
 
@@ -138,12 +152,25 @@ public class ShikeMobileController {
 	public String dyren(HttpServletRequest req, HttpServletResponse rep, Model model) {
 		return "page/mobile/mine/dyren.jsp";
 	}
+	
+	// 分享二维码页面
+	@RequestMapping("fenxiang")
+	public String fenxiang(HttpServletRequest req, HttpServletResponse rep, Model model) {
+		SKUser user = sKUserService.getUser();
+		String id = user.getId()+"";
+		id = StringKSUtils.autoGenericCode6(id);
+		String path = "/filetemp/qr/"+id+".png";
+		QRUtils.genQR(300, 300, "http://www.52shibei.com/shike/skm/regist?refereeId="+id, Const.ROOT_PATH+path);	
+		req.setAttribute("code", id);
+		req.setAttribute("path", path);
+		return "page/mobile/mine/fenxiang.jsp";
+	}
 
 	// 账户安全页面
 	@RequestMapping("zhanghu")
 	public String zhanghu(HttpServletRequest req, HttpServletResponse rep, Model model) {
-        SKUser user = sKUserService.getUser();
-        req.setAttribute("user", user);
+		SKUser user = sKUserService.getUser();
+		req.setAttribute("user", user);
 		return "page/mobile/mine/zhanghu.jsp";
 	}
 
@@ -192,38 +219,37 @@ public class ShikeMobileController {
 		Long id = json.getLong("id");
 		SKUser user = sKUserService.getUser();
 		SKSkqk skqk = sKSkqkService.getQkByBBId(id, user.getId());
-		//试客情况
-		int status = skqk.getStatus().intValue();	
-		
+		// 试客情况
+		int status = skqk.getStatus().intValue();
+
 		SKBaobei baobei = sKBaobeiService.getSKBaobei(id);
 		req.setAttribute("baobei", baobei);
 		req.setAttribute("user", user);
-		
-		//加购物车
-		if(status<18){
+
+		// 加购物车
+		if (status < 18) {
 			List<SKWord> words = sKWordService.getList(id);
 			List<SKJindian> jindians = sKJindianService.getList(id);
 			req.setAttribute("words", words);
 			req.setAttribute("jindians", jindians);
-			//货比三家
-			if(status < 11 && baobei.getHbsj() != null ){
+			// 货比三家
+			if (status < 11 && baobei.getHbsj() != null) {
 				return "page/mobile/liucheng/hbsj.jsp";
-			}else{		
+			} else {
 				return "page/mobile/liucheng/gouwuche.jsp";
-			}		
-		}else if(status == 18){
-			//收藏关注
+			}
+		} else if (status == 18) {
+			// 收藏关注
 			return "page/mobile/liucheng/scgz.jsp";
-		}else if(status == 51){
-			//确认宝贝、提交付款订单
+		} else if (status == 51) {
+			// 确认宝贝、提交付款订单
 			return "page/mobile/liucheng/ddan.jsp";
-		}else if(status == 71){
-			//反馈好评晒图
+		} else if (status == 71) {
+			// 反馈好评晒图
 			return "page/mobile/liucheng/haop.jsp";
 		}
-		return null;		
+		return null;
 	}
-
 
 	// 我的活动页面
 	@RequestMapping("wdhd")
@@ -251,7 +277,7 @@ public class ShikeMobileController {
 		req.setAttribute("baobei", baobei);
 		return "page/mobile/liucheng/haop.jsp";
 	}
-	
+
 	// 余额页面
 	@RequestMapping("yue")
 	public String yue(HttpServletRequest req, HttpServletResponse rep, Model model) {
@@ -279,30 +305,30 @@ public class ShikeMobileController {
 
 		SKUserYue yue = skUserYueService.selectOne(user.getId());
 
-        List<SkUserJinbi> list = skUserJinbiService.getTodayQiandao();
+		List<SkUserJinbi> list = skUserJinbiService.getTodayQiandao();
 
-        // 判断当天是否已经签到
-        Boolean isQiaodao = false;
-        if (!list.isEmpty()) {
-            isQiaodao = true;
-        }
+		// 判断当天是否已经签到
+		Boolean isQiaodao = false;
+		if (!list.isEmpty()) {
+			isQiaodao = true;
+		}
 
-        req.setAttribute("type", type);
-        req.setAttribute("isQiaodao", isQiaodao);  // 当天是都已经签到
+		req.setAttribute("type", type);
+		req.setAttribute("isQiaodao", isQiaodao); // 当天是都已经签到
 		req.setAttribute("user", user);
 		req.setAttribute("yue", yue);
 		Integer jinbi = 0;
-        if (yue != null) {
-            jinbi = yue.getJinbi().intValue();
-        }
-        req.setAttribute("jinbi", jinbi);
+		if (yue != null) {
+			jinbi = yue.getJinbi().intValue();
+		}
+		req.setAttribute("jinbi", jinbi);
 		return "page/mobile/mine/jinbi.jsp";
 	}
 
 	// 金币明细页面
 	@RequestMapping("jinbimx")
 	public String jinbimx(HttpServletRequest req, HttpServletResponse rep, Model model) {
-        String inorout = req.getParameter("inorout");
+		String inorout = req.getParameter("inorout");
 
 		SKUser user = sKUserService.getUser();
 		SKUserYue yue = skUserYueService.selectOne(user.getId());
@@ -310,11 +336,11 @@ public class ShikeMobileController {
 		req.setAttribute("inorout", inorout);
 		req.setAttribute("user", user);
 		req.setAttribute("yue", yue);
-        Integer jinbi = 0;
-        if (yue != null) {
-            jinbi = yue.getJinbi().intValue();
-        }
-        req.setAttribute("jinbi", jinbi);
+		Integer jinbi = 0;
+		if (yue != null) {
+			jinbi = yue.getJinbi().intValue();
+		}
+		req.setAttribute("jinbi", jinbi);
 		return "page/mobile/mine/jinbimx.jsp";
 	}
 
@@ -323,29 +349,29 @@ public class ShikeMobileController {
 	public String tixian(HttpServletRequest req, HttpServletResponse rep, Model model) {
 		return "page/mobile/mine/tixian.jsp";
 	}
-	
+
 	// 明细页面
 	@RequestMapping("mingxi")
 	public String mingxi(HttpServletRequest req, HttpServletResponse rep, Model model) {
-        String inorout = req.getParameter("inorout");
+		String inorout = req.getParameter("inorout");
 
-        req.setAttribute("inorout", inorout);
+		req.setAttribute("inorout", inorout);
 		return "page/mobile/mine/mingxi.jsp";
 	}
-	
+
 	// 即将到账页面
 	@RequestMapping("jjdz")
 	public String jjdz(HttpServletRequest req, HttpServletResponse rep, Model model) {
 		return "page/mobile/lc/jjdz.jsp";
-	}	
+	}
 
 	// 我的
 	@RequestMapping("mine")
 	public String mine(HttpServletRequest req, HttpServletResponse rep, Model model) {
 
-        SKUser user = sKUserService.getUser();
+		SKUser user = sKUserService.getUser();
 
-        if (user == null) {
+		if (user == null) {
 			return "page/mobile/mine/login.jsp";
 		}
 
@@ -361,15 +387,15 @@ public class ShikeMobileController {
 		long fensiNum = sKUserService.getListByRefereeId().size();
 
 		// 邀请奖励的金币数
-        Long jinbiSum = skUserJinbiService.sumByType(3L);
+		Long jinbiSum = skUserJinbiService.sumByType(3L);
 
-        // 已到账奖金总数
-        Double ydzSum = skUserFansService.sumByStatus(9L);
+		// 已到账奖金总数
+		Double ydzSum = skUserFansService.sumByStatus(9L);
 
-        // 即将到账奖金总数
-        Double jjdzSum = skUserFansService.sumByStatus(1L);
+		// 即将到账奖金总数
+		Double jjdzSum = skUserFansService.sumByStatus(1L);
 
-        Integer jinbi = 0;
+		Integer jinbi = 0;
 		if (yue != null) {
 			jinbi = yue.getJinbi().intValue();
 		}
@@ -383,7 +409,7 @@ public class ShikeMobileController {
 		req.setAttribute("ydzSum", ydzSum);
 		req.setAttribute("jjdzSum", jjdzSum);
 
-        return "page/mobile/mine/mine.jsp";
+		return "page/mobile/mine/mine.jsp";
 	}
 
 	// 我的粉丝页面
@@ -396,7 +422,7 @@ public class ShikeMobileController {
 
 	// 帮助中心页面
 	@RequestMapping("help/{id}")
-	public String help(@PathVariable String id,  HttpServletRequest req, HttpServletResponse rep, Model model) {
+	public String help(@PathVariable String id, HttpServletRequest req, HttpServletResponse rep, Model model) {
 		List<SKCMS> sk = sKCMSService.selectByTypeId(2);
 
 		if (StringUtils.isNotBlank(id) && !"0".equals(id)) {
@@ -410,8 +436,8 @@ public class ShikeMobileController {
 	// 意见反馈页面
 	@RequestMapping("yijian")
 	public String yijian(HttpServletRequest req, HttpServletResponse rep, Model model) {
-        SKUser user = sKUserService.getUser();
-        req.setAttribute("user", user);
+		SKUser user = sKUserService.getUser();
+		req.setAttribute("user", user);
 		return "page/mobile/mine/yijian.jsp";
 	}
 
@@ -430,121 +456,121 @@ public class ShikeMobileController {
 	// 订单详情页面
 	@RequestMapping("ddxq")
 	public String ddxq(HttpServletRequest req, HttpServletResponse rep, Model model) {
-        SKUser user = sKUserService.getUser();
+		SKUser user = sKUserService.getUser();
 
-        Long id = Long.valueOf(req.getParameter("id"));
+		Long id = Long.valueOf(req.getParameter("id"));
 
-        SKSkqk skSkqk = sKSkqkService.selectOne(id);
-        SKBaobei skBaobei = sKBaobeiService.getSKBaobei(skSkqk.getBbid());
-        SKDianPu skDianPu = skDianPuService.selectOne(skBaobei.getDpid());
+		SKSkqk skSkqk = sKSkqkService.selectOne(id);
+		SKBaobei skBaobei = sKBaobeiService.getSKBaobei(skSkqk.getBbid());
+		SKDianPu skDianPu = skDianPuService.selectOne(skBaobei.getDpid());
 
-        List<SKJysj> skJysjs = skJysjService.selectByBbidAndUserid(skBaobei.getId(), user.getId());
+		List<SKJysj> skJysjs = skJysjService.selectByBbidAndUserid(skBaobei.getId(), user.getId());
 
-        for (SKJysj skJysj : skJysjs) {
-            // 购物车（店铺名）
-            if ("dpm".equals(skJysj.getBusitype())) {
-                req.setAttribute("dpm", skJysj);
-            }
-            // 收藏
-            if ("sc".equals(skJysj.getBusitype())) {
-                req.setAttribute("sc", skJysj);
-            }
-            // 关注
-            if ("gz".equals(skJysj.getBusitype())) {
-                req.setAttribute("gz", skJysj);
-            }
-            // 订单
-            if ("dd".equals(skJysj.getBusitype())) {
-                req.setAttribute("dd", skJysj);
-            }
-            // 订单号
-            if ("ddh".equals(skJysj.getBusitype())) {
-                req.setAttribute("ddh", skJysj);
-            }
-            // 好评
-            if ("hp".equals(skJysj.getBusitype())) {
-                req.setAttribute("hp", skJysj);
-            }
-            // 好评图
-            if ("hpy".equals(skJysj.getBusitype())) {
-                req.setAttribute("hpy", skJysj);
-            }
-        }
+		for (SKJysj skJysj : skJysjs) {
+			// 购物车（店铺名）
+			if ("dpm".equals(skJysj.getBusitype())) {
+				req.setAttribute("dpm", skJysj);
+			}
+			// 收藏
+			if ("sc".equals(skJysj.getBusitype())) {
+				req.setAttribute("sc", skJysj);
+			}
+			// 关注
+			if ("gz".equals(skJysj.getBusitype())) {
+				req.setAttribute("gz", skJysj);
+			}
+			// 订单
+			if ("dd".equals(skJysj.getBusitype())) {
+				req.setAttribute("dd", skJysj);
+			}
+			// 订单号
+			if ("ddh".equals(skJysj.getBusitype())) {
+				req.setAttribute("ddh", skJysj);
+			}
+			// 好评
+			if ("hp".equals(skJysj.getBusitype())) {
+				req.setAttribute("hp", skJysj);
+			}
+			// 好评图
+			if ("hpy".equals(skJysj.getBusitype())) {
+				req.setAttribute("hpy", skJysj);
+			}
+		}
 
-        req.setAttribute("skSkqk", skSkqk);
-        req.setAttribute("skBaobei", skBaobei);
-        req.setAttribute("skDianPu", skDianPu);
-        return "page/mobile/wdhd/ddxq.jsp";
+		req.setAttribute("skSkqk", skSkqk);
+		req.setAttribute("skBaobei", skBaobei);
+		req.setAttribute("skDianPu", skDianPu);
+		return "page/mobile/wdhd/ddxq.jsp";
 	}
 
 	// 修改收藏关注页面
 	@RequestMapping("xgscgz")
 	public String xgscgz(HttpServletRequest req, HttpServletResponse rep, Model model) {
-        SKUser user = sKUserService.getUser();
-        Long id = Long.valueOf(req.getParameter("id"));
+		SKUser user = sKUserService.getUser();
+		Long id = Long.valueOf(req.getParameter("id"));
 
-        SKSkqk skSkqk = sKSkqkService.selectOne(id);
-        List<SKJysj> skJysjs = skJysjService.selectByBbidAndUserid(skSkqk.getBbid(), user.getId());
+		SKSkqk skSkqk = sKSkqkService.selectOne(id);
+		List<SKJysj> skJysjs = skJysjService.selectByBbidAndUserid(skSkqk.getBbid(), user.getId());
 
-        for (SKJysj skJysj : skJysjs) {
-            // 收藏
-            if ("sc".equals(skJysj.getBusitype())) {
-                req.setAttribute("sc", skJysj);
-            }
-            // 关注
-            if ("gz".equals(skJysj.getBusitype())) {
-                req.setAttribute("gz", skJysj);
-            }
-        }
-        req.setAttribute("skSkqk", skSkqk);
+		for (SKJysj skJysj : skJysjs) {
+			// 收藏
+			if ("sc".equals(skJysj.getBusitype())) {
+				req.setAttribute("sc", skJysj);
+			}
+			// 关注
+			if ("gz".equals(skJysj.getBusitype())) {
+				req.setAttribute("gz", skJysj);
+			}
+		}
+		req.setAttribute("skSkqk", skSkqk);
 		return "page/mobile/wdhd/xgscgz.jsp";
 	}
 
 	// 修改订单页面
 	@RequestMapping("xgdd")
 	public String xgdd(HttpServletRequest req, HttpServletResponse rep, Model model) {
-        SKUser user = sKUserService.getUser();
-        Long id = Long.valueOf(req.getParameter("id"));
+		SKUser user = sKUserService.getUser();
+		Long id = Long.valueOf(req.getParameter("id"));
 
-        SKSkqk skSkqk = sKSkqkService.selectOne(id);
-        List<SKJysj> skJysjs = skJysjService.selectByBbidAndUserid(skSkqk.getBbid(), user.getId());
+		SKSkqk skSkqk = sKSkqkService.selectOne(id);
+		List<SKJysj> skJysjs = skJysjService.selectByBbidAndUserid(skSkqk.getBbid(), user.getId());
 
-        for (SKJysj skJysj : skJysjs) {
-            // 订单图片
-            if ("dd".equals(skJysj.getBusitype())) {
-                req.setAttribute("dd", skJysj);
-            }
-            // 订单号码
-            if ("ddh".equals(skJysj.getBusitype())) {
-                req.setAttribute("ddh", skJysj);
-            }
-        }
-        req.setAttribute("skSkqk", skSkqk);
+		for (SKJysj skJysj : skJysjs) {
+			// 订单图片
+			if ("dd".equals(skJysj.getBusitype())) {
+				req.setAttribute("dd", skJysj);
+			}
+			// 订单号码
+			if ("ddh".equals(skJysj.getBusitype())) {
+				req.setAttribute("ddh", skJysj);
+			}
+		}
+		req.setAttribute("skSkqk", skSkqk);
 		return "page/mobile/wdhd/xgdd.jsp";
 	}
 
 	// 修改好评页面
 	@RequestMapping("xghp")
 	public String xghp(HttpServletRequest req, HttpServletResponse rep, Model model) {
-        SKUser user = sKUserService.getUser();
-        Long id = Long.valueOf(req.getParameter("id"));
+		SKUser user = sKUserService.getUser();
+		Long id = Long.valueOf(req.getParameter("id"));
 
-        SKSkqk skSkqk = sKSkqkService.selectOne(id);
-        List<SKJysj> skJysjs = skJysjService.selectByBbidAndUserid(skSkqk.getBbid(), user.getId());
+		SKSkqk skSkqk = sKSkqkService.selectOne(id);
+		List<SKJysj> skJysjs = skJysjService.selectByBbidAndUserid(skSkqk.getBbid(), user.getId());
 
-        for (SKJysj skJysj : skJysjs) {
-            // 好评文字
-            if ("hpy".equals(skJysj.getBusitype())) {
-                req.setAttribute("hpy", skJysj);
-            }
-            // 好评图片
-            if ("hp".equals(skJysj.getBusitype())) {
-                String[] hptps = skJysj.getContent().split("sktag");
-                req.setAttribute("hptps", hptps);
-                req.setAttribute("hp", skJysj);
-            }
-        }
-        req.setAttribute("skSkqk", skSkqk);
+		for (SKJysj skJysj : skJysjs) {
+			// 好评文字
+			if ("hpy".equals(skJysj.getBusitype())) {
+				req.setAttribute("hpy", skJysj);
+			}
+			// 好评图片
+			if ("hp".equals(skJysj.getBusitype())) {
+				String[] hptps = skJysj.getContent().split("sktag");
+				req.setAttribute("hptps", hptps);
+				req.setAttribute("hp", skJysj);
+			}
+		}
+		req.setAttribute("skSkqk", skSkqk);
 		return "page/mobile/wdhd/xghp.jsp";
 	}
 
@@ -563,10 +589,10 @@ public class ShikeMobileController {
 		}
 
 		// 当天剩余抽奖数
-        Integer todayCj = skUserJinbiService.countTodayCj();
+		Integer todayCj = skUserJinbiService.countTodayCj();
 
-        req.setAttribute("jinbi", jinbi);
-        req.setAttribute("todayCj", todayCj);
+		req.setAttribute("jinbi", jinbi);
+		req.setAttribute("todayCj", todayCj);
 		return "page/mobile/index/jbcj.jsp";
 	}
 

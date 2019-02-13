@@ -193,6 +193,7 @@ public class TaoBaoService extends JSBaseService {
 		try {
 			Map<String, String> params = MapUtils.genStringMap("account",account);	
 			Map<String, String> headers = MapUtils.genStringMap("Cookie","PHPSESSID="+sessionid+";");	
+			headers.put("Host", "taodaxiang.com");
 			html = HttpUtils.postParams(geturl, params,headers);
 		} catch (Exception e) {
 			BusinessExceptionUtil.threwException("获取账号信息出错", e);
@@ -204,7 +205,7 @@ public class TaoBaoService extends JSBaseService {
 		// fenxi();
 		
 		String url = "fankaidilingzhi";
-		String html = postTaobaoZhangHao(url,"tq2rrl66necjb31poavg2f5jp1");
+		String html = postTaobaoZhangHao(url,"idbpkmsegofvk01eg894emqle1");
 		System.out.println(html);
 	}
 

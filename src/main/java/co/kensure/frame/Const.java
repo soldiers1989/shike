@@ -3,7 +3,7 @@ package co.kensure.frame;
 /**
  * Const
  *
- * @author Yingjie yao
+ * @author fankd
  * @date 2016/11/10
  */
 public class Const {

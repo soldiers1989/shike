@@ -83,5 +83,24 @@ public class StringKSUtils {
 		}
 		return str;
 	}
+	
+	/**
+     * 6位补0
+     * @param code
+     * @return
+     */
+	public static String autoGenericCode6(String code) {
+    	int size = code.length()-6;
+    	if(size<0){
+    		String result = "000000"+ code;
+    		result = result.substring(code.length());
+    		return  result;
+    	}else{
+    		return code;
+    	}
+    }
+	
+	
+	
 
 }

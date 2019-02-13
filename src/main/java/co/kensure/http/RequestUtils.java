@@ -38,15 +38,44 @@ public class RequestUtils {
 		while (enu.hasMoreElements()) {
 			String paraName = (String) enu.nextElement();
 			String value = request.getParameter(paraName);
-			if(StringUtils.isNotBlank(value) && value.startsWith("[")){
+			if (StringUtils.isNotBlank(value) && value.startsWith("[")) {
 				json.put(paraName, JSONObject.parseArray(value));
-			}else if(StringUtils.isNotBlank(value) && value.startsWith("{")){
+			} else if (StringUtils.isNotBlank(value) && value.startsWith("{")) {
 				json.put(paraName, JSONObject.parseObject(value));
-			}else{
+			} else {
 				json.put(paraName, value);
-			}			
+			}
 		}
 		return json;
+	}
+
+	/**
+	 * 将request中的参数设置到setAttribute，方便jsp获取
+	 * 
+	 * @param request
+	 * @return
+	 */
+	public static void paramToAttr(HttpServletRequest request) {
+		Enumeration<String> enu = request.getParameterNames();
+		while (enu.hasMoreElements()) {
+			String paraName = (String) enu.nextElement();
+			String value = request.getParameter(paraName);
+			request.setAttribute(paraName, value);
+		}
+	}
+
+	/**
+	 * getAttribute，返回string，如果为空，返回空格
+	 * 
+	 * @param request
+	 * @return
+	 */
+	public static String getStringIfNullBlank(HttpServletRequest request, String paraName) {
+		String value = (String) request.getAttribute(paraName);
+		if (value == null) {
+			value = "";
+		}
+		return value;
 	}
 
 	/**
@@ -60,7 +89,7 @@ public class RequestUtils {
 		int type = 2;
 		if (requestHeader == null)
 			return type;
-		String[] deviceArray = new String[] { "android", "iPhone","iPad", "windows phone" };
+		String[] deviceArray = new String[] { "android", "iPhone", "iPad", "windows phone" };
 		requestHeader = requestHeader.toLowerCase();
 		for (int i = 0; i < deviceArray.length; i++) {
 			if (requestHeader.indexOf(deviceArray[i]) > 0) {
@@ -105,7 +134,7 @@ public class RequestUtils {
 		}
 		return request.getRemoteAddr();
 	}
-	
+
 	/**
 	 * 获取用户直接ip
 	 * 
@@ -115,7 +144,7 @@ public class RequestUtils {
 	public static String getDip(HttpServletRequest request) {
 		return request.getRemoteAddr();
 	}
-	
+
 	/**
 	 * 获取前一个url
 	 * 
@@ -123,13 +152,10 @@ public class RequestUtils {
 	 * @return 前一个url
 	 */
 	public static String getReferer(HttpServletRequest request) {
-		String  request_url=request.getHeader("Referer");   
+		String request_url = request.getHeader("Referer");
 		return request_url;
 	}
-	
 
-	
-	
 	/**
 	 * 是否移动手机用户
 	 * 
