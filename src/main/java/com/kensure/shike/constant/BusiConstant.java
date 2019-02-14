@@ -17,8 +17,6 @@ public class BusiConstant {
 	 */
 	public static final String shangjiapath = context + "/page/shangjia/ss";
 	public static final String shangjiacss = context + "/page/shangjia/css";
-	
-	public static final String dddd = "footer.jsp";
 	/**
 	 * 商家页面资源路径
 	 */
@@ -28,8 +26,6 @@ public class BusiConstant {
 	public static final String name = "试呗网";
 	// 公司名称
 	public static final String gsname = "广西南宁试呗网络科技有限公司";
-	// 公司邮箱
-	public static final String gsmail = "fankaidid@163.com";
 	// 公司qq
 	public static final String gsqq = "64202412";
 	// 公司支付宝
