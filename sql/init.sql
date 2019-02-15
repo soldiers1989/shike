@@ -70,6 +70,7 @@ CREATE TABLE `sk_user` (
    audit_status tinyint(1) NOT NULL COMMENT '审核状态 0:未审核  1:通过  2:不通过 (试客用户使用)',
   `created_time` datetime NOT NULL COMMENT '创建时间',
   `updated_time` datetime NOT NULL COMMENT '更新时间',
+  `first_shoptime` datetime COMMENT '第一次完成任务时间',
   PRIMARY KEY (`id`),
   KEY `idx_sk_user_referee_id` (`referee_id`)
 );

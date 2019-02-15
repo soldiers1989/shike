@@ -24,6 +24,7 @@
 		source,
 		audit_status as auditStatus,
 		remark as remark,
+		first_shoptime as firstShoptime,
 		created_time as createdTime,
 		updated_time as updatedTime
     </sql>
@@ -273,7 +274,10 @@
 		</if>
 		<if test="updatedTime != null">
 			updated_time = #{updatedTime}
-		</if>	
+		</if>
+		<if test="firstShoptime != null">
+			first_shoptime = #{firstShoptime}
+		</if>
 	</sql>
 	
 	<update id="update" parameterType="com.kensure.shike.user.model.SKUser">

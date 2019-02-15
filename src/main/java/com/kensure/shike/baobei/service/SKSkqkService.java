@@ -508,8 +508,14 @@ public class SKSkqkService extends JSBaseService {
 		obj.setStatus(99L);
 		// 新人到账
 		skUserFansService.newUser(obj.getUserid());
-
 		updateStatus(obj.getId(), 99L);
+		
+		//如果是第一次完成任务，更新first_shoptime
+		SKUser user = sKUserService.selectOne(obj.getUserid());
+		if(user != null && user.getFirstShoptime() == null){
+			user.setFirstShoptime(new Date());
+			sKUserService.update(user);
+		}
 	}
 
 	/**

@@ -11,6 +11,8 @@
  */
 package com.kensure.shike.user.model;
 
+import java.util.Date;
+
 import com.kensure.shike.baobei.model.SKTaobao;
 
 import co.kensure.frame.BaseInfo;;
@@ -95,6 +97,9 @@ public class SKUser extends BaseInfo{
 
 	/**活动中奖数*/
 	private Long zjNum;
+	
+	/**第一次完成消费的时间*/
+	private Date firstShoptime;
 	
 	private SKTaobao sKTaobao;
 
@@ -294,4 +299,13 @@ public class SKUser extends BaseInfo{
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
+
+	public Date getFirstShoptime() {
+		return firstShoptime;
+	}
+
+	public void setFirstShoptime(Date firstShoptime) {
+		this.firstShoptime = firstShoptime;
+	}
+	
 }
