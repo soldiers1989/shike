@@ -7,6 +7,7 @@
 <%
     String context = BusiConstant.shikemobilepath;
     SKBaobei baobei = (SKBaobei)request.getAttribute("baobei");
+    SKBaobeiTP firsttp = (SKBaobeiTP)request.getAttribute("firsttp");
 %>
 <!DOCTYPE html>
 <html lang="zh" style="font-size: 22.125px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -235,7 +236,7 @@
 <div style="height: 2rem;"></div>
 <div class="freeapp">
     <div class="printapp">
-        <img class="img" src="${baobei.zturl}">
+        <img src="<%=firsttp.getUrl()%>">
     </div>
     <div class="titleadd">
         <div class="title_oneap">

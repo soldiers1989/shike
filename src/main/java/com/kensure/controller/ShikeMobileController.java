@@ -20,11 +20,13 @@ import co.kensure.mem.StringKSUtils;
 
 import com.alibaba.fastjson.JSONObject;
 import com.kensure.shike.baobei.model.SKBaobei;
+import com.kensure.shike.baobei.model.SKBaobeiTP;
 import com.kensure.shike.baobei.model.SKJindian;
 import com.kensure.shike.baobei.model.SKJysj;
 import com.kensure.shike.baobei.model.SKSkqk;
 import com.kensure.shike.baobei.model.SKWord;
 import com.kensure.shike.baobei.service.SKBaobeiService;
+import com.kensure.shike.baobei.service.SKBaobeiTPService;
 import com.kensure.shike.baobei.service.SKJindianService;
 import com.kensure.shike.baobei.service.SKJysjService;
 import com.kensure.shike.baobei.service.SKSkqkService;
@@ -83,6 +85,10 @@ public class ShikeMobileController {
 
 	@Resource
 	private SKJysjService skJysjService;
+	
+	@Resource
+	private SKBaobeiTPService sKBaobeiTPService;
+	
 
 	// 首页
 	@RequestMapping("index")
@@ -223,8 +229,14 @@ public class ShikeMobileController {
 		int status = skqk.getStatus().intValue();
 
 		SKBaobei baobei = sKBaobeiService.getSKBaobei(id);
+		
+		//宝贝第一个图片
+		List<SKBaobeiTP> tplist = sKBaobeiTPService.getList(id);
+		SKBaobeiTP firsttp = tplist.get(0);
+		
 		req.setAttribute("baobei", baobei);
 		req.setAttribute("user", user);
+		req.setAttribute("firsttp", firsttp);
 
 		// 加购物车
 		if (status < 18) {

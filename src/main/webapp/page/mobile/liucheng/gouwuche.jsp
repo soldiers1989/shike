@@ -1,3 +1,4 @@
+<%@page import="com.kensure.shike.baobei.model.SKBaobeiTP"%>
 <%@page import="com.kensure.shike.baobei.model.SKJindian"%>
 <%@page import="java.util.List"%>
 <%@page import="com.kensure.shike.constant.BusiConstant"%>
@@ -47,6 +48,7 @@
 	}
 
 	request.setAttribute("type", type);
+    SKBaobeiTP firsttp = (SKBaobeiTP)request.getAttribute("firsttp");
 %>
 <!DOCTYPE html>
 <html lang="zh" style="font-size: 31.125px;">
@@ -135,7 +137,7 @@
 	<div style="height: 2rem"></div>
 	<div class="Flow">
 		<div class="Flow-hd">
-			<img src="${baobei.zturl}">
+			<img src="<%=firsttp.getUrl()%>">
 
 			<ul>
 				<li><span class="iconfont icon-tb"></span> <span>${baobei.title}</span></li>

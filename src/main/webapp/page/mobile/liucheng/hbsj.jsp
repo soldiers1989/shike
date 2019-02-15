@@ -1,3 +1,4 @@
+<%@page import="com.kensure.shike.baobei.model.SKBaobeiTP"%>
 <%@page import="com.kensure.shike.baobei.model.SKWord"%>
 <%@page import="com.kensure.shike.user.model.SKUser"%>
 <%@page import="java.util.List"%>
@@ -17,6 +18,7 @@
   	for(SKWord skWord : words) {
 		wordStr += skWord.getWord()+"<br>";
 	}
+    SKBaobeiTP firsttp = (SKBaobeiTP)request.getAttribute("firsttp");
 %>
 <!DOCTYPE html>
 <html lang="zh" style="font-size: 31.125px;">
@@ -105,7 +107,7 @@
 	<div style="height: 2rem"></div>
 	<div class="Flow">
 		<div class="Flow-hd">
-			<img src="${baobei.zturl}">
+			<img src="<%=firsttp.getUrl()%>">
 
 			<ul>
 				<li><span class="iconfont icon-tb"></span> <span>${baobei.title}</span></li>

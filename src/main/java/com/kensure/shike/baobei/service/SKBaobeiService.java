@@ -611,6 +611,12 @@ public class SKBaobeiService extends JSBaseService {
 		}
 		sk.setStatus(9L);
 		update(sk);
+		
+		//判断店铺是否通过审核
+		SKDianPu dianp = sKDianPuService.selectOne(sk.getDpid());
+		if(dianp != null && dianp.getStatus() != 9){
+			BusinessExceptionUtil.threwException("需要审核店铺!");
+		}		
 		// 修改账户信息
 		sKUserZhangService.commit(sk.getUserid(), 3L, sk.getId());
 		saveContent(id, sk.getUrl());

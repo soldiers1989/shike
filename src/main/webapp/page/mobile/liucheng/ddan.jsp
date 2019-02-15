@@ -1,3 +1,4 @@
+<%@page import="com.kensure.shike.baobei.model.SKBaobeiTP"%>
 <%@page import="com.kensure.shike.user.model.SKUser"%>
 <%@page import="java.util.List"%>
 <%@page import="com.kensure.shike.constant.BusiConstant"%>
@@ -7,6 +8,7 @@
     String context = BusiConstant.shikemobilepath;
     SKBaobei baobei = (SKBaobei)request.getAttribute("baobei");
     SKUser user = (SKUser)request.getAttribute("user");
+    SKBaobeiTP firsttp = (SKBaobeiTP)request.getAttribute("firsttp");
 %>
 <!DOCTYPE html>
 <html lang="zh" style="font-size: 22.125px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -84,7 +86,7 @@
     <input id="taobaoImg" type="hidden" value="<%=user.getTaobaoImg() %>"/>
     <div class="Flow">
         <div class="Flow-hd">
-            <img src="${baobei.zturl}">
+           <img src="<%=firsttp.getUrl()%>">
             <ul>
                 <li><span class="iconfont icon-tb"></span> <span>${baobei.title}</span></li>
                 <li>店铺名称：<span>${baobei.dpnameS}</span></li>
