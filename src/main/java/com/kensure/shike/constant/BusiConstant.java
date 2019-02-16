@@ -28,8 +28,6 @@ public class BusiConstant {
 	public static final String gsname = "广西南宁试呗网络科技有限公司";
 	// 公司qq
 	public static final String gsqq = "64202412";
-	// 公司支付宝
-	public static final String gsalipay = "www.52shibei.com";
 	// 公司银行名称
 	public static final String gsyhmc = "建设银行";
 	// 公司银行账户

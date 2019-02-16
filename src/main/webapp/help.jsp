@@ -19,6 +19,7 @@
 <tr><td>2</td> <td>应收设置</td><td><input type="button" value="应收设置" onclick="dosomething('yingshou.do')"/></td></tr>
 <tr><td>3</td> <td>查看数据源</td><td><a href="<%=context%>/druid/index.html" target="_blank">查看</a></td></tr>
 <tr><td>4</td> <td><a href="https://www.taodaxiang.com/credit2/" target="_blank">获取淘宝账号信息</a></td><td><input type="text" id="sid" value=""/><input type="button" value="获取" onclick="doother('/user/flash.do')"/></td></tr>
+<tr><td>5</td> <td>重置系统缓存</td><td><input type="button" value="重置" onclick="doother('/sysmanager/initsysconfig.do')"/></td></tr>
 </table>
 </div>
 </body>
