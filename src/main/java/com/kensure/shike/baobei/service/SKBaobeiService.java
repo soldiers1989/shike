@@ -753,12 +753,12 @@ public class SKBaobeiService extends JSBaseService {
 		SKUser skuser = sKUserService.getUser();
 		SKUserService.checkUserSK(skuser);
 		SKBaobei baobei = getSKBaobei(id);
-		if (baobei.getStatus() < 9) {
-			BusinessExceptionUtil.threwException("宝贝未通过审核");
-		}
-
+		
 		// status=21(关注收藏) 并且 活动类型为"必中商品"时，直接中奖
 		if (status == 21 && baobei.getHdtypeid() != null && baobei.getHdtypeid() == 4) {
+			if (baobei.getStatus() < 9) {
+				BusinessExceptionUtil.threwException("宝贝未通过审核");
+			}	
 			if(!sKUserService.isInvalid(skuser.getId())){
 				BusinessExceptionUtil.threwException("您的信息不完整，请填写完整");
 			}
@@ -769,10 +769,8 @@ public class SKBaobeiService extends JSBaseService {
 
 			sKSkqkService.save(baobei, 51, skuser);
 		} else {
-
 			sKSkqkService.save(baobei, status, skuser);
 		}
-
 		sKJysjService.save(baobei, status, jysjList);
 	}
 
