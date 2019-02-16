@@ -84,8 +84,8 @@ public class SKSkqkHelper extends JSBaseService {
 				}
 			}
 		} else if (status.intValue() == 51) {
-			// 中奖之后，2个小时的下单时间，如果超过2个小时，取消中奖
-			nextTime = DateUtils.getPastHour(now, 2);
+			// 中奖之后，24个小时的下单时间，如果超过24个小时，取消中奖
+			nextTime = DateUtils.getPastHour(now, 24);
 		} else if (status.intValue() == 61) {
 			// 这个是好评时间，好评时间有10天
 			nextTime = DateUtils.getPastDay(now, 2);
