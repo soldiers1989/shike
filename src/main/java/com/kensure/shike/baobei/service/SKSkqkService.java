@@ -258,7 +258,7 @@ public class SKSkqkService extends JSBaseService {
 	 * @return
 	 */
 	public boolean save(SKBaobei baobei, long status, SKUser skuser) {
-		if (baobei.getStatus() < 9 || baobei.getIsDel() == 1) {
+		if (baobei.getIsDel() == 1) {
 			BusinessExceptionUtil.threwException("该宝贝失效！");
 		}
 		SKSkqk qk = getQkByBBId(baobei.getId(), skuser.getId());
