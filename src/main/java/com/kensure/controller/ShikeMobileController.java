@@ -286,6 +286,10 @@ public class ShikeMobileController {
 		JSONObject json = RequestUtils.paramToJson(req);
 		Long id = json.getLong("id");
 		SKBaobei baobei = sKBaobeiService.getSKBaobei(id);
+		//宝贝第一个图片
+		List<SKBaobeiTP> tplist = sKBaobeiTPService.getList(id);
+		SKBaobeiTP firsttp = tplist.get(0);
+		req.setAttribute("firsttp", firsttp);
 		req.setAttribute("baobei", baobei);
 		return "page/mobile/liucheng/haop.jsp";
 	}
