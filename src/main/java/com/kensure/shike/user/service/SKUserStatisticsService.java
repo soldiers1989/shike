@@ -27,7 +27,7 @@ public class SKUserStatisticsService extends JSBaseService {
 	/**
 	 * 推荐人统计
 	 */
-	public List<SKUserTuiJian> selectByWhere(Map<String, Object> parameters) {
+	public List<SKUserTuiJian> selectTuiJian(Map<String, Object> parameters) {
 		return dao.selectTuiJian(parameters);
 	}
 
