@@ -41,6 +41,7 @@ import co.kensure.frame.JSBaseService;
 import co.kensure.mem.CollectionUtils;
 import co.kensure.mem.MapUtils;
 import co.kensure.mem.MobileUtils;
+import co.kensure.mem.NumberUtils;
 import co.kensure.sms.SMSClient;
 
 import com.kensure.basekey.BaseKeyService;
@@ -164,18 +165,6 @@ public class SKUserService extends JSBaseService {
 		return dao.updateByMap(params);
 	}
 
-	public boolean delete(Long id) {
-		return dao.delete(id);
-	}
-
-	public boolean deleteMulti(Collection<Long> ids) {
-		return dao.deleteMulti(ids);
-	}
-
-	public boolean deleteByWhere(Map<String, Object> parameters) {
-		return dao.deleteByWhere(parameters);
-	}
-
 	/**
 	 * 查询用户
 	 * 
@@ -198,11 +187,14 @@ public class SKUserService extends JSBaseService {
 			} else {
 				u.setYue(0D);
 			}
-
 			if(StringUtils.isNotBlank(u.getNoTaobao())){
 				u.setsKTaobao(sKTaobaoService.selectOne(u.getNoTaobao()));
 			}
-
+			//推荐人信息
+			if(!NumberUtils.isZero(u.getRefereeId())){
+				SKUser refereeUser = selectOne(u.getRefereeId());
+				u.setRefereeUser(refereeUser);
+			}
 			if (userQuery.getType() != null && userQuery.getType() == 1) {
                 // 活动申请数
                 long sqNum = skSkqkService.getSkqkCountByUserId(u.getId());
@@ -354,9 +346,6 @@ public class SKUserService extends JSBaseService {
 		ParamUtils.isBlankThrewException(sKUser.getName(), "用户名不能为空");
 		ParamUtils.isBlankThrewException(sKUser.getPassword(), "密码不能为空");
 		ParamUtils.isBlankThrewException(sKUser.getPhone(), "手机号不能为空");
-//		ParamUtils.isBlankThrewException(sKUser.getNoQq(), "qq不能为空");
-//		ParamUtils.isBlankThrewException(sKUser.getTaobaoImg(), "淘宝截图不能为空");
-//		ParamUtils.isBlankThrewException(sKUser.getAlipayImg(), "支付宝截图不能为空");
 		MobileUtils.checkMobile(sKUser.getPhone());
 	}
 
@@ -366,7 +355,6 @@ public class SKUserService extends JSBaseService {
 	 * @param sKUser
 	 */
 	private void invalidSKUser(SKUser sKUser) {
-		// ParamUtils.isBlankThrewException(sKUser.getNoAlipay(), "支付宝账户不能为空");
 		ParamUtils.isBlankThrewException(sKUser.getNoTaobao(), "淘宝账户不能为空");
 	}
 

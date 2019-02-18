@@ -28,6 +28,9 @@ public class SKUserListQuery extends BaseInfo {
 	/** 淘宝账号 */
 	private String noTaobao;
 	
+	/** 推荐人id */
+	private String refereeId;
+	
 	/**审核状态*/
 	private Integer auditStatus;
 
@@ -86,5 +89,12 @@ public class SKUserListQuery extends BaseInfo {
 	public void setAuditStatus(Integer auditStatus) {
 		this.auditStatus = auditStatus;
 	}
-	
+
+	public String getRefereeId() {
+		return refereeId;
+	}
+
+	public void setRefereeId(String refereeId) {
+		this.refereeId = refereeId;
+	}
 }

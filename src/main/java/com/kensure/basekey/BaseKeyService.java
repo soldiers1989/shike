@@ -1,14 +1,3 @@
-/*
- * 文件名称: BaseKeyServiceImpl.java
- * 版权信息: Copyright 2001-2017 hangzhou jingshu technology Co., LTD. All right reserved.
- * ----------------------------------------------------------------------------------------------
- * 修改历史:
- * ----------------------------------------------------------------------------------------------
- * 修改原因: 新增
- * 修改人员: fankd
- * 修改日期: 2018-3-13
- * 修改内容: 
- */
 package com.kensure.basekey;
 
 import java.sql.Connection;
@@ -29,8 +18,6 @@ import co.kensure.conn.ConnUtils;
 import co.kensure.exception.BusinessExceptionUtil;
 import co.kensure.mem.NumberUtils;
 
-
-
 /**
  * 主键表服务实现类
  * 
@@ -38,13 +25,16 @@ import co.kensure.mem.NumberUtils;
  * @since
  */
 @Service
-public class BaseKeyService  {
+public class BaseKeyService {
 
 	private final static Logger LOGGER = Logger.getLogger(BaseKeyService.class);
 
 	private final static String updateSQL = " update base_key set nowid=? ,update_date=? where id=?";
 	private final static String insertSQL = " insert into base_key (id,nowid,create_date,update_date) values(?,?,?,?)";
 	private final static String selectSQL = " select * from base_key where id=?";
+
+	// 主键步长
+	private final static long deptsize = 100;
 
 	@Resource
 	private DataSource dataSource;
@@ -57,7 +47,7 @@ public class BaseKeyService  {
 			pstmt = conn.prepareStatement(insertSQL);
 			Timestamp time = new Timestamp(System.currentTimeMillis());
 			pstmt.setString(1, obj.getId());
-			pstmt.setString(2, obj.getNowid());
+			pstmt.setString(2, obj.getMaxid() + "");
 			pstmt.setTimestamp(3, time);
 			pstmt.setTimestamp(4, time);
 			pstmt.executeUpdate();
@@ -83,7 +73,7 @@ public class BaseKeyService  {
 			conn = dataSource.getConnection();
 			pstmt = conn.prepareStatement(updateSQL);
 			Timestamp time = new Timestamp(System.currentTimeMillis());
-			pstmt.setString(1, obj.getNowid());
+			pstmt.setString(1, obj.getMaxid() + "");
 			pstmt.setTimestamp(2, time);
 			pstmt.setString(3, obj.getId());
 			pstmt.executeUpdate();
@@ -95,7 +85,7 @@ public class BaseKeyService  {
 		}
 		return true;
 	}
-	
+
 	/**
 	 * 查询这个记录
 	 * 
@@ -111,11 +101,11 @@ public class BaseKeyService  {
 			pstmt = conn.prepareStatement(selectSQL);
 			pstmt.setString(1, id);
 			ResultSet rs = pstmt.executeQuery();
-			while(rs.next()){
+			while (rs.next()) {
 				bk = new BaseKey();
 				bk.setId(id);
-				bk.setNowid(rs.getString("nowid"));
-			}		
+				bk.setNowid(NumberUtils.parseLong(rs.getString("nowid"), null));
+			}
 		} catch (SQLException e) {
 			LOGGER.error(e);
 			BusinessExceptionUtil.threwException(e);
@@ -139,13 +129,12 @@ public class BaseKeyService  {
 		}
 		return key;
 	}
-	
-	
-	public void clearCache(){
+
+	public void clearCache() {
 		keyMap.clear();
 	}
 
-	private static Map<String, Long> keyMap = new HashMap<>();
+	private static Map<String, BaseKey> keyMap = new HashMap<>();
 
 	/**
 	 * 优先从缓存里面取
@@ -153,19 +142,18 @@ public class BaseKeyService  {
 	 * @return
 	 */
 	private synchronized Long getKeyCache(String tableName) {
-		Long id = keyMap.get(tableName);
-		if (NumberUtils.isZero(id)) {
+		BaseKey basekey = keyMap.get(tableName);
+		Long id = null;
+		if (basekey == null) {
 			return null;
 		} else {
-			Long nextId = id + 1;
-			// 100的倍数，就需要修改数据库，让他加100;
-			if (nextId % 100 == 0) {
-				BaseKey bk = new BaseKey();
-				bk.setId(tableName);
-				bk.setNowid((nextId + 100) + "");
-				update(bk);
+			id = basekey.getNowid();
+			// 如果大于最大值了，就不能取了
+			if (id.compareTo(basekey.getMaxid()) == 1) {
+				return null;
 			}
-			keyMap.put(tableName, nextId);
+			Long nextId = id + 1;
+			basekey.setNowid(nextId);
 		}
 		return id;
 	}
@@ -186,19 +174,21 @@ public class BaseKeyService  {
 		if (bk == null) {
 			bk = new BaseKey();
 			bk.setId(tableName);
-			bk.setNowid("100");
+			bk.setNowid(1l);
+			bk.setMaxid(deptsize);
+			bk.setMinid(1l);
 			insert(bk);
-			id = 1l;
 		} else {
-			id = NumberUtils.parseLong(bk.getNowid(), 100l);
-			bk = new BaseKey();
-			bk.setId(tableName);
-			bk.setNowid((id + 100) + "");
+			Long lastId = bk.getNowid();
+			bk.setNowid(lastId + 1);
+			bk.setMaxid(lastId + deptsize);
+			bk.setMinid(lastId + 1);
 			update(bk);
 		}
-		Long nextId = id + 1;
-		keyMap.put(tableName, nextId);
-		return id;
+		Long nextId = bk.getNowid();
+		bk.setNowid(bk.getNowid() + 1);
+		keyMap.put(tableName, bk);
+		return nextId;
 	}
 
 }

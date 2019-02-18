@@ -29,6 +29,10 @@
 				<li class="left_titi "><strong><i class="iconfont icon-zhanghuxinxi"></i>试客管理</strong> <iclass="iconfont icon-Toleft il5 ft_up_down"style="color: rgb(102, 102, 102);"></i></li>
 				<li parentid="4"><a href="<%=BusiConstant.ht_sklist.getKey() %>" id="openWindows31" target="_self">试客列表</a></li>
 				<li parentid="4"><a href="<%=ApiUtil.getUrl("/gl/skqklist") %>" id="openWindows31" target="_self">试客试用情况</a></li>
+				
+				<li class="left_titi "><strong><i class="iconfont icon-zhanghuxinxi"></i>信息统计</strong> <iclass="iconfont icon-Toleft il5 ft_up_down"style="color: rgb(102, 102, 102);"></i></li>
+				<li ><a href="<%=BusiConstant.ht_sklist.getKey() %>" id="openWindows31" target="_self">推荐试客统计</a></li>
+				<li ><a href="<%=ApiUtil.getUrl("/gl/skqklist") %>" id="openWindows31" target="_self">推荐有效试客</a></li>
 
 			<div id="cwdiv">
 				<li class="left_titi "><strong><i class="iconfont icon-zhanghuxinxi"></i>资金管理 </strong> <i

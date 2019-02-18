@@ -154,6 +154,18 @@ public class GLPageController {
 		req.setAttribute("bodypage", body);
 		return "page/shangjia/index.jsp";
 	}
+	
+	// 推荐试客统计
+	@RequestMapping("tjsktj")
+	public String tjsktj(HttpServletRequest req, HttpServletResponse rep, Model model) {
+		req.setAttribute("index", indexlist);
+		List<String> body = new ArrayList<String>();
+		body.add("indexht_left.jsp");
+		body.add("tjsktj_right.jsp");
+		req.setAttribute("bodypage", body);
+		return "page/shangjia/index.jsp";
+	}
+
 
 	// 消息中心
 	@RequestMapping("cms")

@@ -1,14 +1,3 @@
-/*
- * 文件名称: SKBaobeiServiceImpl.java
- * 版权信息: Copyright 2001-2017 hangzhou jingshu technology Co., LTD. All right reserved.
- * ----------------------------------------------------------------------------------------------
- * 修改历史:
- * ----------------------------------------------------------------------------------------------
- * 修改原因: 新增
- * 修改人员: fankd
- * 修改日期: 2018-9-8
- * 修改内容: 
- */
 package com.kensure.shike.baobei.service;
 
 import java.util.ArrayList;
@@ -105,10 +94,9 @@ public class SKBaobeiService extends JSBaseService {
 
 	@Resource
 	private SKHbsjService sKHbsjService;
-	
+
 	@Resource
 	private SKChouJiangService sKChouJiangService;
-	
 
 	public SKBaobei selectOne(Long id) {
 		return dao.selectOne(id);
@@ -177,7 +165,6 @@ public class SKBaobeiService extends JSBaseService {
 		return dao.updateByMap(params);
 	}
 
-
 	/**
 	 * 新增宝贝信息
 	 * 
@@ -196,12 +183,12 @@ public class SKBaobeiService extends JSBaseService {
 			newFlag = false;
 		}
 		invalid(obj, oldBaoBei);
-		
+
 		SKDianPu dianp = sKDianPuService.selectOne(obj.getDpid());
-		if(dianp.getJihuo() != 1){
+		if (dianp.getJihuo() != 1) {
 			BusinessExceptionUtil.threwException("请激活店铺");
 		}
-		
+
 		if (newFlag) {
 			SKUser user = sKUserService.getUser();
 			SKUserService.checkUser(user);
@@ -611,12 +598,12 @@ public class SKBaobeiService extends JSBaseService {
 		}
 		sk.setStatus(9L);
 		update(sk);
-		
-		//判断店铺是否通过审核
+
+		// 判断店铺是否通过审核
 		SKDianPu dianp = sKDianPuService.selectOne(sk.getDpid());
-		if(dianp != null && dianp.getStatus() != 9){
+		if (dianp != null && dianp.getStatus() != 9) {
 			BusinessExceptionUtil.threwException("需要审核店铺!");
-		}		
+		}
 		// 修改账户信息
 		sKUserZhangService.commit(sk.getUserid(), 3L, sk.getId());
 		saveContent(id, sk.getUrl());
@@ -734,9 +721,10 @@ public class SKBaobeiService extends JSBaseService {
 		if (baobei.getStatus() < 9) {
 			BusinessExceptionUtil.threwException("宝贝未通过审核");
 		}
-		if (baobei.getIsXuni() == 1) {
-			BusinessExceptionUtil.threwException("该宝贝今日已经申请完");
-		}
+		// 虚拟宝贝可以申请，但是不会中奖
+		// if (baobei.getIsXuni() == 1) {
+		// BusinessExceptionUtil.threwException("该宝贝今日已经申请完");
+		// }
 
 		sKSkqkService.saveSQ(baobei, skuser);
 		Map<String, Object> params = MapUtils.genMap("id", id, "ysqnumAdd", 1);
@@ -753,13 +741,13 @@ public class SKBaobeiService extends JSBaseService {
 		SKUser skuser = sKUserService.getUser();
 		SKUserService.checkUserSK(skuser);
 		SKBaobei baobei = getSKBaobei(id);
-		
+
 		// status=21(关注收藏) 并且 活动类型为"必中商品"时，直接中奖
 		if (status == 21 && baobei.getHdtypeid() != null && baobei.getHdtypeid() == 4) {
 			if (baobei.getStatus() < 9) {
 				BusinessExceptionUtil.threwException("宝贝未通过审核");
-			}	
-			if(!sKUserService.isInvalid(skuser.getId())){
+			}
+			if (!sKUserService.isInvalid(skuser.getId())) {
 				BusinessExceptionUtil.threwException("您的信息不完整，请填写完整");
 			}
 			Map<String, Object> params = MapUtils.genMap("id", id, "zjnumAdd", 1);
@@ -893,9 +881,9 @@ public class SKBaobeiService extends JSBaseService {
 			bb.setStatus(20L);
 			Map<String, Object> params = MapUtils.genMap("id", bb.getId(), "status", 20);
 			updateByMap(params);
-			//让一些垃圾申请作废掉
+			// 让一些垃圾申请作废掉
 			sKSkqkService.zuoFei(bb.getId());
-			
+
 			// 设置实收和返款,如果活动未达到预期目的，需要退款
 			setShiShouinfo(bb.getId());
 		}
@@ -925,7 +913,6 @@ public class SKBaobeiService extends JSBaseService {
 		updateByMap(params);
 	}
 
-	
 	/**
 	 * 设置排序
 	 * 
@@ -937,9 +924,10 @@ public class SKBaobeiService extends JSBaseService {
 		Map<String, Object> params = MapUtils.genMap("id", id, "disorder", disorder);
 		updateByMap(params);
 	}
-	
+
 	/**
 	 * 取消限制
+	 * 
 	 * @return
 	 */
 	public void cancelLimit(Long id) {
@@ -948,7 +936,7 @@ public class SKBaobeiService extends JSBaseService {
 		Map<String, Object> params = MapUtils.genMap("id", id, "isLimit", 0);
 		updateByMap(params);
 	}
-	
+
 	/**
 	 * 增加中奖数
 	 * 
@@ -957,13 +945,9 @@ public class SKBaobeiService extends JSBaseService {
 	public void addzjs(Long id, Integer zjs) {
 		SKUser skuser = sKUserService.getUser();
 		SKUserService.checkUserAdmin(skuser);
-		SKBaobei one = selectOne(id);
-		if (one.getIsXuni() != 1) {
-			BusinessExceptionUtil.threwException("该商品无法增加中奖数！！");
-		}
 		addZjsNum(id, zjs);
 	}
-	
+
 	/**
 	 * 增加或减少中奖数数量 +-
 	 * 

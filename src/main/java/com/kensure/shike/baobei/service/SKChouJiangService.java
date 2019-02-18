@@ -71,14 +71,12 @@ public class SKChouJiangService extends JSBaseService {
 			List<SKBbrw> list = sKBbrwService.selectByWhere(parameters);
 			if (CollectionUtils.isEmpty(list)) {
 				return;
-			}
-			
+			}	
 			//先缓存数据 
 			sKChouJiangLimitService.intCache();
 			for (SKBbrw bbrw : list) {
 				doOneRwCJ(bbrw, isEnd);
 			}
-
 		} catch (Exception e) {
 			BusinessExceptionUtil.threwException(e);
 		}
@@ -95,6 +93,10 @@ public class SKChouJiangService extends JSBaseService {
         // 拼团，不需要参加定时器抽奖
         if (baobei.getHdtypeid() != null && baobei.getHdtypeid() == 6L) {
             return;
+        }
+        // 虚拟商品，不需要参加定时器抽奖
+        if(baobei.getIsXuni() == 1){
+        	return;
         }
 
 		Long bbid = bbrw.getBbid();

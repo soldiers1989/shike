@@ -287,7 +287,7 @@ select{     margin-right: 6px;font-size: 12px;height: 30px;width: 100px;margin-l
 .right_nv ul li a{color:#8c8c92;font-size:14px;font-weight:bold;display:block;}
 .right_nv ul li a.select{color:#3c3d45;font-size:16px;}
 .right_contant{/*width:748px;margin:0px 17px;*/color:#9f9f9f;font-size:12px;display:inline-block;/*margin-top:10px;*/}
-.right_contant strong{    font-weight: normal;color:#666;font-size:12px;margin-left:14px;}
+.right_contant strong{font-weight: normal;color:#666;font-size:12px;margin-left:14px;}
 .right_contant a{color:#3c3d45;text-decoration:underline;font-size:12px;margin-left:13px;cursor:pointer;font-family:"宋体";}
 .right_contant .xi_lt a span:hover, .right_contant .xi_lt a:hover, .pou a:hover,.remind ul li a:hover,.footer_xy a:hover{color:#db2728;}
 .right_contant em{margin-left:8px;}

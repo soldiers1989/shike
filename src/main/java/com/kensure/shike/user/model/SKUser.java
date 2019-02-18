@@ -13,9 +13,10 @@ package com.kensure.shike.user.model;
 
 import java.util.Date;
 
-import com.kensure.shike.baobei.model.SKTaobao;
+import co.kensure.frame.BaseInfo;
+import co.kensure.mem.DateUtils;
 
-import co.kensure.frame.BaseInfo;;
+import com.kensure.shike.baobei.model.SKTaobao;
 
 /**
  * 用户表对象类
@@ -102,6 +103,11 @@ public class SKUser extends BaseInfo{
 	private Date firstShoptime;
 	
 	private SKTaobao sKTaobao;
+	
+	/**
+	 * 推荐人详细信息
+	 */
+	private SKUser refereeUser;
 
 	public Long getId() {
 		return id;
@@ -307,5 +313,18 @@ public class SKUser extends BaseInfo{
 	public void setFirstShoptime(Date firstShoptime) {
 		this.firstShoptime = firstShoptime;
 	}
+
+	public SKUser getRefereeUser() {
+		return refereeUser;
+	}
+
+	public void setRefereeUser(SKUser refereeUser) {
+		this.refereeUser = refereeUser;
+	}
+	
+	public String getFirstShoptimeStr() {
+		return DateUtils.format(firstShoptime);
+	}
+	
 	
 }
