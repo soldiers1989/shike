@@ -27,6 +27,7 @@ import co.kensure.frame.JSBaseService;
 import co.kensure.mem.CollectionUtils;
 import co.kensure.mem.MapUtils;
 import co.kensure.mem.NumberUtils;
+import co.kensure.mem.PageInfo;
 
 import com.kensure.basekey.BaseKeyService;
 import com.kensure.mycom.config.service.MyConfigService;
@@ -168,21 +169,44 @@ public class SKDianPuService extends JSBaseService {
 	 * 
 	 * @return
 	 */
-	public List<SKDianPu> getList(Long status) {
-		SKUser skuser = sKUserService.getUser();
-		SKUserService.checkUser(skuser);
-		List<SKDianPu> list = null;
-		if (skuser.getType() == 3) {
-			list = getAllList(status);
-		} else {
-			Map<String, Object> parameters = MapUtils.genMap("userid", skuser.getId(), "orderby", "created_time");
-			if(status != null){
-				parameters.put("status", status);
-			}
-			list = selectByWhere(parameters);
-		}
+	public List<SKDianPu> getList(Long status,PageInfo page) {
+		Map<String, Object> parameters = param(status, page);
+		List<SKDianPu> list = selectByWhere(parameters);
 		return list;
 	}
+	
+	/**
+	 * 根据用户获取店铺记录
+	 * 
+	 * @return
+	 */
+	public long getListCount(Long status,PageInfo page) {
+		Map<String, Object> parameters = param(status, page);
+		return selectCountByWhere(parameters);
+	}
+	
+	/**
+	 * 组装参数
+	 * @param status
+	 * @param page
+	 * @return
+	 */
+	private Map<String, Object> param(Long status,PageInfo page){
+		SKUser skuser = sKUserService.getUser();
+		SKUserService.checkUser(skuser);
+		Map<String, Object> parameters = MapUtils.genMap("orderby", "created_time desc");    
+		if (skuser.getType() == 3) {	
+			 MapUtils.putPageInfo(parameters, page);
+		} else {
+			parameters.put("userid", skuser.getId());
+			if(status != null){
+				parameters.put("status", status);
+			}		
+		}
+		return parameters;
+	}
+	
+	
 	
 	
 	/**

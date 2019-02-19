@@ -737,12 +737,20 @@ public class SKBaobeiService extends JSBaseService {
 	 * @return
 	 */
 	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
-	public void liucheng(Long id, long status, List<SKJysj> jysjList) {
+	public void liucheng(Long id, long status,String notaobao, List<SKJysj> jysjList) {
 		SKUser skuser = sKUserService.getUser();
 		SKUserService.checkUserSK(skuser);
 		SKBaobei baobei = getSKBaobei(id);
 
-		// status=21(关注收藏) 并且 活动类型为"必中商品"时，直接中奖
+		// status=21(关注收藏),如果用户没有淘宝账号提示他填写淘宝账号
+		if(status == 21 && StringUtils.isBlank(skuser.getNoTaobao())){
+			if(StringUtils.isBlank(notaobao)){
+				BusinessExceptionUtil.threwException("请输入你的淘宝账号");
+			}
+			skuser.setNoTaobao(notaobao);
+			sKUserService.update(skuser);
+		}
+		
 		if (status == 21 && baobei.getHdtypeid() != null && baobei.getHdtypeid() == 4) {
 			if (baobei.getStatus() < 9) {
 				BusinessExceptionUtil.threwException("宝贝未通过审核");

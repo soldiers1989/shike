@@ -16,6 +16,11 @@ public class SKUserTuiJian extends BaseInfo{
 
 	/**被推荐人个数*/		
 	private Integer cnt;
+	
+	/**
+	 * 用户基本信息
+	 */
+	private SKUser user;
 
 	public Long getRefereeId() {
 		return refereeId;
@@ -31,6 +36,16 @@ public class SKUserTuiJian extends BaseInfo{
 
 	public void setCnt(Integer cnt) {
 		this.cnt = cnt;
+	}
+
+	public SKUser getUser() {
+		return user;
+	}
+
+	public void setUser(SKUser user) {
+		this.user = user;
 	} 
+	
+	
 
 }

@@ -16,6 +16,7 @@ import com.kensure.shike.zhang.service.SKUserZhangService;
 import com.kensure.shike.zhang.service.SkUserFansService;
 import com.kensure.shike.zhang.service.SkUserJinbiService;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -134,9 +135,6 @@ public class SKSkqkService extends JSBaseService {
 	public SKSkqk getQkByBBId(long bbid, long userid) {
 		Map<String, Object> parameters = MapUtils.genMap("bbid", bbid, "userid", userid);
 		List<SKSkqk> list = selectByWhere(parameters);
-		if (CollectionUtils.getSize(list) > 1) {
-			BusinessExceptionUtil.threwException("你已经申请过该宝贝！");
-		}
 		SKSkqk sk = null;
 		if (CollectionUtils.getSize(list) > 0) {
 			sk = list.get(0);
@@ -270,6 +268,10 @@ public class SKSkqkService extends JSBaseService {
 		}
 		if (qk.getStatus() == -1) {
 			BusinessExceptionUtil.threwException("该申请是无效申请！");
+		}
+		if(StringUtils.isBlank(qk.getNoTaobao())){
+			Map<String, Object> params = MapUtils.genMap("id", qk.getId(), "noTaobao", skuser.getNoTaobao());
+			updateByMap(params);
 		}
 		updateStatus(qk.getId(), status);
 		return true;

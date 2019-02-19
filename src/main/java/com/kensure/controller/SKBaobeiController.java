@@ -67,6 +67,10 @@ public class SKBaobeiController {
 		return new ResultRowInfo(baobei);
 	}
 
+	
+	/**
+	 * 获取完整的宝贝信息
+	 */
 	@ResponseBody
 	@RequestMapping(value = "baobeiFull.do", method = { RequestMethod.POST }, produces = "application/json;charset=UTF-8")
 	public ResultInfo baoBeiFull(HttpServletRequest req, HttpServletResponse rep, Model model) {
@@ -234,8 +238,10 @@ public class SKBaobeiController {
 		Long id = json.getLong("id");
 		Long status = json.getLong("status");
 		String datas = json.getString("datas");
+		//淘宝账号
+		String notaobao = json.getString("notaobao");
 		List<SKJysj> jysjList = JSONObject.parseArray(datas, SKJysj.class);
-		sKBaobeiService.liucheng(id, status, jysjList);
+		sKBaobeiService.liucheng(id, status,notaobao, jysjList);
 		return new ResultRowInfo();
 	}
 

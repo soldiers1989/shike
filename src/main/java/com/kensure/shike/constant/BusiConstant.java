@@ -185,7 +185,6 @@ public class BusiConstant {
     public static final KVBean shike_ddan = new KVBean(context + "/skm/gouwuche", "订单页面");
     public static final KVBean shike_haop = new KVBean(context + "/skm/haop", "好评页面");
 
-    public static final KVBean shike_addsk_do = new KVBean(context + "/user/addsk.do", "试客注册并登陆");
     public static final KVBean shike_userlist_do = new KVBean(context + "/user/userlist.do", "用户列表");
 
     public static final KVBean shike_fensilist_do = new KVBean(context + "/user/fensilist.do", "我的粉丝列表");

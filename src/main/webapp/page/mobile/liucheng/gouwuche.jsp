@@ -320,19 +320,8 @@
     var checkTimes = 0;
     var shopType=0;
     function apply(applyType) {
-       
         ApplyType = applyType;
-
-        addgouwuche();///shike/page/mobile/lc/images/dp1.png
-        // checkLogin(function () {
-        //     if (haveOtherTaobao == "True") {
-        //         openDialog('#selectTaobao');
-        //     } else if (tbao == "") {
-        //         openDialog("#bindtaobao");
-        //     } else {
-        //         taobaosuccess(tbao);
-        //     }
-        // });
+        addgouwuche();
     }
     //留下信息
     function leaveMessageCallBack(msg) {

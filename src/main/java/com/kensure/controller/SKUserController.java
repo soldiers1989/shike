@@ -1,30 +1,36 @@
 package com.kensure.controller;
 
+import java.util.List;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import co.kensure.exception.BusinessExceptionUtil;
 import co.kensure.frame.ResultInfo;
 import co.kensure.frame.ResultRowInfo;
 import co.kensure.frame.ResultRowsInfo;
 import co.kensure.http.RequestUtils;
 import co.kensure.mem.PageInfo;
+
 import com.alibaba.fastjson.JSONObject;
 import com.kensure.shike.baobei.service.SKTaobaoService;
 import com.kensure.shike.user.model.SKUser;
 import com.kensure.shike.user.model.SKUserSession;
+import com.kensure.shike.user.model.SKUserTuiJian;
 import com.kensure.shike.user.model.query.SKUserListQuery;
+import com.kensure.shike.user.query.SKUserTJQuery;
 import com.kensure.shike.user.service.SKLoginService;
 import com.kensure.shike.user.service.SKSmsService;
 import com.kensure.shike.user.service.SKUserService;
+import com.kensure.shike.user.service.SKUserStatisticsService;
 import com.kensure.shike.zhang.model.SKUserYue;
 import com.kensure.shike.zhang.service.SKUserYueService;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 
 /**
  * 用户的逻辑处理
@@ -50,6 +56,9 @@ public class SKUserController {
 	
 	@Resource
 	private SKTaobaoService sKTaobaoService;
+	
+	@Resource
+	private SKUserStatisticsService sKUserStatisticsService;
 
 	/**
 	 * 验证码发送，包括试客、商家
@@ -326,11 +335,23 @@ public class SKUserController {
 		JSONObject json = RequestUtils.paramToJson(req);
 		Long id = json.getLong("id");
 		String source = json.getString("source");
-
 		sKUserService.updateUserSource(id, source);
 		return new ResultRowInfo();
 	}
 
+	/**
+	 * 更新用户备注
+	 */
+	@ResponseBody
+	@RequestMapping(value = "updateRemark.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	public ResultInfo updateRemark(HttpServletRequest req, HttpServletResponse rep) {
+		JSONObject json = RequestUtils.paramToJson(req);
+		Long id = json.getLong("id");
+		String remark = json.getString("remark");
+		sKUserService.updateUserRemark(id, remark);
+		return new ResultRowInfo();
+	}
+	
 
 	/**
 	 * 更新淘气值
@@ -347,4 +368,34 @@ public class SKUserController {
 		return new ResultRowInfo();
 	}
 	
+	/**
+	 * 更新淘宝账号
+	 */
+	@ResponseBody
+	@RequestMapping(value = "updateTaobaoNo.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	public ResultInfo updateTaobaoNo(HttpServletRequest req, HttpServletResponse rep) {
+		JSONObject json = RequestUtils.paramToJson(req);
+		Long id = json.getLong("id");
+		String taobaono = json.getString("taobaono");
+		sKUserService.updateTaobaoNo(id, taobaono);
+		return new ResultRowInfo();
+	}
+	
+	
+	
+	/**
+	 * 统计用户推荐
+	 */
+	@ResponseBody
+	@RequestMapping(value = "tjtj.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	public ResultInfo tjtj(HttpServletRequest req, HttpServletResponse rep) {
+		JSONObject json = RequestUtils.paramToJson(req);
+		SKUserTJQuery userQuery = JSONObject.parseObject(json.toJSONString(), SKUserTJQuery.class);
+        PageInfo page = JSONObject.parseObject(json.toJSONString(), PageInfo.class);
+        
+		List<SKUserTuiJian> list = sKUserStatisticsService.tuiJianList(userQuery, page);
+
+        long cont = sKUserStatisticsService.tuiJianCount(userQuery);
+        return new ResultRowsInfo(list, cont);
+	}
 }

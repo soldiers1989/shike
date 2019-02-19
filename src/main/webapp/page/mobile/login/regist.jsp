@@ -1,3 +1,4 @@
+<%@page import="co.kensure.api.ApiUtil"%>
 <%@page import="java.util.List"%>
 <%@page import="com.kensure.shike.constant.BusiConstant"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -72,7 +73,7 @@ function registsucdo(data){
 }
 function regist(){	
    var data = {type:1,qrcode:$("#code1").val(),phone:$("#phone1").val(),password:$("#phone2").val(),noQq:$("#noQq").val(),noAlipay:$("#noAlipay").val(),noTaobao:$("#noTaobao").val()};
-   var url = "<%=BusiConstant.shike_addsk_do.getKey()%>";
+   var url = "<%=ApiUtil.getUrl("/user/addsk.do")%>";
    postdo(url, data, registsucdo,null, null);
 }
 

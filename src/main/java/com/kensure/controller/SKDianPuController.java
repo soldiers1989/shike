@@ -15,6 +15,7 @@ import co.kensure.frame.ResultInfo;
 import co.kensure.frame.ResultRowInfo;
 import co.kensure.frame.ResultRowsInfo;
 import co.kensure.http.RequestUtils;
+import co.kensure.mem.PageInfo;
 
 import com.alibaba.fastjson.JSONObject;
 import com.kensure.shike.dianpu.model.SKDianPu;
@@ -56,8 +57,10 @@ public class SKDianPuController {
 	public ResultInfo list(HttpServletRequest req, HttpServletResponse rep) {
 		JSONObject json = RequestUtils.paramToJson(req);
 		Long status = json.getLong("status");
-		List<SKDianPu> list = sKDianPuService.getList(status);
-		return new ResultRowsInfo(list);
+		PageInfo page = JSONObject.parseObject(json.toJSONString(), PageInfo.class);
+		List<SKDianPu> list = sKDianPuService.getList(status,page);
+		long count = sKDianPuService.getListCount(status,page);
+		return new ResultRowsInfo(list,count);
 	}
 	
 	/**

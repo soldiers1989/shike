@@ -272,12 +272,12 @@
 		<if test="createdTime != null">
 			created_time = #{createdTime},
 		</if>
+		<if test="firstShoptime != null">
+			first_shoptime = #{firstShoptime},
+		</if>
 		<if test="updatedTime != null">
 			updated_time = #{updatedTime}
-		</if>
-		<if test="firstShoptime != null">
-			first_shoptime = #{firstShoptime}
-		</if>
+		</if>	
 	</sql>
 	
 	<update id="update" parameterType="com.kensure.shike.user.model.SKUser">

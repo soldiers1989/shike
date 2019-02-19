@@ -287,7 +287,6 @@ public class SKUserService extends JSBaseService {
 	 */
 	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
 	public SKUserSession addSkAndLogin(SKUser sKUser, String QRCode, HttpServletRequest request) {
-		invalidSKUser(sKUser);
 		addSJOrSk(sKUser, QRCode);
 		SKUserSession session = sKLoginService.login(sKUser.getPhone(), sKUser.getPassword(), sKUser.getType(), request);
 		return session;
@@ -347,15 +346,6 @@ public class SKUserService extends JSBaseService {
 		ParamUtils.isBlankThrewException(sKUser.getPassword(), "密码不能为空");
 		ParamUtils.isBlankThrewException(sKUser.getPhone(), "手机号不能为空");
 		MobileUtils.checkMobile(sKUser.getPhone());
-	}
-
-	/**
-	 * 校验试客的数据
-	 * 
-	 * @param sKUser
-	 */
-	private void invalidSKUser(SKUser sKUser) {
-		ParamUtils.isBlankThrewException(sKUser.getNoTaobao(), "淘宝账户不能为空");
 	}
 
 	/**
@@ -496,7 +486,7 @@ public class SKUserService extends JSBaseService {
 	}
 
 	/**
-	 * 更新淘宝账号
+	 * 更新自己的淘宝账号
 	 */
 	public void updateTabobao(String noTaobao, String taobaoImg) {
 		SKUser skuser = getUser();
@@ -522,9 +512,7 @@ public class SKUserService extends JSBaseService {
 	public void updateQq(String noQq) {
 		SKUser skuser = getUser();
 		SKUserService.checkUserSK(skuser);
-
 		ParamUtils.isBlankThrewException(noQq, "qq账户不能为空");
-
 		SKUser user = new SKUser();
 		user.setId(skuser.getId());
 		user.setNoQq(noQq);
@@ -650,7 +638,7 @@ public class SKUserService extends JSBaseService {
 	 */
 	public void auditUser(Long id, Integer status, String remark) {
 		if (status == null || id == null) {
-			BusinessExceptionUtil.threwException("参数错误");
+			BusinessExceptionUtil.threwException("数据为空");
 		}
 
         SKUser user = selectOne(id);
@@ -688,10 +676,27 @@ public class SKUserService extends JSBaseService {
         if (user == null) {
             BusinessExceptionUtil.threwException("用户为空");
         }
-
         SKUser skUser = new SKUser();
         skUser.setId(id);
         skUser.setSource(source);
+        skUser.setUpdatedTime(new Date());
+        update(skUser);
+    }
+	
+	/**
+	 * 更新商家备注
+	 * @param id
+	 * @param source
+	 */
+	public void updateUserRemark(Long id, String remark) {
+		ParamUtils.isBlankThrewException(remark, "不能为空");
+        SKUser user = selectOne(id);
+        if (user == null) {
+            BusinessExceptionUtil.threwException("用户为空");
+        }
+        SKUser skUser = new SKUser();
+        skUser.setId(id);
+        skUser.setRemark(remark);
         skUser.setUpdatedTime(new Date());
         update(skUser);
     }
@@ -703,19 +708,30 @@ public class SKUserService extends JSBaseService {
      */
 	public void updateTaoqizhi(Long id, Integer taoqizhi) {
 		ParamUtils.isBlankThrewException(taoqizhi, "淘气值不能为空");
-
-
 		SKUser user = selectOne(id);
 		if (user == null) {
 			BusinessExceptionUtil.threwException("用户为空");
 		}
-
         SKTaobao skTaobao = sKTaobaoService.selectOne(user.getNoTaobao());
         if (skTaobao == null) {
 			BusinessExceptionUtil.threwException("淘宝信息为空");
 		}
-
         skTaobao.setTaoqizhi(taoqizhi);
         sKTaobaoService.update(skTaobao);
+	}
+	
+	 /**
+     * 更新淘气值
+     * @param id
+     * @param taoqizhi
+     */
+	public void updateTaobaoNo(Long id, String noTaobao) {
+		ParamUtils.isBlankThrewException(noTaobao, "淘宝账号不能为空");
+		SKUser user = selectOne(id);
+		if (user == null) {
+			BusinessExceptionUtil.threwException("用户为空");
+		}
+		user.setNoTaobao(noTaobao);
+		update(user);
 	}
 }

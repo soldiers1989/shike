@@ -194,6 +194,12 @@
         return tdinner;
     }
 	
+	var notaobaotd =  function(row){
+        var noTaobao = row.noTaobao+"<button type='button' onclick='editTaobaoNo("+row.id+")'>修改</button>&nbsp;";
+        return noTaobao;
+    }
+	
+	
 	table.th = [{w:50,na:"编号",colname:"id"}
 	,{w:55,na:"真实姓名",colname:"realname"}
 	,{w:80,na:"手机号",colname:"phone"}
@@ -202,7 +208,7 @@
 	,{w:80,na:"创建时间",colname:"createdTimeStr"}
 	,{w:80,na:"支付宝",colname:"noAlipay"}
 	,{w:40,na:"实名",callfun:shimingfun}
-	,{w:100,na:"淘宝账号",colname:"noTaobao"}
+	,{w:100,na:"淘宝账号",callfun:notaobaotd}
 	,{w:100,na:"注册时间",callfun:zhucefun}
 	,{w:40,na:"淘宝截图",callfun:taobaoimgfun}
 	,{w:60,na:"淘气值",callfun:taoqizhifun}
@@ -238,7 +244,6 @@
        data.type = 1;
        data.pageNo = fanye.current;
        data.pageSize = fanye.limit;
-
 	   var url = "<%=ApiUtil.getUrl("/user/userlist.do")%>";
 	   postdo(url, data, sucdo,null, null);
    }
@@ -273,6 +278,15 @@
         if (taoqizhi!=null && taoqizhi!="") {
             var data = {id:id, taoqizhi: taoqizhi};
             var url = "<%=BusiConstant.shike_update_taoqizhi_do.getKey()%>";
+            postdo(url, data, successCallBack,null, null);
+        }
+    }
+    
+    function editTaobaoNo(id) {
+        var taobaono = prompt("请输入淘宝账号","")
+        if (taobaono) {
+            var data = {id:id, taobaono: taobaono};
+            var url = "<%=ApiUtil.getUrl("/user/updateTaobaoNo.do")%>";
             postdo(url, data, successCallBack,null, null);
         }
     }

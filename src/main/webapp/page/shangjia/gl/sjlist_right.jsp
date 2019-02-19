@@ -1,3 +1,4 @@
+<%@page import="co.kensure.api.ApiUtil"%>
 <%@page import="com.kensure.shike.constant.BusiConstant"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <% 
@@ -16,36 +17,18 @@
     </div>
     <!--zh_title-->
     <div class="huodong">
-        <div class="huodong_main">
-            <table width="1000" border="1" cellpadding="0" id="listtable" cellspacing="0" bordercolor="#dadada">
-                <tbody>
-                <tr>
-                	<td width="100" height="30" valign="middle" bgcolor="#eaeaea">
-                        <strong>序列</strong>
-                    </td>
-                    <td width="200" height="30" valign="middle" bgcolor="#eaeaea">
-                        <strong>商家姓名</strong>
-                    </td>
-                    <td width="300" height="30" valign="middle" bgcolor="#eaeaea">
-                        <strong>手机号</strong>
-                    </td>
-                    <td width="134" height="30" valign="middle" bgcolor="#eaeaea">
-                        <strong>qq账号</strong>
-                    </td>
-                    <td width="200" height="30" valign="middle" bgcolor="#eaeaea">
-                        <strong>余额</strong>
-                    </td>
-                    <td width="200" height="30" valign="middle" bgcolor="#eaeaea">
-                        <strong>注册时间</strong>
-                    </td>
-                    <td width="200" height="30" valign="middle" bgcolor="#eaeaea">
-                        <strong>商家来源</strong>
-                    </td>
-                     <td width="200" height="30" valign="middle" bgcolor="#eaeaea">
-                        <strong>操作</strong>
-                    </td>
-                </tr>
-            </tbody></table>
+        <div class="glht_contant">
+            <table  border="1" cellpadding="0" id="listtable" cellspacing="0" bordercolor="#dadada">
+                <thead>
+        
+   		 		</thead>
+             <tbody>
+                
+          	</tbody>
+          	</table>
+        </div>
+        <div id="fanye">
+
         </div>
     </div>
     <!--page-->
@@ -55,37 +38,45 @@
             </div>
 
 <script>
+
+	var table = createtable("listtable");
+	
+	var sourcetdfun =  function(row){
+        var noTaobao = row.source+"<button type='button' onclick='editsource("+row.id+")'>修改</button>&nbsp;";
+        return noTaobao;
+    }
+	
+	var remarktdfun =  function(row){
+        var noTaobao = row.remark+"<button type='button' onclick='editremark("+row.id+")'>修改</button>&nbsp;";
+        return noTaobao;
+    }
+	
+	table.th = [{w:100,na:"编号",colname:"id"}
+	,{w:200,na:"商家姓名",colname:"name"}
+	,{w:80,na:"手机号",colname:"phone"}
+	,{w:80,na:"qq账号",colname:"noQq"}
+	,{w:50,na:"余额",colname:"yue"}
+	,{w:80,na:"创建时间",colname:"createdTimeStr"}
+	,{w:200,na:"商家来源",callfun:sourcetdfun}
+	,{w:200,na:"备注",callfun:remarktdfun}];
+	
+	table.thinit();
+
 	function sucdo(data){
 		var rows = data.resultData.rows;
-		if(rows){
-		
-			for(var i=0;i<rows.length;i++){
-				var row = rows[i];
-				var source = row.source == null ? '' : row.source;
-
-				var html = "<tr><td height='30'>"+row.id+"</td>";
-				html+="<td>"+row.name+"</td>";
-				html+="<td>"+row.phone+"</td>";
-				html+="<td>"+row.noQq+"</td>";
-				html+="<td>"+row.yue+"</td>";
-				html+="<td>"+row.createdTimeStr+"</td>";
-                html+="<td>"+source+"</td>";
-                html+="<td><button onclick='edit("+row.id+")'>修改</button></td>";
-				// html+="<td>";
-				// html+="</td>";
-				html+="</tr>";
-				$("#listtable").append(html);
-			}
-		}
-		
+        fanye.init(data.resultData.total);
+        table.data = rows == null ? [] : rows;
+		table.tdinit();
 	}
-
-   function chongzhilist(flag){
-	    if (flag) {
-            window.location.reload();
-        }
-
+	
+	var fanye = new FanYe("fanye", "chongzhilist", 0, 20, 1);
+   function chongzhilist(current){
+	   if(!fanye.setpage(current)){
+           return;
+       }
 	   var data = {type:2};
+       data.pageNo = fanye.current;
+       data.pageSize = fanye.limit;
 	   var url = "<%=BusiConstant.shike_userlist_do.getKey()%>";
 	   postdo(url, data, sucdo,null, null);
    }
@@ -95,9 +86,9 @@
 	   var url = "<%=BusiConstant.ht_chongzhitongguo_do.getKey()%>";
 	   postdo(url, data, null,null, null);
    }
-   chongzhilist();
+   chongzhilist(1);
 	
-	function edit(id) {
+	function editsource(id) {
         var source = prompt("请输入商家来源","")
         if (source!=null && source!="") {
             var data = {id:id, source: source};
@@ -106,8 +97,17 @@
         }
     }
 
+	function editremark(id) {
+        var source = prompt("请输入商家备注","")
+        if (source!=null && source!="") {
+            var data = {id:id, remark: source};
+            var url = "<%=ApiUtil.getUrl("/user/updateRemark.do")%>";
+            postdo(url, data, editCallBack,null, null);
+        }
+    }
+	
     function editCallBack(data) {
-        chongzhilist(true);
+        chongzhilist(fanye.current);
     }
    
 </script>

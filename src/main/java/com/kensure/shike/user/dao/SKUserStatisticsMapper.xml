@@ -35,8 +35,8 @@
 		<where>
 		    <include refid="whereClause"/>
 		</where>
-		GROUP BY t.`referee_id`;			
-		) 
+		GROUP BY t.`referee_id`			
+		) dd
 	</select>
 
 	<select id="selectTuiJian" parameterType="Map" resultType="com.kensure.shike.user.model.SKUserTuiJian">
@@ -44,7 +44,7 @@
 		<where>
 		    <include refid="whereClause"/>
 		</where>	
-		GROUP BY t.`referee_id`;			
+		GROUP BY t.`referee_id`			
 		<if test="orderby != null">
 			ORDER BY ${orderby}
 		</if>

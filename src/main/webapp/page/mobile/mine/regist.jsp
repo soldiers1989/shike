@@ -1,3 +1,4 @@
+<%@page import="co.kensure.api.ApiUtil"%>
 <%@page import="co.kensure.http.RequestUtils"%>
 <%@page import="com.kensure.shike.constant.BusiConstant"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -84,28 +85,12 @@
         <input type="text" name="password" id="password" value="" placeholder="请输入8-16位数字与字母组成的密码" style="width: 10rem">
         <span id="passwordwarn" class="warn"></span>
     </div>
-    <%--<div class="item" style="padding-left:0;padding-right:0;">
-        <div class="l-captcha" data-width="100%" data-callback="getCode" data-site-key="2826dd503b3231e8c3117ddddda5e438" data-id="_asmbifvc7" id="l-captcha_asmbifvc7" style="width: 100%; height: 44px;"><iframe src="<%=BusiConstant.shikemobilepath %>/mine/regist/widget.html" height="44" width="100%" name="captcha_widget_asmbifvc7" frameborder="0" scrolling="no" id="captcha_widget_asmbifvc7" data-id="captcha_widget_asmbifvc7" style="background: transparent;"></iframe><input type="hidden" name="luotest_response" value="" data-id="_asmbifvc7" id="lc-captcha-response" class="lc-captcha-response_asmbifvc7"></div>
-    </div>--%>
     <div class="item">
         <input type="text" name="captcha" id="pwd" placeholder="请输入验证码">
         <span id="pwdwarn1" class="warn btn-warn">获取验证码</span>
         <span id="pwdwarn" style="display:none;" class="warn btn-warn">获取验证码</span>
     </div>
-    <%--<div class="item">
-            <input type="text" name="intiveCode" id="code1" placeholder="请输入邀请码，没有可不填">
-    </div>--%>
-   <%-- <div class="item">
-        <input type="text" name="intiveCode" id="noQq" placeholder="请输入QQ号">
-    </div>
-    <div class="item">
-        <input type="text" name="intiveCode" id="noAlipay" placeholder="请输入支付宝号">
-    </div>
-      --%>
-    <div class="item">
-        <input type="text" name="intiveCode" id="noTaobao" placeholder="请输入淘宝号">
-    </div>
-  
+   
     <div class="item">
         <input type="text" name="refereeId" id="refereeId" value="<%=refereeId%>" placeholder="请输入邀请码，没有可不填">
     </div>
@@ -207,16 +192,6 @@
                 return false;
             }
 
-           // var alipayImg = $('.alipay-img').data("src");
-           // var taobaoImg = $('.taobao-img').data("src");
-           // if (!alipayImg) {
-           //     myAlert("您还没有上传支付宝截图");
-           //     return false;
-           // }
-           // if (!taobaoImg) {
-           //     myAlert("您还没有上传淘宝截图");
-           //     return false;
-           // }
             var name = $("#name").val();
             var qrcode = $("#pwd").val();
             var code = $("#code1").val();
@@ -226,14 +201,9 @@
                     qrcode: qrcode,
                     phone: name,
                     password: $("#password").val(),
-                   // noQq: $("#noQq").val(),
-                   // noAlipay: $("#noAlipay").val(),
-                    noTaobao: $("#noTaobao").val(),
-                   // alipayImg: alipayImg,
-                   // taobaoImg: taobaoImg,
                     refereeId: $("#refereeId").val()
                 };
-                var url = "<%=BusiConstant.shike_addsk_do.getKey()%>";
+                var url = "<%=ApiUtil.getUrl("/user/addsk.do")%>";
                 postdo(url, data, registsucdo,null, null);
             }
         });
@@ -244,11 +214,6 @@
             // history.go(-2);
             window.location.href="<%=BusiConstant.shike_mine.getKey() %>";
         }
-        <%--function regist(){--%>
-            <%--var data = {type:1,qrcode:$("#code1").val(),phone:$("#phone1").val(),password:$("#phone2").val(),noQq:$("#noQq").val(),noAlipay:$("#noAlipay").val(),noTaobao:$("#noTaobao").val()};--%>
-            <%--var url = "<%=BusiConstant.shike_addsk_do.getKey()%>";--%>
-            <%--postdo(url, data, registsucdo,null, null);--%>
-        <%--}--%>
 
         var phoneReg = /(^1[3|4|5|7|8]\d{9}$)|(^09\d{8}$)/;
         var count = 60;

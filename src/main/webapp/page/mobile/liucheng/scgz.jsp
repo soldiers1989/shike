@@ -1,3 +1,4 @@
+<%@page import="org.apache.commons.lang3.StringUtils"%>
 <%@page import="com.kensure.shike.baobei.model.SKBaobeiTP"%>
 <%@page import="com.kensure.shike.user.model.SKUser"%>
 <%@page import="java.util.List"%>
@@ -102,13 +103,16 @@
                 </li>
                 <li>
                     <span class="num">2</span>登录淘宝账号
-                    <em class="red"><%=user.getNoTaobao() %></em>进入购物车，找到宝贝
+                    <em class="red">
+                    <%  String taobaotpye = "readonly=\"readonly\"";
+                    	if(StringUtils.isBlank(user.getNoTaobao())){ taobaotpye = "";}%>
+                    <input style="text-indent: 1em; width: 100%;border: 1px solid #ddd;height: 1.6rem;line-height: 1.6rem;" type="text" id="notaobao" name="notaobao" value="<%=user.getNoTaobao() %>" <%=taobaotpye%>>
+                    </em>进入购物车，找到宝贝
                 </li>
                 <li>
                     <span class="num">3</span>在宝贝详情页底部<em class="red">点击关注/收藏 </em>按钮关注/收藏宝贝，如图：
                     <div class="storage-img mt3">
                         <img src="<%=BusiConstant.shikemobilepath %>/common/images/storageGood.png">
-
                     </div>
                     <div class="up-img mt3">
                         关注/收藏宝贝截图：<img class="good-img" src="<%=BusiConstant.shikemobilepath %>/common/images/up-img.png">
@@ -197,7 +201,8 @@
         }
         function add(){
             var ds = [{content:logo1,busitype:"sc"},{content:logo2,busitype:"gz"}];
-            var data = {id:<%=baobei.getId()%>,status: 21,datas:JSON.stringify(ds)};
+            var notaobao = $("#notaobao").val();
+            var data = {id:<%=baobei.getId()%>,status: 21,notaobao:notaobao,datas:JSON.stringify(ds)};
             var url = "<%=BusiConstant.shike_liucheng_do.getKey()%>";
             postdo(url, data, dictsucdo,null, null);
         }
