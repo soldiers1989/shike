@@ -105,8 +105,9 @@
                     <span class="num">2</span>登录淘宝账号
                     <em class="red">
                     <%  String taobaotpye = "readonly=\"readonly\"";
-                    	if(StringUtils.isBlank(user.getNoTaobao())){ taobaotpye = "";}%>
-                    <input style="text-indent: 1em; width: 100%;border: 1px solid #ddd;height: 1.6rem;line-height: 1.6rem;" type="text" id="notaobao" name="notaobao" value="<%=user.getNoTaobao() %>" <%=taobaotpye%>>
+                    	String taobaono = user.getNoTaobao();
+                    	if(StringUtils.isBlank(taobaono)){ taobaotpye = "";taobaono = "";}%>
+                    <input style="text-indent: 1em; width: 100%;border: 1px solid #ddd;height: 1.6rem;line-height: 1.6rem;" type="text" id="notaobao" name="notaobao" value="<%=taobaono %>" <%=taobaotpye%>>
                     </em>进入购物车，找到宝贝
                 </li>
                 <li>

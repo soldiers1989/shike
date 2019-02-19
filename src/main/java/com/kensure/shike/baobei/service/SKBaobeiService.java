@@ -423,10 +423,12 @@ public class SKBaobeiService extends JSBaseService {
 		if (skuser.getType() == 3 && CollectionUtils.isNotEmpty(list)) {
 			for (SKBaobei skbaobei : list) {
 				SKDianPu dianp = sKDianPuService.selectOne(skbaobei.getDpid());
-				SKUser user = sKUserService.selectOne(skbaobei.getUserid());
+				SKUser user = sKUserService.selectOne(skbaobei.getUserid());				
 				skbaobei.setDianpu(dianp);
-				skbaobei.setDpname(dianp.getName());
-				skbaobei.setUserName(user.getName());
+				if(dianp != null){
+					skbaobei.setDpname(dianp.getName());
+					skbaobei.setUserName(user.getName());
+				}		
 			}
 		}
 		return list;

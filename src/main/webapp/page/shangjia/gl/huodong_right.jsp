@@ -211,7 +211,10 @@
 	}
 	
 	var dianpufun = function(row){
-		var tdinner = row.dianpu.name+"("+row.dianpu.statusStr+")";
+		var tdinner = "无";
+		if(row.dianpu){
+			tdinner = row.dianpu.name+"("+row.dianpu.statusStr+")";
+		}	
 		return tdinner;
 	}
 

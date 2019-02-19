@@ -221,6 +221,9 @@
 	    var title = $("#key").val()
 	   
 	   var data = {status:<%=status%>,title:title};	   
+	    data.pageNo = fanye.current;
+	       data.pageSize = fanye.limit;
+
 	   var url = "<%=BusiConstant.shangjia_baobeilist_do.getKey()%>";
 	   postdo(url, data, sucdo,null, null);
    }
