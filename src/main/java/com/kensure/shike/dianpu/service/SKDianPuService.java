@@ -204,10 +204,7 @@ public class SKDianPuService extends JSBaseService {
 			}		
 		}
 		return parameters;
-	}
-	
-	
-	
+	}	
 	
 	/**
 	 * 根据用户获取店铺记录
@@ -217,13 +214,35 @@ public class SKDianPuService extends JSBaseService {
 	public List<SKDianPu> getUserList(Integer jihuo) {
 		SKUser skuser = sKUserService.getUser();
 		SKUserService.checkUser(skuser);		
-		Map<String, Object> parameters = MapUtils.genMap("userid", skuser.getId(), "orderby", "created_time");
+		List<SKDianPu> list = getUserList(skuser.getId(), jihuo);
+		return list;
+	}
+	
+	/**
+	 * 根据用户id获取激活的店铺记录
+	 * 
+	 * @return
+	 */
+	public List<SKDianPu> getListByUserId(Long userid) {	
+		List<SKDianPu> list = getUserList(userid, 1);
+		return list;
+	}
+	
+	
+	/**
+	 * 根据用户获取店铺记录
+	 * 
+	 * @return
+	 */
+	private List<SKDianPu> getUserList(Long userid,Integer jihuo) {		
+		Map<String, Object> parameters = MapUtils.genMap("userid", userid, "orderby", "created_time");
 		if(jihuo != null){
 			parameters.put("jihuo", jihuo);
 		}
 		List<SKDianPu> list = selectByWhere(parameters);		
 		return list;
 	}
+	
 
 	/**
 	 * 获取店铺记录

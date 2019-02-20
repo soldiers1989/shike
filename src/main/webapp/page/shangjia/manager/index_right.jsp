@@ -1,3 +1,4 @@
+<%@page import="co.kensure.api.ApiUtil"%>
 <%@page import="java.util.Date"%>
 <%@page import="co.kensure.mem.DateUtils"%>
 <%@page import="com.kensure.shike.constant.BusiConstant"%>
@@ -906,17 +907,6 @@
 	   }
    }
    
-   // 加载宝贝详情
-   loadBaoBeiDetailIfNeed(<%=id%>);
-   
-   function svsucdo(data){
-	   location.href = "<%=BusiConstant.shangjia_huodonglist.getKey()%>?status=0";
-   }
-   
-   function svcompdo(data){
-	   baocun = false;
-	   $("#tijiaosj").html("提交");
-   }
    
    function sucdo(data){
 		var rows = data.resultData.rows;
@@ -930,12 +920,28 @@
 		}
 	}
 
-  function dianpulist(){
-	   var data = {};
-	   var url = "<%=BusiConstant.shangjia_dianpualist_do.getKey()%>";
+ function dianpulist(){
+	   var data = {baobeid:<%=id%>};
+	   var url = "<%=ApiUtil.getUrl("/dianpu/userlist.do")%>";
 	   postdo(url, data, sucdo,null, null);
-  }
-  dianpulist();
+ }
+   
+   dianpulist();
+   
+   // 加载宝贝详情
+   loadBaoBeiDetailIfNeed(<%=id%>);
+   
+   function svsucdo(data){
+	   location.href = "<%=BusiConstant.shangjia_huodonglist.getKey()%>?status=0";
+   }
+   
+   function svcompdo(data){
+	   baocun = false;
+	   $("#tijiaosj").html("提交");
+   }
+   
+
+
   
   function dictsucdo(data){
 		var rows = data.resultData.rows;

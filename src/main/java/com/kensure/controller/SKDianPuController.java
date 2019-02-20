@@ -15,11 +15,15 @@ import co.kensure.frame.ResultInfo;
 import co.kensure.frame.ResultRowInfo;
 import co.kensure.frame.ResultRowsInfo;
 import co.kensure.http.RequestUtils;
+import co.kensure.mem.NumberUtils;
 import co.kensure.mem.PageInfo;
 
 import com.alibaba.fastjson.JSONObject;
+import com.kensure.shike.baobei.model.SKBaobei;
+import com.kensure.shike.baobei.service.SKBaobeiService;
 import com.kensure.shike.dianpu.model.SKDianPu;
 import com.kensure.shike.dianpu.service.SKDianPuService;
+import com.kensure.shike.user.service.SKUserService;
 
 /**
  * 用户的店铺信息
@@ -33,6 +37,10 @@ public class SKDianPuController {
 
 	@Resource
 	private SKDianPuService sKDianPuService;
+	@Resource
+	private SKUserService sKUserService;
+	@Resource
+	private SKBaobeiService sKBaobeiService;
 
 	/**
 	 * 商家新增店铺
@@ -61,6 +69,32 @@ public class SKDianPuController {
 		List<SKDianPu> list = sKDianPuService.getList(status,page);
 		long count = sKDianPuService.getListCount(status,page);
 		return new ResultRowsInfo(list,count);
+	}
+	
+	
+	/**
+	 * 获取用户激活的店铺列表
+	 */
+	@ResponseBody
+	@RequestMapping(value = "userlist.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	public ResultInfo userlist(HttpServletRequest req, HttpServletResponse rep) {
+		JSONObject json = RequestUtils.paramToJson(req);
+		Long baobeid = json.getLong("baobeid");
+		Long userid = null;
+		//获取宝贝的用户
+		if(!NumberUtils.isZero(baobeid)){
+			SKBaobei baobei = sKBaobeiService.selectOne(baobeid);
+			if(baobei != null){
+				userid = baobei.getUserid();
+			}	
+		}
+		//没有，就获取当前用户
+		if(userid == null){
+			userid = sKUserService.getUser().getId();
+		}
+		
+		List<SKDianPu> list = sKDianPuService.getListByUserId(userid);
+		return new ResultRowsInfo(list);
 	}
 	
 	/**
