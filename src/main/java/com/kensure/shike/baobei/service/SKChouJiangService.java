@@ -94,8 +94,8 @@ public class SKChouJiangService extends JSBaseService {
         if (baobei.getHdtypeid() != null && baobei.getHdtypeid() == 6L) {
             return;
         }
-        // 虚拟商品，不需要参加定时器抽奖
-        if(baobei.getIsXuni() == 1){
+        // 虚拟商品，不需要参加定时器抽奖,非审核通过的，也不需要抽奖
+        if(baobei.getIsXuni() == 1 || baobei.getStatus() != 9){
         	return;
         }
 

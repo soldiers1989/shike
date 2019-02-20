@@ -77,6 +77,18 @@ public class SKTask {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * add by fankd 每天22点，补充抽奖
+	 */
+	@Scheduled(cron = "0 0 22 1/1 * ?")
+	public void choujiang4() {
+		try {
+			sKChouJiangService.doChouJiang(true);
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	 * add by fankd 每10分钟调度一次，设置好评\返款\取消一些数据
