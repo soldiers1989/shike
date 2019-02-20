@@ -243,25 +243,6 @@ public class SKDianPuService extends JSBaseService {
 		return list;
 	}
 	
-
-	/**
-	 * 获取店铺记录
-	 * 
-	 * @return
-	 */
-	public List<SKDianPu> getAllList(Long status) {
-		Map<String, Object> parameters = MapUtils.genMap("orderby", "created_time desc");
-		if(status != null){
-			parameters.put("status", status);
-		}
-		List<SKDianPu> list = selectByWhere(parameters);
-		for(SKDianPu dp:list){
-			SKUser u = sKUserService.selectOne(dp.getUserid());
-			dp.setUserName(u.getName());
-		}
-		return list;
-	}
-	
 	/**
 	 * 激活店铺
 	 * 
