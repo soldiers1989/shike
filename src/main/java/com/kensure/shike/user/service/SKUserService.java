@@ -13,19 +13,12 @@ package com.kensure.shike.user.service;
 
 import java.util.Collection;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-
-import co.kensure.mem.PageInfo;
-
-import com.kensure.shike.baobei.model.SKTaobao;
-import com.kensure.shike.baobei.service.SKSkqkService;
-import com.kensure.shike.user.model.query.SKUserListQuery;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -42,15 +35,19 @@ import co.kensure.mem.CollectionUtils;
 import co.kensure.mem.MapUtils;
 import co.kensure.mem.MobileUtils;
 import co.kensure.mem.NumberUtils;
+import co.kensure.mem.PageInfo;
 import co.kensure.sms.SMSClient;
 
 import com.kensure.basekey.BaseKeyService;
+import com.kensure.shike.baobei.model.SKTaobao;
+import com.kensure.shike.baobei.service.SKSkqkService;
 import com.kensure.shike.baobei.service.SKTaobaoService;
 import com.kensure.shike.user.dao.SKUserDao;
 import com.kensure.shike.user.model.SKLogin;
 import com.kensure.shike.user.model.SKSms;
 import com.kensure.shike.user.model.SKUser;
 import com.kensure.shike.user.model.SKUserSession;
+import com.kensure.shike.user.model.query.SKUserListQuery;
 import com.kensure.shike.zhang.model.SKUserYue;
 import com.kensure.shike.zhang.service.SKUserYueService;
 import com.kensure.shike.zhang.service.SkUserFansService;
@@ -95,28 +92,18 @@ public class SKUserService extends JSBaseService {
 	@Resource
 	private SKSkqkService skSkqkService;
 	
-	/**
-	 * 有效用户缓存
-	 */
-	private static Map<String,Integer> invalidUser = new HashMap<String,Integer>();
 	
 	/**
 	 * 是否有效用户
 	 */
 	public boolean isInvalid(Long userId){
-		Integer flag = invalidUser.get(userId.longValue()+"");
-		if(flag == null){
-			SKUser skuser = selectOne(userId);
-			if(skuser != null){
-				flag = skuser.getAuditStatus();
-				invalidUser.put(userId.longValue()+"", flag);
-			}
-		}
-		boolean re = false;
-		if(flag != null && flag == 1){
-			re = true;
-		}	
-		return re;
+		boolean result = false;
+		SKUser skuser = selectOne(userId);
+		//审批通过，就认为是有效用户
+		if(skuser != null){
+			result = skuser.getAuditStatus()==1;
+		}		
+		return result;
 	}
 	
 
@@ -491,18 +478,18 @@ public class SKUserService extends JSBaseService {
 	public void updateTabobao(String noTaobao, String taobaoImg) {
 		SKUser skuser = getUser();
 		SKUserService.checkUserSK(skuser);
-
 		ParamUtils.isBlankThrewException(noTaobao, "淘宝账户不能为空");
 		ParamUtils.isBlankThrewException(taobaoImg, "淘宝截图不能为空");
-
+		if(skuser.getAuditStatus() == 1){
+			//审批过后的淘宝账号，且原来的账号不为空，不允许自己修改淘宝账号
+			if(StringUtils.isNotBlank(skuser.getNoTaobao()) && skuser.getNoTaobao().equals(noTaobao)){
+				BusinessExceptionUtil.threwException("该账号已经审核通过，不允许再修改淘宝账号，如果有误,请联系管理员！");
+			}	
+		}
+		updateNoTaobao(skuser.getId(), noTaobao);		
 		SKUser user = new SKUser();
 		user.setId(skuser.getId());
-		user.setNoTaobao(noTaobao);
 		user.setTaobaoImg(taobaoImg);
-		String taobao = skuser.getNoTaobao();
-		if(!noTaobao.equals(taobao)){
-			user.setAuditStatus(0);
-		}		
 		update(user);
 	}
 
@@ -651,8 +638,6 @@ public class SKUserService extends JSBaseService {
         skUser.setAuditStatus(status);
         skUser.setRemark(remark);
         skUser.setUpdatedTime(new Date());
-
-        invalidUser.put(id.longValue()+"", status);
         if(status == 2){
         	try {
 				SMSClient.sendSMSTaobao(user.getPhone());
@@ -721,17 +706,27 @@ public class SKUserService extends JSBaseService {
 	}
 	
 	 /**
-     * 更新淘气值
+     * 更新淘宝账号
      * @param id
      * @param taoqizhi
      */
 	public void updateTaobaoNo(Long id, String noTaobao) {
+		updateNoTaobao(id, noTaobao);
+	}
+	
+	/**
+	 * 更新淘宝账号,同时更新未下单之前的订单
+	 */
+	private void updateNoTaobao(Long id, String noTaobao) {
+		//淘宝账号更新逻辑
 		ParamUtils.isBlankThrewException(noTaobao, "淘宝账号不能为空");
 		SKUser user = selectOne(id);
 		if (user == null) {
 			BusinessExceptionUtil.threwException("用户为空");
 		}
 		user.setNoTaobao(noTaobao);
-		update(user);
+		update(user);	
+		//更新相应的申请单的淘宝账号
+		skSkqkService.updateSkqkNoTaobao(user.getId(), noTaobao);
 	}
 }

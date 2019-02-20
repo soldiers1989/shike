@@ -749,8 +749,7 @@ public class SKBaobeiService extends JSBaseService {
 			if(StringUtils.isBlank(notaobao)){
 				BusinessExceptionUtil.threwException("请输入你的淘宝账号");
 			}
-			skuser.setNoTaobao(notaobao);
-			sKUserService.update(skuser);
+			sKUserService.updateTaobaoNo(skuser.getId(), notaobao);
 		}
 		
 		if (status == 21 && baobei.getHdtypeid() != null && baobei.getHdtypeid() == 4) {

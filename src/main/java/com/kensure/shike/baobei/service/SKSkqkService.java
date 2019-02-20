@@ -1,13 +1,34 @@
 package com.kensure.shike.baobei.service;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
 import co.kensure.exception.BusinessExceptionUtil;
 import co.kensure.frame.JSBaseService;
-import co.kensure.mem.*;
+import co.kensure.mem.ArithmeticUtils;
+import co.kensure.mem.CollectionUtils;
+import co.kensure.mem.DateUtils;
+import co.kensure.mem.MapUtils;
+import co.kensure.mem.PageInfo;
 
 import com.kensure.basekey.BaseKeyService;
 import com.kensure.shike.baobei.dao.SKSkqkDao;
 import com.kensure.shike.baobei.dao.SKSkqkLeftDao;
-import com.kensure.shike.baobei.model.*;
+import com.kensure.shike.baobei.model.SKBaobei;
+import com.kensure.shike.baobei.model.SKBbrw;
+import com.kensure.shike.baobei.model.SKJysj;
+import com.kensure.shike.baobei.model.SKSkqk;
+import com.kensure.shike.baobei.model.SKSkqkLeft;
 import com.kensure.shike.baobei.query.SKSkqkLeftQuery;
 import com.kensure.shike.user.model.SKUser;
 import com.kensure.shike.user.service.SKUserService;
@@ -15,15 +36,6 @@ import com.kensure.shike.zhang.model.SKUserZhang;
 import com.kensure.shike.zhang.service.SKUserZhangService;
 import com.kensure.shike.zhang.service.SkUserFansService;
 import com.kensure.shike.zhang.service.SkUserJinbiService;
-
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-
-import javax.annotation.Resource;
-
-import java.util.*;
 
 /**
  * 试客情况表服务实现类
@@ -98,7 +110,6 @@ public class SKSkqkService extends JSBaseService {
 		return dao.insert(obj);
 	}
 
-
 	/**
 	 * 修改流程状态方法方法
 	 * 
@@ -170,7 +181,9 @@ public class SKSkqkService extends JSBaseService {
 		return selectCountByWhere(parameters);
 	}
 
-	// 获取宝贝试用情况，是给商家展现的
+	/**
+	 * 获取宝贝试用情况，是给商家展现的
+	 */
 	public List<SKSkqk> getSkqkList(long bbid) {
 		Map<String, Object> parameters = MapUtils.genMap("bbid", bbid, "startStatus", 51);
 		List<SKSkqk> list = selectByWhere(parameters);
@@ -179,6 +192,29 @@ public class SKSkqkService extends JSBaseService {
 			skskqk.setJylist(jylist);
 		}
 		return list;
+	}
+
+	/**
+	 * 获取用户所有未付款的订单,也就是状态51之前的订单 <=51
+	 */
+	private List<SKSkqk> getUserSkqkList(long userid) {
+		Map<String, Object> parameters = MapUtils.genMap("userid", userid, "endStatus", 51);
+		List<SKSkqk> list = selectByWhere(parameters);
+		return list;
+	}
+
+	/**
+	 * 更新用户所有未付款的订单的淘宝账号,也就是状态51之前的订单 <=51
+	 */
+	public void updateSkqkNoTaobao(long userid,String noTaobao) {
+		List<SKSkqk> list = getUserSkqkList(userid);
+		if(CollectionUtils.isEmpty(list)){
+			return;
+		}
+		for(SKSkqk skqk:list){			
+			Map<String, Object> params = MapUtils.genMap("id", skqk.getId(), "noTaobao", noTaobao);
+			updateByMap(params);
+		}
 	}
 
 	/**
@@ -268,10 +304,6 @@ public class SKSkqkService extends JSBaseService {
 		}
 		if (qk.getStatus() == -1) {
 			BusinessExceptionUtil.threwException("该申请是无效申请！");
-		}
-		if(StringUtils.isBlank(qk.getNoTaobao())){
-			Map<String, Object> params = MapUtils.genMap("id", qk.getId(), "noTaobao", skuser.getNoTaobao());
-			updateByMap(params);
 		}
 		updateStatus(qk.getId(), status);
 		return true;
@@ -441,7 +473,7 @@ public class SKSkqkService extends JSBaseService {
 			BusinessExceptionUtil.threwException(e);
 		}
 	}
-	
+
 	/**
 	 * 默认好评，对超过时间的就那些默认好评
 	 * 
@@ -457,7 +489,7 @@ public class SKSkqkService extends JSBaseService {
 				return;
 			}
 			for (SKSkqk obj : list) {
-				Map<String, Object> params = MapUtils.genMap("id", obj.getId(), "remark", obj.getRemark()+" 默认好评");
+				Map<String, Object> params = MapUtils.genMap("id", obj.getId(), "remark", obj.getRemark() + " 默认好评");
 				updateByMap(params);
 				updateStatus(obj.getId(), 81L);
 			}
@@ -511,10 +543,10 @@ public class SKSkqkService extends JSBaseService {
 		// 新人到账
 		skUserFansService.newUser(obj.getUserid());
 		updateStatus(obj.getId(), 99L);
-		
-		//如果是第一次完成任务，更新first_shoptime
+
+		// 如果是第一次完成任务，更新first_shoptime
 		SKUser user = sKUserService.selectOne(obj.getUserid());
-		if(user != null && user.getFirstShoptime() == null){
+		if (user != null && user.getFirstShoptime() == null) {
 			user.setFirstShoptime(new Date());
 			sKUserService.update(user);
 		}
