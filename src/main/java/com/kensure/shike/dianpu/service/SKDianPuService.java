@@ -219,12 +219,12 @@ public class SKDianPuService extends JSBaseService {
 	}
 	
 	/**
-	 * 根据用户id获取激活的店铺记录
+	 * 根据用户id获取店铺记录
 	 * 
 	 * @return
 	 */
 	public List<SKDianPu> getListByUserId(Long userid) {	
-		List<SKDianPu> list = getUserList(userid, 1);
+		List<SKDianPu> list = getUserList(userid, null);
 		return list;
 	}
 	
