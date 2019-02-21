@@ -44,13 +44,10 @@ public class SKBaobeiController {
 
 	@Resource
 	private TaoBaoService taoBaoService;
-
 	@Resource
 	private SKBaobeiService sKBaobeiService;
-
 	@Resource
 	private SKSkqkService sKSkqkService;
-
 	@Resource
 	private SKBbrwService sKBbrwService;
 	@Resource

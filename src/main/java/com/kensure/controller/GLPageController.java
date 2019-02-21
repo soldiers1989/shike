@@ -1,19 +1,24 @@
 package com.kensure.controller;
 
-import co.kensure.mem.NumberUtils;
-import com.kensure.shike.baobei.model.SKBaobei;
-import com.kensure.shike.baobei.service.SKBaobeiService;
-import com.kensure.shike.baobei.service.TaoBaoService;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.List;
+import co.kensure.mem.DateUtils;
+import co.kensure.mem.NumberUtils;
+
+import com.kensure.shike.baobei.model.SKBaobei;
+import com.kensure.shike.baobei.service.SKBaobeiService;
+import com.kensure.shike.baobei.service.TaoBaoService;
 
 /**
  * 商家业务的页面跳转
@@ -163,6 +168,14 @@ public class GLPageController {
 		body.add("indexht_left.jsp");
 		body.add("tjsktj_right.jsp");
 		req.setAttribute("bodypage", body);
+		
+		//初始化参数
+		Date date = new Date();
+		String startCreatedTime = DateUtils.formatDateStart(date);
+		String endCreatedTime = DateUtils.formatDateEnd(date);
+		req.setAttribute("startCreatedTime", startCreatedTime);
+		req.setAttribute("endCreatedTime", endCreatedTime);
+		
 		return "page/shangjia/index.jsp";
 	}
 

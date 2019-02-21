@@ -126,12 +126,16 @@ public class ShikeMobileController {
 	// 登陆页面
 	@RequestMapping("login")
 	public String login(HttpServletRequest req, HttpServletResponse rep, Model model) {
-
 		// type=1时，代表回到页面， 否则直接后退
 		String backToIndex = req.getParameter("type");
 		req.setAttribute("type", backToIndex);
-
 		return "page/mobile/mine/login.jsp";
+	}
+	
+	// 登陆页面
+	@RequestMapping("login2")
+	public String login2(HttpServletRequest req, HttpServletResponse rep, Model model) {
+		return "page/mobile/mine/login2.jsp";
 	}
 
 	// 注册

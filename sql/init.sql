@@ -32,6 +32,14 @@ CREATE TABLE `sk_login` (
   UNIQUE KEY `login_sessionid` (`sessionid`)
 );
 
+-- 微信openid关联表
+CREATE TABLE `weixin_openid` (
+  `id` VARCHAR(128) NOT NULL COMMENT '微信openid',
+  `sessionid` VARCHAR(64) DEFAULT NULL COMMENT '令牌id',
+  `created_time` DATETIME NOT NULL COMMENT '创建时间',
+  `updated_time` DATETIME NOT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+);
 
 -- 短信表
 CREATE TABLE `sk_sms` (

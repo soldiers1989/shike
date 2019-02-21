@@ -1,3 +1,4 @@
+<%@page import="co.kensure.frame.Const"%>
 <%@page import="com.kensure.shike.constant.BusiConstant"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -12,6 +13,9 @@
     <title>抽奖管理</title>
 </head>
 <body>
+<div><ul>
+<li>根路径:<%=Const.ROOT_PATH%>:<%=Const.isStart()%></li>
+</ul></div>
 <div id="fanye">
 <table>
 <tr><th>编号</th> <th>名称</th><th>操作</th></tr>

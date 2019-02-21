@@ -1,14 +1,3 @@
-/*
- * 文件名称: SKDianPuServiceImpl.java
- * 版权信息: Copyright 2001-2017 hangzhou jingshu technology Co., LTD. All right reserved.
- * ----------------------------------------------------------------------------------------------
- * 修改历史:
- * ----------------------------------------------------------------------------------------------
- * 修改原因: 新增
- * 修改人员: fankd
- * 修改日期: 2018-9-8
- * 修改内容: 
- */
 package com.kensure.shike.dianpu.service;
 
 import java.util.Collection;

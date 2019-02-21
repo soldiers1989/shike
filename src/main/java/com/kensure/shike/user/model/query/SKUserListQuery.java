@@ -1,5 +1,7 @@
 package com.kensure.shike.user.model.query;
 
+import java.util.Date;
+
 import co.kensure.frame.BaseInfo;
 
 /**
@@ -15,7 +17,7 @@ public class SKUserListQuery extends BaseInfo {
 
 	/** id */
 	private Long id;
-	
+
 	/** 试客电话 */
 	private String phone;
 
@@ -27,12 +29,31 @@ public class SKUserListQuery extends BaseInfo {
 
 	/** 淘宝账号 */
 	private String noTaobao;
-	
+
 	/** 推荐人id */
 	private String refereeId;
-	
-	/**审核状态*/
+
+	/** 审核状态 */
 	private Integer auditStatus;
+	/**
+	 * 创建时间开始
+	 */
+	private Date startCreatedTime;
+
+	/**
+	 * 创建时间结束
+	 */
+	private Date endCreatedTime;
+	
+	/**
+	 * 初次完成任务时间开始
+	 */
+	private Date startFirstShoptime;
+
+	/**
+	 * 初次完成任务时间结束
+	 */
+	private Date endFirstShoptime;
 
 	public Integer getType() {
 		return type;
@@ -97,4 +118,37 @@ public class SKUserListQuery extends BaseInfo {
 	public void setRefereeId(String refereeId) {
 		this.refereeId = refereeId;
 	}
+
+	public Date getStartCreatedTime() {
+		return startCreatedTime;
+	}
+
+	public void setStartCreatedTime(Date startCreatedTime) {
+		this.startCreatedTime = startCreatedTime;
+	}
+
+	public Date getEndCreatedTime() {
+		return endCreatedTime;
+	}
+
+	public void setEndCreatedTime(Date endCreatedTime) {
+		this.endCreatedTime = endCreatedTime;
+	}
+
+	public Date getStartFirstShoptime() {
+		return startFirstShoptime;
+	}
+
+	public void setStartFirstShoptime(Date startFirstShoptime) {
+		this.startFirstShoptime = startFirstShoptime;
+	}
+
+	public Date getEndFirstShoptime() {
+		return endFirstShoptime;
+	}
+
+	public void setEndFirstShoptime(Date endFirstShoptime) {
+		this.endFirstShoptime = endFirstShoptime;
+	}
+	
 }

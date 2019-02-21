@@ -1,9 +1,14 @@
+<%@page import="co.kensure.http.RequestUtils"%>
 <%@page import="com.kensure.shike.constant.BusiConstant"%>
 <%@page import="co.kensure.api.ApiUtil"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <% 
 	String context = BusiConstant.shangjiapath;
 	String name = BusiConstant.name;
+	String startCreatedTime = RequestUtils.getStringIfNullBlank(request, "startCreatedTime");
+	String endCreatedTime = RequestUtils.getStringIfNullBlank(request, "endCreatedTime");
+	String startFirstShoptime = RequestUtils.getStringIfNullBlank(request, "startFirstShoptime");
+	String endFirstShoptime = RequestUtils.getStringIfNullBlank(request, "endFirstShoptime");
 %>
                 
 <link rel="stylesheet" type="text/css" href="<%=context%>/addJPinShop.css">
@@ -33,14 +38,26 @@
             <span style="float:none;margin-right:5px;">推荐人id</span>
             <input name="refereeId" type="text" value="" style="width:80px" >
             
-             <span style="float:none;">审核状态</span>
+            
+            
+            
+            <span style="float:none;">审核状态</span>
         	<select name="auditStatus" style="width:auto;">
             <option value="" selected="selected">全部</option>
                 <option value="0">未审核</option>
                 <option value="1">审核通过</option>
                 <option value="2">不通过</option>
 
-        </select>
+        	</select>
+        	
+        	<br>
+        	<span style="float:none;margin-right:5px;">创建时间</span>
+	        <input name="startCreatedTime" id="startCreatedTime" type="text" value="<%=startCreatedTime%>">至
+	        <input name="endCreatedTime" id="endCreatedTime" type="text" value="<%=endCreatedTime%>" >
+	        
+	        <span style="float:none;margin-right:5px;">初次完成任务时间</span>
+	        <input name="startFirstShoptime" id="startFirstShoptime" type="text" value="<%=startFirstShoptime%>">至
+	        <input name="endFirstShoptime" id="endFirstShoptime" type="text" value="<%=endFirstShoptime%>" >
         </form>
         <input onclick="chongzhilist(1)" type="button" value="搜索">
     </div>
@@ -218,7 +235,7 @@
 	,{w:60,na:"活跃度",callfun:huoyuefun}
 	,{w:50,na:"活动申请数",colname:"sqNum"}
 	,{w:50,na:"中奖数",colname:"zjNum"}
-	,{w:80,na:"第一次消费时间",colname:"firstShoptimeStr"}	
+	,{w:80,na:"初次完成任务时间",colname:"firstShoptimeStr"}	
 	,{w:80,na:"推荐人",callfun:refereeUserfun}
 	,{w:100,na:"审核状态",callfun:auditfun}
 	,{w:200,na:"操作",callfun:optfun}];
@@ -295,5 +312,25 @@
         alert("操作成功")
         chongzhilist(fanye.current);
     }
+    
+    //时间控件
+    laydate.render({
+ 	 elem: '#startCreatedTime'
+ 	,type: 'datetime'
+    });
+    laydate.render({
+ 		 elem: '#endCreatedTime'
+ 		,type: 'datetime'
+    });
+    laydate.render({
+		 elem: '#startFirstShoptime'
+		,type: 'datetime'
+  });
+    laydate.render({
+		 elem: '#endFirstShoptime'
+		,type: 'datetime'
+   });
+    
+    
    
 </script>

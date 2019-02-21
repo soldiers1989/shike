@@ -8,7 +8,7 @@ package com.kensure.shike.constant;
  */
 public class BusiConstant {
 
-	public static final String version = "1.0";
+	public static final String version = "2.0";
 	
 	public static final String context = "/shike";
 

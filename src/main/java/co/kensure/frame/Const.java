@@ -46,5 +46,13 @@ public class Const {
 	public final static String START_TIME_IS_NULL = "开始时间不得为空";
 
 	public final static String END_TIME_IS_NULL = "结束时间不得为空";
-
+	
+	
+	/**
+	 * 是否开启定时器
+	 * @return
+	 */
+	public static boolean isStart(){
+		return Const.ROOT_PATH.startsWith("/web");
+	}
 }

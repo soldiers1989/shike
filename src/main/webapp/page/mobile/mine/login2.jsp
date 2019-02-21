@@ -60,7 +60,7 @@
 <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/http.js?ver=<%=BusiConstant.version%>"></script>
 
 <header class="header  task-top">
-  <i class="iconfont icon-Toright" style="color: #000;display: inline-block;float: left;margin-left: 0.2rem;" onclick="history.back(-1)"></i>登录
+  <i class="iconfont icon-Toright" style="color: #000;display: inline-block;float: left;margin-left: 0.2rem;" onclick="history.back(-1)"></i><a class="icon-userCenter" href="<%=ApiUtil.getUrl("/skm/login2")%>">登录</a>
     <div class="righthot thot">
         <a class="icon-userCenter" href="<%=BusiConstant.shike_regist.getKey()%>">
             新用户注册
@@ -93,9 +93,13 @@
 <script>
     $(function () {
         if (globle.isWeixin()) {
-            $("#weixinBtn").css("display", "block");
-        } else {
-            $("#wxlogin").css("display", "block");
+        	 var mdopenid = $.cookie("mdopenid");
+        	 //如果openid为空,获取code
+        	 if(!mdopenid){
+        		 var codeurl =
+        			
+        	 }
+        	 
         }
 
         var back= '';
@@ -106,34 +110,6 @@
             }
             var name = $("#name").val();
             var pwd = $("#pwd").val();
-            // var namefalg = /^(?=.*[A-Za-z_\u4E00-\u9FA5])[A-Za-z0-9_\u4E00-\u9FA5]{3,15}$/.test(name) || /^[1][3,4,5,6,7,8,9][0-9]{9}$/.test(name);
-            // if (!namefalg) {
-            //     $("#namewarn").removeClass(".right").html("用户名格式错误");
-            //
-            // } else {
-            //     $("#namewarn").addClass(".right").html("");
-            // }
-            // var pwdfalg = /^[\w\W]{6,16}$/.test(pwd);
-            // if (!pwdfalg) {
-            //     $("#pwdwarn").removeClass(".right").html("密码格式错误");
-            // } else {
-            //     $("#pwdwarn").addClass(".right").html("");
-            // }
-
-            // if (namefalg && pwdfalg) {
-            //     $.post("/UserAccount/MobileLoginSubmit", { mobile: name, password: pwd }, function (data) {
-            //         if (!data.Result) {
-            //             myAlert(data.Message);
-            //         } else {
-            //             if (back != '') {
-            //                 location.href = back;
-            //             } else {
-            //                 location.href = "/";
-            //             }
-            //         }
-            //     });
-            // }
-
             // 登录
             login();
         });
@@ -145,10 +121,6 @@
                 $(".submit-btn").removeClass("red").addClass("gray");
             }
         });
-        // $("#weixinBtn").click(function () {
-        //     location.href = "/UserAccount/weixinlogininapp";
-        // });
-
 
         $("#name").keydown(function (event) {
             if (event.keyCode == 13) {

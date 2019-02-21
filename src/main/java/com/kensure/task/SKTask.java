@@ -5,6 +5,8 @@ import javax.annotation.Resource;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import co.kensure.frame.Const;
+
 import com.kensure.shike.baobei.service.SKBaobeiService;
 import com.kensure.shike.baobei.service.SKBbrwService;
 import com.kensure.shike.baobei.service.SKChouJiangService;
@@ -18,7 +20,7 @@ public class SKTask {
 
 	@Resource
 	private SKChouJiangService sKChouJiangService;
-	
+
 	@Resource
 	private SKSkqkService sKSkqkService;
 
@@ -30,6 +32,10 @@ public class SKTask {
 	 */
 	@Scheduled(cron = "0 0 0 1/1 * ?")
 	public void deleteLogData() {
+		if (!Const.isStart()) {
+			System.out.println("定时任务未开启");
+			return;
+		}
 		try {
 			sKBaobeiService.endBaobei();
 		} catch (Throwable e) {
@@ -47,6 +53,10 @@ public class SKTask {
 	 */
 	@Scheduled(cron = "0 0 10 1/1 * ?")
 	public void choujiang1() {
+		if (!Const.isStart()) {
+			System.out.println("定时任务未开启");
+			return;
+		}
 		try {
 			sKChouJiangService.doChouJiang(false);
 		} catch (Throwable e) {
@@ -59,6 +69,10 @@ public class SKTask {
 	 */
 	@Scheduled(cron = "0 0 15 1/1 * ?")
 	public void choujiang2() {
+		if (!Const.isStart()) {
+			System.out.println("定时任务未开启");
+			return;
+		}
 		try {
 			sKChouJiangService.doChouJiang(false);
 		} catch (Throwable e) {
@@ -71,18 +85,26 @@ public class SKTask {
 	 */
 	@Scheduled(cron = "0 0 20 1/1 * ?")
 	public void choujiang3() {
+		if (!Const.isStart()) {
+			System.out.println("定时任务未开启");
+			return;
+		}
 		try {
 			sKChouJiangService.doChouJiang(true);
 		} catch (Throwable e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * add by fankd 每天22点，补充抽奖
 	 */
 	@Scheduled(cron = "0 0 22 1/1 * ?")
 	public void choujiang4() {
+		if (!Const.isStart()) {
+			System.out.println("定时任务未开启");
+			return;
+		}
 		try {
 			sKChouJiangService.doChouJiang(true);
 		} catch (Throwable e) {
@@ -95,6 +117,10 @@ public class SKTask {
 	 */
 	@Scheduled(cron = "0 4/10 * * * ? ")
 	public void quxiao() {
+		if (!Const.isStart()) {
+			System.out.println("定时任务未开启");
+			return;
+		}
 		try {
 			sKSkqkService.kaiQiHaoPin();
 		} catch (Throwable e) {
@@ -104,7 +130,7 @@ public class SKTask {
 			sKSkqkService.moRenHaoPin();
 		} catch (Throwable e) {
 			e.printStackTrace();
-		}	
+		}
 		try {
 			sKSkqkService.toReturnMoney();
 		} catch (Throwable e) {
