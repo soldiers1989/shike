@@ -53,10 +53,10 @@ public class SKUserController {
 
 	@Resource
 	private SKUserYueService sKUserYueService;
-	
+
 	@Resource
 	private SKTaobaoService sKTaobaoService;
-	
+
 	@Resource
 	private SKUserStatisticsService sKUserStatisticsService;
 
@@ -116,14 +116,14 @@ public class SKUserController {
 		}
 		return new ResultRowInfo();
 	}
-	
+
 	/**
 	 * 根据会话获取用户信息
 	 */
 	@ResponseBody
 	@RequestMapping(value = "getuser.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
 	public ResultInfo getuser(HttpServletRequest req, HttpServletResponse rep) {
-		SKUser u = sKUserService.getUser();	
+		SKUser u = sKUserService.getUser();
 		u.setPassword(null);
 		return new ResultRowInfo(u);
 	}
@@ -154,8 +154,21 @@ public class SKUserController {
 		JSONObject json = RequestUtils.paramToJson(req);
 		String mobile = json.getString("mobile");
 		String password = json.getString("password");
+		String openid = json.getString("openid");
 		int type = json.getInteger("type");
-		SKUserSession userSession = sKLoginService.login(mobile, password, type, req);
+		SKUserSession userSession = sKLoginService.login(mobile, password, type, openid, req);
+		return new ResultRowInfo(userSession);
+	}
+
+	/**
+	 * 根据openid获取用户信息
+	 */
+	@ResponseBody
+	@RequestMapping(value = "getloginbyopenid.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	public ResultInfo getLoginByOpenid(HttpServletRequest req, HttpServletResponse rep) {
+		JSONObject json = RequestUtils.paramToJson(req);
+		String openid = json.getString("openid");
+		SKUserSession userSession = sKLoginService.getLoginByOpenid(openid);
 		return new ResultRowInfo(userSession);
 	}
 
@@ -168,7 +181,7 @@ public class SKUserController {
 		SKUserYue u = sKUserYueService.selectByUser();
 		return new ResultRowInfo(u);
 	}
-	
+
 	/**
 	 * 用户列表
 	 */
@@ -178,12 +191,12 @@ public class SKUserController {
 		JSONObject json = RequestUtils.paramToJson(req);
 		SKUserListQuery userQuery = JSONObject.parseObject(json.toJSONString(), SKUserListQuery.class);
 
-        PageInfo page = JSONObject.parseObject(json.toJSONString(), PageInfo.class);
+		PageInfo page = JSONObject.parseObject(json.toJSONString(), PageInfo.class);
 
 		List<SKUser> list = sKUserService.selectList(userQuery, page);
 
-        long cont = sKUserService.selectListCount(userQuery);
-        return new ResultRowsInfo(list, cont);
+		long cont = sKUserService.selectListCount(userQuery);
+		return new ResultRowsInfo(list, cont);
 	}
 
 	/**
@@ -296,8 +309,7 @@ public class SKUserController {
 		List<SKUser> list = sKUserService.getListByRefereeId();
 		return new ResultRowsInfo(list);
 	}
-	
-	
+
 	/**
 	 * 用户数据获取
 	 */
@@ -351,7 +363,6 @@ public class SKUserController {
 		sKUserService.updateUserRemark(id, remark);
 		return new ResultRowInfo();
 	}
-	
 
 	/**
 	 * 更新淘气值
@@ -367,7 +378,7 @@ public class SKUserController {
 
 		return new ResultRowInfo();
 	}
-	
+
 	/**
 	 * 更新淘宝账号
 	 */
@@ -380,9 +391,7 @@ public class SKUserController {
 		sKUserService.updateTaobaoNo(id, taobaono);
 		return new ResultRowInfo();
 	}
-	
-	
-	
+
 	/**
 	 * 统计用户推荐
 	 */
@@ -391,11 +400,11 @@ public class SKUserController {
 	public ResultInfo tjtj(HttpServletRequest req, HttpServletResponse rep) {
 		JSONObject json = RequestUtils.paramToJson(req);
 		SKUserTJQuery userQuery = JSONObject.parseObject(json.toJSONString(), SKUserTJQuery.class);
-        PageInfo page = JSONObject.parseObject(json.toJSONString(), PageInfo.class);
-        
+		PageInfo page = JSONObject.parseObject(json.toJSONString(), PageInfo.class);
+
 		List<SKUserTuiJian> list = sKUserStatisticsService.tuiJianList(userQuery, page);
 
-        long cont = sKUserStatisticsService.tuiJianCount(userQuery);
-        return new ResultRowsInfo(list, cont);
+		long cont = sKUserStatisticsService.tuiJianCount(userQuery);
+		return new ResultRowsInfo(list, cont);
 	}
 }

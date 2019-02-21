@@ -1,9 +1,12 @@
+<%@page import="org.apache.commons.lang.StringUtils"%>
+<%@page import="co.kensure.http.RequestUtils"%>
 <%@page import="co.kensure.api.ApiUtil"%>
 <%@page import="java.util.List"%>
 <%@page import="com.kensure.shike.constant.BusiConstant"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
     String context = BusiConstant.shikemobilepath;
+	String openId = RequestUtils.getStringIfNullBlank(request, "openId");
 %>
 <!DOCTYPE html>
 <html lang="zh" style="font-size: 22.125px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -60,7 +63,7 @@
 <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/http.js?ver=<%=BusiConstant.version%>"></script>
 
 <header class="header  task-top">
-  <i class="iconfont icon-Toright" style="color: #000;display: inline-block;float: left;margin-left: 0.2rem;" onclick="history.back(-1)"></i><a class="icon-userCenter" href="<%=ApiUtil.getUrl("/skm/login2")%>">登录</a>
+  <i class="iconfont icon-Toright" style="color: #000;display: inline-block;float: left;margin-left: 0.2rem;" onclick="history.back(-1)"></i>登录
     <div class="righthot thot">
         <a class="icon-userCenter" href="<%=BusiConstant.shike_regist.getKey()%>">
             新用户注册
@@ -91,17 +94,11 @@
 </div>
 
 <script>
-    $(function () {
-        if (globle.isWeixin()) {
-        	 var mdopenid = $.cookie("mdopenid");
-        	 //如果openid为空,获取code
-        	 if(!mdopenid){
-        		 var codeurl =
-        			
-        	 }
-        	 
-        }
+	<%if(StringUtils.isNotBlank(openId)){%>
+		addopenid('<%=openId%>');
+	<%}%>
 
+    $(function () {
         var back= '';
         $(".submit-btn").on("click", function () {
             if ($("#pwd").val().length <= 0 || $("#name").val().length <= 0) {
@@ -137,13 +134,30 @@
         function loginsucdo(data){
             var usersession = data.resultData.row;
             addcookie(usersession);
-            window.location.href="<%=ApiUtil.getUrl("/skm/haohuo")%>";
+            window.location.href="<%=ApiUtil.getUrl("/skm/index")%>";
         }
         function login(){
-            var data = {type:1,mobile:$("#name").val(),password:$("#pwd").val()};
+            var data = {type:1,mobile:$("#name").val(),password:$("#pwd").val(),openid:$.cookie("mdopenid")};
             var url = "<%=BusiConstant.shangjia_login_do.getKey()%>";
             postdo(url, data, loginsucdo,null, null);
         }
+        
+        function loginByOpenidsucdo(data){
+            var usersession = data.resultData.row;
+            if(usersession){
+            	  addcookie(usersession);
+                  window.location.href="<%=ApiUtil.getUrl("/skm/index")%>";
+            }      
+        }
+        function loginByOpenid(){
+        	var mdopenid = $.cookie("mdopenid");
+        	if(mdopenid){
+        		var data = {openid:mdopenid};
+                var url = "<%=ApiUtil.getUrl("/user/getloginbyopenid.do")%>";
+                postdo(url, data, loginByOpenidsucdo,null, null);
+        	}       
+        }
+        loginByOpenid();
 
         function zhuce(){
             window.location.href="<%=BusiConstant.shike_regist.getKey()%>";

@@ -11,13 +11,13 @@
  */
 package com.kensure.shike.user.service;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,6 +34,8 @@ import com.kensure.shike.user.dao.SKLoginDao;
 import com.kensure.shike.user.model.SKLogin;
 import com.kensure.shike.user.model.SKUser;
 import com.kensure.shike.user.model.SKUserSession;
+import com.kensure.shike.weixin.model.WeixinOpenid;
+import com.kensure.shike.weixin.service.WeixinOpenidService;
 
 /**
  * 试客登录表服务实现类
@@ -53,24 +55,15 @@ public class SKLoginService extends JSBaseService {
 	@Resource
 	private SKUserService sKUserService;
 
+	@Resource
+	private WeixinOpenidService weixinOpenidService;
+
 	public SKLogin selectOne(Long id) {
 		return dao.selectOne(id);
 	}
 
-	public List<SKLogin> selectByIds(Collection<Long> ids) {
-		return dao.selectByIds(ids);
-	}
-
-	public List<SKLogin> selectAll() {
-		return dao.selectAll();
-	}
-
 	public List<SKLogin> selectByWhere(Map<String, Object> parameters) {
 		return dao.selectByWhere(parameters);
-	}
-
-	public long selectCount() {
-		return dao.selectCount();
 	}
 
 	public long selectCountByWhere(Map<String, Object> parameters) {
@@ -97,21 +90,9 @@ public class SKLoginService extends JSBaseService {
 		return dao.updateByMap(params);
 	}
 
-	public boolean delete(Long id) {
-		return dao.delete(id);
-	}
-
-	public boolean deleteMulti(Collection<Long> ids) {
-		return dao.deleteMulti(ids);
-	}
-
-	public boolean deleteByWhere(Map<String, Object> parameters) {
-		return dao.deleteByWhere(parameters);
-	}
-	
 	/**
-	 * 根据令牌拿到用户登录信息
-	 * tokenid = sessionid
+	 * 根据令牌拿到用户登录信息 tokenid = sessionid
+	 * 
 	 * @return
 	 */
 	public SKLogin selectByTokenId(String tokenid) {
@@ -123,7 +104,6 @@ public class SKLoginService extends JSBaseService {
 		}
 		return u;
 	}
-	
 
 	/**
 	 * 登录逻辑
@@ -134,15 +114,15 @@ public class SKLoginService extends JSBaseService {
 	 * @return
 	 */
 	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
-	public SKUserSession login(String mobile, String password, int type, HttpServletRequest request) {
-//		MobileUtils.checkMobile(mobile);
+	public SKUserSession login(String mobile, String password, int type,String openid, HttpServletRequest request) {
+		// MobileUtils.checkMobile(mobile);
 		SKUserService.rangeType(type);
 
 		SKUser u = sKUserService.selectByMobile(mobile, type);
-		if(u == null){
+		if (u == null) {
 			u = sKUserService.selectByName(mobile, type);
 		}
-		
+
 		if (u == null) {
 			BusinessExceptionUtil.threwException("用户不存在");
 		}
@@ -176,6 +156,37 @@ public class SKLoginService extends JSBaseService {
 		sKUserSession.setName(u.getName());
 		sKUserSession.setPhone(u.getPhone());
 		sKUserSession.setType(u.getType());
+		//如果openid不为空，保存关系
+		if(StringUtils.isNotBlank(openid)){
+			weixinOpenidService.saveOpen(openid, sKUserSession.getTokenId());
+		}
+		return sKUserSession;
+	}
+
+	/**
+	 * 试客根据openid获取登录信息
+	 */
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+	public SKUserSession getLoginByOpenid(String openid) {
+		SKUserSession sKUserSession = null;
+		if(StringUtils.isBlank(openid)){
+			return null;
+		}
+		WeixinOpenid open = weixinOpenidService.getOpenByOpenid(openid);
+		if (open != null) {
+			String tokenid = open.getSessionid();
+			SKLogin token = selectByTokenId(tokenid);
+			if (token != null) {
+				SKUser user = sKUserService.selectOne(token.getUserid());
+				if (user != null) {
+					sKUserSession = new SKUserSession();
+					sKUserSession.setTokenId(token.getSessionid());
+					sKUserSession.setName(user.getName());
+					sKUserSession.setPhone(user.getPhone());
+					sKUserSession.setType(user.getType());
+				}
+			}
+		}
 		return sKUserSession;
 	}
 

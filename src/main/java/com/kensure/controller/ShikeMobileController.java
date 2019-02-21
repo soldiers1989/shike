@@ -37,6 +37,7 @@ import com.kensure.shike.sys.model.SKCMS;
 import com.kensure.shike.sys.service.SKCMSService;
 import com.kensure.shike.user.model.SKUser;
 import com.kensure.shike.user.service.SKUserService;
+import com.kensure.shike.weixin.service.WeixinOpenidService;
 import com.kensure.shike.zhang.model.SKUserYue;
 import com.kensure.shike.zhang.model.SkUserJinbi;
 import com.kensure.shike.zhang.service.SKUserYueService;
@@ -55,40 +56,30 @@ public class ShikeMobileController {
 
 	@Resource
 	private SKBaobeiService sKBaobeiService;
-
 	@Resource
 	private SKJindianService sKJindianService;
-
 	@Resource
 	private SKWordService sKWordService;
-
 	@Resource
 	private SKSkqkService sKSkqkService;
-
 	@Resource
 	private SKUserService sKUserService;
-
 	@Resource
 	private SKUserYueService skUserYueService;
-
 	@Resource
 	private SkUserJinbiService skUserJinbiService;
-
 	@Resource
 	private SkUserFansService skUserFansService;
-
 	@Resource
 	private SKDianPuService skDianPuService;
-
 	@Resource
 	private SKCMSService sKCMSService;
-
 	@Resource
 	private SKJysjService skJysjService;
-	
 	@Resource
 	private SKBaobeiTPService sKBaobeiTPService;
-	
+	@Resource
+	private WeixinOpenidService weixinOpenidService;
 
 	// 首页
 	@RequestMapping("index")
@@ -131,10 +122,31 @@ public class ShikeMobileController {
 		req.setAttribute("type", backToIndex);
 		return "page/mobile/mine/login.jsp";
 	}
-	
+
 	// 登陆页面
 	@RequestMapping("login2")
 	public String login2(HttpServletRequest req, HttpServletResponse rep, Model model) {
+		String code = req.getParameter("code");
+		// 微信浏览器，进行微信校验
+		if (RequestUtils.isWechat(req) && StringUtils.isBlank(code)) {
+			// 如果为空，进行跳转判断
+			String mdtokenid = RequestUtils.getCookieByName(req, "mdtokenid");
+			String mdopenid = RequestUtils.getCookieByName(req, "mdopenid");
+			// 令牌和openid为空，需要跳转，进行识别
+			if (StringUtils.isBlank(mdtokenid) && StringUtils.isBlank(mdopenid)) {
+				String url = WeixinOpenidService.getCodeUrl("http://www.52shibei.com/shike/skm/login2");
+				try {
+					rep.sendRedirect(url);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		if (StringUtils.isNotBlank(code)) {
+			String openId = weixinOpenidService.getOpenId(code);
+			System.out.println(code + "==11==" + openId);
+			req.setAttribute("openId", openId);
+		}
 		return "page/mobile/mine/login2.jsp";
 	}
 
@@ -162,15 +174,15 @@ public class ShikeMobileController {
 	public String dyren(HttpServletRequest req, HttpServletResponse rep, Model model) {
 		return "page/mobile/mine/dyren.jsp";
 	}
-	
+
 	// 分享二维码页面
 	@RequestMapping("fenxiang")
 	public String fenxiang(HttpServletRequest req, HttpServletResponse rep, Model model) {
 		SKUser user = sKUserService.getUser();
-		String id = user.getId()+"";
+		String id = user.getId() + "";
 		id = StringKSUtils.autoGenericCode6(id);
-		String path = "/filetemp/qr/"+id+".png";
-		QRUtils.genQR(300, 300, "http://www.52shibei.com/shike/skm/regist?refereeId="+id, Const.ROOT_PATH+path);	
+		String path = "/filetemp/qr/" + id + ".png";
+		QRUtils.genQR(300, 300, "http://www.52shibei.com/shike/skm/regist?refereeId=" + id, Const.ROOT_PATH + path);
 		req.setAttribute("code", id);
 		req.setAttribute("path", path);
 		return "page/mobile/mine/fenxiang.jsp";
@@ -233,11 +245,11 @@ public class ShikeMobileController {
 		int status = skqk.getStatus().intValue();
 
 		SKBaobei baobei = sKBaobeiService.getSKBaobei(id);
-		
-		//宝贝第一个图片
+
+		// 宝贝第一个图片
 		List<SKBaobeiTP> tplist = sKBaobeiTPService.getList(id);
 		SKBaobeiTP firsttp = tplist.get(0);
-		
+
 		req.setAttribute("baobei", baobei);
 		req.setAttribute("user", user);
 		req.setAttribute("firsttp", firsttp);
@@ -290,7 +302,7 @@ public class ShikeMobileController {
 		JSONObject json = RequestUtils.paramToJson(req);
 		Long id = json.getLong("id");
 		SKBaobei baobei = sKBaobeiService.getSKBaobei(id);
-		//宝贝第一个图片
+		// 宝贝第一个图片
 		List<SKBaobeiTP> tplist = sKBaobeiTPService.getList(id);
 		SKBaobeiTP firsttp = tplist.get(0);
 		req.setAttribute("firsttp", firsttp);

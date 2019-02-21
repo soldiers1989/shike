@@ -87,9 +87,13 @@ public class WeixinOpenidService extends JSBaseService{
 		return dao.deleteByWhere(parameters);
 	}
     
-    public static String getCodeUrl(){
+    /**
+     * 获取微信code的代码
+     * @return
+     */
+    public static String getCodeUrl(String redirctUri){
     	String weixin_appid = MyConfigService.getMyConfig("weixin_appid").getVal();
-    	String  codeUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+weixin_appid+"&redirect_uri=REDIRECT_URI&response_type=code&scope=snsapi_base&state=STATE#wechat_redirect";
+    	String  codeUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+weixin_appid+"&redirect_uri="+redirctUri+"&response_type=code&scope=snsapi_base&state=0#wechat_redirect";
     	return codeUrl;
     }
     
@@ -99,11 +103,12 @@ public class WeixinOpenidService extends JSBaseService{
      * @param code
      * @return
      */
-    private String getOpenId(String code){
+    public String getOpenId(String code){
     	String weixin_appid = MyConfigService.getMyConfig("weixin_appid").getVal();
     	String weixin_appsecret = MyConfigService.getMyConfig("weixin_appsecret").getVal();
-    	String url = "https://api.weixin.qq.com/sns/access_token?appid=" + weixin_appid + "&secret=" + weixin_appsecret + "&code=" + code + "&grant_type=authorization_code";
+    	String url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + weixin_appid + "&secret=" + weixin_appsecret + "&code=" + code + "&grant_type=authorization_code";
     	String content = HttpUtils.getBody(url);
+    	System.err.println("content===="+content);
     	JSONObject weixin = JSONObject.parseObject(content, JSONObject.class);
     	String openid = weixin.getString("openid");
     	return openid;
@@ -114,8 +119,7 @@ public class WeixinOpenidService extends JSBaseService{
      * @param code
      * @return
      */
-    public WeixinOpenid getOpenByCode(String code){
-    	String openid = getOpenId(code);
+    public WeixinOpenid getOpenByOpenid(String openid){
     	WeixinOpenid open = selectOne(openid);
     	return open;
     }

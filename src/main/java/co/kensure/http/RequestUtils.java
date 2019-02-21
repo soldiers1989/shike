@@ -13,6 +13,7 @@ package co.kensure.http;
 
 import java.util.Enumeration;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
@@ -101,6 +102,17 @@ public class RequestUtils {
 	}
 
 	/**
+	 * 是否微信浏览器
+	 */
+	public static boolean isWechat(HttpServletRequest request) {
+		String ua = request.getHeader("User-Agent").toLowerCase();
+		if (ua.indexOf("micromessenger") > -1) {
+			return true;// 微信
+		}
+		return false;// 非微信手机浏览器
+	}
+
+	/**
 	 * 获取用户设备
 	 * 
 	 * @param request
@@ -143,6 +155,29 @@ public class RequestUtils {
 	 */
 	public static String getDip(HttpServletRequest request) {
 		return request.getRemoteAddr();
+	}
+	
+	/**
+	 * 根据cookie名，获取cookie的值
+	 * @param request
+	 * @param cookieName
+	 * @return
+	 */
+	public static String getCookieByName(HttpServletRequest request,String cookieName){
+		String val = null;
+		// 获取所有Cookie
+		Cookie[] cookies = request.getCookies();
+		// 如果浏览器中存在Cookie
+		if (cookies != null && cookies.length > 0) {
+			// 遍历所有Cookie
+			for (Cookie cookie : cookies) {
+				// 找到name为city的Cookie
+				if (cookie.getName().equals(cookieName)) {
+					val = cookie.getValue();
+				}
+			}
+		}
+		return val;
 	}
 
 	/**

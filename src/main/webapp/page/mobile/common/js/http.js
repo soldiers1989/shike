@@ -58,6 +58,7 @@ function addopenid(openid){
 
 function removecookie(){
 	var path = {path : '/'}
+	$.cookie("mdopenid",null,path);
 	$.cookie("mdtokenid",null,path);
 	$.cookie("mdname",null,path);
 	$.cookie("mdphone",null,path);

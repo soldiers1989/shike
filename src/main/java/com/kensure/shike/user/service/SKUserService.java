@@ -275,7 +275,7 @@ public class SKUserService extends JSBaseService {
 	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
 	public SKUserSession addSkAndLogin(SKUser sKUser, String QRCode, HttpServletRequest request) {
 		addSJOrSk(sKUser, QRCode);
-		SKUserSession session = sKLoginService.login(sKUser.getPhone(), sKUser.getPassword(), sKUser.getType(), request);
+		SKUserSession session = sKLoginService.login(sKUser.getPhone(), sKUser.getPassword(), sKUser.getType(),null, request);
 		return session;
 	}
 
