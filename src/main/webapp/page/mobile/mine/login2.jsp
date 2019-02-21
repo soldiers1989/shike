@@ -150,6 +150,10 @@
             }      
         }
         function loginByOpenid(){
+        	var mdtokenid = $.cookie("mdtokenid");
+        	if(mdtokenid){
+        		return;
+        	}
         	var mdopenid = $.cookie("mdopenid");
         	if(mdopenid){
         		var data = {openid:mdopenid};
