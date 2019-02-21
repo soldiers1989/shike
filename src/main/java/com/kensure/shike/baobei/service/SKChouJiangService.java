@@ -1,14 +1,3 @@
-/*
- * 文件名称: SKBbrwServiceImpl.java
- * 版权信息: Copyright 2001-2017 hangzhou jingshu technology Co., LTD. All right reserved.
- * ----------------------------------------------------------------------------------------------
- * 修改历史:
- * ----------------------------------------------------------------------------------------------
- * 修改原因: 新增
- * 修改人员: fankd
- * 修改日期: 2018-9-9
- * 修改内容: 
- */
 package com.kensure.shike.baobei.service;
 
 import co.kensure.exception.BusinessExceptionUtil;
@@ -94,10 +83,6 @@ public class SKChouJiangService extends JSBaseService {
         if (baobei.getHdtypeid() != null && baobei.getHdtypeid() == 6L) {
             return;
         }
-        // 虚拟商品，不需要参加定时器抽奖,非审核通过的，也不需要抽奖
-        if(baobei.getIsXuni() == 1 || baobei.getStatus() != 9){
-        	return;
-        }
 
 		Long bbid = bbrw.getBbid();
 		Long bbnum = bbrw.getBbnum();
@@ -115,6 +100,15 @@ public class SKChouJiangService extends JSBaseService {
 		if (CollectionUtils.isEmpty(list)) {
 			return;
 		}
+		  // 虚拟商品,非审核通过的，没人可以中奖
+        if(baobei.getIsXuni() == 1 || baobei.getStatus() != 9){
+        	for (SKSkqk skqk : list) {
+				skqk.setStatus(21L);
+				sKSkqkService.updateStatus(skqk.getId(), skqk.getStatus());
+			}
+        	return;
+        }
+		
 		List<SKSkqk> zjrlist = null;
 		if (list.size() <= cjsl) {
 			// 奖比人多，全部中奖

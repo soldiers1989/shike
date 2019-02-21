@@ -15,8 +15,8 @@ public class FileTest {
 
 	@Test
 	public void test() {
-//		String path = "E:\\workspaces\\eclipse1\\shike\\src\\main\\webapp";
-		String path = "E:\\workspaces\\eclipse1\\shike\\target\\classes";
+		String path = "E:\\workspaces\\eclipse1\\shike\\src\\main\\webapp";
+//		String path = "E:\\workspaces\\eclipse1\\shike\\target\\classes";
 //		String path = "E:\\workspaces\\eclipse0\\nbws\\webapp";
 
 		String tartpath = "E:\\workspaces\\eclipse2";
