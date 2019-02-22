@@ -125,7 +125,8 @@ public class SKTaobaoService extends JSBaseService{
     			try {
 					String html = TaoBaoService.postTaobaoZhangHao(taobao.getId(), sessionId);
 					JSONObject json = JSONObject.parseObject(html);
-					if(StringUtils.isNotBlank(json.getString("code"))){
+					if("2".equals(json.getString("code"))){
+						//不存在
 						taobao.setFlag(-1);
 					}else{
 						taobao.setSex(json.getString("sex"));
@@ -140,7 +141,6 @@ public class SKTaobaoService extends JSBaseService{
 						taobao.setVip(json.getInteger("vip"));
 						taobao.setFlag(1);
 					}
-					
 				} catch (Exception e) {			
 					e.printStackTrace();
 					BusinessExceptionUtil.threwException("sessionid不对.请重新获取");
@@ -151,4 +151,10 @@ public class SKTaobaoService extends JSBaseService{
 
 	}
     
+    
+    public static void main(String[] args) {
+    	String html = TaoBaoService.postTaobaoZhangHao("痕雨爱", "idbpkmsegofvk01eg894emqle1");
+    	System.out.println("html="+html);
+    	
+	}
 }
