@@ -108,7 +108,6 @@ public class WeixinOpenidService extends JSBaseService{
     	String weixin_appsecret = MyConfigService.getMyConfig("weixin_appsecret").getVal();
     	String url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + weixin_appid + "&secret=" + weixin_appsecret + "&code=" + code + "&grant_type=authorization_code";
     	String content = HttpUtils.getBody(url);
-    	System.err.println("content===="+content);
     	JSONObject weixin = JSONObject.parseObject(content, JSONObject.class);
     	String openid = weixin.getString("openid");
     	return openid;

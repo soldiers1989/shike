@@ -120,12 +120,23 @@ public class ShikeMobileController {
 		// type=1时，代表回到页面， 否则直接后退
 		String backToIndex = req.getParameter("type");
 		req.setAttribute("type", backToIndex);
+		//微信认证
+		weixintiaozhuan(req, rep,"http://www.52shibei.com/shike/skm/login");
 		return "page/mobile/mine/login.jsp";
 	}
 
 	// 登陆页面
 	@RequestMapping("login2")
 	public String login2(HttpServletRequest req, HttpServletResponse rep, Model model) {
+		//微信认证
+		weixintiaozhuan(req, rep,"http://www.52shibei.com/shike/skm/login2");
+		return "page/mobile/mine/login2.jsp";
+	}
+
+	/**
+	 * 微信跳转
+	 */
+	private void weixintiaozhuan(HttpServletRequest req, HttpServletResponse rep,String rurl) {
 		String code = req.getParameter("code");
 		// 微信浏览器，进行微信校验
 		if (RequestUtils.isWechat(req) && StringUtils.isBlank(code)) {
@@ -134,7 +145,7 @@ public class ShikeMobileController {
 			String mdopenid = RequestUtils.getCookieByName(req, "mdopenid");
 			// 令牌和openid为空，需要跳转，进行识别
 			if (StringUtils.isBlank(mdtokenid) && StringUtils.isBlank(mdopenid)) {
-				String url = WeixinOpenidService.getCodeUrl("http://www.52shibei.com/shike/skm/login2");
+				String url = WeixinOpenidService.getCodeUrl(rurl);
 				try {
 					rep.sendRedirect(url);
 				} catch (Exception e) {
@@ -144,10 +155,8 @@ public class ShikeMobileController {
 		}
 		if (StringUtils.isNotBlank(code)) {
 			String openId = weixinOpenidService.getOpenId(code);
-			System.out.println(code + "==11==" + openId);
 			req.setAttribute("openId", openId);
 		}
-		return "page/mobile/mine/login2.jsp";
 	}
 
 	// 注册

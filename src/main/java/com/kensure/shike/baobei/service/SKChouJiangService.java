@@ -42,10 +42,9 @@ public class SKChouJiangService extends JSBaseService {
 
 	@Resource
 	private SKBbrwService sKBbrwService;
-	
+
 	@Resource
 	private SKChouJiangLimitService sKChouJiangLimitService;
-	
 
 	/**
 	 * 抽奖逻辑 是否要结束
@@ -60,8 +59,8 @@ public class SKChouJiangService extends JSBaseService {
 			List<SKBbrw> list = sKBbrwService.selectByWhere(parameters);
 			if (CollectionUtils.isEmpty(list)) {
 				return;
-			}	
-			//先缓存数据 
+			}
+			// 先缓存数据
 			sKChouJiangLimitService.intCache();
 			for (SKBbrw bbrw : list) {
 				doOneRwCJ(bbrw, isEnd);
@@ -78,11 +77,11 @@ public class SKChouJiangService extends JSBaseService {
 	 */
 	private void doOneRwCJ(SKBbrw bbrw, boolean isEnd) {
 
-        SKBaobei baobei = sKBaobeiService.selectOne(bbrw.getBbid());
-        // 拼团，不需要参加定时器抽奖
-        if (baobei.getHdtypeid() != null && baobei.getHdtypeid() == 6L) {
-            return;
-        }
+		SKBaobei baobei = sKBaobeiService.selectOne(bbrw.getBbid());
+		// 拼团，不需要参加定时器抽奖
+		if (baobei.getHdtypeid() != null && baobei.getHdtypeid() == 6L) {
+			return;
+		}
 
 		Long bbid = bbrw.getBbid();
 		Long bbnum = bbrw.getBbnum();
@@ -100,15 +99,21 @@ public class SKChouJiangService extends JSBaseService {
 		if (CollectionUtils.isEmpty(list)) {
 			return;
 		}
-		  // 虚拟商品,非审核通过的，没人可以中奖
-        if(baobei.getIsXuni() == 1 || baobei.getStatus() != 9){
-        	for (SKSkqk skqk : list) {
+		// 虚拟商品,非审核通过的，没人可以中奖
+		if (baobei.getIsXuni() == 1 || baobei.getStatus() != 9) {
+			for (SKSkqk skqk : list) {
 				skqk.setStatus(21L);
 				sKSkqkService.updateStatus(skqk.getId(), skqk.getStatus());
 			}
-        	return;
-        }
-		
+			// 虚拟的商品自动增加中奖数和申请数
+			if (baobei.getIsXuni() == 1 && cjsl > 0) {
+				baobei.setZjnum(baobei.getZjnum() + cjsl);
+				baobei.setSqnum(baobei.getSqnum() + cjsl * 2);
+				sKBaobeiService.update(baobei);
+			}
+			return;
+		}
+
 		List<SKSkqk> zjrlist = null;
 		if (list.size() <= cjsl) {
 			// 奖比人多，全部中奖
@@ -236,12 +241,12 @@ public class SKChouJiangService extends JSBaseService {
 	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
 	public void zhiding(Long id) {
 
-        SKSkqk skqk = sKSkqkService.selectOne(id);
-        if (skqk == null) {
-            BusinessExceptionUtil.threwException("申请不存在");
-        }
+		SKSkqk skqk = sKSkqkService.selectOne(id);
+		if (skqk == null) {
+			BusinessExceptionUtil.threwException("申请不存在");
+		}
 
-        String todayStr = DateUtils.format(new Date(), DateUtils.DAY_FORMAT);
+		String todayStr = DateUtils.format(new Date(), DateUtils.DAY_FORMAT);
 		Map<String, Object> parameters = MapUtils.genMap("bbid", skqk.getBbid(), "daydes", todayStr, "status", 1);
 		List<SKBbrw> list = sKBbrwService.selectByWhere(parameters);
 		if (CollectionUtils.isEmpty(list)) {
@@ -258,8 +263,8 @@ public class SKChouJiangService extends JSBaseService {
 		}
 
 		// 更新中奖申请
-        skqk.setStatus(51L);
-        sKSkqkService.updateStatus(skqk.getId(), skqk.getStatus());
+		skqk.setStatus(51L);
+		sKSkqkService.updateStatus(skqk.getId(), skqk.getStatus());
 
 		// 今日任务中奖人数+1
 		Map<String, Object> param = MapUtils.genMap("id", skBbrw.getId(), "yzjAdd", 1);

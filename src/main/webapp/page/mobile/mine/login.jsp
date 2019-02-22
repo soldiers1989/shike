@@ -1,9 +1,12 @@
+<%@page import="org.apache.commons.lang.StringUtils"%>
+<%@page import="co.kensure.http.RequestUtils"%>
 <%@page import="co.kensure.api.ApiUtil"%>
 <%@page import="java.util.List"%>
 <%@page import="com.kensure.shike.constant.BusiConstant"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
     String context = BusiConstant.shikemobilepath;
+	String openId = RequestUtils.getStringIfNullBlank(request, "openId");
 %>
 <!DOCTYPE html>
 <html lang="zh" style="font-size: 22.125px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -57,10 +60,10 @@
 
 <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/uploadimage.js"></script>
 <script type="text/javascript" src="<%=BusiConstant.context%>/jqtable/jquery.cookie.js"></script>
-<script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/http.js?ver=<%=BusiConstant.version%>&dd=1"></script>
+<script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/http.js?ver=<%=BusiConstant.version%>"></script>
 
 <header class="header  task-top">
-  <i class="iconfont icon-Toright" style="color: #000;display: inline-block;float: left;margin-left: 0.2rem;" onclick="history.back(-1)"></i>登录.
+  <i class="iconfont icon-Toright" style="color: #000;display: inline-block;float: left;margin-left: 0.2rem;" onclick="history.back(-1)"></i>登录
     <div class="righthot thot">
         <a class="icon-userCenter" href="<%=BusiConstant.shike_regist.getKey()%>">
             新用户注册
@@ -91,13 +94,11 @@
 </div>
 
 <script>
-    $(function () {
-        if (globle.isWeixin()) {
-            $("#weixinBtn").css("display", "block");
-        } else {
-            $("#wxlogin").css("display", "block");
-        }
+	<%if(StringUtils.isNotBlank(openId)){%>
+		addopenid('<%=openId%>');
+	<%}%>
 
+    $(function () {
         var back= '';
         $(".submit-btn").on("click", function () {
             if ($("#pwd").val().length <= 0 || $("#name").val().length <= 0) {
@@ -106,34 +107,6 @@
             }
             var name = $("#name").val();
             var pwd = $("#pwd").val();
-            // var namefalg = /^(?=.*[A-Za-z_\u4E00-\u9FA5])[A-Za-z0-9_\u4E00-\u9FA5]{3,15}$/.test(name) || /^[1][3,4,5,6,7,8,9][0-9]{9}$/.test(name);
-            // if (!namefalg) {
-            //     $("#namewarn").removeClass(".right").html("用户名格式错误");
-            //
-            // } else {
-            //     $("#namewarn").addClass(".right").html("");
-            // }
-            // var pwdfalg = /^[\w\W]{6,16}$/.test(pwd);
-            // if (!pwdfalg) {
-            //     $("#pwdwarn").removeClass(".right").html("密码格式错误");
-            // } else {
-            //     $("#pwdwarn").addClass(".right").html("");
-            // }
-
-            // if (namefalg && pwdfalg) {
-            //     $.post("/UserAccount/MobileLoginSubmit", { mobile: name, password: pwd }, function (data) {
-            //         if (!data.Result) {
-            //             myAlert(data.Message);
-            //         } else {
-            //             if (back != '') {
-            //                 location.href = back;
-            //             } else {
-            //                 location.href = "/";
-            //             }
-            //         }
-            //     });
-            // }
-
             // 登录
             login();
         });
@@ -145,10 +118,6 @@
                 $(".submit-btn").removeClass("red").addClass("gray");
             }
         });
-        // $("#weixinBtn").click(function () {
-        //     location.href = "/UserAccount/weixinlogininapp";
-        // });
-
 
         $("#name").keydown(function (event) {
             if (event.keyCode == 13) {
@@ -165,13 +134,34 @@
         function loginsucdo(data){
             var usersession = data.resultData.row;
             addcookie(usersession);
-            window.location.href="<%=ApiUtil.getUrl("/skm/haohuo")%>";
+            window.location.href="<%=ApiUtil.getUrl("/skm/index")%>";
         }
         function login(){
-            var data = {type:1,mobile:$("#name").val(),password:$("#pwd").val()};
+            var data = {type:1,mobile:$("#name").val(),password:$("#pwd").val(),openid:$.cookie("mdopenid")};
             var url = "<%=BusiConstant.shangjia_login_do.getKey()%>";
             postdo(url, data, loginsucdo,null, null);
         }
+        
+        function loginByOpenidsucdo(data){
+            var usersession = data.resultData.row;
+            if(usersession){
+            	  addcookie(usersession);
+                  window.location.href="<%=ApiUtil.getUrl("/skm/index")%>";
+            }      
+        }
+        function loginByOpenid(){
+        	var mdtokenid = $.cookie("mdtokenid");
+        	if(mdtokenid){
+        		return;
+        	}
+        	var mdopenid = $.cookie("mdopenid");
+        	if(mdopenid){
+        		var data = {openid:mdopenid};
+                var url = "<%=ApiUtil.getUrl("/user/getloginbyopenid.do")%>";
+                postdo(url, data, loginByOpenidsucdo,null, null);
+        	}       
+        }
+        loginByOpenid();
 
         function zhuce(){
             window.location.href="<%=BusiConstant.shike_regist.getKey()%>";

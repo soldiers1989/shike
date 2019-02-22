@@ -1,7 +1,7 @@
+<%@page import="co.kensure.api.ApiUtil"%>
+<%@page import="org.apache.commons.lang3.StringUtils"%>
 <%@page import="java.util.List"%>
 <%@page import="com.kensure.shike.constant.BusiConstant"%>
-<%@ page import="co.kensure.mem.DateUtils" %>
-<%@ page import="java.util.Date" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
@@ -79,6 +79,7 @@
     .new-alert div.new-con a{display:block;width:6.2rem;height:1.6rem;margin:12.5rem auto 0;}
 </style>
 <script>
+	
     var userid = 0;
     var myGold = "0";
     var SecKillTime=Math.floor('0'/1000);
