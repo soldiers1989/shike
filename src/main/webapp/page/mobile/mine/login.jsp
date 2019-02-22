@@ -154,6 +154,10 @@
         	if(mdtokenid){
         		return;
         	}
+        	var isloginout = $.cookie("isloginout");
+        	if(isloginout == 1){
+        		return;
+        	}
         	var mdopenid = $.cookie("mdopenid");
         	if(mdopenid){
         		var data = {openid:mdopenid};
