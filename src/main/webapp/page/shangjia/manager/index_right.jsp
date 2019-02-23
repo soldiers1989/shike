@@ -253,7 +253,7 @@
                         <span class="label vt"><span>*</span>分配占比：</span>
                         <div class="item-con">
                             <input type="text" class="w180 search-rate" id="app_search_bili" datatype="int" value="" placeholder="请输入1或2位整数"> %
-                            <span class="gray" style="margin-right:30px;">注：三个占比相加为100</span>
+                            <span class="gray" style="margin-right:30px;">注：两个占比相加为100</span>
                          </div>
 
                     </div>
@@ -330,7 +330,7 @@
                         <span class="label vt"><span>*</span>分配占比：</span>
                         <div class="item-con">
                             <input type="text" id="txt_taokoulingBz" class="w180 search-rate" datatype="int" value="" placeholder="请输入1或2位整数"> %
-                            <span class="gray">注：三个占比相加为100</span>
+                            <span class="gray">注：两个占比相加为100</span>
                         <span class="Validform_checktip"></span></div>
                     
                     </div>
