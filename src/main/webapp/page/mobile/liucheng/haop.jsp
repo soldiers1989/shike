@@ -236,7 +236,7 @@
 <div style="height: 2rem;"></div>
 <div class="freeapp">
     <div class="printapp">
-        <img src="<%=firsttp.getUrl()%>">
+        <img src="<%=firsttp.getUrl()%>" style="width:100%">
     </div>
     <div class="titleadd">
         <div class="title_oneap">
