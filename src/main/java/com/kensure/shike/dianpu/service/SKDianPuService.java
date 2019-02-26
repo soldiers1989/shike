@@ -161,6 +161,13 @@ public class SKDianPuService extends JSBaseService {
 	public List<SKDianPu> getList(Long status,PageInfo page) {
 		Map<String, Object> parameters = param(status, page);
 		List<SKDianPu> list = selectByWhere(parameters);
+		if(CollectionUtils.isNotEmpty(list)){
+			for(SKDianPu dp:list){
+				SKUser user = sKUserService.selectOne(dp.getUserid());	
+				dp.setUserName(user.getName());
+			}
+		}
+		
 		return list;
 	}
 	
