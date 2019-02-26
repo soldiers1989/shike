@@ -182,9 +182,9 @@
                 <div class="item">
                     <span class="label vt"><span>*</span>活动时间：</span>
                     <div class="item-con">
-                        <input type="date" class="w150" datatype="*" onchange="getDays()" placeholder="活动开始时间" id="begindate" name="sk_begindate" value="<%=day1%>">
+                        <input type="text" class="w150" placeholder="活动开始时间" id="begindate" name="sk_begindate" value="<%=day1%>">
                         -
-                        <input type="date" class="w150" datatype="*" onchange="getDays()" placeholder="活动结束时间" id="enddate" name="sk_enddate"  value="<%=day2%>">
+                        <input type="text" class="w150" placeholder="活动结束时间" id="enddate" name="sk_enddate"  value="<%=day2%>">
 
                         <span style="margin-left: 20px">共</span><em id="Date-num">7</em><span>天</span> <span style="margin-left: 10px;">总份数： <em id="all-num" style="color: #ff464e;">0</em></span>
                         <span style="margin-left: 20px;color:#ff464e;display: none;" id="data-warn">活动天数不能大于15天</span>
@@ -594,52 +594,6 @@
 	   getDays();
    }
    
-   function getDays(){ 
-	   var begindateStr = $("#begindate").val();
-	   var enddateStr = $("#enddate").val();
-	   var begindate = convertDateFromString(begindateStr);
-	   var enddate = convertDateFromString(enddateStr);
-	   if(begindate>enddate){
-		   alert("开始时间不能大于结束时间");
-		   return;
-	   }
-	   
-	   var days = parseInt(enddate.getTime()/ (1000 * 60 * 60 * 24)) -  parseInt(begindate.getTime()/ (1000 * 60 * 60 * 24))+1;
-	   if(days > 15){
-		   alert("活动不能超过15天");
-		   return;
-	   }
-	   $("#Date-num").html(days);
-	   for(var i=0;i<21;i++){
-		   $("#week"+""+i).html("");
-	   }
-	   var hdtypeid = $(".jp-watch dt.act").index()+1;
-	   var bday = begindate.getDay();
-	   for(var i=0;i<days;i++){
-		  var tempday = dayadd(begindate,i);
-		  var daystr = tempday.Format("yyyy-MM-dd");
-		  var dd = tempday.Format("dd");
-		  var dayhtml = "<input type='hidden' id='shijian"+i+"' value='"+daystr+"'/>";
-		  var fenshu = "<input type='text' id='fenshu"+i+"' name='name' class='day-num' onchange='countAll();' value='1'>";
-		  var zhuanhua = "<input type='text' id='zhuanhua"+i+"' name='name' class='day-num1' value='0'  maxlength='2'>";
-		  var html = "<div class='date-con'><h3>"+dd+dayhtml+"</h3><i class='iconfont icon-going'></i><h2>活动预热</h2></div>";
-		  var html1 = "<div class='date-con'><h3>"+dd+dayhtml+"</h3><p><label>发放份数：</label>"+fenshu+"</p><p><label>日转化率：</label>"+zhuanhua+"<span>%</span></p></div>";
-		  if(i == 0){
-			  if(hdtypeid == 4){
-				  $("#week"+bday).html(html1);
-			  }else{
-				  $("#week"+bday).html(html);
-			  }		  
-		  }else{
-			  $("#week"+bday).html(html1);
-		  }		  
-		  bday++;
-	   }  
-	   countAll();
-   }
-   
-   getDays();
-   
    
    function countAll(){
 	   var ct = 0;
@@ -939,9 +893,6 @@
 	   baocun = false;
 	   $("#tijiaosj").html("提交");
    }
-   
-
-
   
   function dictsucdo(data){
 		var rows = data.resultData.rows;
@@ -958,7 +909,10 @@
 	   postdo(url, data, dictsucdo,null, null);
 	}
 	dictlist();
+	
 </script>           
+
+<script type="text/javascript" src="<%=BusiConstant.context%>/page/shangjia/js/manageadd.js"></script>
             
             
             
