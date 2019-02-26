@@ -26,7 +26,11 @@ function createtable(tableid) {
 					var th = this.th[j];
 					var td = "<td width='"+th.w+"'>" ;
 					if(th.callfun){
-						td += th.callfun(row);
+						var temptd = th.callfun(row);
+						if(!temptd){
+							temptd = "";
+						}
+						td += temptd;
 					}else{
 						td += this.tddef(row,th);
 					}
@@ -50,6 +54,9 @@ function createtable(tableid) {
 				colval = colval[vals[i]];
 			}		
 		}
+		if(!colval){
+			colval = "";
+		}	
 		tdinner+= colval+"</em>";
 		return tdinner;
 	};
