@@ -212,8 +212,21 @@
     }
 	
 	var notaobaotd =  function(row){
-        var noTaobao = row.noTaobao+"<button type='button' onclick='editTaobaoNo("+row.id+")'>修改</button>&nbsp;";
+		var notaobaostr = "";
+		if(row.noTaobao){
+			notaobaostr = row.noTaobao;
+		}	
+        var noTaobao = notaobaostr+"<button type='button' onclick='editTaobaoNo("+row.id+")'>修改</button>&nbsp;";
         return noTaobao;
+    }
+	
+	var remarktd =  function(row){
+		var remarkstr = "";
+		if(row.remark){
+			remarkstr = row.remark;
+		}	
+		remarkstr = remarkstr+"<button type='button' onclick='editRemark("+row.id+")'>修改</button>&nbsp;";
+        return remarkstr;
     }
 	
 	
@@ -236,6 +249,7 @@
 	,{w:50,na:"活动申请数",colname:"sqNum"}
 	,{w:50,na:"中奖数",colname:"zjNum"}
 	,{w:80,na:"初次完成任务时间",colname:"firstShoptimeStr"}	
+	,{w:100,na:"备注",callfun:remarktd}
 	,{w:80,na:"推荐人",callfun:refereeUserfun}
 	,{w:100,na:"审核状态",callfun:auditfun}
 	,{w:200,na:"操作",callfun:optfun}];
@@ -307,6 +321,17 @@
             postdo(url, data, successCallBack,null, null);
         }
     }
+    
+    function editRemark(id) {
+        var taobaono = prompt("请输入备注","")
+        if (taobaono) {
+            var data = {id:id, remark: taobaono};
+            var url = "<%=ApiUtil.getUrl("/user/updateRemark.do")%>";
+            postdo(url, data, successCallBack,null, null);
+        }
+    }
+    
+    
     
     function successCallBack(data) {
         alert("操作成功")
