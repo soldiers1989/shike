@@ -423,12 +423,12 @@ public class SKBaobeiService extends JSBaseService {
 		if (skuser.getType() == 3 && CollectionUtils.isNotEmpty(list)) {
 			for (SKBaobei skbaobei : list) {
 				SKDianPu dianp = sKDianPuService.selectOne(skbaobei.getDpid());
-				SKUser user = sKUserService.selectOne(skbaobei.getUserid());				
+				SKUser user = sKUserService.selectOne(skbaobei.getUserid());
 				skbaobei.setDianpu(dianp);
-				if(dianp != null){
+				if (dianp != null) {
 					skbaobei.setDpname(dianp.getName());
 					skbaobei.setUserName(user.getName());
-				}		
+				}
 			}
 		}
 		return list;
@@ -739,19 +739,19 @@ public class SKBaobeiService extends JSBaseService {
 	 * @return
 	 */
 	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
-	public void liucheng(Long id, long status,String notaobao, List<SKJysj> jysjList) {
+	public void liucheng(Long id, long status, String notaobao, List<SKJysj> jysjList) {
 		SKUser skuser = sKUserService.getUser();
 		SKUserService.checkUserSK(skuser);
 		SKBaobei baobei = getSKBaobei(id);
 
 		// status=21(关注收藏),如果用户没有淘宝账号提示他填写淘宝账号
-		if(status == 21 && StringUtils.isBlank(skuser.getNoTaobao())){
-			if(StringUtils.isBlank(notaobao)){
+		if (status == 21 && StringUtils.isBlank(skuser.getNoTaobao())) {
+			if (StringUtils.isBlank(notaobao)) {
 				BusinessExceptionUtil.threwException("请输入你的淘宝账号");
 			}
 			sKUserService.updateTaobaoNo(skuser.getId(), notaobao);
 		}
-		
+
 		if (status == 21 && baobei.getHdtypeid() != null && baobei.getHdtypeid() == 4) {
 			if (baobei.getStatus() < 9) {
 				BusinessExceptionUtil.threwException("宝贝未通过审核");
@@ -786,7 +786,6 @@ public class SKBaobeiService extends JSBaseService {
 		}
 		baobei.setStatus(-1L);
 		update(baobei);
-		setShiShouinfo(id);
 	}
 
 	/**
@@ -887,15 +886,35 @@ public class SKBaobeiService extends JSBaseService {
 			if (CollectionUtils.isNotEmpty(sqlist)) {
 				continue;
 			}
-			bb.setStatus(20L);
-			Map<String, Object> params = MapUtils.genMap("id", bb.getId(), "status", 20);
-			updateByMap(params);
-			// 让一些垃圾申请作废掉
-			sKSkqkService.zuoFei(bb.getId());
-
-			// 设置实收和返款,如果活动未达到预期目的，需要退款
-			setShiShouinfo(bb.getId());
+			jieSuanBaobei(bb);
 		}
+	}
+
+	/**
+	 * 宝贝结算，和商家算钱，看下是否需要退还给他们钱
+	 * 
+	 * @return
+	 */
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+	public void jieSuanBaobei(Long id) {
+		SKBaobei bb = selectOne(id);
+		jieSuanBaobei(bb);
+	}
+
+	/**
+	 * 宝贝结算，和商家算钱，看下是否需要退还给他们钱
+	 * 
+	 * @return
+	 */
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+	private void jieSuanBaobei(SKBaobei bb) {
+		bb.setStatus(20L);
+		Map<String, Object> params = MapUtils.genMap("id", bb.getId(), "status", 20);
+		updateByMap(params);
+		// 让一些垃圾申请作废掉
+		sKSkqkService.zuoFei(bb.getId());
+		// 设置实收和返款,如果活动未达到预期目的，需要退款
+		setShiShouinfo(bb.getId());
 	}
 
 	/**

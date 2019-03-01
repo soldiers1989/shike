@@ -1,25 +1,27 @@
 package com.kensure.shike.zhang.service;
 
-import co.kensure.frame.JSBaseService;
-import co.kensure.mem.CollectionUtils;
-import co.kensure.mem.MapUtils;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
-import com.kensure.basekey.BaseKeyService;
-import com.kensure.shike.user.model.SKUser;
-import com.kensure.shike.user.service.SKUserService;
-import com.kensure.shike.zhang.dao.SkUserFansDao;
-import com.kensure.shike.zhang.model.SKUserZhang;
-import com.kensure.shike.zhang.model.SkUserFans;
+import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
+import co.kensure.frame.JSBaseService;
+import co.kensure.mem.CollectionUtils;
+import co.kensure.mem.MapUtils;
+import co.kensure.mem.NumberUtils;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import com.kensure.basekey.BaseKeyService;
+import com.kensure.mycom.config.service.MyConfigService;
+import com.kensure.shike.user.model.SKUser;
+import com.kensure.shike.user.service.SKUserService;
+import com.kensure.shike.zhang.dao.SkUserFansDao;
+import com.kensure.shike.zhang.model.SKUserZhang;
+import com.kensure.shike.zhang.model.SkUserFans;
 
 /**
  * 代言人粉丝流水表服务实现类
@@ -97,18 +99,19 @@ public class SkUserFansService extends JSBaseService {
 	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
 	public void addFans(Long userId, Long refereeId) {
 		SKUser skUser = sKUserService.selectOne(refereeId);
-
 		if (skUser == null) {
 			return;
 		}
-
+		//活动-首单奖励金额
+		String hd_sdjl = MyConfigService.getMyConfig("hd_sdjl").getVal();
+		Double sdjl = NumberUtils.parseDouble(hd_sdjl, 0D);
+		
 		SkUserFans fans = new SkUserFans();
-
 		fans.setUserid(userId);
 		fans.setRefereeId(refereeId);
 		fans.setBusiid(userId);
 		fans.setTypeid(1L);
-		fans.setOriginJine(10D);
+		fans.setOriginJine(sdjl);
 		fans.setBili(1);
 		fans.setJine(fans.getOriginJine() * fans.getBili());
 		fans.setStatus(0L);

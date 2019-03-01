@@ -65,12 +65,12 @@ public class SKShiShou extends BaseInfo {
 	 * @param sk
 	 */
 	private void suanShouXuFei(SKBaobei sk) {
-		//转账手续费*0.2
-		Long num = sk.getBbnum();
+		//转账手续费*0.02
+		Long num = sk.getZjnum();
 		Double price = sk.getSalePrice();	
 		double shouxufei = ArithmeticUtils.mul(num, price, 1);
-		double xiaoji = ArithmeticUtils.mul(shouxufei, 0.2, 1);		
-		String miaoshu = num + "*" + price + "*0.2" ;
+		double xiaoji = ArithmeticUtils.mul(shouxufei, 0.02, 1);		
+		String miaoshu = num + "*" + price + "*0.02" ;
 		this.shouxufei = new SKPayInfo("转账手续费", miaoshu, xiaoji);	
 	}
 
@@ -81,10 +81,9 @@ public class SKShiShou extends BaseInfo {
 	 */
 	private void suanFuWuFei(SKBaobei sk) {
 		//转账手续费*0.2
-		Long num = sk.getBbnum();
+		Long num = sk.getZjnum();
 		String d3 = num + "*2";
-		double xiaoji3 = ArithmeticUtils.mul(num, 2, 1);
-		double xiaoji = ArithmeticUtils.mul(xiaoji3, 0.2, 1);		
+		double xiaoji = ArithmeticUtils.mul(num, 2, 1);	
 		this.fuwufei = new SKPayInfo("平台服务费", d3, xiaoji);
 	}
 

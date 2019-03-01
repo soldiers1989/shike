@@ -359,16 +359,6 @@ public class SKBaobeiController {
 	}
 
 	/**
-	 * 结算测试
-	 */
-	@ResponseBody
-	@RequestMapping(value = "jiesuan.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
-	public ResultInfo jiesuan(HttpServletRequest req, HttpServletResponse rep) {
-		sKBaobeiService.jieSuanBaobei();
-		return new ResultRowInfo();
-	}
-
-	/**
 	 * 结束宝贝
 	 */
 	@ResponseBody
@@ -423,6 +413,20 @@ public class SKBaobeiController {
 		sKSkqkService.userMoney(id);
 		return new ResultRowInfo();
 	}
+	
+	/**
+	 * 商家确认返款
+	 */
+	@ResponseBody
+	@RequestMapping(value = "jiesuan.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	public ResultInfo jieSuanBaobei(HttpServletRequest req, HttpServletResponse rep) {
+		JSONObject json = RequestUtils.paramToJson(req);
+		Long id = json.getLong("id");
+		sKBaobeiService.jieSuanBaobei(id);
+		return new ResultRowInfo();
+	}
+	
+	
 
 	/**
 	 * 我的活动列表

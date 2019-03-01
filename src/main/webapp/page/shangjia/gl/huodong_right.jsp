@@ -184,6 +184,8 @@
         	tdinner+= "        <input type='button' value='下线' onclick='xiaxian("+row.id+")'/>";
         	tdinner+= "        <input type='button' value='不限中奖' onclick='buxian("+row.id+")'/>";
         	tdinner+= "        <input type='button' value='增加申请' onclick='addsq("+row.id+")'/>";
+        }else if(row.status == -1){
+        	tdinner+="        <input type='button' value='结算' onclick='jiesuan("+row.id+")'/>";
         }
     
         tdinner+= "        <input type='button' value='排序设置' onclick='paixu("+row.id+")'/>";
@@ -282,6 +284,15 @@
 		   postdo(url, data, null,null, null);
 	   }	  
    }
+   
+   function jiesuan(id){	  
+	   if(confirm('确认结算？')){
+		   var data = {id:id};
+		   var url = "<%=ApiUtil.getUrl("/baobei/jiesuan.do")%>";
+		   postdo(url, data, null,null, null);
+	   }	  
+   }
+   
    
    function addsq(id){	  
 	   if(confirm('确认增加？')){

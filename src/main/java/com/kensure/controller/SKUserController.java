@@ -201,41 +201,6 @@ public class SKUserController {
 
 	/**
 	 * 修改用户资料
-	 * 
-	 * @param req
-	 * @param rep
-	 * @return
-	 */
-	@ResponseBody
-	@RequestMapping(value = "updateuser.do", method = { RequestMethod.POST }, produces = "application/json;charset=UTF-8")
-	public ResultInfo updateuser(HttpServletRequest req, HttpServletResponse rep) {
-		// JSONObject json = RequestUtils.paramToJson(req);
-		// String sessionid = json.getString("sessionid");
-		// UserLogin userse = userLoginService.selectBySessionId(sessionid);
-		//
-		// UserInfo user = userInfoService.selectOne(userse.getUserid());
-		//
-		// UserInfo usertemp = JSONObject.parseObject(json.toJSONString(),
-		// UserInfo.class);
-		//
-		// Date date = new Date();
-		// usertemp.setUpdateDate(date);
-		// user.setName(usertemp.getName());
-		// user.setCard(usertemp.getCard());
-		// user.setQq(usertemp.getQq());
-		// user.setZhimafen(usertemp.getZhimafen());
-		// user.setHuabeiedu(usertemp.getHuabeiedu());
-		// user.setJiebeiedu(usertemp.getJiebeiedu());
-		// user.setJiedaibao(usertemp.getJiedaibao());
-		// user.setYear(usertemp.getYear());
-		// user.setXb(usertemp.getXb());
-		// userInfoService.update(user);
-
-		return new ResultRowInfo();
-	}
-
-	/**
-	 * 修改用户资料
 	 */
 	@ResponseBody
 	@RequestMapping(value = "update.do", method = { RequestMethod.POST }, produces = "application/json;charset=UTF-8")

@@ -519,7 +519,7 @@ public class ShikeMobileController {
 
 		for (SKJysj skJysj : skJysjs) {
 			// 购物车（店铺名）
-			if ("dpm".equals(skJysj.getBusitype())) {
+			if ("dpm".equals(skJysj.getBusitype()) || "tkl".equals(skJysj.getBusitype())) {
 				req.setAttribute("dpm", skJysj);
 			}
 			// 收藏
