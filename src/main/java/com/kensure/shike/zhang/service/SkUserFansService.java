@@ -102,10 +102,10 @@ public class SkUserFansService extends JSBaseService {
 		if (skUser == null) {
 			return;
 		}
-		//活动-首单奖励金额
+		// 活动-首单奖励金额
 		String hd_sdjl = MyConfigService.getMyConfig("hd_sdjl").getVal();
 		Double sdjl = NumberUtils.parseDouble(hd_sdjl, 0D);
-		
+
 		SkUserFans fans = new SkUserFans();
 		fans.setUserid(userId);
 		fans.setRefereeId(refereeId);
@@ -121,7 +121,6 @@ public class SkUserFansService extends JSBaseService {
 
 	public List<SkUserFans> getByBusiid(Integer busiid) {
 		SKUser user = sKUserService.getUser();
-
 		Map<String, Object> map = MapUtils.genMap("userid", user.getId(), "busiid", busiid);
 		return selectByWhere(map);
 	}
@@ -129,12 +128,9 @@ public class SkUserFansService extends JSBaseService {
 	public List<SkUserFans> getList(Integer status) {
 		SKUser user = sKUserService.getUser();
 		Map<String, Object> map = MapUtils.genMap("refereeId", user.getId(), "status", status, "orderBy", "created_time desc");
-
 		List<SkUserFans> list = selectByWhere(map);
-
 		for (SkUserFans fans : list) {
 			SKUser skUser = sKUserService.selectOne(fans.getUserid());
-
 			if (skUser != null) {
 				fans.setName(skUser.getName());
 			}
@@ -146,7 +142,8 @@ public class SkUserFansService extends JSBaseService {
 	/**
 	 * 新人到账
 	 * 
-	 * @param userid 新人的id
+	 * @param userid
+	 *            新人的id
 	 */
 	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
 	public void newUser(Long userid) {
@@ -167,6 +164,48 @@ public class SkUserFansService extends JSBaseService {
 			sKUserZhangService.add(zhang);
 		}
 		update(jb);
+	}
+
+	/**
+	 * 被邀请人，审核通过，给邀请人的奖励
+	 * 
+	 * @param userid
+	 *            新人的id
+	 */
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+	public void yqUser(Long userid) {
+		// 如果邀请人为空，不用给钱
+		SKUser user = sKUserService.selectOne(userid);
+		if (user == null || user.getRefereeId() == null) {
+			return;
+		}
+		// 如果给过钱了，也不用给了
+		Map<String, Object> map = MapUtils.genMap("userid", userid, "typeid", 3);
+		List<SkUserFans> list = selectByWhere(map);
+		if (CollectionUtils.isNotEmpty(list)) {
+			return;
+		}
+		// 活动-试客邀请奖励金额
+		String hd_skyq = MyConfigService.getMyConfig("hd_skyq").getVal();
+		Double skyq = NumberUtils.parseDouble(hd_skyq, 0D);
+		SkUserFans fans = new SkUserFans();
+		fans.setUserid(userid);
+		fans.setRefereeId(user.getRefereeId());
+		fans.setBusiid(userid);
+		fans.setTypeid(3L);
+		fans.setOriginJine(skyq);
+		fans.setBili(1);
+		fans.setJine(fans.getOriginJine() * fans.getBili());
+		fans.setStatus(9L);
+		insert(fans);
+
+		// 活动-试客邀请奖励金额
+		SKUserZhang zhang = new SKUserZhang();
+		zhang.setUserid(user.getRefereeId());
+		zhang.setBusiid(userid);
+		zhang.setBusitypeid(10L);
+		zhang.setYue(fans.getJine());
+		sKUserZhangService.add(zhang);
 	}
 
 	/**

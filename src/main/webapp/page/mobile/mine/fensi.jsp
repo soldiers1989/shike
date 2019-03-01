@@ -100,7 +100,7 @@
                     for (var i = 0; i < Data.length; i++) {
                         createTime = new Date(Data[i].sk_create_time.replace(/-/g, '/')).getTime();
                         if (createTime >= fourTime) {
-                            var moneyorgold = '10元首单奖</span></p><p>';
+                            var moneyorgold = '5元首单奖</span></p><p>';
                         } else {
                             var moneyorgold = '8元首单奖</span></p><p>';
                         }   

@@ -1,21 +1,4 @@
-/*
- * 文件名称: SKUserZhangServiceImpl.java
- * 版权信息: Copyright 2001-2017 hangzhou jingshu technology Co., LTD. All right reserved.
- * ----------------------------------------------------------------------------------------------
- * 修改历史:
- * ----------------------------------------------------------------------------------------------
- * 修改原因: 新增
- * 修改人员: fankd
- * 修改日期: 2018-9-9
- * 修改内容: 
- */
 package com.kensure.shike.zhang.service;
-
-import com.kensure.basekey.BaseKeyService;
-import com.kensure.shike.user.model.SKUser;
-import com.kensure.shike.zhang.dao.SKUserZhangDao;
-import com.kensure.shike.zhang.model.SKUserZhang;
-import com.kensure.shike.zhang.service.SKUserZhangService;
 
 import java.util.Collection;
 import java.util.List;
@@ -33,6 +16,11 @@ import co.kensure.frame.JSBaseService;
 import co.kensure.mem.ArithmeticUtils;
 import co.kensure.mem.CollectionUtils;
 import co.kensure.mem.MapUtils;
+
+import com.kensure.basekey.BaseKeyService;
+import com.kensure.shike.user.model.SKUser;
+import com.kensure.shike.zhang.dao.SKUserZhangDao;
+import com.kensure.shike.zhang.model.SKUserZhang;
 
 /**
  * 用户余额流水服务实现类
@@ -143,7 +131,7 @@ public class SKUserZhangService extends JSBaseService {
 		if (obj.getYue() < 0) {
 			BusinessExceptionUtil.threwException("金额必须大约0");
 		}
-		// 业务类型id,1是充值，2是提现，3是活动费用,4是试客返款，5是活动返款,6是新人首单;7是金币抽奖，8是活动驳回;9是激活收费
+		// 业务类型id,1是充值，2是提现，3是活动费用,4是试客返款，5是活动返款,6是新人首单;7是金币抽奖，8是活动驳回;9是激活收费,10是邀请试客的奖励
 		if (obj.getBusitypeid() == 1) {
 			obj.setInorout(1L);
 			obj.setStatus(1L);
@@ -168,17 +156,20 @@ public class SKUserZhangService extends JSBaseService {
 		} else if (obj.getBusitypeid() == 8) {
 			obj.setInorout(1L);
 			obj.setStatus(1L);
-			obj.setBillno(""+System.currentTimeMillis());
+			obj.setBillno("" + System.currentTimeMillis());
 			SKUserZhang out3 = getBusi(obj.getUserid(), 3L, obj.getBusiid());
-			if(out3 != null){
-				out3.setBillno(""+System.currentTimeMillis());
+			if (out3 != null) {
+				out3.setBillno("" + System.currentTimeMillis());
 				out3.setStatus(-1L);
 				update(out3);
-			}else{
+			} else {
 				BusinessExceptionUtil.threwException("找不到相应的订单");
 			}
 		} else if (obj.getBusitypeid() == 9) {
 			obj.setInorout(-1L);
+			obj.setStatus(1L);
+		} else if (obj.getBusitypeid() == 10) {
+			obj.setInorout(1L);
 			obj.setStatus(1L);
 		} else {
 			BusinessExceptionUtil.threwException("未知类型");
@@ -214,7 +205,7 @@ public class SKUserZhangService extends JSBaseService {
 	 */
 	private SKUserZhang getBusi(Long userid, Long busitypeid, Long busiid) {
 		SKUserZhang zhang = null;
-		Map<String, Object> parameters = MapUtils.genMap("userid", userid, "busiid", busiid, "busitypeid", busitypeid,"billno","0");
+		Map<String, Object> parameters = MapUtils.genMap("userid", userid, "busiid", busiid, "busitypeid", busitypeid, "billno", "0");
 		List<SKUserZhang> list = selectByWhere(parameters);
 		if (CollectionUtils.isNotEmpty(list)) {
 			zhang = list.get(0);

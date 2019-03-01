@@ -21,7 +21,7 @@ public class SkUserFans extends BaseInfo{
 	/**业务id*/
 	private Long busiid;
 
-	/**业务类型id 1:首单奖励，2:下单奖励*/		
+	/**业务类型id 1:首单奖励，2:下单奖励,3:被邀请人审核通过奖励*/		
 	private Long typeid;
 
 	private String typeidStr;
@@ -87,9 +87,11 @@ public class SkUserFans extends BaseInfo{
 	public String getTypeidStr() {
 		if (typeid != null) {
 			if (typeid == 1) {
-				typeidStr =  "10元首单奖";
+				typeidStr =  jine+"元首单奖励";
 			} else if (typeid == 2) {
 				typeidStr =  "下单奖励";
+			} else if (typeid == 3) {
+				typeidStr =  jine+"元邀请试客奖励";
 			}
 		}
 		return typeidStr;

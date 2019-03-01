@@ -457,7 +457,7 @@ CREATE TABLE `sk_user_fans`  (
   `userid` bigint(20) NOT NULL COMMENT '用户id',
   `referee_id` bigint(20) NOT NULL COMMENT '推荐人id',
   `busiid` bigint(20) NULL DEFAULT NULL COMMENT '业务id',
-  `typeid` int(11) NOT NULL COMMENT '业务类型id,  1:首单奖励，2:下单奖励',
+  `typeid` int(11) NOT NULL COMMENT '业务类型id,  1:首单奖励，2:下单奖励，3:被邀请人审核通过奖励',
   `origin_jine` double(255, 0) NOT NULL COMMENT '原金额',
   `bili` int(10) NOT NULL COMMENT '比例',
   `jine` double(255, 0) NOT NULL COMMENT '金额 = 原金额 * 比例',

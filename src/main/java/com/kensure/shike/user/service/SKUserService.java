@@ -612,6 +612,7 @@ public class SKUserService extends JSBaseService {
 	 * @param status
 	 * @param remark
 	 */
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
 	public void auditUser(Long id, Integer status, String remark) {
 		if (status == null || id == null) {
 			BusinessExceptionUtil.threwException("数据为空");
@@ -628,11 +629,15 @@ public class SKUserService extends JSBaseService {
 		skUser.setRemark(remark);
 		skUser.setUpdatedTime(new Date());
 		if (status == 2) {
+			//发送短信，告诉试客错误原因
 			try {
 				SMSClient.sendSMSTaobao(user.getPhone());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		}else if (status == 1) {
+			//审核通过
+			skUserFansService.yqUser(id);
 		}
 
 		update(skUser);
