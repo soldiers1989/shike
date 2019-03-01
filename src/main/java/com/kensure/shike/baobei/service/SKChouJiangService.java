@@ -55,6 +55,7 @@ public class SKChouJiangService extends JSBaseService {
 	public void doChouJiang(boolean isEnd) {
 		try {
 			String todayStr = DateUtils.format(new Date(), DateUtils.DAY_FORMAT);
+			System.out.println("抽奖开始=="+todayStr);
 			Map<String, Object> parameters = MapUtils.genMap("daydes", todayStr, "status", 1);
 			List<SKBbrw> list = sKBbrwService.selectByWhere(parameters);
 			if (CollectionUtils.isEmpty(list)) {
@@ -76,7 +77,6 @@ public class SKChouJiangService extends JSBaseService {
 	 * @param bbrw
 	 */
 	private void doOneRwCJ(SKBbrw bbrw, boolean isEnd) {
-
 		SKBaobei baobei = sKBaobeiService.selectOne(bbrw.getBbid());
 		// 拼团，不需要参加定时器抽奖
 		if (baobei.getHdtypeid() != null && baobei.getHdtypeid() == 6L) {
@@ -94,30 +94,37 @@ public class SKChouJiangService extends JSBaseService {
 		} else {
 			cjsl = (bbnum - yzj) / 2;
 		}
-
-		List<SKSkqk> list = sKSkqkService.getDengChouJiang(bbid);
-		if (CollectionUtils.isEmpty(list)) {
+		//所有的试客
+		List<SKSkqk> alllist = sKSkqkService.getDengChouJiang(bbid);
+		if (CollectionUtils.isEmpty(alllist)) {
 			return;
 		}
+		//先更新下一次抽奖时间，在进行更新
+		for (SKSkqk skqk : alllist) {
+			skqk.setStatus(21L);
+			sKSkqkService.updateStatus(skqk.getId(), skqk.getStatus());
+		}	
 		// 虚拟商品,非审核通过的，没人可以中奖
-		if (baobei.getIsXuni() == 1 || baobei.getStatus() != 9) {
-			for (SKSkqk skqk : list) {
-				skqk.setStatus(21L);
-				sKSkqkService.updateStatus(skqk.getId(), skqk.getStatus());
-			}
+		if (baobei.getIsXuni() == 1 || baobei.getStatus() != 9) {		
 			// 虚拟的商品自动增加中奖数和申请数
-			if (baobei.getIsXuni() == 1 && cjsl > 0) {
-				baobei.setZjnum(baobei.getZjnum() + cjsl);
+			if (baobei.getIsXuni() == 1) {
+				long cj = baobei.getZjnum() + cjsl;
+				if(cj>baobei.getBbnum()){
+					cj = baobei.getBbnum();
+				}
+				baobei.setZjnum(cj);
 				baobei.setSqnum(baobei.getSqnum() + cjsl * 2);
 				sKBaobeiService.update(baobei);
 			}
 			return;
 		}
+		
+		List<SKSkqk> yxlist = sKSkqkService.getYXSK(alllist, bbid);
 
 		List<SKSkqk> zjrlist = null;
-		if (list.size() <= cjsl) {
+		if (yxlist.size() <= cjsl) {
 			// 奖比人多，全部中奖
-			zjrlist = list;
+			zjrlist = yxlist;
 			for (SKSkqk skqk : zjrlist) {
 				skqk.setStatus(51L);
 				sKSkqkService.updateStatus(skqk.getId(), skqk.getStatus());
@@ -125,11 +132,7 @@ public class SKChouJiangService extends JSBaseService {
 			bbrw.setYzj(zjrlist.size() + bbrw.getYzj());
 		} else {
 			// 人多，需要进行抽
-			zjrlist = poolBean((int) cjsl, list);
-			for (SKSkqk skqk : list) {
-				skqk.setStatus(21L);
-				sKSkqkService.updateStatus(skqk.getId(), skqk.getStatus());
-			}
+			zjrlist = poolBean((int) cjsl, yxlist);
 			for (SKSkqk skqk : zjrlist) {
 				skqk.setStatus(51L);
 				sKSkqkService.updateStatus(skqk.getId(), skqk.getStatus());
@@ -137,7 +140,6 @@ public class SKChouJiangService extends JSBaseService {
 			bbrw.setYzj(zjrlist.size() + bbrw.getYzj());
 		}
 		sKBbrwService.update(bbrw);
-
 		baobei.setZjnum(baobei.getZjnum() + CollectionUtils.getSize(zjrlist));
 		sKBaobeiService.update(baobei);
 		sendSMS(zjrlist);

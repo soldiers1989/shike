@@ -554,18 +554,21 @@ public class SKSkqkService extends JSBaseService {
 
 	/**
 	 * 获取待抽奖用户
-	 * 
-	 * @param bbid
-	 * @param userid
 	 * @return
 	 */
 	public List<SKSkqk> getDengChouJiang(long bbid) {
 		Map<String, Object> parameters = MapUtils.genMap("bbid", bbid, "status", 21);
 		List<SKSkqk> list = selectByWhere(parameters);
+		return list;
+	}
+	
+	/**
+	 * 获取有效的试客
+	 */
+	public List<SKSkqk> getYXSK(List<SKSkqk> list,long bbid) {
 		// 去掉没有审核通过的试客
 		List<SKSkqk> ilist = new ArrayList<>();
 		SKBaobei baobei = sKBaobeiService.selectOne(bbid);
-
 		for (SKSkqk skqk : list) {
 			boolean flag = sKUserService.isInvalid(skqk.getUserid());
 			if (flag) {
@@ -579,6 +582,8 @@ public class SKSkqkService extends JSBaseService {
 		}
 		return ilist;
 	}
+	
+	
 
 	/**
 	 * 获取宝贝未完成的申请
