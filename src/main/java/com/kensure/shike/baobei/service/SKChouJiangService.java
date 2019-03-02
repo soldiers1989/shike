@@ -55,7 +55,7 @@ public class SKChouJiangService extends JSBaseService {
 	public void doChouJiang(boolean isEnd) {
 		try {
 			String todayStr = DateUtils.format(new Date(), DateUtils.DAY_FORMAT);
-			System.out.println("抽奖开始=="+todayStr);
+			System.out.println("抽奖开始==" + todayStr);
 			Map<String, Object> parameters = MapUtils.genMap("daydes", todayStr, "status", 1);
 			List<SKBbrw> list = sKBbrwService.selectByWhere(parameters);
 			if (CollectionUtils.isEmpty(list)) {
@@ -83,10 +83,15 @@ public class SKChouJiangService extends JSBaseService {
 			return;
 		}
 		// 已经下线的商品，把那边中奖前的都干掉
-		if(baobei.getStatus() == -1){
+		if (baobei.getStatus() == -1) {
 			sKSkqkService.zuoFei(baobei.getId());
+			return;
 		}
-	
+		// 不是进行中的，不用抽奖了
+		if (baobei.getStatus() != 9) {
+			return;
+		}
+
 		Long bbid = bbrw.getBbid();
 		Long bbnum = bbrw.getBbnum();
 		Long yzj = bbrw.getYzj();
@@ -98,31 +103,28 @@ public class SKChouJiangService extends JSBaseService {
 		} else {
 			cjsl = (bbnum - yzj) / 2;
 		}
-		//所有的试客
+		// 所有的试客
 		List<SKSkqk> alllist = sKSkqkService.getDengChouJiang(bbid);
 		if (CollectionUtils.isEmpty(alllist)) {
 			return;
 		}
-		//先更新下一次抽奖时间，在进行更新
+		// 先更新下一次抽奖时间，在进行更新
 		for (SKSkqk skqk : alllist) {
 			skqk.setStatus(21L);
 			sKSkqkService.updateStatus(skqk.getId(), skqk.getStatus());
-		}	
-		// 虚拟商品,非审核通过的，没人可以中奖
-		if (baobei.getIsXuni() == 1 || baobei.getStatus() != 9) {		
-			// 虚拟的商品自动增加中奖数和申请数
-			if (baobei.getIsXuni() == 1) {
-				long cj = baobei.getZjnum() + cjsl;
-				if(cj>baobei.getBbnum()){
-					cj = baobei.getBbnum();
-				}
-				baobei.setZjnum(cj);
-				baobei.setSqnum(baobei.getSqnum() + cjsl * 2);
-				sKBaobeiService.update(baobei);
+		}
+		// 虚拟的商品自动增加中奖数和申请数
+		if (baobei.getIsXuni() == 1) {
+			long cj = baobei.getZjnum() + cjsl;
+			if (cj > baobei.getBbnum()) {
+				cj = baobei.getBbnum();
 			}
+			baobei.setZjnum(cj);
+			baobei.setSqnum(baobei.getSqnum() + cjsl * 2);
+			sKBaobeiService.update(baobei);
 			return;
 		}
-		
+		// 有效人数
 		List<SKSkqk> yxlist = sKSkqkService.getYXSK(alllist, bbid);
 
 		List<SKSkqk> zjrlist = null;
