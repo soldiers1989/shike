@@ -82,7 +82,11 @@ public class SKChouJiangService extends JSBaseService {
 		if (baobei.getHdtypeid() != null && baobei.getHdtypeid() == 6L) {
 			return;
 		}
-
+		// 已经下线的商品，把那边中奖前的都干掉
+		if(baobei.getStatus() == -1){
+			sKSkqkService.zuoFei(baobei.getId());
+		}
+	
 		Long bbid = bbrw.getBbid();
 		Long bbnum = bbrw.getBbnum();
 		Long yzj = bbrw.getYzj();

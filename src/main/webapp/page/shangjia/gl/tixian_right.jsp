@@ -73,7 +73,7 @@ table.th =  [{w:100,na:"提款编号",colname:"id"}
 ,{w:100,na:"提现状态",colname:"statusStr"}
 ,{w:100,na:"用户手机",colname:"user.phone"}
 ,{w:100,na:"用户类型",colname:"user.typeStr"}
-,{w:100,na:"真实姓名",colname:"realname"}
+,{w:100,na:"真实姓名",colname:"user.realname"}
 ,{w:100,na:"操作",callfun:optfun}];
 table.thinit();
 	function sucdo(data){

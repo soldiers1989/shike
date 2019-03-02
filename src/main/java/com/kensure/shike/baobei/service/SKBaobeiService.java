@@ -786,6 +786,8 @@ public class SKBaobeiService extends JSBaseService {
 		}
 		baobei.setStatus(-1L);
 		update(baobei);
+		// 已经下线的商品，把那边中奖前的都干掉
+		sKSkqkService.zuoFei(baobei.getId());
 	}
 
 	/**
