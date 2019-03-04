@@ -1,14 +1,3 @@
-/*
- * 文件名称: SKSkqkServiceImpl.java
- * 版权信息: Copyright 2001-2017 hangzhou jingshu technology Co., LTD. All right reserved.
- * ----------------------------------------------------------------------------------------------
- * 修改历史:
- * ----------------------------------------------------------------------------------------------
- * 修改原因: 新增
- * 修改人员: fankd
- * 修改日期: 2018-9-11
- * 修改内容: 
- */
 package com.kensure.shike.baobei.service;
 
 import java.util.Date;
@@ -24,6 +13,7 @@ import co.kensure.mem.CollectionUtils;
 import co.kensure.mem.DateUtils;
 import co.kensure.mem.MapUtils;
 
+import com.kensure.shike.baobei.model.SKBaobei;
 import com.kensure.shike.baobei.model.SKBbrw;
 import com.kensure.shike.baobei.model.SKSkqk;
 
@@ -38,6 +28,9 @@ public class SKSkqkHelper extends JSBaseService {
 
 	@Resource
 	private SKSkqkService sKSkqkService;
+	
+	@Resource
+	private SKBaobeiService sKBaobeiService;
 
 	@Resource
 	private SKBbrwService sKBbrwService;
@@ -85,7 +78,13 @@ public class SKSkqkHelper extends JSBaseService {
 			}
 		} else if (status.intValue() == 51) {
 			// 中奖之后，24个小时的下单时间，如果超过24个小时，取消中奖
-			nextTime = DateUtils.getPastHour(now, 24);
+			SKBaobei bb = sKBaobeiService.selectOne(sqqk.getBbid());
+			int hour = 24;
+			//必中,1小时内下单
+			if(bb.getHdtypeid() == 4){
+				hour = 1;
+			}
+			nextTime = DateUtils.getPastHour(now, hour);		
 		} else if (status.intValue() == 61) {
 			// 这个是好评时间，好评时间有10天
 			nextTime = DateUtils.getPastDay(now, 2);

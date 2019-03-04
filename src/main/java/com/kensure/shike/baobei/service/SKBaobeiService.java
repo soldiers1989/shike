@@ -29,6 +29,7 @@ import com.kensure.shike.baobei.model.SKBaobei;
 import com.kensure.shike.baobei.model.SKBaobeiTP;
 import com.kensure.shike.baobei.model.SKBaobeiZT;
 import com.kensure.shike.baobei.model.SKBbrw;
+import com.kensure.shike.baobei.model.SKBbrwDetail;
 import com.kensure.shike.baobei.model.SKGroupStatus;
 import com.kensure.shike.baobei.model.SKHbsj;
 import com.kensure.shike.baobei.model.SKJindian;
@@ -60,10 +61,10 @@ public class SKBaobeiService extends JSBaseService {
 	private SKBaobeiDao dao;
 
 	@Resource
-	private SKUserService sKUserService;
+	private BaseKeyService baseKeyService;
 
 	@Resource
-	private BaseKeyService baseKeyService;
+	private SKUserService sKUserService;
 
 	@Resource
 	private SKBaobeiTPService sKBaobeiTPService;
@@ -97,6 +98,9 @@ public class SKBaobeiService extends JSBaseService {
 
 	@Resource
 	private SKChouJiangService sKChouJiangService;
+
+	@Resource
+	private SKBbrwDetailService sKBbrwDetailService;
 
 	public SKBaobei selectOne(Long id) {
 		return dao.selectOne(id);
@@ -246,7 +250,7 @@ public class SKBaobeiService extends JSBaseService {
 		}
 
 		// 任务保存,并删除无效的旧数据
-		sKBbrwService.saveOrUpdateInBatch(rws, obj.getId(), newFlag);
+		sKBbrwService.saveOrUpdateInBatch(rws, obj.getId());
 
 		// 图片
 		List<SKBaobeiTP> tps = obj.getTplist();
@@ -703,7 +707,12 @@ public class SKBaobeiService extends JSBaseService {
 		// 任务列表
 		List<SKBbrw> bbrwList = sKBbrwService.selectByWhere(MapUtils.genMap("bbid", id));
 		baobei.setBbrwlist(bbrwList);
-
+		for (SKBbrw bbrw : bbrwList) {
+			List<SKBbrwDetail> details = sKBbrwDetailService.selectByBbrwid(bbrw.getId());
+			if (CollectionUtils.isNotEmpty(details)) {
+				bbrw.setDetails(details);
+			}
+		}
 		// 货币三家
 		baobei.setHbsj(sKHbsjService.selectOne(id));
 
@@ -766,6 +775,10 @@ public class SKBaobeiService extends JSBaseService {
 
 			sKSkqkService.save(baobei, 51, skuser);
 		} else {
+			// 必中校验
+			if (status == 18 && baobei.getHdtypeid() != null && baobei.getHdtypeid() == 4) {
+				sKChouJiangService.bizhongjiaoyan(baobei.getId());
+			}
 			sKSkqkService.save(baobei, status, skuser);
 		}
 		sKJysjService.save(baobei, status, jysjList);

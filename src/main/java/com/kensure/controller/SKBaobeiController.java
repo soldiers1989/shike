@@ -111,7 +111,7 @@ public class SKBaobeiController {
 		 * '是否需要旺旺聊天 1是需要，0是不用',
 		 * 
 		 * tplist 图片列表[{url:}] jdlist 进店路径[{typeid:,bili:}] wordlist
-		 * 关键字[{word:,ordermethod:}] bbrwlist 宝贝任务[{bbnum:,zhuanhua:,daydes:,}]
+		 * 关键字[{word:,ordermethod:}] bbrwlist 宝贝任务[{bbnum:,zhuanhua:,daydes:,details（任务详情）:[{bbnum:,hour1:,hour2:,}]}]
 		 * hbsj活笔三家:{tkl1:,tkl2:,tkl3}
 		 */
 		sKBaobeiService.saveBaoBei(obj);

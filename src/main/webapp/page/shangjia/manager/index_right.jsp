@@ -594,18 +594,6 @@
 	   getDays();
    }
    
-   
-   function countAll(){
-	   var ct = 0;
-	   for(var i=0;i<21;i++){
-		  var fenshu = $("#fenshu"+i); 
-		  if(fenshu && fenshu.val()){
-			  ct += parseInt(fenshu.val());
-		  }
-	   }
-	   $("#all-num").html(ct);
-   }
-   
    function convertDateFromString(dateString) { 
 	   if (dateString) { 
 		   var arr1 = dateString.split(" "); 
@@ -619,127 +607,6 @@
        var dd = new Date();
        dd.setDate(begindate.getDate() + p_count);//获取p_count天后的日期 
        return dd;
-   }
-   
-   var baocun = false;
-   function savebaobei(){
-	   if(baocun){
-		   alert("请勿重复保存");
-	   }  
-	   $("#tijiaosj").html("正在提交");
-	   var data = {dpid:$("#sk_shop_name option:selected").val(),title:$("#sk_activity_name").val()};
-	   var id = $('#baobeiid').val();
-	   if (id) {
-		   data.id = id;
-	   }
-	   data.url = $("#sk-link").val();
-	   data.taokl = $("#sk_taokouling").val();
-	   data.zturl = $('#picbbzt').attr("src");
-	   data.sale_price = $("#sk_clinch_price").val();
-	   data.jiangli = $("#sk_jiangli").val();
-	   data.no_qq = $("#sk_qq").val();
-	   data.guige = $("#sk_size").val();
-	   data.typeid = $("#sk_commodity_type option:selected").val();
-	   data.hdtypeid = $(".jp-watch dt.act").index()+1;
-	   // 拼团
-	   if (data.hdtypeid == 5) {
-           data.hdtypeid = 6;
-       }
-
-	   data.xinyongka = $("#sk_is_useCreditCard").is(':checked') ? 1 : 0;
-	   data.huabei = $("#sk_is_useTokio").is(':checked') ? 1 : 0;
-	   data.shaitu = $("#sk_no_appraise_chart").is(':checked') ? 1 : 0;
-	   data.wangwang = $("#sk_no_contact_chat").is(':checked') ? 1 : 0;
-	   //货比三家
-	   var ishbsj = $("#ishbsj").is(':checked') ? 1 : 0;
-	   if(ishbsj == 1){
-		   var hbsj = {tkl1:"",tkl2:"",tkl3:""};
-		   data.hbsj =  JSON.stringify(hbsj);
-	   }	   
-
-	   //图片
-	   var tplist = [];
-	   var imgs = $("#img-con").children();
-		for(var i=0;i<imgs.length && i < 4;i++){	
-			var img = imgs[i];
-			var tp = {url:img.src};
-			var imgId = $(img).data('id');
-			if (imgId) {
-				tp.id = imgId;
-			}
-			tplist.push(tp);
-		}      
-	   data.tplist = JSON.stringify(tplist);
-	   
-	   //进店路径
-	   var jdlist = [];
-	   var app_search_bili = $("#app_search_bili").val();
-	   //一口价
-	   var sk_one_price = $("#sk_one_price").val();
-	   var txt_taokoulingBz = $("#txt_taokoulingBz").val();
-	   var spCodesTemp = "";
-       $('input:checkbox[name=name]:checked').each(function(i){
-	        if(0==i){
-	         spCodesTemp = $(this).val();
-	        }else{
-	         spCodesTemp += (","+$(this).val());
-        }
-       });
- 	   var searchId = $('#app_search_bili').data('id');
-	   var search = {typeid:"1",bili:app_search_bili,ykj:sk_one_price,zkfw:spCodesTemp};
-	   if (searchId) {
-		   search.id = searchId;
-	   }
-	   var tpwdId = $("#txt_taokoulingBz").data('id');
-	   var kouling = {typeid:"2",bili:txt_taokoulingBz};
-	   if (tpwdId) {
-		   kouling.id = tpwdId;
-	   }
-
-	   jdlist.push(search);
-	   jdlist.push(kouling);
-	   data.jdlist = JSON.stringify(jdlist);
-	   
-	   //关键字
-	   var wordlist = [];
-	   
-	   $('.add-key').each(function(i){
-		   var app_search_keys = $(this).children('input[name=app_search_keys]').val();
-		   var app_sort_claim = $(this).children('select[name=app_sort_claim]').children('option:selected').val();
-		   var keyWord = {
-				   word:app_search_keys,
-				   ordermethod:app_sort_claim
-			   };
-		   var keyId =  $(this).data('id');
-		   if (keyId) {
-			   keyWord.id = keyId;
-		   }
-		   wordlist.push(keyWord);
-	   });
-	  
-	   /* var app_search_keys = $("#app_search_keys").val();
-	   var app_sort_claim = $("#app_sort_claim option:selected").val(); 
-	   var key1 = {word:app_search_keys,ordermethod:app_sort_claim};
-	   wordlist.push(key1); */
-	   data.wordlist = JSON.stringify(wordlist);
-	   
-	   //宝贝任务
-	   var bbrwlist = [];
-	   for(var i=0;i<21;i++){
-		  var $sj = $("#shijian"+i); 
-		  if($sj && $sj.val()){
-			  var rwdata = {daydes:$sj.val(),bbnum:$("#fenshu"+i).val(),zhuanhua:$("#zhuanhua"+i).val()};
-			  var sjId = $sj.data('id');
-			  if (sjId) {
-				  rwdata.id = sjId;
-			  }
-			  bbrwlist.push(rwdata);
-		  }
-	   }
-	   data.bbrwlist = JSON.stringify(bbrwlist);
-	   
-	   var url = "<%=BusiConstant.shangjia_baobeiadd_do.getKey()%>";
-	   postdo(url, data, svsucdo,null, svcompdo);
    }
    
    /**
@@ -851,12 +718,21 @@
 				   $('#shijian' + i).data('id', rw.id);
 				   var num = rw.bbnum;
 				   allNum += num;
-				   $('#fenshu' + i).val(num);
-				   $('#zhuanhua' + i).val(rw.zhuanhua);
+				   if(data.hdtypeid == 4){
+					   var h3obj = $('#shijian' + i).parent();
+					   var divobj = h3obj.parent();				   
+					   var htmlppp = "<h3>"+h3obj.html()+"</h3>";
+					   $.each(rw.details,function(i, item){
+						   htmlppp += initbizhonghtml(item.hour1, item.hour2, item.bbnum);
+						});
+					   divobj.html(htmlppp);
+				   }else{		   
+					   $('#fenshu' + i).val(num);
+					   $('#zhuanhua' + i).val(rw.zhuanhua);
+				   }	  
 			   }
 			   $('#all-num').html(allNum);
 		   }, function(data) {
-			   console.log(data);
 		   });
 	   }
    }
@@ -884,15 +760,6 @@
    
    // 加载宝贝详情
    loadBaoBeiDetailIfNeed(<%=id%>);
-   
-   function svsucdo(data){
-	   location.href = "<%=BusiConstant.shangjia_huodonglist.getKey()%>?status=0";
-   }
-   
-   function svcompdo(data){
-	   baocun = false;
-	   $("#tijiaosj").html("提交");
-   }
   
   function dictsucdo(data){
 		var rows = data.resultData.rows;

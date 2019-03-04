@@ -1,23 +1,31 @@
 package com.kensure.shike.baobei.service;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
 import co.kensure.exception.BusinessExceptionUtil;
 import co.kensure.frame.JSBaseService;
 import co.kensure.mem.CollectionUtils;
 import co.kensure.mem.DateUtils;
 import co.kensure.mem.MapUtils;
 import co.kensure.sms.SMSClient;
+
 import com.kensure.shike.baobei.model.SKBaobei;
 import com.kensure.shike.baobei.model.SKBbrw;
+import com.kensure.shike.baobei.model.SKBbrwDetail;
 import com.kensure.shike.baobei.model.SKSkqk;
 import com.kensure.shike.baobei.model.SKZjqk;
 import com.kensure.shike.user.model.SKUser;
 import com.kensure.shike.user.service.SKUserService;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-
-import javax.annotation.Resource;
-import java.util.*;
 
 /**
  * 宝贝抽奖
@@ -42,6 +50,9 @@ public class SKChouJiangService extends JSBaseService {
 
 	@Resource
 	private SKBbrwService sKBbrwService;
+
+	@Resource
+	private SKBbrwDetailService sKBbrwDetailService;
 
 	@Resource
 	private SKChouJiangLimitService sKChouJiangLimitService;
@@ -208,7 +219,20 @@ public class SKChouJiangService extends JSBaseService {
 	 * @return
 	 */
 	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
-	public void zhongjiang(Long bbid) {
+	public synchronized void zhongjiang(Long bbid) {
+		SKBbrwDetail thisdetail = bizhongjiaoyan(bbid);
+		// 详情加1
+		sKBbrwDetailService.updateYzj(thisdetail);
+		// 今日任务中奖人数+1
+		Map<String, Object> param = MapUtils.genMap("id", thisdetail.getBbrwid(), "yzjAdd", 1);
+		sKBbrwService.updateByMap(param);
+	}
+
+	/**
+	 * 必中校验
+	 * @param bbid
+	 */
+	public SKBbrwDetail bizhongjiaoyan(Long bbid) {
 		String todayStr = DateUtils.format(new Date(), DateUtils.DAY_FORMAT);
 		Map<String, Object> parameters = MapUtils.genMap("bbid", bbid, "daydes", todayStr, "status", 1);
 		List<SKBbrw> list = sKBbrwService.selectByWhere(parameters);
@@ -218,29 +242,26 @@ public class SKChouJiangService extends JSBaseService {
 		SKBbrw skBbrw = list.get(0);
 		Date now = new Date();
 		int hour = DateUtils.getHour(now);
-		int bbnum = skBbrw.getBbnum().intValue();
-		int yzj = skBbrw.getYzj().intValue();
-		// 当前时间最大中奖数量
-		int maxzj = 0;
 
-		if (hour >= 19) {
-			// 19点，放100%
-			maxzj = bbnum;
-		} else if (hour >= 14) {
-			// 14点，放60%
-			maxzj = bbnum * 6 / 10;
-		} else if (hour >= 7) {
-			// 7点，放30%
-			maxzj = bbnum * 3 / 10;
+		List<SKBbrwDetail> detailslist = sKBbrwDetailService.selectByBbrwid(skBbrw.getId());
+		SKBbrwDetail thisdetail = null;
+		for (SKBbrwDetail detail : detailslist) {
+			// 说明还有商品
+			if (detail.getYzj() < detail.getBbnum()) {
+				// 现在的时间，1、比结束时间大的，那是可以的，2比开始时间大，比结束时间小，也是可以的
+				if (hour > detail.getHour2() || (hour >= detail.getHour1() && hour < detail.getHour2())) {
+					thisdetail = detail;
+					break;
+				}
+			}
 		}
-		if (yzj >= maxzj) {
+		if (thisdetail == null) {
 			BusinessExceptionUtil.threwException("宝贝该时间段已经放完！");
 		}
-		// 今日任务中奖人数+1
-		Map<String, Object> param = MapUtils.genMap("id", skBbrw.getId(), "yzjAdd", 1);
-		sKBbrwService.updateByMap(param);
+		return thisdetail;
 	}
-
+	
+	
 	/**
 	 * 中奖 （指定）
 	 *

@@ -1,3 +1,4 @@
+<%@page import="co.kensure.api.ApiUtil"%>
 <%@page import="org.apache.commons.lang3.StringUtils"%>
 <%@page import="com.kensure.shike.baobei.model.SKBaobeiTP"%>
 <%@page import="com.kensure.shike.user.model.SKUser"%>
@@ -192,7 +193,7 @@
         function dictsucdo(data){
             if ("${baobei.hdtypeid}" == 4) {
                 myAlert("提交成功，到中奖活动页直接提交订单", function () {
-                    window.location.href="<%=BusiConstant.shike_wdhd.getKey()%>?status=51";
+                    window.location.href="<%=ApiUtil.getUrl("/skm/gouwuche")%>?id=<%=baobei.getId()%>";
                 });
             } else {
                 myAlert("提交成功，等待抽奖", function () {

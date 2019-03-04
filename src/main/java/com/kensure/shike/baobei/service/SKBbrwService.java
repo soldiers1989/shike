@@ -1,14 +1,3 @@
-/*
- * 文件名称: SKBbrwServiceImpl.java
- * 版权信息: Copyright 2001-2017 hangzhou jingshu technology Co., LTD. All right reserved.
- * ----------------------------------------------------------------------------------------------
- * 修改历史:
- * ----------------------------------------------------------------------------------------------
- * 修改原因: 新增
- * 修改人员: fankd
- * 修改日期: 2018-9-9
- * 修改内容: 
- */
 package com.kensure.shike.baobei.service;
 
 import java.util.ArrayList;
@@ -26,13 +15,13 @@ import co.kensure.exception.ParamUtils;
 import co.kensure.frame.JSBaseService;
 import co.kensure.mem.CollectionUtils;
 import co.kensure.mem.DateUtils;
-import co.kensure.mem.ListUtils;
 import co.kensure.mem.MapUtils;
 import co.kensure.mem.NumberUtils;
 
 import com.kensure.basekey.BaseKeyService;
 import com.kensure.shike.baobei.dao.SKBbrwDao;
 import com.kensure.shike.baobei.model.SKBbrw;
+import com.kensure.shike.baobei.model.SKBbrwDetail;
 import com.kensure.shike.user.service.SKUserService;
 
 /**
@@ -61,6 +50,9 @@ public class SKBbrwService extends JSBaseService {
 
 	@Resource
 	private SKZjqkService sKZjqkService;
+
+	@Resource
+	private SKBbrwDetailService sKBbrwDetailService;
 
 	public SKBbrw selectOne(Long id) {
 		return dao.selectOne(id);
@@ -118,19 +110,29 @@ public class SKBbrwService extends JSBaseService {
 			Date day = DateUtils.parse(obj.getDaydes(), DateUtils.DAY_FORMAT);
 			if (newFlag && day.getTime() < now.getTime()) {
 				BusinessExceptionUtil.threwException("时间不能早于今天");
-			}
+			}	
+			int zhuanhua = NumberUtils.parseInteger(obj.getZhuanhua(), 0);
 			if (obj.getBbnum() == null) {
 				obj.setBbnum(0L);
 			}
-			int zhuanhua = NumberUtils.parseInteger(obj.getZhuanhua(), 0);
 			// 立即申请，没有预热，每天必须有数量，转化率为100
 			if (hdtypeid == 4) {
 				zhuanhua = 100;
+				obj.setBbnum(0L);
+				//进行详情计算
+				List<SKBbrwDetail> details = obj.getDetails();
+				if(CollectionUtils.isNotEmpty(details)){
+					for(SKBbrwDetail detail:details){		
+						Long bbnum = detail.getBbnum();
+						obj.setBbnum(bbnum+obj.getBbnum());
+					}
+				}			
 				if (obj.getBbnum() <= 0) {
 					BusinessExceptionUtil.threwException("必中任务，每天必须有投放量");
 				}
 			}
 
+			
 			long sqnum = 0;
 			if (zhuanhua != 0) {
 				sqnum = obj.getBbnum() * 100 / zhuanhua;
@@ -147,33 +149,24 @@ public class SKBbrwService extends JSBaseService {
 	 * 
 	 * @param obj
 	 */
-	public void saveOrUpdateInBatch(List<SKBbrw> rws, Long bbid, boolean newFlag) {
-		Map<Long, SKBbrw> oldRwMap = null;
-		if (!newFlag) {
-			List<SKBbrw> oldRws = this.selectByWhere(MapUtils.genMap("bbid", bbid));
-			oldRwMap = ListUtils.listToMap(oldRws, "id");
+	public void saveOrUpdateInBatch(List<SKBbrw> rws, Long bbid) {
+		// 删除旧的
+		List<SKBbrw> oldRws = this.selectByWhere(MapUtils.genMap("bbid", bbid));
+		if (CollectionUtils.isNotEmpty(oldRws)) {
+			List<Long> deleteIds = new ArrayList<Long>();
+			for (SKBbrw rw : oldRws) {
+				deleteIds.add(rw.getId());
+			}
+			this.deleteMulti(deleteIds);
 		}
-
-		// 插入新的或更新旧的
+		sKBbrwDetailService.deleteBatch(bbid);
+		
+		// 插入新的
 		for (SKBbrw obj : rws) {
 			obj.setBbid(bbid);
-			if (obj.getId() == null) {
-				this.insert(obj);
-			} else {
-				this.update(obj);
-				if (oldRwMap != null) {
-					oldRwMap.remove(obj.getId());
-				}
-			}
-		}
-
-		// 删除新列表不存在的
-		if (oldRwMap != null && oldRwMap.size() > 0) {
-			List<Long> ids = new ArrayList<Long>();
-			for (SKBbrw rw : oldRwMap.values()) {
-				ids.add(rw.getId());
-			}
-			this.deleteMulti(ids);
+			this.insert(obj);
+			//插入详情
+			sKBbrwDetailService.addBatch(obj);
 		}
 	}
 

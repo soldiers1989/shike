@@ -1,19 +1,4 @@
-﻿//活动类型设置
-function baobeitype(bbtype){
-	 var skType = 0;
-    //初始化类型
-    $(".jp-watch dt").removeClass("act");
-    $(".jp-watch").find("dt[data-type=" + bbtype + "]").addClass("act");
-    $(".jp-watch dd").removeClass("act").eq($(".jp-watch dt.act").index()).addClass("act");
-    if ($(".jp-watch dt.act").index() == "2") {
-        $(".kt").fadeIn();
-    } else {
-        $(".kt").fadeOut();
-    }
-}
-
-
-var adviceAllNum = 0;
+﻿var adviceAllNum = 0;
 //上传图片
 
 var linkImgFlag = false;//图片

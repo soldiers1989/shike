@@ -293,6 +293,22 @@ CREATE TABLE `sk_bbrw` (
   KEY `idx_sk_bbrw_bbid` (`bbid`)
 );
 
+-- 宝贝试客任务详情，目前是给必中任务用的
+CREATE TABLE `sk_bbrw_detail` (
+  `id` bigint(20) NOT NULL COMMENT '主键',
+  `bbrwid` bigint(20) DEFAULT NULL COMMENT '宝贝任务id',
+  `bbid` bigint(20) DEFAULT NULL COMMENT '宝贝id',
+  `bbnum` bigint(20) DEFAULT NULL COMMENT '宝贝数量',
+  `yzj` bigint(20) DEFAULT NULL COMMENT '已中奖数量',
+  `hour1` int(11) NOT NULL COMMENT '限制小时开始',
+  `hour2` int(11) NOT NULL COMMENT '限制小时结束',
+  `created_time` datetime NOT NULL COMMENT '创建时间',
+  `updated_time` datetime NOT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  KEY `idx_sk_bbrw_detail_bbrwid` (`bbrwid`)
+);
+
+
 -- 宝贝试客申请数据
 CREATE TABLE `sk_sqqk` (
   `id` bigint(20) NOT NULL COMMENT '主键',
