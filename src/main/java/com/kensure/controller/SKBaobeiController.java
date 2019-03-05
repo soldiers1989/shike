@@ -538,4 +538,5 @@ public class SKBaobeiController {
         sKChouJiangService.zhiding(id);
         return new ResultRowInfo();
     }
+    
 }

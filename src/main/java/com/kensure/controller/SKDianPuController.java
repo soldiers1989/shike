@@ -58,7 +58,7 @@ public class SKDianPuController {
 	}
 
 	/**
-	 * 获取店铺列表
+	 * 管理员获取店铺列表
 	 */
 	@ResponseBody
 	@RequestMapping(value = "list.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
@@ -73,7 +73,21 @@ public class SKDianPuController {
 	
 	
 	/**
-	 * 获取用户激活的店铺列表
+	 * 商家后台管理获取店铺列表
+	 */
+	@ResponseBody
+	@RequestMapping(value = "sjlist.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	public ResultInfo sjlist(HttpServletRequest req, HttpServletResponse rep) {
+		JSONObject json = RequestUtils.paramToJson(req);
+		Long status = json.getLong("status");
+		PageInfo page = JSONObject.parseObject(json.toJSONString(), PageInfo.class);
+		List<SKDianPu> list = sKDianPuService.getSJList(status,page);
+		long count = sKDianPuService.getSJListCount(status,page);
+		return new ResultRowsInfo(list,count);
+	}
+	
+	/**
+	 * 获取商家激活的店铺列表，一般在商家发布任务的时候使用
 	 */
 	@ResponseBody
 	@RequestMapping(value = "userlist.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
@@ -91,8 +105,7 @@ public class SKDianPuController {
 		//没有，就获取当前用户
 		if(userid == null){
 			userid = sKUserService.getUser().getId();
-		}
-		
+		}	
 		List<SKDianPu> list = sKDianPuService.getListByUserId(userid);
 		return new ResultRowsInfo(list);
 	}
@@ -118,6 +131,19 @@ public class SKDianPuController {
 		JSONObject json = RequestUtils.paramToJson(req);
 		Long id = json.getLong("id");
 		sKDianPuService.jihuo(id);
+		return new ResultRowInfo();
+	}
+	
+	
+	/**
+	 * 店铺删除
+	 */
+	@ResponseBody
+	@RequestMapping(value = "delete.do", method = { RequestMethod.POST, RequestMethod.GET }, produces = "application/json;charset=UTF-8")
+	public ResultInfo delete(HttpServletRequest req, HttpServletResponse rep) {
+		JSONObject json = RequestUtils.paramToJson(req);
+		Long id = json.getLong("id");
+		sKDianPuService.delete(id);
 		return new ResultRowInfo();
 	}
 

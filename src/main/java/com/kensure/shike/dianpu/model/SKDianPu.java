@@ -11,53 +11,59 @@
  */
 package com.kensure.shike.dianpu.model;
 
-import co.kensure.frame.BaseInfo;;
+import co.kensure.frame.BaseInfo;
+
+;
 
 /**
  * 店铺对象类
+ * 
  * @author fankd created on 2018-9-8
  * @since
  */
-public class SKDianPu extends BaseInfo{
+public class SKDianPu extends BaseInfo {
 
 	private static final long serialVersionUID = 3545276994084105527L;
-	
-	/**主键*/		
-	private Long id; 
 
-	/**用户id*/		
-	private Long userid; 
+	/** 主键 */
+	private Long id;
 
-	/**店铺名称*/		
-	private String name; 
+	/** 用户id */
+	private Long userid;
 
-	/**店铺类型，1是天猫淘宝*/		
-	private Long typeid; 
+	/** 店铺名称 */
+	private String name;
 
-	/**店铺链接*/		
-	private String url; 
+	/** 店铺类型，1是天猫淘宝 */
+	private Long typeid;
 
-	/**状态，0是正常，-1是停用*/		
-	private Long status; 
-	
-	/**店铺旺旺*/		
-	private String wangwang; 
-	
-	/**卖家图片*/		
-	private String mjtp; 
-	
-	/**负责人qq*/		
-	private String qq; 
-	
-	/**负责人微信*/		
+	/** 店铺链接 */
+	private String url;
+
+	/** 状态，0是正常，-1是停用 */
+	private Long status;
+
+	/** 店铺旺旺 */
+	private String wangwang;
+
+	/** 卖家图片 */
+	private String mjtp;
+
+	/** 负责人qq */
+	private String qq;
+
+	/** 负责人微信 */
 	private String weixin;
-	
-	/**负责人手机*/		
-	private String phone; 
-	
-	/**激活， 0是没有激活，1是激活*/		
-	private Integer jihuo; 
-	
+
+	/** 负责人手机 */
+	private String phone;
+
+	/** 激活， 0是没有激活，1是激活 */
+	private Integer jihuo;
+
+	/** 状态，0是正常，1是删除 */
+	private Integer isDel;
+
 	private String userName;
 
 	public Long getId() {
@@ -67,6 +73,7 @@ public class SKDianPu extends BaseInfo{
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public Long getUserid() {
 		return userid;
 	}
@@ -74,6 +81,7 @@ public class SKDianPu extends BaseInfo{
 	public void setUserid(Long userid) {
 		this.userid = userid;
 	}
+
 	public String getName() {
 		return name;
 	}
@@ -81,21 +89,23 @@ public class SKDianPu extends BaseInfo{
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public Long getTypeid() {
 		return typeid;
 	}
 
 	public String getTypeidStr() {
 		String temp = "";
-		if(typeid == 1L){
+		if (typeid == 1L) {
 			temp = "天猫/淘宝";
 		}
 		return temp;
 	}
-	
+
 	public void setTypeid(Long typeid) {
 		this.typeid = typeid;
 	}
+
 	public String getUrl() {
 		return url;
 	}
@@ -103,6 +113,7 @@ public class SKDianPu extends BaseInfo{
 	public void setUrl(String url) {
 		this.url = url;
 	}
+
 	public Long getStatus() {
 		return status;
 	}
@@ -110,10 +121,10 @@ public class SKDianPu extends BaseInfo{
 	public void setStatus(Long status) {
 		this.status = status;
 	}
-	
+
 	public String getStatusStr() {
 		String temp = "未审核";
-		if(status == 9){
+		if (status == 9) {
 			temp = "已审核";
 		}
 		return temp;
@@ -174,13 +185,21 @@ public class SKDianPu extends BaseInfo{
 	public void setJihuo(Integer jihuo) {
 		this.jihuo = jihuo;
 	}
-	
+
 	public String getJihuoStr() {
 		String temp = "未激活";
-		if(jihuo == 1){
+		if (jihuo == 1) {
 			temp = "已激活";
 		}
 		return temp;
 	}
-	
+
+	public Integer getIsDel() {
+		return isDel;
+	}
+
+	public void setIsDel(Integer isDel) {
+		this.isDel = isDel;
+	}
+
 }

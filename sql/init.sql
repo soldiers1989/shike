@@ -195,6 +195,7 @@ CREATE TABLE `sk_dianpu` (
   `jihuo` int(11) DEFAULT NULL COMMENT '激活 0是没有激活，1是激活',
   `created_time` datetime NOT NULL COMMENT '创建时间',
   `updated_time` datetime NOT NULL COMMENT '更新时间',
+  `is_del` int(11) DEFAULT NULL COMMENT '状态，0是正常，1是删除',
   PRIMARY KEY (`id`)
 );
 
