@@ -338,10 +338,10 @@ public class SKBaobeiService extends JSBaseService {
 			for (SKBaobei skbaobei : list) {
 				SKDianPu dianp = sKDianPuService.selectOne(skbaobei.getDpid());
 				SKUser user = sKUserService.selectOne(skbaobei.getUserid());
+				skbaobei.setUserName(user.getName());
 				skbaobei.setDianpu(dianp);
 				if (dianp != null) {
-					skbaobei.setDpname(dianp.getName());
-					skbaobei.setUserName(user.getName());
+					skbaobei.setDpname(dianp.getName());				
 				}
 			}
 		}
