@@ -8,13 +8,14 @@
      
 
                 <dl class="jp-watch">
-                    <dt class="act" onclick="baobeitype(0)">爆款打造/维护<i class="iconfont icon-gou"></i></dt>
-                    <dt class="lst" onclick="baobeitype(1)">新品提升<br>综合权重<i class="iconfont icon-gou rt26"></i></dt>
-                    <dt class="lst" onclick="baobeitype(2)">高客单精准打造爆款
+                    <dt class="act">爆款打造/维护<i class="iconfont icon-gou"></i></dt>
+                    <dt class="lst">新品提升<br>综合权重<i class="iconfont icon-gou rt26"></i></dt>
+                    <dt class="lst">高客单精准打造爆款
                         <br>（全面优化店铺权重）<i class="iconfont icon-gou rt20"></i>
                     </dt>
-                    <dt onclick="baobeitype(3)">必中任务<i class="iconfont icon-gou rt50"></i></dt>
-                    <dt onclick="baobeitype(5)">拼团<i class="iconfont icon-gou rt50"></i></dt>
+                    <dt >必中任务<i class="iconfont icon-gou rt50"></i></dt>
+                    <dt >拼团<i class="iconfont icon-gou rt50"></i></dt>
+                    <dt >折扣试用<i class="iconfont icon-gou rt50"></i></dt>
 
                     <dd class="act">
                         <h4><i class="iconfont icon-select"></i>快速提升关键词排名/加购率/多天回访率/全维度UV价值</h4>
@@ -185,6 +186,42 @@
 
                         </ul>
                     </dd>
+                
+                
+                	<dd >
+                        <h4><i class="iconfont icon-select"></i>快速提升关键词排名/加购率/多天回访率/全维度UV价值</h4>
+                        <ul>
+                            <li class="ddfirst">
+                                <p class="gray">适合店铺类型：</p>
+                                <p>有一定销量/流量的店铺</p>
+                                <p>店铺人群标签混乱</p>
+                                <p>日常宝贝转化率低于行业均值</p>
+                                <p>排名不稳定</p>
+                                
+                            </li>
+                            <li class="red">
+                                <p>效果建议投放单期总份数：</p>
+                                <p>小于50元客单（0-50元）≥<em class="alt-num">20</em>份</p>
+                                <p>50-100元客单≥<em class="alt-num">10</em>份</p>
+                                <p>100-300元客单≥<em class="alt-num">5</em>份</p>
+                                <p>高于300元客单≥<em class="alt-num">1</em>份</p>
+                                <p></p>
+                            </li>
+                            <li>
+                                <p>提升权重建议：</p>
+                                <p>建议不低于2期，每期5-10天，数据统计95%成功案例连续投放<em>4-6</em>周期完成爆款的打造和稳定</p>
+                            </li>
+                        </ul>
+                        <div>任务开奖时间：每日<em>10点，15点，20点</em>开奖。</div>
+                        <div>
+                            买家申请流程：
+                            <span>
+                                根据商家活动类型的不同，买家分1~6天申请。完成浏览、加购、收藏/关注店铺 宝贝、深度访问、<label id="ptText8">浏览副宝贝、手淘问大家.</label>等操作后，才可获得购买资格。
+                                <br>快速稳定优化商品权重。
+                            </span>
+                        </div>
+                    </dd>
+                
                 </dl>
 
 

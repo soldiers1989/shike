@@ -11,6 +11,8 @@
 		taokl,
 		zturl,
 		sale_price as salePrice,
+		real_price as realPrice,
+		fankuanlv,
 		jiangli,
 		bbnum,
 		sqnum,
@@ -51,6 +53,8 @@
 		taokl,
 		zturl,
 		sale_price,
+		real_price,
+		fankuanlv,
 		jiangli,
 		bbnum,
 		sqnum,
@@ -93,6 +97,8 @@
 			#{taokl},
 			#{zturl},
 			#{salePrice},
+			#{realPrice},
+			#{fankuanlv},
 			#{jiangli},
 			#{bbnum},
 			#{sqnum},
@@ -124,52 +130,7 @@
 			#{updatedTime}
 		)
 	</insert>
-	
-	<insert id="insertInBatch" parameterType="com.kensure.shike.baobei.model.SKBaobei">
-		insert into sk_baobei (<include refid="insertFields"/>) values 
-		<foreach collection="list" item="item" index="index" separator=",">
-			(
-				#{item.id},
-				#{item.userid},
-				#{item.dpid},
-				#{item.title},
-				#{item.url},
-				#{item.taokl},
-				#{item.zturl},
-				#{item.salePrice},
-				#{item.jiangli},
-				#{item.bbnum},
-				#{item.sqnum},
-				#{item.ysqnum},		
-				#{item.zhuanhua},
-				#{item.noQq},
-				#{item.guige},
-				#{item.typedes},
-				#{item.typeid},
-				#{item.baoyou},
-				#{item.zengzhi},
-				#{item.yingshou},
-				#{item.shishou},
-				#{item.tuikuan},
-				#{item.status},
-				#{item.isDel},
-				#{item.hdtypeid},
-				#{item.startTime},
-				#{item.endTime},
-				#{item.disorder},
-				#{item.xinyongka},
-				#{item.huabei},
-				#{item.shaitu},
-				#{item.wangwang},
-				#{item.zjnum},
-				#{item.isXuni},
-				#{item.isLimit},
-				#{item.createdTime},
-				#{item.updatedTime}
-			)
-		</foreach>
-	</insert>   		
-	
+			
     <sql id="whereClause">
 		<if test="userid != null">			
 			userid = #{userid}			
@@ -462,8 +423,14 @@
 		<if test="isLimit != null">
 			is_limit = #{isLimit},
 		</if>
+		<if test="realPrice != null">
+			real_price = #{realPrice},
+		</if>
+		<if test="fankuanlv != null">
+			fankuanlv = #{fankuanlv},
+		</if>
 		<if test="isXuni != null">
-			is_xuni = #{isXuni},
+			is_xuni = #{isXuni}
 		</if>
 	</sql>
 	
@@ -490,24 +457,5 @@
 			</set>
 		  where id = #{id}
 	</update>
-	
-	<delete id="delete">
-		delete from sk_baobei where id = #{id}
-	</delete>
-	
-	<delete id="deleteMulti" parameterType="List">
-		delete from sk_baobei
-		where id in
-		<foreach collection="list" item="item" open="(" close=")" separator=",">
-			#{item}
-		</foreach>
-	</delete>
-	
-	<delete id="deleteByWhere" parameterType="Map">
-		delete from sk_baobei 
-		<where>
-		    <include refid="whereClause"/>
-		</where>
-	</delete>	
 
 </mapper>    

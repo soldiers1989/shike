@@ -1,23 +1,12 @@
 package com.kensure.shike.baobei.service;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-
 import org.springframework.stereotype.Service;
 
 import co.kensure.exception.BusinessExceptionUtil;
 import co.kensure.exception.ParamUtils;
 import co.kensure.frame.JSBaseService;
-import co.kensure.mem.CollectionUtils;
-import co.kensure.mem.DateUtils;
-import co.kensure.mem.MapUtils;
 
 import com.kensure.shike.baobei.model.SKBaobei;
-import com.kensure.shike.baobei.model.SKBbrw;
-import com.kensure.shike.baobei.model.SKSkqk;
 
 /**
  * 试客宝贝服务帮助类
@@ -61,8 +50,26 @@ public class SKBaobeiHelper extends JSBaseService {
 		}
 		if (obj.getJiangli() == null) {
 			obj.setJiangli(0D);
-		}
+		}	
+		//如果不是折扣试用，真实价格==返现价格，折扣率为1
+		if (obj.getHdtypeid() != 7) {
+			obj.setRealPrice(obj.getSalePrice());
+			obj.setFankuanlv(1D);
+		}	
 	}
+	
+	/**
+	 * 宝贝修改前，数据初始化
+	 * @param obj
+	 */
+	public static void updateInit(SKBaobei obj) {
+		//如果不是折扣试用，真实价格==返现价格，折扣率为1
+		if (obj.getHdtypeid() != 7) {
+			obj.setRealPrice(obj.getSalePrice());
+			obj.setFankuanlv(1D);
+		}	
+	}
+	
 	
 	/**
 	 * 检验基本数据
@@ -83,6 +90,15 @@ public class SKBaobeiHelper extends JSBaseService {
 		ParamUtils.isBlankThrewException(obj.getTitle(), "标题不能为空");
 		if (oldBaoBei != null && oldBaoBei.getStatus() != 0 && oldBaoBei.getStatus() != 2) {
 			BusinessExceptionUtil.threwException("活动状态不正确，不允许修改");
+		}
+		//如果是折扣试用，必须填写真实价格，折扣率不能为空
+		if (obj.getHdtypeid() == 7) {
+			if(obj.getRealPrice() < 1){
+				BusinessExceptionUtil.threwException("真实价格必须填写!");
+			}
+			if(obj.getFankuanlv() == null){
+				BusinessExceptionUtil.threwException("返现率必须填写");
+			}
 		}
 	}
 

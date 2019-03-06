@@ -18,7 +18,7 @@ laydate.render({
 	}
 });
 //活动类型设置
-function baobeitype(bbtype){
+function baobeitype(){
 	setTimeout('getDays()',500);
 }
 

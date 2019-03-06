@@ -59,7 +59,7 @@ public class SKBaobei extends BaseInfo {
 	/** 宝贝主图链接 */
 	private String zturl;
 
-	/** 宝贝单价 */
+	/** 宝贝返款 */
 	private Double salePrice;
 
 	/** 宝贝奖励 */
@@ -124,6 +124,12 @@ public class SKBaobei extends BaseInfo {
 
 	/** 排序 */
 	private Long disorder;
+	
+	/** 真实价格 */
+	private Double realPrice;
+	
+	/** 返款率 */
+	private Double fankuanlv;
 
 	/** 允许使用信用卡 1是允许，0是不允许 */
 	private Integer xinyongka;
@@ -541,4 +547,21 @@ public class SKBaobei extends BaseInfo {
 	public boolean isLimit(){
 		return this.isLimit == 1;
 	}
+
+	public Double getRealPrice() {
+		return realPrice;
+	}
+
+	public void setRealPrice(Double realPrice) {
+		this.realPrice = realPrice;
+	}
+
+	public Double getFankuanlv() {
+		return fankuanlv;
+	}
+
+	public void setFankuanlv(Double fankuanlv) {
+		this.fankuanlv = fankuanlv;
+	}
+
 }

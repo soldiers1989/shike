@@ -45,22 +45,12 @@ public interface SKBaobeiDao extends JSBaseDao<SKBaobei> {
 	
 	public long selectCountByWhere(Map<String, Object> parameters);
 	
-	
 	public boolean insert(SKBaobei obj);
-	
-	public boolean insertInBatch(List<SKBaobei> objs);
-	
 	
 	public boolean update(SKBaobei obj);
     
     public boolean updateByMap(Map<String, Object> params);
     
-    
-	public boolean delete(Long id);	
-	
-    public boolean deleteMulti(Collection<Long> ids);
-    
-    public boolean deleteByWhere(Map<String, Object> parameters);
 	
 	
 }

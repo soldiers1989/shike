@@ -117,13 +117,10 @@ public class SKBaobeiService extends JSBaseService {
 		SKBaobeiHelper.insertInit(obj);
 		return dao.insert(obj);
 	}
-
-	public boolean insertInBatch(List<SKBaobei> objs) {
-		return dao.insertInBatch(objs);
-	}
-
+	
 	public boolean update(SKBaobei obj) {
 		super.beforeUpdate(obj);
+		SKBaobeiHelper.updateInit(obj);
 		return dao.update(obj);
 	}
 

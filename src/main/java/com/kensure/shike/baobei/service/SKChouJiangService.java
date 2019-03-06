@@ -160,8 +160,20 @@ public class SKChouJiangService extends JSBaseService {
 		baobei.setZjnum(baobei.getZjnum() + CollectionUtils.getSize(zjrlist));
 		sKBaobeiService.update(baobei);
 		sendSMS(zjrlist);
-
 	}
+	
+	public List<SKSkqk> searchYouXiaoYongHu(long bbid){
+		List<SKSkqk> alllist = sKSkqkService.getDengChouJiang(bbid);
+		if (CollectionUtils.isEmpty(alllist)) {
+			return null;
+		}
+		long dd = (5L-0L)/2;
+		
+		List<SKSkqk> yxlist = sKSkqkService.getYXSK(alllist, bbid);
+		List<SKSkqk> zjrlist = poolBean((int)dd, yxlist);
+		return zjrlist;
+	}
+	
 
 	/**
 	 * 发送短信

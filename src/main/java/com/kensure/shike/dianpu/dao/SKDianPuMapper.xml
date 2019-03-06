@@ -32,7 +32,7 @@
 		weixin,
 		phone,
 		jihuo,
-		is_del
+		is_del,
 		created_time,
 		updated_time
     </sql>
