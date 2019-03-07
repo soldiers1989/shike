@@ -219,6 +219,11 @@
 		}	
 		return tdinner;
 	}
+	
+	var pricefun = function(row){
+		var tdinner = "返款："+row.salePrice + "<br>价值："+row.realPrice+ "<br>比例："+row.fankuanlv;
+		return tdinner;
+	}
 
 	function hdtypeidfun(row) {
         var hdtypeid= row.hdtypeid;
@@ -233,6 +238,8 @@
             tdinner = "必中任务";
         }  else if (hdtypeid == 6) {
             tdinner = "拼团";
+        } else if (hdtypeid == 7) {
+            tdinner = "折扣试用";
         } else {
             tdinner = hdtypeid;
         }
@@ -246,7 +253,7 @@
 	,{w:100,na:"结束时间",colname:"endTimeStr"}
 	,{w:100,na:"商家名称",colname:"userName"}
 	,{w:100,na:"店铺名称",callfun:dianpufun}
-	,{w:100,na:"宝贝单价",colname:"salePrice"}
+	,{w:100,na:"宝贝单价",callfun:pricefun}
 	,{w:100,na:"产品数量",colname:"bbnum"}
 	,{w:100,na:"中奖数量",colname:"zjnum"}
 	,{w:100,na:"申请数量",colname:"ysqnum"}

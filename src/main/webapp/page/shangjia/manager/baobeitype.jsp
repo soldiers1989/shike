@@ -8,14 +8,13 @@
      
 
                 <dl class="jp-watch">
-                    <dt class="act">爆款打造/维护<i class="iconfont icon-gou"></i></dt>
-                    <dt class="lst">新品提升<br>综合权重<i class="iconfont icon-gou rt26"></i></dt>
-                    <dt class="lst">高客单精准打造爆款
-                        <br>（全面优化店铺权重）<i class="iconfont icon-gou rt20"></i>
+                    <dt class="act" onclick="baobeitype()">爆款打造/维护<i class="iconfont icon-gou"></i></dt>
+                    <dt class="lst" onclick="baobeitype()">新品提升<br>综合权重<i class="iconfont icon-gou rt26"></i></dt>
+                    <dt class="lst" onclick="baobeitype()">高客单精准<br>打造爆款<i class="iconfont icon-gou rt20"></i>
                     </dt>
-                    <dt >必中任务<i class="iconfont icon-gou rt50"></i></dt>
-                    <dt >拼团<i class="iconfont icon-gou rt50"></i></dt>
-                    <dt >折扣试用<i class="iconfont icon-gou rt50"></i></dt>
+                    <dt onclick="baobeitype()">必中任务<i class="iconfont icon-gou rt50"></i></dt>
+                    <dt onclick="baobeitype()">拼团<i class="iconfont icon-gou rt50"></i></dt>
+                    <dt onclick="baobeitype()">折扣试用<i class="iconfont icon-gou rt50"></i></dt>
 
                     <dd class="act">
                         <h4><i class="iconfont icon-select"></i>快速提升关键词排名/加购率/多天回访率/全维度UV价值</h4>
@@ -193,10 +192,11 @@
                         <ul>
                             <li class="ddfirst">
                                 <p class="gray">适合店铺类型：</p>
+                                <p>返款率大于50%</p>
                                 <p>有一定销量/流量的店铺</p>
                                 <p>店铺人群标签混乱</p>
                                 <p>日常宝贝转化率低于行业均值</p>
-                                <p>排名不稳定</p>
+                                
                                 
                             </li>
                             <li class="red">

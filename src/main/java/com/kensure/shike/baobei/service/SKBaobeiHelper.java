@@ -99,6 +99,10 @@ public class SKBaobeiHelper extends JSBaseService {
 			if(obj.getFankuanlv() == null){
 				BusinessExceptionUtil.threwException("返现率必须填写");
 			}
+			//如果返款率小于50%，进行提示
+			if(obj.getFankuanlv() < 50){
+				BusinessExceptionUtil.threwException("返现率不能小于50%");
+			}
 		}
 	}
 

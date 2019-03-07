@@ -20,7 +20,47 @@ laydate.render({
 //活动类型设置
 function baobeitype(){
 	setTimeout('getDays()',500);
+	setTimeout('getBianpriceHtml()',500);
 }
+
+//设置价格内容
+function getBianpriceHtml(data){
+	var hdtypeid = $(".jp-watch dt.act").index() + 1;
+	if(hdtypeid == 5 || hdtypeid == 6){
+		hdtypeid = hdtypeid+1;
+	}
+	var real_price = 0;
+	var fankuanlv = 1;
+	var sale_price = 0;
+	if(data){
+		hdtypeid = data.hdtypeid;
+		real_price = data.realPrice;
+		fankuanlv = data.fankuanlv;
+		sale_price = data.salePrice;
+	}
+	if(hdtypeid == 7){
+		var ht = ' <span class="label vt" style="width: 100px;"><span>*</span>宝贝下单价：</span>'
+            +'<div class="item-con">'
+            +'<input type="text" class="w82" id="real_price" value="'+real_price+'" onchange="jisuanfkje();"> 元'
+            +'<span class="Validform_checktip"></span></div>&nbsp;&nbsp;&nbsp;'
+            +'<span class="label vt" style="width: 200px;"><span>*</span>返款率（必须大于50%）：</span>'
+            +'<div class="item-con">'
+            +'<input type="text" class="w82" id="fankuanlv" onchange="jisuanfkje();" value="'+fankuanlv+'"> %'
+            +'<span class="Validform_checktip"></span></div>'
+            +'<span class="label vt" style="width: 100px;"><span>*</span>返款金额：</span>'
+            +' <div class="item-con">'
+            +' <input type="text" class="w82" id="sale_price" value="'+sale_price+'" readonly> 元'
+            +'<span class="Validform_checktip"></span></div>';
+            $("#bianprice").html(ht);
+	}else{
+		var ht = ' <span class="label vt" style="width: 100px;"><span>*</span>宝贝下单价：</span>'
+            +'<div class="item-con">'
+            +'<input type="text" class="w82" id="real_price" value="'+real_price+'"> 元'
+            +'<span class="Validform_checktip"></span></div>';
+            $("#bianprice").html(ht);
+	}
+}
+getBianpriceHtml();
 
 
 // 根据时间，设置任务日期
@@ -124,10 +164,12 @@ function initbizhonghtml(hour1,hour2,value){
 			+ fenshu1 + "份<button onclick='deletebizhongp(this)'>删</button></label></p>";
 	return html2;
 }
+
+//删除必中的时间段
 function deletebizhongp(obj){
 	$(obj).parent().parent().remove();
 }
-
+//新增必中的时间段
 function addbizhongp(obj){
 	$(obj).parent().parent().append(initbizhonghtml(0,0,10));
 }
@@ -150,7 +192,7 @@ function savebaobei() {
 	data.url = $("#sk-link").val();
 	data.taokl = $("#sk_taokouling").val();
 	data.zturl = $('#picbbzt').attr("src");
-	data.sale_price = $("#sk_clinch_price").val();
+	
 	data.jiangli = $("#sk_jiangli").val();
 	data.no_qq = $("#sk_qq").val();
 	data.guige = $("#sk_size").val();
@@ -159,8 +201,21 @@ function savebaobei() {
 	// 拼团
 	if (data.hdtypeid == 5) {
 		data.hdtypeid = 6;
+	}else if (data.hdtypeid == 6) {
+		//折扣试用
+		data.hdtypeid = 7;
 	}
-
+	//折扣试用
+	if(data.hdtypeid == 7){
+		data.real_price = $("#real_price").val();
+		data.fankuanlv = $("#fankuanlv").val();
+		data.sale_price = $("#sale_price").val();
+	}else{
+		data.real_price = $("#real_price").val();
+		data.fankuanlv = 1;
+		data.sale_price = data.real_price;
+	}
+	
 	data.xinyongka = $("#sk_is_useCreditCard").is(':checked') ? 1 : 0;
 	data.huabei = $("#sk_is_useTokio").is(':checked') ? 1 : 0;
 	data.shaitu = $("#sk_no_appraise_chart").is(':checked') ? 1 : 0;
@@ -286,6 +341,19 @@ function savebaobei() {
 	var url = getbaseurl("/baobei/save.do");
 	postdo(url, data, svsucdo, null, svcompdo);
 }
+
+//计算返款金额
+function jisuanfkje() {
+	var hdtypeid = $(".jp-watch dt.act").index() + 1;
+	if(hdtypeid == 6){
+		var real_price =$("#real_price").val();
+		var fankuanlv = $("#fankuanlv").val();
+		var a = real_price*fankuanlv/100;
+		var sale_price = a.toFixed(1);
+		$("#sale_price").val(sale_price);
+	}
+}
+
 
 function svsucdo(data) {
 	location.href = getbaseurl("/shangjia/huodonglist?status=0");

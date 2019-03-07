@@ -124,12 +124,9 @@
                     <span class="Validform_checktip"></span></div>
                 </div>
                 
-                <div class="item">
-                    <span class="label vt" style="width: 100px;"><span>*</span>宝贝下单价：</span>
-                    <div class="item-con">
-                        <input type="text" class="w82" name="sk_clinch_price11" id="sk_clinch_price" value="0"> 元
-                      
-                    <span class="Validform_checktip"></span></div>
+                <div class="item" id="bianprice">
+                  
+               
                 </div>
                 <input type="hidden" name="sk_tryout_count" id="sk_tryout_count">
                 <input type="hidden" name="sk_day_count_list" id="sk_day_count_list">
@@ -616,7 +613,6 @@
 	   if (id) {
 		   var url = '<%=BusiConstant.shangjia_baobei_full_do.getKey()%>';
 		   postdo(url, { id: id }, function(data) {
-			   console.log(JSON.stringify(data));
 			   var data = data.resultData.row;
 			   $('#baobeiid').val(data.id);
 			   $('#sk_shop_name').val(data.dpid);
@@ -625,12 +621,17 @@
 			   $("#sk_taokouling").val(data.taokl);
 			   $("#picbbzt")[0].src = data.zturl;	   
 			   $("#sk_jiangli").val(data.jiangli ? data.jiangli : 0);
-			   $("#sk_clinch_price").val(data.salePrice ? data.salePrice : 0);
 			   $("#sk_qq").val(data.noQq);
 			   $("#sk_size").val(data.guige);
 			   $("#sk_commodity_type").val(data.typeid);
 			   $(".jp-watch dt").removeClass('act');
-			   $($(".jp-watch dt")[data.hdtypeid - 1]).addClass('act');
+			   var showindex = data.hdtypeid -1;
+			   if(data.hdtypeid == 6 || data.hdtypeid == 7){
+				   showindex = showindex - 1;
+			   }   
+			   getBianpriceHtml(data);
+			   
+			   $($(".jp-watch dt")[showindex]).addClass('act');
 			   $("#sk_is_useCreditCard").prop('checked', data.xinyongka == 1);
 			   $("#sk_is_useTokio").prop('checked', data.huabei == 1);
 			   $("#sk_no_appraise_chart").prop('checked', data.shaitu == 1);

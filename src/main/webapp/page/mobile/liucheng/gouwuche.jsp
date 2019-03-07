@@ -46,9 +46,7 @@
 			type = jindians.get(1).getTypeid();
 		}
 	}
-
 	request.setAttribute("type", type);
-    SKBaobeiTP firsttp = (SKBaobeiTP)request.getAttribute("firsttp");
 %>
 <!DOCTYPE html>
 <html lang="zh" style="font-size: 31.125px;">
@@ -131,22 +129,12 @@
 	<script
 		src="<%=BusiConstant.shikemobilepath%>/liucheng/gouwuche/clipboard.min.js"></script>
 	<header class="header task-top frv" style="line-height: 2rem">
-		<i class="arrows" onclick="history.back(-1)"></i> 试用流程
+		<i class="arrows" onclick="history.back(-1)"></i> 加入购物车
 	</header>
 	<input type="hidden" id="tabao" value="qq123456">
 	<div style="height: 2rem"></div>
 	<div class="Flow">
-		<div class="Flow-hd">
-			<img src="<%=firsttp.getUrl()%>">
-
-			<ul>
-				<li><span class="iconfont icon-tb"></span> <span>${baobei.title}</span></li>
-				<li>店铺名称：<span>${baobei.dpnameS}</span></li>
-				<li>价格：<span style="color: #ff464e;">${baobei.salePrice}元</span></li>
-				<li>规格：<span style="color: #ff464e;"
-					onclick="myAlert(&#39;${baobei.guige}&#39;)">${baobei.guige}</span></li>
-			</ul>
-		</div>
+		<jsp:include page="lctop.jsp" flush="true"/> 
 		<div class="usera-kong"></div>
 
 		<input name="type" value="0" id="type" type="hidden">
@@ -201,10 +189,10 @@
 				<li><span class="num">2</span><em class="title">核对宝贝</em>
 					<div style="color: #aaa">以下两种方式二选一</div>
 					<div class="flow-cat">
-						<span class="">验证淘口令</span> <span class="act">验证店铺</span>
+						<span class="act">验证淘口令</span> <span class="">验证店铺</span>
 					</div>
 					<dl class="validate-list">
-						<dd class="">
+						<dd class="act">
 							<div>①点击一下输入框—②长按—③粘贴</div>
 							<div class="textarea">
 								<textarea class="link" id="tklurlvalue"
@@ -216,7 +204,7 @@
 								</span>
 							</div>
 						</dd>
-						<dd class="act">
+						<dd class="">
 							<div>
 								请进入商品详情页，浏览商品详情<em class="red">不少于3分钟</em>，复制并核对目标宝贝<em
 									class="red">店铺名称</em>。

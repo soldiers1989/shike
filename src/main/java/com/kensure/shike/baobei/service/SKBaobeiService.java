@@ -588,7 +588,9 @@ public class SKBaobeiService extends JSBaseService {
 
 		skbaobei.setTplist(tplist);
 		skbaobei.setXiangqing(detail);
-		skbaobei.setDpname(dianp.getName());
+		if(dianp != null){
+			skbaobei.setDpname(dianp.getName());
+		}
 		if (skbaobei.getZengzhi() != null && skbaobei.getZengzhi() == 1) {
 			skbaobei.setHbsj(sKHbsjService.selectOne(id));
 		}

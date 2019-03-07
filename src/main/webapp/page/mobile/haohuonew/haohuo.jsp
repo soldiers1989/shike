@@ -21,6 +21,7 @@
         <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/common/css/base.css">
         <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/common/css/iconfont.css">
         <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/common/css/style.css">
+        <script type="text/javascript" src="<%=BusiConstant.context %>/common/base.js?ver=<%=BusiConstant.version%>"></script>
         <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/jquery-1.8.3.js"></script>
         <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/Common.js"></script>
         <script type="text/javascript" src="<%=BusiConstant.context%>/jqtable/jquery.cookie.js"></script>
@@ -61,46 +62,6 @@
 
 <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/haohuonew/resource/list.js?ver=<%=BusiConstant.version%>"></script>
 
-<script>
-    var isNewUser = "True";
-    var userid = 0;
-    var myGold = "4150";
-    var sortY='0';
-    var orderType='0';
-    var showZt = 'True';
-
-    window.onload=function(){
-        if(orderType=="2"){
-            document.getElementById("plat").scrollLeft=100;
-        }
-    }
-    $(function() {
-        var $window = $(window);
-        var $document = $(document);
-        var top = 0 , lastTop = 0;
-        $window.scroll(function() {
-            top = $document.scrollTop();  
-
-            if (top > 300) {
-                //$(".gold-cat").addClass("act");
-
-                if(top <= lastTop){   //下滚  
-                    //$(".jp-hd").show();
-                    $(".jp-cat-bg").show();
-                }else{  //上滚  
-                    //$(".jp-hd").hide();
-                    $(".jp-cat-bg").hide();
-                }  
-                var set = setTimeout(function(){lastTop = top; clearTimeout(set); set = null;},0);         
-             
-            } else {
-                $(".jp-hd").show();
-                $(".jp-cat-bg").show();
-                //$(".gold-cat").removeClass("act");
-            }
-        });
-    })
-</script>
 
 <div class="jp-fixed-top" style="border-bottom: 1px solid #ddd;height: auto;">
     <div class="jp-hd">
@@ -123,13 +84,14 @@
         </div>
     </div>
     <div class="plat" id="plat" style="background: #f5f5f5;">
-        <div class="div-container" style="width: 19.5rem;">
+        <div class="div-container" style="width: 23rem;">
             <span class="<c:if test="${empty param.hdtypeid}">act</c:if>" data-num="">全部</span>
             <span class="<c:if test="${param.hdtypeid == '1'}">act</c:if>" data-num="1">普通试用</span>
             <span class="<c:if test="${param.hdtypeid == '3'}">act</c:if>" data-num="3">高价值</span>
             <span class="<c:if test="${param.hdtypeid == '4'}">act</c:if>" data-num="4">必中任务</span>
-            <span class="<c:if test="${param.hdtypeid == '5'}">act</c:if>" data-num="6">拼团</span>
+            <span class="<c:if test="${param.hdtypeid == '6'}">act</c:if>" data-num="6">拼团</span>
             <span class="<c:if test="${param.jiangli == '1'}">act</c:if>" data-num="5">有奖任务</span>
+            <span class="<c:if test="${param.hdtypeid == '7'}">act</c:if>" data-num="7">有奖拼团</span>
         </div>
     </div>
     <div class="jp-con">
@@ -233,23 +195,7 @@
 </div>
 <script>
 
-    // $(function () {
-    //
-    //     $.post("/home/ShowAdv?url=1", function (data) {
-    //         if (data.Result) {
-    //             if (localStorage.getItem("day-0") != new Date().getUTCDate()) {
-    //                 $(".down-app").fadeIn();
-    //             }
-    //             $(".down-app .icon-error1").on("click", function () {
-    //                 localStorage.setItem("day-0", new Date().getUTCDate());//把天数赋值给本地
-    //                 $(this).parent().fadeOut();
-    //             });
-    //         }
-    //     });
-    //
-    //
-    //
-    // });
+   
 </script>
 <div id="detail" class="fix-detail showHidden">
     <input type="hidden" id="baobeiId">
