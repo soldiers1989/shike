@@ -1,3 +1,4 @@
+<%@page import="org.apache.commons.lang3.StringUtils"%>
 <%@page import="com.kensure.mycom.config.service.MyConfigService"%>
 <%@page import="com.kensure.shike.baobei.model.SKWord"%>
 <%@page import="com.kensure.shike.baobei.model.SKBaobeiTP"%>
@@ -108,7 +109,6 @@
             $("html, body").animate({ scrollTop: $("#picList").offset().top }, 500);
         }, true, 2, true);
         bindUploadImage('#uploadbtn1', function (path) {
-            <%--path = "<%=BusiConstant.context %>" + path;--%>
             var html = '<li class="tpsc"><img name="preview1" src="' + path + '" class="baob" style="width:85px;height:85px"><div class="caca" onclick="$(this).parent().remove();">X</div></li>';
             $('#picList1').append(html);
             $("html, body").animate({ scrollTop: $("#picList1").offset().top }, 500);
@@ -233,6 +233,9 @@
             }
         });
     }
+    <%if(StringUtils.length(baobei.getGuige()) >= 10){%>
+		setTimeout('myAlert("<%=baobei.getGuige()%>")',500);
+	<%}%>
 </script>
 <header class="header acct-top"><i class="arrows" onclick="location.href = &#39;<%=BusiConstant.shike_wdhd.getKey() %>&#39; "></i>我的免费试用</header>
 <div style="height: 2rem;"></div>
@@ -252,7 +255,7 @@
       <div class="title_towap" style="text-align: center;">
        <%if(baobei.getHdtypeid() == 7){ %> <p>  (折扣试用好评后<%=hd_zksyfksj%>天后返款) </p><%} %>
             <p>下单: ${baobei.salePrice}元       返还: ${baobei.salePrice}元</p>
-        
+        	<p>规格: ${baobei.guige}元 </p>
            
         </div>
 </div>
@@ -306,18 +309,7 @@
     <ul id="picList1" class="text">
     </ul>
 
-        <%--<div class="baog">
-        <div class="kk">
-        </div>
-        &nbsp;上传试用品宝贝照片<span class="ddzt">（上传图片后有机会被评选为精华报告哦，每被评为一次精华报告送100金币！）</span>
-    </div>
-        <div class="text">
-            <div class="wby wjsc">
-                <div class="kwdlt" id="uploadbtn">
-                    选择文件
-                </div>
-            </div>
-        </div>--%>
+      
     <ul id="picList" class="text" style="margin-bottom: 100px">
     </ul>
 
@@ -363,7 +355,7 @@
         </div>
     </form>
 </script>
-<div style="display: none">
+
 
 <div id="loading" class="loading">
     <div class="loadingContent">
@@ -386,6 +378,5 @@
     <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/browser.js"></script>
 
     <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/app.js"></script>
-
 
 <form action="/CommonBase/UploadPic?compressType=2" method="post"><input type="file" accept="image/*;" name="file" style="display:none" multiple="multiple"></form><form action="/CommonBase/UploadPic?compressType=2" method="post"><input type="file" accept="image/*;" name="file" style="display:none" multiple="multiple"></form><form action="/CommonBase/UploadPic?compressType=2" method="post"><input type="file" accept="image/*;" name="file" style="display:none" multiple="multiple"></form><form action="/CommonBase/UploadPic?compressType=2" method="post"><input type="file" accept="image/*;" name="file" style="display:none" multiple="multiple"></form></body></html>
