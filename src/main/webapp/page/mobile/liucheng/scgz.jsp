@@ -1,23 +1,21 @@
+<%@page import="com.kensure.mycom.config.service.MyConfigService"%>
 <%@page import="co.kensure.api.ApiUtil"%>
 <%@page import="org.apache.commons.lang3.StringUtils"%>
-<%@page import="com.kensure.shike.baobei.model.SKBaobeiTP"%>
 <%@page import="com.kensure.shike.user.model.SKUser"%>
 <%@page import="java.util.List"%>
 <%@page import="com.kensure.shike.constant.BusiConstant"%>
 <%@ page import="com.kensure.shike.baobei.model.SKBaobei" %>
-<%@ page import="com.kensure.shike.baobei.model.SKWord" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
     String context = BusiConstant.shikemobilepath;
     SKBaobei baobei = (SKBaobei)request.getAttribute("baobei");
-    SKUser user = (SKUser)request.getAttribute("user");
-    SKBaobeiTP firsttp = (SKBaobeiTP)request.getAttribute("firsttp");
-    
+    SKUser user = (SKUser)request.getAttribute("user");  
+    String hd_zksyfksj = MyConfigService.getMyConfig("hd_zksyfksj").getVal();
 %>
 <!DOCTYPE html>
 <html lang="zh" style="font-size: 22.125px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     
-    <title>试用流程</title>
+    <title>收藏关注</title>
     <meta name="keywords" content="<%=BusiConstant.keywords %>">
     <meta name="description" content="<%=BusiConstant.description %>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
@@ -79,22 +77,14 @@
 
     <header class="header task-top frv" style="line-height: 2rem">
         <i class="arrows" onclick="history.back(-1)"></i>
-        试用流程
+        收藏关注
     </header>
     <div style="height: 2rem"></div>
     <div class="Flow">
-        <div class="Flow-hd">
-            <img src="<%=firsttp.getUrl()%>">
-            <ul>
-                <li><span class="iconfont icon-tb"></span> <span>${baobei.title}</span></li>
-                <li>店铺名称：<span>${baobei.dpnameS}</span></li>
-                <li>价格：<span style="color: #ff464e;">${baobei.salePrice}元</span></li>
-                <li>规格：<span style="color: #ff464e;" onclick="myAlert(&#39;${baobei.zturl}&#39;)">${baobei.guige}</span></li>
-            </ul>
-        </div>
+        <jsp:include page="lctop.jsp" flush="true"/> 
         <div class="usera-kong"></div>
         <div class="Flow-page">
-                <span>试用流程</span>
+                <span>收藏关注</span>
         </div>
         <div class="FlowCon">
             <ul>
@@ -135,7 +125,7 @@
         </div>
         <div class="usera-kong"></div>
         <div class="btn submit-btn">
-            下一步
+            下一步<%if(baobei.getHdtypeid() == 7){ %>(折扣试用好评后<%=hd_zksyfksj%>天后返款)<%} %>
         </div>
     </div>
 <script>
@@ -226,47 +216,7 @@
                 myAlert("您还未上传手淘问大家截图");
                 return false;
             }
-
             add();
-
-            // if (flag) {
-            //     return false;
-            // }
-            // flag = true;
-            // $.post("/JPinShopIssue/OrderFlow2Submit", { sk_id: id, sk_product_pic: good_img, sk_store_pic: shop_img, sk_ask_pic: $("img.up-ask-img").data("src"), limited: '' }, function (D) {
-            //     flag = false;
-            //     if (D.Result) {
-            //         if (D.Data != null && D.Data.sk_is_limited) {
-            //             myAlert("中奖！请在" + D.Data.time + "内完成下单，逾期将取消中奖资格！", function () {
-            //                 location.href = "/jing/SecKill";
-            //             });
-            //         }
-            //         else {
-            //             //window.location.replace(window.location.href + "&v=" + Math.random() * 100 + "&referrer=" + document.referrer);
-            //             var activityId = globle.getUrlParam("activityId");
-            //             var applyType = globle.getUrlParam("applyType");
-            //             var limited = globle.getUrlParam("limited");
-            //             var urlParams = "?activityId=" + activityId;
-            //             if (applyType) {  //金币兑换
-            //                 urlParams += "&applyType=" + applyType;
-            //             }
-            //             if (limited) {   //limited 为1 的时候   是限量秒杀
-            //                 urlParams += "&limited=" + limited;
-            //             }
-            //             urlParams += "&v=" + Math.random() * 100;
-            //             if (referrer == "") {
-            //                 urlParams += "&referrer=" + document.referrer;
-            //                 //window.location.replace(window.location.href + "&v=" + Math.random() * 100);
-            //                 window.location.replace(window.location.href.split("?")[0] + urlParams);
-            //             } else {
-            //                 urlParams += "&referrer=" + referrer;
-            //                 window.location.replace(window.location.href.split("?")[0] + urlParams);
-            //             }
-            //         }
-            //     } else {
-            //         myAlert(D.Message);
-            //     }
-            // });
         });
 
     })

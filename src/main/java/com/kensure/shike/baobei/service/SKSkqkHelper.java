@@ -12,7 +12,9 @@ import co.kensure.frame.JSBaseService;
 import co.kensure.mem.CollectionUtils;
 import co.kensure.mem.DateUtils;
 import co.kensure.mem.MapUtils;
+import co.kensure.mem.NumberUtils;
 
+import com.kensure.mycom.config.service.MyConfigService;
 import com.kensure.shike.baobei.model.SKBaobei;
 import com.kensure.shike.baobei.model.SKBbrw;
 import com.kensure.shike.baobei.model.SKSkqk;
@@ -89,8 +91,13 @@ public class SKSkqkHelper extends JSBaseService {
 			// 这个是好评时间，好评时间有10天
 			nextTime = DateUtils.getPastDay(now, 2);
 		} else if (status.intValue() == 71) {
-			// 这个是好评时间，好评时间有10天
-			nextTime = DateUtils.getPastDay(now, 10);
+			// 这个是好评时间，好评时间有10天，如果是折扣试用，返款需要15天
+			SKBaobei bb = sKBaobeiService.selectOne(sqqk.getBbid());
+			int day = 10;
+			if(bb.getHdtypeid() == 7){
+				day = NumberUtils.parseInteger(MyConfigService.getMyConfig("hd_zksyfksj").getVal(), 15);	
+			}	
+			nextTime = DateUtils.getPastDay(now, day);
 		} else if (status.intValue() == 81) {
 			// 这个是返款时间，好评时间有2天
 			nextTime = DateUtils.getPastDay(now, 2);

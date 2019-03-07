@@ -1,3 +1,4 @@
+<%@page import="com.kensure.mycom.config.service.MyConfigService"%>
 <%@page import="com.kensure.shike.baobei.model.SKWord"%>
 <%@page import="com.kensure.shike.baobei.model.SKBaobeiTP"%>
 <%@page import="com.kensure.shike.baobei.model.SKBaobei"%>
@@ -8,6 +9,7 @@
     String context = BusiConstant.shikemobilepath;
     SKBaobei baobei = (SKBaobei)request.getAttribute("baobei");
     SKBaobeiTP firsttp = (SKBaobeiTP)request.getAttribute("firsttp");
+    String hd_zksyfksj = MyConfigService.getMyConfig("hd_zksyfksj").getVal();
 %>
 <!DOCTYPE html>
 <html lang="zh" style="font-size: 22.125px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -240,21 +242,19 @@
     </div>
     <div class="titleadd">
         <div class="title_oneap">
-            ${baobei.title}
+            ${baobei.title}   
         </div>
             <div class="zt-btn">
                 <a class="statusbtn  a-btn">待提交报告</a>
+               
             </div>
-        <div class="title_towap">
-            <p>
-                下单: ${baobei.salePrice}元
-            </p>
-            <p>
-                返还: ${baobei.salePrice}元
-            </p>
+     </div>
+      <div class="title_towap" style="text-align: center;">
+       <%if(baobei.getHdtypeid() == 7){ %> <p>  (折扣试用好评后<%=hd_zksyfksj%>天后返款) </p><%} %>
+            <p>下单: ${baobei.salePrice}元       返还: ${baobei.salePrice}元</p>
+        
+           
         </div>
-
-    </div>
 </div>
 
 <form id="form" action="/JpinShopissue/WriteReportSubmit?addrate=false" method="POST">
@@ -272,7 +272,7 @@
         &nbsp;试用品评价
     </div>
     <div class="text">
-        <textarea class="wby wbyd" id="comment" name="sk_comment" datatype="*1-4000"></textarea>
+        <textarea class="wby wbyd" id="comment" name="sk_comment" datatype="*1-4000">默认五星好评</textarea>
         <input type="hidden" id="sk_comment" name="sk_comment">
     <span class="Validform_checktip"></span></div>
 

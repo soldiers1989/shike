@@ -7,7 +7,7 @@
 .barone ul li{width: 32%}
 .meubox li{ width: 3rem; text-align: center; float: left; font-size: 0.6rem; color: #585858;margin-left: 0.4rem; cursor: pointer; line-height: 1.6rem;}
 .meubox{ height: 1.6rem; display: block; width:50rem; list-style: none; margin: 0; padding: 0; margin-left: 0;}
-/*ÂÖ²¥start*/
+/*ï¿½Ö²ï¿½start*/
 
 .titlecontainer{background: #ffffff; width: 100%; margin-top: 2.2rem;}
 .swiper-container{ width: 100%;}
@@ -28,7 +28,7 @@
 .recommendcontainer .swiper-pagination { top: -25px; left: 50%; margin-left: -24px; position: absolute; text-align: center;}
 .swiper-pagination-bullet { background: #cfcfcf;height: 10px; margin: 0 3px; width: 10px;opacity:1 }
 .swiper-pagination-bullet-active { background: #ff464e; }
-/*ÂÖ²¥end*/
+/*ï¿½Ö²ï¿½end*/
 .title_a{white-space: nowrap;overflow: hidden; text-overflow: ellipsis; text-align: center; height: 1rem; line-height: 1rem;}
 .comm{float: left;  width: 31%; cursor: pointer; color: #515157; margin: 0 1.165%;}
 .comm .h80{ height:4.8rem; overflow: hidden;}
@@ -61,7 +61,7 @@
 .freeapp .Titleapp .zt-btn div.statusbtn.wait { background-color: #666672;border: 1px solid #666672;  }
 
 
-.titleadd { min-height: 4.87rem; margin-left: 5.77rem; position: relative }
+.titleadd { margin-left: 5.77rem; position: relative }
 .titleadd .title_oneap { color: #474e5d; font-size: 0.7rem; }
 .titleadd .title_towap { font-size:0.6rem; color: #aaa; line-height: 1rem; }
 
@@ -187,7 +187,7 @@ textarea.wby { border: 1px solid #e0dfe3; font-size: 0.65rem; display: block; wi
     padding-left: 2.375rem;
     padding-top: 1rem;
 }
-/*******pc¶ËÍ¼Æ¬start*********/
+/*******pcï¿½ï¿½Í¼Æ¬start*********/
 .div-column .taobao_so {
     height: 1.5rem;
     margin-top: 0.5rem;
@@ -213,7 +213,7 @@ textarea.wby { border: 1px solid #e0dfe3; font-size: 0.65rem; display: block; wi
     padding-left: 5.75rem;
     padding-top: 0.4rem;
 }
-/*******pc¶ËÍ¼Æ¬end*********/
+/*******pcï¿½ï¿½Í¼Æ¬end*********/
 
 
 .freeapp .Titleapp .Title_towap .fn{ float: none; width: 100%;}

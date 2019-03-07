@@ -58,19 +58,7 @@
 </header>
 <div style="height: 2rem"></div>
 <div class="Flow">
-    <%--<p class="flow-num">订单号：251555555553976967</p>--%>
-    <div class="Flow-hd">
-            <img src="${skBaobei.zturl}">
-        <ul>
-            <li><span class="iconfont icon-tb"></span> <span> ${skBaobei.title}</span></li>
-            
-            <li>店铺名称：<span>${skBaobei.dpnameS}</span></li>
-            
-            <li class="gray">价格：${skBaobei.salePrice} 元</li>
-            <li class="gray" onclick="myAlert(&#39;${skBaobei.guige}&#39;)">规格：${skBaobei.guige}</li>
-        </ul>
-
-    </div>
+    <jsp:include page="../liucheng/lctop.jsp" flush="true"/> 
     <div style="height: 1.6rem; line-height: 1.4rem; text-align: center;">
 
         <i class="iconfont icon-QQ"
@@ -168,8 +156,7 @@
             html = '<div><iframe src="<%=BusiConstant.shike_xghp.getKey() %>?id=${skSkqk.id }" style="height:14rem"></iframe></div>';
         }
         //底部对话框
-        <%--var html =--%>
-        <%--'<div><iframe src="<%=BusiConstant.shike_xgscgz.getKey() %>?id=${skSkqk.id }" style="height:' + h + 'rem"></iframe></div>';--%>
+       
         layer.open({
             type: 1,
             content: html,

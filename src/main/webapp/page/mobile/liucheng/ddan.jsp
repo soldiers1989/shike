@@ -1,4 +1,4 @@
-<%@page import="com.kensure.shike.baobei.model.SKBaobeiTP"%>
+<%@page import="com.kensure.mycom.config.service.MyConfigService"%>
 <%@page import="com.kensure.shike.user.model.SKUser"%>
 <%@page import="java.util.List"%>
 <%@page import="com.kensure.shike.constant.BusiConstant"%>
@@ -8,7 +8,7 @@
     String context = BusiConstant.shikemobilepath;
     SKBaobei baobei = (SKBaobei)request.getAttribute("baobei");
     SKUser user = (SKUser)request.getAttribute("user");
-    SKBaobeiTP firsttp = (SKBaobeiTP)request.getAttribute("firsttp");
+    String hd_zksyfksj = MyConfigService.getMyConfig("hd_zksyfksj").getVal();
 %>
 <!DOCTYPE html>
 <html lang="zh" style="font-size: 22.125px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -85,21 +85,13 @@
     <div style="height: 2rem"></div>
     <input id="taobaoImg" type="hidden" value="<%=user.getTaobaoImg() %>"/>
     <div class="Flow">
-        <div class="Flow-hd">
-           <img src="<%=firsttp.getUrl()%>">
-            <ul>
-                <li><span class="iconfont icon-tb"></span> <span>${baobei.title}</span></li>
-                <li>店铺名称：<span>${baobei.dpnameS}</span></li>
-                <li>价格：<span style="color: #ff464e;">${baobei.salePrice}元</span></li>
-                <li>规格：<span style="color: #ff464e;" onclick="myAlert(&#39;${baobei.guige}&#39;)">${baobei.guige}</span></li>
-            </ul>
-        </div>
+        <jsp:include page="lctop.jsp" flush="true"/> 
        <%-- <div style="height: 1.4rem;line-height: 1.2rem;text-align:center;background-color: #fff;">
             <i class="iconfont icon-QQ" style="display: inline; color: #00ADE1;display: inline-block;vertical-align: middle;"></i> <span style="display: inline-block; vertical-align: middle;">商家QQ：<em style="color:#999;">3302422581</em></span>
         </div>--%>
         <div class="usera-kong"></div>
         <div class="Flow-page">
-                <span>试用流程</span>
+                <span>试用流程:<%if(baobei.getHdtypeid() == 7){ %>(折扣试用好评后<%=hd_zksyfksj%>天后返款)<%} %></span>
         </div>
         <div class="FlowCon">
             <ul>
