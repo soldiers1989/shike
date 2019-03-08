@@ -42,21 +42,21 @@ $(function () {
     function jinrilistCallback(data) {
         $("#jrsxCount").html(data.resultData.total);
 
-        var rows = data.resultData.rows.length > 10 ? 10 : data.resultData.rows.length;
+        var rows = data.resultData.rows.length > 12 ? 12 : data.resultData.rows.length;
 
         for (var i = 0; i < rows; i++) {
             var row = data.resultData.rows[i];
-            var html = "<li>\n" +
-                "                            \n" +
+            var html = "<li>" +
                 "                            <a href=\"/shike/skm/haohuo?order=1\">" +
-                "                                <img src=\""+ row.zturl +"!200\">\n" +
-                "                                <span class=\"t-price\">¥"+ row.salePrice +"</span>\n" +
-                "                                <span class=\"t-btn\">免费申请</span>\n" +
-                "                            </a>\n" +
+                "                                <img src=\""+ row.zturl +"!200\">" +
+                "                                <span class=\"t-price\">¥"+ row.salePrice +"</span>" +
+                "                                <span class=\"t-btn\">免费申请</span>" +
+                "                            </a>" +
                 "                        </li>";
 
             $("#jinrilist").append(html);
         }
+        $("#jinrilist").append("<li></li><li></li><li></li><li></li>");
     }
     
     jinrilist();

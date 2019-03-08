@@ -13,14 +13,15 @@ import co.kensure.mem.DateUtils;
 
 public class FileTest {
 
+	//打包工具
+	
 	@Test
 	public void test() {
-		String path = "E:\\workspaces\\eclipse1\\shike\\src\\main\\webapp";
+		String path = "E:\\personwork\\shike\\src\\main\\webapp";
 //		String path = "E:\\workspaces\\eclipse1\\shike\\target\\classes";
-//		String path = "E:\\workspaces\\eclipse0\\nbws\\webapp";
 
-		String tartpath = "E:\\workspaces\\eclipse2";
-		Date date = DateUtils.parse("2019-02-22 00:00:00", DateUtils.DATE_FORMAT_PATTERN);
+		String tartpath = "C:\\Users\\fankaidi\\Desktop\\更新";
+		Date date = DateUtils.parse("2019-03-08 13:00:00", DateUtils.DATE_FORMAT_PATTERN);
 		List<String> list = new ArrayList<String>();
 		getList(path, date, list);
 		for (String filepath : list) {		
