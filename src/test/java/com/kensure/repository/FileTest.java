@@ -17,8 +17,8 @@ public class FileTest {
 	
 	@Test
 	public void test() {
-		String path = "E:\\personwork\\shike\\src\\main\\webapp";
-//		String path = "E:\\workspaces\\eclipse1\\shike\\target\\classes";
+//		String path = "E:\\personwork\\shike\\src\\main\\webapp";
+		String path = "E:\\personwork\\shike\\target\\classes";
 
 		String tartpath = "C:\\Users\\fankaidi\\Desktop\\更新";
 		Date date = DateUtils.parse("2019-03-08 13:30:00", DateUtils.DATE_FORMAT_PATTERN);
