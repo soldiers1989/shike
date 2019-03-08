@@ -27,7 +27,7 @@
     <script type="text/javascript" src="<%=BusiConstant.context%>/jqtable/jquery.cookie.js"></script>
     <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/http.js?ver=<%=BusiConstant.version%>"></script>
 	<link href="<%=BusiConstant.shikemobilepath %>/index/resource/layer.css" type="text/css" rel="styleSheet" id="layermcss"></head>
-	<link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/index/resource/index.css">
+	<link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/index/resource/index.css?ver=<%=BusiConstant.version%>">
 	<link href="<%=BusiConstant.shikemobilepath %>/common/css/swiper.min.css" rel="stylesheet">
 	<script src="<%=BusiConstant.shikemobilepath %>/common/js/swiper.min.js"></script>
 	<script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/layer.m.js"></script>

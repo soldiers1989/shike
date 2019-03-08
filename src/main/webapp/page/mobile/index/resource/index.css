@@ -186,12 +186,12 @@ body{font-size: 0.6rem;}
 .fix-detail .info-list .intro table{ width: 100% !important;}
 .info-foot{height: 2rem;width: 100%;position: fixed; bottom: 0;left: 0;z-index:1001; background-color: #f8f8f8; box-shadow: 0 0 0.3rem #999;}
 
-.info-foot div{float: left; height:1.6rem;width: 2rem;padding: 0.2rem 0; text-align: center;}
+.info-foot div{float: left; height:1.6rem;width: 45px;padding: 0.2rem 0; text-align: center;}
 .info-foot div:first-child{height:2rem;box-sizing:border-box;border-right:1px solid #dedede;}
 .info-foot div span{font-size: 0.55rem;}
 .info-foot div i{ font-size: 0.6rem;}
 .info-foot div *{ display: block;line-height: 0.8rem;}
-.info-foot>span,.info-foot>a{font-size: 0.6rem; color: #fff; line-height: 2rem;height:2rem;text-align: center; float: left;display: block;width: 6rem; box-sizing:border-box;}
+.info-foot>span,.info-foot>a{font-size: 0.6rem; color: #fff; line-height: 2rem;height:2rem;text-align: center; float: left;display: block;width:calc(50% - 45px); box-sizing:border-box;}
 .info-foot> .get-invite{background: url(/shike/common/images/bg/info-bg1.png) no-repeat ;background-position: center center;background-size: 100% 100%; }
 .info-foot> .get-invite1{background: url(/shike/common/images/bg/info-bg1.png) no-repeat ;background-position: center center;background-size: 100% 100%; }
 .info-foot> .get-apply{background: url(/shike/common/images/bg/info-bg.png) no-repeat  ;background-position: center center;background-size: 100% 100%;}

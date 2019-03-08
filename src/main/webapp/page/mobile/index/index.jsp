@@ -282,7 +282,7 @@
         </div>
         <div class="shangxin-goods-box">
             <div>
-                <ul id="jinrilist" style="width:32.112rem">
+                <ul id="jinrilist" style="width:99%">
 
                 </ul>
             </div>

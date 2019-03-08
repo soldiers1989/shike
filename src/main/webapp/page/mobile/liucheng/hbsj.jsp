@@ -106,17 +106,7 @@
 	<input type="hidden" id="tabao" value="qq123456">
 	<div style="height: 2rem"></div>
 	<div class="Flow">
-		<div class="Flow-hd">
-			<img src="<%=firsttp.getUrl()%>">
-
-			<ul>
-				<li><span class="iconfont icon-tb"></span> <span>${baobei.title}</span></li>
-				<li>店铺名称：<span>${baobei.dpnameS}</span></li>
-				<li>价格：<span style="color: #ff464e;">${baobei.salePrice}元</span></li>
-				<li>规格：<span style="color: #ff464e;"
-					onclick="myAlert(&#39;${baobei.guige}&#39;)">${baobei.guige}</span></li>
-			</ul>
-		</div>
+		<jsp:include page="lctop.jsp" flush="true"/> 
 		<div class="usera-kong"></div>
 
 		<input name="type" value="0" id="type" type="hidden">
