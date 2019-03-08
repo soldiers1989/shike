@@ -211,6 +211,9 @@
 	        	tdinner+= "<input type='button' value='同意申诉' onclick='wuxiao("+row.id+")'/>";
 	        	tdinner+="<input type='button' value='取消申诉' onclick='quxshenshu("+row.id+")'";
 	    }
+		if(row.status == -2){
+			tdinner+="<input type='button' value='恢复' onclick='huifu("+row.id+")'";
+		}
 		if(row.status < 99 && row.status > 0){
 			tdinner+="<input type='button' value='申诉' onclick='shenshu("+row.id+")'";
 		}
@@ -255,21 +258,34 @@
    }
    huodonglist(1);
    
+   function sucsearchdo(data){
+	   huodonglist(fanye.current);
+	}
+   
    function wuxiao(id){
  	   if(confirm('同意申诉将不给试客返款？')){
  		   var data = {id:id};
  		   var url = "<%=ApiUtil.getUrl("/skqk/wuxiao.do")%>";
- 		   postdo(url, data, null,null, null);
+ 		   postdo(url, data, sucsearchdo,null, null);
  	   }	
     }
 
+   function huifu(id){
+	   if(confirm('确认恢复订单？')){
+		   var data = {id:id};
+		   var url = "<%=ApiUtil.getUrl("/skqk/huifu.do")%>";
+		   postdo(url, data, sucsearchdo,null, null);
+	   }
+  }
+   
+   
    function shenshu(id){
 	   if(confirm('确认申诉？')){
 		   var str = window.prompt("请输入申诉原因","");
 		   if(str){
 			   var data = {id:id};
 			   var url = "<%=ApiUtil.getUrl("/skqk/hump.do")%>";
-			   postdo(url, data, fankuansucdo,null, null);
+			   postdo(url, data, sucsearchdo,null, null);
 		   }	  
 	   }
    }
@@ -278,7 +294,7 @@
 	   if(confirm('确认取消申诉？')){
 		   var data = {id:id};
 		   var url = "<%=ApiUtil.getUrl("/skqk/unhump.do")%>";
-		   postdo(url, data, fankuansucdo,null, null);
+		   postdo(url, data, sucsearchdo,null, null);
 	   }
   }
   

@@ -206,12 +206,12 @@ public class SKSkqkService extends JSBaseService {
 	/**
 	 * 更新用户所有未付款的订单的淘宝账号,也就是状态51之前的订单 <=51
 	 */
-	public void updateSkqkNoTaobao(long userid,String noTaobao) {
+	public void updateSkqkNoTaobao(long userid, String noTaobao) {
 		List<SKSkqk> list = getUserSkqkList(userid);
-		if(CollectionUtils.isEmpty(list)){
+		if (CollectionUtils.isEmpty(list)) {
 			return;
 		}
-		for(SKSkqk skqk:list){			
+		for (SKSkqk skqk : list) {
 			Map<String, Object> params = MapUtils.genMap("id", skqk.getId(), "noTaobao", noTaobao);
 			updateByMap(params);
 		}
@@ -554,6 +554,7 @@ public class SKSkqkService extends JSBaseService {
 
 	/**
 	 * 获取待抽奖用户
+	 * 
 	 * @return
 	 */
 	public List<SKSkqk> getDengChouJiang(long bbid) {
@@ -561,11 +562,11 @@ public class SKSkqkService extends JSBaseService {
 		List<SKSkqk> list = selectByWhere(parameters);
 		return list;
 	}
-	
+
 	/**
 	 * 获取有效的试客
 	 */
-	public List<SKSkqk> getYXSK(List<SKSkqk> list,long bbid) {
+	public List<SKSkqk> getYXSK(List<SKSkqk> list, long bbid) {
 		// 去掉没有审核通过的试客
 		List<SKSkqk> ilist = new ArrayList<>();
 		SKBaobei baobei = sKBaobeiService.selectOne(bbid);
@@ -582,8 +583,6 @@ public class SKSkqkService extends JSBaseService {
 		}
 		return ilist;
 	}
-	
-	
 
 	/**
 	 * 获取宝贝未完成的申请
@@ -662,6 +661,26 @@ public class SKSkqkService extends JSBaseService {
 		}
 		// 修改已中奖数量
 		sKBaobeiService.addZjsNum(bbid, -1);
+	}
+
+	/**
+	 * 恢复一个自动取消的订单
+	 */
+	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
+	public void huifuDD(Long skqkid) {
+		// 手动取消
+		SKSkqk sqqk = selectOne(skqkid);
+		if (sqqk.getStatus() != -2) {
+			BusinessExceptionUtil.threwException("自动取消的订单才能恢复");
+		}
+		updateStatus(skqkid, 51L);
+		// 这个逻辑暂时有问题
+		SKBbrw bbrw = sKBbrwService.getValidBbrw(sqqk.getBbid());
+		if (bbrw != null) {
+			sKBbrwService.addyzj(bbrw.getId(), 1);
+		}
+		// 修改已中奖数量
+		sKBaobeiService.addZjsNum(sqqk.getBbid(), 1);
 	}
 
 	/**

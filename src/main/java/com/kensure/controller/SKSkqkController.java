@@ -151,6 +151,18 @@ public class SKSkqkController {
 		sKSkqkService.unhump(id);
 		return new ResultRowInfo();
 	}
+	
+	/**
+	 * 管理端 恢复一个自动取消的订单
+	 */
+	@ResponseBody
+	@RequestMapping(value = "huifu.do", method = { RequestMethod.POST }, produces = "application/json;charset=UTF-8")
+	public ResultInfo huifu(HttpServletRequest req, HttpServletResponse rep) {
+		JSONObject json = RequestUtils.paramToJson(req);
+		Long id = json.getLong("id");
+		sKSkqkService.huifuDD(id);
+		return new ResultRowInfo();
+	}
 
 	/**
 	 * 管理端查看 试客使用情况列表
