@@ -201,7 +201,6 @@
         }
         $('#descs3').val(descStr3.replace(/,$/, ""));
         if (checkData()) {
-           // $('#form').submit()
             add();
         }
     }

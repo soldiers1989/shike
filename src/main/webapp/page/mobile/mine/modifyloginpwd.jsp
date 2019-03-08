@@ -55,17 +55,6 @@
 <script>
     $(function() {
         $("#form").Validform();
-        // $("#form").form({
-        //     success: function(data) {
-        //         if (!data.Result) {
-        //             myAlert(data.Message);
-        //         } else {
-        //             location.href = '/UserAccount/AccountSecurity';
-        //         }
-        //     }
-        // });
-
-
     });
 
     function updatePwd() {
@@ -89,13 +78,13 @@
     <header class="header regist-top"><i class="arrows" onclick="history.back(-1) "></i>修改登录密码</header>
     <div class="regist-content conent">
         <section class="clearfix">
-            <input id="oldPassword" name="oldPassword" class="auto-input" type="password" placeholder="请输入当前登录密码" datatype="*6-16">
+            <input id="oldPassword" name="oldPassword" class="auto-input" type="password" placeholder="请输入当前登录密码">
         <span class="Validform_checktip"></span></section>
         <section style="margin-bottom: 14px;">
-            <input id="newPassword" name="newPassword" class="auto-input" type="password" placeholder="请输入新密码" datatype="*6-16">
+            <input id="newPassword" name="newPassword" class="auto-input" type="password" placeholder="请输入新密码">
         <span class="Validform_checktip"></span></section>
         <section style="margin-top: 7px;">
-            <input class="auto-input" type="password" placeholder="请重复新密码" datatype="*6-16" recheck="newPassword">
+            <input class="auto-input" type="password" placeholder="请重复新密码">
         <span class="Validform_checktip"></span></section>
         <section class="auto-btn" onclick="updatePwd() ">确定</section>
     </div>
