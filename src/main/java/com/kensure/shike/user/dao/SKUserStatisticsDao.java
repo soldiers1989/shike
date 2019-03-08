@@ -5,6 +5,7 @@ import java.util.Map;
 import co.kensure.annotation.MyBatisRepository;
 import co.kensure.frame.JSBaseDao;
 
+import com.kensure.shike.tj.model.SKZhiBiao;
 import com.kensure.shike.user.model.SKUser;
 import com.kensure.shike.user.model.SKUserTuiJian;
 
@@ -25,5 +26,10 @@ public interface SKUserStatisticsDao extends JSBaseDao<SKUser> {
 	 * 推荐人统计计数
 	 */
 	public long selectCountTuiJian(Map<String, Object> parameters);
+	
+	/**
+	 * 商家\试客 统计
+	 */
+	public List<SKZhiBiao> countUser(Map<String, Object> parameters);
 
 }

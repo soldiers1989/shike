@@ -31,6 +31,7 @@
 				<li parentid="4"><a href="<%=ApiUtil.getUrl("/gl/skqklist") %>" id="openWindows31" target="_self">试客试用情况</a></li>
 				
 				<li class="left_titi "><strong><i class="iconfont icon-zhanghuxinxi"></i>信息统计</strong> <iclass="iconfont icon-Toleft il5 ft_up_down"style="color: rgb(102, 102, 102);"></i></li>
+				<li ><a href="<%=ApiUtil.getUrl("/gl/yyzbtj") %>" target="_self">运营指标统计</a></li>
 				<li ><a href="<%=ApiUtil.getUrl("/gl/tjsktj") %>" id="openWindows31" target="_self">推荐试客统计</a></li>
 				<li ><a href="<%=ApiUtil.getUrl("/gl/skqklist") %>" id="openWindows31" target="_self">推荐有效试客</a></li>
 

@@ -21,7 +21,7 @@ public class FileTest {
 //		String path = "E:\\workspaces\\eclipse1\\shike\\target\\classes";
 
 		String tartpath = "C:\\Users\\fankaidi\\Desktop\\更新";
-		Date date = DateUtils.parse("2019-03-08 13:00:00", DateUtils.DATE_FORMAT_PATTERN);
+		Date date = DateUtils.parse("2019-03-08 13:30:00", DateUtils.DATE_FORMAT_PATTERN);
 		List<String> list = new ArrayList<String>();
 		getList(path, date, list);
 		for (String filepath : list) {		
@@ -37,7 +37,6 @@ public class FileTest {
 			}
 			System.out.println(filepath);
 		}
-
 	}
 
 	private void getList(String path, Date date, List<String> list) {

@@ -124,11 +124,12 @@
         <span style="float:none;">活动类型</span>
         <select id="sktype" style="width:auto;">
             <option value="" selected="selected">全部</option>
-                <option value="1">爆款打造/维护</option>
-                <option value="2"> 新品提升综合权重</option>
-                <option value="3">高客单精准打造爆款</option>
+                <option value="1">爆款打造</option>
+                <option value="2"> 新品提升</option>
+                <option value="3">高客单</option>
                 <option value="4">必中任务</option>
                 <option value="6">拼团</option>
+                <option value="7">折扣试用</option>
         </select>
         <input onclick="huodonglist(1)" type="button" value="搜索">
     </div>
@@ -224,16 +225,21 @@
 		var tdinner = "返款："+row.salePrice + "<br>价值："+row.realPrice+ "<br>比例："+row.fankuanlv;
 		return tdinner;
 	}
+	
+	var jinefun = function(row){
+		var tdinner = "应收："+row.yingshou + "<br>实收："+row.shishou+ "<br>退款："+row.tuikuan;
+		return tdinner;
+	}
 
 	function hdtypeidfun(row) {
         var hdtypeid= row.hdtypeid;
         var tdinner = '';
         if (hdtypeid == 1) {
-            tdinner = "爆款打造/维护";
+            tdinner = "爆款打造";
         } else if (hdtypeid == 2) {
-            tdinner = "新品提升/综合权重";
+            tdinner = "新品提升";
         } else if (hdtypeid == 3) {
-            tdinner = "高客单精准打造爆款";
+            tdinner = "高客单";
         }  else if (hdtypeid == 4) {
             tdinner = "必中任务";
         }  else if (hdtypeid == 6) {
@@ -247,18 +253,19 @@
     }
 	
 	table.th = [{w:50,na:"编号",colname:"id"}
-	,{w:120,na:"活动类型",callfun:hdtypeidfun}
+	,{w:80,na:"活动类型",callfun:hdtypeidfun}
 	,{w:270,na:"活动名称",callfun:titlefun}
-	,{w:100,na:"开始时间",colname:"startTimeStr"}
-	,{w:100,na:"结束时间",colname:"endTimeStr"}
+	,{w:80,na:"开始时间",colname:"startTimeStr"}
+	,{w:80,na:"结束时间",colname:"endTimeStr"}
 	,{w:100,na:"商家名称",colname:"userName"}
 	,{w:100,na:"店铺名称",callfun:dianpufun}
 	,{w:100,na:"宝贝单价",callfun:pricefun}
-	,{w:100,na:"产品数量",colname:"bbnum"}
-	,{w:100,na:"中奖数量",colname:"zjnum"}
-	,{w:100,na:"申请数量",colname:"ysqnum"}
-	,{w:100,na:"排序",colname:"disorder"}
-	,{w:100,na:"活动进度",callfun:jindufun}
+	,{w:60,na:"产品数",colname:"bbnum"}
+	,{w:60,na:"中奖数",colname:"zjnum"}
+	,{w:60,na:"申请数",colname:"ysqnum"}
+	,{w:100,na:"金额",callfun:jinefun}
+	,{w:50,na:"排序",colname:"disorder"}
+	,{w:80,na:"活动进度",callfun:jindufun}
 	,{w:200,na:"活动操作",callfun:optfun}];
 	
 	table.thinit();

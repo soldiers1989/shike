@@ -102,6 +102,12 @@ public class SKUser extends BaseInfo{
 	/**第一次完成消费的时间*/
 	private Date firstShoptime;
 	
+	/**审核时间*/
+	private Date auditTime;
+	
+	/**是否测试账号 ，1是测试账号，0是一般账号*/
+	private Integer isTest;
+	
 	private SKTaobao sKTaobao;
 	
 	/**
@@ -325,6 +331,20 @@ public class SKUser extends BaseInfo{
 	public String getFirstShoptimeStr() {
 		return DateUtils.format(firstShoptime);
 	}
-	
-	
+
+	public Date getAuditTime() {
+		return auditTime;
+	}
+
+	public void setAuditTime(Date auditTime) {
+		this.auditTime = auditTime;
+	}
+
+	public Integer getIsTest() {
+		return isTest;
+	}
+
+	public void setIsTest(Integer isTest) {
+		this.isTest = isTest;
+	}
 }

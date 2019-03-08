@@ -12,7 +12,10 @@
 		<if test="status != null">			
 			and status = #{status}			
 		</if>
-		<if test="firstShoptime != null">			
+		<if test="type != null">			
+			and type = #{type}			
+		</if>
+		<if test="firstShoptime != null">
 			and first_shoptime = #{firstShoptime}			
 		</if>
 		<if test="firstShoptimeIsNotNull != null">			
@@ -27,6 +30,9 @@
 			<![CDATA[
 			and created_time <= #{endCreatedTime}
 			]]>
+		</if>
+		<if test="isTest != null">			
+			and is_test = #{isTest}			
 		</if>
 	</sql>
 	
@@ -52,5 +58,17 @@
             LIMIT #{limit} OFFSET #{offset}
         </if>
 	</select>
+	
+	<!-- 商家\试客 统计 -->
+	<select id="countUser" parameterType="Map" resultType="com.kensure.shike.tj.model.SKZhiBiao">
+		SELECT DATE_FORMAT(created_time,'%Y-%m-%d') as day,COUNT(0) as cnt from sk_user t
+		<where>
+		    <include refid="whereClause"/>
+		</where>	
+		GROUP BY DATE_FORMAT(created_time,'%Y-%m-%d')
+	</select>
+	
+	
+	
 	
 </mapper>    

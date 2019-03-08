@@ -78,34 +78,7 @@
 			#{createdTime},
 			#{updatedTime}
 		)
-	</insert>
-	
-	<insert id="insertInBatch" parameterType="com.kensure.shike.user.model.SKUser">
-		insert into sk_user (<include refid="insertFields"/>) values 
-		<foreach collection="list" item="item" index="index" separator=",">
-			(
-				#{item.id},
-				#{item.phone},
-				#{item.password},
-				#{item.refereeId},
-				#{item.level},
-				#{item.levelCode},
-				#{item.status},
-				#{item.name},
-				#{item.noAlipay},
-				#{item.noTaobao},
-				#{item.noQq},
-				#{item.noWeixin},
-				#{item.noTaoqufen},
-				#{item.type},
-				#{item.realname},
-				#{item.paypassword},		
-				#{item.auditStatus},
-				#{item.createdTime},
-				#{item.updatedTime}
-			)
-		</foreach>
-	</insert>   		
+	</insert>		
 	
     <sql id="whereClause">
 		<if test="id != null">
@@ -182,6 +155,19 @@
 			and first_shoptime <= #{endFirstShoptime}
 			]]>
 		</if>
+		<if test="startAuditTime != null">
+			<![CDATA[
+			and audit_time >= #{startAuditTime}
+			]]>
+		</if>
+		<if test="endAuditTime != null">
+			<![CDATA[
+			and audit_time <= #{endAuditTime}
+			]]>
+		</if>
+		<if test="isTest != null">			
+			and is_test = #{isTest}			
+		</if>
 	</sql>
     
 	<select id="selectOne" resultType="com.kensure.shike.user.model.SKUser" parameterType="Long" >
@@ -198,14 +184,6 @@
 		</foreach>
 	</select>
 		
-	<select id="selectAll" resultType="com.kensure.shike.user.model.SKUser">
-		select <include refid="allFields"/> 
-		from sk_user 
-	</select>
-
-	<select id="selectCount" resultType="long">
-		select count(*) from sk_user 
-	</select>
 	
 	<select id="selectCountByWhere" parameterType="Map" resultType="Long">
 		select count(*) from sk_user 
@@ -283,6 +261,9 @@
 		<if test="auditStatus != null">
 			audit_status = #{auditStatus},
 		</if>
+		<if test="auditTime != null">
+			audit_time = #{auditTime},
+		</if>
 		<if test="remark != null">
 			remark = #{remark},
 		</if>
@@ -316,23 +297,4 @@
 		  where id = #{id}
 	</update>
 	
-	<delete id="delete">
-		delete from sk_user where id = #{id}
-	</delete>
-	
-	<delete id="deleteMulti" parameterType="List">
-		delete from sk_user
-		where id in
-		<foreach collection="list" item="item" open="(" close=")" separator=",">
-			#{item}
-		</foreach>
-	</delete>
-	
-	<delete id="deleteByWhere" parameterType="Map">
-		delete from sk_user 
-		<where>
-		    <include refid="whereClause"/>
-		</where>
-	</delete>	
-
 </mapper>    

@@ -160,6 +160,25 @@ public class GLPageController {
 		return "page/shangjia/index.jsp";
 	}
 	
+	
+	// 运营指标统计
+	@RequestMapping("yyzbtj")
+	public String yyzbtj(HttpServletRequest req, HttpServletResponse rep, Model model) {
+		req.setAttribute("index", indexlist);
+		List<String> body = new ArrayList<String>();
+		body.add("indexht_left.jsp");
+		body.add("yyzbtj_right.jsp");
+		req.setAttribute("bodypage", body);
+		
+		//初始化参数
+		Date date = new Date();
+		String startCreatedTime = DateUtils.formatDateStart(date);
+		String endCreatedTime = DateUtils.formatDateEnd(date);
+		req.setAttribute("startCreatedTime", startCreatedTime);
+		req.setAttribute("endCreatedTime", endCreatedTime);	
+		return "page/shangjia/index.jsp";
+	}
+	
 	// 推荐试客统计
 	@RequestMapping("tjsktj")
 	public String tjsktj(HttpServletRequest req, HttpServletResponse rep, Model model) {

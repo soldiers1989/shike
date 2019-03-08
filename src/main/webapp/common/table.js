@@ -27,7 +27,7 @@ function createtable(tableid) {
 					var td = "<td width='"+th.w+"'>" ;
 					if(th.callfun){
 						var temptd = th.callfun(row);
-						if(!temptd){
+						if(!temptd && temptd != 0){
 							temptd = "";
 						}
 						td += temptd;
@@ -54,7 +54,7 @@ function createtable(tableid) {
 				colval = colval[vals[i]];
 			}		
 		}
-		if(!colval){
+		if(!colval && colval != 0){
 			colval = "";
 		}	
 		tdinner+= colval+"</em>";

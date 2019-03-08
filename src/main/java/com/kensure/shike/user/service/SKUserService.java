@@ -102,16 +102,8 @@ public class SKUserService extends JSBaseService {
 		return dao.selectByIds(ids);
 	}
 
-	public List<SKUser> selectAll() {
-		return dao.selectAll();
-	}
-
 	public List<SKUser> selectByWhere(Map<String, Object> parameters) {
 		return dao.selectByWhere(parameters);
-	}
-
-	public long selectCount() {
-		return dao.selectCount();
 	}
 
 	public long selectCountByWhere(Map<String, Object> parameters) {
@@ -124,10 +116,6 @@ public class SKUserService extends JSBaseService {
 		obj.setStatus(1);
 		obj.setAuditStatus(0);
 		return dao.insert(obj);
-	}
-
-	public boolean insertInBatch(List<SKUser> objs) {
-		return dao.insertInBatch(objs);
 	}
 
 	public boolean update(SKUser obj) {
@@ -178,6 +166,7 @@ public class SKUserService extends JSBaseService {
 				long zjNum = skSkqkService.getSkqkZjCountByUserId(u.getId());
 				u.setZjNum(zjNum);
 			}
+			u.setPassword(null);
 		}
 		return list;
 	}
@@ -598,8 +587,6 @@ public class SKUserService extends JSBaseService {
 	 */
 	public List<SKUser> getListByRefereeId() {
 		SKUser skuser = getUser();
-
-		// String refereeId = ("000000" + skuser.getId()).substring(-6);
 		Map<String, Object> parameters = MapUtils.genMap("refereeId", skuser.getId());
 		List<SKUser> skUsers = selectByWhere(parameters);
 		return skUsers;
@@ -627,7 +614,8 @@ public class SKUserService extends JSBaseService {
 		skUser.setId(id);
 		skUser.setAuditStatus(status);
 		skUser.setRemark(remark);
-		skUser.setUpdatedTime(new Date());
+		skUser.setAuditTime(new Date());
+		
 		if (status == 2) {
 			//发送短信，告诉试客错误原因
 			try {
