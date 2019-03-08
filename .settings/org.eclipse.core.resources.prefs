@@ -1,16 +1,11 @@
+=\=\=\=\=\=\=
+<<<<<<<=HEAD
+>>>>>>>=239ec2e85216a8aeda89d355b768481a0ca06355
 eclipse.preferences.version=1
 encoding//sql/init.sql=UTF-8
-<<<<<<< HEAD
-encoding//src/main/java=UTF-8
-<<<<<<< HEAD
-encoding//src/main/webapp/page/shangjia/ss/addJPinShop.css=UTF-8
-encoding//src/main/webapp/page/shangjia/ss/iconfont.css=UTF-8
-=======
->>>>>>> 5cd1559d379cd31564dc7387c397a4f021936ae2
-=======
 encoding//src/main/webapp/page/mobile/haohuo/css/style.css=UTF-8
 encoding//src/main/webapp/page/mobile/lc/css/style.css=UTF-8
-=======
->>>>>>> bdc52d0178b8773afc9665616778a251ee6a733d
->>>>>>> 239ec2e85216a8aeda89d355b768481a0ca06355
+encoding//src/main/webapp/page/shangjia/ss/addJPinShop.css=UTF-8
+encoding//src/main/webapp/page/shangjia/ss/iconfont.css=UTF-8
 encoding//src/test/java=UTF-8
+encoding/<project>=UTF-8
