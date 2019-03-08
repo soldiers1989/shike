@@ -85,7 +85,7 @@
             </div>
         </div>
     </div>
-    <div class="info-foot">
+    <div class="info-foot" style="display:block">
         <div>
             <a href="javascript:toIndex()" class="back">
                 <i class="iconfont icon-fanhui to-index"></i>

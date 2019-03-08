@@ -547,9 +547,14 @@ public class ShikeMobileController {
 				req.setAttribute("hpy", skJysj);
 			}
 		}
+		// 宝贝第一个图片
+		List<SKBaobeiTP> tplist = sKBaobeiTPService.getList(skSkqk.getBbid());
+		SKBaobeiTP firsttp = tplist.get(0);
+		req.setAttribute("firsttp", firsttp);
+		
 
 		req.setAttribute("skSkqk", skSkqk);
-		req.setAttribute("skBaobei", skBaobei);
+		req.setAttribute("baobei", skBaobei);
 		req.setAttribute("skDianPu", skDianPu);
 		return "page/mobile/wdhd/ddxq.jsp";
 	}
