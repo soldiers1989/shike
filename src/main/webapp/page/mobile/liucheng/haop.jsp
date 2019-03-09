@@ -254,7 +254,7 @@
       <div class="title_towap" style="text-align: center;">
        <%if(baobei.getHdtypeid() == 7){ %> <p>  (折扣试用好评后<%=hd_zksyfksj%>天后返款) </p><%} %>
             <p>下单: ${baobei.salePrice}元       返还: ${baobei.salePrice}元</p>
-        	<p>规格: ${baobei.guige}元 </p>
+        	<p>规格: ${baobei.guige} </p>
            
         </div>
 </div>

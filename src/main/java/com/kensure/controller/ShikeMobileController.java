@@ -1,5 +1,6 @@
 package com.kensure.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -31,11 +32,13 @@ import com.kensure.shike.baobei.service.SKJindianService;
 import com.kensure.shike.baobei.service.SKJysjService;
 import com.kensure.shike.baobei.service.SKSkqkService;
 import com.kensure.shike.baobei.service.SKWordService;
+import com.kensure.shike.constant.BusiConstant;
 import com.kensure.shike.dianpu.model.SKDianPu;
 import com.kensure.shike.dianpu.service.SKDianPuService;
 import com.kensure.shike.sys.model.SKCMS;
 import com.kensure.shike.sys.service.SKCMSService;
 import com.kensure.shike.user.model.SKUser;
+import com.kensure.shike.user.model.SKUserSession;
 import com.kensure.shike.user.service.SKUserService;
 import com.kensure.shike.weixin.service.WeixinOpenidService;
 import com.kensure.shike.zhang.model.SKUserYue;
@@ -120,54 +123,20 @@ public class ShikeMobileController {
 		// type=1时，代表回到页面， 否则直接后退
 		String backToIndex = req.getParameter("type");
 		req.setAttribute("type", backToIndex);
-		// 微信认证
-		String c = weixintiaozhuan(req, rep, "http://www.52shibei.com/shike/skm/login");
-		if (c == null) {
-			return null;
-		}
-		return "page/mobile/mine/login.jsp";
-	}
-
-	// 登陆页面
-	@RequestMapping("login2")
-	public String login2(HttpServletRequest req, HttpServletResponse rep, Model model) {
-		// 微信认证
-		String c = weixintiaozhuan(req, rep, "http://www.52shibei.com/shike/skm/login2");
-		if (c == null) {
-			return null;
-		}
-
-		return "page/mobile/mine/login2.jsp";
-	}
-
-	/**
-	 * 微信跳转,必须返回，返回null，表示跳转了，返回有值，就继续
-	 */
-	private String weixintiaozhuan(HttpServletRequest req, HttpServletResponse rep, String rurl) {
-		String c = "cc";
-		String code = req.getParameter("code");
-		// 微信浏览器，进行微信校验
-		if (RequestUtils.isWechat(req) && StringUtils.isBlank(code)) {
-			// 如果为空，进行跳转判断
-			String mdtokenid = RequestUtils.getCookieByName(req, "mdtokenid");
-			String mdopenid = RequestUtils.getCookieByName(req, "mdopenid");
-			// 令牌和openid为空，需要跳转，进行识别
-			if (StringUtils.isBlank(mdtokenid) && StringUtils.isBlank(mdopenid)) {
-				String url = WeixinOpenidService.getCodeUrl(rurl);
-				try {
-					rep.sendRedirect(url);
-					return null;
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+		SKUserSession session = (SKUserSession)req.getAttribute("curentsession");	
+		if(session == null){
+			return "page/mobile/mine/login.jsp";
+		}else{
+			try {
+				rep.sendRedirect(BusiConstant.getFullUrl("/skm/index"));
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
-		}
-		if (StringUtils.isNotBlank(code)) {
-			String openId = weixinOpenidService.getOpenId(code);
-			req.setAttribute("openId", openId);
-		}
-		return c;
+			return null;
+		}	
 	}
+
+	
 
 	// 注册
 	@RequestMapping("regist")
@@ -201,7 +170,7 @@ public class ShikeMobileController {
 		String id = user.getId() + "";
 		id = StringKSUtils.autoGenericCode6(id);
 		String path = "/filetemp/qr/" + id + ".png";
-		QRUtils.genQR(300, 300, "http://www.52shibei.com/shike/skm/regist?refereeId=" + id, Const.ROOT_PATH + path);
+		QRUtils.genQR(92, 92, BusiConstant.getFullUrl("/skm/regist?refereeId=" + id), Const.ROOT_PATH + path);
 		req.setAttribute("code", id);
 		req.setAttribute("path", path);
 		return "page/mobile/mine/fenxiang.jsp";

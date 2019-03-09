@@ -16,14 +16,19 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import co.kensure.exception.BusinessExceptionUtil;
 import co.kensure.frame.JSBaseService;
+import co.kensure.http.CookieUtils;
 import co.kensure.http.RequestUtils;
 import co.kensure.mem.CollectionUtils;
 import co.kensure.mem.MapUtils;
@@ -157,9 +162,13 @@ public class SKLoginService extends JSBaseService {
 		sKUserSession.setPhone(u.getPhone());
 		sKUserSession.setType(u.getType());
 		//如果openid不为空，保存关系
+		if(StringUtils.isBlank(openid)){
+			openid = getOpenIdByCookie(request);
+		}
 		if(StringUtils.isNotBlank(openid)){
 			weixinOpenidService.saveOpen(openid, sKUserSession.getTokenId());
 		}
+		loginAddCookie(sKUserSession);
 		return sKUserSession;
 	}
 
@@ -167,7 +176,7 @@ public class SKLoginService extends JSBaseService {
 	 * 试客根据openid获取登录信息
 	 */
 	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
-	public SKUserSession getLoginByOpenid(String openid) {
+	public SKUserSession doLoginByOpenid(String openid) {
 		SKUserSession sKUserSession = null;
 		if(StringUtils.isBlank(openid)){
 			return null;
@@ -184,10 +193,71 @@ public class SKLoginService extends JSBaseService {
 					sKUserSession.setName(user.getName());
 					sKUserSession.setPhone(user.getPhone());
 					sKUserSession.setType(user.getType());
+					loginAddCookie(sKUserSession);
 				}
 			}
-		}
+		}	
 		return sKUserSession;
+	}
+	
+	private final static String COOKIE_MDTOKENID = "mdtokenid";
+	private final static String COOKIE_MDNAME = "mdname";
+	private final static String COOKIE_MDPHONE = "mdphone";
+	private final static String COOKIE_MDTYPE = "mdtype";
+	private final static String COOKIE_MDLOGINOUT = "mdloginout";
+	private final static String COOKIE_OPENID = "mdopenid";
+	
+	/**
+	 * 登录的时候增加cookie
+	 */
+	private static void loginAddCookie(SKUserSession sKUserSession) {
+		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+		HttpServletResponse resp = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();	
+		CookieUtils.addCookie(COOKIE_MDTOKENID, sKUserSession.getTokenId(), resp);
+		CookieUtils.addCookie(COOKIE_MDNAME, sKUserSession.getName(), resp);
+		CookieUtils.addCookie(COOKIE_MDPHONE, sKUserSession.getPhone(), resp);
+		CookieUtils.addCookie(COOKIE_MDTYPE, sKUserSession.getType()+"", resp);
+		CookieUtils.delCookie(request, resp, COOKIE_MDLOGINOUT);
+	}
+	
+	public static String getTokenIdByCookie(HttpServletRequest req) {
+		String mdtokenid = CookieUtils.getCookie(req, COOKIE_MDTOKENID);
+		return mdtokenid;
+	}
+	
+	public static String getOpenIdByCookie(HttpServletRequest req) {
+		String mdtokenid = CookieUtils.getCookie(req, COOKIE_OPENID);
+		return mdtokenid;
+	}
+	
+	//登出标识
+	public static String getLoginOutByCookie(HttpServletRequest req) {
+		String mdtokenid = CookieUtils.getCookie(req, COOKIE_MDLOGINOUT);
+		return mdtokenid;
+	}
+	
+	public static void setOpenIdByCookie(String openid,HttpServletResponse resp) {
+		CookieUtils.addCookie(COOKIE_OPENID, openid,resp);
+	}
+	
+	/**
+	 * add by fankd 用spring的框架在本地线程变量中获取 token,有可能获取不到
+	 * 
+	 * @return
+	 */
+	public static String getTokenId() {
+		String tokenId = null;
+		RequestAttributes ras = RequestContextHolder.getRequestAttributes();
+		if (ras != null) {
+			HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+			if (request != null) {
+				tokenId = request.getHeader("tokenid");
+			}
+			if (tokenId == null) {
+				tokenId = CookieUtils.getCookie(request, COOKIE_MDTOKENID);
+			}
+		}
+		return tokenId;
 	}
 
 }

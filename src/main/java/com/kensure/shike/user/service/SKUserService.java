@@ -6,16 +6,12 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.context.request.RequestAttributes;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import co.kensure.exception.BusinessExceptionUtil;
 import co.kensure.exception.ParamUtils;
@@ -325,7 +321,7 @@ public class SKUserService extends JSBaseService {
 	 * 通过spring的本地线程变量获取req,然后获取sessionid，获取变量,如果没有，返回null
 	 */
 	public SKUser getUser() {
-		String tokenId = getTokenId();
+		String tokenId = SKLoginService.getTokenId();
 		if (StringUtils.isBlank(tokenId)) {
 			return null;
 		}
@@ -337,37 +333,7 @@ public class SKUserService extends JSBaseService {
 		return user;
 	}
 
-	/**
-	 * add by fankd 用spring的框架在本地线程变量中获取 token,有可能获取不到
-	 * 
-	 * @return
-	 */
-	private static String getTokenId() {
-		String tokenId = null;
-		RequestAttributes ras = RequestContextHolder.getRequestAttributes();
-		if (ras != null) {
-			HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-			if (request != null) {
-				tokenId = request.getHeader("tokenid");
-			}
-			if (tokenId == null) {
-				// 获取所有Cookie
-				Cookie[] cookies = request.getCookies();
-				// 如果浏览器中存在Cookie
-				if (cookies != null && cookies.length > 0) {
-					// 遍历所有Cookie
-					for (Cookie cookie : cookies) {
-						// 找到name为city的Cookie
-						if (cookie.getName().equals("mdtokenid")) {
-							tokenId = cookie.getValue();
-						}
-					}
-				}
-			}
-		}
-
-		return tokenId;
-	}
+	
 
 	/**
 	 * 校验用户会话信息

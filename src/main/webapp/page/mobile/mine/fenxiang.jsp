@@ -23,25 +23,6 @@
 
     <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/jquery-1.8.3.js"></script>
     <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/Common.js"></script>
-
-    <script>
-        (function (doc, win) {
-            var docEl = doc.documentElement,
-            resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
-            recalc = function (first) {
-                var clientWidth = docEl.clientWidth;
-                
-                if (!clientWidth) return;
-          
-                docEl.style.fontSize = 20 * (clientWidth / 320) + 'px';
-                
-            };
-            if (!doc.addEventListener) return;
-            win.addEventListener(resizeEvt, recalc, false);
-            doc.addEventListener('DOMContentLoaded', recalc, false);
-            recalc();
-        })(document, window);
-    </script>
     
 <link href="<%=BusiConstant.shikemobilepath %>/mine/dyren/layer.css" type="text/css" rel="styleSheet" id="layermcss"></head>
 <body>
@@ -53,22 +34,19 @@
 <link href="<%=BusiConstant.shikemobilepath %>/mine/dyren/animate.min.css" rel="stylesheet">
 <style>
     .header{font-size:0.6rem;}
-    .question_main{padding:0.2rem 0.6rem 1rem;}
-     .h2{height:2rem;}
-    .question_main{margin-top:.4rem;font-size:.7rem;}
-    .question_main>h2{text-indent:.5rem;font-size:0.55rem;color:#333;}
-    .question_main>h2.textIndent{text-indent:1.1rem;}
-    .question_main>p{font-size:0.512rem; margin:0.2rem 0;line-height:0.9rem;color:#666;}
-    .question_main>p>span.red{color:#ff464e;font-weight:500;margin: 0 0.2rem;}
-    .question_main>p>span.orange{color:#fc710b;font-weight:500;margin: 0 0.2rem;}
-    .question_main>p>span.no-strong{font-weight:500;}
 </style>
 <script>
 
 </script>
+<div>
 <header class="header task-top frv" style="line-height: 2rem">
 <i class="iconfont icon-Toright" style="position:absolute;height:2rem;width:2rem;" onclick="history.back(-1)"></i>分享
 </header>
-<div style="text-align:center;"> <br><br><img src="<%=BusiConstant.context+path %>"></div>
+</div>
+<div style="text-align:center;margin-top:60px;">
+	<div style="margin-left:calc(50% - 150px);width:300px;height:533px;background:#000 url(<%=BusiConstant.context%>/page/mobile/mine/dyren/image/erweimabj.jpg) no-repeat">
+		<img style="margin-left:145px;margin-top:375px;" src="<%=BusiConstant.context+path %>">
+	</div>
+</div>
 <div style="text-align:center;font-size:20px;">专属邀请码<%=code %></div>
 </body></html>

@@ -168,7 +168,7 @@ public class SKUserController {
 	public ResultInfo getLoginByOpenid(HttpServletRequest req, HttpServletResponse rep) {
 		JSONObject json = RequestUtils.paramToJson(req);
 		String openid = json.getString("openid");
-		SKUserSession userSession = sKLoginService.getLoginByOpenid(openid);
+		SKUserSession userSession = sKLoginService.doLoginByOpenid(openid);
 		return new ResultRowInfo(userSession);
 	}
 

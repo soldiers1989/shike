@@ -1,12 +1,15 @@
+<%@page import="com.kensure.shike.user.model.SKUser"%>
 <%@page import="com.kensure.shike.constant.BusiConstant"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
     String context = BusiConstant.shikemobilepath;
+	SKUser user = (SKUser)request.getAttribute("curentuser");
 %>
 <!DOCTYPE html>
-<html lang="zh" style="font-size: 30px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html lang="zh" >
 
-    <title>什么是代言人</title>
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>代言人</title>
     <meta name="keywords" content="<%=BusiConstant.keywords %>">
     <meta name="description" content="<%=BusiConstant.description %>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
@@ -14,115 +17,95 @@
     <meta name="format-detection" content="address=no">
     <meta name="full-screen" content="yes">
     <link href="<%=BusiConstant.context %>/favicon.ico" rel="shortcut icon" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/common/css/base.css">
-    <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/common/css/iconfont.css">
-
-    <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/common/css/style.css">
-
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/jquery-1.8.3.js"></script>
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/Common.js"></script>
-
-    <script>
-        (function (doc, win) {
-            var docEl = doc.documentElement,
-            resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
-            recalc = function (first) {
-                var clientWidth = docEl.clientWidth;
-                
-                if (!clientWidth) return;
-          
-                docEl.style.fontSize = 20 * (clientWidth / 320) + 'px';
-                
-            };
-            if (!doc.addEventListener) return;
-            win.addEventListener(resizeEvt, recalc, false);
-            doc.addEventListener('DOMContentLoaded', recalc, false);
-            recalc();
-        })(document, window);
-    </script>
     
-<link href="<%=BusiConstant.shikemobilepath %>/mine/dyren/layer.css" type="text/css" rel="styleSheet" id="layermcss"></head>
-<body>
+    <link rel="stylesheet" href="<%=BusiConstant.context%>/page/mobile/mine/dyren/css/reset.css">
+	<link rel="stylesheet" href="<%=BusiConstant.context%>/page/mobile/mine/dyren/css/iconfont.css">
+    <link rel="stylesheet" href="<%=BusiConstant.context%>/page/mobile/mine/dyren/css/common.css">
+    <link rel="stylesheet" href="<%=BusiConstant.context%>/page/mobile/mine/dyren/css/share.css">
     
-<link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/mine/dyren/index.css">
-
-<link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/mine/dyren/list.css">
-
-<link href="<%=BusiConstant.shikemobilepath %>/mine/dyren/animate.min.css" rel="stylesheet">
+    <script src="<%=BusiConstant.context%>/page/mobile/mine/dyren/js/index.min.js"></script>
+	
 <style>
-    .header{font-size:0.6rem;}
-    .question_main{padding:0.2rem 0.6rem 1rem;}
-     .h2{height:2rem;}
-    .question_main{margin-top:.4rem;font-size:.7rem;}
-    .question_main>h2{text-indent:.5rem;font-size:0.55rem;color:#333;}
-    .question_main>h2.textIndent{text-indent:1.1rem;}
-    .question_main>p{font-size:0.512rem; margin:0.2rem 0;line-height:0.9rem;color:#666;}
-    .question_main>p>span.red{color:#ff464e;font-weight:500;margin: 0 0.2rem;}
-    .question_main>p>span.orange{color:#fc710b;font-weight:500;margin: 0 0.2rem;}
-    .question_main>p>span.no-strong{font-weight:500;}
+    body{
+        background: rgba(250,82,66,1);
+        box-shadow: 0px 8px 48px 60px rgba(248,61,83,0.4), 0px 15px 118px 0px rgba(253,200,52,0.44) inset;
+        padding-bottom: 30px;
+    }
 </style>
-<script>
 
-</script>
-<header class="header task-top frv" style="line-height: 2rem">
-    
- 
-    <i class="iconfont icon-Toright" style="position:absolute;height:2rem;width:2rem;" onclick="history.back(-1)"></i>
-    什么是代言人
-      </header>
-<div class="h2"></div>
-    <main class="question_main">
-        <h2>※ 什么是<%=BusiConstant.name %>代言人：</h2>
-        <p>用户亲身体验并认可<%=BusiConstant.name %>的商品和服务，满足相应的条件且愿意分享给他人（粉丝），称为<%=BusiConstant.name %>代言人。代言人只负责分享，<span class="red no-strong">邀请用户</span>注册，不负责销售服务，所有的订单交易、售后服务、供应发货等服务全由<%=BusiConstant.name %>上的商家负责；</p>
-        <br>
-        <h2>※ 如何成为代言人：</h2>
-        <p>1、成功注册成为<%=BusiConstant.name %>用户即可；</p>
-        <br>
-        <h2>※ 代言人如何获得奖励：</h2>
-        <p>1、代言人通过“分享赚10元”、“分享赚钱-代言人”、“我的-我是代言人”分享自己的专属二维码及邀请码；</p>
-        <p>2、通过社交媒体如微信、朋友圈、QQ、QQ空间、微博等推广给他人；</p>
-        <p>3、引导其关注公众号并注册成为<%=BusiConstant.name %>用户；</p>
-        <br>
-        <h2>※ 奖励机制：</h2>
-        <p>1、你的粉丝完成注册，你可获得<span class="orange">100金币</span>奖励；</p>
-        <p>2、你的粉丝申请3件试用品，你可获得<span class="orange">100金币</span>奖励；</p>
-        <p>3、你的粉丝完成首单，你可获得<span class="red">10元</span>奖金；</p>
-        <p>4、你的粉丝完成每笔订单，你可获得订单金额<span class="red">1%</span>的奖金；</p>
-        
-        
-        
-        <br>
-        <h2>※ 代言人奖励周期：</h2>
-        <p>1、粉丝注册后30天内不下单，将永久解除与你的代言人关系，无法恢复</p>
-        <p>2、自代言人获取粉丝开始，30天内拥有代言人资格，期间没有新增粉丝，代言人奖励资格将消失；期间新增粉丝，将重置时间，新的失效日期是最近1次新增粉丝之后的30天</p>
-        <p>3、失效期间无法获得粉丝的任何奖励；失效并恢复后，失效期间的奖励不会补发；恢复资格后，之后的奖励正常发放。</p>
-        <p>4、代言人奖励最长有效期为粉丝注册后的2个月内，奖金在粉丝成功获得返款后到账</p>
-        <br>
-        <h2>※ 代言人服务团队：</h2>
-        <p>1、<%=BusiConstant.name %>代言人管家，微信号：<%=BusiConstant.gsqq %></p>
-        <p>2、代言人管家将不定时在群里进行有利于代言人进行推广吸粉的培训课程；</p>
-    </main>
+<style type="text/css">@keyframes animate_dots{0%{opacity:1}to{opacity:0}}@-webkit-keyframes animate_dots{0%{opacity:1}to{opacity:0}}.dot0,.dot1{animation:animate_dots .9s infinite;-moz-animation:animate_dots .9s infinite;-webkit-animation:animate_dots .9s infinite;-o-animation:animate_dots .9s infinite}.dot1{animation-delay:.2s;-webkit-animation-delay:.2s}.dot2{animation:animate_dots .9s infinite;-moz-animation:animate_dots .9s infinite;-webkit-animation:animate_dots .9s infinite;-o-animation:animate_dots .9s infinite;animation-delay:.4s;-webkit-animation-delay:.4s}.dots_item{display:inline-block;margin-right:5px;width:10px;height:10px;border-radius:50%;background:#4886ff}.verify-icon{position:absolute;width:100%;margin-top:70px;text-align:center}.t-mask{width:100%;height:100%;position:fixed;_position:absolute;left:0;top:0;background:#000;opacity:.5;filter:progid:DXImageTransform.Microsoft.Alpha(opacity=50);z-index:2000000000}</style>
+</head>
 
-        <div style="display: none"><script src="<%=BusiConstant.shikemobilepath %>/common/z_stat.php" language="JavaScript"></script><script src="<%=BusiConstant.shikemobilepath %>/common/core.php" charset="utf-8" type="text/javascript"></script>
-   
-    <div id="loading" class="loading">
-    <div class="loadingContent">
-        <img src="<%=BusiConstant.shikemobilepath %>/common/images/loading.gif">
+<body style="font-size: 24px;">
+<!--主题内容-->
+
+<div class="conmon_header">
+    <i class="iconfont icon-fanhui" onclick="window.history.go(-1)"></i>
+    <h1>分享赚钱</h1>
+    <button style="opacity: 0;"><a href="javascript:void(0)"></a></button>
+</div>
+<div class="empty"></div>
+<div class="teyao_banner">
+    <img src="<%=BusiConstant.context%>/page/mobile/mine/dyren/image/banner.jpg" alt="">
+</div>
+<div class="teyao_module no1 mod0221">
+    <div class="in_box">
+        <h1>邀请奖励 </h1>
+        <ul>
+            <li>
+                <div class="img"><img src="<%=BusiConstant.context%>/page/mobile/mine/dyren/image/j1.png" alt=""></div>
+                <h3>￥10元现金</h3>
+                <p>粉丝完成注册下单</p>
+            </li>
+            <li>
+                <div class="img"><img src="<%=BusiConstant.context%>/page/mobile/mine/dyren/image/j5.png" alt=""></div>
+                <h3>终身VIP服务</h3>
+                <p>在会秀美平台享受终身VIP服务</p>
+            </li>
+        </ul>
     </div>
 </div>
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/jquery.form.js"></script>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/Validform_v5.3.2.js"></script>
+<!--邀请方式-->
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/post.loading.js"></script>
+<!--代言人规则-->
+<div class="teyao_module no3 mod0221">
+    <div class="in_box">
+        <h1 class="title">代言人规则</h1>
+        <ul class="rule_box">
+            <li>
+                <p><i>1</i></p>
+                <p>自代言人获取粉丝开始，<span>30天内</span>拥有代言人资格，期间没有新增粉丝，代言人奖励资格将消失；期间新增粉丝，将重置时间，新的失效日期是<span>最近1次</span>新增粉丝之后的<span>30天</span>；</p>
+            </li>
+            <li>
+                <p><i>2</i></p>
+                <p><span>失效期间</span>无法获得粉丝的任何奖励；失效恢复后，失效期间的奖励不会补发；恢复资格后，之后的奖励正常发放。</p>
+            </li>
+        </ul>
+    </div>
+</div>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/layer.m.js"></script>
+<!--其他规则-->
+<div class="putongShare_module teyao_module mod0221">
+    <div class="in_box">
+        <h1 class="title">其它规则</h1>
+        <ul class="rule_text">
+            <li>1、奖励有效期为粉丝注册后的<span>2个月内</span>，奖金在粉丝成功获得返款后到账；</li>
+            <li>2、代言人邀请粉丝成功下单才奖励<span>10元</span>现金</li>
+            <li>3、粉丝注册后<span>30天内</span>不下单，将永久解除与你的代言人关系，无法恢复；</li>
+            <li>4、粉丝必须为试呗网新用户，若通过反作弊系统检测出有作弊行为，将取消奖励、冻结余额并永久封号；</li>
+            <li>5、你可通过微信、朋友圈等方式分享商品给粉丝领取；</li>
+        </ul>
+    </div>
+</div>
+<%if(user == null){ %>
+    <a href="<%=BusiConstant.context%>/skm/regist" class="gozc">成为代言人</a>
+<%}else{ %>
+<a href="<%=BusiConstant.context%>/skm/fenxiang" class="gozc">专属二维码</a>
+<%} %>
 
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/layerdialog.js"></script>
-
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/jquery.cookie.js"></script>
-
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/browser.js"></script>
-
-    <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/app.js"></script>
+<!--返回顶部-->
+<div class="go_top" onclick="$(&#39;body,html&#39;).animate({scrollTop: 0}, 200),$(&#39;.uc_module_body&#39;).animate({scrollTop: 0}, 200)">
+    <img src="<%=BusiConstant.context%>/page/mobile/mine/dyren/image/gotop.png" alt="">
+</div>
 </body></html>

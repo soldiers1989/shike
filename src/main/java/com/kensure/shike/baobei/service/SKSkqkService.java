@@ -297,7 +297,7 @@ public class SKSkqkService extends JSBaseService {
 		}
 		SKSkqk qk = getQkByBBId(baobei.getId(), skuser.getId());
 		if (qk.getStatus() >= status) {
-			BusinessExceptionUtil.threwException("数据有误！");
+			BusinessExceptionUtil.threwException("重复提交！");
 		}
 		if (qk.getStatus() == -3) {
 			BusinessExceptionUtil.threwException("该申请已经被申诉，请和商家联系！");

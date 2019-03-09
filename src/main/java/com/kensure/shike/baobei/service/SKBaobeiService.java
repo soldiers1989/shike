@@ -641,10 +641,6 @@ public class SKBaobeiService extends JSBaseService {
 		if (baobei.getStatus() < 9) {
 			BusinessExceptionUtil.threwException("宝贝未通过审核");
 		}
-		// 虚拟宝贝可以申请，但是不会中奖
-		// if (baobei.getIsXuni() == 1) {
-		// BusinessExceptionUtil.threwException("该宝贝今日已经申请完");
-		// }
 
 		sKSkqkService.saveSQ(baobei, skuser);
 		Map<String, Object> params = MapUtils.genMap("id", id, "ysqnumAdd", 1);

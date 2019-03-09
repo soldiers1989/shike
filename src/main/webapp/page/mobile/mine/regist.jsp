@@ -1,3 +1,6 @@
+<%@page import="com.kensure.mycom.config.service.MyConfigService"%>
+<%@page import="com.kensure.mycom.config.model.MyConfig"%>
+<%@page import="org.apache.commons.lang3.StringUtils"%>
 <%@page import="co.kensure.api.ApiUtil"%>
 <%@page import="co.kensure.http.RequestUtils"%>
 <%@page import="com.kensure.shike.constant.BusiConstant"%>
@@ -64,9 +67,6 @@
 <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/mine/regist/account.css">
 <link rel="stylesheet" type="text/css" href="<%=BusiConstant.shikemobilepath %>/liucheng/scgz/JPinFlow.css">
 
-<%--
-<script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/regist/uploadimage.js"></script>
---%>
 
 <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/mine/regist/sendcaptcha.js"></script>
 
@@ -76,7 +76,6 @@
 </header>
 <div style="height: 2rem;"></div>
 <div class="login">
-    <%--<img src="<%=BusiConstant.shikemobilepath %>/mine/regist/icon.png" alt="Alternate Text">--%>
     <div class="item">
         <input type="text" name="mobile" id="name" value="" placeholder="请输入手机号">
         <span id="namewarn" class="warn"></span>
@@ -94,37 +93,17 @@
     <div class="item">
         <input type="text" name="refereeId" id="refereeId" value="<%=refereeId%>" placeholder="请输入邀请码，没有可不填">
     </div>
-<%-- 
-    <div class="FlowCon">
-        <ul>
-            <li>
-                <span class="num"></span>打开支付宝，请上传<em class="red">支付宝个人信息页面</em>截图，如图：
-                <div class="storage-img mt3">
-                    <img style="height:80px" src="<%=BusiConstant.shikemobilepath %>/common/images/alipayImg.jpg">
 
-                </div>
-                <div class="up-img mt3">
-                    支付宝个人信息页面截图：<img class="alipay-img" src="<%=BusiConstant.shikemobilepath %>/common/images/up-img.png">
-                </div>
-            </li>
-            <li>
-                <span class="num"></span>打开淘宝，请上传<em class="red">淘宝个人资料页面</em>截图，如图：
-                <div class="storage-img mt3">
-                    <img style="height:80px" src="<%=BusiConstant.shikemobilepath %>/common/images/taobaoImg.jpg">
-                </div>
-                <div class="up-img mt3">
-                    淘宝个人资料页面截图：<img class="taobao-img" src="<%=BusiConstant.shikemobilepath %>/common/images/up-img.png">
-                </div>
-            </li>
-
-        </ul>
-    </div>
- --%>
     <div style="margin-top:1rem;">
         <input type="checkbox" name="name" value="" id="check" checked="checked">  我已阅读<a href="<%=BusiConstant.shike_private.getKey() %>">《隐私协议》</a>
     </div>
     <div class="btn red submit-btn">
-        注册领取试用
+        	注册领取试用
+    </div>
+    
+    
+    <div class="btn red" onclick="gologin()">
+        	继续登录
     </div>
 </div>
 
@@ -162,13 +141,7 @@
         })
 
         function checkMobile(m) {
-            //$.post("/UserAccount/RegistValidate", { mobile: m }, function (data) {
-            //    if (data.Result) {
-                    $("#pwdwarn").trigger("click");
-            //    } else {
-            //        myAlert(data.Message);
-            //    }
-            //})
+			$("#pwdwarn").trigger("click");
         }
 
         bindCaptcha("#pwdwarn", "#name","#pwdwarn1");
@@ -210,9 +183,11 @@
 
         function registsucdo(data){
             var usersession = data.resultData.row;
-            addcookie(usersession);
-            // history.go(-2);
-            window.location.href="<%=BusiConstant.shike_mine.getKey() %>";
+            <%if(StringUtils.isNotBlank(refereeId)){%>
+           	 	window.location.href="<%=MyConfigService.getMyConfig("weixin_guanzhu").getVal()%>";
+            <%}else{%>
+            	window.location.href="<%=BusiConstant.shike_mine.getKey() %>";
+            <%}%>  
         }
 
         var phoneReg = /(^1[3|4|5|7|8]\d{9}$)|(^09\d{8}$)/;
@@ -252,6 +227,10 @@
             alert("发送成功");
         }
     });
+    
+    function gologin(){
+        window.location.href="<%=BusiConstant.context %>/skm/login";
+    }
 </script>
         <div style="height:2.15rem;">
         </div>

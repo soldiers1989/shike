@@ -90,6 +90,7 @@ public class ApiUtil {
 			help.setName(e.attributeValue("name"));
 			help.setAuth(e.attributeValue("auth"));
 			help.setType(e.attributeValue("type"));
+			help.setWxgzh(e.attributeValue("wxgzh"));
 			apiMap.put(key, help);
 		}
 	}

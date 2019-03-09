@@ -49,30 +49,18 @@ public class SkUserFansService extends JSBaseService {
 		return dao.selectByIds(ids);
 	}
 
-	public List<SkUserFans> selectAll() {
-		return dao.selectAll();
-	}
-
 	public List<SkUserFans> selectByWhere(Map<String, Object> parameters) {
 		return dao.selectByWhere(parameters);
-	}
-
-	public long selectCount() {
-		return dao.selectCount();
 	}
 
 	public long selectCountByWhere(Map<String, Object> parameters) {
 		return dao.selectCountByWhere(parameters);
 	}
 
-	public boolean insert(SkUserFans obj) {
+	private boolean insert(SkUserFans obj) {
 		super.beforeInsert(obj);
 		obj.setId(baseKeyService.getKey("sk_user_fans"));
 		return dao.insert(obj);
-	}
-
-	public boolean insertInBatch(List<SkUserFans> objs) {
-		return dao.insertInBatch(objs);
 	}
 
 	public boolean update(SkUserFans obj) {
@@ -81,18 +69,6 @@ public class SkUserFansService extends JSBaseService {
 
 	public boolean updateByMap(Map<String, Object> params) {
 		return dao.updateByMap(params);
-	}
-
-	public boolean delete(Long id) {
-		return dao.delete(id);
-	}
-
-	public boolean deleteMulti(Collection<Long> ids) {
-		return dao.deleteMulti(ids);
-	}
-
-	public boolean deleteByWhere(Map<String, Object> parameters) {
-		return dao.deleteByWhere(parameters);
 	}
 
 	// 邀请添加
@@ -187,6 +163,11 @@ public class SkUserFansService extends JSBaseService {
 		}
 		// 活动-试客邀请奖励金额
 		String hd_skyq = MyConfigService.getMyConfig("hd_skyq").getVal();
+		//如果是0元，不进行返回
+		if("0".equals(hd_skyq)){
+			return;
+		}
+		
 		Double skyq = NumberUtils.parseDouble(hd_skyq, 0D);
 		SkUserFans fans = new SkUserFans();
 		fans.setUserid(userid);

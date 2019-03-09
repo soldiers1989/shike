@@ -54,7 +54,7 @@ public class SKBaobeiHelper extends JSBaseService {
 		//如果不是折扣试用，真实价格==返现价格，折扣率为1
 		if (obj.getHdtypeid() != 7) {
 			obj.setRealPrice(obj.getSalePrice());
-			obj.setFankuanlv(1D);
+			obj.setFankuanlv(100D);
 		}	
 	}
 	
@@ -66,7 +66,7 @@ public class SKBaobeiHelper extends JSBaseService {
 		//如果不是折扣试用，真实价格==返现价格，折扣率为1
 		if (obj.getHdtypeid() != 7) {
 			obj.setRealPrice(obj.getSalePrice());
-			obj.setFankuanlv(1D);
+			obj.setFankuanlv(100D);
 		}	
 	}
 	
@@ -115,7 +115,7 @@ public class SKBaobeiHelper extends JSBaseService {
 		Long hdtypeid = obj.getHdtypeid();
 		Double salePrice = obj.getSalePrice();
 		Long bbnum = obj.getBbnum();
-		if (hdtypeid == 1 || hdtypeid == 2) {
+		if (hdtypeid == 1 || hdtypeid == 2 || hdtypeid == 7) {
 			// 爆款打造
 			// 效果建议投放单期总份数：
 			// 小于50元客单（0-50元）≥20份

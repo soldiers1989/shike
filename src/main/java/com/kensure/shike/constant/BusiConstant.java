@@ -11,6 +11,15 @@ public class BusiConstant {
 	public static final String version = "1.3";
 	
 	public static final String context = "/shike";
+	//域名
+	public static final String domain = "www.52shibei.com";
+	
+	//获取完整的url
+	public static String getFullUrl(String url){
+		return "http://"+domain+context+url;
+	}
+	
+	
 
 	/**
 	 * 商家页面资源路径

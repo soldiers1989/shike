@@ -24,6 +24,11 @@ public class ApiDesc extends BaseInfo {
 	 * none:匿名,all:全部,admin:管理员,user:用户,saler:商家,多个用逗号隔开
 	 */
 	private String auth;
+	
+	/**
+	 * 微信公众号自动登录
+	 */
+	private String wxgzh;
 
 	/**
 	 * get 只是查询接口，put是保存接口
@@ -60,6 +65,14 @@ public class ApiDesc extends BaseInfo {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public String getWxgzh() {
+		return wxgzh;
+	}
+
+	public void setWxgzh(String wxgzh) {
+		this.wxgzh = wxgzh;
 	}
 
 }

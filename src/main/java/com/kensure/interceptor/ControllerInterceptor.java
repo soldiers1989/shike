@@ -7,21 +7,29 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import co.kensure.api.ApiDesc;
 import co.kensure.api.ApiUtil;
 import co.kensure.exception.BusinessExceptionUtil;
+import co.kensure.http.RequestUtils;
 
 import com.kensure.shike.constant.BusiConstant;
 import com.kensure.shike.user.model.SKUser;
+import com.kensure.shike.user.model.SKUserSession;
+import com.kensure.shike.user.service.SKLoginService;
 import com.kensure.shike.user.service.SKUserService;
+import com.kensure.shike.weixin.service.WeixinOpenidService;
 
 public class ControllerInterceptor extends HandlerInterceptorAdapter {
 
 	@Resource
 	private SKUserService sKUserService;
+	
+	@Resource
+	private SKLoginService sKLoginService;
 
 	private static Map<Integer,String> authmap = new HashMap<>();
 	private static Map<String,String> loginmap = new HashMap<>();
@@ -42,9 +50,26 @@ public class ControllerInterceptor extends HandlerInterceptorAdapter {
 		String serverPath = request.getServletPath();
 		ApiDesc api = ApiUtil.get(serverPath);
 		String title = BusiConstant.name;
+		
+		SKUser user = null;
+		if(!serverPath.endsWith(".do")){
+			user = sKUserService.getUser();
+			request.setAttribute("curentuser", user);
+		}
+		
 		if (api != null) {
+			//微信公众号重定向
+			if("1".equals(api.getWxgzh())){
+				boolean temp = weixintiaozhuan(request, response, BusiConstant.getFullUrl(serverPath));
+				if(!temp){
+					return temp;
+				}
+			}
+			
 			title = api.getName();
-			SKUser user = sKUserService.getUser();
+			if(user == null){
+				user = sKUserService.getUser();
+			}
 			// 进行权限认证
 			String auth = api.getAuth();
 			// 有权限认证
@@ -80,6 +105,46 @@ public class ControllerInterceptor extends HandlerInterceptorAdapter {
 		request.setAttribute("wangzhangtitle", title);
 		return true;
 	}
+	
+	
+	/**
+	 * 微信跳转,必须返回，返回null，表示跳转了，返回有值，就继续
+	 */
+	private boolean weixintiaozhuan(HttpServletRequest req, HttpServletResponse rep, String rurl) {	
+		String code = req.getParameter("code");
+		// 微信浏览器，进行微信校验
+		if (RequestUtils.isWechat(req) && StringUtils.isBlank(code)) {
+			// 如果为空，进行跳转判断
+			String mdtokenid = SKLoginService.getTokenIdByCookie(req);
+			String mdopenid = SKLoginService.getOpenIdByCookie(req);
+			// 令牌和openid为空，需要跳转，进行识别
+			if (StringUtils.isBlank(mdtokenid) && StringUtils.isBlank(mdopenid)) {
+				String url = WeixinOpenidService.getCodeUrl(rurl);
+				try {
+					rep.sendRedirect(url);
+					return false;
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		if (StringUtils.isNotBlank(code)) {
+			String openId = WeixinOpenidService.getOpenId(code);
+			if(StringUtils.isNotBlank(openId)){
+				SKLoginService.setOpenIdByCookie(openId, rep);
+				String loginout = SKLoginService.getLoginOutByCookie(req);	
+				//进行登录
+				System.out.println("loginout=="+loginout);
+				if(!"1".equals(loginout)){
+					SKUserSession session = sKLoginService.doLoginByOpenid(openId);
+					req.setAttribute("curentsession", session);
+				}	
+			}
+		}
+		return true;
+	}
+	
 	
 	@Override
     public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView) throws Exception {

@@ -42,27 +42,14 @@ function postdo(url,data,sucessdo,errdo,compdo) {
 	});	
 };
 
-function addcookie(usersession){
-	//cookie的作用域
-	var path = {path : '/'}
-	$.cookie("mdtokenid",usersession.tokenId,path);
-	$.cookie("mdname",usersession.name,path);
-	$.cookie("mdphone",usersession.phone,path);
-	$.cookie("mdtype",usersession.type,path);
-	$.cookie("mdloginout",null,path);
-};
 
-function addopenid(openid){
-	var path = {path : '/'}
-	$.cookie("mdopenid",openid,path);
-};
+
 
 function removecookie(){
-	var path = {path : '/'}
-	$.cookie("isloginout",1,path);
-	$.cookie("mdopenid",null,path);
-	$.cookie("mdtokenid",null,path);
-	$.cookie("mdname",null,path);
-	$.cookie("mdphone",null,path);
-	$.cookie("mdtype",null,path);
+	$.cookie("mdloginout",1,{path : '/'});
+	$.cookie("mdopenid",null,{path : '/'});
+	$.cookie("mdtokenid",null,{path : '/'});
+	$.cookie("mdname",null,{path : '/'});
+	$.cookie("mdphone",null,{path : '/'});
+	$.cookie("mdtype",null,{path : '/'});
 };

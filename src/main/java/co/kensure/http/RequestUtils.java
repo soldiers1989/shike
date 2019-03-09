@@ -1,14 +1,3 @@
-/*
- * 文件名称: RequestUtils.java
- * 版权信息: Copyright 2015-2017 jingshu technology Co., LTD. All right reserved.
- * ----------------------------------------------------------------------------------------------
- * 修改历史:
- * ----------------------------------------------------------------------------------------------
- * 修改原因: 新增
- * 修改人员: fankd
- * 修改日期: 2017-5-8
- * 修改内容: 
- */
 package co.kensure.http;
 
 import java.util.Enumeration;
@@ -157,28 +146,7 @@ public class RequestUtils {
 		return request.getRemoteAddr();
 	}
 	
-	/**
-	 * 根据cookie名，获取cookie的值
-	 * @param request
-	 * @param cookieName
-	 * @return
-	 */
-	public static String getCookieByName(HttpServletRequest request,String cookieName){
-		String val = null;
-		// 获取所有Cookie
-		Cookie[] cookies = request.getCookies();
-		// 如果浏览器中存在Cookie
-		if (cookies != null && cookies.length > 0) {
-			// 遍历所有Cookie
-			for (Cookie cookie : cookies) {
-				// 找到name为city的Cookie
-				if (cookie.getName().equals(cookieName)) {
-					val = cookie.getValue();
-				}
-			}
-		}
-		return val;
-	}
+
 
 	/**
 	 * 获取前一个url

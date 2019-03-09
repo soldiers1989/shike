@@ -80,17 +80,17 @@
 	<api key="/user/sms.do" name="发送验证码" auth="none" type="put" />
 	<api key="/skm/detail" name="宝贝详情" auth="none" type="get" />
 
-	<api key="/skm/index" name="首页" auth="none" type="get" />
-	<api key="/skm/haohuo" name="好货页面" auth="none" type="get" />
+	<api key="/skm/index" name="首页" auth="none" type="get" wxgzh="1"/>
+	<api key="/skm/haohuo" name="好货页面" auth="none" type="get" wxgzh="1"/>
 	<api key="/skm/wdhd" name="我的活动页面" auth="user" type="get" />
 
-	<api key="/skm/mine" name="我的" auth="user" type="get" />
+	<api key="/skm/mine" name="我的" auth="user" type="get"/>
 	<api key="/skm/yue" name="余额页面" auth="user" type="get" />
 	<api key="/skm/tixian" name="提现页面" auth="user" type="get" />
 	<api key="/skm/mingxi" name="明细页面" auth="user" type="get" />
 	<api key="/skm/jjdz" name="即将到账页面" auth="user" type="get" />
-	<api key="/skm/login" name="登陆页面" auth="none" type="get" />
-	<api key="/skm/regist" name="注册页面" auth="none" type="get" />
+	<api key="/skm/login" name="登陆页面" auth="none" type="get" wxgzh="1"/>
+	<api key="/skm/regist" name="注册页面" auth="none" type="get" wxgzh="1"/>
 	<api key="/skm/wjpwd" name="忘记密码页面" auth="none" type="get" />
 	<api key="/skm/private" name="隐私页面" auth="all" type="get" />
 	<api key="/skm/dyren" name="代言人页面" auth="all" type="get" />

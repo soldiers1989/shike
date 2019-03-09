@@ -18,10 +18,13 @@ public class FileTest {
 	@Test
 	public void test() {
 //		String path = "E:\\personwork\\shike\\src\\main\\webapp";
-		String path = "E:\\personwork\\shike\\target\\classes";
-
-		String tartpath = "C:\\Users\\fankaidi\\Desktop\\更新";
-		Date date = DateUtils.parse("2019-03-08 13:30:00", DateUtils.DATE_FORMAT_PATTERN);
+//		String path = "E:\\personwork\\shike\\target\\classes";
+		String path = "D:\\work1\\shike\\src\\main\\webapp";
+		
+		
+		String tartpath = "D:\\更新";
+//		String tartpath = "C:\\Users\\fankaidi\\Desktop\\更新";
+		Date date = DateUtils.parse("2019-03-09 00:30:00", DateUtils.DATE_FORMAT_PATTERN);
 		List<String> list = new ArrayList<String>();
 		getList(path, date, list);
 		for (String filepath : list) {		

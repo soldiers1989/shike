@@ -6,7 +6,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
     String context = BusiConstant.shikemobilepath;
-	String openId = RequestUtils.getStringIfNullBlank(request, "openId");
 %>
 <!DOCTYPE html>
 <html lang="zh" style="font-size: 22.125px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -84,20 +83,11 @@
     <div class="btn submit-btn red">
         登录
     </div>
-    <%--<div class="btn" style="display: block;" id="wxlogin" onclick="app.weixinlogin(); layer.open({ type: 2 });">
-        <i class="iconfont icon-wx"></i>微信授权登录
-    </div>
-    <div class="btn" style="display: none;" id="weixinBtn">
-        <i class="iconfont icon-wx"></i>微信浏览器登录
-    </div>--%>
+
     <a href="<%=BusiConstant.shike_wjpwd.getKey()%>">忘记密码？</a>
 </div>
 
 <script>
-	<%if(StringUtils.isNotBlank(openId)){%>
-		addopenid('<%=openId%>');
-	<%}%>
-
     $(function () {
         var back= '';
         $(".submit-btn").on("click", function () {
@@ -132,8 +122,7 @@
 
 
         function loginsucdo(data){
-            var usersession = data.resultData.row;
-            addcookie(usersession);
+            var usersession = data.resultData.row;   
             window.location.href="<%=ApiUtil.getUrl("/skm/index")%>";
         }
         function login(){
@@ -141,31 +130,6 @@
             var url = "<%=BusiConstant.shangjia_login_do.getKey()%>";
             postdo(url, data, loginsucdo,null, null);
         }
-        
-        function loginByOpenidsucdo(data){
-            var usersession = data.resultData.row;
-            if(usersession){
-            	  addcookie(usersession);
-                  window.location.href="<%=ApiUtil.getUrl("/skm/index")%>";
-            }      
-        }
-        function loginByOpenid(){
-        	var mdtokenid = $.cookie("mdtokenid");
-        	if(mdtokenid){
-        		return;
-        	}
-        	var isloginout = $.cookie("isloginout");
-        	if(isloginout == 1){
-        		return;
-        	}
-        	var mdopenid = $.cookie("mdopenid");
-        	if(mdopenid){
-        		var data = {openid:mdopenid};
-                var url = "<%=ApiUtil.getUrl("/user/getloginbyopenid.do")%>";
-                postdo(url, data, loginByOpenidsucdo,null, null);
-        	}       
-        }
-        loginByOpenid();
 
         function zhuce(){
             window.location.href="<%=BusiConstant.shike_regist.getKey()%>";
@@ -198,17 +162,5 @@
 
     <script type="text/javascript" src="<%=BusiConstant.shikemobilepath %>/common/js/app.js"></script>
 
-<%--
-<div id="layui-m-layer0" class="layui-m-layer layui-m-layer0" index="0">
-    <div class="layui-m-layershade"></div>
-    <div class="layui-m-layermain">
-        <div class="layui-m-layersection">
-            <div class="layui-m-layerchild  layui-m-anim-scale">
-                <div class="layui-m-layercont">用户名或密码不正确</div>
-                <div class="layui-m-layerbtn"><span yes="" type="1">确定</span></div>
-            </div>
-        </div>
-    </div>
-</div>--%>
 </body>
 </html>
