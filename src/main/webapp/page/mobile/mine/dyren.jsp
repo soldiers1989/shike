@@ -57,10 +57,11 @@
                 <h3>￥10元现金</h3>
                 <p>粉丝完成注册下单</p>
             </li>
+             &nbsp;
             <li>
                 <div class="img"><img src="<%=BusiConstant.context%>/page/mobile/mine/dyren/image/j5.png" alt=""></div>
-                <h3>终身VIP服务</h3>
-                <p>在会秀美平台享受终身VIP服务</p>
+                <h3> 终身VIP服务</h3>
+                <p>在试呗网平台享受终身VIP服务</p>
             </li>
         </ul>
     </div>
