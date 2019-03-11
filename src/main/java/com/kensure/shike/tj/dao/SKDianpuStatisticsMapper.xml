@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kensure.shike.tj.dao.SKDianpuStatisticsDao"><!--dsName="" saasAspect="" -->
+
+	<sql id="whereClause">
+		dp.userid = us.id
+		AND us.is_test = 0
+		AND us.type = 2
+		<if test="startCreatedTime != null">
+				<![CDATA[
+				and dp.created_time >= #{startCreatedTime}
+				]]>
+		</if>
+		<if test="endCreatedTime != null">
+				<![CDATA[
+				and dp.created_time <= #{endCreatedTime}
+				]]>
+		</if>
+	</sql>
+
+	<!-- 绑定店铺商家 -->
+	<select id="countDPUser" parameterType="Map" resultType="com.kensure.shike.tj.model.SKZhiBiao">
+		SELECT
+		cc.day,
+		COUNT(0) AS cnt
+		FROM
+		(SELECT
+		DATE_FORMAT(dp.created_time, '%Y-%m-%d') AS DAY,
+		dp.userid,
+		COUNT(0)
+		FROM
+		sk_dianpu dp,
+		sk_user us
+		<where>
+			<include refid="whereClause" />
+		</where>
+		GROUP BY DATE_FORMAT(dp.created_time, '%Y-%m-%d'),
+		dp.userid) cc
+		GROUP BY cc.day
+	</select>
+
+
+	<!-- 绑定店铺 -->
+	<select id="countDP" parameterType="Map" resultType="com.kensure.shike.tj.model.SKZhiBiao">
+		SELECT
+		DATE_FORMAT(dp.created_time, '%Y-%m-%d') AS DAY,
+		COUNT(0) as cnt
+		FROM
+		sk_dianpu dp,
+		sk_user us	
+		<where>
+			<include refid="whereClause" />
+		</where>
+		GROUP BY DATE_FORMAT(dp.created_time, '%Y-%m-%d')
+	</select>
+
+
+</mapper>    

@@ -7,15 +7,15 @@ import co.kensure.frame.BaseInfo;
  * @author fankd created on 2019-02-18
  * @since
  */
-public class SKZhiBiao extends BaseInfo{
+public class SKZhiBiao2 extends BaseInfo{
 
 	private static final long serialVersionUID = 3545276994084105527L;
 	
 	/**日期*/		
 	private String day;
 
-	/**个数*/		
-	private Integer cnt = 0;
+	/**金额*/		
+	private Double cnt = 0D;
 
 	public String getDay() {
 		return day;
@@ -25,11 +25,11 @@ public class SKZhiBiao extends BaseInfo{
 		this.day = day;
 	}
 
-	public Integer getCnt() {
+	public Double getCnt() {
 		return cnt;
 	}
 
-	public void setCnt(Integer cnt) {
+	public void setCnt(Double cnt) {
 		this.cnt = cnt;
 	}
 }

@@ -40,6 +40,7 @@
 		zjnum,
 		is_xuni as isXuni,
 		is_limit as isLimit,
+		jiesuan_time as jiesuanTime,
 		created_time as createdTime,
 		updated_time as updatedTime
     </sql>
@@ -238,8 +239,7 @@
 			<![CDATA[		
 			and end_time <= #{bigEndTime}		
 			]]>		
-		</if>
-		
+		</if>	
 		<if test="disorder != null">			
 			and disorder = #{disorder}			
 		</if>
@@ -429,6 +429,10 @@
 		<if test="fankuanlv != null">
 			fankuanlv = #{fankuanlv},
 		</if>
+		<if test="jiesuanTime != null">
+			jiesuan_time = #{jiesuanTime},
+		</if>
+		
 		<if test="isXuni != null">
 			is_xuni = #{isXuni}
 		</if>

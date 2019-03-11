@@ -13,8 +13,10 @@ package co.kensure.mem;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -35,7 +37,7 @@ public class DateUtils {
 
 	public static String DATE_START = "yyyy-MM-dd 00:00:00";
 	public static String DATE_END = "yyyy-MM-dd 23:59:59";
-	
+
 	public static String D07 = "yyyy-MM-dd 07:00:00";
 	public static String D10 = "yyyy-MM-dd 10:00:00";
 	public static String D14 = "yyyy-MM-dd 14:00:00";
@@ -43,13 +45,13 @@ public class DateUtils {
 	public static String D20 = "yyyy-MM-dd 20:00:00";
 
 	public static String MOBILE_TIME = "MM-dd HH:mm";
-	
+
 	public static void main(String[] args) {
-		 
-		 String aa = format( new Date(),D07);
+
+		//String aa = format(new Date(), D07);
 
 	}
-	
+
 	/**
 	 * 功能描述：返回小
 	 *
@@ -58,9 +60,9 @@ public class DateUtils {
 	 * @return 返回小时
 	 */
 	public static int getHour(Date date) {
-	    Calendar calendar = Calendar.getInstance();
-	    calendar.setTime(date);
-	    return calendar.get(Calendar.HOUR_OF_DAY);
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		return calendar.get(Calendar.HOUR_OF_DAY);
 	}
 
 	/**
@@ -127,7 +129,7 @@ public class DateUtils {
 		}
 		return date;
 	}
-	
+
 	/**
 	 * 获取当前时间的+-past小时
 	 * 
@@ -173,5 +175,21 @@ public class DateUtils {
 		return pastday;
 	}
 
-	
+	/**
+	 * 切分时间
+	 * 
+	 * @param startCreatedTime
+	 * @param endCreatedTime
+	 *            切分成一个日起数组 2019-01-01;2019-01-02;2019-01-03
+	 */
+	public static List<String> cutDate(Date startTime,Date endTime) {
+		List<String> list = new ArrayList<String>();
+		Date fir = parse(formatDateStart(startTime), DATE_FORMAT_PATTERN);
+		while (fir.compareTo(endTime) <= 0) {
+			list.add(format(fir, DAY_FORMAT));
+			fir = getPastDay(fir, 1);
+		}
+		return list;
+	}
+
 }

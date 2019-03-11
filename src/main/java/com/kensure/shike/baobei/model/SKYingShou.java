@@ -21,15 +21,15 @@ public class SKYingShou extends BaseInfo {
 
 	/** 押金 */
 	private SKPayInfo yajin;
+	
+	/** 打赏红包 */
+	private SKPayInfo dashang;
 
 	/** 手续费 */
 	private SKPayInfo shouxufei;
 
 	/** 服务费 */
 	private SKPayInfo fuwufei;
-
-	/** 打赏红包 */
-	private SKPayInfo dashang;
 
 	/** 计算天秤系统推荐费 */
 	private SKPayInfo tuijian;
@@ -39,6 +39,17 @@ public class SKYingShou extends BaseInfo {
 
 	/** 累计 */
 	private SKPayInfo leiji;
+	
+	/** 真正的服务费 手续费+服务费+系统推荐费+货比三家增值费 */
+	public double getFwf(){
+		double hb = hbsj==null?0D:hbsj.getXiaoji();
+		return ArithmeticUtils.add(shouxufei.getXiaoji(), fuwufei.getXiaoji(),tuijian.getXiaoji(),hb);
+	}
+	
+	/** 真正的押金  押金+打赏红包*/
+	public double getYj(){
+		return ArithmeticUtils.add(yajin.getXiaoji(), leiji.getXiaoji());
+	}
 
 	/** 明细 */
 	private List<SKPayInfo> list = new ArrayList<SKPayInfo>();

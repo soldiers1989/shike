@@ -121,6 +121,9 @@ public class SKBaobei extends BaseInfo {
 
 	/** 活动结束时间 */
 	private Date endTime;
+	
+	/** 计算时间 */
+	private Date jiesuanTime;
 
 	/** 排序 */
 	private Long disorder;
@@ -562,6 +565,14 @@ public class SKBaobei extends BaseInfo {
 
 	public void setFankuanlv(Double fankuanlv) {
 		this.fankuanlv = fankuanlv;
+	}
+
+	public Date getJiesuanTime() {
+		return jiesuanTime;
+	}
+
+	public void setJiesuanTime(Date jiesuanTime) {
+		this.jiesuanTime = jiesuanTime;
 	}
 
 }

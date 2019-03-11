@@ -91,7 +91,7 @@ table.thinit();
 			    }
 			   var daozhang = row.jine-shouxufei;
 			   row.shouxufei = shouxufei;
-			   row.daozhang = daozhang;
+			   row.daozhang = daozhang.toFixed(2);
 			}		
 		}
 		table.data = rows;

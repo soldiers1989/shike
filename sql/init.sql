@@ -241,6 +241,7 @@ CREATE TABLE `sk_baobei` (
   `huabei` TINYINT(3) NOT NULL COMMENT '允许使用花呗 1是允许，0是不允许',
   `shaitu` TINYINT(3) NOT NULL COMMENT '是否需要晒图 1是需要，0是不用',
   `wangwang` TINYINT(3) NOT NULL COMMENT '是否需要旺旺聊天 1是需要，0是不用',
+  `jiesuan_time` datetime COMMENT '结算时间',
   `created_time` datetime NOT NULL COMMENT '创建时间',
   `updated_time` datetime NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)

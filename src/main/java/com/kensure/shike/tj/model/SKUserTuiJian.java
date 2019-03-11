@@ -1,4 +1,6 @@
-package com.kensure.shike.user.model;
+package com.kensure.shike.tj.model;
+
+import com.kensure.shike.user.model.SKUser;
 
 import co.kensure.frame.BaseInfo;
 
@@ -43,9 +45,8 @@ public class SKUserTuiJian extends BaseInfo{
 	}
 
 	public void setUser(SKUser user) {
+		user.setPassword(null);
 		this.user = user;
 	} 
-	
-	
 
 }

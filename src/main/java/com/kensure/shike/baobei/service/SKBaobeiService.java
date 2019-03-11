@@ -57,7 +57,7 @@ import com.kensure.shike.zhang.service.SKUserZhangService;
 @Service
 public class SKBaobeiService extends JSBaseService {
 	public static Logger logger = Logger.getLogger(SKBaobeiService.class);
-	
+
 	@Resource
 	private SKBaobeiDao dao;
 	@Resource
@@ -117,7 +117,7 @@ public class SKBaobeiService extends JSBaseService {
 		SKBaobeiHelper.insertInit(obj);
 		return dao.insert(obj);
 	}
-	
+
 	public boolean update(SKBaobei obj) {
 		super.beforeUpdate(obj);
 		SKBaobeiHelper.updateInit(obj);
@@ -134,15 +134,15 @@ public class SKBaobeiService extends JSBaseService {
 	public void checkBaobeiIsFinish(Long dpid) {
 		Map<String, Object> parameters = MapUtils.genMap("dpid", dpid);
 		List<SKBaobei> list = selectByWhere(parameters);
-		if(CollectionUtils.isEmpty(list)){
+		if (CollectionUtils.isEmpty(list)) {
 			return;
 		}
-		for(SKBaobei bb:list){
-			if(bb.getStatus() == 0 || bb.getStatus() == 2 || bb.getStatus() == 20){
+		for (SKBaobei bb : list) {
+			if (bb.getStatus() == 0 || bb.getStatus() == 2 || bb.getStatus() == 20) {
 				continue;
 			}
 			BusinessExceptionUtil.threwException("您的店铺有活动未完成。");
-		}	
+		}
 	}
 
 	/**
@@ -338,7 +338,7 @@ public class SKBaobeiService extends JSBaseService {
 				skbaobei.setUserName(user.getName());
 				skbaobei.setDianpu(dianp);
 				if (dianp != null) {
-					skbaobei.setDpname(dianp.getName());				
+					skbaobei.setDpname(dianp.getName());
 				}
 			}
 		}
@@ -389,7 +389,7 @@ public class SKBaobeiService extends JSBaseService {
 	 * 
 	 * @return
 	 */
-	public List<SKPayInfo> payYingShouinfo(Long id) {
+	public SKYingShou payYingShouinfo(Long id) {
 		SKUser skuser = sKUserService.getUser();
 		SKUserService.checkUser(skuser);
 		SKBaobei sk = selectOne(id);
@@ -397,7 +397,7 @@ public class SKBaobeiService extends JSBaseService {
 			sk.setHbsj(sKHbsjService.selectOne(id));
 		}
 		SKYingShou yingshou = new SKYingShou(sk);
-		return yingshou.getList();
+		return yingshou;
 	}
 
 	/**
@@ -477,8 +477,7 @@ public class SKBaobeiService extends JSBaseService {
 	 */
 	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
 	public void pay(Long id) {
-		List<SKPayInfo> list = payYingShouinfo(id);
-		SKPayInfo p = list.get(list.size() - 1);
+		SKPayInfo p = payYingShouinfo(id).getLeiji();
 		SKBaobei sk = selectOne(id);
 		if (sk.getStatus() != 0) {
 			BusinessExceptionUtil.threwException("已经支付");
@@ -588,7 +587,7 @@ public class SKBaobeiService extends JSBaseService {
 
 		skbaobei.setTplist(tplist);
 		skbaobei.setXiangqing(detail);
-		if(dianp != null){
+		if (dianp != null) {
 			skbaobei.setDpname(dianp.getName());
 		}
 		if (skbaobei.getZengzhi() != null && skbaobei.getZengzhi() == 1) {
@@ -828,8 +827,11 @@ public class SKBaobeiService extends JSBaseService {
 	 */
 	@Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED)
 	private void jieSuanBaobei(SKBaobei bb) {
+		if(bb.getStatus() == 20){
+			BusinessExceptionUtil.threwException("宝贝已结算");
+		}	
 		bb.setStatus(20L);
-		Map<String, Object> params = MapUtils.genMap("id", bb.getId(), "status", 20);
+		Map<String, Object> params = MapUtils.genMap("id", bb.getId(), "status", 20,"jiesuanTime",new Date());
 		updateByMap(params);
 		// 让一些垃圾申请作废掉
 		sKSkqkService.zuoFei(bb.getId());

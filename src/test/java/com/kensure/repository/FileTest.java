@@ -24,7 +24,7 @@ public class FileTest {
 		
 		String tartpath = "D:\\更新";
 //		String tartpath = "C:\\Users\\fankaidi\\Desktop\\更新";
-		Date date = DateUtils.parse("2019-03-09 00:30:00", DateUtils.DATE_FORMAT_PATTERN);
+		Date date = DateUtils.parse("2019-03-11 09:20:00", DateUtils.DATE_FORMAT_PATTERN);
 		List<String> list = new ArrayList<String>();
 		getList(path, date, list);
 		for (String filepath : list) {		

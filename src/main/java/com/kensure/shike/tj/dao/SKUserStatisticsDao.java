@@ -1,13 +1,13 @@
-package com.kensure.shike.user.dao;
+package com.kensure.shike.tj.dao;
 import java.util.List;
 import java.util.Map;
 
 import co.kensure.annotation.MyBatisRepository;
 import co.kensure.frame.JSBaseDao;
 
+import com.kensure.shike.tj.model.SKUserTuiJian;
 import com.kensure.shike.tj.model.SKZhiBiao;
 import com.kensure.shike.user.model.SKUser;
-import com.kensure.shike.user.model.SKUserTuiJian;
 
 /**
  * 用户表Dao接口类,统计方法

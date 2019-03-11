@@ -94,7 +94,7 @@
        data.type = 1;
        data.pageNo = fanye.current;
        data.pageSize = fanye.limit;
-	   var url = "<%=ApiUtil.getUrl("/user/tjtj.do")%>";
+	   var url = "<%=ApiUtil.getUrl("/yyzb/tjtj.do")%>";
 	   postdo(url, data, sucdo,null, null);
    }
       

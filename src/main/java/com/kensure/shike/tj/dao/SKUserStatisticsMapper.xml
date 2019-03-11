@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.kensure.shike.user.dao.SKUserStatisticsDao"><!--dsName="" saasAspect=""-->
+<mapper namespace="com.kensure.shike.tj.dao.SKUserStatisticsDao"><!--dsName="" saasAspect=""-->
 	
     <sql id="whereClause">
 		<if test="refereeId != null">
@@ -45,7 +45,7 @@
 		) dd
 	</select>
 
-	<select id="selectTuiJian" parameterType="Map" resultType="com.kensure.shike.user.model.SKUserTuiJian">
+	<select id="selectTuiJian" parameterType="Map" resultType="com.kensure.shike.tj.model.SKUserTuiJian">
 		SELECT referee_id as refereeId,COUNT(0) as cnt from sk_user t
 		<where>
 		    <include refid="whereClause"/>

@@ -144,6 +144,16 @@ public class SKZjqkService extends JSBaseService{
 	}
 	
 	/**
+	 * 是否新人，如果没有中过奖，就是新人
+	 */
+	public boolean isNew(Long userid){
+		Map<String, Object> parameters = MapUtils.genMap("userid", userid);	
+		long count = dao.selectCountByWhere(parameters);
+		return count==0;
+	}
+	
+	
+	/**
 	 * 试客一段时间的中奖情况统计
 	 * @param userid
 	 * @param startCreatedTime

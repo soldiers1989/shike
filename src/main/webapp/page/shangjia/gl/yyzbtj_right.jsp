@@ -22,24 +22,32 @@
 	        <span style="float:none;margin-right:5px;">查询时间</span>
 	        <input name="startCreatedTime" id="startCreatedTime" type="text" value="<%=startCreatedTime%>">至
 	        <input name="endCreatedTime" id="endCreatedTime" type="text" value="<%=endCreatedTime%>" >
-	         <input onclick="shangjiatj()" type="button" value="查询">
+	         <input onclick="searchtj()" type="button" value="查询">
 	        </form>       
 	    </div>
 	
 	    <div class="huodong">
-	        <div class="glht_contant">
-	        
+	       
+	         <div class="glht_contant">
 	            <table border="1" cellpadding="0" id="listtable1" cellspacing="0" bordercolor="#dadada">
 	                <thead>
-	        
 	   		 		</thead>
-	             <tbody>
-	                
-	          	</tbody>
+		             <tbody>     
+		          	</tbody>
 	          	</table>
-	          	
-	        </div>    
-	    </div>
+	          	<br><br>
+	          	<table border="1" cellpadding="0" id="listtable2" cellspacing="0" bordercolor="#dadada">
+	                <thead>
+	   		 		</thead>
+		             <tbody>     
+		          	</tbody>
+	          	</table>
+	        </div> 
+	     </div>  
+	   
+	    
+	    
+	    
 	</div>
 </div>
 <script type="text/javascript" src="<%=BusiConstant.context%>/page/shangjia/gl/js/yyzbtj.js?ver=<%=BusiConstant.version%>"></script>

@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kensure.shike.tj.dao.SKBaobeiStatisticsDao"><!--dsName="" saasAspect="" -->
+
+	<sql id="whereClause">
+		dp.userid = us.id
+		AND us.is_test = 0
+		<if test="type != null">
+			and us.type = #{type}
+		</if>
+		<if test="isPublic != null">
+			<![CDATA[
+			and (dp.status >= 9 or dp.status = -1)
+			]]>
+		</if>
+		<if test="status != null">
+			and dp.status = #{status}
+		</if>
+		<if test="startJiesuanTime != null">
+				<![CDATA[
+				and dp.jiesuan_time >= #{startJiesuanTime}
+				]]>
+		</if>
+		<if test="endJiesuanTime != null">
+				<![CDATA[
+				and dp.jiesuan_time <= #{endJiesuanTime}
+				]]>
+		</if>
+		<if test="startStartTime != null">
+				<![CDATA[
+				and dp.start_time >= #{startStartTime}
+				]]>
+		</if>
+		<if test="endStartTime != null">
+				<![CDATA[
+				and dp.start_time <= #{endStartTime}
+				]]>
+		</if>
+		<if test="startCreatedTime != null">
+				<![CDATA[
+				and dp.created_time >= #{startCreatedTime}
+				]]>
+		</if>
+		<if test="endCreatedTime != null">
+				<![CDATA[
+				and dp.created_time <= #{endCreatedTime}
+				]]>
+		</if>
+	</sql>
+
+	<!-- 今日编辑活动商家数 -->
+	<select id="countBaobeiEditUser" parameterType="Map" resultType="com.kensure.shike.tj.model.SKZhiBiao">
+		SELECT
+		cc.day,
+		COUNT(0) AS cnt
+		FROM
+		(SELECT
+		DATE_FORMAT(dp.created_time,'%Y-%m-%d') AS DAY,
+		dp.userid,
+		COUNT(0)
+		FROM
+		sk_baobei dp,
+		sk_user us
+		<where>
+			<include refid="whereClause" />
+		</where>
+		GROUP BY DATE_FORMAT(dp.created_time, '%Y-%m-%d'),
+		dp.userid) cc
+		GROUP
+		BY cc.day
+	</select>
+	
+		<!-- 今日发布活动商家数 -->
+	<select id="countBaobeiPublishUser" parameterType="Map" resultType="com.kensure.shike.tj.model.SKZhiBiao">
+		SELECT
+		cc.day,
+		COUNT(0) AS cnt
+		FROM
+		(SELECT
+		DATE_FORMAT(dp.start_time,'%Y-%m-%d') AS DAY,
+		dp.userid,
+		COUNT(0)
+		FROM
+		sk_baobei dp,
+		sk_user us
+		<where>
+			<include refid="whereClause" />
+		</where>
+		GROUP BY DATE_FORMAT(dp.start_time, '%Y-%m-%d'),
+		dp.userid) cc
+		GROUP
+		BY cc.day
+	</select>
+	
+	<!-- 发布活动数 -->
+	<select id="countBaobeiPublish" parameterType="Map" resultType="com.kensure.shike.tj.model.SKZhiBiao">
+		SELECT
+		DATE_FORMAT(dp.start_time,'%Y-%m-%d') AS DAY,
+		COUNT(0) as cnt
+		FROM
+		sk_baobei dp,
+		sk_user us
+		<where>
+			<include refid="whereClause" />
+		</where>
+		GROUP BY DATE_FORMAT(dp.start_time, '%Y-%m-%d')
+	</select>
+	
+	<!-- 发布商品份数 -->
+	<select id="sumBaobeiNumPublish" parameterType="Map" resultType="com.kensure.shike.tj.model.SKZhiBiao">
+		SELECT
+		DATE_FORMAT(dp.start_time,'%Y-%m-%d') AS DAY,
+		SUM(dp.bbnum) as cnt
+		FROM
+		sk_baobei dp,
+		sk_user us
+		<where>
+			<include refid="whereClause" />
+		</where>
+		GROUP BY DATE_FORMAT(dp.start_time, '%Y-%m-%d')
+	</select>
+
+	<!-- 新增服务费收入 -->
+	<select id="sumBaobeiFwfSr" parameterType="Map" resultType="com.kensure.shike.tj.model.SKZhiBiao2">
+		SELECT
+		DATE_FORMAT(dp.start_time,'%Y-%m-%d') AS DAY,
+		TRUNCATE(SUM(dp.bbnum*(2+dp.sale_price*0.02) + 10+ dp.zengzhi*20),2) AS cnt 
+		FROM
+		sk_baobei dp,
+		sk_user us
+		<where>
+			<include refid="whereClause" />
+		</where>
+		GROUP BY DATE_FORMAT(dp.start_time, '%Y-%m-%d')
+	</select>
+
+	<!-- 服务费结算收入 -->
+	<select id="sumBaobeiFwfJs" parameterType="Map" resultType="com.kensure.shike.tj.model.SKZhiBiao2">
+		SELECT
+		DATE_FORMAT(dp.jiesuan_time,'%Y-%m-%d') AS DAY,
+		TRUNCATE(SUM(dp.zjnum*(2+dp.sale_price*0.02) + 10 + dp.zengzhi*20),2) AS cnt 
+		FROM
+		sk_baobei dp,
+		sk_user us
+		<where>
+			<include refid="whereClause" />
+		</where>
+		GROUP BY DATE_FORMAT(dp.jiesuan_time, '%Y-%m-%d')
+	</select>
+
+		<!-- 服务费结算退款 -->
+	<select id="sumBaobeiFwfTk" parameterType="Map" resultType="com.kensure.shike.tj.model.SKZhiBiao2">
+		SELECT
+		DATE_FORMAT(dp.jiesuan_time,'%Y-%m-%d') AS DAY,
+		TRUNCATE(SUM((dp.bbnum - dp.zjnum)*(2+dp.sale_price*0.02)),2) AS cnt 
+		FROM
+		sk_baobei dp,
+		sk_user us
+		<where>
+			<include refid="whereClause" />
+		</where>
+		GROUP BY DATE_FORMAT(dp.jiesuan_time, '%Y-%m-%d')
+	</select>
+	
+	<!-- 冻结押金,已经充值的保证金，但是活动还没结束，还没返款到试客账户的-->
+	<select id="sumBaobeiYjDj" parameterType="Map" resultType="com.kensure.shike.tj.model.SKZhiBiao2">
+	 <![CDATA[		
+		SELECT 
+		  #{nowTime} AS DAY,
+		  TRUNCATE(SUM(
+		    (
+		      dp.bbnum - 
+		      (SELECT 
+		        COUNT(0) 
+		      FROM
+		        sk_sqqk sq 
+		      WHERE sq.bbid = dp.id 
+		        AND sq.status = 99 AND sq.updated_time <= #{nowTime} )
+		    ) * (2 + dp.sale_price * 1.02)
+		  ),2) AS cnt 
+		FROM
+		  sk_baobei dp,
+		  sk_user us 
+		WHERE dp.userid = us.id 
+		  AND us.is_test = 0 
+		  AND us.type = 2 		 		
+		  AND dp.start_time <= #{nowTimeEnd} 
+		  AND (
+		    dp.jiesuan_time > #{nowTimeEnd} 
+		    OR dp.`status` = - 1 
+		    OR dp.`status` = 9
+		  )
+		 ]]>
+	</select>
+	
+
+
+</mapper>    

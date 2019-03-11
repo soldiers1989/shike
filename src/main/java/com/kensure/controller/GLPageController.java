@@ -172,7 +172,8 @@ public class GLPageController {
 		
 		//初始化参数
 		Date date = new Date();
-		String startCreatedTime = DateUtils.formatDateStart(date);
+		Date sdate = DateUtils.getPastDay(date, -6);
+		String startCreatedTime = DateUtils.formatDateStart(sdate);
 		String endCreatedTime = DateUtils.formatDateEnd(date);
 		req.setAttribute("startCreatedTime", startCreatedTime);
 		req.setAttribute("endCreatedTime", endCreatedTime);	

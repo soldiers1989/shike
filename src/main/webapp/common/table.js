@@ -1,29 +1,30 @@
 //封装table类
 function createtable(tableid) {
-	this.tableid = tableid;
-	this.th = [];
-	this.data = [];
-	this.thinit = function(){
+	var talbeobj ={};
+	talbeobj.tableid = tableid;
+	talbeobj.th = [];
+	talbeobj.data = [];
+	talbeobj.thinit = function(){
 		var theadhtml = "<tr class='trhead'>";     
-		for(var i=0;i<this.th.length;i++){
-			var row = this.th[i];
+		for(var i=0;i<talbeobj.th.length;i++){
+			var row = talbeobj.th[i];
 			theadhtml += "<td width='"+row.w+"'>";
 			theadhtml += "<strong>"+row.na+"</strong>";
 			theadhtml += "</td>";      
 		}
 		theadhtml += "</tr>";
-		$("#"+this.tableid+" thead").append(theadhtml);
+		$("#"+talbeobj.tableid+" thead").append(theadhtml);
 	};
 	
-	this.tdinit = function(){
-		if(this.data){
+	talbeobj.tdinit = function(){
+		if(talbeobj.data){
 			var html = "";
-			$("#"+this.tableid+" tbody").html(html);
-			for(var i=0;i<this.data.length;i++){
+			$("#"+talbeobj.tableid+" tbody").html(html);
+			for(var i=0;i<talbeobj.data.length;i++){
 				var trhtml =   "<tr class='trbody'> "  
-				var row = this.data[i];
-				for(var j =0;j<this.th.length;j++){
-					var th = this.th[j];
+				var row = talbeobj.data[i];
+				for(var j =0;j<talbeobj.th.length;j++){
+					var th = talbeobj.th[j];
 					var td = "<td width='"+th.w+"'>" ;
 					if(th.callfun){
 						var temptd = th.callfun(row);
@@ -32,7 +33,7 @@ function createtable(tableid) {
 						}
 						td += temptd;
 					}else{
-						td += this.tddef(row,th);
+						td += talbeobj.tddef(row,th);
 					}
 					td += "</td>";
 					trhtml+=td;
@@ -40,10 +41,10 @@ function createtable(tableid) {
 				trhtml += "</tr> "  
 				html += trhtml;
 			}
-			$("#"+this.tableid+" tbody").append(html);
+			$("#"+talbeobj.tableid+" tbody").append(html);
 		}
 	};
-	this.tddef = function(row,th){
+	talbeobj.tddef = function(row,th){
 		var colname = th.colname;
 		var tdinner = " <em style=\"color: #a9a9a9;\">";
 		var colval = row[th.colname];
@@ -60,15 +61,17 @@ function createtable(tableid) {
 		tdinner+= colval+"</em>";
 		return tdinner;
 	};
-	this.getrow = function(id){
-		for(var i=0;i<this.data.length;i++){
-			var row = this.data[i];
-			if(row.id == id){
-				return row;
+	talbeobj.getrow = function(id){
+		if(talbeobj.data){
+			for(var i=0;i<talbeobj.data.length;i++){
+				var row = talbeobj.data[i];
+				if(row.id == id){
+					return row;
+				}
 			}
 		}
 		return null;
 	}
-	return this;
+	return talbeobj;
 };
 

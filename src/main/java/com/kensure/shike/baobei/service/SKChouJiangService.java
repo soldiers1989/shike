@@ -161,19 +161,18 @@ public class SKChouJiangService extends JSBaseService {
 		sKBaobeiService.update(baobei);
 		sendSMS(zjrlist);
 	}
-	
-	public List<SKSkqk> searchYouXiaoYongHu(long bbid){
+
+	public List<SKSkqk> searchYouXiaoYongHu(long bbid) {
 		List<SKSkqk> alllist = sKSkqkService.getDengChouJiang(bbid);
 		if (CollectionUtils.isEmpty(alllist)) {
 			return null;
 		}
-		long dd = (5L-0L)/2;
-		
+		long dd = (5L - 0L) / 2;
+
 		List<SKSkqk> yxlist = sKSkqkService.getYXSK(alllist, bbid);
-		List<SKSkqk> zjrlist = poolBean((int)dd, yxlist);
+		List<SKSkqk> zjrlist = poolBean((int) dd, yxlist);
 		return zjrlist;
 	}
-	
 
 	/**
 	 * 发送短信
@@ -214,6 +213,17 @@ public class SKChouJiangService extends JSBaseService {
 		Random rand = new Random();
 		// 中奖人列表
 		List<SKSkqk> zjrlist = new ArrayList<SKSkqk>();
+		// 增加新人优先中奖逻辑
+		for (int i = cjlist.size(); i > 0; i--) {
+			SKSkqk sqqk = cjlist.get(i - 1);
+			boolean isnew = sKZjqkService.isNew(sqqk.getUserid());
+			if (isnew && jps > 0) {
+				zjrlist.add(sqqk);
+				cjlist.remove(sqqk);
+				jps--;
+			}
+		}
+
 		for (int i = 0; i < jps; i++) {
 			// 获取随机数
 			int total = cjlist.size();
@@ -242,6 +252,7 @@ public class SKChouJiangService extends JSBaseService {
 
 	/**
 	 * 必中校验
+	 * 
 	 * @param bbid
 	 */
 	public SKBbrwDetail bizhongjiaoyan(Long bbid) {
@@ -272,8 +283,7 @@ public class SKChouJiangService extends JSBaseService {
 		}
 		return thisdetail;
 	}
-	
-	
+
 	/**
 	 * 中奖 （指定）
 	 *

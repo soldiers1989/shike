@@ -8,7 +8,7 @@ package com.kensure.shike.constant;
  */
 public class BusiConstant {
 
-	public static final String version = "1.5";
+	public static final String version = "1.6";
 	
 	public static final String context = "/shike";
 	//域名

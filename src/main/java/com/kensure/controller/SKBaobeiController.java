@@ -141,7 +141,7 @@ public class SKBaobeiController {
 	public ResultInfo payinfo(HttpServletRequest req, HttpServletResponse rep) {
 		JSONObject json = RequestUtils.paramToJson(req);
 		Long id = json.getLong("id");
-		List<SKPayInfo> list = sKBaobeiService.payYingShouinfo(id);
+		List<SKPayInfo> list = sKBaobeiService.payYingShouinfo(id).getList();
 		return new ResultRowsInfo(list);
 	}
 
